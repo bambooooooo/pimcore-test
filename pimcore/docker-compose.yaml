@@ -71,6 +71,7 @@ services:
             - .:/var/www/html
             - ./.docker/messenger.yaml:/var/www/html/config/packages/messenger.yaml:ro
             - ./.docker/supervisord.conf:/etc/supervisor/conf.d/pimcore.conf:ro
+            - ./.docker/ssl:/etc/nginx/ssl
 
     # The following two services are used for testing.
     # We restrict these services to the test profile only, so we don't spin them up with every `docker compose up`.
