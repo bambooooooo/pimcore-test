@@ -26,3 +26,6 @@ jobs:
                       git pull origin master
                       git checkout master
                       git log -n 1 --pretty='format:%h'
+                      docker compose exec php bin/console pimcore:maintenance-mode --ignore-maintenance-mode --enable
+                      docker compose exec php bin/console pimcore:deployment:classes-rebuild
+                      docker compose exec php bin/console pimcore:maintenance-mode --ignore-maintenance-mode --disable
