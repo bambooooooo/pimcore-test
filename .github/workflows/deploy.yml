@@ -23,8 +23,8 @@ jobs:
                   passphrase: ${{ secrets.SSH_PASSPHRASE }}
                   script: |
                       cd ~/pimcore-test/pimcore
-                      git pull origin master
-                      git checkout master
+                      git pull origin main
+                      git checkout main
                       git log -n 1 --pretty='format:%h'
                       docker compose exec php bin/console pimcore:maintenance-mode --ignore-maintenance-mode --enable
                       docker compose exec php bin/console pimcore:deployment:classes-rebuild --ignore-maintenance-mode
