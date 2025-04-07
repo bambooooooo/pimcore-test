@@ -9,6 +9,7 @@
  * - localizedfields [localizedfields]
  * -- Name [input]
  * - Image [image]
+ * - Images [imageGallery]
  */
 
 return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
@@ -18,7 +19,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1743598619,
+   'modificationDate' => 1744026429,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -183,6 +184,32 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'uploadPath' => '',
              'width' => 400,
              'height' => 400,
+          )),
+          3 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Data\ImageGallery::__set_state(array(
+             'name' => 'Images',
+             'title' => 'Images',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'uploadPath' => '',
+             'ratioX' => NULL,
+             'ratioY' => NULL,
+             'predefinedDataTemplates' => '',
+             'height' => '',
+             'width' => '',
           )),
         ),
          'locked' => false,
