@@ -22,7 +22,7 @@ jobs:
                   port: ${{ secrets.SSH_PORT }}
                   passphrase: ${{ secrets.SSH_PASSPHRASE }}
                   script: |
-                      cd ~/pimcore-test/pimcore
+                      cd ~/pimcore-test
                       git pull origin main
                       git checkout main
                       git log -n 1 --pretty='format:%h'

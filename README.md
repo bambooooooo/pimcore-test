@@ -1,1 +1,1 @@
-# pimcore-test
+# Pimcore Project
