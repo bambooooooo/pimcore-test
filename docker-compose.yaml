@@ -33,11 +33,9 @@ services:
         image: nginx:stable-alpine
         ports:
             - "80:80"
-            - "443:443"
         volumes:
             - .:/var/www/html:ro
             - ./.docker/nginx.conf:/etc/nginx/conf.d/default.conf:ro
-            - ./.docker/ssl:/etc/nginx/ssl
         depends_on:
             - php
 
@@ -74,34 +72,6 @@ services:
             - ./.docker/messenger.yaml:/var/www/html/config/packages/messenger.yaml:ro
             - ./.docker/supervisord.conf:/etc/supervisor/conf.d/pimcore.conf:ro
 
-    # The following two services are used for testing.
-    # We restrict these services to the test profile only, so we don't spin them up with every `docker compose up`.
-    # See: https://docs.docker.com/compose/profiles/
-    test-db:
-        profiles: [ 'test' ]
-        extends: db
-        volumes:
-            - pimcore-test-database:/var/lib/mysql
-
-    test-php:
-        profiles: [ 'test' ]
-        extends: php
-        environment:
-            APP_ENV: test
-            PIMCORE_TEST_DB_DSN: ${PIMCORE_TEST_DB_DSN:-mysql://pimcore:pimcore@test-db/pimcore}
-            PIMCORE_INSTALL_ADMIN_USERNAME: pimcore
-            PIMCORE_INSTALL_ADMIN_PASSWORD: pimcore
-            PIMCORE_INSTALL_MYSQL_HOST_SOCKET: test-db
-        depends_on:
-            test-db:
-                condition: service_healthy
-        volumes:
-            - pimcore-test-var:/var/www/html/var
-            - pimcore-test-public-var:/var/www/html/public/var
-
 volumes:
     pimcore-database:
     pimcore-rabbitmq:
-    pimcore-test-database:
-    pimcore-test-var:
-    pimcore-test-public-var:
