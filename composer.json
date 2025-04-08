@@ -20,7 +20,8 @@
     "symfony/amqp-messenger": "^6.2",
     "symfony/dotenv": "^6.2",
     "symfony/flex": "^2.5",
-    "symfony/runtime": "^6.2"
+    "symfony/runtime": "^6.2",
+    "ext-zip": "*"
   },
   "require-dev": {
     "codeception/codeception": "^5.0.3",
