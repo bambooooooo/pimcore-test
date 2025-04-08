@@ -59,7 +59,11 @@ services:
         resource: '../src/Command/*'
         tags: [ 'console.command' ]
 
-
+    # admin styles
+    App\EventListener\AdminStyleListener:
+        tags:
+            - { name: kernel.event_listener, event: pimcore.bundle_manager.paths.css, method: addCSSFiles  }
+            - { name: kernel.event_listener, event: pimcore.bundle_manager.paths.js, method: addJSFiles }
 
     # Example custom templating helper
     # App\Templating\Helper\Example:
