@@ -23,6 +23,7 @@ jobs:
                   passphrase: ${{ secrets.SSH_PASSPHRASE }}
                   script: |
                       cd ~/pimcore
+                      git reset --hard
                       git pull origin main
                       git checkout main
                       git log -n 1 --pretty='format:%h'
