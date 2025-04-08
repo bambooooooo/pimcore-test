@@ -3,27 +3,26 @@
 /**
  * Inheritance: yes
  * Variants: no
+ * Służy do grupowania produktów lub zestawów produktów wg. wybranych kryteriów - kategorii, rodzaju, kolekcji, klasy lub indywidualnych kryteriów. Posiada przypisany mnożnik służący do wstępnej wyceny. Zawiera również miniaturkę oraz okładkę
  *
  * Fields Summary:
  * - Image [image]
  * - localizedfields [localizedfields]
  * -- Name [input]
- * - Set [advancedManyToManyRelation]
- * - EAN [input]
- * - Images [imageGallery]
- * - Groups [manyToManyObjectRelation]
- * - Parameters [classificationstore]
- * - BasePrice [quantityValue]
+ * -- Description [wysiwyg]
+ * - Products [reverseObjectRelation]
+ * - Sets [reverseObjectRelation]
+ * - Users [reverseObjectRelation]
  */
 
 return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'dao' => NULL,
-   'id' => 'ProductSet',
-   'name' => 'ProductSet',
+   'id' => 'Group',
+   'name' => 'Group',
    'title' => '',
-   'description' => '',
+   'description' => 'Służy do grupowania produktów lub zestawów produktów wg. wybranych kryteriów - kategorii, rodzaju, kolekcji, klasy lub indywidualnych kryteriów. Posiada przypisany mnożnik służący do wstępnej wyceny. Zawiera również miniaturkę oraz okładkę',
    'creationDate' => NULL,
-   'modificationDate' => 1744110334,
+   'modificationDate' => 1744108996,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -68,10 +67,10 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
         array (
           0 => 
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-             'name' => 'System data',
+             'name' => 'System',
              'type' => NULL,
              'region' => NULL,
-             'title' => 'Dane systemowe',
+             'title' => 'System',
              'width' => '',
              'height' => '',
              'collapsible' => false,
@@ -89,7 +88,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'noteditable' => false,
                  'index' => false,
                  'locked' => false,
-                 'style' => 'float: right; margin-left: 8px;',
+                 'style' => 'float: right; margin: 8px;',
                  'permissions' => NULL,
                  'fieldtype' => '',
                  'relationType' => false,
@@ -99,9 +98,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'blockedVarsForExport' => 
                 array (
                 ),
-                 'uploadPath' => '',
-                 'width' => 400,
-                 'height' => 400,
+                 'uploadPath' => '/KATEGORIA-ZDJĘCIA',
+                 'width' => 506,
+                 'height' => 357,
               )),
               1 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
@@ -144,7 +143,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                     array (
                     ),
                      'defaultValue' => NULL,
-                     'columnLength' => 75,
+                     'columnLength' => 100,
                      'regex' => '',
                      'regexFlags' => 
                     array (
@@ -153,6 +152,31 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'showCharCount' => true,
                      'width' => 500,
                      'defaultValueGenerator' => '',
+                  )),
+                  1 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
+                     'name' => 'Description',
+                     'title' => 'Description',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'toolbarConfig' => '',
+                     'excludeFromSearchIndex' => false,
+                     'maxCharacters' => '',
+                     'height' => '',
+                     'width' => '100%',
                   )),
                 ),
                  'region' => NULL,
@@ -174,107 +198,6 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'fieldDefinitionsCache' => NULL,
               )),
               2 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyRelation::__set_state(array(
-                 'name' => 'Set',
-                 'title' => 'Skład zestawu',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => true,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'classes' => 
-                array (
-                  0 => 
-                  array (
-                    'classes' => 'Product',
-                  ),
-                ),
-                 'displayMode' => NULL,
-                 'pathFormatterClass' => '',
-                 'maxItems' => NULL,
-                 'assetInlineDownloadAllowed' => false,
-                 'assetUploadPath' => '',
-                 'allowToClearRelation' => true,
-                 'objectsAllowed' => true,
-                 'assetsAllowed' => false,
-                 'assetTypes' => 
-                array (
-                  0 => 
-                  array (
-                    'assetTypes' => '',
-                  ),
-                ),
-                 'documentsAllowed' => false,
-                 'documentTypes' => 
-                array (
-                  0 => 
-                  array (
-                    'documentTypes' => '',
-                  ),
-                ),
-                 'enableTextSelection' => false,
-                 'width' => '',
-                 'height' => NULL,
-                 'columns' => 
-                array (
-                  0 => 
-                  array (
-                    'type' => 'number',
-                    'position' => 1,
-                    'key' => 'Quantity',
-                    'label' => 'Ilość',
-                  ),
-                ),
-                 'columnKeys' => 
-                array (
-                  0 => 'Quantity',
-                ),
-                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\ElementMetadata[]',
-                 'optimizedAdminLoading' => false,
-                 'enableBatchEdit' => false,
-                 'allowMultipleAssignments' => false,
-              )),
-              3 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                 'name' => 'EAN',
-                 'title' => 'EAN',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'defaultValue' => NULL,
-                 'columnLength' => 190,
-                 'regex' => '',
-                 'regexFlags' => 
-                array (
-                ),
-                 'unique' => false,
-                 'showCharCount' => false,
-                 'width' => '',
-                 'defaultValueGenerator' => '',
-              )),
-              4 => 
               \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                  'name' => 'Layout',
                  'type' => NULL,
@@ -294,21 +217,17 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 array (
                 ),
                  'fieldtype' => 'text',
-                 'html' => '<h1>Zdjęcie główne</h1>
+                 'html' => '<h1>Zdjęcie</h1>
 
-Miniturka zestawu - często na przeźroczystym tle
+Logo użytkownika
 
 <h1>Nazwa</h1>
 
-Nazwa zestawu produtków
+Nazwa grupy. W przypadku nazw własnych należy uzupełnić tylko nazwę polską.
 
-<h1>Zestaw</h1>
+<h1>Opis</h1>
 
-Skład zestawu - produkty w określonych ilościach
-
-<h1>EAN</h1>
-
-Kod EAN przypisany do całego zestawu (z konkretnymi ilościami produktów składowych).',
+Krótki opis kolekcji',
                  'renderingClass' => '',
                  'renderingData' => '',
                  'border' => false,
@@ -327,10 +246,10 @@ Kod EAN przypisany do całego zestawu (z konkretnymi ilościami produktów skła
           )),
           1 => 
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-             'name' => 'Images',
+             'name' => 'Relations',
              'type' => NULL,
              'region' => NULL,
-             'title' => 'Zdjęcia',
+             'title' => 'Relations',
              'width' => '',
              'height' => '',
              'collapsible' => false,
@@ -340,88 +259,9 @@ Kod EAN przypisany do całego zestawu (z konkretnymi ilościami produktów skła
              'children' => 
             array (
               0 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\ImageGallery::__set_state(array(
-                 'name' => 'Images',
-                 'title' => 'Images',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => 'float: left; width: 100%',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'uploadPath' => '/PRODUKT-ZDJĘCIA',
-                 'ratioX' => NULL,
-                 'ratioY' => NULL,
-                 'predefinedDataTemplates' => '',
-                 'height' => '',
-                 'width' => '',
-              )),
-              1 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
-                 'name' => 'Layout',
-                 'type' => NULL,
-                 'region' => NULL,
-                 'title' => '',
-                 'width' => '',
-                 'height' => '',
-                 'collapsible' => false,
-                 'collapsed' => false,
-                 'bodyStyle' => '',
-                 'datatype' => 'layout',
-                 'children' => 
-                array (
-                ),
-                 'locked' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'fieldtype' => 'text',
-                 'html' => '<h1>Zdjęcia</h1>
-
-Dodatkowe zdjęcia zestawu',
-                 'renderingClass' => '',
-                 'renderingData' => '',
-                 'border' => false,
-              )),
-            ),
-             'locked' => false,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'fieldtype' => 'panel',
-             'layout' => NULL,
-             'border' => false,
-             'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/image_file.svg',
-             'labelWidth' => 100,
-             'labelAlign' => 'left',
-          )),
-          2 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-             'name' => 'Parameters',
-             'type' => NULL,
-             'region' => NULL,
-             'title' => 'Parametry',
-             'width' => '',
-             'height' => '',
-             'collapsible' => false,
-             'collapsed' => false,
-             'bodyStyle' => '',
-             'datatype' => 'layout',
-             'children' => 
-            array (
-              0 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
-                 'name' => 'Groups',
-                 'title' => 'Grupy',
+              \Pimcore\Model\DataObject\ClassDefinition\Data\ReverseObjectRelation::__set_state(array(
+                 'name' => 'Products',
+                 'title' => 'Products',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
@@ -439,12 +279,92 @@ Dodatkowe zdjęcia zestawu',
                 ),
                  'classes' => 
                 array (
-                  0 => 
-                  array (
-                    'classes' => 'Group',
-                  ),
                 ),
-                 'displayMode' => 'grid',
+                 'displayMode' => NULL,
+                 'pathFormatterClass' => '',
+                 'maxItems' => NULL,
+                 'visibleFields' => 
+                array (
+                ),
+                 'allowToCreateNewObject' => false,
+                 'allowToClearRelation' => true,
+                 'optimizedAdminLoading' => false,
+                 'enableTextSelection' => false,
+                 'visibleFieldDefinitions' => 
+                array (
+                ),
+                 'width' => '',
+                 'height' => '',
+                 'ownerClassName' => 'Product',
+                 'ownerClassId' => 'Product',
+                 'ownerFieldName' => 'Groups',
+                 'lazyLoading' => true,
+              )),
+              1 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\ReverseObjectRelation::__set_state(array(
+                 'name' => 'Sets',
+                 'title' => 'Sets',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => true,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'classes' => 
+                array (
+                ),
+                 'displayMode' => NULL,
+                 'pathFormatterClass' => '',
+                 'maxItems' => NULL,
+                 'visibleFields' => 
+                array (
+                ),
+                 'allowToCreateNewObject' => false,
+                 'allowToClearRelation' => true,
+                 'optimizedAdminLoading' => false,
+                 'enableTextSelection' => false,
+                 'visibleFieldDefinitions' => 
+                array (
+                ),
+                 'width' => '',
+                 'height' => '',
+                 'ownerClassName' => 'ProductSet',
+                 'ownerClassId' => 'ProductSet',
+                 'ownerFieldName' => 'Groups',
+                 'lazyLoading' => true,
+              )),
+              2 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\ReverseObjectRelation::__set_state(array(
+                 'name' => 'Users',
+                 'title' => 'Users',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => true,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'classes' => 
+                array (
+                ),
+                 'displayMode' => NULL,
                  'pathFormatterClass' => '',
                  'maxItems' => NULL,
                  'visibleFields' => 'key',
@@ -457,49 +377,12 @@ Dodatkowe zdjęcia zestawu',
                 ),
                  'width' => '',
                  'height' => '',
+                 'ownerClassName' => 'User',
+                 'ownerClassId' => 'User',
+                 'ownerFieldName' => 'Groups',
+                 'lazyLoading' => true,
               )),
-              1 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\Classificationstore::__set_state(array(
-                 'name' => 'Parameters',
-                 'title' => 'Parametry',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'children' => 
-                array (
-                ),
-                 'labelWidth' => 200,
-                 'localized' => false,
-                 'storeId' => 1,
-                 'hideEmptyData' => false,
-                 'disallowAddRemove' => false,
-                 'referencedFields' => 
-                array (
-                ),
-                 'fieldDefinitionsCache' => NULL,
-                 'allowedGroupIds' => 
-                array (
-                ),
-                 'activeGroupDefinitions' => 
-                array (
-                ),
-                 'maxItems' => NULL,
-                 'height' => NULL,
-                 'width' => NULL,
-              )),
-              2 => 
+              3 => 
               \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                  'name' => 'Layout',
                  'type' => NULL,
@@ -519,15 +402,9 @@ Dodatkowe zdjęcia zestawu',
                 array (
                 ),
                  'fieldtype' => 'text',
-                 'html' => '<h1>Grupy</h1>
+                 'html' => '<h1>Relacje</h1>
 
-Grupy (kolekcje, kategorie, inne) do których należy zestaw
-
-<h1>Parametry</h1>
-
-Kolekcje i grupy parametrów dotyczące całego zestawu. Nie wprowadzamy tutaj parametrów produktów składowych.
-
-',
+Relacje z pozostałymi obiektami',
                  'renderingClass' => '',
                  'renderingData' => '',
                  'border' => false,
@@ -540,98 +417,8 @@ Kolekcje i grupy parametrów dotyczące całego zestawu. Nie wprowadzamy tutaj p
              'fieldtype' => 'panel',
              'layout' => NULL,
              'border' => false,
-             'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/genealogy.svg',
+             'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/reverse_object_relation.svg',
              'labelWidth' => 100,
-             'labelAlign' => 'left',
-          )),
-          3 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-             'name' => 'Prices',
-             'type' => NULL,
-             'region' => NULL,
-             'title' => 'Ceny',
-             'width' => '',
-             'height' => '',
-             'collapsible' => false,
-             'collapsed' => false,
-             'bodyStyle' => '',
-             'datatype' => 'layout',
-             'children' => 
-            array (
-              0 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                 'name' => 'BasePrice',
-                 'title' => 'Cena bazowa',
-                 'tooltip' => 'TKW lub cena zakupu',
-                 'mandatory' => false,
-                 'noteditable' => true,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'unitWidth' => '',
-                 'defaultUnit' => 'PLN',
-                 'validUnits' => 
-                array (
-                  0 => 'PLN',
-                ),
-                 'unique' => false,
-                 'autoConvert' => true,
-                 'defaultValueGenerator' => '',
-                 'width' => '',
-                 'defaultValue' => NULL,
-                 'integer' => false,
-                 'unsigned' => false,
-                 'minValue' => NULL,
-                 'maxValue' => NULL,
-                 'decimalSize' => NULL,
-                 'decimalPrecision' => NULL,
-              )),
-              1 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
-                 'name' => 'Layout',
-                 'type' => NULL,
-                 'region' => NULL,
-                 'title' => '',
-                 'width' => '',
-                 'height' => '',
-                 'collapsible' => false,
-                 'collapsed' => false,
-                 'bodyStyle' => '',
-                 'datatype' => 'layout',
-                 'children' => 
-                array (
-                ),
-                 'locked' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'fieldtype' => 'text',
-                 'html' => '<h1>Cena bazowa</h1>
-
-Suma cen bazowych produktów',
-                 'renderingClass' => '',
-                 'renderingData' => '',
-                 'border' => false,
-              )),
-            ),
-             'locked' => false,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'fieldtype' => 'panel',
-             'layout' => NULL,
-             'border' => false,
-             'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/sales_performance.svg',
-             'labelWidth' => 200,
              'labelAlign' => 'left',
           )),
         ),
@@ -655,7 +442,7 @@ Suma cen bazowych produktów',
      'labelWidth' => 100,
      'labelAlign' => 'left',
   )),
-   'icon' => '/UI/4-squares-red.svg',
+   'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/genealogy.svg',
    'group' => '',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',

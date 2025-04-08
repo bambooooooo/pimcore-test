@@ -1,0 +1,40 @@
+pimcore:
+    general:
+        domain: ''
+        redirect_to_maindomain: false
+        valid_languages:
+            - en
+            - de
+            - fr
+            - pl
+        fallback_languages:
+            en: pl
+            de: en
+            fr: en
+            pl: ''
+        required_languages:
+            - en
+            - de
+            - fr
+            - pl
+        default_language: pl
+        debug_admin_translations: false
+    documents:
+        versions:
+            days: null
+            steps: null
+        error_pages:
+            default: ''
+            localized:
+                en: ''
+                de: ''
+                fr: ''
+    objects:
+        versions:
+            days: null
+            steps: null
+    assets:
+        versions:
+            days: null
+            steps: null
+    email: {  }
