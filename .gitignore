@@ -47,3 +47,5 @@ nbproject
 # temp
 .temp
 /.docker/ssl/
+/cache/
+/.htaccess

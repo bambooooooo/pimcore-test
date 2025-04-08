@@ -10,6 +10,11 @@
  * -- Name [input]
  * - Image [image]
  * - Images [imageGallery]
+ * - ObjectType [select]
+ * - Ean [input]
+ * - Mass [quantityValue]
+ * - Barcode [input]
+ * - Parameters [classificationstore]
  */
 
 return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
@@ -19,7 +24,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1744026429,
+   'modificationDate' => 1744033782,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -210,6 +215,186 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'predefinedDataTemplates' => '',
              'height' => '',
              'width' => '',
+          )),
+          4 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+             'name' => 'ObjectType',
+             'title' => 'Object Type',
+             'tooltip' => 'VIRTUAL - for inheritance purpouses
+ACTAUL - sellable product',
+             'mandatory' => true,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'options' => 
+            array (
+              0 => 
+              array (
+                'key' => 'ACTUAL',
+                'value' => 'ACTUAL',
+              ),
+              1 => 
+              array (
+                'key' => 'VIRTUAL',
+                'value' => 'VIRTUAL',
+              ),
+            ),
+             'defaultValue' => 'ACTUAL',
+             'columnLength' => 190,
+             'dynamicOptions' => false,
+             'defaultValueGenerator' => '',
+             'width' => '',
+             'optionsProviderType' => 'configure',
+             'optionsProviderClass' => '',
+             'optionsProviderData' => '',
+          )),
+          5 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+             'name' => 'Ean',
+             'title' => 'Ean',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'defaultValue' => NULL,
+             'columnLength' => 190,
+             'regex' => '',
+             'regexFlags' => 
+            array (
+            ),
+             'unique' => false,
+             'showCharCount' => false,
+             'width' => '',
+             'defaultValueGenerator' => '',
+          )),
+          6 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+             'name' => 'Mass',
+             'title' => 'Mass',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'unitWidth' => '',
+             'defaultUnit' => NULL,
+             'validUnits' => 
+            array (
+              0 => 'kg',
+            ),
+             'unique' => false,
+             'autoConvert' => false,
+             'defaultValueGenerator' => '',
+             'width' => '',
+             'defaultValue' => NULL,
+             'integer' => false,
+             'unsigned' => false,
+             'minValue' => NULL,
+             'maxValue' => NULL,
+             'decimalSize' => NULL,
+             'decimalPrecision' => NULL,
+          )),
+          7 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+             'name' => 'Barcode',
+             'title' => 'Barcode',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'defaultValue' => NULL,
+             'columnLength' => 190,
+             'regex' => '',
+             'regexFlags' => 
+            array (
+            ),
+             'unique' => false,
+             'showCharCount' => false,
+             'width' => '',
+             'defaultValueGenerator' => '',
+          )),
+          8 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Data\Classificationstore::__set_state(array(
+             'name' => 'Parameters',
+             'title' => 'Parameters',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'children' => 
+            array (
+            ),
+             'labelWidth' => 0,
+             'localized' => false,
+             'storeId' => 1,
+             'hideEmptyData' => false,
+             'disallowAddRemove' => false,
+             'referencedFields' => 
+            array (
+            ),
+             'fieldDefinitionsCache' => NULL,
+             'allowedGroupIds' => 
+            array (
+            ),
+             'activeGroupDefinitions' => 
+            array (
+            ),
+             'maxItems' => NULL,
+             'height' => NULL,
+             'width' => NULL,
           )),
         ),
          'locked' => false,
