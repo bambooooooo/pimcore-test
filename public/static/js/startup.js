@@ -37,6 +37,14 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
                     handler: function () {
                         console.log("Enqueue to erp export...");
                     }
+                },
+                {
+                    text: t('EAN13 (GTIN)'),
+                    icon: '/bundles/pimcoreadmin/img/flat-white-icons/shopping-cart.svg',
+                    scale: 'medium',
+                    handler: function () {
+                        console.log("Syncing with GS1 system...");
+                    }
                 }
             ]
         });
