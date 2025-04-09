@@ -42,3 +42,63 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
         });
     }
 })
+
+document.addEventListener(pimcore.events.pimcoreReady, (e) => {
+    const ADD_SIBLING_KEY = 'm';
+
+    const openNewObject = function(){
+
+        let tabPanel = Ext.getCmp("pimcore_panel_tabs");
+        let activeTab = tabPanel.getActiveTab();
+
+        if(!activeTab)
+        {
+            Ext.MessageBox.show({
+                title: t("Error"),
+                msg: t("Open object first that need to have sibling first."),
+                buttons: Ext.Msg.OK,
+            });
+
+            return;
+        }
+
+        let parentId = activeTab.object.data.general.parentId;
+
+        if(parentId == null)
+        {
+            Ext.MessageBox.show({
+                title: t("Error"),
+                msg: t("Object has no parent"),
+                buttons: Ext.Msg.OK,
+            });
+
+            return;
+        }
+
+        Ext.MessageBox.prompt(t("Enter sibling key"), t("Enter sibling key"), function(btn, text){
+            if(btn == 'ok'){
+                var options = {
+                    url: Routing.generate('pimcore_admin_dataobject_dataobject_add'),
+                    elementType: "object",
+                    sourceTree: null,
+                    parentId: parentId,
+                    className: activeTab.object.data.general.className,
+                    classId: activeTab.object.data.general.classId,
+                    key: pimcore.helpers.getValidFilename(text, "object")
+                };
+
+                pimcore.elementservice.addObject(options);
+            }
+        })
+    }
+
+    new Ext.util.KeyMap({
+        target: document,
+        key: ADD_SIBLING_KEY,
+        fn: openNewObject,
+        ctrl: true,
+        alt: false,
+        shift: false,
+        stopEvent: true
+    })
+})
