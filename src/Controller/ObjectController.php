@@ -7,10 +7,12 @@ use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\Product;
 use Pimcore\Model\DataObject\ProductSet;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Validator\Constraints\Json;
 use ZipArchive;
 
 class ObjectController extends FrontendController
@@ -89,5 +91,54 @@ class ObjectController extends FrontendController
         }
 
         return $response;
+    }
+
+    #[Route("/object/add-ean", name: "add_ean")]
+    public function addEan(Request $request): Response
+    {
+        $id = $request->get("id");
+
+        $obj = DataObject::getById($id);
+
+        if($obj instanceof Product || $obj instanceof ProductSet) {
+            if($obj->getEan() && $obj->getEan() != "" && strlen($obj->getEan()) > 12)
+            {
+                return new Response("Already added", Response::HTTP_OK);
+            }
+
+            $eanPools = new DataObject\EanPool\Listing();
+            $eanPools->setCondition('LENGTH(`AvailableCodes`) > 12');
+            $eanPools->load();
+
+            if($eanPools->getCount() <= 0)
+            {
+                return new Response("No ean pool available. You have to extend pool collection. Maybe pool was not published?", Response::HTTP_CONFLICT);
+            }
+
+            if(!$obj->getName("pl"))
+            {
+                return new Response("Product has no PL name", Response::HTTP_NOT_FOUND);
+            }
+
+            $eanPool = $eanPools->current();
+
+            $pool = $eanPool->getAvailableCodes();
+            $code = array_shift($pool)['GTIN'];
+
+            $cntRemain = count($pool);
+
+            $obj->setEan($code);
+            $eanPool->setAvailableCodes($pool);
+
+            $obj->save();
+            $eanPool->save();
+
+            return new JsonResponse([
+                'status' => 'success',
+                'remaining' => $cntRemain
+            ]);
+        }
+
+        return new Response("Object type not supported", Response::HTTP_NOT_IMPLEMENTED);
     }
 }
