@@ -1,6 +1,7 @@
 imports:
     - { resource: 'local/' }
-
+    - { resource: 'perspectives.yaml' }
+    - { resource: 'custom_views.yaml' }
 
 pimcore:
 
@@ -11,7 +12,6 @@ pimcore:
 # ./bin/console debug:config pimcore assets
 # or even more specific:
 # ./bin/console debug:config pimcore assets.image
-
 
 #### TRANSLATIONS
 #    translations:
