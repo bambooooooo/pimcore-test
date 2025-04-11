@@ -10,9 +10,16 @@ class GS1Service
 {
     public function __construct(
         private HttpClientInterface $httpClient,
+        private readonly string $username,
+        private readonly string $password,
     ) {
+
+        if(empty($this->username) || empty($this->password)) {
+            throw new InvalidArgumentException('GS1 credentials are missing.');
+        }
+
         $this->httpClient = $this->httpClient->withOptions([
-            'auth_basic' => ['151773', 'f9c0c5e7a859330827cb7509db696975']
+            'auth_basic' => [$this->username, $this->password]
         ]);
     }
 
