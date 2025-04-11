@@ -14,6 +14,7 @@
  * - Groups [manyToManyObjectRelation]
  * - Parameters [classificationstore]
  * - BasePrice [quantityValue]
+ * - GPC [input]
  */
 
 return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
@@ -23,7 +24,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1744281858,
+   'modificationDate' => 1744348302,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -624,6 +625,99 @@ Suma cen bazowych produktów',
              'border' => false,
              'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/sales_performance.svg',
              'labelWidth' => 200,
+             'labelAlign' => 'left',
+          )),
+          4 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+             'name' => 'Code',
+             'type' => NULL,
+             'region' => NULL,
+             'title' => 'Codes',
+             'width' => '',
+             'height' => '',
+             'collapsible' => false,
+             'collapsed' => false,
+             'bodyStyle' => '',
+             'datatype' => 'layout',
+             'children' => 
+            array (
+              0 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                 'name' => 'GPC',
+                 'title' => 'GPC',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'defaultValue' => NULL,
+                 'columnLength' => 190,
+                 'regex' => '',
+                 'regexFlags' => 
+                array (
+                ),
+                 'unique' => false,
+                 'showCharCount' => false,
+                 'width' => '',
+                 'defaultValueGenerator' => '',
+              )),
+              1 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
+                 'name' => 'Layout',
+                 'type' => NULL,
+                 'region' => NULL,
+                 'title' => '',
+                 'width' => '',
+                 'height' => '',
+                 'collapsible' => false,
+                 'collapsed' => false,
+                 'bodyStyle' => '',
+                 'datatype' => 'layout',
+                 'children' => 
+                array (
+                ),
+                 'locked' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'fieldtype' => 'text',
+                 'html' => '<h1>GPC</h1>
+
+<ul>
+<li>Zestawy łazienkowe: 10003814</li>
+<li>Biurka: 10002205</li>
+<li>Komody: 10002117</li>
+<li>Ławy: 10005199</li>
+<li>LEDy: 10008292</li>
+<li>Regały (duże, salonowe): 10002184</li>
+<li>RTV: 10002186</li>
+</ul>
+
+Ośmiocyfrowy numer "Brick" klasyfikacji produktowej GS1 GPC. Wyszukiwarka kodów znajduje się pod adresem: <a href="https://www.gs1.org/services/gpc-browser">https://www.gs1.org/services/gpc-browser</a> Należy podać klasyfikację GPC zgodnie z listą segmentów GPC Twojej firmy. Listą można zarządzać na MojeGS1 w zakładce Rejestr produktów/Lista segmentów GPC. W przypadku GTIN-14 informacja o klasyfikacji GPC jest automatycznie pobierana z produktu bazowego.',
+                 'renderingClass' => '',
+                 'renderingData' => '',
+                 'border' => false,
+              )),
+            ),
+             'locked' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'fieldtype' => 'panel',
+             'layout' => NULL,
+             'border' => false,
+             'icon' => '',
+             'labelWidth' => 100,
              'labelAlign' => 'left',
           )),
         ),
