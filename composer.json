@@ -13,6 +13,7 @@
   },
   "prefer-stable": true,
   "require": {
+    "ext-zip": "*",
     "pimcore/admin-ui-classic-bundle": "*",
     "pimcore/pimcore": "*",
     "pimcore/platform-version": "^2024.4",
@@ -20,8 +21,8 @@
     "symfony/amqp-messenger": "^6.2",
     "symfony/dotenv": "^6.2",
     "symfony/flex": "^2.5",
-    "symfony/runtime": "^6.2",
-    "ext-zip": "*"
+    "symfony/http-client": "^7.2",
+    "symfony/runtime": "^6.2"
   },
   "require-dev": {
     "codeception/codeception": "^5.0.3",

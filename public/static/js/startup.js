@@ -37,6 +37,53 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
                     handler: function () {
                         console.log("Enqueue to erp export...");
                     }
+                },
+                {
+                    text: t('EAN13 (GTIN)'),
+                    icon: '/UI/barcode_white.svg',
+                    scale: 'medium',
+                    handler: function () {
+
+                        if(e.detail.object.data.data.Ean != null && e.detail.object.data.data.Ean.length > 12)
+                        {
+                            Ext.Msg.alert('Warning', 'EAN already exists!');
+                            return;
+                        }
+
+                        if(e.detail.object.data.data.Name != null && e.detail.object.data.Name.length > 1)
+                        {
+                            Ext.Msg.alert('Warning', 'Product has no PL name');
+                            return;
+                        }
+
+                        console.log("Add EAN to #" + e.detail.object.id);
+
+                        Ext.Ajax.request({
+                            url: "/object/add-ean",
+                            method: "POST",
+                            params: {
+                              'id': e.detail.object.id
+                            },
+                            success: function (data) {
+                                console.log("Success!");
+
+                                const obj = JSON.parse(data.responseText);
+
+                                const remaining_threshold = 200;
+
+                                if(obj.remaining < remaining_threshold)
+                                {
+                                    pimcore.helpers.showNotification(t('Warning'), t('Less than ' + remaining_threshold + ' GTINs left.') + ": " + obj.remaining, "warn");
+                                }
+
+                                e.detail.object.reload();
+                            },
+                            failure: function (error) {
+                                console.log("Error!");
+                                console.log(error.responseText);
+                            },
+                        })
+                    }
                 }
             ]
         });

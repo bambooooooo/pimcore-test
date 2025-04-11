@@ -23,7 +23,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1744110334,
+   'modificationDate' => 1744281858,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -209,18 +209,10 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'assetsAllowed' => false,
                  'assetTypes' => 
                 array (
-                  0 => 
-                  array (
-                    'assetTypes' => '',
-                  ),
                 ),
                  'documentsAllowed' => false,
                  'documentTypes' => 
                 array (
-                  0 => 
-                  array (
-                    'documentTypes' => '',
-                  ),
                 ),
                  'enableTextSelection' => false,
                  'width' => '',
@@ -308,7 +300,7 @@ Skład zestawu - produkty w określonych ilościach
 
 <h1>EAN</h1>
 
-Kod EAN przypisany do całego zestawu (z konkretnymi ilościami produktów składowych).',
+Globalny identyfikator (GTIN) dla całego zestawu (z konkretnymi ilościami produktów składowych), nadawany w portalu <a href="https://mojegs1.pl/">mojegs1.pl</a>',
                  'renderingClass' => '',
                  'renderingData' => '',
                  'border' => false,

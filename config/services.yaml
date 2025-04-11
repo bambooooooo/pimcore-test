@@ -65,6 +65,25 @@ services:
             - { name: kernel.event_listener, event: pimcore.bundle_manager.paths.css, method: addCSSFiles  }
             - { name: kernel.event_listener, event: pimcore.bundle_manager.paths.js, method: addJSFiles }
 
+    # services
+    App\Service\:
+        resource: '../src/Service'
+        public: true
+
+    App\Service\GS1Service:
+        arguments:
+            $username: '%env(GS1_USERNAME)%'
+            $password: '%env(GS1_PASSWORD)%'
+
+    # publishing
+    App\Publishing\:
+        resource: '../src/Publishing'
+        public: true
+
+    App\EventListener\ObjectPublishListener:
+        tags:
+            - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: onPublish }
+
     # Example custom templating helper
     # App\Templating\Helper\Example:
     #     # templating helpers need to be public as they
