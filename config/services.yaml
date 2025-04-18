@@ -83,6 +83,10 @@ services:
             $pwd: '%env(MQ_PWD)%'
             $vhost: '%env(MQ_VHOST)%'
 
+    App\Service\DeepLService:
+        arguments:
+            $apikey: '%env(DEEPL_APIKEY)%'
+
     # publishing
     App\Publishing\:
         resource: '../src/Publishing'

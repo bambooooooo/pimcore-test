@@ -3,11 +3,12 @@
 namespace App\Publishing;
 
 use App\Service\BrokerService;
+use App\Service\DeepLService;
 use Pimcore\Model\DataObject\Product;
 
 class ProductPublisher
 {
-    public function __construct(private readonly BrokerService $broker)
+    public function __construct(private readonly BrokerService $broker, private readonly DeepLService $deepLService)
     {
 
     }
@@ -22,6 +23,8 @@ class ProductPublisher
         if($product->getObjectType() == 'ACTUAL')
         {
             $this->updateDefaultBarcode($product);
+            $this->translateNames($product);
+
             $this->sendToErp($product);
         }
     }
@@ -51,6 +54,30 @@ class ProductPublisher
         {
             $barcode = "11" . str_pad($product->getId(), 18, "0", STR_PAD_LEFT);
             $product->setBarcode($barcode);
+            $product->save();
+        }
+    }
+
+    function translateNames(Product $product) : void
+    {
+        $plName = $product->getName("pl");
+
+        $languages = \Pimcore\Tool::getValidLanguages();
+
+        foreach ($languages as $locale)
+        {
+            $nameForeign = $product->getName($locale);
+
+            if($nameForeign)
+            {
+                continue;
+            }
+
+            $deeplLocale = ($locale == "en") ? "EN-US" : $locale;
+
+            $tx = $this->deepLService->translate($plName, $deeplLocale, "pl");
+
+            $product->setName($tx, $locale);
             $product->save();
         }
     }

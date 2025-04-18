@@ -3,6 +3,7 @@
 namespace App\Publishing;
 
 use App\Service\BrokerService;
+use App\Service\DeepLService;
 use Pimcore\Bundle\ApplicationLoggerBundle\ApplicationLogger;
 use Pimcore\Model\DataObject\Data\QuantityValue;
 use Pimcore\Model\DataObject\ProductSet;
@@ -10,7 +11,7 @@ use Pimcore\Model\DataObject\QuantityValue\Unit;
 
 class ProductSetPublisher
 {
-    public function __construct(private readonly BrokerService $broker)
+    public function __construct(private readonly BrokerService $broker, private readonly DeepLService $deepLService)
     {
 
     }
@@ -22,6 +23,7 @@ class ProductSetPublisher
 
         $this->updateMassFromPackages($set);
         $this->updateBasePrice($set);
+        $this->translateName($set);
 
         $this->sendToErp($set);
         ApplicationLogger::getInstance()->info("Publishing ProductSet {$set->getId()}");
@@ -77,6 +79,30 @@ class ProductSetPublisher
 
         $PLN = Unit::getById("PLN");
         $productSet->setBasePrice(new QuantityValue($price, $PLN));
+    }
+
+    function translateName(ProductSet $set) : void
+    {
+        $plName = $set->getName("pl");
+
+        $languages = \Pimcore\Tool::getValidLanguages();
+
+        foreach ($languages as $locale)
+        {
+            $nameForeign = $set->getName($locale);
+
+            if($nameForeign)
+            {
+                continue;
+            }
+
+            $deeplLocale = ($locale == "en") ? "EN-US" : $locale;
+
+            $tx = $this->deepLService->translate($plName, $deeplLocale, "pl");
+
+            $set->setName($tx, $locale);
+            $set->save();
+        }
     }
 
     function sendToErp(ProductSet $productSet) : void
