@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Pimcore\Controller\FrontendController;
 use Pimcore\Model\DataObject;
+use Pimcore\Model\DataObject\Group;
 use Pimcore\Model\DataObject\Product;
 use Pimcore\Model\DataObject\ProductSet;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -17,6 +18,12 @@ use ZipArchive;
 
 class ObjectController extends FrontendController
 {
+    /**
+     * Exports objects images
+     *
+     * @param Request $request
+     * @return Response
+     */
     #[Route("/export/images/{id}", name: "export_images")]
     public function exportImagesAction(Request $request): Response
     {
@@ -36,19 +43,54 @@ class ObjectController extends FrontendController
             return new Response('Could not create ZIP file', Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        $images = [];
+        $productImages = [];
 
         if($obj instanceof Product || $obj instanceof ProductSet) {
+
+            $productImages[$obj->getId()] = [];
+
             if($obj->getImage())
             {
-                $images[] = $obj->getImage();
+                $productImages[$obj->getId()][] = $obj->getImage();
             }
 
             if($obj->getImages())
             {
                 foreach($obj->getImages() as $image)
                 {
-                    $images[] = $image->getImage();
+                    $productImages[$obj->getId()][] = $image->getImage();
+                }
+            }
+        }
+        elseif ($obj instanceof Group) {
+
+            foreach ($obj->getProducts() as $product)
+            {
+                $productImages[$product->getId()] = [];
+
+                if($product->getImage())
+                {
+                    $productImages[$product->getId()][] = $product->getImage();
+                }
+
+                foreach ($product->getImages() as $image)
+                {
+                    $productImages[$product->getId()][] = $image->getImage();
+                }
+            }
+
+            foreach ($obj->getSets() as $set)
+            {
+                $productImages[$set->getId()] = [];
+
+                if($set->getImage())
+                {
+                    $productImages[$set->getId()][] = $set->getImage();
+                }
+
+                foreach ($set->getImages() as $image)
+                {
+                    $productImages[$set->getId()][] = $image->getImage();
                 }
             }
         }
@@ -57,26 +99,31 @@ class ObjectController extends FrontendController
             return new Response("Unsupported object type [" . $obj->getType() . "]", Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        if(count($images) < 1)
+        if(count($productImages) < 1)
         {
             return new Response('No images found', Response::HTTP_NOT_FOUND);
         }
 
-        foreach ($images as $img)
+        foreach ($productImages as $pid => $images)
         {
-            $url = $request->getSchemeAndHttpHost() . $img;
+            $zip->addEmptyDir($pid);
 
-            if($request->getSchemeAndHttpHost() == "http://localhost")
+            foreach ($images as $img)
             {
-                $url = "http://10.10.1.1" . $img;
+                $url = $request->getSchemeAndHttpHost() . $img;
+
+                if($request->getSchemeAndHttpHost() == "http://localhost")
+                {
+                    $url = "http://10.10.1.1" . $img;
+                }
+
+                $tmpFileName = $img->getFilename();
+                $fileContent = file_get_contents($url);
+
+                file_put_contents($tmpFileName, $fileContent);
+
+                $zip->addFile($tmpFileName, $pid . "/" . $tmpFileName);
             }
-
-            $tmpFileName = $img->getFilename();
-            $fileContent = file_get_contents($url);
-
-            file_put_contents($tmpFileName, $fileContent);
-
-            $zip->addFile($tmpFileName);
         }
 
         $zip->close();
@@ -84,10 +131,13 @@ class ObjectController extends FrontendController
         $response = new BinaryFileResponse($tmpPath, 200, ['Content-Type' => 'application/zip'], true);
         $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, $obj->getKey() . "-" . date("d-m-Y") . ".zip");
 
-        foreach ($images as $img)
+        foreach ($productImages as $pid => $images)
         {
-            $tmpFileName = $img->getFilename();
-            unlink($tmpFileName);
+            foreach ($images as $img)
+            {
+                $tmpFileName = $img->getFilename();
+                unlink($tmpFileName);
+            }
         }
 
         return $response;
