@@ -27,6 +27,7 @@ jobs:
                       git pull origin main
                       git checkout main
                       git log -n 1 --pretty='format:%h'
+                      echo "MQ_HOST=${{ secrets.MQ_HOST }} >> .env"
                       docker compose exec php composer install --no-dev --optimize-autoloader
                       docker compose exec php bin/console pimcore:maintenance-mode --ignore-maintenance-mode --enable
                       docker compose exec php bin/console pimcore:deployment:classes-rebuild -c --ignore-maintenance-mode
