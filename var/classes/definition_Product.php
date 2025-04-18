@@ -30,7 +30,7 @@
  * - Packages [advancedManyToManyObjectRelation]
  * - Quality [numeric]
  * - Barcode [input]
- * - GPC [input]
+ * - GPC [select]
  */
 
 return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
@@ -40,7 +40,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1744798579,
+   'modificationDate' => 1744973511,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -49,13 +49,13 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'useTraits' => '',
    'listingUseTraits' => '',
    'encryption' => false,
-   'encryptedTables' =>
+   'encryptedTables' => 
   array (
   ),
    'allowInherit' => true,
    'allowVariants' => false,
    'showVariants' => false,
-   'layoutDefinitions' =>
+   'layoutDefinitions' => 
   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
      'name' => 'pimcore_root',
      'type' => NULL,
@@ -67,9 +67,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
      'collapsed' => false,
      'bodyStyle' => NULL,
      'datatype' => 'layout',
-     'children' =>
+     'children' => 
     array (
-      0 =>
+      0 => 
       \Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
          'name' => 'Layout',
          'type' => NULL,
@@ -81,9 +81,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'collapsed' => false,
          'bodyStyle' => '',
          'datatype' => 'layout',
-         'children' =>
+         'children' => 
         array (
-          0 =>
+          0 => 
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'System',
              'type' => NULL,
@@ -95,9 +95,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'collapsed' => false,
              'bodyStyle' => '',
              'datatype' => 'layout',
-             'children' =>
+             'children' => 
             array (
-              0 =>
+              0 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                  'name' => 'Image',
                  'title' => 'Image',
@@ -113,14 +113,14 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
                  'uploadPath' => '',
                  'width' => 420,
                  'height' => 420,
               )),
-              1 =>
+              1 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                  'name' => 'ObjectType',
                  'title' => 'Product type',
@@ -137,17 +137,17 @@ ACTAUL - sellable product that will be integrated in e-commerce systems',
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
-                 'options' =>
+                 'options' => 
                 array (
-                  0 =>
+                  0 => 
                   array (
                     'key' => 'ACTUAL',
                     'value' => 'ACTUAL',
                   ),
-                  1 =>
+                  1 => 
                   array (
                     'key' => 'VIRTUAL',
                     'value' => 'VIRTUAL',
@@ -162,7 +162,7 @@ ACTAUL - sellable product that will be integrated in e-commerce systems',
                  'optionsProviderClass' => '',
                  'optionsProviderData' => '',
               )),
-              2 =>
+              2 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'Ean',
                  'title' => 'Ean',
@@ -178,13 +178,13 @@ ACTAUL - sellable product that will be integrated in e-commerce systems',
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
                  'defaultValue' => NULL,
                  'columnLength' => 190,
                  'regex' => '',
-                 'regexFlags' =>
+                 'regexFlags' => 
                 array (
                 ),
                  'unique' => false,
@@ -192,7 +192,7 @@ ACTAUL - sellable product that will be integrated in e-commerce systems',
                  'width' => '',
                  'defaultValueGenerator' => '',
               )),
-              3 =>
+              3 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
                  'name' => 'localizedfields',
                  'title' => '',
@@ -208,12 +208,12 @@ ACTAUL - sellable product that will be integrated in e-commerce systems',
                  'invisible' => false,
                  'visibleGridView' => true,
                  'visibleSearch' => true,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
-                 'children' =>
+                 'children' => 
                 array (
-                  0 =>
+                  0 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'name' => 'Name',
                      'title' => 'Name',
@@ -229,13 +229,13 @@ ACTAUL - sellable product that will be integrated in e-commerce systems',
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
-                     'blockedVarsForExport' =>
+                     'blockedVarsForExport' => 
                     array (
                     ),
                      'defaultValue' => NULL,
                      'columnLength' => 100,
                      'regex' => '',
-                     'regexFlags' =>
+                     'regexFlags' => 
                     array (
                     ),
                      'unique' => false,
@@ -251,9 +251,9 @@ ACTAUL - sellable product that will be integrated in e-commerce systems',
                  'provideSplitView' => false,
                  'tabPosition' => 'top',
                  'hideLabelsWhenTabsReached' => NULL,
-                 'referencedFields' =>
+                 'referencedFields' => 
                 array (
-                  0 =>
+                  0 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
                      'name' => 'localizedfields',
                      'title' => '',
@@ -269,12 +269,12 @@ ACTAUL - sellable product that will be integrated in e-commerce systems',
                      'invisible' => false,
                      'visibleGridView' => true,
                      'visibleSearch' => true,
-                     'blockedVarsForExport' =>
+                     'blockedVarsForExport' => 
                     array (
                     ),
-                     'children' =>
+                     'children' => 
                     array (
-                      0 =>
+                      0 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\ImageGallery::__set_state(array(
                          'name' => 'Infographics',
                          'title' => 'Infographics',
@@ -290,7 +290,7 @@ ACTAUL - sellable product that will be integrated in e-commerce systems',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'uploadPath' => '',
@@ -308,7 +308,7 @@ ACTAUL - sellable product that will be integrated in e-commerce systems',
                      'provideSplitView' => false,
                      'tabPosition' => 'top',
                      'hideLabelsWhenTabsReached' => NULL,
-                     'referencedFields' =>
+                     'referencedFields' => 
                     array (
                     ),
                      'permissionView' => NULL,
@@ -328,7 +328,7 @@ ACTAUL - sellable product that will be integrated in e-commerce systems',
                  'height' => '',
                  'fieldDefinitionsCache' => NULL,
               )),
-              4 =>
+              4 => 
               \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                  'name' => 'Layout',
                  'type' => NULL,
@@ -340,11 +340,11 @@ ACTAUL - sellable product that will be integrated in e-commerce systems',
                  'collapsed' => false,
                  'bodyStyle' => '',
                  'datatype' => 'layout',
-                 'children' =>
+                 'children' => 
                 array (
                 ),
                  'locked' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
                  'fieldtype' => 'text',
@@ -373,7 +373,7 @@ Pełna nazwa produktu. Nazwa w językach obcych tłumaczona jest automatycznie.'
               )),
             ),
              'locked' => false,
-             'blockedVarsForExport' =>
+             'blockedVarsForExport' => 
             array (
             ),
              'fieldtype' => 'panel',
@@ -383,7 +383,7 @@ Pełna nazwa produktu. Nazwa w językach obcych tłumaczona jest automatycznie.'
              'labelWidth' => 120,
              'labelAlign' => 'left',
           )),
-          1 =>
+          1 => 
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Model',
              'type' => NULL,
@@ -395,9 +395,9 @@ Pełna nazwa produktu. Nazwa w językach obcych tłumaczona jest automatycznie.'
              'collapsed' => false,
              'bodyStyle' => '',
              'datatype' => 'layout',
-             'children' =>
+             'children' => 
             array (
-              0 =>
+              0 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'Model',
                  'title' => 'Model',
@@ -413,13 +413,13 @@ Pełna nazwa produktu. Nazwa w językach obcych tłumaczona jest automatycznie.'
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
                  'defaultValue' => NULL,
                  'columnLength' => 190,
                  'regex' => '',
-                 'regexFlags' =>
+                 'regexFlags' => 
                 array (
                 ),
                  'unique' => false,
@@ -427,7 +427,7 @@ Pełna nazwa produktu. Nazwa w językach obcych tłumaczona jest automatycznie.'
                  'width' => '',
                  'defaultValueGenerator' => '',
               )),
-              1 =>
+              1 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                  'name' => 'Width',
                  'title' => 'Width',
@@ -443,12 +443,12 @@ Pełna nazwa produktu. Nazwa w językach obcych tłumaczona jest automatycznie.'
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
                  'unitWidth' => '',
                  'defaultUnit' => 'mm',
-                 'validUnits' =>
+                 'validUnits' => 
                 array (
                   0 => 'mm',
                   1 => 'cm',
@@ -467,7 +467,7 @@ Pełna nazwa produktu. Nazwa w językach obcych tłumaczona jest automatycznie.'
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
               )),
-              2 =>
+              2 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                  'name' => 'Height',
                  'title' => 'Height',
@@ -483,12 +483,12 @@ Pełna nazwa produktu. Nazwa w językach obcych tłumaczona jest automatycznie.'
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
                  'unitWidth' => '',
                  'defaultUnit' => 'mm',
-                 'validUnits' =>
+                 'validUnits' => 
                 array (
                   0 => 'mm',
                   1 => 'cm',
@@ -507,7 +507,7 @@ Pełna nazwa produktu. Nazwa w językach obcych tłumaczona jest automatycznie.'
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
               )),
-              3 =>
+              3 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                  'name' => 'Depth',
                  'title' => 'Depth',
@@ -523,12 +523,12 @@ Pełna nazwa produktu. Nazwa w językach obcych tłumaczona jest automatycznie.'
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
                  'unitWidth' => '',
                  'defaultUnit' => 'mm',
-                 'validUnits' =>
+                 'validUnits' => 
                 array (
                   0 => 'mm',
                   1 => 'cm',
@@ -547,7 +547,7 @@ Pełna nazwa produktu. Nazwa w językach obcych tłumaczona jest automatycznie.'
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
               )),
-              4 =>
+              4 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                  'name' => 'Mass',
                  'title' => 'Mass',
@@ -563,12 +563,12 @@ Pełna nazwa produktu. Nazwa w językach obcych tłumaczona jest automatycznie.'
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
                  'unitWidth' => '',
                  'defaultUnit' => 'kg',
-                 'validUnits' =>
+                 'validUnits' => 
                 array (
                   0 => 'kg',
                 ),
@@ -584,7 +584,43 @@ Pełna nazwa produktu. Nazwa w językach obcych tłumaczona jest automatycznie.'
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
               )),
-              5 =>
+              5 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                 'name' => 'CN',
+                 'title' => 'CN Code',
+                 'tooltip' => '',
+                 'mandatory' => true,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'options' => 
+                array (
+                  0 => 
+                  array (
+                    'key' => '9403 60 90 (Meble drewniane...)',
+                    'value' => '9403 60 90',
+                  ),
+                ),
+                 'defaultValue' => '',
+                 'columnLength' => 190,
+                 'dynamicOptions' => false,
+                 'defaultValueGenerator' => '',
+                 'width' => '',
+                 'optionsProviderType' => 'configure',
+                 'optionsProviderClass' => '',
+                 'optionsProviderData' => '',
+              )),
+              6 => 
               \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                  'name' => 'Layout',
                  'type' => NULL,
@@ -596,11 +632,11 @@ Pełna nazwa produktu. Nazwa w językach obcych tłumaczona jest automatycznie.'
                  'collapsed' => false,
                  'bodyStyle' => '',
                  'datatype' => 'layout',
-                 'children' =>
+                 'children' => 
                 array (
                 ),
                  'locked' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
                  'fieldtype' => 'text',
@@ -619,50 +655,18 @@ Wymiary gabarytowe produktu
 
 <h1>Waga</h1>
 
-Waga netto produktu - bez opakowania',
+Waga netto produktu - bez opakowania
+
+<h1>CN</h1>
+
+Klasyfikacja CN produktu. Można skorzystać z wyszukiwarki <a href="https://ext-isztar4.mf.gov.pl/taryfa_celna/browseNomen.xhtml?cnCode=9403+60+10+00&suffix=80&country=&lang=PL&page=1&date=20220222">ext-isztar4.mf.gov.pl</a>',
                  'renderingClass' => '',
                  'renderingData' => '',
                  'border' => false,
               )),
-              6 =>
-              \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                 'name' => 'CN',
-                 'title' => 'CN Code',
-                 'tooltip' => '',
-                 'mandatory' => true,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'blockedVarsForExport' =>
-                array (
-                ),
-                 'options' =>
-                array (
-                  0 =>
-                  array (
-                    'key' => '9403 60 90 (Meble drewniane...)',
-                    'value' => '9403 60 90',
-                  ),
-                ),
-                 'defaultValue' => '',
-                 'columnLength' => 190,
-                 'dynamicOptions' => false,
-                 'defaultValueGenerator' => '',
-                 'width' => '',
-                 'optionsProviderType' => 'configure',
-                 'optionsProviderClass' => '',
-                 'optionsProviderData' => '',
-              )),
             ),
              'locked' => false,
-             'blockedVarsForExport' =>
+             'blockedVarsForExport' => 
             array (
             ),
              'fieldtype' => 'panel',
@@ -672,7 +676,7 @@ Waga netto produktu - bez opakowania',
              'labelWidth' => 100,
              'labelAlign' => 'left',
           )),
-          2 =>
+          2 => 
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Parameters',
              'type' => NULL,
@@ -684,9 +688,9 @@ Waga netto produktu - bez opakowania',
              'collapsed' => false,
              'bodyStyle' => '',
              'datatype' => 'layout',
-             'children' =>
+             'children' => 
             array (
-              0 =>
+              0 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
                  'name' => 'Groups',
                  'title' => 'Groups',
@@ -702,29 +706,29 @@ Waga netto produktu - bez opakowania',
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
-                 'classes' =>
+                 'classes' => 
                 array (
                 ),
                  'displayMode' => 'grid',
                  'pathFormatterClass' => '',
                  'maxItems' => NULL,
-                 'visibleFields' =>
+                 'visibleFields' => 
                 array (
                 ),
                  'allowToCreateNewObject' => false,
                  'allowToClearRelation' => true,
                  'optimizedAdminLoading' => false,
                  'enableTextSelection' => false,
-                 'visibleFieldDefinitions' =>
+                 'visibleFieldDefinitions' => 
                 array (
                 ),
                  'width' => '',
                  'height' => '',
               )),
-              1 =>
+              1 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Classificationstore::__set_state(array(
                  'name' => 'Parameters',
                  'title' => 'Parameters',
@@ -740,10 +744,10 @@ Waga netto produktu - bez opakowania',
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
-                 'children' =>
+                 'children' => 
                 array (
                 ),
                  'labelWidth' => 0,
@@ -751,21 +755,21 @@ Waga netto produktu - bez opakowania',
                  'storeId' => 1,
                  'hideEmptyData' => false,
                  'disallowAddRemove' => false,
-                 'referencedFields' =>
+                 'referencedFields' => 
                 array (
                 ),
                  'fieldDefinitionsCache' => NULL,
-                 'allowedGroupIds' =>
+                 'allowedGroupIds' => 
                 array (
                 ),
-                 'activeGroupDefinitions' =>
+                 'activeGroupDefinitions' => 
                 array (
                 ),
                  'maxItems' => NULL,
                  'height' => NULL,
                  'width' => NULL,
               )),
-              2 =>
+              2 => 
               \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                  'name' => 'Layout',
                  'type' => NULL,
@@ -777,11 +781,11 @@ Waga netto produktu - bez opakowania',
                  'collapsed' => false,
                  'bodyStyle' => '',
                  'datatype' => 'layout',
-                 'children' =>
+                 'children' => 
                 array (
                 ),
                  'locked' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
                  'fieldtype' => 'text',
@@ -798,7 +802,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
               )),
             ),
              'locked' => false,
-             'blockedVarsForExport' =>
+             'blockedVarsForExport' => 
             array (
             ),
              'fieldtype' => 'panel',
@@ -808,7 +812,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
              'labelWidth' => 100,
              'labelAlign' => 'left',
           )),
-          3 =>
+          3 => 
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Factory',
              'type' => NULL,
@@ -820,9 +824,9 @@ Parametry produktu podzielone na kolekcje i grupy.',
              'collapsed' => false,
              'bodyStyle' => '',
              'datatype' => 'layout',
-             'children' =>
+             'children' => 
             array (
-              0 =>
+              0 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'MPN',
                  'title' => 'MPN',
@@ -838,13 +842,13 @@ Parametry produktu podzielone na kolekcje i grupy.',
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
                  'defaultValue' => NULL,
                  'columnLength' => 190,
                  'regex' => '',
-                 'regexFlags' =>
+                 'regexFlags' => 
                 array (
                 ),
                  'unique' => false,
@@ -852,7 +856,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                  'width' => '',
                  'defaultValueGenerator' => '',
               )),
-              1 =>
+              1 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
                  'name' => 'Manufacturer',
                  'title' => 'Manufacturer',
@@ -868,12 +872,12 @@ Parametry produktu podzielone na kolekcje i grupy.',
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
-                 'classes' =>
+                 'classes' => 
                 array (
-                  0 =>
+                  0 => 
                   array (
                     'classes' => 'User',
                   ),
@@ -885,16 +889,16 @@ Parametry produktu podzielone na kolekcje i grupy.',
                  'allowToClearRelation' => true,
                  'objectsAllowed' => true,
                  'assetsAllowed' => false,
-                 'assetTypes' =>
+                 'assetTypes' => 
                 array (
                 ),
                  'documentsAllowed' => false,
-                 'documentTypes' =>
+                 'documentTypes' => 
                 array (
                 ),
                  'width' => '',
               )),
-              2 =>
+              2 => 
               \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                  'name' => 'BDO',
                  'type' => NULL,
@@ -906,9 +910,9 @@ Parametry produktu podzielone na kolekcje i grupy.',
                  'collapsed' => false,
                  'bodyStyle' => '',
                  'datatype' => 'layout',
-                 'children' =>
+                 'children' => 
                 array (
-                  0 =>
+                  0 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                      'name' => 'BDOPaper',
                      'title' => 'BDO Paper',
@@ -924,12 +928,12 @@ Parametry produktu podzielone na kolekcje i grupy.',
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
-                     'blockedVarsForExport' =>
+                     'blockedVarsForExport' => 
                     array (
                     ),
                      'unitWidth' => '',
                      'defaultUnit' => NULL,
-                     'validUnits' =>
+                     'validUnits' => 
                     array (
                       0 => 'kg',
                     ),
@@ -945,7 +949,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
                   )),
-                  1 =>
+                  1 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                      'name' => 'BDOSteel',
                      'title' => 'BDO Steel',
@@ -961,12 +965,12 @@ Parametry produktu podzielone na kolekcje i grupy.',
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
-                     'blockedVarsForExport' =>
+                     'blockedVarsForExport' => 
                     array (
                     ),
                      'unitWidth' => '',
                      'defaultUnit' => NULL,
-                     'validUnits' =>
+                     'validUnits' => 
                     array (
                       0 => 'kg',
                     ),
@@ -982,7 +986,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
                   )),
-                  2 =>
+                  2 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                      'name' => 'BDOAluminium',
                      'title' => 'BDO Aluminium',
@@ -998,12 +1002,12 @@ Parametry produktu podzielone na kolekcje i grupy.',
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
-                     'blockedVarsForExport' =>
+                     'blockedVarsForExport' => 
                     array (
                     ),
                      'unitWidth' => '',
                      'defaultUnit' => NULL,
-                     'validUnits' =>
+                     'validUnits' => 
                     array (
                       0 => 'kg',
                     ),
@@ -1019,7 +1023,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
                   )),
-                  3 =>
+                  3 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                      'name' => 'BDOPlastic',
                      'title' => 'BDO Plastic',
@@ -1035,12 +1039,12 @@ Parametry produktu podzielone na kolekcje i grupy.',
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
-                     'blockedVarsForExport' =>
+                     'blockedVarsForExport' => 
                     array (
                     ),
                      'unitWidth' => '',
                      'defaultUnit' => NULL,
-                     'validUnits' =>
+                     'validUnits' => 
                     array (
                       0 => 'kg',
                     ),
@@ -1058,7 +1062,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                   )),
                 ),
                  'locked' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
                  'fieldtype' => 'panel',
@@ -1068,7 +1072,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                  'labelWidth' => 100,
                  'labelAlign' => 'left',
               )),
-              3 =>
+              3 => 
               \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                  'name' => 'Layout',
                  'type' => NULL,
@@ -1080,11 +1084,11 @@ Parametry produktu podzielone na kolekcje i grupy.',
                  'collapsed' => false,
                  'bodyStyle' => '',
                  'datatype' => 'layout',
-                 'children' =>
+                 'children' => 
                 array (
                 ),
                  'locked' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
                  'fieldtype' => 'text',
@@ -1111,7 +1115,7 @@ Surowce wprowadzone do obiegu i podlegające opłacie BDO <a href="https://bdo.m
               )),
             ),
              'locked' => false,
-             'blockedVarsForExport' =>
+             'blockedVarsForExport' => 
             array (
             ),
              'fieldtype' => 'panel',
@@ -1121,7 +1125,7 @@ Surowce wprowadzone do obiegu i podlegające opłacie BDO <a href="https://bdo.m
              'labelWidth' => 100,
              'labelAlign' => 'left',
           )),
-          4 =>
+          4 => 
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Prices',
              'type' => NULL,
@@ -1133,9 +1137,9 @@ Surowce wprowadzone do obiegu i podlegające opłacie BDO <a href="https://bdo.m
              'collapsed' => false,
              'bodyStyle' => '',
              'datatype' => 'layout',
-             'children' =>
+             'children' => 
             array (
-              0 =>
+              0 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                  'name' => 'BasePrice',
                  'title' => 'Base Price',
@@ -1151,12 +1155,12 @@ Surowce wprowadzone do obiegu i podlegające opłacie BDO <a href="https://bdo.m
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
                  'unitWidth' => '',
                  'defaultUnit' => 'PLN',
-                 'validUnits' =>
+                 'validUnits' => 
                 array (
                   0 => 'PLN',
                   1 => 'USD',
@@ -1175,7 +1179,7 @@ Surowce wprowadzone do obiegu i podlegające opłacie BDO <a href="https://bdo.m
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
               )),
-              1 =>
+              1 => 
               \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                  'name' => 'Layout',
                  'type' => NULL,
@@ -1187,11 +1191,11 @@ Surowce wprowadzone do obiegu i podlegające opłacie BDO <a href="https://bdo.m
                  'collapsed' => false,
                  'bodyStyle' => '',
                  'datatype' => 'layout',
-                 'children' =>
+                 'children' => 
                 array (
                 ),
                  'locked' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
                  'fieldtype' => 'text',
@@ -1204,7 +1208,7 @@ Cena zakupu produktu u producenta lub techniczny koszt wytworzenia przy własnej
               )),
             ),
              'locked' => false,
-             'blockedVarsForExport' =>
+             'blockedVarsForExport' => 
             array (
             ),
              'fieldtype' => 'panel',
@@ -1214,7 +1218,7 @@ Cena zakupu produktu u producenta lub techniczny koszt wytworzenia przy własnej
              'labelWidth' => 100,
              'labelAlign' => 'left',
           )),
-          5 =>
+          5 => 
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Images',
              'type' => NULL,
@@ -1226,9 +1230,9 @@ Cena zakupu produktu u producenta lub techniczny koszt wytworzenia przy własnej
              'collapsed' => false,
              'bodyStyle' => '',
              'datatype' => 'layout',
-             'children' =>
+             'children' => 
             array (
-              0 =>
+              0 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\ImageGallery::__set_state(array(
                  'name' => 'Images',
                  'title' => 'Images',
@@ -1244,7 +1248,7 @@ Cena zakupu produktu u producenta lub techniczny koszt wytworzenia przy własnej
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
                  'uploadPath' => '',
@@ -1254,7 +1258,7 @@ Cena zakupu produktu u producenta lub techniczny koszt wytworzenia przy własnej
                  'height' => '',
                  'width' => '',
               )),
-              1 =>
+              1 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
                  'name' => 'localizedfields',
                  'title' => '',
@@ -1270,12 +1274,12 @@ Cena zakupu produktu u producenta lub techniczny koszt wytworzenia przy własnej
                  'invisible' => false,
                  'visibleGridView' => true,
                  'visibleSearch' => true,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
-                 'children' =>
+                 'children' => 
                 array (
-                  0 =>
+                  0 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Data\ImageGallery::__set_state(array(
                      'name' => 'Infographics',
                      'title' => 'Infographics',
@@ -1291,7 +1295,7 @@ Cena zakupu produktu u producenta lub techniczny koszt wytworzenia przy własnej
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
-                     'blockedVarsForExport' =>
+                     'blockedVarsForExport' => 
                     array (
                     ),
                      'uploadPath' => '',
@@ -1309,7 +1313,7 @@ Cena zakupu produktu u producenta lub techniczny koszt wytworzenia przy własnej
                  'provideSplitView' => false,
                  'tabPosition' => 'top',
                  'hideLabelsWhenTabsReached' => NULL,
-                 'referencedFields' =>
+                 'referencedFields' => 
                 array (
                 ),
                  'permissionView' => NULL,
@@ -1320,7 +1324,7 @@ Cena zakupu produktu u producenta lub techniczny koszt wytworzenia przy własnej
                  'height' => '',
                  'fieldDefinitionsCache' => NULL,
               )),
-              2 =>
+              2 => 
               \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                  'name' => 'Layout',
                  'type' => NULL,
@@ -1332,11 +1336,11 @@ Cena zakupu produktu u producenta lub techniczny koszt wytworzenia przy własnej
                  'collapsed' => false,
                  'bodyStyle' => '',
                  'datatype' => 'layout',
-                 'children' =>
+                 'children' => 
                 array (
                 ),
                  'locked' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
                  'fieldtype' => 'text',
@@ -1353,7 +1357,7 @@ Infografiki przeznaczone na dany region (język)',
               )),
             ),
              'locked' => false,
-             'blockedVarsForExport' =>
+             'blockedVarsForExport' => 
             array (
             ),
              'fieldtype' => 'panel',
@@ -1363,7 +1367,7 @@ Infografiki przeznaczone na dany region (język)',
              'labelWidth' => 100,
              'labelAlign' => 'left',
           )),
-          6 =>
+          6 => 
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Packing',
              'type' => NULL,
@@ -1375,9 +1379,9 @@ Infografiki przeznaczone na dany region (język)',
              'collapsed' => false,
              'bodyStyle' => '',
              'datatype' => 'layout',
-             'children' =>
+             'children' => 
             array (
-              0 =>
+              0 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
                  'name' => 'Packages',
                  'title' => 'Packages',
@@ -1393,10 +1397,10 @@ Infografiki przeznaczone na dany region (język)',
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
-                 'classes' =>
+                 'classes' => 
                 array (
                 ),
                  'displayMode' => NULL,
@@ -1407,15 +1411,15 @@ Infografiki przeznaczone na dany region (język)',
                  'allowToClearRelation' => true,
                  'optimizedAdminLoading' => false,
                  'enableTextSelection' => false,
-                 'visibleFieldDefinitions' =>
+                 'visibleFieldDefinitions' => 
                 array (
                 ),
                  'width' => '',
                  'height' => '',
                  'allowedClassId' => 'Product',
-                 'columns' =>
+                 'columns' => 
                 array (
-                  0 =>
+                  0 => 
                   array (
                     'type' => 'number',
                     'position' => 1,
@@ -1424,14 +1428,14 @@ Infografiki przeznaczone na dany region (język)',
                     'value' => '1',
                   ),
                 ),
-                 'columnKeys' =>
+                 'columnKeys' => 
                 array (
                   0 => 'Quantity',
                 ),
                  'enableBatchEdit' => true,
                  'allowMultipleAssignments' => false,
               )),
-              1 =>
+              1 => 
               \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                  'name' => 'Layout',
                  'type' => NULL,
@@ -1443,11 +1447,11 @@ Infografiki przeznaczone na dany region (język)',
                  'collapsed' => false,
                  'bodyStyle' => '',
                  'datatype' => 'layout',
-                 'children' =>
+                 'children' => 
                 array (
                 ),
                  'locked' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
                  'fieldtype' => 'text',
@@ -1460,7 +1464,7 @@ Paczki produktu',
               )),
             ),
              'locked' => false,
-             'blockedVarsForExport' =>
+             'blockedVarsForExport' => 
             array (
             ),
              'fieldtype' => 'panel',
@@ -1470,7 +1474,7 @@ Paczki produktu',
              'labelWidth' => 100,
              'labelAlign' => 'left',
           )),
-          7 =>
+          7 => 
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Quality',
              'type' => NULL,
@@ -1482,9 +1486,9 @@ Paczki produktu',
              'collapsed' => false,
              'bodyStyle' => '',
              'datatype' => 'layout',
-             'children' =>
+             'children' => 
             array (
-              0 =>
+              0 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'name' => 'Quality',
                  'title' => 'Quality',
@@ -1500,7 +1504,7 @@ Paczki produktu',
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
                  'defaultValue' => NULL,
@@ -1514,7 +1518,7 @@ Paczki produktu',
                  'width' => '',
                  'defaultValueGenerator' => '',
               )),
-              1 =>
+              1 => 
               \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                  'name' => 'Layout',
                  'type' => NULL,
@@ -1526,11 +1530,11 @@ Paczki produktu',
                  'collapsed' => false,
                  'bodyStyle' => '',
                  'datatype' => 'layout',
-                 'children' =>
+                 'children' => 
                 array (
                 ),
                  'locked' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
                  'fieldtype' => 'text',
@@ -1543,7 +1547,7 @@ Stopień uzupełnienia danych produktu',
               )),
             ),
              'locked' => false,
-             'blockedVarsForExport' =>
+             'blockedVarsForExport' => 
             array (
             ),
              'fieldtype' => 'panel',
@@ -1553,7 +1557,7 @@ Stopień uzupełnienia danych produktu',
              'labelWidth' => 100,
              'labelAlign' => 'left',
           )),
-          8 =>
+          8 => 
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Barcodes',
              'type' => NULL,
@@ -1565,9 +1569,9 @@ Stopień uzupełnienia danych produktu',
              'collapsed' => false,
              'bodyStyle' => '',
              'datatype' => 'layout',
-             'children' =>
+             'children' => 
             array (
-              0 =>
+              0 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'Barcode',
                  'title' => 'Barcode',
@@ -1583,13 +1587,13 @@ Stopień uzupełnienia danych produktu',
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
                  'defaultValue' => NULL,
                  'columnLength' => 190,
                  'regex' => '',
-                 'regexFlags' =>
+                 'regexFlags' => 
                 array (
                 ),
                  'unique' => false,
@@ -1597,8 +1601,8 @@ Stopień uzupełnienia danych produktu',
                  'width' => '',
                  'defaultValueGenerator' => '',
               )),
-              1 =>
-              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+              1 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                  'name' => 'GPC',
                  'title' => 'GPC',
                  'tooltip' => '',
@@ -1613,21 +1617,57 @@ Stopień uzupełnienia danych produktu',
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
-                 'defaultValue' => NULL,
+                 'options' => 
+                array (
+                  0 => 
+                  array (
+                    'key' => 'Zestawy łazienkowe',
+                    'value' => '10003814',
+                  ),
+                  1 => 
+                  array (
+                    'key' => 'Biurka',
+                    'value' => '10002205',
+                  ),
+                  2 => 
+                  array (
+                    'key' => 'Komody',
+                    'value' => '10002117',
+                  ),
+                  3 => 
+                  array (
+                    'key' => 'Ławy',
+                    'value' => '10005199',
+                  ),
+                  4 => 
+                  array (
+                    'key' => 'LEDy (zestawy oświetlenia)',
+                    'value' => '10008292',
+                  ),
+                  5 => 
+                  array (
+                    'key' => 'Regały (duże, salonowe)',
+                    'value' => '10002184',
+                  ),
+                  6 => 
+                  array (
+                    'key' => 'RTV',
+                    'value' => '10002186',
+                  ),
+                ),
+                 'defaultValue' => '',
                  'columnLength' => 190,
-                 'regex' => '',
-                 'regexFlags' =>
-                array (
-                ),
-                 'unique' => false,
-                 'showCharCount' => false,
-                 'width' => '',
+                 'dynamicOptions' => false,
                  'defaultValueGenerator' => '',
+                 'width' => '',
+                 'optionsProviderType' => 'configure',
+                 'optionsProviderClass' => '',
+                 'optionsProviderData' => '',
               )),
-              2 =>
+              2 => 
               \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                  'name' => 'Layout',
                  'type' => NULL,
@@ -1639,11 +1679,11 @@ Stopień uzupełnienia danych produktu',
                  'collapsed' => false,
                  'bodyStyle' => '',
                  'datatype' => 'layout',
-                 'children' =>
+                 'children' => 
                 array (
                 ),
                  'locked' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
                  'fieldtype' => 'text',
@@ -1653,16 +1693,6 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
 
 <h1>GPC</h1>
 
-<ul>
-<li>Zestawy łazienkowe: 10003814</li>
-<li>Biurka: 10002205</li>
-<li>Komody: 10002117</li>
-<li>Ławy: 10005199</li>
-<li>LEDy: 10008292</li>
-<li>Regały (duże, salonowe): 10002184</li>
-<li>RTV: 10002186</li>
-</ul>
-
 Ośmiocyfrowy numer "Brick" klasyfikacji produktowej GS1 GPC. Wyszukiwarka kodów znajduje się pod adresem: <a href="https://www.gs1.org/services/gpc-browser">https://www.gs1.org/services/gpc-browser</a> Należy podać klasyfikację GPC zgodnie z listą segmentów GPC Twojej firmy. Listą można zarządzać na MojeGS1 w zakładce Rejestr produktów/Lista segmentów GPC. W przypadku GTIN-14 informacja o klasyfikacji GPC jest automatycznie pobierana z produktu bazowego.',
                  'renderingClass' => '',
                  'renderingData' => '',
@@ -1670,7 +1700,7 @@ Ośmiocyfrowy numer "Brick" klasyfikacji produktowej GS1 GPC. Wyszukiwarka kodó
               )),
             ),
              'locked' => false,
-             'blockedVarsForExport' =>
+             'blockedVarsForExport' => 
             array (
             ),
              'fieldtype' => 'panel',
@@ -1682,7 +1712,7 @@ Ośmiocyfrowy numer "Brick" klasyfikacji produktowej GS1 GPC. Wyszukiwarka kodó
           )),
         ),
          'locked' => false,
-         'blockedVarsForExport' =>
+         'blockedVarsForExport' => 
         array (
         ),
          'fieldtype' => 'tabpanel',
@@ -1691,7 +1721,7 @@ Ośmiocyfrowy numer "Brick" klasyfikacji produktowej GS1 GPC. Wyszukiwarka kodó
       )),
     ),
      'locked' => false,
-     'blockedVarsForExport' =>
+     'blockedVarsForExport' => 
     array (
     ),
      'fieldtype' => 'panel',
@@ -1706,13 +1736,13 @@ Ośmiocyfrowy numer "Brick" klasyfikacji produktowej GS1 GPC. Wyszukiwarka kodó
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',
    'previewGeneratorReference' => '',
-   'compositeIndices' =>
+   'compositeIndices' => 
   array (
   ),
    'showFieldLookup' => false,
-   'propertyVisibility' =>
+   'propertyVisibility' => 
   array (
-    'grid' =>
+    'grid' => 
     array (
       'id' => true,
       'key' => false,
@@ -1721,7 +1751,7 @@ Ośmiocyfrowy numer "Brick" klasyfikacji produktowej GS1 GPC. Wyszukiwarka kodó
       'modificationDate' => false,
       'creationDate' => false,
     ),
-    'search' =>
+    'search' => 
     array (
       'id' => true,
       'key' => false,
@@ -1732,16 +1762,16 @@ Ośmiocyfrowy numer "Brick" klasyfikacji produktowej GS1 GPC. Wyszukiwarka kodó
     ),
   ),
    'enableGridLocking' => false,
-   'deletedDataComponents' =>
+   'deletedDataComponents' => 
   array (
   ),
-   'blockedVarsForExport' =>
+   'blockedVarsForExport' => 
   array (
   ),
-   'fieldDefinitionsCache' =>
+   'fieldDefinitionsCache' => 
   array (
   ),
-   'activeDispatchingEvents' =>
+   'activeDispatchingEvents' => 
   array (
   ),
 ));
