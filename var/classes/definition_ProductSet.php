@@ -10,6 +10,7 @@
  * -- Name [input]
  * - Set [advancedManyToManyRelation]
  * - EAN [input]
+ * - Mass [quantityValue]
  * - Images [imageGallery]
  * - Groups [manyToManyObjectRelation]
  * - Parameters [classificationstore]
@@ -23,7 +24,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1744281858,
+   'modificationDate' => 1744802756,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -85,7 +86,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'name' => 'Image',
                  'title' => 'Image',
                  'tooltip' => '',
-                 'mandatory' => false,
+                 'mandatory' => true,
                  'noteditable' => false,
                  'index' => false,
                  'locked' => false,
@@ -178,7 +179,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'name' => 'Set',
                  'title' => 'Skład zestawu',
                  'tooltip' => '',
-                 'mandatory' => false,
+                 'mandatory' => true,
                  'noteditable' => false,
                  'index' => false,
                  'locked' => false,
@@ -209,10 +210,18 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'assetsAllowed' => false,
                  'assetTypes' => 
                 array (
+                  0 => 
+                  array (
+                    'assetTypes' => '',
+                  ),
                 ),
                  'documentsAllowed' => false,
                  'documentTypes' => 
                 array (
+                  0 => 
+                  array (
+                    'documentTypes' => '',
+                  ),
                 ),
                  'enableTextSelection' => false,
                  'width' => '',
@@ -267,6 +276,43 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'defaultValueGenerator' => '',
               )),
               4 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                 'name' => 'Mass',
+                 'title' => 'Mass',
+                 'tooltip' => 'Product overall weight',
+                 'mandatory' => true,
+                 'noteditable' => true,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'unitWidth' => '',
+                 'defaultUnit' => 'kg',
+                 'validUnits' => 
+                array (
+                  0 => 'kg',
+                ),
+                 'unique' => false,
+                 'autoConvert' => false,
+                 'defaultValueGenerator' => '',
+                 'width' => '',
+                 'defaultValue' => NULL,
+                 'integer' => false,
+                 'unsigned' => false,
+                 'minValue' => NULL,
+                 'maxValue' => NULL,
+                 'decimalSize' => NULL,
+                 'decimalPrecision' => NULL,
+              )),
+              5 => 
               \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                  'name' => 'Layout',
                  'type' => NULL,
