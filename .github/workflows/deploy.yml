@@ -27,7 +27,15 @@ jobs:
                       git pull origin main
                       git checkout main
                       git log -n 1 --pretty='format:%h'
+
                       echo "MQ_HOST=${{ secrets.MQ_HOST }}" >> .env
+                      echo "MQ_PORT=${{ secrets.MQ_PORT }}" >> .env
+                      echo "MQ_VHOST=${{ secrets.MQ_VHOST }}" >> .env
+                      echo "MQ_USER=${{ secrets.MQ_USER }}" >> .env
+                      echo "MQ_PWD=${{ secrets.MQ_PWD }}" >> .env
+                      echo "GS1_USERNAME=${{ secrets.GS1_USER }}" >> .env
+                      echo "GS1_PASSWORD=${{ secrets.GS1_PWD }}" >> .env
+
                       docker compose exec php composer install --no-dev --optimize-autoloader
                       docker compose exec php bin/console pimcore:maintenance-mode --ignore-maintenance-mode --enable
                       docker compose exec php bin/console pimcore:deployment:classes-rebuild -c --ignore-maintenance-mode
