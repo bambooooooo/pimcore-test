@@ -75,6 +75,14 @@ services:
             $username: '%env(GS1_USERNAME)%'
             $password: '%env(GS1_PASSWORD)%'
 
+    App\Service\BrokerService:
+        arguments:
+            $host: '%env(MQ_HOST)%'
+            $port: '%env(MQ_PORT)%'
+            $user: '%env(MQ_USER)%'
+            $pwd: '%env(MQ_PWD)%'
+            $vhost: '%env(MQ_VHOST)%'
+
     # publishing
     App\Publishing\:
         resource: '../src/Publishing'

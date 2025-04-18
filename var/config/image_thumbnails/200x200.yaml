@@ -1,0 +1,26 @@
+pimcore:
+    assets:
+        image:
+            thumbnails:
+                definitions:
+                    200x200:
+                        items:
+                            -
+                                method: resize
+                                arguments:
+                                    width: 200
+                                    height: 200
+                        medias: {  }
+                        name: 200x200
+                        description: ''
+                        group: ''
+                        format: SOURCE
+                        quality: 85
+                        highResolution: null
+                        preserveColor: false
+                        preserveMetaData: false
+                        rasterizeSVG: false
+                        downloadable: false
+                        modificationDate: 1744797275
+                        creationDate: 1744797264
+                        preserveAnimation: false
