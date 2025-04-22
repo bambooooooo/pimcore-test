@@ -7,6 +7,7 @@
     "sort-packages": true,
     "process-timeout": 0,
     "allow-plugins": {
+      "php-http/discovery": true,
       "symfony/flex": true,
       "symfony/runtime": true
     }
@@ -14,6 +15,7 @@
   "prefer-stable": true,
   "require": {
     "ext-zip": "*",
+    "deeplcom/deepl-php": "^1.11",
     "pimcore/admin-ui-classic-bundle": "*",
     "pimcore/pimcore": "*",
     "pimcore/platform-version": "^2024.4",
