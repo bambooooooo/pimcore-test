@@ -7,11 +7,49 @@ pimcore:
             - de
             - fr
             - pl
+            - es
+            - cs
+            - da
+            - nl
+            - lv
+            - ro
+            - sk
+            - hu
+            - fi
+            - it
+            - el
+            - sv
+            - sl
+            - bg
+            - uk
+            - ru
+            - tr
+            - zh
+            - ja
         fallback_languages:
             en: pl
             de: en
             fr: en
             pl: ''
+            es: ''
+            cs: ''
+            da: ''
+            nl: ''
+            lv: ''
+            ro: ''
+            sk: ''
+            hu: ''
+            fi: ''
+            it: ''
+            el: ''
+            sv: ''
+            sl: ''
+            bg: ''
+            uk: ''
+            ru: ''
+            tr: ''
+            zh: ''
+            ja: ''
         required_languages:
             - en
             - de
@@ -29,6 +67,7 @@ pimcore:
                 en: ''
                 de: ''
                 fr: ''
+                pl: ''
     objects:
         versions:
             days: null
