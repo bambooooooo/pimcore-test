@@ -28,4 +28,15 @@ class DeepLService
     {
         return $this->deepLClient->translateText($text, $sourceLanguage, $targetLanguage)->text;
     }
+
+    /**
+     * Get current usage of service plan
+     *
+     * @return \DeepL\Usage
+     * @throws DeepLException
+     */
+    public function usage()
+    {
+        return $this->deepLClient->getUsage();
+    }
 }
