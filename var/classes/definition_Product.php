@@ -40,7 +40,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1744973511,
+   'modificationDate' => 1745294508,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -366,7 +366,7 @@ Obiekt wirtualny, który nie może być sprzedany (brakuje mu ukonkretnień), na
 Globalny identyfikator produktu (GTIN) nadawany w portalu <a href="https://mojegs1.pl/">mojegs1.pl</a>
 
 <h1>Nazwa</h1>
-Pełna nazwa produktu. Nazwa w językach obcych tłumaczona jest automatycznie.',
+Pełna nazwa produktu. Nazwa w językach obcych tłumaczona jest automatycznie w momencie publikacji produktu.',
                  'renderingClass' => '',
                  'renderingData' => '',
                  'border' => false,
