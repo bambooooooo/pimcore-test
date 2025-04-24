@@ -1,0 +1,32 @@
+pimcore:
+    assets:
+        image:
+            thumbnails:
+                definitions:
+                    200x200_center_whitebg:
+                        items:
+                            -
+                                method: setBackgroundColor
+                                arguments:
+                                    color: '#fafafa'
+                            -
+                                method: cover
+                                arguments:
+                                    width: 200
+                                    height: 200
+                                    positioning: center
+                                    forceResize: true
+                        medias: {  }
+                        name: 200x200_center_whitebg
+                        description: ''
+                        group: ''
+                        format: SOURCE
+                        quality: 85
+                        highResolution: null
+                        preserveColor: false
+                        preserveMetaData: false
+                        rasterizeSVG: false
+                        downloadable: false
+                        modificationDate: 1745484614
+                        creationDate: 1745484472
+                        preserveAnimation: false

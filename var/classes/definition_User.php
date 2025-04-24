@@ -5,7 +5,7 @@
  * Variants: no
  *
  * Fields Summary:
- * - Logo [image]
+ * - Image [image]
  * - email [email]
  * - Name [input]
  * - VAT [input]
@@ -26,7 +26,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1744107798,
+   'modificationDate' => 1745482829,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -85,8 +85,8 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
             array (
               0 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
-                 'name' => 'Logo',
-                 'title' => 'Logo',
+                 'name' => 'Image',
+                 'title' => 'Image',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
@@ -556,6 +556,29 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'enableGridLocking' => false,
    'deletedDataComponents' => 
   array (
+    0 => 
+    \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+       'name' => 'Logo',
+       'title' => 'Logo',
+       'tooltip' => '',
+       'mandatory' => false,
+       'noteditable' => false,
+       'index' => false,
+       'locked' => false,
+       'style' => 'float:right; margin: 8px;',
+       'permissions' => NULL,
+       'fieldtype' => '',
+       'relationType' => false,
+       'invisible' => false,
+       'visibleGridView' => false,
+       'visibleSearch' => false,
+       'blockedVarsForExport' => 
+      array (
+      ),
+       'uploadPath' => '',
+       'width' => 300,
+       'height' => 300,
+    )),
   ),
    'blockedVarsForExport' => 
   array (

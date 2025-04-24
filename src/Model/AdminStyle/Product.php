@@ -40,7 +40,7 @@ class Product extends AdminStyle
 
             if($product->getImage())
             {
-                $thumbnail = $product->getImage()->getThumbnail("200x200");
+                $thumbnail = $product->getImage()->getThumbnail("200x200_center");
                 $text .= '<div><img src="' . $thumbnail . '" width="190" height="190"/></div>';
             }
 

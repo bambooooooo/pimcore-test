@@ -1,0 +1,28 @@
+pimcore:
+    assets:
+        image:
+            thumbnails:
+                definitions:
+                    200x200_center:
+                        items:
+                            -
+                                method: cover
+                                arguments:
+                                    width: 200
+                                    height: 200
+                                    positioning: center
+                                    forceResize: false
+                        medias: {  }
+                        name: 200x200_center
+                        description: ''
+                        group: ''
+                        format: SOURCE
+                        quality: 85
+                        highResolution: null
+                        preserveColor: false
+                        preserveMetaData: false
+                        rasterizeSVG: false
+                        downloadable: false
+                        modificationDate: 1745482532
+                        creationDate: 1745482493
+                        preserveAnimation: false
