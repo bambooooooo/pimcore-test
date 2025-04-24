@@ -4,7 +4,12 @@ namespace App\Publishing;
 
 use App\Service\BrokerService;
 use App\Service\DeepLService;
+use Pimcore\Model\DataObject;
+use Pimcore\Model\DataObject\Data\ObjectMetadata;
+use Pimcore\Model\DataObject\Data\QuantityValue;
+use Pimcore\Model\DataObject\Parcel;
 use Pimcore\Model\DataObject\Product;
+use Pimcore\Model\DataObject\QuantityValue\Unit;
 
 class ProductPublisher
 {
@@ -17,16 +22,22 @@ class ProductPublisher
     {
         \Pimcore\Logger::info("Publishing product {$product->getId()}");
 
-        $this->assertNamePL($product);
-        $this->packageValidation($product);
+        DataObject\Service::useInheritedValues(true, function() use ($product) {
 
-        if($product->getObjectType() == 'ACTUAL')
-        {
-            $this->updateDefaultBarcode($product);
-            $this->translateNames($product);
+            $this->assertNamePL($product);
+            $this->packageValidation($product);
 
-            $this->sendToErp($product);
-        }
+            $this->updatePackagesMassAndVolume($product);
+
+            if($product->getObjectType() == 'ACTUAL')
+            {
+                $this->updateDefaultBarcode($product);
+                $this->translateNames($product);
+                $this->updateParcels($product);
+
+                $this->sendToErp($product);
+            }
+        });
     }
 
     private function assertNamePL(Product $product)
@@ -80,6 +91,260 @@ class ProductPublisher
             $product->setName($tx, $locale);
             $product->save();
         }
+    }
+
+    function updatePackagesMassAndVolume(Product $product) : void
+    {
+        $mass = 0;
+        $volume = 0;
+
+        foreach ($product->getPackages() as $li)
+        {
+            $mass += $li->getElement()->getMass()->getValue() * $li->getQuantity();
+
+            $v = $li->getQuantity()
+                * $li->getElement()->getWidth()->getValue()
+                * $li->getElement()->getHeight()->getValue()
+                * $li->getElement()->getDepth()->getValue();
+
+            $v = ((float)$v) / ((float)1000000000);
+            $volume += $v;
+        }
+
+        $kg = Unit::getByAbbreviation("kg");
+        $m3 = Unit::getByAbbreviation("m3");
+
+        $product->setPackagesMass(new QuantityValue($mass, $kg));
+        $product->setPackagesVolume(new QuantityValue($volume, $m3));
+
+        $product->save();
+    }
+
+    function updateParcels(Product $product) : void
+    {
+        $parcels = new Parcel\Listing();
+        $parcels->setCondition("`Country` IS NOT NULL AND `published` = 1");
+
+        $productParcels = [];
+
+        foreach ($parcels as $parcel)
+        {
+            $res = DataObject\Service::useInheritedValues(true, function() use ($parcel, $product){
+
+                $totalMass = $product->getPackagesMass()->getValue();
+                $totalVolume = $product->getPackagesVolume()->getValue();
+
+                $price = 0;
+                $item = new ObjectMetadata('Parcel', ['Price'], $parcel);
+
+                $packageCount = 0;
+
+                foreach ($product->getPackages() as $lip)
+                {
+                    $packageCount += $lip->getQuantity();
+                }
+
+                if($parcel->getRestrictions())
+                {
+                    if($parcel->getRestrictions()->getMaxPackageLength())
+                    {
+                        $limit = $parcel->getRestrictions()->getMaxPackageLength()->getLimit()->getValue();
+
+                        foreach ($product->getPackages() as $lip)
+                        {
+                            $dim = max([
+                                $lip->getElement()->getWidth()->getValue(),
+                                $lip->getElement()->getHeight()->getValue(),
+                                $lip->getElement()->getDepth()->getValue()
+                            ]);
+
+                            if($dim > $limit)
+                            {
+                                return null;
+                            }
+                        }
+                    }
+
+                    if($parcel->getRestrictions()->getMaxPackageWeight())
+                    {
+                        $limit = $parcel->getRestrictions()->getMaxPackageWeight()->getLimit()->getValue();
+
+                        foreach ($product->getPackages() as $lip)
+                        {
+                            $dim = $lip->getElement()->getMass()->getValue();
+
+                            if($dim > $limit)
+                            {
+                                return null;
+                            }
+                        }
+                    }
+
+                    if($parcel->getRestrictions()->getMaxPackageSideLengthSum())
+                    {
+                        $limit = $parcel->getRestrictions()->getMaxPackageSideLengthSum()->getLimit()->getValue();
+
+                        foreach ($product->getPackages() as $lip)
+                        {
+                            $dim = $lip->getElement()->getWidth()->getValue() +
+                                $lip->getElement()->getHeight()->getValue() +
+                                $lip->getElement()->getDepth()->getValue();
+
+                            if($dim > $limit)
+                            {
+                                return null;
+                            }
+                        }
+                    }
+                }
+
+                if($parcel->getRules())
+                {
+                    foreach ($parcel->getRules() as $rule)
+                    {
+                        if($rule instanceof \Pimcore\Model\DataObject\Fieldcollection\Data\ParcelMassVolume)
+                        {
+                            $massLimits = [];
+                            $volumeLimits = [];
+
+                            $skipCols = 2;
+                            $i = 0;
+
+                            foreach ($rule->getPrices()[0] as $headCell)
+                            {
+                                $i++;
+                                if($i <= $skipCols)
+                                {
+                                    continue;
+                                }
+
+                                $massLimits[] = intval(str_replace(",00", "", $headCell));
+                            }
+
+                            $skipRows = 2;
+                            $j = 0;
+
+                            foreach($rule->getPrices() as $row)
+                            {
+                                $j++;
+                                if($j <= $skipRows)
+                                {
+                                    continue;
+                                }
+
+                                $volumeLimits[] = floatval(str_replace(",", ".", $row[0]));
+                            }
+
+                            if($rule->getMode() == "PARCEL")
+                            {
+                                $x = 0;
+                                $y = 0;
+
+                                foreach ($massLimits as $m)
+                                {
+                                    if($m <= $totalMass)
+                                    {
+                                        $x++;
+                                    }
+                                    else
+                                    {
+                                        break;
+                                    }
+                                }
+
+                                foreach ($volumeLimits as $v)
+                                {
+                                    if($v <= $totalVolume)
+                                    {
+                                        $y++;
+                                    }
+                                    else
+                                    {
+                                        break;
+                                    }
+                                }
+
+                                $y++;
+                                $x++;
+
+                                $price += floatval(str_replace(",", ".", $rule->getPrices()[$y][$x]));
+                            }
+                            elseif($rule->getMode() == "PACKAGE")
+                            {
+                                foreach ($product->getPackages() as $lip)
+                                {
+                                    $x = 0;
+                                    $y = 0;
+
+                                    foreach ($massLimits as $m)
+                                    {
+                                        $packageMass = $lip->getQuantity() * $lip->getElement()->getMass()->getValue();
+
+                                        if($m <= $packageMass)
+                                        {
+                                            $x++;
+                                        }
+                                        else
+                                        {
+                                            break;
+                                        }
+                                    }
+
+                                    foreach ($volumeLimits as $v)
+                                    {
+                                        $packageVolume = $lip->getQuantity()
+                                            * $lip->getElement()->getWidth()->getValue()
+                                            * $lip->getElement()->getHeight()->getValue()
+                                            * $lip->getElement()->getDepth()->getValue();
+
+                                        if($v <= $packageVolume)
+                                        {
+                                            $y++;
+                                        }
+                                        else
+                                        {
+                                            break;
+                                        }
+                                    }
+
+                                    $y++;
+                                    $x++;
+
+                                    $price += floatval(str_replace(",", ".", $rule->getPrices()[$y][$x])) * $lip->getQuantity();
+                                }
+                            }
+                        }
+
+                        if($rule instanceof \Pimcore\Model\DataObject\Fieldcollection\Data\ParcelAddition)
+                        {
+                            $price += ($rule->getMode() == "PACKAGE") ? $rule->getFee()->getValue() * $packageCount : $rule->getFee()->getValue();
+                        }
+
+                        if($rule instanceof \Pimcore\Model\DataObject\Fieldcollection\Data\ParcelFactor)
+                        {
+                            $price *= $rule->getFactor();
+                        }
+                    }
+
+                    if($price > 0)
+                    {
+                        $price = round($price, 2);
+                        $item->setPrice($price);
+                        return $item;
+                    }
+
+                    return null;
+                }
+            });
+
+            if($res)
+            {
+                $productParcels[] = $res;
+            }
+        }
+
+        $product->setParcel($productParcels);
+        $product->save();
     }
 
     function sendToErp(Product $product) : void

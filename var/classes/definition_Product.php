@@ -11,12 +11,14 @@
  * - localizedfields [localizedfields]
  * -- Name [input]
  * -- Infographics [imageGallery]
+ * - Group [manyToOneRelation]
  * - Model [input]
  * - Width [quantityValue]
  * - Height [quantityValue]
  * - Depth [quantityValue]
  * - Mass [quantityValue]
  * - CN [select]
+ * - GPC [select]
  * - Groups [manyToManyObjectRelation]
  * - Parameters [classificationstore]
  * - MPN [input]
@@ -26,11 +28,13 @@
  * - BDOAluminium [quantityValue]
  * - BDOPlastic [quantityValue]
  * - BasePrice [quantityValue]
+ * - Parcel [advancedManyToManyObjectRelation]
  * - Images [imageGallery]
  * - Packages [advancedManyToManyObjectRelation]
+ * - PackagesMass [quantityValue]
+ * - PackagesVolume [quantityValue]
  * - Quality [numeric]
  * - Barcode [input]
- * - GPC [select]
  */
 
 return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
@@ -40,7 +44,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1745294508,
+   'modificationDate' => 1745412757,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -187,7 +191,7 @@ ACTAUL - sellable product that will be integrated in e-commerce systems',
                  'regexFlags' => 
                 array (
                 ),
-                 'unique' => false,
+                 'unique' => true,
                  'showCharCount' => false,
                  'width' => '',
                  'defaultValueGenerator' => '',
@@ -356,11 +360,14 @@ Główne zdjęcie produktu, najczęściej z przeźroczystym tłem
 
 Wyróżnia się następujące typy produktu:
 
-<h3>ACTUAL</h3>
-Konkretna realizacja produktu. Można go sprzedać lub kupić, nie zawiera danych abstrakcyjnych.
-
-<h3>VIRTUAL</h3>
-Obiekt wirtualny, który nie może być sprzedany (brakuje mu ukonkretnień), natomiast pomaga w grupowaniu produktów i ułatwia uzupełnianie danych dzięki dziedziczeniu
+<ul>
+<li>
+<strong>ACTUAL</strong> - Konkretna realizacja produktu. Można go sprzedać lub kupić, nie zawiera danych abstrakcyjnych.
+</li>
+<li>
+<strong>VIRTUAL</strong> - Obiekt wirtualny, który nie może być sprzedany (brakuje mu ukonkretnień), natomiast pomaga w grupowaniu produktów i ułatwia uzupełnianie danych dzięki dziedziczeniu
+</li>
+</ul>
 
 <h1>Kod EAN</h1>
 Globalny identyfikator produktu (GTIN) nadawany w portalu <a href="https://mojegs1.pl/">mojegs1.pl</a>
@@ -398,6 +405,48 @@ Pełna nazwa produktu. Nazwa w językach obcych tłumaczona jest automatycznie w
              'children' => 
             array (
               0 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+                 'name' => 'Group',
+                 'title' => 'Main Group',
+                 'tooltip' => '',
+                 'mandatory' => true,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => true,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'classes' => 
+                array (
+                  0 => 
+                  array (
+                    'classes' => 'Group',
+                  ),
+                ),
+                 'displayMode' => 'grid',
+                 'pathFormatterClass' => '',
+                 'assetInlineDownloadAllowed' => false,
+                 'assetUploadPath' => '',
+                 'allowToClearRelation' => false,
+                 'objectsAllowed' => true,
+                 'assetsAllowed' => false,
+                 'assetTypes' => 
+                array (
+                ),
+                 'documentsAllowed' => false,
+                 'documentTypes' => 
+                array (
+                ),
+                 'width' => '',
+              )),
+              1 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'Model',
                  'title' => 'Model',
@@ -427,7 +476,7 @@ Pełna nazwa produktu. Nazwa w językach obcych tłumaczona jest automatycznie w
                  'width' => '',
                  'defaultValueGenerator' => '',
               )),
-              1 => 
+              2 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                  'name' => 'Width',
                  'title' => 'Width',
@@ -467,7 +516,7 @@ Pełna nazwa produktu. Nazwa w językach obcych tłumaczona jest automatycznie w
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
               )),
-              2 => 
+              3 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                  'name' => 'Height',
                  'title' => 'Height',
@@ -507,7 +556,7 @@ Pełna nazwa produktu. Nazwa w językach obcych tłumaczona jest automatycznie w
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
               )),
-              3 => 
+              4 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                  'name' => 'Depth',
                  'title' => 'Depth',
@@ -547,7 +596,7 @@ Pełna nazwa produktu. Nazwa w językach obcych tłumaczona jest automatycznie w
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
               )),
-              4 => 
+              5 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                  'name' => 'Mass',
                  'title' => 'Mass',
@@ -584,7 +633,7 @@ Pełna nazwa produktu. Nazwa w językach obcych tłumaczona jest automatycznie w
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
               )),
-              5 => 
+              6 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                  'name' => 'CN',
                  'title' => 'CN Code',
@@ -615,12 +664,78 @@ Pełna nazwa produktu. Nazwa w językach obcych tłumaczona jest automatycznie w
                  'columnLength' => 190,
                  'dynamicOptions' => false,
                  'defaultValueGenerator' => '',
+                 'width' => 300,
+                 'optionsProviderType' => 'configure',
+                 'optionsProviderClass' => '',
+                 'optionsProviderData' => '',
+              )),
+              7 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                 'name' => 'GPC',
+                 'title' => 'GPC',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'options' => 
+                array (
+                  0 => 
+                  array (
+                    'key' => 'Zestawy łazienkowe',
+                    'value' => '10003814',
+                  ),
+                  1 => 
+                  array (
+                    'key' => 'Biurka',
+                    'value' => '10002205',
+                  ),
+                  2 => 
+                  array (
+                    'key' => 'Komody',
+                    'value' => '10002117',
+                  ),
+                  3 => 
+                  array (
+                    'key' => 'Ławy',
+                    'value' => '10005199',
+                  ),
+                  4 => 
+                  array (
+                    'key' => 'LEDy (zestawy oświetlenia)',
+                    'value' => '10008292',
+                  ),
+                  5 => 
+                  array (
+                    'key' => 'Regały (duże, salonowe)',
+                    'value' => '10002184',
+                  ),
+                  6 => 
+                  array (
+                    'key' => 'RTV',
+                    'value' => '10002186',
+                  ),
+                ),
+                 'defaultValue' => '',
+                 'columnLength' => 190,
+                 'dynamicOptions' => false,
+                 'defaultValueGenerator' => '',
                  'width' => '',
                  'optionsProviderType' => 'configure',
                  'optionsProviderClass' => '',
                  'optionsProviderData' => '',
               )),
-              6 => 
+              8 => 
               \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                  'name' => 'Layout',
                  'type' => NULL,
@@ -640,7 +755,11 @@ Pełna nazwa produktu. Nazwa w językach obcych tłumaczona jest automatycznie w
                 array (
                 ),
                  'fieldtype' => 'text',
-                 'html' => '<h1>Model produktu</h1>
+                 'html' => '<h1>Grupa podstawowa</h1>
+
+Kategoria podstawowa, do której należy produkt
+
+<h1>Model produktu</h1>
 
 Projekt bazowy, na podstawie którego powstał dany produkt.<br>
 Przykładowo:
@@ -659,7 +778,11 @@ Waga netto produktu - bez opakowania
 
 <h1>CN</h1>
 
-Klasyfikacja CN produktu. Można skorzystać z wyszukiwarki <a href="https://ext-isztar4.mf.gov.pl/taryfa_celna/browseNomen.xhtml?cnCode=9403+60+10+00&suffix=80&country=&lang=PL&page=1&date=20220222">ext-isztar4.mf.gov.pl</a>',
+Klasyfikacja CN produktu. Można skorzystać z wyszukiwarki <a href="https://ext-isztar4.mf.gov.pl/taryfa_celna/browseNomen.xhtml?cnCode=9403+60+10+00&amp;suffix=80&amp;country=&amp;lang=PL&amp;page=1&amp;date=20220222">ext-isztar4.mf.gov.pl</a>
+
+<h1>GPC</h1>
+
+Ośmiocyfrowy numer "Brick" klasyfikacji produktowej GS1 GPC. Wyszukiwarka kodów znajduje się pod adresem: <a href="https://www.gs1.org/services/gpc-browser">https://www.gs1.org/services/gpc-browser</a> Należy podać klasyfikację GPC zgodnie z listą segmentów GPC Twojej firmy. Listą można zarządzać na MojeGS1 w zakładce Rejestr produktów/Lista segmentów GPC. W przypadku GTIN-14 informacja o klasyfikacji GPC jest automatycznie pobierana z produktu bazowego.',
                  'renderingClass' => '',
                  'renderingData' => '',
                  'border' => false,
@@ -1180,6 +1303,59 @@ Surowce wprowadzone do obiegu i podlegające opłacie BDO <a href="https://bdo.m
                  'decimalPrecision' => NULL,
               )),
               1 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
+                 'name' => 'Parcel',
+                 'title' => 'Parcel',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => true,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'classes' => 
+                array (
+                ),
+                 'displayMode' => NULL,
+                 'pathFormatterClass' => '',
+                 'maxItems' => NULL,
+                 'visibleFields' => 'key,Country',
+                 'allowToCreateNewObject' => false,
+                 'allowToClearRelation' => true,
+                 'optimizedAdminLoading' => false,
+                 'enableTextSelection' => false,
+                 'visibleFieldDefinitions' => 
+                array (
+                ),
+                 'width' => '',
+                 'height' => '',
+                 'allowedClassId' => 'Parcel',
+                 'columns' => 
+                array (
+                  0 => 
+                  array (
+                    'type' => 'number',
+                    'position' => 1,
+                    'key' => 'Price',
+                    'label' => 'Price PLN',
+                  ),
+                ),
+                 'columnKeys' => 
+                array (
+                  0 => 'Price',
+                ),
+                 'enableBatchEdit' => false,
+                 'allowMultipleAssignments' => false,
+              )),
+              2 => 
               \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                  'name' => 'Layout',
                  'type' => NULL,
@@ -1201,7 +1377,11 @@ Surowce wprowadzone do obiegu i podlegające opłacie BDO <a href="https://bdo.m
                  'fieldtype' => 'text',
                  'html' => '<h1>Cena bazowa</h1>
 
-Cena zakupu produktu u producenta lub techniczny koszt wytworzenia przy własnej produkcji',
+Cena zakupu produktu u producenta lub techniczny koszt wytworzenia przy własnej produkcji
+
+<h1>Wysyłka</h1>
+
+Koszt wysyłki realizowanej w ramach konkretnej usługi w danym kraju. Koszt obliczany jest automatycznie w momencie publikacji produktu na podstawie parametrów paczek.',
                  'renderingClass' => '',
                  'renderingData' => '',
                  'border' => false,
@@ -1406,7 +1586,7 @@ Infografiki przeznaczone na dany region (język)',
                  'displayMode' => NULL,
                  'pathFormatterClass' => '',
                  'maxItems' => NULL,
-                 'visibleFields' => 'key',
+                 'visibleFields' => 'key,Mass,Depth,Height,Width',
                  'allowToCreateNewObject' => false,
                  'allowToClearRelation' => true,
                  'optimizedAdminLoading' => false,
@@ -1436,6 +1616,80 @@ Infografiki przeznaczone na dany region (język)',
                  'allowMultipleAssignments' => false,
               )),
               1 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                 'name' => 'PackagesMass',
+                 'title' => 'Packages Mass',
+                 'tooltip' => 'Sum of packages mass',
+                 'mandatory' => false,
+                 'noteditable' => true,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'unitWidth' => '',
+                 'defaultUnit' => 'kg',
+                 'validUnits' => 
+                array (
+                  0 => 'kg',
+                ),
+                 'unique' => false,
+                 'autoConvert' => false,
+                 'defaultValueGenerator' => '',
+                 'width' => '',
+                 'defaultValue' => NULL,
+                 'integer' => false,
+                 'unsigned' => false,
+                 'minValue' => NULL,
+                 'maxValue' => NULL,
+                 'decimalSize' => NULL,
+                 'decimalPrecision' => NULL,
+              )),
+              2 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                 'name' => 'PackagesVolume',
+                 'title' => 'Packages Volume',
+                 'tooltip' => 'Sum of packages volumes',
+                 'mandatory' => false,
+                 'noteditable' => true,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'unitWidth' => '',
+                 'defaultUnit' => 'm3',
+                 'validUnits' => 
+                array (
+                  0 => 'm3',
+                ),
+                 'unique' => false,
+                 'autoConvert' => false,
+                 'defaultValueGenerator' => '',
+                 'width' => '',
+                 'defaultValue' => NULL,
+                 'integer' => false,
+                 'unsigned' => false,
+                 'minValue' => NULL,
+                 'maxValue' => NULL,
+                 'decimalSize' => NULL,
+                 'decimalPrecision' => NULL,
+              )),
+              3 => 
               \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                  'name' => 'Layout',
                  'type' => NULL,
@@ -1457,7 +1711,15 @@ Infografiki przeznaczone na dany region (język)',
                  'fieldtype' => 'text',
                  'html' => '<h1>Paczki</h1>
 
-Paczki produktu',
+Paczki produktu
+
+<h1>Masa paczek</h1>
+
+Łączna masa paczek
+
+<h1>Objętość paczek</h1>
+
+Łączna objętość paczek',
                  'renderingClass' => '',
                  'renderingData' => '',
                  'border' => false,
@@ -1602,72 +1864,6 @@ Stopień uzupełnienia danych produktu',
                  'defaultValueGenerator' => '',
               )),
               1 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                 'name' => 'GPC',
-                 'title' => 'GPC',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'options' => 
-                array (
-                  0 => 
-                  array (
-                    'key' => 'Zestawy łazienkowe',
-                    'value' => '10003814',
-                  ),
-                  1 => 
-                  array (
-                    'key' => 'Biurka',
-                    'value' => '10002205',
-                  ),
-                  2 => 
-                  array (
-                    'key' => 'Komody',
-                    'value' => '10002117',
-                  ),
-                  3 => 
-                  array (
-                    'key' => 'Ławy',
-                    'value' => '10005199',
-                  ),
-                  4 => 
-                  array (
-                    'key' => 'LEDy (zestawy oświetlenia)',
-                    'value' => '10008292',
-                  ),
-                  5 => 
-                  array (
-                    'key' => 'Regały (duże, salonowe)',
-                    'value' => '10002184',
-                  ),
-                  6 => 
-                  array (
-                    'key' => 'RTV',
-                    'value' => '10002186',
-                  ),
-                ),
-                 'defaultValue' => '',
-                 'columnLength' => 190,
-                 'dynamicOptions' => false,
-                 'defaultValueGenerator' => '',
-                 'width' => '',
-                 'optionsProviderType' => 'configure',
-                 'optionsProviderClass' => '',
-                 'optionsProviderData' => '',
-              )),
-              2 => 
               \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                  'name' => 'Layout',
                  'type' => NULL,
@@ -1691,9 +1887,7 @@ Stopień uzupełnienia danych produktu',
 
 Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfikatora (id z tabeli objects)
 
-<h1>GPC</h1>
-
-Ośmiocyfrowy numer "Brick" klasyfikacji produktowej GS1 GPC. Wyszukiwarka kodów znajduje się pod adresem: <a href="https://www.gs1.org/services/gpc-browser">https://www.gs1.org/services/gpc-browser</a> Należy podać klasyfikację GPC zgodnie z listą segmentów GPC Twojej firmy. Listą można zarządzać na MojeGS1 w zakładce Rejestr produktów/Lista segmentów GPC. W przypadku GTIN-14 informacja o klasyfikacji GPC jest automatycznie pobierana z produktu bazowego.',
+',
                  'renderingClass' => '',
                  'renderingData' => '',
                  'border' => false,

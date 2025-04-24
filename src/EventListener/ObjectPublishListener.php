@@ -21,19 +21,15 @@ class ObjectPublishListener
     {
         $obj = $event->getElement();
 
-        if(!$obj->isPublished()) {
-            return;
-        }
-
-        if($obj instanceof Product)
+        if($obj instanceof Product and $obj->isPublished())
         {
             $this->productPublisher->publish($obj);
         }
-        if($obj instanceof ProductSet)
+        if($obj instanceof ProductSet and $obj->isPublished())
         {
             $this->productSetPublisher->publish($obj);
         }
-        else if ($obj instanceof EanPool)
+        else if ($obj instanceof EanPool and $obj->isPublished())
         {
             $this->eanPoolPublisher->publish($obj);
         }
