@@ -1,0 +1,27 @@
+site_name: Pimcore Megstyl
+site_url: https://pim.megstyl.com/
+repo_url: https://github.com/bambooooooo/
+nav:
+    - Home: index.md
+    - Product: product.md
+theme:
+    name: material
+    primary: black
+    logo: https://sklep.megstyl.pl/themes/megtheme/assets/img/logo.svg
+    palette:
+        # Palette toggle for light mode
+        - scheme: default
+          primary: white
+          toggle:
+              icon: material/brightness-7
+              name: Switch to dark mode
+
+
+        # Palette toggle for dark mode
+        - scheme: slate
+          primary: white
+          toggle:
+              icon: material/brightness-4
+              name: Switch to light mode
+
+

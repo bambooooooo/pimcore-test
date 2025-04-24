@@ -77,6 +77,15 @@ services:
             - ./.docker/messenger.yaml:/var/www/html/config/packages/messenger.yaml:ro
             - ./.docker/supervisord.conf:/etc/supervisor/conf.d/pimcore.conf:ro
 
+    docs:
+        image: squidfunk/mkdocs-material
+        ports:
+            - "8005:8000"
+        volumes:
+            - ./:/docs:ro
+        stdin_open: true
+        tty: true
+
 volumes:
     pimcore-database:
     pimcore-rabbitmq:
