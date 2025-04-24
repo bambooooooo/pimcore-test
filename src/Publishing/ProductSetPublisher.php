@@ -8,9 +8,13 @@ use Pimcore\Bundle\ApplicationLoggerBundle\ApplicationLogger;
 use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\Data\ObjectMetadata;
 use Pimcore\Model\DataObject\Data\QuantityValue;
+use Pimcore\Model\DataObject\Fieldcollection\Data\ParcelAddition;
+use Pimcore\Model\DataObject\Fieldcollection\Data\ParcelFactor;
+use Pimcore\Model\DataObject\Fieldcollection\Data\ParcelMassVolume;
 use Pimcore\Model\DataObject\ProductSet;
 use Pimcore\Model\DataObject\Parcel;
 use Pimcore\Model\DataObject\QuantityValue\Unit;
+use Pimcore\Tool;
 
 class ProductSetPublisher
 {
@@ -50,7 +54,7 @@ class ProductSetPublisher
         }
     }
 
-    private function assertNamePL(ProductSet $set)
+    private function assertNamePL(ProductSet $set) : void
     {
         assert($set->getName("pl") and strlen($set->getName("pl")) > 3, "ProductSet has to provide name in at least PL");
     }
@@ -99,7 +103,7 @@ class ProductSetPublisher
                     * $lip->getElement()->getHeight()->getValue()
                     * $lip->getElement()->getDepth()->getValue();
 
-                $v = ((float)$v) / ((float)1000000000);
+                $v = ((float)$v) / (1000000000.0);
 
                 $packageId = $lip->getElement()->getId();
 
@@ -200,7 +204,7 @@ class ProductSetPublisher
                 {
                     foreach ($parcel->getRules() as $rule)
                     {
-                        if($rule instanceof \Pimcore\Model\DataObject\Fieldcollection\Data\ParcelMassVolume)
+                        if($rule instanceof ParcelMassVolume)
                         {
                             $massLimits = [];
                             $volumeLimits = [];
@@ -306,12 +310,12 @@ class ProductSetPublisher
                             }
                         }
 
-                        if($rule instanceof \Pimcore\Model\DataObject\Fieldcollection\Data\ParcelAddition)
+                        if($rule instanceof ParcelAddition)
                         {
                             $price += ($rule->getMode() == "PACKAGE") ? $rule->getFee()->getValue() * $packageCount : $rule->getFee()->getValue();
                         }
 
-                        if($rule instanceof \Pimcore\Model\DataObject\Fieldcollection\Data\ParcelFactor)
+                        if($rule instanceof ParcelFactor)
                         {
                             $price *= $rule->getFactor();
                         }
@@ -323,9 +327,9 @@ class ProductSetPublisher
                         $item->setPrice($price);
                         return $item;
                     }
-
-                    return null;
                 }
+
+                return null;
             });
 
             if($res)
@@ -355,9 +359,7 @@ class ProductSetPublisher
 
     function translateName(ProductSet $set) : void
     {
-        $plName = $set->getName("pl");
-
-        $languages = \Pimcore\Tool::getValidLanguages();
+        $languages = Tool::getValidLanguages();
 
         foreach ($languages as $locale)
         {
@@ -370,7 +372,7 @@ class ProductSetPublisher
 
             $deeplLocale = ($locale == "en") ? "EN-US" : $locale;
 
-            $tx = $this->deepLService->translate($plName, $deeplLocale, "pl");
+            $tx = $this->deepLService->translate($set->getName("pl"), $deeplLocale, "pl");
 
             $set->setName($tx, $locale);
             $set->save();
@@ -379,8 +381,7 @@ class ProductSetPublisher
 
     function sendToErp(ProductSet $productSet) : void
     {
-        $name = $productSet->getKey();
-        $name = substr($name, 0, min(strlen($name), 50));
+        $name = substr($productSet->getKey(), 0, min(strlen($productSet->getKey()), 50));
 
         $image = $productSet->getImage()->getThumbnail("200x200");
         $stream = $image->getStream();

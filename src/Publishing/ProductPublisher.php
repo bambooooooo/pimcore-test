@@ -4,12 +4,17 @@ namespace App\Publishing;
 
 use App\Service\BrokerService;
 use App\Service\DeepLService;
+use Pimcore\Logger;
 use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\Data\ObjectMetadata;
 use Pimcore\Model\DataObject\Data\QuantityValue;
+use Pimcore\Model\DataObject\Fieldcollection\Data\ParcelAddition;
+use Pimcore\Model\DataObject\Fieldcollection\Data\ParcelFactor;
+use Pimcore\Model\DataObject\Fieldcollection\Data\ParcelMassVolume;
 use Pimcore\Model\DataObject\Parcel;
 use Pimcore\Model\DataObject\Product;
 use Pimcore\Model\DataObject\QuantityValue\Unit;
+use Pimcore\Tool;
 
 class ProductPublisher
 {
@@ -20,7 +25,7 @@ class ProductPublisher
 
     public function publish(Product $product): void
     {
-        \Pimcore\Logger::info("Publishing product {$product->getId()}");
+        Logger::info("Publishing product {$product->getId()}");
 
         DataObject\Service::useInheritedValues(true, function() use ($product) {
 
@@ -40,7 +45,7 @@ class ProductPublisher
         });
     }
 
-    private function assertNamePL(Product $product)
+    private function assertNamePL(Product $product) : void
     {
         assert($product->getName("pl") and strlen($product->getName("pl")) > 3, "Product has to provide name in at least PL");
     }
@@ -73,7 +78,7 @@ class ProductPublisher
     {
         $plName = $product->getName("pl");
 
-        $languages = \Pimcore\Tool::getValidLanguages();
+        $languages = Tool::getValidLanguages();
 
         foreach ($languages as $locale)
         {
@@ -107,7 +112,7 @@ class ProductPublisher
                 * $li->getElement()->getHeight()->getValue()
                 * $li->getElement()->getDepth()->getValue();
 
-            $v = ((float)$v) / ((float)1000000000);
+            $v = ((float)$v) / (1000000000.0);
             $volume += $v;
         }
 
@@ -202,7 +207,7 @@ class ProductPublisher
                 {
                     foreach ($parcel->getRules() as $rule)
                     {
-                        if($rule instanceof \Pimcore\Model\DataObject\Fieldcollection\Data\ParcelMassVolume)
+                        if($rule instanceof ParcelMassVolume)
                         {
                             $massLimits = [];
                             $volumeLimits = [];
@@ -315,12 +320,12 @@ class ProductPublisher
                             }
                         }
 
-                        if($rule instanceof \Pimcore\Model\DataObject\Fieldcollection\Data\ParcelAddition)
+                        if($rule instanceof ParcelAddition)
                         {
                             $price += ($rule->getMode() == "PACKAGE") ? $rule->getFee()->getValue() * $packageCount : $rule->getFee()->getValue();
                         }
 
-                        if($rule instanceof \Pimcore\Model\DataObject\Fieldcollection\Data\ParcelFactor)
+                        if($rule instanceof ParcelFactor)
                         {
                             $price *= $rule->getFactor();
                         }
@@ -332,9 +337,9 @@ class ProductPublisher
                         $item->setPrice($price);
                         return $item;
                     }
-
-                    return null;
                 }
+
+                return null;
             });
 
             if($res)
