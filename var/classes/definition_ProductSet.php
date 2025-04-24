@@ -8,7 +8,7 @@
  * - Image [image]
  * - localizedfields [localizedfields]
  * -- Name [input]
- * - Set [advancedManyToManyRelation]
+ * - Set [advancedManyToManyObjectRelation]
  * - EAN [input]
  * - Mass [quantityValue]
  * - PackagesMass [quantityValue]
@@ -28,7 +28,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1745469218,
+   'modificationDate' => 1745497838,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -179,7 +179,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'fieldDefinitionsCache' => NULL,
               )),
               2 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyRelation::__set_state(array(
+              \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
                  'name' => 'Set',
                  'title' => 'Skład zestawu',
                  'tooltip' => '',
@@ -207,21 +207,17 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'displayMode' => NULL,
                  'pathFormatterClass' => '',
                  'maxItems' => NULL,
-                 'assetInlineDownloadAllowed' => false,
-                 'assetUploadPath' => '',
+                 'visibleFields' => 'key,Width',
+                 'allowToCreateNewObject' => false,
                  'allowToClearRelation' => true,
-                 'objectsAllowed' => true,
-                 'assetsAllowed' => false,
-                 'assetTypes' => 
-                array (
-                ),
-                 'documentsAllowed' => false,
-                 'documentTypes' => 
-                array (
-                ),
+                 'optimizedAdminLoading' => false,
                  'enableTextSelection' => false,
+                 'visibleFieldDefinitions' => 
+                array (
+                ),
                  'width' => '',
-                 'height' => NULL,
+                 'height' => '',
+                 'allowedClassId' => 'Product',
                  'columns' => 
                 array (
                   0 => 
@@ -236,8 +232,6 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 array (
                   0 => 'Quantity',
                 ),
-                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\ElementMetadata[]',
-                 'optimizedAdminLoading' => false,
                  'enableBatchEdit' => false,
                  'allowMultipleAssignments' => false,
               )),

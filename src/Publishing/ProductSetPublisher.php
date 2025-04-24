@@ -25,20 +25,22 @@ class ProductSetPublisher
 
     public function publish(ProductSet $set): void
     {
-        $this->assertNamePL($set);
-        $this->setItemsValidation($set);
+        DataObject\Service::useInheritedValues(true, function () use ($set) {
+            $this->assertNamePL($set);
+            $this->setItemsValidation($set);
 
-        $this->updateMass($set);
-        $this->updatePackageMass($set);
-        $this->updatePackageVolumes($set);
+            $this->updateMass($set);
+            $this->updatePackageMass($set);
+            $this->updatePackageVolumes($set);
 
-        $this->updateParcels($set);
+            $this->updateParcels($set);
 
-        $this->updateBasePrice($set);
-        $this->translateName($set);
+            $this->updateBasePrice($set);
+            $this->translateName($set);
 
-        $this->sendToErp($set);
-        ApplicationLogger::getInstance()->info("Publishing ProductSet {$set->getId()}");
+            $this->sendToErp($set);
+            ApplicationLogger::getInstance()->info("Publishing ProductSet {$set->getId()}");
+        });
     }
 
     function setItemsValidation(ProductSet $set) : void
@@ -64,9 +66,7 @@ class ProductSetPublisher
         $mass = 0;
         foreach ($productSet->getSet() as $li)
         {
-            $massItem = $li->getElement()->getMass()->getValue() * (float)$li->getQuantity();
-
-            $mass += $massItem;
+            $mass += $li->getElement()->getMass()->getValue() * (float)$li->getQuantity();
         }
 
         $kg = Unit::getByAbbreviation("kg");

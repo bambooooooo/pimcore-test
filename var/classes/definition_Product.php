@@ -23,10 +23,6 @@
  * - Parameters [classificationstore]
  * - MPN [input]
  * - Manufacturer [manyToOneRelation]
- * - BDOPaper [quantityValue]
- * - BDOSteel [quantityValue]
- * - BDOAluminium [quantityValue]
- * - BDOPlastic [quantityValue]
  * - BasePrice [quantityValue]
  * - Parcel [advancedManyToManyObjectRelation]
  * - Images [imageGallery]
@@ -44,7 +40,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1745412757,
+   'modificationDate' => 1745494588,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -150,11 +146,13 @@ ACTAUL - sellable product that will be integrated in e-commerce systems',
                   array (
                     'key' => 'ACTUAL',
                     'value' => 'ACTUAL',
+                    'id' => 'extModel2848-1',
                   ),
                   1 => 
                   array (
                     'key' => 'VIRTUAL',
                     'value' => 'VIRTUAL',
+                    'id' => 'extModel2848-2',
                   ),
                 ),
                  'defaultValue' => 'ACTUAL',
@@ -1022,180 +1020,6 @@ Parametry produktu podzielone na kolekcje i grupy.',
                  'width' => '',
               )),
               2 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-                 'name' => 'BDO',
-                 'type' => NULL,
-                 'region' => NULL,
-                 'title' => 'BDO',
-                 'width' => '',
-                 'height' => '',
-                 'collapsible' => false,
-                 'collapsed' => false,
-                 'bodyStyle' => '',
-                 'datatype' => 'layout',
-                 'children' => 
-                array (
-                  0 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                     'name' => 'BDOPaper',
-                     'title' => 'BDO Paper',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'unitWidth' => '',
-                     'defaultUnit' => NULL,
-                     'validUnits' => 
-                    array (
-                      0 => 'kg',
-                    ),
-                     'unique' => false,
-                     'autoConvert' => false,
-                     'defaultValueGenerator' => '',
-                     'width' => '',
-                     'defaultValue' => NULL,
-                     'integer' => false,
-                     'unsigned' => false,
-                     'minValue' => NULL,
-                     'maxValue' => NULL,
-                     'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
-                  )),
-                  1 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                     'name' => 'BDOSteel',
-                     'title' => 'BDO Steel',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'unitWidth' => '',
-                     'defaultUnit' => NULL,
-                     'validUnits' => 
-                    array (
-                      0 => 'kg',
-                    ),
-                     'unique' => false,
-                     'autoConvert' => false,
-                     'defaultValueGenerator' => '',
-                     'width' => '',
-                     'defaultValue' => NULL,
-                     'integer' => false,
-                     'unsigned' => false,
-                     'minValue' => NULL,
-                     'maxValue' => NULL,
-                     'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
-                  )),
-                  2 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                     'name' => 'BDOAluminium',
-                     'title' => 'BDO Aluminium',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'unitWidth' => '',
-                     'defaultUnit' => NULL,
-                     'validUnits' => 
-                    array (
-                      0 => 'kg',
-                    ),
-                     'unique' => false,
-                     'autoConvert' => false,
-                     'defaultValueGenerator' => '',
-                     'width' => '',
-                     'defaultValue' => NULL,
-                     'integer' => false,
-                     'unsigned' => false,
-                     'minValue' => NULL,
-                     'maxValue' => NULL,
-                     'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
-                  )),
-                  3 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                     'name' => 'BDOPlastic',
-                     'title' => 'BDO Plastic',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'unitWidth' => '',
-                     'defaultUnit' => NULL,
-                     'validUnits' => 
-                    array (
-                      0 => 'kg',
-                    ),
-                     'unique' => false,
-                     'autoConvert' => false,
-                     'defaultValueGenerator' => '',
-                     'width' => '',
-                     'defaultValue' => NULL,
-                     'integer' => false,
-                     'unsigned' => false,
-                     'minValue' => NULL,
-                     'maxValue' => NULL,
-                     'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
-                  )),
-                ),
-                 'locked' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'fieldtype' => 'panel',
-                 'layout' => NULL,
-                 'border' => false,
-                 'icon' => 'http://localhost/bundles/pimcoreadmin/img/flat-color-icons/globe.svg',
-                 'labelWidth' => 100,
-                 'labelAlign' => 'left',
-              )),
-              3 => 
               \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                  'name' => 'Layout',
                  'type' => NULL,
@@ -1223,15 +1047,7 @@ Manufacturer product number - kod producenta
 
 Producent
 
-<h1>BDO</h1>
-
-Surowce wprowadzone do obiegu i podlegające opłacie BDO <a href="https://bdo.mos.gov.pl/">https://bdo.mos.gov.pl/</a>, czyli:
-<ul>
-<li>Papier</li>
-<li>Stal</li>
-<li>Aluminium</li>
-<li>Tworzywa sztuczne</li>
-</ul>',
+',
                  'renderingClass' => '',
                  'renderingData' => '',
                  'border' => false,
@@ -1586,7 +1402,7 @@ Infografiki przeznaczone na dany region (język)',
                  'displayMode' => NULL,
                  'pathFormatterClass' => '',
                  'maxItems' => NULL,
-                 'visibleFields' => 'key,Mass,Depth,Height,Width',
+                 'visibleFields' => 'key,Mass,Depth,Height,Width,Barcode',
                  'allowToCreateNewObject' => false,
                  'allowToClearRelation' => true,
                  'optimizedAdminLoading' => false,
@@ -1596,7 +1412,7 @@ Infografiki przeznaczone na dany region (język)',
                 ),
                  'width' => '',
                  'height' => '',
-                 'allowedClassId' => 'Product',
+                 'allowedClassId' => 'Package',
                  'columns' => 
                 array (
                   0 => 
@@ -1900,7 +1716,7 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
              'fieldtype' => 'panel',
              'layout' => NULL,
              'border' => false,
-             'icon' => '',
+             'icon' => '/UI/barcode.svg',
              'labelWidth' => 100,
              'labelAlign' => 'left',
           )),

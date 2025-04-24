@@ -12,6 +12,7 @@ use Pimcore\Model\DataObject\Group;
 use Pimcore\Model\DataObject\Product;
 use Pimcore\Model\DataObject\ProductSet;
 use Pimcore\Model\DataObject\User;
+use Pimcore\Model\DataObject\Package;
 
 class AdminStyleListener
 {
@@ -61,6 +62,10 @@ class AdminStyleListener
         else if($element instanceof User)
         {
             $event->setAdminStyle(new \App\Model\AdminStyle\User($element));
+        }
+        else if($element instanceof Package)
+        {
+            $event->setAdminStyle(new \App\Model\AdminStyle\Package($element));
         }
         else if ($element instanceof Asset\Image)
         {
