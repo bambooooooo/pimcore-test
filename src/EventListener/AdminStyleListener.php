@@ -4,10 +4,9 @@ namespace App\EventListener;
 
 namespace App\EventListener;
 
-use Pimcore\Model\Asset;
-use Pimcore\Model\Element\AdminStyle;
-use Pimcore\Event\BundleManager\PathsEvent;
 use Pimcore\Bundle\AdminBundle\Event\ElementAdminStyleEvent;
+use Pimcore\Event\BundleManager\PathsEvent;
+use Pimcore\Model\DataObject\Product;
 
 class AdminStyleListener
 {
@@ -33,5 +32,14 @@ class AdminStyleListener
                 ]
             )
         );
+    }
+
+    public function onResolveElementAdminStyle(ElementAdminStyleEvent $event): void
+    {
+        $element = $event->getElement();
+
+        if($element instanceof Product) {
+            $event->setAdminStyle(new \App\Model\AdminStyle\Product($element));
+        }
     }
 }
