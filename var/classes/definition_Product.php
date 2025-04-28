@@ -10,6 +10,7 @@
  * - Image [image]
  * - ObjectType [select]
  * - Ean [input]
+ * - MPN [input]
  * - localizedfields [localizedfields]
  * -- Name [input]
  * -- Infographics [imageGallery]
@@ -21,10 +22,10 @@
  * - Mass [quantityValue]
  * - CN [select]
  * - GPC [select]
+ * - COO [country]
+ * - Manufacturer [manyToOneRelation]
  * - Groups [manyToManyObjectRelation]
  * - Parameters [classificationstore]
- * - MPN [input]
- * - Manufacturer [manyToOneRelation]
  * - BasePrice [quantityValue]
  * - Parcel [advancedManyToManyObjectRelation]
  * - Images [imageGallery]
@@ -33,6 +34,8 @@
  * - PackagesVolume [quantityValue]
  * - Quality [numeric]
  * - Barcode [input]
+ * - Codes [objectbricks]
+ * - Documents [manyToManyRelation]
  */
 
 return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
@@ -42,7 +45,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Produkt',
    'description' => 'Towar, który można sprzedać',
    'creationDate' => NULL,
-   'modificationDate' => 1745815523,
+   'modificationDate' => 1745823468,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -206,6 +209,38 @@ Kod mozna przypisać za pomocą przycisku w górnym menu.',
                  'defaultValueGenerator' => '',
               )),
               3 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                 'name' => 'MPN',
+                 'title' => 'MPN',
+                 'tooltip' => 'MPN - Manufacturer Product Number
+
+Kod producenta',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'defaultValue' => NULL,
+                 'columnLength' => 190,
+                 'regex' => '',
+                 'regexFlags' => 
+                array (
+                ),
+                 'unique' => false,
+                 'showCharCount' => false,
+                 'width' => '',
+                 'defaultValueGenerator' => '',
+              )),
+              4 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
                  'name' => 'localizedfields',
                  'title' => '',
@@ -720,6 +755,79 @@ Ośmiocyfrowy numer "Brick" klasyfikacji produktowej GS1 GPC. Wyszukiwarka kodó
                  'optionsProviderClass' => '',
                  'optionsProviderData' => '',
               )),
+              8 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Country::__set_state(array(
+                 'name' => 'COO',
+                 'title' => 'Country Of Origin',
+                 'tooltip' => 'Kraj pochodzenia produktu',
+                 'mandatory' => true,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'defaultValue' => NULL,
+                 'columnLength' => 190,
+                 'dynamicOptions' => false,
+                 'defaultValueGenerator' => '',
+                 'width' => '',
+                 'optionsProviderType' => NULL,
+                 'optionsProviderClass' => NULL,
+                 'optionsProviderData' => NULL,
+                 'restrictTo' => 'CN,PL',
+              )),
+              9 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+                 'name' => 'Manufacturer',
+                 'title' => 'Manufacturer',
+                 'tooltip' => 'Manufacturer
+
+Producent',
+                 'mandatory' => true,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => true,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'classes' => 
+                array (
+                  0 => 
+                  array (
+                    'classes' => 'User',
+                  ),
+                ),
+                 'displayMode' => 'grid',
+                 'pathFormatterClass' => '',
+                 'assetInlineDownloadAllowed' => false,
+                 'assetUploadPath' => '',
+                 'allowToClearRelation' => true,
+                 'objectsAllowed' => true,
+                 'assetsAllowed' => false,
+                 'assetTypes' => 
+                array (
+                ),
+                 'documentsAllowed' => false,
+                 'documentTypes' => 
+                array (
+                ),
+                 'width' => '',
+              )),
             ),
              'locked' => false,
              'blockedVarsForExport' => 
@@ -769,10 +877,6 @@ Grupy, do których przypisany jest produkt.',
                 ),
                  'classes' => 
                 array (
-                  0 => 
-                  array (
-                    'classes' => '',
-                  ),
                 ),
                  'displayMode' => 'grid',
                  'pathFormatterClass' => '',
@@ -846,108 +950,6 @@ Parametry produktu podzielone na kolekcje i grupy.',
              'labelAlign' => 'left',
           )),
           3 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-             'name' => 'Factory',
-             'type' => NULL,
-             'region' => NULL,
-             'title' => 'Factory',
-             'width' => '',
-             'height' => '',
-             'collapsible' => false,
-             'collapsed' => false,
-             'bodyStyle' => '',
-             'datatype' => 'layout',
-             'children' => 
-            array (
-              0 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                 'name' => 'MPN',
-                 'title' => 'MPN',
-                 'tooltip' => 'MPN - Manufacturer Product Number
-
-Kod producenta',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'defaultValue' => NULL,
-                 'columnLength' => 190,
-                 'regex' => '',
-                 'regexFlags' => 
-                array (
-                ),
-                 'unique' => false,
-                 'showCharCount' => false,
-                 'width' => '',
-                 'defaultValueGenerator' => '',
-              )),
-              1 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-                 'name' => 'Manufacturer',
-                 'title' => 'Manufacturer',
-                 'tooltip' => 'Manufacturer
-
-Producent',
-                 'mandatory' => true,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => true,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'classes' => 
-                array (
-                  0 => 
-                  array (
-                    'classes' => 'User',
-                  ),
-                ),
-                 'displayMode' => 'grid',
-                 'pathFormatterClass' => '',
-                 'assetInlineDownloadAllowed' => false,
-                 'assetUploadPath' => '',
-                 'allowToClearRelation' => true,
-                 'objectsAllowed' => true,
-                 'assetsAllowed' => false,
-                 'assetTypes' => 
-                array (
-                ),
-                 'documentsAllowed' => false,
-                 'documentTypes' => 
-                array (
-                ),
-                 'width' => '',
-              )),
-            ),
-             'locked' => false,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'fieldtype' => 'panel',
-             'layout' => NULL,
-             'border' => false,
-             'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/factory.svg',
-             'labelWidth' => 100,
-             'labelAlign' => 'left',
-          )),
-          4 => 
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Prices',
              'type' => NULL,
@@ -1070,7 +1072,7 @@ Koszt wysyłki realizowanej w ramach konkretnej usługi w danym kraju. Koszt obl
              'labelWidth' => 100,
              'labelAlign' => 'left',
           )),
-          5 => 
+          4 => 
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Images',
              'type' => NULL,
@@ -1188,7 +1190,7 @@ Koszt wysyłki realizowanej w ramach konkretnej usługi w danym kraju. Koszt obl
              'labelWidth' => 100,
              'labelAlign' => 'left',
           )),
-          6 => 
+          5 => 
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Packing',
              'type' => NULL,
@@ -1348,7 +1350,7 @@ Paczki produktu',
              'labelWidth' => 100,
              'labelAlign' => 'left',
           )),
-          7 => 
+          6 => 
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Quality',
              'type' => NULL,
@@ -1406,12 +1408,12 @@ Stopień uzupełnienia danych produktu',
              'labelWidth' => 100,
              'labelAlign' => 'left',
           )),
-          8 => 
+          7 => 
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-             'name' => 'Barcodes',
+             'name' => 'Codes',
              'type' => NULL,
              'region' => NULL,
-             'title' => 'Barcodes',
+             'title' => 'Codes',
              'width' => '',
              'height' => '',
              'collapsible' => false,
@@ -1453,6 +1455,31 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                  'defaultValueGenerator' => '',
               )),
               1 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Objectbricks::__set_state(array(
+                 'name' => 'Codes',
+                 'title' => 'Additional codes',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'allowedTypes' => 
+                array (
+                ),
+                 'maxItems' => NULL,
+                 'border' => false,
+              )),
+              2 => 
               \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                  'name' => 'Layout',
                  'type' => NULL,
@@ -1472,8 +1499,7 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                 array (
                 ),
                  'fieldtype' => 'text',
-                 'html' => '
-',
+                 'html' => 'Dodatkowe kody kontrahentów',
                  'renderingClass' => '',
                  'renderingData' => '',
                  'border' => false,
@@ -1487,6 +1513,85 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
              'layout' => NULL,
              'border' => false,
              'icon' => '/UI/barcode.svg',
+             'labelWidth' => 100,
+             'labelAlign' => 'left',
+          )),
+          8 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+             'name' => 'Documents',
+             'type' => NULL,
+             'region' => NULL,
+             'title' => 'Documents',
+             'width' => '',
+             'height' => '',
+             'collapsible' => false,
+             'collapsed' => false,
+             'bodyStyle' => '',
+             'datatype' => 'layout',
+             'children' => 
+            array (
+              0 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyRelation::__set_state(array(
+                 'name' => 'Documents',
+                 'title' => 'Documents',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => true,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'classes' => 
+                array (
+                  0 => 
+                  array (
+                    'classes' => '',
+                  ),
+                ),
+                 'displayMode' => NULL,
+                 'pathFormatterClass' => '',
+                 'maxItems' => NULL,
+                 'assetInlineDownloadAllowed' => false,
+                 'assetUploadPath' => '',
+                 'allowToClearRelation' => true,
+                 'objectsAllowed' => false,
+                 'assetsAllowed' => false,
+                 'assetTypes' => 
+                array (
+                  0 => 
+                  array (
+                    'assetTypes' => '',
+                  ),
+                ),
+                 'documentsAllowed' => false,
+                 'documentTypes' => 
+                array (
+                  0 => 
+                  array (
+                    'documentTypes' => '',
+                  ),
+                ),
+                 'enableTextSelection' => false,
+                 'width' => '',
+                 'height' => '',
+              )),
+            ),
+             'locked' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'fieldtype' => 'panel',
+             'layout' => NULL,
+             'border' => false,
+             'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/file.svg',
              'labelWidth' => 100,
              'labelAlign' => 'left',
           )),
