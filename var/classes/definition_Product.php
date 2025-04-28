@@ -3,6 +3,8 @@
 /**
  * Inheritance: yes
  * Variants: no
+ * Title: Produkt
+ * Towar, który można sprzedać
  *
  * Fields Summary:
  * - Image [image]
@@ -37,10 +39,10 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'dao' => NULL,
    'id' => 'Product',
    'name' => 'Product',
-   'title' => '',
-   'description' => '',
+   'title' => 'Produkt',
+   'description' => 'Towar, który można sprzedać',
    'creationDate' => NULL,
-   'modificationDate' => 1745494588,
+   'modificationDate' => 1745815523,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -101,7 +103,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                  'name' => 'Image',
                  'title' => 'Image',
-                 'tooltip' => 'Main image of product, mostly on transparent background',
+                 'tooltip' => 'Zdjęcie
+
+Główne zdjęcie produktu, najczęściej z przeźroczystym tłem',
                  'mandatory' => true,
                  'noteditable' => false,
                  'index' => false,
@@ -124,8 +128,13 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                  'name' => 'ObjectType',
                  'title' => 'Product type',
-                 'tooltip' => 'VIRTUAL - for inheritance purpouses
-ACTAUL - sellable product that will be integrated in e-commerce systems',
+                 'tooltip' => 'Typ produktu
+
+Wyróżnia się następujące typy produktu:
+
+- ACTUAL - Konkretna realizacja produktu. Można go sprzedać lub kupić, nie zawiera danych abstrakcyjnych.
+
+- VIRTUAL - Obiekt wirtualny, który nie może być sprzedany (brakuje mu ukonkretnień), natomiast pomaga w grupowaniu produktów i ułatwia uzupełnianie danych dzięki dziedziczeniu',
                  'mandatory' => true,
                  'noteditable' => false,
                  'index' => false,
@@ -146,13 +155,11 @@ ACTAUL - sellable product that will be integrated in e-commerce systems',
                   array (
                     'key' => 'ACTUAL',
                     'value' => 'ACTUAL',
-                    'id' => 'extModel2848-1',
                   ),
                   1 => 
                   array (
                     'key' => 'VIRTUAL',
                     'value' => 'VIRTUAL',
-                    'id' => 'extModel2848-2',
                   ),
                 ),
                  'defaultValue' => 'ACTUAL',
@@ -168,7 +175,11 @@ ACTAUL - sellable product that will be integrated in e-commerce systems',
               \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'Ean',
                  'title' => 'Ean',
-                 'tooltip' => 'EAN13 (GTIN) product\'s code',
+                 'tooltip' => 'Kod EAN
+
+Globalny identyfikator produktu (GTIN) z portalu mojegs1.pl.
+
+Kod mozna przypisać za pomocą przycisku w górnym menu.',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -219,7 +230,9 @@ ACTAUL - sellable product that will be integrated in e-commerce systems',
                   \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'name' => 'Name',
                      'title' => 'Name',
-                     'tooltip' => 'Full product\'s name',
+                     'tooltip' => 'Nazwa
+
+Pełna nazwa produktu. Nazwa w językach obcych tłumaczona jest automatycznie w momencie publikacji produktu.',
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
@@ -280,7 +293,7 @@ ACTAUL - sellable product that will be integrated in e-commerce systems',
                       \Pimcore\Model\DataObject\ClassDefinition\Data\ImageGallery::__set_state(array(
                          'name' => 'Infographics',
                          'title' => 'Infographics',
-                         'tooltip' => '',
+                         'tooltip' => 'Infografiki dla danego języka',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
@@ -330,52 +343,6 @@ ACTAUL - sellable product that will be integrated in e-commerce systems',
                  'height' => '',
                  'fieldDefinitionsCache' => NULL,
               )),
-              4 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
-                 'name' => 'Layout',
-                 'type' => NULL,
-                 'region' => NULL,
-                 'title' => '',
-                 'width' => '',
-                 'height' => '',
-                 'collapsible' => false,
-                 'collapsed' => false,
-                 'bodyStyle' => '',
-                 'datatype' => 'layout',
-                 'children' => 
-                array (
-                ),
-                 'locked' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'fieldtype' => 'text',
-                 'html' => '<h1>Zdjęcie</h1>
-
-Główne zdjęcie produktu, najczęściej z przeźroczystym tłem
-
-<h1>Typ produktu</h1>
-
-Wyróżnia się następujące typy produktu:
-
-<ul>
-<li>
-<strong>ACTUAL</strong> - Konkretna realizacja produktu. Można go sprzedać lub kupić, nie zawiera danych abstrakcyjnych.
-</li>
-<li>
-<strong>VIRTUAL</strong> - Obiekt wirtualny, który nie może być sprzedany (brakuje mu ukonkretnień), natomiast pomaga w grupowaniu produktów i ułatwia uzupełnianie danych dzięki dziedziczeniu
-</li>
-</ul>
-
-<h1>Kod EAN</h1>
-Globalny identyfikator produktu (GTIN) nadawany w portalu <a href="https://mojegs1.pl/">mojegs1.pl</a>
-
-<h1>Nazwa</h1>
-Pełna nazwa produktu. Nazwa w językach obcych tłumaczona jest automatycznie w momencie publikacji produktu.',
-                 'renderingClass' => '',
-                 'renderingData' => '',
-                 'border' => false,
-              )),
             ),
              'locked' => false,
              'blockedVarsForExport' => 
@@ -405,8 +372,10 @@ Pełna nazwa produktu. Nazwa w językach obcych tłumaczona jest automatycznie w
               0 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
                  'name' => 'Group',
-                 'title' => 'Main Group',
-                 'tooltip' => '',
+                 'title' => 'Group',
+                 'tooltip' => 'Grupa podstawowa
+
+Kategoria podstawowa, do której należy produkt',
                  'mandatory' => true,
                  'noteditable' => false,
                  'index' => false,
@@ -448,7 +417,13 @@ Pełna nazwa produktu. Nazwa w językach obcych tłumaczona jest automatycznie w
               \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'Model',
                  'title' => 'Model',
-                 'tooltip' => 'Product model. Used mainly in abstract (VIRTUAL) product.',
+                 'tooltip' => 'Model produktu
+
+Projekt bazowy, na podstawie którego powstał dany produkt.
+
+Przykładowo:
+- ASPEN-03-BM, ASPEN-03-CAS, ASPEN-03-CM powstały na podstawie modelu ASPEN-03
+- CARO-01-*, DALI-01-*, FINIQ-01-* to produkty powstałe na podstawie wspólnej bryły (modelu) RTV-TYP-01',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -478,7 +453,9 @@ Pełna nazwa produktu. Nazwa w językach obcych tłumaczona jest automatycznie w
               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                  'name' => 'Width',
                  'title' => 'Width',
-                 'tooltip' => '',
+                 'tooltip' => 'Szerokość
+
+Szerokość gabarytowa produktu',
                  'mandatory' => true,
                  'noteditable' => false,
                  'index' => false,
@@ -518,7 +495,9 @@ Pełna nazwa produktu. Nazwa w językach obcych tłumaczona jest automatycznie w
               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                  'name' => 'Height',
                  'title' => 'Height',
-                 'tooltip' => '',
+                 'tooltip' => 'Wysokość
+
+Wysokość gabarytowa produktu',
                  'mandatory' => true,
                  'noteditable' => false,
                  'index' => false,
@@ -558,7 +537,9 @@ Pełna nazwa produktu. Nazwa w językach obcych tłumaczona jest automatycznie w
               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                  'name' => 'Depth',
                  'title' => 'Depth',
-                 'tooltip' => '',
+                 'tooltip' => 'Głębokość
+
+Głębokość gabarytowa produktu',
                  'mandatory' => true,
                  'noteditable' => false,
                  'index' => false,
@@ -598,7 +579,9 @@ Pełna nazwa produktu. Nazwa w językach obcych tłumaczona jest automatycznie w
               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                  'name' => 'Mass',
                  'title' => 'Mass',
-                 'tooltip' => 'Product overall weight',
+                 'tooltip' => 'Waga
+
+Waga netto produktu - bez opakowania',
                  'mandatory' => true,
                  'noteditable' => false,
                  'index' => false,
@@ -635,7 +618,9 @@ Pełna nazwa produktu. Nazwa w językach obcych tłumaczona jest automatycznie w
               \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                  'name' => 'CN',
                  'title' => 'CN Code',
-                 'tooltip' => '',
+                 'tooltip' => 'CN
+
+Klasyfikacja CN produktu. Można skorzystać z wyszukiwarki ext-isztar4.mf.gov.pl',
                  'mandatory' => true,
                  'noteditable' => false,
                  'index' => false,
@@ -671,7 +656,9 @@ Pełna nazwa produktu. Nazwa w językach obcych tłumaczona jest automatycznie w
               \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                  'name' => 'GPC',
                  'title' => 'GPC',
-                 'tooltip' => '',
+                 'tooltip' => 'GPC
+
+Ośmiocyfrowy numer "Brick" klasyfikacji produktowej GS1 GPC. Wyszukiwarka kodów znajduje się pod adresem: https://www.gs1.org/services/gpc-browser ',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -733,58 +720,6 @@ Pełna nazwa produktu. Nazwa w językach obcych tłumaczona jest automatycznie w
                  'optionsProviderClass' => '',
                  'optionsProviderData' => '',
               )),
-              8 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
-                 'name' => 'Layout',
-                 'type' => NULL,
-                 'region' => NULL,
-                 'title' => '',
-                 'width' => '',
-                 'height' => '',
-                 'collapsible' => false,
-                 'collapsed' => false,
-                 'bodyStyle' => '',
-                 'datatype' => 'layout',
-                 'children' => 
-                array (
-                ),
-                 'locked' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'fieldtype' => 'text',
-                 'html' => '<h1>Grupa podstawowa</h1>
-
-Kategoria podstawowa, do której należy produkt
-
-<h1>Model produktu</h1>
-
-Projekt bazowy, na podstawie którego powstał dany produkt.<br>
-Przykładowo:
-<ul>
-<li>ASPEN-03-BM, ASPEN-03-CAS, ASPEN-03-CM powstały na podstawie modelu ASPEN-03</li>
-<li>CARO-01-*, DALI-01-*, FINIQ-01-* to produkty powstałe na podstawie wspólnej bryły (modelu) RTV-TYP-01</li>
-</ul>
-
-<h1>Szerokość, Wysokość, Głębokość</h1>
-
-Wymiary gabarytowe produktu
-
-<h1>Waga</h1>
-
-Waga netto produktu - bez opakowania
-
-<h1>CN</h1>
-
-Klasyfikacja CN produktu. Można skorzystać z wyszukiwarki <a href="https://ext-isztar4.mf.gov.pl/taryfa_celna/browseNomen.xhtml?cnCode=9403+60+10+00&amp;suffix=80&amp;country=&amp;lang=PL&amp;page=1&amp;date=20220222">ext-isztar4.mf.gov.pl</a>
-
-<h1>GPC</h1>
-
-Ośmiocyfrowy numer "Brick" klasyfikacji produktowej GS1 GPC. Wyszukiwarka kodów znajduje się pod adresem: <a href="https://www.gs1.org/services/gpc-browser">https://www.gs1.org/services/gpc-browser</a> Należy podać klasyfikację GPC zgodnie z listą segmentów GPC Twojej firmy. Listą można zarządzać na MojeGS1 w zakładce Rejestr produktów/Lista segmentów GPC. W przypadku GTIN-14 informacja o klasyfikacji GPC jest automatycznie pobierana z produktu bazowego.',
-                 'renderingClass' => '',
-                 'renderingData' => '',
-                 'border' => false,
-              )),
             ),
              'locked' => false,
              'blockedVarsForExport' => 
@@ -815,7 +750,9 @@ Ośmiocyfrowy numer "Brick" klasyfikacji produktowej GS1 GPC. Wyszukiwarka kodó
               \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
                  'name' => 'Groups',
                  'title' => 'Groups',
-                 'tooltip' => 'Groups that product belongs to',
+                 'tooltip' => 'Grupy
+
+Grupy, do których przypisany jest produkt.',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -832,6 +769,10 @@ Ośmiocyfrowy numer "Brick" klasyfikacji produktowej GS1 GPC. Wyszukiwarka kodó
                 ),
                  'classes' => 
                 array (
+                  0 => 
+                  array (
+                    'classes' => '',
+                  ),
                 ),
                  'displayMode' => 'grid',
                  'pathFormatterClass' => '',
@@ -853,7 +794,9 @@ Ośmiocyfrowy numer "Brick" klasyfikacji produktowej GS1 GPC. Wyszukiwarka kodó
               \Pimcore\Model\DataObject\ClassDefinition\Data\Classificationstore::__set_state(array(
                  'name' => 'Parameters',
                  'title' => 'Parameters',
-                 'tooltip' => '',
+                 'tooltip' => 'Parametry
+
+Parametry produktu podzielone na kolekcje i grupy.',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -890,37 +833,6 @@ Ośmiocyfrowy numer "Brick" klasyfikacji produktowej GS1 GPC. Wyszukiwarka kodó
                  'height' => NULL,
                  'width' => NULL,
               )),
-              2 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
-                 'name' => 'Layout',
-                 'type' => NULL,
-                 'region' => NULL,
-                 'title' => '',
-                 'width' => '',
-                 'height' => '',
-                 'collapsible' => false,
-                 'collapsed' => false,
-                 'bodyStyle' => '',
-                 'datatype' => 'layout',
-                 'children' => 
-                array (
-                ),
-                 'locked' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'fieldtype' => 'text',
-                 'html' => '<h1>Grupy</h1>
-
-Grupy, do których przypisany jest produkt.
-
-<h1>Parametry</h1>
-
-Parametry produktu podzielone na kolekcje i grupy.',
-                 'renderingClass' => '',
-                 'renderingData' => '',
-                 'border' => false,
-              )),
             ),
              'locked' => false,
              'blockedVarsForExport' => 
@@ -951,7 +863,9 @@ Parametry produktu podzielone na kolekcje i grupy.',
               \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'MPN',
                  'title' => 'MPN',
-                 'tooltip' => 'Manufacture Product Number',
+                 'tooltip' => 'MPN - Manufacturer Product Number
+
+Kod producenta',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -981,7 +895,9 @@ Parametry produktu podzielone na kolekcje i grupy.',
               \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
                  'name' => 'Manufacturer',
                  'title' => 'Manufacturer',
-                 'tooltip' => '',
+                 'tooltip' => 'Manufacturer
+
+Producent',
                  'mandatory' => true,
                  'noteditable' => false,
                  'index' => false,
@@ -1019,39 +935,6 @@ Parametry produktu podzielone na kolekcje i grupy.',
                 ),
                  'width' => '',
               )),
-              2 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
-                 'name' => 'Layout',
-                 'type' => NULL,
-                 'region' => NULL,
-                 'title' => '',
-                 'width' => '',
-                 'height' => '',
-                 'collapsible' => false,
-                 'collapsed' => false,
-                 'bodyStyle' => '',
-                 'datatype' => 'layout',
-                 'children' => 
-                array (
-                ),
-                 'locked' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'fieldtype' => 'text',
-                 'html' => '<h1>MPN</h1>
-
-Manufacturer product number - kod producenta
-
-<h1>Manufacturer</h1>
-
-Producent
-
-',
-                 'renderingClass' => '',
-                 'renderingData' => '',
-                 'border' => false,
-              )),
             ),
              'locked' => false,
              'blockedVarsForExport' => 
@@ -1082,7 +965,9 @@ Producent
               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                  'name' => 'BasePrice',
                  'title' => 'Base Price',
-                 'tooltip' => 'Manufacturing costs or Buying price',
+                 'tooltip' => 'Cena bazowa
+
+Cena zakupu produktu u producenta lub techniczny koszt wytworzenia przy własnej produkcji',
                  'mandatory' => true,
                  'noteditable' => false,
                  'index' => false,
@@ -1122,7 +1007,9 @@ Producent
               \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
                  'name' => 'Parcel',
                  'title' => 'Parcel',
-                 'tooltip' => '',
+                 'tooltip' => 'Wysyłka
+
+Koszt wysyłki realizowanej w ramach konkretnej usługi w danym kraju. Koszt obliczany jest automatycznie w momencie publikacji produktu na podstawie parametrów paczek.',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -1171,37 +1058,6 @@ Producent
                  'enableBatchEdit' => false,
                  'allowMultipleAssignments' => false,
               )),
-              2 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
-                 'name' => 'Layout',
-                 'type' => NULL,
-                 'region' => NULL,
-                 'title' => '',
-                 'width' => '',
-                 'height' => '',
-                 'collapsible' => false,
-                 'collapsed' => false,
-                 'bodyStyle' => '',
-                 'datatype' => 'layout',
-                 'children' => 
-                array (
-                ),
-                 'locked' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'fieldtype' => 'text',
-                 'html' => '<h1>Cena bazowa</h1>
-
-Cena zakupu produktu u producenta lub techniczny koszt wytworzenia przy własnej produkcji
-
-<h1>Wysyłka</h1>
-
-Koszt wysyłki realizowanej w ramach konkretnej usługi w danym kraju. Koszt obliczany jest automatycznie w momencie publikacji produktu na podstawie parametrów paczek.',
-                 'renderingClass' => '',
-                 'renderingData' => '',
-                 'border' => false,
-              )),
             ),
              'locked' => false,
              'blockedVarsForExport' => 
@@ -1232,7 +1088,7 @@ Koszt wysyłki realizowanej w ramach konkretnej usługi w danym kraju. Koszt obl
               \Pimcore\Model\DataObject\ClassDefinition\Data\ImageGallery::__set_state(array(
                  'name' => 'Images',
                  'title' => 'Images',
-                 'tooltip' => 'Additional product images',
+                 'tooltip' => 'Dodatkowe zdjęcia produktu',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -1279,7 +1135,7 @@ Koszt wysyłki realizowanej w ramach konkretnej usługi w danym kraju. Koszt obl
                   \Pimcore\Model\DataObject\ClassDefinition\Data\ImageGallery::__set_state(array(
                      'name' => 'Infographics',
                      'title' => 'Infographics',
-                     'tooltip' => '',
+                     'tooltip' => 'Infografiki dla danego języka',
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
@@ -1320,37 +1176,6 @@ Koszt wysyłki realizowanej w ramach konkretnej usługi w danym kraju. Koszt obl
                  'height' => '',
                  'fieldDefinitionsCache' => NULL,
               )),
-              2 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
-                 'name' => 'Layout',
-                 'type' => NULL,
-                 'region' => NULL,
-                 'title' => '',
-                 'width' => '',
-                 'height' => '',
-                 'collapsible' => false,
-                 'collapsed' => false,
-                 'bodyStyle' => '',
-                 'datatype' => 'layout',
-                 'children' => 
-                array (
-                ),
-                 'locked' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'fieldtype' => 'text',
-                 'html' => '<h1>Zdjęcia</h1>
-
-Dodatkowe zdjęcia produktu
-
-<h1>Infografiki</h1>
-
-Infografiki przeznaczone na dany region (język)',
-                 'renderingClass' => '',
-                 'renderingData' => '',
-                 'border' => false,
-              )),
             ),
              'locked' => false,
              'blockedVarsForExport' => 
@@ -1381,7 +1206,9 @@ Infografiki przeznaczone na dany region (język)',
               \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
                  'name' => 'Packages',
                  'title' => 'Packages',
-                 'tooltip' => '',
+                 'tooltip' => 'Paczki
+
+Paczki produktu',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -1435,7 +1262,9 @@ Infografiki przeznaczone na dany region (język)',
               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                  'name' => 'PackagesMass',
                  'title' => 'Packages Mass',
-                 'tooltip' => 'Sum of packages mass',
+                 'tooltip' => 'Masa paczek
+
+Łączna masa paczek',
                  'mandatory' => false,
                  'noteditable' => true,
                  'index' => false,
@@ -1472,7 +1301,9 @@ Infografiki przeznaczone na dany region (język)',
               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                  'name' => 'PackagesVolume',
                  'title' => 'Packages Volume',
-                 'tooltip' => 'Sum of packages volumes',
+                 'tooltip' => 'Objętość paczek
+
+Łączna objętość paczek',
                  'mandatory' => false,
                  'noteditable' => true,
                  'index' => false,
@@ -1505,41 +1336,6 @@ Infografiki przeznaczone na dany region (język)',
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
               )),
-              3 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
-                 'name' => 'Layout',
-                 'type' => NULL,
-                 'region' => NULL,
-                 'title' => '',
-                 'width' => '',
-                 'height' => '',
-                 'collapsible' => false,
-                 'collapsed' => false,
-                 'bodyStyle' => '',
-                 'datatype' => 'layout',
-                 'children' => 
-                array (
-                ),
-                 'locked' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'fieldtype' => 'text',
-                 'html' => '<h1>Paczki</h1>
-
-Paczki produktu
-
-<h1>Masa paczek</h1>
-
-Łączna masa paczek
-
-<h1>Objętość paczek</h1>
-
-Łączna objętość paczek',
-                 'renderingClass' => '',
-                 'renderingData' => '',
-                 'border' => false,
-              )),
             ),
              'locked' => false,
              'blockedVarsForExport' => 
@@ -1570,7 +1366,9 @@ Paczki produktu
               \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'name' => 'Quality',
                  'title' => 'Quality',
-                 'tooltip' => '',
+                 'tooltip' => 'Jakość danych
+
+Stopień uzupełnienia danych produktu',
                  'mandatory' => false,
                  'noteditable' => true,
                  'index' => false,
@@ -1595,33 +1393,6 @@ Paczki produktu
                  'decimalPrecision' => NULL,
                  'width' => '',
                  'defaultValueGenerator' => '',
-              )),
-              1 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
-                 'name' => 'Layout',
-                 'type' => NULL,
-                 'region' => NULL,
-                 'title' => '',
-                 'width' => '',
-                 'height' => '',
-                 'collapsible' => false,
-                 'collapsed' => false,
-                 'bodyStyle' => '',
-                 'datatype' => 'layout',
-                 'children' => 
-                array (
-                ),
-                 'locked' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'fieldtype' => 'text',
-                 'html' => '<h1>Jakość danych</h1>
-
-Stopień uzupełnienia danych produktu',
-                 'renderingClass' => '',
-                 'renderingData' => '',
-                 'border' => false,
               )),
             ),
              'locked' => false,
@@ -1653,7 +1424,9 @@ Stopień uzupełnienia danych produktu',
               \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'Barcode',
                  'title' => 'Barcode',
-                 'tooltip' => 'Product default and auto-gerated barcode in 20-characters format: 11000...[objectId]',
+                 'tooltip' => 'Kod kreksowy
+
+Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfikatora (id z tabeli objects)',
                  'mandatory' => false,
                  'noteditable' => true,
                  'index' => false,
@@ -1699,10 +1472,7 @@ Stopień uzupełnienia danych produktu',
                 array (
                 ),
                  'fieldtype' => 'text',
-                 'html' => '<h1>Kod kreksowy</h1>
-
-Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfikatora (id z tabeli objects)
-
+                 'html' => '
 ',
                  'renderingClass' => '',
                  'renderingData' => '',
@@ -1755,19 +1525,19 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
     'grid' => 
     array (
       'id' => true,
-      'key' => false,
+      'key' => true,
       'path' => true,
       'published' => true,
-      'modificationDate' => false,
+      'modificationDate' => true,
       'creationDate' => false,
     ),
     'search' => 
     array (
       'id' => true,
-      'key' => false,
+      'key' => true,
       'path' => true,
       'published' => false,
-      'modificationDate' => false,
+      'modificationDate' => true,
       'creationDate' => false,
     ),
   ),

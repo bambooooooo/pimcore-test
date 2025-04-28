@@ -3,7 +3,8 @@
 /**
  * Inheritance: yes
  * Variants: no
- * Służy do grupowania produktów lub zestawów produktów wg. wybranych kryteriów - kategorii, rodzaju, kolekcji, klasy lub indywidualnych kryteriów. Posiada przypisany mnożnik służący do wstępnej wyceny. Zawiera również miniaturkę oraz okładkę
+ * Title: Grupa
+ * Zbiór produktów, zestawów produktów, użytkowników
  *
  * Fields Summary:
  * - Image [image]
@@ -19,10 +20,10 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'dao' => NULL,
    'id' => 'Group',
    'name' => 'Group',
-   'title' => '',
-   'description' => 'Służy do grupowania produktów lub zestawów produktów wg. wybranych kryteriów - kategorii, rodzaju, kolekcji, klasy lub indywidualnych kryteriów. Posiada przypisany mnożnik służący do wstępnej wyceny. Zawiera również miniaturkę oraz okładkę',
+   'title' => 'Grupa',
+   'description' => 'Zbiór produktów, zestawów produktów, użytkowników',
    'creationDate' => NULL,
-   'modificationDate' => 1744108996,
+   'modificationDate' => 1745820547,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -83,7 +84,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                  'name' => 'Image',
                  'title' => 'Image',
-                 'tooltip' => '',
+                 'tooltip' => 'Zdjęcie główne grupy',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -127,7 +128,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'name' => 'Name',
                      'title' => 'Name',
-                     'tooltip' => '',
+                     'tooltip' => 'Nazwa grupy',
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
@@ -157,7 +158,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   \Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                      'name' => 'Description',
                      'title' => 'Description',
-                     'tooltip' => '',
+                     'tooltip' => 'Krótki opis grupy',
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
@@ -197,41 +198,6 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'height' => '',
                  'fieldDefinitionsCache' => NULL,
               )),
-              2 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
-                 'name' => 'Layout',
-                 'type' => NULL,
-                 'region' => NULL,
-                 'title' => '',
-                 'width' => '',
-                 'height' => '',
-                 'collapsible' => false,
-                 'collapsed' => false,
-                 'bodyStyle' => '',
-                 'datatype' => 'layout',
-                 'children' => 
-                array (
-                ),
-                 'locked' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'fieldtype' => 'text',
-                 'html' => '<h1>Zdjęcie</h1>
-
-Logo użytkownika
-
-<h1>Nazwa</h1>
-
-Nazwa grupy. W przypadku nazw własnych należy uzupełnić tylko nazwę polską.
-
-<h1>Opis</h1>
-
-Krótki opis kolekcji',
-                 'renderingClass' => '',
-                 'renderingData' => '',
-                 'border' => false,
-              )),
             ),
              'locked' => false,
              'blockedVarsForExport' => 
@@ -262,7 +228,7 @@ Krótki opis kolekcji',
               \Pimcore\Model\DataObject\ClassDefinition\Data\ReverseObjectRelation::__set_state(array(
                  'name' => 'Products',
                  'title' => 'Products',
-                 'tooltip' => '',
+                 'tooltip' => 'Produkty, do których przypisana jest grupa',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -304,7 +270,7 @@ Krótki opis kolekcji',
               \Pimcore\Model\DataObject\ClassDefinition\Data\ReverseObjectRelation::__set_state(array(
                  'name' => 'Sets',
                  'title' => 'Sets',
-                 'tooltip' => '',
+                 'tooltip' => 'Zestawy, do których przypisana jest grupa',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -346,7 +312,7 @@ Krótki opis kolekcji',
               \Pimcore\Model\DataObject\ClassDefinition\Data\ReverseObjectRelation::__set_state(array(
                  'name' => 'Users',
                  'title' => 'Users',
-                 'tooltip' => '',
+                 'tooltip' => 'Użytkownicy, do których przypisana jest grupa',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -381,33 +347,6 @@ Krótki opis kolekcji',
                  'ownerClassId' => 'User',
                  'ownerFieldName' => 'Groups',
                  'lazyLoading' => true,
-              )),
-              3 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
-                 'name' => 'Layout',
-                 'type' => NULL,
-                 'region' => NULL,
-                 'title' => '',
-                 'width' => '',
-                 'height' => '',
-                 'collapsible' => false,
-                 'collapsed' => false,
-                 'bodyStyle' => '',
-                 'datatype' => 'layout',
-                 'children' => 
-                array (
-                ),
-                 'locked' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'fieldtype' => 'text',
-                 'html' => '<h1>Relacje</h1>
-
-Relacje z pozostałymi obiektami',
-                 'renderingClass' => '',
-                 'renderingData' => '',
-                 'border' => false,
               )),
             ),
              'locked' => false,
@@ -456,20 +395,20 @@ Relacje z pozostałymi obiektami',
     'grid' => 
     array (
       'id' => true,
-      'key' => false,
+      'key' => true,
       'path' => true,
       'published' => true,
-      'modificationDate' => true,
-      'creationDate' => true,
+      'modificationDate' => false,
+      'creationDate' => false,
     ),
     'search' => 
     array (
       'id' => true,
-      'key' => false,
+      'key' => true,
       'path' => true,
       'published' => true,
-      'modificationDate' => true,
-      'creationDate' => true,
+      'modificationDate' => false,
+      'creationDate' => false,
     ),
   ),
    'enableGridLocking' => false,

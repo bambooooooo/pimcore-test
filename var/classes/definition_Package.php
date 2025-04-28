@@ -3,6 +3,8 @@
 /**
  * Inheritance: yes
  * Variants: no
+ * Title: Opakowanie
+ * Opakowanie zawierające elementy produktu
  *
  * Fields Summary:
  * - ObjectType [select]
@@ -23,10 +25,10 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'dao' => NULL,
    'id' => 'Package',
    'name' => 'Package',
-   'title' => '',
-   'description' => '',
+   'title' => 'Opakowanie',
+   'description' => 'Opakowanie zawierające elementy produktu',
    'creationDate' => NULL,
-   'modificationDate' => 1745496051,
+   'modificationDate' => 1745820664,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -87,8 +89,11 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                  'name' => 'ObjectType',
                  'title' => 'Package type',
-                 'tooltip' => 'VIRTUAL - for inheritance purpouses
-ACTAUL - sellable package that will be integrated in e-commerce systems',
+                 'tooltip' => 'Typ paczki
+
+Wyróżnia się następujące typy produktu:
+- ACTUAL - Konkretna realizacja paczki, którą można wysłać do klienta
+- VIRTUAL - Obiekt wirtualny, który nie może być sprzedany (brakuje mu ukonkretnień), natomiast pomaga w grupowaniu produktów i ułatwia uzupełnianie danych dzięki dziedziczeniu',
                  'mandatory' => true,
                  'noteditable' => false,
                  'index' => false,
@@ -145,17 +150,7 @@ ACTAUL - sellable package that will be integrated in e-commerce systems',
                 array (
                 ),
                  'fieldtype' => 'text',
-                 'html' => '<h1>Typ paczki</h1>
-
-Wyróżnia się następujące typy produktu:
-
-<ul>
-<li>
-<strong>ACTUAL</strong> - Konkretna realizacja paczki, którą można wysłać do klienta
-</li>
-<li>
-<strong>VIRTUAL</strong> - Obiekt wirtualny, który nie może być sprzedany (brakuje mu ukonkretnień), natomiast pomaga w grupowaniu produktów i ułatwia uzupełnianie danych dzięki dziedziczeniu
-</li>
+                 'html' => '<h1><br></h1><ul>
 </ul>',
                  'renderingClass' => '',
                  'renderingData' => '',
@@ -191,7 +186,9 @@ Wyróżnia się następujące typy produktu:
               \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'Model',
                  'title' => 'Model',
-                 'tooltip' => 'Product model. Used mainly in abstract (VIRTUAL) product.',
+                 'tooltip' => 'Model
+
+Projekt bazowy, na podstawie którego powstała dana paczka.',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -221,7 +218,7 @@ Wyróżnia się następujące typy produktu:
               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                  'name' => 'Width',
                  'title' => 'Width',
-                 'tooltip' => '',
+                 'tooltip' => 'Szerokość gabarytowa paczki',
                  'mandatory' => true,
                  'noteditable' => false,
                  'index' => false,
@@ -261,7 +258,7 @@ Wyróżnia się następujące typy produktu:
               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                  'name' => 'Height',
                  'title' => 'Height',
-                 'tooltip' => '',
+                 'tooltip' => 'Wysokość gabarytowa paczki',
                  'mandatory' => true,
                  'noteditable' => false,
                  'index' => false,
@@ -301,7 +298,7 @@ Wyróżnia się następujące typy produktu:
               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                  'name' => 'Depth',
                  'title' => 'Depth',
-                 'tooltip' => '',
+                 'tooltip' => 'Długość gabarytowa paczki',
                  'mandatory' => true,
                  'noteditable' => false,
                  'index' => false,
@@ -341,7 +338,7 @@ Wyróżnia się następujące typy produktu:
               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                  'name' => 'Volume',
                  'title' => 'Volume',
-                 'tooltip' => '',
+                 'tooltip' => 'Objętość gabarytowa',
                  'mandatory' => false,
                  'noteditable' => true,
                  'index' => false,
@@ -378,7 +375,7 @@ Wyróżnia się następujące typy produktu:
               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                  'name' => 'Mass',
                  'title' => 'Mass',
-                 'tooltip' => 'Product overall weight',
+                 'tooltip' => 'Masa brutto paczki',
                  'mandatory' => true,
                  'noteditable' => false,
                  'index' => false,
@@ -410,39 +407,6 @@ Wyróżnia się następujące typy produktu:
                  'maxValue' => NULL,
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
-              )),
-              6 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
-                 'name' => 'Layout',
-                 'type' => NULL,
-                 'region' => NULL,
-                 'title' => '',
-                 'width' => '',
-                 'height' => '',
-                 'collapsible' => false,
-                 'collapsed' => false,
-                 'bodyStyle' => '',
-                 'datatype' => 'layout',
-                 'children' => 
-                array (
-                ),
-                 'locked' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'fieldtype' => 'text',
-                 'html' => '<h1>Model paczki</h1>
-
-Projekt bazowy, na podstawie którego powstała dana paczka.
-
-<h1>Szerokość, Wysokość, Głębokość</h1>
-
-Wymiary gabarytowe paczki<h1>Waga</h1>
-
-Waga brutto paczki',
-                 'renderingClass' => '',
-                 'renderingData' => '',
-                 'border' => false,
               )),
             ),
              'locked' => false,
@@ -681,7 +645,9 @@ Surowce wprowadzone do obiegu i podlegające opłacie BDO <a href="https://bdo.m
               \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'Barcode',
                  'title' => 'Barcode',
-                 'tooltip' => 'Product default and auto-gerated barcode in 20-characters format: 11000...[objectId]',
+                 'tooltip' => 'Kod kreksowy
+
+Domyślny kod kreskowy paczki tworzony na podstawie jego unikalnego identyfikatora (id z tabeli objects)',
                  'mandatory' => false,
                  'noteditable' => true,
                  'index' => false,
@@ -727,9 +693,7 @@ Surowce wprowadzone do obiegu i podlegające opłacie BDO <a href="https://bdo.m
                 array (
                 ),
                  'fieldtype' => 'text',
-                 'html' => '<h1>Kod kreksowy</h1>
-
-Domyślny kod kreskowy paczki tworzony na podstawie jego unikalnego identyfikatora (id z tabeli objects)
+                 'html' => '
 
 ',
                  'renderingClass' => '',

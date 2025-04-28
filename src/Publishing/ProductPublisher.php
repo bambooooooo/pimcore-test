@@ -36,8 +36,8 @@ class ProductPublisher
 
             if($product->getObjectType() == 'ACTUAL')
             {
-                $this->updateDefaultBarcode($product);
                 $this->translateNames($product);
+                $this->updateDefaultBarcode($product);
                 $this->updateParcels($product);
 
                 $this->sendToErp($product);

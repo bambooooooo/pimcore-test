@@ -3,6 +3,8 @@
 /**
  * Inheritance: yes
  * Variants: no
+ * Title: Przesyłka
+ * Usługa transportu realizowana w wybranym kraju
  *
  * Fields Summary:
  * - Country [country]
@@ -14,10 +16,10 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'dao' => NULL,
    'id' => 'Parcel',
    'name' => 'Parcel',
-   'title' => '',
-   'description' => '',
+   'title' => 'Przesyłka',
+   'description' => 'Usługa transportu realizowana w wybranym kraju',
    'creationDate' => NULL,
-   'modificationDate' => 1745471525,
+   'modificationDate' => 1745820483,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -78,7 +80,10 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               \Pimcore\Model\DataObject\ClassDefinition\Data\Country::__set_state(array(
                  'name' => 'Country',
                  'title' => 'Country',
-                 'tooltip' => '',
+                 'tooltip' => 'Kraj
+
+Kraj, w którym obowiązuje usługa
+',
                  'mandatory' => true,
                  'noteditable' => false,
                  'index' => false,
@@ -102,35 +107,6 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'optionsProviderClass' => NULL,
                  'optionsProviderData' => NULL,
                  'restrictTo' => '',
-              )),
-              1 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
-                 'name' => 'Layout',
-                 'type' => NULL,
-                 'region' => NULL,
-                 'title' => '',
-                 'width' => '',
-                 'height' => '',
-                 'collapsible' => false,
-                 'collapsed' => false,
-                 'bodyStyle' => '',
-                 'datatype' => 'layout',
-                 'children' => 
-                array (
-                ),
-                 'locked' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'fieldtype' => 'text',
-                 'html' => '<h1>Kraj</h1>
-
-Kraj, w którym obowiązuje usługa
-
-',
-                 'renderingClass' => '',
-                 'renderingData' => '',
-                 'border' => false,
               )),
             ),
              'locked' => false,
@@ -206,11 +182,7 @@ Kraj, w którym obowiązuje usługa
                 array (
                 ),
                  'fieldtype' => 'text',
-                 'html' => '<h1>Ograniczenia</h1>
-
-Ograniczenia, które mogą uniemożliwić realizację usługi
-
-',
+                 'html' => '',
                  'renderingClass' => '',
                  'renderingData' => '',
                  'border' => false,

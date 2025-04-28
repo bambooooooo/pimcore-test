@@ -3,6 +3,8 @@
 /**
  * Inheritance: no
  * Variants: no
+ * Title: Póla kodów EAN
+ * Pula kodów EAN wykupiona w systemie GS1
  *
  * Fields Summary:
  * - AvailableCodes [table]
@@ -13,10 +15,10 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'dao' => NULL,
    'id' => 'EanPool',
    'name' => 'EanPool',
-   'title' => '',
-   'description' => '',
+   'title' => 'Póla kodów EAN',
+   'description' => 'Pula kodów EAN wykupiona w systemie GS1',
    'creationDate' => NULL,
-   'modificationDate' => 1745468315,
+   'modificationDate' => 1745820310,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -77,9 +79,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               \Pimcore\Model\DataObject\ClassDefinition\Data\Table::__set_state(array(
                  'name' => 'AvailableCodes',
                  'title' => 'Available Codes',
-                 'tooltip' => '',
+                 'tooltip' => 'Dostępne do przypisania kodu',
                  'mandatory' => false,
-                 'noteditable' => false,
+                 'noteditable' => true,
                  'index' => false,
                  'locked' => false,
                  'style' => 'float: right; margin: 8px;',
@@ -190,7 +192,7 @@ Po wykorzystaniu puli należy wykupić kolejną, aby możliwe było nadawanie ko
 
 <h1>Lista kodów</h1>
 
-Lista dostępnych do wykorzystania kodów znajduje się w tabeli po prawo.<br/>
+Lista dostępnych do wykorzystania kodów znajduje się w tabeli po prawo.<br>
 
 Dla nowej puli należy uzupełnić listę kodów, którą można wygenerować na stronie <a href="https://mojegs1.pl/moje-produkty/wolne-numery">https://mojegs1.pl/moje-produkty/wolne-numery</a>',
                  'renderingClass' => '',
@@ -244,20 +246,20 @@ Dla nowej puli należy uzupełnić listę kodów, którą można wygenerować na
     'grid' => 
     array (
       'id' => true,
-      'key' => false,
-      'path' => true,
+      'key' => true,
+      'path' => false,
       'published' => true,
-      'modificationDate' => true,
-      'creationDate' => true,
+      'modificationDate' => false,
+      'creationDate' => false,
     ),
     'search' => 
     array (
       'id' => true,
-      'key' => false,
-      'path' => true,
+      'key' => true,
+      'path' => false,
       'published' => true,
-      'modificationDate' => true,
-      'creationDate' => true,
+      'modificationDate' => false,
+      'creationDate' => false,
     ),
   ),
    'enableGridLocking' => false,

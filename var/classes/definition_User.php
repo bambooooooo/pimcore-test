@@ -3,6 +3,8 @@
 /**
  * Inheritance: no
  * Variants: no
+ * Title: Użytkownik
+ * Podmiot w systemie
  *
  * Fields Summary:
  * - Image [image]
@@ -23,10 +25,10 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'dao' => NULL,
    'id' => 'User',
    'name' => 'User',
-   'title' => '',
-   'description' => '',
+   'title' => 'Użytkownik',
+   'description' => 'Podmiot w systemie',
    'creationDate' => NULL,
-   'modificationDate' => 1745482829,
+   'modificationDate' => 1745820671,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -111,7 +113,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'name' => 'email',
                  'title' => 'Email',
                  'tooltip' => '',
-                 'mandatory' => false,
+                 'mandatory' => true,
                  'noteditable' => false,
                  'index' => false,
                  'locked' => false,
@@ -141,7 +143,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'name' => 'Name',
                  'title' => 'Name',
                  'tooltip' => '',
-                 'mandatory' => false,
+                 'mandatory' => true,
                  'noteditable' => false,
                  'index' => false,
                  'locked' => false,
@@ -402,7 +404,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'name' => 'Country',
                  'title' => 'Country',
                  'tooltip' => '',
-                 'mandatory' => false,
+                 'mandatory' => true,
                  'noteditable' => false,
                  'index' => false,
                  'locked' => false,
@@ -538,47 +540,24 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
     array (
       'id' => true,
       'key' => false,
-      'path' => true,
+      'path' => false,
       'published' => true,
-      'modificationDate' => true,
-      'creationDate' => true,
+      'modificationDate' => false,
+      'creationDate' => false,
     ),
     'search' => 
     array (
       'id' => true,
       'key' => false,
-      'path' => true,
+      'path' => false,
       'published' => true,
-      'modificationDate' => true,
-      'creationDate' => true,
+      'modificationDate' => false,
+      'creationDate' => false,
     ),
   ),
    'enableGridLocking' => false,
    'deletedDataComponents' => 
   array (
-    0 => 
-    \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
-       'name' => 'Logo',
-       'title' => 'Logo',
-       'tooltip' => '',
-       'mandatory' => false,
-       'noteditable' => false,
-       'index' => false,
-       'locked' => false,
-       'style' => 'float:right; margin: 8px;',
-       'permissions' => NULL,
-       'fieldtype' => '',
-       'relationType' => false,
-       'invisible' => false,
-       'visibleGridView' => false,
-       'visibleSearch' => false,
-       'blockedVarsForExport' => 
-      array (
-      ),
-       'uploadPath' => '',
-       'width' => 300,
-       'height' => 300,
-    )),
   ),
    'blockedVarsForExport' => 
   array (

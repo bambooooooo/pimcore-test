@@ -3,7 +3,15 @@ site_url: https://pim.megstyl.com/
 repo_url: https://github.com/bambooooooo/
 nav:
     - Home: index.md
-    - Product: product.md
+    - Klasy obiektów:
+        - Produkt (Product): product.md
+        - Zestaw (ProductSet): productset.md
+        - Paczka (Package): package.md
+        - Użytkownik (User): user.md
+        - Grupa (Group): group.md
+        - Przesyłka (Parcel): parcel.md
+        - Póla kodów EAN (EanPool): eanpool.md
+    - Lista wdrożeniowa: todo.md
 theme:
     name: material
     primary: black
