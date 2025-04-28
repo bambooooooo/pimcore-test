@@ -32,6 +32,7 @@
  * - Packages [advancedManyToManyObjectRelation]
  * - PackagesMass [quantityValue]
  * - PackagesVolume [quantityValue]
+ * - LoadCarriers [manyToManyRelation]
  * - Quality [numeric]
  * - Barcode [input]
  * - Codes [objectbricks]
@@ -45,7 +46,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Produkt',
    'description' => 'Towar, który można sprzedać',
    'creationDate' => NULL,
-   'modificationDate' => 1745823468,
+   'modificationDate' => 1745832369,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -1338,6 +1339,63 @@ Paczki produktu',
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
               )),
+              3 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyRelation::__set_state(array(
+                 'name' => 'LoadCarriers',
+                 'title' => 'Load Carriers',
+                 'tooltip' => 'Nośniki
+
+Nośniki, na których może być wysyłany towar. Przykładowo: wrażliwe na uszkodzenia towary mogą być ograniczone do transportu wyłącznie na wybranej palecie.
+
+Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącznie',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => true,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'classes' => 
+                array (
+                  0 => 
+                  array (
+                    'classes' => 'LoadCarrier',
+                  ),
+                ),
+                 'displayMode' => NULL,
+                 'pathFormatterClass' => '',
+                 'maxItems' => NULL,
+                 'assetInlineDownloadAllowed' => false,
+                 'assetUploadPath' => '',
+                 'allowToClearRelation' => true,
+                 'objectsAllowed' => true,
+                 'assetsAllowed' => false,
+                 'assetTypes' => 
+                array (
+                  0 => 
+                  array (
+                    'assetTypes' => '',
+                  ),
+                ),
+                 'documentsAllowed' => false,
+                 'documentTypes' => 
+                array (
+                  0 => 
+                  array (
+                    'documentTypes' => '',
+                  ),
+                ),
+                 'enableTextSelection' => false,
+                 'width' => '',
+                 'height' => '',
+              )),
             ),
              'locked' => false,
              'blockedVarsForExport' => 
@@ -1551,10 +1609,6 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                 ),
                  'classes' => 
                 array (
-                  0 => 
-                  array (
-                    'classes' => '',
-                  ),
                 ),
                  'displayMode' => NULL,
                  'pathFormatterClass' => '',
@@ -1566,18 +1620,10 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                  'assetsAllowed' => false,
                  'assetTypes' => 
                 array (
-                  0 => 
-                  array (
-                    'assetTypes' => '',
-                  ),
                 ),
                  'documentsAllowed' => false,
                  'documentTypes' => 
                 array (
-                  0 => 
-                  array (
-                    'documentTypes' => '',
-                  ),
                 ),
                  'enableTextSelection' => false,
                  'width' => '',

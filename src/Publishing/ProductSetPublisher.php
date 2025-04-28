@@ -200,6 +200,35 @@ class ProductSetPublisher
                     }
                 }
 
+                foreach ($set->getSet() as $li)
+                {
+                    if($li->getElement()->getLoadCarriers())
+                    {
+                        if($parcel->getRestrictions() and $parcel->getRestrictions()->getLoadCarriers() and $parcel->getRestrictions()->getLoadCarriers()->getLoadCarriers())
+                        {
+                            $found = false;
+
+                            foreach ($li->getElement()->getLoadCarriers() as $productCarrier)
+                            {
+                                foreach ($parcel->getRestrictions()->getLoadCarriers()->getLoadCarriers() as $parcelCarrier)
+                                {
+                                    if($productCarrier->getId() == $parcelCarrier->getId())
+                                    {
+                                        $found = true;
+                                    }
+                                }
+                            }
+
+                            if(!$found)
+                                return false;
+                        }
+                        else
+                        {
+                            return null;
+                        }
+                    }
+                }
+
                 if($parcel->getRules())
                 {
                     foreach ($parcel->getRules() as $rule)
