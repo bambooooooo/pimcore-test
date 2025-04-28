@@ -156,6 +156,11 @@ class ObjectController extends FrontendController
                 return new Response("Already added", Response::HTTP_OK);
             }
 
+            if($obj instanceof Product && $obj->getObjectType() != 'ACTUAL')
+            {
+                return new Response("Cannot assign EAN to Product with type other than ACTUAL", Response::HTTP_CONFLICT);
+            }
+
             $eanPools = new DataObject\EanPool\Listing();
             $eanPools->setCondition('LENGTH(`AvailableCodes`) > 12');
             $eanPools->load();

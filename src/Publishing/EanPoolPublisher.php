@@ -7,9 +7,7 @@ use Pimcore\Model\DataObject\EanPool;
 
 class EanPoolPublisher
 {
-    public function __construct(
-        private readonly GS1Service $GS1Service
-    ) { }
+    public function __construct(private readonly GS1Service $GS1Service) { }
     public function publish(EanPool $eanPool): void
     {
         if(count($eanPool->getAvailableCodes()) > 1)

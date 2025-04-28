@@ -27,7 +27,7 @@ class ProductSetPublisher
     {
         DataObject\Service::useInheritedValues(true, function () use ($set) {
             $this->assertNamePL($set);
-            $this->setItemsValidation($set);
+            $this->assertProdutsAreAssignedAndPublished($set);
 
             $this->updateMass($set);
             $this->updatePackageMass($set);
@@ -43,7 +43,7 @@ class ProductSetPublisher
         });
     }
 
-    function setItemsValidation(ProductSet $set) : void
+    function assertProdutsAreAssignedAndPublished(ProductSet $set) : void
     {
         assert($set->getSet() and count($set->getSet()) > 0, "ProductSet has no items");
 

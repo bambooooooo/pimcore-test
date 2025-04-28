@@ -30,16 +30,15 @@ class ProductPublisher
         DataObject\Service::useInheritedValues(true, function() use ($product) {
 
             $this->assertNamePL($product);
-            $this->packageValidation($product);
+            $this->assertPackageQuantityAndPublished($product);
 
+            $this->translateNames($product);
             $this->updatePackagesMassAndVolume($product);
 
             if($product->getObjectType() == 'ACTUAL')
             {
-                $this->translateNames($product);
                 $this->updateDefaultBarcode($product);
                 $this->updateParcels($product);
-
                 $this->sendToErp($product);
             }
         });
@@ -50,7 +49,7 @@ class ProductPublisher
         assert($product->getName("pl") and strlen($product->getName("pl")) > 3, "Product has to provide name in at least PL");
     }
 
-    function packageValidation(Product $product) : void
+    function assertPackageQuantityAndPublished(Product $product) : void
     {
         if($product->getPackages())
         {

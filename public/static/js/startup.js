@@ -1,3 +1,4 @@
+
 document.addEventListener(pimcore.events.postOpenObject, function(e){
 
     if(e.detail.object.data.general.className === "Product" || e.detail.object.data.general.className === "ProductSet")
@@ -81,26 +82,31 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
     {
         const prods = e.detail.object.data.data.Products.length + e.detail.object.data.data.Sets.length;
 
-        if(prods > 0)
-        {
-            e.detail.object.toolbar.add({
-                icon: '/bundles/pimcoreadmin/img/flat-white-icons/download-cloud.svg',
-                scale: 'medium',
-                tooltip: 'Download',
-                menu: [
-                    {
-                        text: t('Product(Set) images'),
-                        tooltip: t('Download all images from assigned Products and ProductSets as zip archive'),
-                        icon: '/bundles/pimcoreadmin/img/flat-white-icons/gallery.svg',
-                        scale: 'medium',
-                        handler: function () {
+        e.detail.object.toolbar.add({
+            icon: '/bundles/pimcoreadmin/img/flat-white-icons/download-cloud.svg',
+            scale: 'medium',
+            tooltip: 'Download',
+            menu: [
+                {
+                    text: t('Product(Set) images'),
+                    tooltip: t('Download all images from assigned Products and ProductSets as zip archive'),
+                    icon: '/bundles/pimcoreadmin/img/flat-white-icons/gallery.svg',
+                    scale: 'medium',
+                    handler: function () {
+
+                        if(prods > 0)
+                        {
                             const path = "/export/images/" + e.detail.object.id;
                             window.open(path);
                         }
+                        else
+                        {
+                            Ext.Msg.alert('Warning', 'Group has no Products and Sets!');
+                        }
                     }
-                ]
-            })
-        }
+                }
+            ]
+        })
     }
 })
 
