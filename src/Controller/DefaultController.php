@@ -11,7 +11,7 @@ class DefaultController extends FrontendController
 {
     public function defaultAction(Request $request): Response
     {
-        return $this->render('default/default.html.twig');
+        return $this->redirect($this->generateUrl('factory_home'));
     }
 
     /**
