@@ -97,6 +97,17 @@ services:
         tags:
             - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: onPublish }
 
+    # front auth
+    factory.security.user_provider:
+        class: Pimcore\Security\User\ObjectUserProvider
+        arguments: ['App\Model\DataObject\User', "email"]
+
+    factory.security.password_hasher_factory:
+        class: Pimcore\Security\Hasher\Factory\UserAwarePasswordHasherFactory
+        arguments:
+            - Pimcore\Security\Hasher\PasswordFieldHasher
+            - [ 'password' ]
+
     # Example custom templating helper
     # App\Templating\Helper\Example:
     #     # templating helpers need to be public as they

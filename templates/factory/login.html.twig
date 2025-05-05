@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en" data-bs-theme="auto">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <title>Megstyl</title>
+    <link rel="icon" type="image/png" href="/bundles/pimcoreadmin/img/favicon/favicon-32x32.png">
+    <style>
+
+        * {
+            font-family: system-ui;
+        }
+
+        html, body
+        {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            width: 100%;
+            display: block;
+        }
+
+        .bg {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .bg-img
+        {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background-repeat: no-repeat;
+            background-size: cover;
+            filter: blur(3px);
+            -webkit-filter: blur(3px);
+            background-position: center;
+            animation: moveBackground 50s infinite alternate linear;
+        }
+
+        @keyframes moveBackground {
+            0% {
+                background-position: center center;
+            }
+            100% {
+                background-position: center bottom;
+            }
+        }
+
+        .login-container {
+            background: #f3f3f3;
+            padding: 20px;
+            -webkit-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+            -moz-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+            box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+            border-radius: 8px;
+            text-align: center;
+            width: 300px;
+            opacity: 0.95;
+        }
+
+        .logo-1
+        {
+            width: 60px;
+            height: 60px;
+            display: block;
+        }
+
+        .logo-wrapper
+        {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 32px;
+        }
+
+        .form-fields
+        {
+            margin: 48px 0;
+        }
+
+        .title-wrapper
+        {
+            margin: 16px 0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .input
+        {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 8px 4px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            border: 1px solid #212121;
+        }
+
+        .btn-go
+        {
+            width: 100%;
+            padding: 16px 0;
+            border-radius: 4px;
+            background: #702cf7;
+            color: #fafafa;
+            border: none;
+            transition: 0.4s;
+            opacity: 1;
+        }
+
+        .btn-go:hover
+        {
+            background: #702cf7;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(104, 85, 224, 0.6);
+        }
+
+        .error-box
+        {
+            color: #fa0000;
+            margin: 48px 0;
+        }
+
+    </style>
+</head>
+<body>
+<div class="bg">
+    <div class="bg-img" id="bg-front" style="z-index: 200"></div>
+    <div class="bg-img" id="bg-back" style="z-index: 100"></div>
+    <main class="login-container" style="z-index: 999">
+        <form method="post">
+            <input type="hidden" name="_target_path" value="{{ path("factory_home") }}">
+
+            <a href="{{ path("factory_home") }}">
+                <div class="logo-wrapper">
+                    <img class="logo-1" src="/LOGO/megstyl_logotyp.svg"/>
+                    <img class="logo-1" src="/bundles/pimcoreadmin/img/flat-color-icons/pimcore-sign.svg"/>
+                </div>
+            </a>
+
+            <div class="title-wrapper">
+                PIM MEGSTYL
+            </div>
+
+            <div class="form-fields">
+                <div class="form-floating">
+                    <input type="text" name="_username" class="input" id="floating-email" placeholder="name@example.com">
+                </div>
+                <div class="form-floating">
+                    <input type="password" name="_password" class="input" id="floating-password" placeholder="password">
+                </div>
+                <input type="checkbox" name="_remember_me" id="remember-me" checked>
+                <label for="remember-me">Remember me</label>
+            </div>
+
+            <div class="error-box">
+                {% if error %}
+                    {{ error.message|trans }}
+                {% endif %}
+            </div>
+
+            <div class="d-flex gap-3">
+                <button class="btn-go">
+                    <img src="/bundles/pimcoreadmin/img/flat-white-icons/start.svg" style="height: 24px">
+                </button>
+            </div>
+
+        </form>
+    </main>
+</div>
+<script type="text/javascript">
+
+    var bg = null;
+    var i = 0;
+
+    var images = [
+        '/PRODUCT/ASPEN-06-BM-3.jpg',
+        '/PRODUCT/FINIQ-03-DW-2.jpg'
+    ];
+
+    document.addEventListener("DOMContentLoaded", function() {
+        bg = document.getElementById("bg-front");
+        bg.style.backgroundImage = "url('" + images[0] + "')";
+
+        setInterval(function(){
+            bg.style.backgroundImage = "url('" + images[i] + "')";
+            i = (i + 1) % images.length;
+        }, 3000);
+    })
+
+
+</script>
+</body>
+</html>
