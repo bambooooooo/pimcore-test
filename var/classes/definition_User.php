@@ -11,7 +11,7 @@
  * - email [email]
  * - Name [input]
  * - VAT [input]
- * - Password [password]
+ * - password [password]
  * - Lang [language]
  * - Address1 [input]
  * - Address2 [input]
@@ -28,7 +28,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Użytkownik',
    'description' => 'Podmiot w systemie',
    'creationDate' => NULL,
-   'modificationDate' => 1745820671,
+   'modificationDate' => 1746429645,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -200,7 +200,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               )),
               4 =>
               \Pimcore\Model\DataObject\ClassDefinition\Data\Password::__set_state(array(
-                 'name' => 'Password',
+                 'name' => 'password',
                  'title' => 'Password',
                  'tooltip' => '',
                  'mandatory' => false,
@@ -228,7 +228,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'name' => 'Lang',
                  'title' => 'Language',
                  'tooltip' => '',
-                 'mandatory' => false,
+                 'mandatory' => true,
                  'noteditable' => false,
                  'index' => false,
                  'locked' => false,
