@@ -22,7 +22,7 @@ jobs:
                   port: ${{ secrets.SSH_PORT }}
                   passphrase: ${{ secrets.SSH_PASSPHRASE }}
                   script: |
-                      cd ~/pimcore
+                      cd ~/pimcore-test
                       git reset --hard
                       git pull origin main
                       git checkout main
