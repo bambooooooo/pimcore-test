@@ -12,7 +12,7 @@ return \Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
    'parentClass' => '',
    'implementsInterfaces' => '',
    'title' => 'Waga i objętość paczek',
-   'group' => 'ParcelPricing',
+   'group' => 'Pricing',
    'layoutDefinitions' => 
   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
      'name' => NULL,

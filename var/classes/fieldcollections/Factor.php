@@ -3,17 +3,16 @@
 /**
  * Fields Summary:
  * - Title [select]
- * - Fee [quantityValue]
- * - Mode [select]
+ * - Factor [numeric]
  */
 
 return \Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
    'dao' => NULL,
-   'key' => 'ParcelAddition',
+   'key' => 'Factor',
    'parentClass' => '',
    'implementsInterfaces' => '',
-   'title' => '+ Kwota',
-   'group' => 'ParcelPricing',
+   'title' => '* Mnożnik',
+   'group' => 'Pricing',
    'layoutDefinitions' => 
   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
      'name' => NULL,
@@ -61,32 +60,19 @@ return \Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
              'blockedVarsForExport' => 
             array (
             ),
-             'options' => 
-            array (
-              0 => 
-              array (
-                'key' => 'Koszt obsługi',
-                'value' => 'Koszt obsługi',
-              ),
-              1 => 
-              array (
-                'key' => 'Odprawa celna',
-                'value' => 'Odprawa celna',
-              ),
-            ),
              'defaultValue' => '',
              'columnLength' => 190,
              'dynamicOptions' => false,
              'defaultValueGenerator' => '',
              'width' => '',
-             'optionsProviderType' => 'configure',
-             'optionsProviderClass' => '',
-             'optionsProviderData' => '',
+             'optionsProviderType' => 'select_options',
+             'optionsProviderClass' => 'Pimcore\\Bundle\\CoreBundle\\OptionsProvider\\SelectOptionsOptionsProvider',
+             'optionsProviderData' => 'SurchargeTitle',
           )),
           1 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-             'name' => 'Fee',
-             'title' => 'Fee',
+          \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+             'name' => 'Factor',
+             'title' => 'Factor',
              'tooltip' => '',
              'mandatory' => true,
              'noteditable' => false,
@@ -102,64 +88,16 @@ return \Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
              'blockedVarsForExport' => 
             array (
             ),
-             'unitWidth' => '',
-             'defaultUnit' => 'PLN',
-             'validUnits' => 
-            array (
-              0 => 'PLN',
-            ),
-             'unique' => false,
-             'autoConvert' => false,
-             'defaultValueGenerator' => '',
-             'width' => '',
              'defaultValue' => NULL,
              'integer' => false,
              'unsigned' => false,
              'minValue' => NULL,
              'maxValue' => NULL,
+             'unique' => false,
              'decimalSize' => NULL,
              'decimalPrecision' => NULL,
-          )),
-          2 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-             'name' => 'Mode',
-             'title' => 'Mode',
-             'tooltip' => '',
-             'mandatory' => true,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'fieldtype' => '',
-             'relationType' => false,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => false,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'options' => 
-            array (
-              0 => 
-              array (
-                'key' => 'Do zlecenia',
-                'value' => 'PARCEL',
-              ),
-              1 => 
-              array (
-                'key' => 'Do każdej paczki',
-                'value' => 'PACKAGE',
-              ),
-            ),
-             'defaultValue' => 'PARCEL',
-             'columnLength' => 190,
-             'dynamicOptions' => false,
-             'defaultValueGenerator' => '',
              'width' => '',
-             'optionsProviderType' => 'configure',
-             'optionsProviderClass' => '',
-             'optionsProviderData' => '',
+             'defaultValueGenerator' => '',
           )),
         ),
          'locked' => false,

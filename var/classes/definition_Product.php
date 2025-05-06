@@ -27,11 +27,12 @@
  * - Groups [manyToManyObjectRelation]
  * - Parameters [classificationstore]
  * - BasePrice [quantityValue]
- * - Parcel [advancedManyToManyObjectRelation]
+ * - Pricing [advancedManyToManyObjectRelation]
  * - Images [imageGallery]
  * - Packages [advancedManyToManyObjectRelation]
  * - PackagesMass [quantityValue]
  * - PackagesVolume [quantityValue]
+ * - LoadCarriers [manyToManyRelation]
  * - Quality [numeric]
  * - Barcode [input]
  * - Codes [objectbricks]
@@ -45,7 +46,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Produkt',
    'description' => 'Towar, który można sprzedać',
    'creationDate' => NULL,
-   'modificationDate' => 1745823468,
+   'modificationDate' => 1746515689,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -1007,11 +1008,11 @@ Cena zakupu produktu u producenta lub techniczny koszt wytworzenia przy własnej
               )),
               1 =>
               \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
-                 'name' => 'Parcel',
-                 'title' => 'Parcel',
-                 'tooltip' => 'Wysyłka
+                 'name' => 'Pricing',
+                 'title' => 'Pricing',
+                 'tooltip' => 'Wycena
 
-Koszt wysyłki realizowanej w ramach konkretnej usługi w danym kraju. Koszt obliczany jest automatycznie w momencie publikacji produktu na podstawie parametrów paczek.',
+Wycena produktu lub innej usługi związanej z produktem, np. transport',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -1032,7 +1033,7 @@ Koszt wysyłki realizowanej w ramach konkretnej usługi w danym kraju. Koszt obl
                  'displayMode' => NULL,
                  'pathFormatterClass' => '',
                  'maxItems' => NULL,
-                 'visibleFields' => 'key,Country',
+                 'visibleFields' => 'key,Countries',
                  'allowToCreateNewObject' => false,
                  'allowToClearRelation' => true,
                  'optimizedAdminLoading' => false,
@@ -1042,7 +1043,7 @@ Koszt wysyłki realizowanej w ramach konkretnej usługi w danym kraju. Koszt obl
                 ),
                  'width' => '',
                  'height' => '',
-                 'allowedClassId' => 'Parcel',
+                 'allowedClassId' => 'Pricing',
                  'columns' =>
                 array (
                   0 =>
@@ -1231,7 +1232,7 @@ Paczki produktu',
                  'displayMode' => NULL,
                  'pathFormatterClass' => '',
                  'maxItems' => NULL,
-                 'visibleFields' => 'key,Mass,Depth,Height,Width,Barcode',
+                 'visibleFields' => 'key,Mass,Depth,Height,Width,Barcode,Volume',
                  'allowToCreateNewObject' => false,
                  'allowToClearRelation' => true,
                  'optimizedAdminLoading' => false,
@@ -1337,6 +1338,55 @@ Paczki produktu',
                  'maxValue' => NULL,
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
+              )),
+              3 =>
+              \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyRelation::__set_state(array(
+                 'name' => 'LoadCarriers',
+                 'title' => 'Load Carriers',
+                 'tooltip' => 'Nośniki
+
+Nośniki, na których może być wysyłany towar. Przykładowo: wrażliwe na uszkodzenia towary mogą być ograniczone do transportu wyłącznie na wybranej palecie.
+
+Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącznie',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => true,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' =>
+                array (
+                ),
+                 'classes' =>
+                array (
+                  0 =>
+                  array (
+                    'classes' => 'LoadCarrier',
+                  ),
+                ),
+                 'displayMode' => NULL,
+                 'pathFormatterClass' => '',
+                 'maxItems' => NULL,
+                 'assetInlineDownloadAllowed' => false,
+                 'assetUploadPath' => '',
+                 'allowToClearRelation' => true,
+                 'objectsAllowed' => true,
+                 'assetsAllowed' => false,
+                 'assetTypes' =>
+                array (
+                ),
+                 'documentsAllowed' => false,
+                 'documentTypes' =>
+                array (
+                ),
+                 'enableTextSelection' => false,
+                 'width' => '',
+                 'height' => '',
               )),
             ),
              'locked' => false,
@@ -1551,10 +1601,6 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                 ),
                  'classes' =>
                 array (
-                  0 =>
-                  array (
-                    'classes' => '',
-                  ),
                 ),
                  'displayMode' => NULL,
                  'pathFormatterClass' => '',
@@ -1566,18 +1612,10 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                  'assetsAllowed' => false,
                  'assetTypes' =>
                 array (
-                  0 =>
-                  array (
-                    'assetTypes' => '',
-                  ),
                 ),
                  'documentsAllowed' => false,
                  'documentTypes' =>
                 array (
-                  0 =>
-                  array (
-                    'documentTypes' => '',
-                  ),
                 ),
                  'enableTextSelection' => false,
                  'width' => '',

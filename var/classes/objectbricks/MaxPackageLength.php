@@ -44,8 +44,8 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
           \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
              'name' => 'Limit',
              'title' => 'Limit',
-             'tooltip' => '',
-             'mandatory' => false,
+             'tooltip' => 'Maksymalna długość najdłuższego z boków dowolnej paczki nie może być większa niż wskazany limit.',
+             'mandatory' => true,
              'noteditable' => false,
              'index' => false,
              'locked' => false,
@@ -70,39 +70,12 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'defaultValueGenerator' => '',
              'width' => '',
              'defaultValue' => NULL,
-             'integer' => false,
-             'unsigned' => false,
+             'integer' => true,
+             'unsigned' => true,
              'minValue' => NULL,
              'maxValue' => NULL,
              'decimalSize' => NULL,
              'decimalPrecision' => NULL,
-          )),
-          1 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
-             'name' => 'Layout',
-             'type' => NULL,
-             'region' => NULL,
-             'title' => '',
-             'width' => '',
-             'height' => '',
-             'collapsible' => false,
-             'collapsed' => false,
-             'bodyStyle' => '',
-             'datatype' => 'layout',
-             'children' => 
-            array (
-            ),
-             'locked' => false,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'fieldtype' => 'text',
-             'html' => '<h4>
-Maksymalna długość najdłuższego z boków dowolnej paczki nie może być większa niż wskazany limit.
-</h4>',
-             'renderingClass' => '',
-             'renderingData' => '',
-             'border' => false,
           )),
         ),
          'locked' => false,
@@ -139,7 +112,7 @@ Maksymalna długość najdłuższego z boków dowolnej paczki nie może być wi�
   array (
     0 => 
     array (
-      'classname' => 'Parcel',
+      'classname' => 'Pricing',
       'fieldname' => 'Restrictions',
     ),
   ),

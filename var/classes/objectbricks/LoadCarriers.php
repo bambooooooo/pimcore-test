@@ -2,15 +2,15 @@
 
 /**
  * Fields Summary:
- * - Limit [quantityValue]
+ * - LoadCarriers [manyToManyRelation]
  */
 
 return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'dao' => NULL,
-   'key' => 'MaxPackageWeight',
+   'key' => 'LoadCarriers',
    'parentClass' => '',
    'implementsInterfaces' => '',
-   'title' => 'Maksymalna waga paczki',
+   'title' => 'Wybrane nośniki',
    'group' => '',
    'layoutDefinitions' => 
   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -41,10 +41,10 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
          'children' => 
         array (
           0 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-             'name' => 'Limit',
-             'title' => 'Limit',
-             'tooltip' => 'Waga dowolnej z paczek nie może przekraczać zadanej wartości',
+          \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyRelation::__set_state(array(
+             'name' => 'LoadCarriers',
+             'title' => 'Load Carriers',
+             'tooltip' => 'Przesyłka może być realizowana wyłącznie z wykorzystaniem nośników z tej listy, np. tylko na wybranych paletach',
              'mandatory' => true,
              'noteditable' => false,
              'index' => false,
@@ -52,30 +52,38 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'style' => '',
              'permissions' => NULL,
              'fieldtype' => '',
-             'relationType' => false,
+             'relationType' => true,
              'invisible' => false,
              'visibleGridView' => false,
              'visibleSearch' => false,
              'blockedVarsForExport' => 
             array (
             ),
-             'unitWidth' => '',
-             'defaultUnit' => 'kg',
-             'validUnits' => 
+             'classes' => 
             array (
-              0 => 'kg',
+              0 => 
+              array (
+                'classes' => 'LoadCarrier',
+              ),
             ),
-             'unique' => false,
-             'autoConvert' => false,
-             'defaultValueGenerator' => '',
+             'displayMode' => NULL,
+             'pathFormatterClass' => '',
+             'maxItems' => NULL,
+             'assetInlineDownloadAllowed' => false,
+             'assetUploadPath' => '',
+             'allowToClearRelation' => true,
+             'objectsAllowed' => true,
+             'assetsAllowed' => false,
+             'assetTypes' => 
+            array (
+            ),
+             'documentsAllowed' => false,
+             'documentTypes' => 
+            array (
+            ),
+             'enableTextSelection' => false,
              'width' => '',
-             'defaultValue' => NULL,
-             'integer' => false,
-             'unsigned' => true,
-             'minValue' => NULL,
-             'maxValue' => NULL,
-             'decimalSize' => NULL,
-             'decimalPrecision' => NULL,
+             'height' => '',
           )),
         ),
          'locked' => false,
