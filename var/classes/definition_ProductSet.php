@@ -14,11 +14,12 @@
  * - Mass [quantityValue]
  * - PackagesMass [quantityValue]
  * - PackagesVolume [quantityValue]
+ * - PackageCount [numeric]
  * - Images [imageGallery]
  * - Groups [manyToManyObjectRelation]
  * - Parameters [classificationstore]
  * - BasePrice [quantityValue]
- * - Parcel [advancedManyToManyObjectRelation]
+ * - Pricing [advancedManyToManyObjectRelation]
  */
 
 return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
@@ -28,7 +29,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1745820282,
+   'modificationDate' => 1746521648,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -458,6 +459,36 @@ Ośmiocyfrowy numer "Brick" klasyfikacji produktowej GS1 GPC. Wyszukiwarka kodó
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
               )),
+              8 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                 'name' => 'PackageCount',
+                 'title' => 'Package Count',
+                 'tooltip' => 'Ilość paczek',
+                 'mandatory' => false,
+                 'noteditable' => true,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'defaultValue' => NULL,
+                 'integer' => false,
+                 'unsigned' => false,
+                 'minValue' => NULL,
+                 'maxValue' => NULL,
+                 'unique' => false,
+                 'decimalSize' => NULL,
+                 'decimalPrecision' => NULL,
+                 'width' => '',
+                 'defaultValueGenerator' => '',
+              )),
             ),
              'locked' => false,
              'blockedVarsForExport' => 
@@ -690,11 +721,9 @@ Suma cen bazowych produktów',
               )),
               1 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
-                 'name' => 'Parcel',
-                 'title' => 'Parcel',
-                 'tooltip' => 'Wysyłka
-
-Koszt wysyłki realizowanej w ramach konkretnej usługi w danym kraju. Koszt obliczany jest automatycznie w momencie publikacji zestawu na podstawie parametrów paczek.',
+                 'name' => 'Pricing',
+                 'title' => 'Pricing',
+                 'tooltip' => 'Wyceny',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -715,7 +744,7 @@ Koszt wysyłki realizowanej w ramach konkretnej usługi w danym kraju. Koszt obl
                  'displayMode' => NULL,
                  'pathFormatterClass' => '',
                  'maxItems' => NULL,
-                 'visibleFields' => 'key,Country',
+                 'visibleFields' => 'key,Countries',
                  'allowToCreateNewObject' => false,
                  'allowToClearRelation' => true,
                  'optimizedAdminLoading' => false,
@@ -725,7 +754,7 @@ Koszt wysyłki realizowanej w ramach konkretnej usługi w danym kraju. Koszt obl
                 ),
                  'width' => '',
                  'height' => '',
-                 'allowedClassId' => 'Parcel',
+                 'allowedClassId' => 'Pricing',
                  'columns' => 
                 array (
                   0 => 
@@ -809,6 +838,61 @@ Koszt wysyłki realizowanej w ramach konkretnej usługi w danym kraju. Koszt obl
    'enableGridLocking' => false,
    'deletedDataComponents' => 
   array (
+    0 => 
+    \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
+       'name' => 'Parcel',
+       'title' => 'Parcel',
+       'tooltip' => 'Wysyłka
+
+Koszt wysyłki realizowanej w ramach konkretnej usługi w danym kraju. Koszt obliczany jest automatycznie w momencie publikacji zestawu na podstawie parametrów paczek.',
+       'mandatory' => false,
+       'noteditable' => false,
+       'index' => false,
+       'locked' => false,
+       'style' => '',
+       'permissions' => NULL,
+       'fieldtype' => '',
+       'relationType' => true,
+       'invisible' => false,
+       'visibleGridView' => false,
+       'visibleSearch' => false,
+       'blockedVarsForExport' => 
+      array (
+      ),
+       'classes' => 
+      array (
+      ),
+       'displayMode' => NULL,
+       'pathFormatterClass' => '',
+       'maxItems' => NULL,
+       'visibleFields' => 'key,Country',
+       'allowToCreateNewObject' => false,
+       'allowToClearRelation' => true,
+       'optimizedAdminLoading' => false,
+       'enableTextSelection' => false,
+       'visibleFieldDefinitions' => 
+      array (
+      ),
+       'width' => '',
+       'height' => '',
+       'allowedClassId' => 'Parcel',
+       'columns' => 
+      array (
+        0 => 
+        array (
+          'type' => 'number',
+          'position' => 1,
+          'key' => 'Price',
+          'label' => 'Price PLN',
+        ),
+      ),
+       'columnKeys' => 
+      array (
+        0 => 'Price',
+      ),
+       'enableBatchEdit' => false,
+       'allowMultipleAssignments' => false,
+    )),
   ),
    'blockedVarsForExport' => 
   array (

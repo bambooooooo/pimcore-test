@@ -27,7 +27,7 @@
  * - Groups [manyToManyObjectRelation]
  * - Parameters [classificationstore]
  * - BasePrice [quantityValue]
- * - Parcel [advancedManyToManyObjectRelation]
+ * - Pricing [advancedManyToManyObjectRelation]
  * - Images [imageGallery]
  * - Packages [advancedManyToManyObjectRelation]
  * - PackagesMass [quantityValue]
@@ -46,7 +46,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Produkt',
    'description' => 'Towar, który można sprzedać',
    'creationDate' => NULL,
-   'modificationDate' => 1745832369,
+   'modificationDate' => 1746515689,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -1008,11 +1008,11 @@ Cena zakupu produktu u producenta lub techniczny koszt wytworzenia przy własnej
               )),
               1 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
-                 'name' => 'Parcel',
-                 'title' => 'Parcel',
-                 'tooltip' => 'Wysyłka
+                 'name' => 'Pricing',
+                 'title' => 'Pricing',
+                 'tooltip' => 'Wycena
 
-Koszt wysyłki realizowanej w ramach konkretnej usługi w danym kraju. Koszt obliczany jest automatycznie w momencie publikacji produktu na podstawie parametrów paczek.',
+Wycena produktu lub innej usługi związanej z produktem, np. transport',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -1033,7 +1033,7 @@ Koszt wysyłki realizowanej w ramach konkretnej usługi w danym kraju. Koszt obl
                  'displayMode' => NULL,
                  'pathFormatterClass' => '',
                  'maxItems' => NULL,
-                 'visibleFields' => 'key,Country',
+                 'visibleFields' => 'key,Countries',
                  'allowToCreateNewObject' => false,
                  'allowToClearRelation' => true,
                  'optimizedAdminLoading' => false,
@@ -1043,7 +1043,7 @@ Koszt wysyłki realizowanej w ramach konkretnej usługi w danym kraju. Koszt obl
                 ),
                  'width' => '',
                  'height' => '',
-                 'allowedClassId' => 'Parcel',
+                 'allowedClassId' => 'Pricing',
                  'columns' => 
                 array (
                   0 => 
@@ -1232,7 +1232,7 @@ Paczki produktu',
                  'displayMode' => NULL,
                  'pathFormatterClass' => '',
                  'maxItems' => NULL,
-                 'visibleFields' => 'key,Mass,Depth,Height,Width,Barcode',
+                 'visibleFields' => 'key,Mass,Depth,Height,Width,Barcode,Volume',
                  'allowToCreateNewObject' => false,
                  'allowToClearRelation' => true,
                  'optimizedAdminLoading' => false,
@@ -1379,18 +1379,10 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                  'assetsAllowed' => false,
                  'assetTypes' => 
                 array (
-                  0 => 
-                  array (
-                    'assetTypes' => '',
-                  ),
                 ),
                  'documentsAllowed' => false,
                  'documentTypes' => 
                 array (
-                  0 => 
-                  array (
-                    'documentTypes' => '',
-                  ),
                 ),
                  'enableTextSelection' => false,
                  'width' => '',

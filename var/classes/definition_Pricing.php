@@ -3,23 +3,24 @@
 /**
  * Inheritance: yes
  * Variants: no
- * Title: Przesyłka
- * Usługa transportu realizowana w wybranym kraju
+ * Title: Pricing
+ * Wycena
  *
  * Fields Summary:
- * - Country [country]
+ * - Countries [countrymultiselect]
  * - Restrictions [objectbricks]
+ * - UseBasePrice [checkbox]
  * - Rules [fieldcollections]
  */
 
 return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'dao' => NULL,
    'id' => 'Parcel',
-   'name' => 'Parcel',
-   'title' => 'Przesyłka',
-   'description' => 'Usługa transportu realizowana w wybranym kraju',
+   'name' => 'Pricing',
+   'title' => 'Pricing',
+   'description' => 'Wycena',
    'creationDate' => NULL,
-   'modificationDate' => 1745832150,
+   'modificationDate' => 1746515419,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -77,10 +78,10 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'children' => 
             array (
               0 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\Country::__set_state(array(
-                 'name' => 'Country',
-                 'title' => 'Country',
-                 'tooltip' => 'Kraj
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Countrymultiselect::__set_state(array(
+                 'name' => 'Countries',
+                 'title' => 'Countries',
+                 'tooltip' => 'Kraje
 
 Kraj, w którym obowiązuje usługa
 ',
@@ -98,11 +99,13 @@ Kraj, w którym obowiązuje usługa
                  'blockedVarsForExport' => 
                 array (
                 ),
-                 'defaultValue' => NULL,
-                 'columnLength' => 190,
+                 'maxItems' => NULL,
+                 'renderType' => 'tags',
                  'dynamicOptions' => false,
-                 'defaultValueGenerator' => '',
+                 'defaultValue' => NULL,
+                 'height' => '',
                  'width' => '',
+                 'defaultValueGenerator' => '',
                  'optionsProviderType' => NULL,
                  'optionsProviderClass' => NULL,
                  'optionsProviderData' => NULL,
@@ -183,7 +186,9 @@ Kraj, w którym obowiązuje usługa
                 array (
                 ),
                  'fieldtype' => 'text',
-                 'html' => '',
+                 'html' => '<h1>Ograniczenia</h1>
+
+Wymagania, które musi spełnić produkt, aby wycena była możliwa',
                  'renderingClass' => '',
                  'renderingData' => '',
                  'border' => false,
@@ -215,6 +220,28 @@ Kraj, w którym obowiązuje usługa
              'children' => 
             array (
               0 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                 'name' => 'UseBasePrice',
+                 'title' => 'Use Base Price',
+                 'tooltip' => 'Czy użyć w ceny bazowej jako podstawa obliczeń? W przeciwnym wypadku użyta zostanie wartość 0,00 zł',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'defaultValue' => 1,
+                 'defaultValueGenerator' => '',
+              )),
+              1 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections::__set_state(array(
                  'name' => 'Rules',
                  'title' => 'Rules',
@@ -235,9 +262,10 @@ Kraj, w którym obowiązuje usługa
                 ),
                  'allowedTypes' => 
                 array (
-                  0 => 'ParcelMassVolume',
-                  1 => 'ParcelAddition',
-                  2 => 'ParcelFactor',
+                  0 => 'Factor',
+                  1 => 'Surcharge',
+                  2 => 'ParcelMassVolume',
+                  3 => 'Pricing',
                 ),
                  'lazyLoading' => true,
                  'maxItems' => NULL,
@@ -247,7 +275,7 @@ Kraj, w którym obowiązuje usługa
                  'collapsible' => false,
                  'border' => false,
               )),
-              1 => 
+              2 => 
               \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                  'name' => 'Layout',
                  'type' => NULL,
@@ -283,7 +311,7 @@ Kroki służące do wyznaczenia końcowej ceny usługi',
              'layout' => NULL,
              'border' => false,
              'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/sales_performance.svg',
-             'labelWidth' => 100,
+             'labelWidth' => 180,
              'labelAlign' => 'left',
           )),
         ),
@@ -307,7 +335,7 @@ Kroki służące do wyznaczenia końcowej ceny usługi',
      'labelWidth' => 100,
      'labelAlign' => 'left',
   )),
-   'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/in_transit.svg',
+   'icon' => 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMi4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iRWJlbmVfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHdpZHRoPSIyNHB4IiBoZWlnaHQ9IjI0cHgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMjQgMjQiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPGNpcmNsZSBmaWxsPSIjMjhBMDUwIiBjeD0iOCIgY3k9IjgiIHI9IjciLz4NCjxjaXJjbGUgZmlsbD0iIzI4NzhGMCIgY3g9IjE2IiBjeT0iMTYiIHI9IjciLz4NCjxnPg0KCTxwYXRoIGZpbGw9IiNGRkZGRkYiIGQ9Ik05LDkuN2MwLTAuMy0wLjEtMC41LTAuMi0wLjZDOC42LDguOSw4LjQsOC44LDgsOC42UzcuNCw4LjQsNy4xLDguM1M2LjYsOCw2LjQsNy44QzYuMyw3LjYsNi4xLDcuNCw2LDcuMg0KCQlDNS45LDcsNS45LDYuNyw1LjksNi40YzAtMC42LDAuMi0xLDAuNS0xLjRzMC44LTAuNiwxLjQtMC42di0xaDAuOHYxLjFjMC42LDAuMSwxLDAuMywxLjQsMC43czAuNSwwLjksMC41LDEuNkg5DQoJCWMwLTAuNS0wLjEtMC44LTAuMi0xQzguNiw1LjYsOC40LDUuNSw4LjEsNS41Yy0wLjMsMC0wLjUsMC4xLTAuNiwwLjJTNy4zLDYuMSw3LjMsNi40YzAsMC4yLDAuMSwwLjQsMC4yLDAuNnMwLjQsMC4zLDAuOCwwLjUNCgkJYzAuNCwwLjIsMC43LDAuMywxLDAuNHMwLjUsMC4zLDAuNiwwLjVzMC4zLDAuNCwwLjQsMC42czAuMSwwLjUsMC4xLDAuOGMwLDAuNi0wLjIsMS0wLjUsMS4zcy0wLjgsMC41LTEuNCwwLjZ2MUg3Ljd2LTENCgkJQzcsMTEuNiw2LjUsMTEuNCw2LjEsMTFjLTAuMy0wLjQtMC41LTEtMC41LTEuNkg3YzAsMC40LDAuMSwwLjcsMC4zLDAuOWMwLjIsMC4yLDAuNCwwLjMsMC44LDAuM2MwLjMsMCwwLjUtMC4xLDAuNy0wLjINCgkJUzksMTAsOSw5Ljd6Ii8+DQo8L2c+DQo8Zz4NCgk8cGF0aCBmaWxsPSIjRkZGRkZGIiBkPSJNMTYuOSwxN2gtMS42YzAsMC41LDAuMSwwLjgsMC40LDEuMWMwLjIsMC4yLDAuNiwwLjQsMS4xLDAuNGMwLjMsMCwwLjctMC4xLDAuOS0wLjJsMC4yLDEuMg0KCQljLTAuNCwwLjEtMC44LDAuMS0xLjMsMC4xYy0wLjksMC0xLjUtMC4yLTItMC43cy0wLjgtMS4xLTAuOC0xLjlIMTN2LTAuN2gwLjh2LTAuNkgxM1YxNWgwLjhjMC4xLTAuOCwwLjMtMS41LDAuOS0xLjkNCgkJYzAuNS0wLjUsMS4yLTAuNywyLjEtMC43YzAuMywwLDAuNywwLjEsMS4yLDAuMmwtMC4yLDEuMmMtMC4zLTAuMS0wLjYtMC4yLTAuOS0wLjJjLTAuOSwwLTEuNCwwLjUtMS41LDEuNEgxN3YwLjdoLTEuNnYwLjZIMTdWMTcNCgkJSDE2Ljl6Ii8+DQo8L2c+DQo8L3N2Zz4NCg==',
    'group' => '',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',

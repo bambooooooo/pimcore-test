@@ -44,8 +44,11 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
           \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
              'name' => 'Limit',
              'title' => 'Limit',
-             'tooltip' => '',
-             'mandatory' => false,
+             'tooltip' => 'Suma długości boków paczki nie może być większa niż wskazany limit.
+
+Przykładowo:
+Paczka o wymiarach 2 000 mm x 450 mm x 120 mm ma sumę długości równą 2570 mm, co jest mniejsze niż 3000 mm',
+             'mandatory' => true,
              'noteditable' => false,
              'index' => false,
              'locked' => false,
@@ -70,40 +73,12 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'defaultValueGenerator' => '',
              'width' => '',
              'defaultValue' => NULL,
-             'integer' => false,
-             'unsigned' => false,
+             'integer' => true,
+             'unsigned' => true,
              'minValue' => NULL,
              'maxValue' => NULL,
              'decimalSize' => NULL,
              'decimalPrecision' => NULL,
-          )),
-          1 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
-             'name' => 'Layout',
-             'type' => NULL,
-             'region' => NULL,
-             'title' => '',
-             'width' => '',
-             'height' => '',
-             'collapsible' => false,
-             'collapsed' => false,
-             'bodyStyle' => '',
-             'datatype' => 'layout',
-             'children' => 
-            array (
-            ),
-             'locked' => false,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'fieldtype' => 'text',
-             'html' => '<h4>
-Suma długości boków paczki nie może być większa niż wskazany limit.
-</h4>
-Przykładowo paczka o wymiarach 2 000 mm x 450 mm x 120 mm ma sumę długości równą 2570 mm, co jest mniejsze niż 3000 mm',
-             'renderingClass' => '',
-             'renderingData' => '',
-             'border' => false,
           )),
         ),
          'locked' => false,
@@ -140,7 +115,7 @@ Przykładowo paczka o wymiarach 2 000 mm x 450 mm x 120 mm ma sumę długości r
   array (
     0 => 
     array (
-      'classname' => 'Parcel',
+      'classname' => 'Pricing',
       'fieldname' => 'Restrictions',
     ),
   ),

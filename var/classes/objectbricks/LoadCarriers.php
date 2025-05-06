@@ -44,8 +44,8 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
           \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyRelation::__set_state(array(
              'name' => 'LoadCarriers',
              'title' => 'Load Carriers',
-             'tooltip' => '',
-             'mandatory' => false,
+             'tooltip' => 'Przesyłka może być realizowana wyłącznie z wykorzystaniem nośników z tej listy, np. tylko na wybranych paletach',
+             'mandatory' => true,
              'noteditable' => false,
              'index' => false,
              'locked' => false,
@@ -76,18 +76,10 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'assetsAllowed' => false,
              'assetTypes' => 
             array (
-              0 => 
-              array (
-                'assetTypes' => '',
-              ),
             ),
              'documentsAllowed' => false,
              'documentTypes' => 
             array (
-              0 => 
-              array (
-                'documentTypes' => '',
-              ),
             ),
              'enableTextSelection' => false,
              'width' => '',
@@ -128,7 +120,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
   array (
     0 => 
     array (
-      'classname' => 'Parcel',
+      'classname' => 'Pricing',
       'fieldname' => 'Restrictions',
     ),
   ),

@@ -1,0 +1,30 @@
+pimcore:
+    objects:
+        select_options:
+            definitions:
+                SurchargeTitle:
+                    id: SurchargeTitle
+                    group: ''
+                    useTraits: ''
+                    implementsInterfaces: ''
+                    selectOptions:
+                        -
+                            value: 'Odprawa celna'
+                            label: 'Odprawa celna'
+                            name: ''
+                        -
+                            value: 'Koszt obsługi'
+                            label: 'Koszt obsługi'
+                            name: ''
+                        -
+                            value: Narzut
+                            label: Narzut
+                            name: ''
+                        -
+                            value: Reklamacja
+                            label: Reklamacja
+                            name: ''
+                        -
+                            value: Pobranie
+                            label: Pobranie
+                            name: ''

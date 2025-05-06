@@ -1,18 +1,5 @@
 # TODO
 
-## [reverse proxy]
-
-Instalacja serwera reverse proxy. Przekierowanie ruchu zewnętrznego z routera
-
-## [pim] [instalacja]
-
-Instalacja na serwerze produkcyjnym. Przkierowanie żądań pim.megstyl.com z reverse proxy.
-Konfiguracja nginx, dodanie szyfrowania ssl
-
-## [cdn]
-
-Instalacja serwera cdn. Utworzenie usera dla integracji plików statycznych z pimcorem. Odpowiednia konfiguracja pim (flysystem v3)
-
 ## [pim] [def] [Product]
 
 Zdefiniowanie i wykorzystanie grup z classification store
@@ -170,10 +157,6 @@ Wykorzystanie relacji pomiędzy grupami w katalogu
 ## [pim] [waluty] [update]
 
 Aktualizacja kursów walut na życzenie - aktualizacja produktów - zmiana ceny w obcej walucie
-
-## [pim] [ui]
-
-Skrót klawiszowy [ctrl] + [m] - dodawanie rodzeństwa dla aktualnie otwartego obiektu
 
 ## [pim] [ec] [opis]
 
