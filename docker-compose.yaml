@@ -86,6 +86,11 @@ services:
         stdin_open: true
         tty: true
 
+    gotenberg:
+        image: gotenberg/gotenberg:8
+        ports:
+            - "3000:3000"
+
 volumes:
     pimcore-database:
     pimcore-rabbitmq:
