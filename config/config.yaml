@@ -103,6 +103,9 @@ pimcore:
         password_hasher_factories:
             App\Model\DataObject\User: factory.security.password_hasher_factory
 
+    gotenberg:
+        base_url: 'http://gotenberg:3000'
+
 #### SYMFONY OVERRIDES
 framework:
 #    WHEN RUNNING PIMCORE AND OTHER APPLICATIONS ON SAME DOMAIN, SET SESSION COOKIE NAME TO PROVIDE COLLISION

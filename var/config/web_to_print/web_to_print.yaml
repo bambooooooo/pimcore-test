@@ -1,0 +1,15 @@
+pimcore_web_to_print:
+    generalTool: gotenberg
+    generalDocumentSaveMode: default
+    pdfreactorProtocol: null
+    pdfreactorServer: ''
+    pdfreactorServerPort: ''
+    pdfreactorBaseUrl: ''
+    pdfreactorApiKey: ''
+    pdfreactorLicence: ''
+    pdfreactorEnableLenientHttpsMode: false
+    pdfreactorEnableDebugMode: false
+    gotenbergHostUrl: ''
+    gotenbergSettings: ''
+    chromiumHostUrl: ''
+    chromiumSettings: ''

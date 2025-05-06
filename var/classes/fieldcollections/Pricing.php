@@ -2,16 +2,16 @@
 
 /**
  * Fields Summary:
- * - Limit [quantityValue]
+ * - Pricing [manyToOneRelation]
  */
 
-return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
+return \Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
    'dao' => NULL,
-   'key' => 'MaxPackageWeight',
+   'key' => 'Pricing',
    'parentClass' => '',
    'implementsInterfaces' => '',
-   'title' => 'Maksymalna waga paczki',
-   'group' => '',
+   'title' => '+ Inna wycena',
+   'group' => 'Pricing',
    'layoutDefinitions' => 
   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
      'name' => NULL,
@@ -41,41 +41,46 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
          'children' => 
         array (
           0 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-             'name' => 'Limit',
-             'title' => 'Limit',
-             'tooltip' => 'Waga dowolnej z paczek nie może przekraczać zadanej wartości',
-             'mandatory' => true,
+          \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+             'name' => 'Pricing',
+             'title' => 'Pricing',
+             'tooltip' => 'Get price from another pricing',
+             'mandatory' => false,
              'noteditable' => false,
              'index' => false,
              'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'fieldtype' => '',
-             'relationType' => false,
+             'relationType' => true,
              'invisible' => false,
              'visibleGridView' => false,
              'visibleSearch' => false,
              'blockedVarsForExport' => 
             array (
             ),
-             'unitWidth' => '',
-             'defaultUnit' => 'kg',
-             'validUnits' => 
+             'classes' => 
             array (
-              0 => 'kg',
+              0 => 
+              array (
+                'classes' => 'Pricing',
+              ),
             ),
-             'unique' => false,
-             'autoConvert' => false,
-             'defaultValueGenerator' => '',
+             'displayMode' => 'grid',
+             'pathFormatterClass' => '',
+             'assetInlineDownloadAllowed' => false,
+             'assetUploadPath' => '',
+             'allowToClearRelation' => true,
+             'objectsAllowed' => true,
+             'assetsAllowed' => false,
+             'assetTypes' => 
+            array (
+            ),
+             'documentsAllowed' => false,
+             'documentTypes' => 
+            array (
+            ),
              'width' => '',
-             'defaultValue' => NULL,
-             'integer' => false,
-             'unsigned' => true,
-             'minValue' => NULL,
-             'maxValue' => NULL,
-             'decimalSize' => NULL,
-             'decimalPrecision' => NULL,
           )),
         ),
          'locked' => false,
@@ -104,17 +109,6 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'fieldDefinitionsCache' => NULL,
    'blockedVarsForExport' => 
   array (
-  ),
-   'activeDispatchingEvents' => 
-  array (
-  ),
-   'classDefinitions' => 
-  array (
-    0 => 
-    array (
-      'classname' => 'Pricing',
-      'fieldname' => 'Restrictions',
-    ),
   ),
    'activeDispatchingEvents' => 
   array (
