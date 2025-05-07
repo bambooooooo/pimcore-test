@@ -13,6 +13,7 @@
  * - MPN [input]
  * - localizedfields [localizedfields]
  * -- Name [input]
+ * -- Summary [wysiwyg]
  * -- Infographics [imageGallery]
  * - Group [manyToOneRelation]
  * - Model [input]
@@ -48,7 +49,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Produkt',
    'description' => 'Towar, który można sprzedać',
    'creationDate' => NULL,
-   'modificationDate' => 1746601505,
+   'modificationDate' => 1746606736,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -295,6 +296,35 @@ Pełna nazwa produktu. Nazwa w językach obcych tłumaczona jest automatycznie w
                      'showCharCount' => true,
                      'width' => 520,
                      'defaultValueGenerator' => '',
+                  )),
+                  1 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
+                     'name' => 'Summary',
+                     'title' => 'Summary',
+                     'tooltip' => 'Podsumowanie produktu
+
+Zwykle zwarty, techniczny opis z najważniejszymi parametrami
+
+Rozważyć opcję automatycznego generowania po uzupełnieniu wymaganych danych',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'toolbarConfig' => '',
+                     'excludeFromSearchIndex' => false,
+                     'maxCharacters' => '',
+                     'height' => '',
+                     'width' => '',
                   )),
                 ),
                  'region' => NULL,
@@ -1583,33 +1613,10 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                 ),
                  'allowedTypes' => 
                 array (
+                  0 => 'IndexAgata',
+                  1 => 'IndexMirjan24',
                 ),
                  'maxItems' => NULL,
-                 'border' => false,
-              )),
-              2 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
-                 'name' => 'Layout',
-                 'type' => NULL,
-                 'region' => NULL,
-                 'title' => '',
-                 'width' => '',
-                 'height' => '',
-                 'collapsible' => false,
-                 'collapsed' => false,
-                 'bodyStyle' => '',
-                 'datatype' => 'layout',
-                 'children' => 
-                array (
-                ),
-                 'locked' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'fieldtype' => 'text',
-                 'html' => 'Dodatkowe kody kontrahentów',
-                 'renderingClass' => '',
-                 'renderingData' => '',
                  'border' => false,
               )),
             ),
@@ -1659,10 +1666,6 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                 ),
                  'classes' => 
                 array (
-                  0 => 
-                  array (
-                    'classes' => '',
-                  ),
                 ),
                  'displayMode' => NULL,
                  'pathFormatterClass' => '',
@@ -1682,10 +1685,6 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                  'documentsAllowed' => false,
                  'documentTypes' => 
                 array (
-                  0 => 
-                  array (
-                    'documentTypes' => '',
-                  ),
                 ),
                  'enableTextSelection' => false,
                  'width' => '',
