@@ -45,53 +45,29 @@ class ObjectController extends FrontendController
 
         $productImages = [];
 
-        if($obj instanceof Product || $obj instanceof ProductSet) {
-
-            $productImages[$obj->getId()] = [];
-
+        if($obj instanceof Product)
+        {
+            $productImages[$obj->getId()] = $this->getProductImages($obj);
+        }
+        elseif ($obj instanceof ProductSet)
+        {
+            $productImages[$obj->getId()] = $this->getProductSetImages($obj);
+        }
+        elseif ($obj instanceof Group)
+        {
             if($obj->getImage())
             {
-                $productImages[$obj->getId()][] = $obj->getImage();
+                $productImages[$obj->getKey()][] = $obj->getImage();
             }
-
-            if($obj->getImages())
-            {
-                foreach($obj->getImages() as $image)
-                {
-                    $productImages[$obj->getId()][] = $image->getImage();
-                }
-            }
-        }
-        elseif ($obj instanceof Group) {
 
             foreach ($obj->getProducts() as $product)
             {
-                $productImages[$product->getId()] = [];
-
-                if($product->getImage())
-                {
-                    $productImages[$product->getId()][] = $product->getImage();
-                }
-
-                foreach ($product->getImages() as $image)
-                {
-                    $productImages[$product->getId()][] = $image->getImage();
-                }
+                $productImages[$obj->getId()] = $this->getProductImages($product);
             }
 
             foreach ($obj->getSets() as $set)
             {
-                $productImages[$set->getId()] = [];
-
-                if($set->getImage())
-                {
-                    $productImages[$set->getId()][] = $set->getImage();
-                }
-
-                foreach ($set->getImages() as $image)
-                {
-                    $productImages[$set->getId()][] = $image->getImage();
-                }
+                $productImages[$set->getId()] = $this->getProductSetImages($set);
             }
         }
         else
@@ -141,6 +117,62 @@ class ObjectController extends FrontendController
         }
 
         return $response;
+    }
+
+    private function getProductImages(Product $obj): array
+    {
+        $out = [];
+
+        if($obj->getImage())
+        {
+            $out[] = $obj->getImage();
+        }
+
+        if($obj->getImages())
+        {
+            foreach($obj->getImages() as $image)
+            {
+                $out[] = $image->getImage();
+            }
+        }
+
+        if($obj->getPhotos())
+        {
+            foreach($obj->getPhotos() as $image)
+            {
+                $out[] = $image->getImage();
+            }
+        }
+
+        if($obj->getImagesModel())
+        {
+            foreach($obj->getImagesModel() as $image)
+            {
+                $out[] = $image->getImage();
+            }
+        }
+
+        return $out;
+    }
+
+    private function getProductSetImages(ProductSet $obj): array
+    {
+        $out = [];
+
+        if($obj->getImage())
+        {
+            $out[] = $obj->getImage();
+        }
+
+        if($obj->getImages())
+        {
+            foreach($obj->getImages() as $image)
+            {
+                $out[] = $image->getImage();
+            }
+        }
+
+        return $out;
     }
 
     #[Route("/object/add-ean", name: "add_ean")]
