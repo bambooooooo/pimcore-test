@@ -16,6 +16,7 @@
  * - PackagesVolume [quantityValue]
  * - PackageCount [numeric]
  * - Images [imageGallery]
+ * - ImagesModel [imageGallery]
  * - Groups [manyToManyObjectRelation]
  * - Parameters [classificationstore]
  * - BasePrice [quantityValue]
@@ -29,7 +30,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1746521648,
+   'modificationDate' => 1746622227,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -38,13 +39,13 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'useTraits' => '',
    'listingUseTraits' => '',
    'encryption' => false,
-   'encryptedTables' =>
+   'encryptedTables' => 
   array (
   ),
    'allowInherit' => true,
    'allowVariants' => false,
    'showVariants' => false,
-   'layoutDefinitions' =>
+   'layoutDefinitions' => 
   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
      'name' => 'pimcore_root',
      'type' => NULL,
@@ -56,9 +57,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
      'collapsed' => false,
      'bodyStyle' => NULL,
      'datatype' => 'layout',
-     'children' =>
+     'children' => 
     array (
-      0 =>
+      0 => 
       \Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
          'name' => 'Layout',
          'type' => NULL,
@@ -70,9 +71,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'collapsed' => false,
          'bodyStyle' => '',
          'datatype' => 'layout',
-         'children' =>
+         'children' => 
         array (
-          0 =>
+          0 => 
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'System data',
              'type' => NULL,
@@ -84,9 +85,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'collapsed' => false,
              'bodyStyle' => '',
              'datatype' => 'layout',
-             'children' =>
+             'children' => 
             array (
-              0 =>
+              0 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                  'name' => 'Image',
                  'title' => 'Image',
@@ -104,14 +105,14 @@ Miniturka zestawu - często na przeźroczystym tle',
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
                  'uploadPath' => '',
                  'width' => 400,
                  'height' => 400,
               )),
-              1 =>
+              1 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
                  'name' => 'localizedfields',
                  'title' => '',
@@ -127,12 +128,12 @@ Miniturka zestawu - często na przeźroczystym tle',
                  'invisible' => false,
                  'visibleGridView' => true,
                  'visibleSearch' => true,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
-                 'children' =>
+                 'children' => 
                 array (
-                  0 =>
+                  0 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'name' => 'Name',
                      'title' => 'Name',
@@ -150,13 +151,13 @@ Nazwa zestawu produtków',
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
-                     'blockedVarsForExport' =>
+                     'blockedVarsForExport' => 
                     array (
                     ),
                      'defaultValue' => NULL,
                      'columnLength' => 75,
                      'regex' => '',
-                     'regexFlags' =>
+                     'regexFlags' => 
                     array (
                     ),
                      'unique' => false,
@@ -172,7 +173,7 @@ Nazwa zestawu produtków',
                  'provideSplitView' => false,
                  'tabPosition' => 'top',
                  'hideLabelsWhenTabsReached' => NULL,
-                 'referencedFields' =>
+                 'referencedFields' => 
                 array (
                 ),
                  'permissionView' => NULL,
@@ -183,7 +184,7 @@ Nazwa zestawu produtków',
                  'height' => '',
                  'fieldDefinitionsCache' => NULL,
               )),
-              2 =>
+              2 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
                  'name' => 'Set',
                  'title' => 'Skład zestawu',
@@ -201,12 +202,12 @@ Skład zestawu - produkty w określonych ilościach',
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
-                 'classes' =>
+                 'classes' => 
                 array (
-                  0 =>
+                  0 => 
                   array (
                     'classes' => 'Product',
                   ),
@@ -219,15 +220,15 @@ Skład zestawu - produkty w określonych ilościach',
                  'allowToClearRelation' => true,
                  'optimizedAdminLoading' => false,
                  'enableTextSelection' => false,
-                 'visibleFieldDefinitions' =>
+                 'visibleFieldDefinitions' => 
                 array (
                 ),
                  'width' => '',
                  'height' => '',
                  'allowedClassId' => 'Product',
-                 'columns' =>
+                 'columns' => 
                 array (
-                  0 =>
+                  0 => 
                   array (
                     'type' => 'number',
                     'position' => 1,
@@ -235,14 +236,14 @@ Skład zestawu - produkty w określonych ilościach',
                     'label' => 'Ilość',
                   ),
                 ),
-                 'columnKeys' =>
+                 'columnKeys' => 
                 array (
                   0 => 'Quantity',
                 ),
                  'enableBatchEdit' => false,
                  'allowMultipleAssignments' => false,
               )),
-              3 =>
+              3 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'EAN',
                  'title' => 'EAN',
@@ -260,13 +261,13 @@ Globalny identyfikator (GTIN) dla całego zestawu (z konkretnymi ilościami prod
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
                  'defaultValue' => NULL,
                  'columnLength' => 190,
                  'regex' => '',
-                 'regexFlags' =>
+                 'regexFlags' => 
                 array (
                 ),
                  'unique' => true,
@@ -274,7 +275,7 @@ Globalny identyfikator (GTIN) dla całego zestawu (z konkretnymi ilościami prod
                  'width' => '',
                  'defaultValueGenerator' => '',
               )),
-              4 =>
+              4 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                  'name' => 'GPC',
                  'title' => 'GPC',
@@ -292,42 +293,42 @@ Ośmiocyfrowy numer "Brick" klasyfikacji produktowej GS1 GPC. Wyszukiwarka kodó
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
-                 'options' =>
+                 'options' => 
                 array (
-                  0 =>
+                  0 => 
                   array (
                     'key' => 'Zestawy łazienkowe',
                     'value' => '10003814',
                   ),
-                  1 =>
+                  1 => 
                   array (
                     'key' => 'Biurka',
                     'value' => '10002205',
                   ),
-                  2 =>
+                  2 => 
                   array (
                     'key' => 'Komody',
                     'value' => '10002117',
                   ),
-                  3 =>
+                  3 => 
                   array (
                     'key' => 'Ławy',
                     'value' => '10005199',
                   ),
-                  4 =>
+                  4 => 
                   array (
                     'key' => 'LEDy (zestawy oświetlenia)',
                     'value' => '10008292',
                   ),
-                  5 =>
+                  5 => 
                   array (
                     'key' => 'Regały (duże, salonowe)',
                     'value' => '10002184',
                   ),
-                  6 =>
+                  6 => 
                   array (
                     'key' => 'RTV',
                     'value' => '10002186',
@@ -342,7 +343,7 @@ Ośmiocyfrowy numer "Brick" klasyfikacji produktowej GS1 GPC. Wyszukiwarka kodó
                  'optionsProviderClass' => '',
                  'optionsProviderData' => '',
               )),
-              5 =>
+              5 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                  'name' => 'Mass',
                  'title' => 'Mass',
@@ -360,12 +361,12 @@ Ośmiocyfrowy numer "Brick" klasyfikacji produktowej GS1 GPC. Wyszukiwarka kodó
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
                  'unitWidth' => '',
                  'defaultUnit' => 'kg',
-                 'validUnits' =>
+                 'validUnits' => 
                 array (
                   0 => 'kg',
                 ),
@@ -381,7 +382,7 @@ Ośmiocyfrowy numer "Brick" klasyfikacji produktowej GS1 GPC. Wyszukiwarka kodó
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
               )),
-              6 =>
+              6 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                  'name' => 'PackagesMass',
                  'title' => 'Packages Mass',
@@ -399,12 +400,12 @@ Ośmiocyfrowy numer "Brick" klasyfikacji produktowej GS1 GPC. Wyszukiwarka kodó
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
                  'unitWidth' => '',
                  'defaultUnit' => 'kg',
-                 'validUnits' =>
+                 'validUnits' => 
                 array (
                   0 => 'kg',
                 ),
@@ -420,7 +421,7 @@ Ośmiocyfrowy numer "Brick" klasyfikacji produktowej GS1 GPC. Wyszukiwarka kodó
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
               )),
-              7 =>
+              7 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                  'name' => 'PackagesVolume',
                  'title' => 'Packages Volume',
@@ -438,12 +439,12 @@ Ośmiocyfrowy numer "Brick" klasyfikacji produktowej GS1 GPC. Wyszukiwarka kodó
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
                  'unitWidth' => '',
                  'defaultUnit' => 'm3',
-                 'validUnits' =>
+                 'validUnits' => 
                 array (
                   0 => 'm3',
                 ),
@@ -459,7 +460,7 @@ Ośmiocyfrowy numer "Brick" klasyfikacji produktowej GS1 GPC. Wyszukiwarka kodó
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
               )),
-              8 =>
+              8 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'name' => 'PackageCount',
                  'title' => 'Package Count',
@@ -475,7 +476,7 @@ Ośmiocyfrowy numer "Brick" klasyfikacji produktowej GS1 GPC. Wyszukiwarka kodó
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
                  'defaultValue' => NULL,
@@ -491,7 +492,7 @@ Ośmiocyfrowy numer "Brick" klasyfikacji produktowej GS1 GPC. Wyszukiwarka kodó
               )),
             ),
              'locked' => false,
-             'blockedVarsForExport' =>
+             'blockedVarsForExport' => 
             array (
             ),
              'fieldtype' => 'panel',
@@ -501,7 +502,7 @@ Ośmiocyfrowy numer "Brick" klasyfikacji produktowej GS1 GPC. Wyszukiwarka kodó
              'labelWidth' => 100,
              'labelAlign' => 'left',
           )),
-          1 =>
+          1 => 
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Images',
              'type' => NULL,
@@ -513,9 +514,9 @@ Ośmiocyfrowy numer "Brick" klasyfikacji produktowej GS1 GPC. Wyszukiwarka kodó
              'collapsed' => false,
              'bodyStyle' => '',
              'datatype' => 'layout',
-             'children' =>
+             'children' => 
             array (
-              0 =>
+              0 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\ImageGallery::__set_state(array(
                  'name' => 'Images',
                  'title' => 'Images',
@@ -533,7 +534,7 @@ Dodatkowe zdjęcia zestawu. Nie należy tu duplikować zdjęć produktów skład
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
                  'uploadPath' => '/PRODUKT-ZDJĘCIA',
@@ -543,9 +544,37 @@ Dodatkowe zdjęcia zestawu. Nie należy tu duplikować zdjęć produktów skład
                  'height' => '',
                  'width' => '',
               )),
+              1 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\ImageGallery::__set_state(array(
+                 'name' => 'ImagesModel',
+                 'title' => 'Images of model (2000 x 2000)',
+                 'tooltip' => 'Zdjęcia wspólne dla modelu zestawu
+
+Przykładowo: rysunek z wymiarami',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'uploadPath' => '',
+                 'ratioX' => NULL,
+                 'ratioY' => NULL,
+                 'predefinedDataTemplates' => '',
+                 'height' => '',
+                 'width' => '',
+              )),
             ),
              'locked' => false,
-             'blockedVarsForExport' =>
+             'blockedVarsForExport' => 
             array (
             ),
              'fieldtype' => 'panel',
@@ -555,7 +584,7 @@ Dodatkowe zdjęcia zestawu. Nie należy tu duplikować zdjęć produktów skład
              'labelWidth' => 100,
              'labelAlign' => 'left',
           )),
-          2 =>
+          2 => 
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Parameters',
              'type' => NULL,
@@ -567,9 +596,9 @@ Dodatkowe zdjęcia zestawu. Nie należy tu duplikować zdjęć produktów skład
              'collapsed' => false,
              'bodyStyle' => '',
              'datatype' => 'layout',
-             'children' =>
+             'children' => 
             array (
-              0 =>
+              0 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
                  'name' => 'Groups',
                  'title' => 'Grupy',
@@ -587,12 +616,12 @@ Grupy (kolekcje, kategorie, oferty) do których należy zestaw',
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
-                 'classes' =>
+                 'classes' => 
                 array (
-                  0 =>
+                  0 => 
                   array (
                     'classes' => 'Group',
                   ),
@@ -605,13 +634,13 @@ Grupy (kolekcje, kategorie, oferty) do których należy zestaw',
                  'allowToClearRelation' => true,
                  'optimizedAdminLoading' => false,
                  'enableTextSelection' => false,
-                 'visibleFieldDefinitions' =>
+                 'visibleFieldDefinitions' => 
                 array (
                 ),
                  'width' => '',
                  'height' => '',
               )),
-              1 =>
+              1 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Classificationstore::__set_state(array(
                  'name' => 'Parameters',
                  'title' => 'Parametry',
@@ -629,10 +658,10 @@ Kolekcje i grupy parametrów dotyczące całego zestawu. Nie wprowadzamy tutaj p
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
-                 'children' =>
+                 'children' => 
                 array (
                 ),
                  'labelWidth' => 200,
@@ -640,14 +669,14 @@ Kolekcje i grupy parametrów dotyczące całego zestawu. Nie wprowadzamy tutaj p
                  'storeId' => 1,
                  'hideEmptyData' => false,
                  'disallowAddRemove' => false,
-                 'referencedFields' =>
+                 'referencedFields' => 
                 array (
                 ),
                  'fieldDefinitionsCache' => NULL,
-                 'allowedGroupIds' =>
+                 'allowedGroupIds' => 
                 array (
                 ),
-                 'activeGroupDefinitions' =>
+                 'activeGroupDefinitions' => 
                 array (
                 ),
                  'maxItems' => NULL,
@@ -656,7 +685,7 @@ Kolekcje i grupy parametrów dotyczące całego zestawu. Nie wprowadzamy tutaj p
               )),
             ),
              'locked' => false,
-             'blockedVarsForExport' =>
+             'blockedVarsForExport' => 
             array (
             ),
              'fieldtype' => 'panel',
@@ -666,7 +695,7 @@ Kolekcje i grupy parametrów dotyczące całego zestawu. Nie wprowadzamy tutaj p
              'labelWidth' => 100,
              'labelAlign' => 'left',
           )),
-          3 =>
+          3 => 
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Prices',
              'type' => NULL,
@@ -678,9 +707,9 @@ Kolekcje i grupy parametrów dotyczące całego zestawu. Nie wprowadzamy tutaj p
              'collapsed' => false,
              'bodyStyle' => '',
              'datatype' => 'layout',
-             'children' =>
+             'children' => 
             array (
-              0 =>
+              0 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                  'name' => 'BasePrice',
                  'title' => 'Cena bazowa',
@@ -698,12 +727,12 @@ Suma cen bazowych produktów',
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
                  'unitWidth' => '',
                  'defaultUnit' => 'PLN',
-                 'validUnits' =>
+                 'validUnits' => 
                 array (
                   0 => 'PLN',
                 ),
@@ -719,7 +748,7 @@ Suma cen bazowych produktów',
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
               )),
-              1 =>
+              1 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
                  'name' => 'Pricing',
                  'title' => 'Pricing',
@@ -735,10 +764,10 @@ Suma cen bazowych produktów',
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
-                 'classes' =>
+                 'classes' => 
                 array (
                 ),
                  'displayMode' => NULL,
@@ -749,15 +778,15 @@ Suma cen bazowych produktów',
                  'allowToClearRelation' => true,
                  'optimizedAdminLoading' => false,
                  'enableTextSelection' => false,
-                 'visibleFieldDefinitions' =>
+                 'visibleFieldDefinitions' => 
                 array (
                 ),
                  'width' => '',
                  'height' => '',
                  'allowedClassId' => 'Pricing',
-                 'columns' =>
+                 'columns' => 
                 array (
-                  0 =>
+                  0 => 
                   array (
                     'type' => 'number',
                     'position' => 1,
@@ -765,7 +794,7 @@ Suma cen bazowych produktów',
                     'label' => 'Price PLN',
                   ),
                 ),
-                 'columnKeys' =>
+                 'columnKeys' => 
                 array (
                   0 => 'Price',
                 ),
@@ -774,7 +803,7 @@ Suma cen bazowych produktów',
               )),
             ),
              'locked' => false,
-             'blockedVarsForExport' =>
+             'blockedVarsForExport' => 
             array (
             ),
              'fieldtype' => 'panel',
@@ -786,7 +815,7 @@ Suma cen bazowych produktów',
           )),
         ),
          'locked' => false,
-         'blockedVarsForExport' =>
+         'blockedVarsForExport' => 
         array (
         ),
          'fieldtype' => 'tabpanel',
@@ -795,7 +824,7 @@ Suma cen bazowych produktów',
       )),
     ),
      'locked' => false,
-     'blockedVarsForExport' =>
+     'blockedVarsForExport' => 
     array (
     ),
      'fieldtype' => 'panel',
@@ -810,13 +839,13 @@ Suma cen bazowych produktów',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',
    'previewGeneratorReference' => '',
-   'compositeIndices' =>
+   'compositeIndices' => 
   array (
   ),
    'showFieldLookup' => false,
-   'propertyVisibility' =>
+   'propertyVisibility' => 
   array (
-    'grid' =>
+    'grid' => 
     array (
       'id' => true,
       'key' => false,
@@ -825,7 +854,7 @@ Suma cen bazowych produktów',
       'modificationDate' => true,
       'creationDate' => true,
     ),
-    'search' =>
+    'search' => 
     array (
       'id' => true,
       'key' => false,
@@ -836,71 +865,16 @@ Suma cen bazowych produktów',
     ),
   ),
    'enableGridLocking' => false,
-   'deletedDataComponents' =>
-  array (
-    0 =>
-    \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
-       'name' => 'Parcel',
-       'title' => 'Parcel',
-       'tooltip' => 'Wysyłka
-
-Koszt wysyłki realizowanej w ramach konkretnej usługi w danym kraju. Koszt obliczany jest automatycznie w momencie publikacji zestawu na podstawie parametrów paczek.',
-       'mandatory' => false,
-       'noteditable' => false,
-       'index' => false,
-       'locked' => false,
-       'style' => '',
-       'permissions' => NULL,
-       'fieldtype' => '',
-       'relationType' => true,
-       'invisible' => false,
-       'visibleGridView' => false,
-       'visibleSearch' => false,
-       'blockedVarsForExport' =>
-      array (
-      ),
-       'classes' =>
-      array (
-      ),
-       'displayMode' => NULL,
-       'pathFormatterClass' => '',
-       'maxItems' => NULL,
-       'visibleFields' => 'key,Country',
-       'allowToCreateNewObject' => false,
-       'allowToClearRelation' => true,
-       'optimizedAdminLoading' => false,
-       'enableTextSelection' => false,
-       'visibleFieldDefinitions' =>
-      array (
-      ),
-       'width' => '',
-       'height' => '',
-       'allowedClassId' => 'Parcel',
-       'columns' =>
-      array (
-        0 =>
-        array (
-          'type' => 'number',
-          'position' => 1,
-          'key' => 'Price',
-          'label' => 'Price PLN',
-        ),
-      ),
-       'columnKeys' =>
-      array (
-        0 => 'Price',
-      ),
-       'enableBatchEdit' => false,
-       'allowMultipleAssignments' => false,
-    )),
-  ),
-   'blockedVarsForExport' =>
+   'deletedDataComponents' => 
   array (
   ),
-   'fieldDefinitionsCache' =>
+   'blockedVarsForExport' => 
   array (
   ),
-   'activeDispatchingEvents' =>
+   'fieldDefinitionsCache' => 
+  array (
+  ),
+   'activeDispatchingEvents' => 
   array (
   ),
 ));
