@@ -13,6 +13,7 @@
  * - MPN [input]
  * - localizedfields [localizedfields]
  * -- Name [input]
+ * -- Summary [wysiwyg]
  * -- Infographics [imageGallery]
  * - Group [manyToOneRelation]
  * - Model [input]
@@ -48,7 +49,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Produkt',
    'description' => 'Towar, który można sprzedać',
    'creationDate' => NULL,
-   'modificationDate' => 1746601505,
+   'modificationDate' => 1746602408,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -295,6 +296,35 @@ Pełna nazwa produktu. Nazwa w językach obcych tłumaczona jest automatycznie w
                      'showCharCount' => true,
                      'width' => 520,
                      'defaultValueGenerator' => '',
+                  )),
+                  1 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
+                     'name' => 'Summary',
+                     'title' => 'Summary',
+                     'tooltip' => 'Podsumowanie produktu
+
+Zwykle zwarty, techniczny opis z najważniejszymi parametrami
+
+Rozważyć opcję automatycznego generowania po uzupełnieniu wymaganych danych',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'toolbarConfig' => '',
+                     'excludeFromSearchIndex' => false,
+                     'maxCharacters' => '',
+                     'height' => '',
+                     'width' => '',
                   )),
                 ),
                  'region' => NULL,
