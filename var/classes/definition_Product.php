@@ -49,7 +49,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Produkt',
    'description' => 'Towar, który można sprzedać',
    'creationDate' => NULL,
-   'modificationDate' => 1746602408,
+   'modificationDate' => 1746606736,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -1613,33 +1613,10 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                 ),
                  'allowedTypes' => 
                 array (
+                  0 => 'IndexAgata',
+                  1 => 'IndexMirjan24',
                 ),
                  'maxItems' => NULL,
-                 'border' => false,
-              )),
-              2 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
-                 'name' => 'Layout',
-                 'type' => NULL,
-                 'region' => NULL,
-                 'title' => '',
-                 'width' => '',
-                 'height' => '',
-                 'collapsible' => false,
-                 'collapsed' => false,
-                 'bodyStyle' => '',
-                 'datatype' => 'layout',
-                 'children' => 
-                array (
-                ),
-                 'locked' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'fieldtype' => 'text',
-                 'html' => 'Dodatkowe kody kontrahentów',
-                 'renderingClass' => '',
-                 'renderingData' => '',
                  'border' => false,
               )),
             ),
@@ -1689,10 +1666,6 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                 ),
                  'classes' => 
                 array (
-                  0 => 
-                  array (
-                    'classes' => '',
-                  ),
                 ),
                  'displayMode' => NULL,
                  'pathFormatterClass' => '',
@@ -1712,10 +1685,6 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                  'documentsAllowed' => false,
                  'documentTypes' => 
                 array (
-                  0 => 
-                  array (
-                    'documentTypes' => '',
-                  ),
                 ),
                  'enableTextSelection' => false,
                  'width' => '',

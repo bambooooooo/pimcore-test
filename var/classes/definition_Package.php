@@ -19,6 +19,8 @@
  * - BDOAluminium [quantityValue]
  * - BDOPlastic [quantityValue]
  * - Barcode [input]
+ * - Codes [objectbricks]
+ * - Elements [manyToManyRelation]
  */
 
 return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
@@ -28,7 +30,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Opakowanie',
    'description' => 'Opakowanie zawierające elementy produktu',
    'creationDate' => NULL,
-   'modificationDate' => 1745820664,
+   'modificationDate' => 1746606600,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -700,6 +702,33 @@ Domyślny kod kreskowy paczki tworzony na podstawie jego unikalnego identyfikato
                  'renderingData' => '',
                  'border' => false,
               )),
+              2 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Objectbricks::__set_state(array(
+                 'name' => 'Codes',
+                 'title' => 'Codes',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'allowedTypes' => 
+                array (
+                  0 => 'IndexMirjan24',
+                  1 => 'IndexAgata',
+                ),
+                 'maxItems' => NULL,
+                 'border' => false,
+              )),
             ),
              'locked' => false,
              'blockedVarsForExport' => 
@@ -709,6 +738,77 @@ Domyślny kod kreskowy paczki tworzony na podstawie jego unikalnego identyfikato
              'layout' => NULL,
              'border' => false,
              'icon' => '/UI/barcode.svg',
+             'labelWidth' => 100,
+             'labelAlign' => 'left',
+          )),
+          4 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+             'name' => 'Elements',
+             'type' => NULL,
+             'region' => NULL,
+             'title' => 'Elements',
+             'width' => '',
+             'height' => '',
+             'collapsible' => false,
+             'collapsed' => false,
+             'bodyStyle' => '',
+             'datatype' => 'layout',
+             'children' => 
+            array (
+              0 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyRelation::__set_state(array(
+                 'name' => 'Elements',
+                 'title' => 'Elements',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => true,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'classes' => 
+                array (
+                ),
+                 'displayMode' => NULL,
+                 'pathFormatterClass' => '',
+                 'maxItems' => NULL,
+                 'assetInlineDownloadAllowed' => true,
+                 'assetUploadPath' => '/ELEMENTY',
+                 'allowToClearRelation' => true,
+                 'objectsAllowed' => false,
+                 'assetsAllowed' => true,
+                 'assetTypes' => 
+                array (
+                  0 => 
+                  array (
+                    'assetTypes' => 'document',
+                  ),
+                ),
+                 'documentsAllowed' => false,
+                 'documentTypes' => 
+                array (
+                ),
+                 'enableTextSelection' => false,
+                 'width' => '',
+                 'height' => '',
+              )),
+            ),
+             'locked' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'fieldtype' => 'panel',
+             'layout' => NULL,
+             'border' => false,
+             'icon' => '/UI/2-puzzle.svg',
              'labelWidth' => 100,
              'labelAlign' => 'left',
           )),
