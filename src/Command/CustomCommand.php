@@ -34,88 +34,33 @@ class CustomCommand extends AbstractCommand
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $this->importCollections();
-        $this->importPackages();
-        $this->importProducts(6249, 6251);
-        $this->importProducts(6250, 6251);
-        $this->importProducts(6251, 6251);
-        $this->importProducts(6252, 6251);
-        $this->importProducts(6253, 6251);
-        $this->importProducts(6254, 6251);
-        $this->importProducts(6255, 6251);
-        $this->importProducts(6256, 6251);
-        $this->importProducts(6257, 6251);
-        $this->importProducts(6258, 6251);
-        $this->importProducts(6259, 6251);
-        $this->importProducts(6260, 6251);
-        $this->importProducts(6261, 6251);
-        $this->importProducts(6262, 6251);
-
-        $this->importProducts(455, 6251);
-        $this->importProducts(456, 6251);
-        $this->importProducts(457, 6251);
-
-        $this->importProducts(6269, 6251);
-        $this->importProducts(6267, 6251);
-
-        $this->importProducts(6271, 6251);
-
-        $this->importProducts(6263, 6251);
-        $this->importProducts(6264, 6251);
-        $this->importProducts(6266, 6251);
-        $this->importProducts(6265, 6251);
-
-        $this->importSets(6270, 8769);
+        $this->importCollections("/GRUPY/KOLEKCJE", "/GRUPY");
+        $this->importPackages("/PACZKI");
+        $this->getProducts("/PRODUKTY", "/PRODUKTY");
+        $this->getSuspendedProducts("/PRODUKTY NIEWDROŻONE", "/PRODUKTY");
+        $this->getSets("/ZESTAWY", "/ZESTAWY");
 
         return Command::SUCCESS;
     }
 
-    private function importCollections()
+    private function importCollections($GRUPY_PATH, $GRUPY_ASSET_PATH)
     {
         DataObject::setHideUnpublished(false);
 
-        $assetGroup = Asset::getByPath("/GRUPY");
+        $this->addFolderPath($GRUPY_PATH);
+        $GRUPY_ID = DataObject\Folder::getByPath($GRUPY_PATH)->getId();
 
-        if(!$assetGroup)
-        {
-            $assetGroup = new Asset\Folder();
-            $assetGroup->setParentId(1);
-            $assetGroup->setKey("GRUPY");
-            $assetGroup->save();
-
-            $this->writeInfo("Asset folder /GRUPY added.");
-        }
-
-        $assetGroupCollections = Asset::getByPath("/GRUPY/KOLEKCJE");
-        if(!$assetGroupCollections)
-        {
-            $assetGroupCollections = new Asset\Folder();
-            $assetGroupCollections->setParentId($assetGroup->getId());
-            $assetGroupCollections->setKey("KOLEKCJE");
-            $assetGroupCollections->save();
-
-            $this->writeInfo("Asset folder /GRUPY/KOLEKCJE added.");
-        }
-
-        $daoCollections = DataObject::getByPath("/KOLEKCJE");
-        if(!$daoCollections)
-        {
-            $daoCollections = new DataObject\Folder();
-            $daoCollections->setParentId(1);
-            $daoCollections->setKey("KOLEKCJE");
-            $daoCollections->save();
-
-            $this->writeInfo("DataObject folder /KOLEKCJE added.");
-        }
+        $this->addFolderPath($GRUPY_ASSET_PATH, "ASSET");
+        $GRUPY_ASSET_ID = Asset\Folder::getByPath($GRUPY_ASSET_PATH)->getId();
 
         $data = $this->httpClient->request("GET", "http://10.10.100.1/api/v1/product/exportcollections")->toArray();
 
         $i = 0;
         $total = count($data);
 
-        foreach ($data as $key => $imurl)
+        foreach ($data as $key => $imageURL)
         {
-            if($this->findDataObjectByKey($key))
+            if(Group::getByPath($GRUPY_PATH . "/" . $key))
             {
                 $this->writeComment("Skipping $key.");
                 continue;
@@ -123,25 +68,23 @@ class CustomCommand extends AbstractCommand
 
             $g = new Group();
             $g->setKey($key);
-            $g->setParentId($daoCollections->getId());
+            $g->setParentId($GRUPY_ID);
             $g->setName($key, "pl");
 
-            $imname = explode("/", $imurl);
-            $imname = str_replace("%20", "_", $imname[count($imname) - 1]);
-            $imname = str_replace("%C5%82", "Ł", $imname);
-            $imname = str_replace("%C5%81", "Ł", $imname);
+            $imname = explode("/", $imageURL);
+            $imname = str_replace("%", "_", $imname[count($imname) - 1]);
 
-            $img = Asset\Image::getByPath("/GRUPY/KOLEKCJE/" . $imname);
+            $img = Asset\Image::getByPath($GRUPY_ASSET_PATH . "/" . $imname);
             if($img)
             {
                 $g->setImage($img);
             }
-            elseif($imurl)
+            elseif($imageURL)
             {
                 $im = new \Pimcore\Model\Asset\Image();
                 $im->setFilename($imname);
-                $im->setData(file_get_contents($imurl));
-                $im->setParentId(178);
+                $im->setData(file_get_contents($imageURL));
+                $im->setParentId($GRUPY_ASSET_ID);
                 $im->save();
 
                 $g->setImage($im);
@@ -157,31 +100,23 @@ class CustomCommand extends AbstractCommand
         }
     }
 
-    private function importPackages()
+    private function importPackages($PACZKI_PATH)
     {
-        $root = DataObject::getByPath("/PACZKI");
-        if(!$root)
-        {
-            $root = new DataObject\Folder();
-            $root->setParentId(1);
-            $root->setKey("PACZKI");
-            $root->save();
+        $this->addFolderPath($PACZKI_PATH);
+        $PACZKI_ID = DataObject\Folder::getByPath($PACZKI_PATH)->getId();
 
-            $this->writeInfo("DataObject folder /PACZKI added.");
-        }
-
-        $this->importPackage(146, 6925);
-        $this->importPackage(2627, 6925);
-        $this->importPackage(5581, 6925);
-        $this->importPackage(5582, 6925);
-        $this->importPackage(5674, 6925);
-        $this->importPackage(5830, 6925);
-        $this->importPackage(6243, 6925);
-        $this->importPackage(6244, 6925);
-        $this->importPackage(6245, 6925);
-        $this->importPackage(6246, 6925);
-        $this->importPackage(6247, 6925);
-        $this->importPackage(6248, 6925);
+        $this->importPackage(146, $PACZKI_ID);
+        $this->importPackage(2627, $PACZKI_ID);
+        $this->importPackage(5581, $PACZKI_ID);
+        $this->importPackage(5582, $PACZKI_ID);
+        $this->importPackage(5674, $PACZKI_ID);
+        $this->importPackage(5830, $PACZKI_ID);
+        $this->importPackage(6243, $PACZKI_ID);
+        $this->importPackage(6244, $PACZKI_ID);
+        $this->importPackage(6245, $PACZKI_ID);
+        $this->importPackage(6246, $PACZKI_ID);
+        $this->importPackage(6247, $PACZKI_ID);
+        $this->importPackage(6248, $PACZKI_ID);
     }
 
     private function importPackage($id, $parentId)
@@ -201,16 +136,14 @@ class CustomCommand extends AbstractCommand
         $mm = Unit::getByAbbreviation("mm");
         $kg = Unit::getByAbbreviation("kg");
 
-        $packs = new Package\Listing();
-        $packs->setCondition("`key` = '" . $data['key'] . "' AND `parentId` = '" . $parentId . "'");
-        $packs->load();
+        $parent = DataObject::getById($parentId);
+        $path = $parent->getPath() . $parent->getKey() . "/" . $data['key'];
 
-        if($packs)
+        $curr = DataObject::getByPath($path);
+        if($curr)
         {
-            foreach ($packs as $pack) {
-                $this->writeComment("[~] Skipping " . $data['key'] . " (" . $pack->getId() . ").");
-                return $pack->getId();
-            }
+            $this->writeComment("[~] Skipping " . $data['key'] . " (" . $curr->getId() . ").");
+            return $curr->getId();
         }
 
         $package = new Package();
@@ -234,6 +167,13 @@ class CustomCommand extends AbstractCommand
         if($data['Depth'])
             $package->setDepth(new QuantityValue($data['Depth'], $mm));
 
+        if($data['MirjanCode'])
+        {
+            $brick = new DataObject\Objectbrick\Data\IndexMirjan24($package);
+            $brick->setCode($data['MirjanCode']);
+            $package->getCodes()->setIndexMirjan24($brick);
+        }
+
         $package->save();
 
         $this->writeInfo('[+] ' . $data['key']);
@@ -241,32 +181,137 @@ class CustomCommand extends AbstractCommand
         return $package->getId();
     }
 
-    private function importProducts($id, $parentId)
+    private function getProducts($PRODUKTY_PATH, $PRODUKTY_ASSET_PATH)
     {
+        $this->addFolderPath($PRODUKTY_PATH);
+        $PRODUKTY_FOLDER = DataObject\Folder::getByPath($PRODUKTY_PATH);
+
+        $this->addFolderPath($PRODUKTY_ASSET_PATH, "ASSET");
+        $IMAGE_FOLDER = Asset\Folder::getByPath($PRODUKTY_ASSET_PATH);
+
+        $this->importProducts(6249, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(6250, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(6251, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(6252, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(6253, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(6254, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(6255, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(6256, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(6257, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(6258, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(6259, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(6260, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(6261, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(6262, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(455, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(456, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(457, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(6269, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(6267, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(6271, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(6263, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(6264, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(6266, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(6265, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+    }
+
+    private function getSuspendedProducts($PRODUKTY_PATH, $PRODUKTY_ASSET_PATH)
+    {
+        $this->addFolderPath($PRODUKTY_PATH);
+        $PRODUKTY_FOLDER = DataObject\Folder::getByPath($PRODUKTY_PATH);
+
+        $this->addFolderPath($PRODUKTY_ASSET_PATH, "ASSET");
+        $IMAGE_FOLDER = Asset\Folder::getByPath($PRODUKTY_ASSET_PATH);
+
+        $this->importProducts(1194, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1195, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1196, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1197, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1198, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1199, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1200, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1201, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1202, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1206, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1207, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1208, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1209, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1210, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1211, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1235, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1236, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1237, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1238, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1239, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1240, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1241, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1242, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1243, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1244, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1245, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1246, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1247, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1251, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1252, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1253, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1254, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1255, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1256, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1257, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1258, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1260, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1261, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1262, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1263, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1264, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1265, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1266, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1270, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1271, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1272, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1273, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1274, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1275, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1280, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1281, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1283, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1290, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1291, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1292, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1298, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1299, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1300, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1301, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1302, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1303, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1316, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1318, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+    }
+
+    private function importProducts($id, $parent, $imageFolder)
+    {
+        \Pimcore::collectGarbage();
         $res = $this->httpClient->request("GET", "http://10.10.100.1/api/v1/product/export/$id")->toArray();
 
-        $newId = $this->addProduct($res, $parentId);
+        $newParent = $this->addProduct($res, $parent, $imageFolder);
         foreach ($res['Children'] as $childId) {
-            $this->importProducts($childId, $newId);
-
             \Pimcore::collectGarbage();
+            $this->importProducts($childId, $newParent, $imageFolder);
         }
     }
 
-    private function addProduct($data, $parentId) : int
+    private function addProduct($data, $parent, $imageFolder) : Product
     {
+        \Pimcore::collectGarbage();
         DataObject::setHideUnpublished(false);
 
-        $prods = new Product\Listing();
-        $prods->setCondition("`key` = '" . $data['key'] . "' AND `parentId` = '" . $parentId . "'");
-        $prods->load();
+        $path = $parent->getPath() . $parent->getKey() . "/" . $data['key'];
 
-        if($prods)
+        $curr = Product::getByPath($path);
+        if($curr)
         {
-            foreach ($prods as $prod) {
-                $this->writeComment("[~] Skipping " . $data['key'] . " (" . $prod->getId() . ").");
-                return $prod->getId();
-            }
+            $this->writeComment("[~] Skipping " . $data['key'] . " (" . $curr->getId() . ").");
+            return $curr;
         }
 
         $kg = Unit::getById('kg');
@@ -275,7 +320,7 @@ class CustomCommand extends AbstractCommand
 
         $prod = new Product();
         $prod->setKey($data['key']);
-        $prod->setParentId($parentId);
+        $prod->setParent($parent);
 
         if($data['ObjectType'])
             $prod->setObjectType($data['ObjectType']);
@@ -329,21 +374,43 @@ class CustomCommand extends AbstractCommand
             $prod->setPackages($refs);
         }
 
-        // assembly
+        $FILES_FOLDER_PATH = "/PRODUKTY/PLIKI";
+        $this->addFolderPath($FILES_FOLDER_PATH, "ASSET");
+        $filesFolder = Asset\Folder::getByPath($FILES_FOLDER_PATH);
 
-        $IMAGE_FOLDER = 57;
-        // images
+        // assembly
+        if($data['AssemblyGuide'])
+        {
+            $fileURL = $data['AssemblyGuide'];
+
+            $fileName = explode("/", $fileURL);
+            $fileName = str_replace("%", "_", $fileName[count($fileName) - 1]);
+
+            $f = Asset\Document::getByPath($filesFolder->getPath() . $filesFolder->getKey() . "/" . $fileName);
+            if($f)
+            {
+                $prod->setDocuments([$f]);
+            }
+            else
+            {
+                $f = new \Pimcore\Model\Asset\Document();
+                $f->setFilename($fileName);
+                $f->setData(file_get_contents($fileURL));
+                $f->setParent($filesFolder);
+                $f->save();
+
+                $prod->setDocuments([$f]);
+            }
+        }
 
         if($data['Image'])
         {
-            $imurl = $data['Image'];
+            $fileURL = $data['Image'];
 
-            $imname = explode("/", $imurl);
-            $imname = str_replace("%20", "_", $imname[count($imname) - 1]);
-            $imname = str_replace("%C5%82", "Ł", $imname);
-            $imname = str_replace("%C5%81", "Ł", $imname);
+            $fileName = explode("/", $fileURL);
+            $fileName = str_replace("%", "_", $fileName[count($fileName) - 1]);
 
-            $img = Asset\Image::getByPath("/PRODUCT/" . $imname);
+            $img = Asset\Image::getByPath($imageFolder->getPath() . $imageFolder->getKey() . "/" . $fileName);
             if($img)
             {
                 $prod->setImage($img);
@@ -351,9 +418,9 @@ class CustomCommand extends AbstractCommand
             else
             {
                 $im = new \Pimcore\Model\Asset\Image();
-                $im->setFilename($imname);
-                $im->setData(file_get_contents($imurl));
-                $im->setParentId($IMAGE_FOLDER);
+                $im->setFilename($fileName);
+                $im->setData(file_get_contents($fileURL));
+                $im->setParent($imageFolder);
                 $im->save();
 
                 $prod->setImage($im);
@@ -362,107 +429,22 @@ class CustomCommand extends AbstractCommand
 
         if($data['Images'])
         {
-            $images = [];
-
-            foreach ($data['Images'] as $imurl)
-            {
-                if($imurl)
-                {
-                    $imname = explode("/", $imurl);
-                    $imname = str_replace("%20", "_", $imname[count($imname) - 1]);
-                    $imname = str_replace("%C5%82", "Ł", $imname);
-                    $imname = str_replace("%C5%81", "Ł", $imname);
-
-                    $img = Asset\Image::getByPath("/PRODUCT/" . $imname);
-                    if($img)
-                    {
-                        $hs = new DataObject\Data\Hotspotimage($img);
-                        $images[] = $hs;
-                    }
-                    else
-                    {
-                        $im = new \Pimcore\Model\Asset\Image();
-                        $im->setFilename($imname);
-                        $im->setData(file_get_contents($imurl));
-                        $im->setParentId($IMAGE_FOLDER);
-                        $im->save();
-
-                        $hs = new DataObject\Data\Hotspotimage($img);
-                        $images[] = $hs;
-                    }
-                }
-            }
-
-            $gallery = new DataObject\Data\ImageGallery($images);
-            $prod->setImages($gallery);
+            $images = $this->addGallery($data['Images'], $imageFolder);
+            $prod->setImages(new DataObject\Data\ImageGallery($images));
         }
 
         if($data['Photos'])
         {
-            $images = [];
-
-            foreach ($data['Photos'] as $imurl)
-            {
-                if($imurl)
-                {
-                    $imname = explode("/", $imurl);
-                    $imname = str_replace("%20", "_", $imname[count($imname) - 1]);
-                    $imname = str_replace("%C5%82", "Ł", $imname);
-                    $imname = str_replace("%C5%81", "Ł", $imname);
-
-                    $img = Asset\Image::getByPath("/PRODUCT/" . $imname);
-                    if($img)
-                    {
-                        $hs = new DataObject\Data\Hotspotimage($img);
-                        $images[] = $hs;
-                    }
-                    else
-                    {
-                        $im = new \Pimcore\Model\Asset\Image();
-                        $im->setFilename($imname);
-                        $im->setData(file_get_contents($imurl));
-                        $im->setParentId($IMAGE_FOLDER);
-                        $im->save();
-
-                        $hs = new DataObject\Data\Hotspotimage($img);
-                        $images[] = $hs;
-                    }
-                }
-            }
-
-            $gallery = new DataObject\Data\ImageGallery($images);
-            $prod->setPhotos($gallery);
+            $images = $this->addGallery($data['Photos'], $imageFolder);
+            $prod->setPhotos(new DataObject\Data\ImageGallery($images));
         }
 
         $images = [];
 
-        foreach ($data['ImagesModel'] as $imurl)
+        if($data['ImagesModel'])
         {
-            if($imurl)
-            {
-                $imname = explode("/", $imurl);
-                $imname = str_replace("%20", "_", $imname[count($imname) - 1]);
-                $imname = str_replace("%C5%82", "Ł", $imname);
-                $imname = str_replace("%C5%81", "Ł", $imname);
-
-                $img = Asset\Image::getByPath("/PRODUCT/" . $imname);
-                if($img)
-                {
-                    $hs = new DataObject\Data\Hotspotimage($img);
-                    $images[] = $hs;
-                }
-                else
-                {
-                    $im = new \Pimcore\Model\Asset\Image();
-                    $im->setFilename($imname);
-                    $im->setData(file_get_contents($imurl));
-                    $im->setParentId($IMAGE_FOLDER);
-                    $im->save();
-
-                    $hs = new DataObject\Data\Hotspotimage($img);
-                    $images[] = $hs;
-                }
-            }
+            $images = $this->addGallery($data['ImagesModel'], $imageFolder);
+            $prod->setImagesModel(new DataObject\Data\ImageGallery($images));
         }
 
         $gallery = new DataObject\Data\ImageGallery($images);
@@ -475,40 +457,47 @@ class CustomCommand extends AbstractCommand
 
         $this->writeInfo('[+] ' . $data['key']);
 
-        return $prod->getId();
+        return $prod;
     }
 
-    private function importSets($id, $parentId)
+    private function getSets($SETS_PATH, $SETS_ASSETS_PATH)
     {
+        $this->addFolderPath($SETS_PATH);
+        $FOLDER = DataObject\Folder::getByPath($SETS_PATH);
+
+        $this->addFolderPath($SETS_ASSETS_PATH, "ASSET");
+        $IMAGE_FOLDER = Asset\Folder::getByPath($SETS_ASSETS_PATH);
+
+        $this->importSets(6270, $FOLDER, $IMAGE_FOLDER);
+    }
+
+    private function importSets($id, $FOLDER, $IMAGE_FOLDER)
+    {
+        \Pimcore::collectGarbage();
         $res = $this->httpClient->request("GET", "http://10.10.100.1/api/v1/product/export/$id")->toArray();
 
-        $newId = $this->addSet($res, $parentId);
+        $newParent = $this->addSet($res, $FOLDER, $IMAGE_FOLDER);
         foreach ($res['Children'] as $childId) {
-            $this->importSets($childId, $newId);
-
-            \Pimcore::collectGarbage();
+            $this->importSets($childId, $newParent, $IMAGE_FOLDER);
         }
     }
 
-    private function addSet($data, $parentId) : int
+    private function addSet($data, $parent, $IMAGE_FOLDER) : ProductSet
     {
         DataObject::setHideUnpublished(false);
 
-        $sets = new ProductSet\Listing();
-        $sets->setCondition("`key` = '" . $data['key'] . "' AND `parentId` = '" . $parentId . "'");
-        $sets->load();
+        $path = $parent->getPath() . $parent->getKey() . "/" . $data['key'];
 
-        if($sets)
+        $curr = ProductSet::getByPath($path);
+        if($curr)
         {
-            foreach ($sets as $set) {
-                $this->writeComment("[~] Skipping " . $data['key'] . " (" . $set->getId() . ").");
-                return $set->getId();
-            }
+            $this->writeComment("[~] Skipping " . $data['key'] . " (" . $curr->getId() . ").");
+            return $curr;
         }
 
         $set = new ProductSet();
         $set->setKey($data['key']);
-        $set->setParentId($parentId);
+        $set->setParent($parent);
 
         if($data['EAN'])
             $set->setEan($data['EAN']);
@@ -526,11 +515,9 @@ class CustomCommand extends AbstractCommand
             $imurl = $data['Image'];
 
             $imname = explode("/", $imurl);
-            $imname = str_replace("%20", "_", $imname[count($imname) - 1]);
-            $imname = str_replace("%C5%82", "Ł", $imname);
-            $imname = str_replace("%C5%81", "Ł", $imname);
+            $imname = str_replace("%", "_", $imname[count($imname) - 1]);
 
-            $img = Asset\Image::getByPath("/ZESTAWY/" . $imname);
+            $img = Asset\Image::getByPath($IMAGE_FOLDER . "/" . $imname);
             if($img)
             {
                 $set->setImage($img);
@@ -540,7 +527,7 @@ class CustomCommand extends AbstractCommand
                 $im = new \Pimcore\Model\Asset\Image();
                 $im->setFilename($imname);
                 $im->setData(file_get_contents($imurl));
-                $im->setParentId(1798);
+                $im->setParent($IMAGE_FOLDER);
                 $im->save();
 
                 $set->setImage($im);
@@ -549,75 +536,14 @@ class CustomCommand extends AbstractCommand
 
         if($data['Images'])
         {
-            $images = [];
-
-            foreach ($data['Images'] as $imurl)
-            {
-                if($imurl)
-                {
-                    $imname = explode("/", $imurl);
-                    $imname = str_replace("%20", "_", $imname[count($imname) - 1]);
-                    $imname = str_replace("%C5%82", "Ł", $imname);
-                    $imname = str_replace("%C5%81", "Ł", $imname);
-
-                    $img = Asset\Image::getByPath("/ZESTAWY/" . $imname);
-                    if($img)
-                    {
-                        $hs = new DataObject\Data\Hotspotimage($img);
-                        $images[] = $hs;
-                    }
-                    else
-                    {
-                        $im = new \Pimcore\Model\Asset\Image();
-                        $im->setFilename($imname);
-                        $im->setData(file_get_contents($imurl));
-                        $im->setParentId(1798);
-                        $im->save();
-
-                        $hs = new DataObject\Data\Hotspotimage($img);
-                        $images[] = $hs;
-                    }
-                }
-            }
-
+            $images = $this->addGallery($data['Images'], $IMAGE_FOLDER);
             $gallery = new DataObject\Data\ImageGallery($images);
             $set->setImages($gallery);
         }
 
         if($data['ImagesModel'])
         {
-            $images = [];
-
-            foreach ($data['ImagesModel'] as $imurl)
-            {
-                if($imurl)
-                {
-                    $imname = explode("/", $imurl);
-                    $imname = str_replace("%20", "_", $imname[count($imname) - 1]);
-                    $imname = str_replace("%C5%82", "Ł", $imname);
-                    $imname = str_replace("%C5%81", "Ł", $imname);
-
-
-                    $img = Asset\Image::getByPath("/ZESTAWY/" . $imname);
-                    if($img)
-                    {
-                        $hs = new DataObject\Data\Hotspotimage($img);
-                        $images[] = $hs;
-                    }
-                    else
-                    {
-                        $im = new \Pimcore\Model\Asset\Image();
-                        $im->setFilename($imname);
-                        $im->setData(file_get_contents($imurl));
-                        $im->setParentId(1798);
-                        $im->save();
-
-                        $hs = new DataObject\Data\Hotspotimage($img);
-                        $images[] = $hs;
-                    }
-                }
-            }
-
+            $images = $this->addGallery($data['ImagesModel'], $IMAGE_FOLDER);
             $gallery = new DataObject\Data\ImageGallery($images);
             $set->setImagesModel($gallery);
         }
@@ -646,7 +572,92 @@ class CustomCommand extends AbstractCommand
 
         $this->writeInfo('[+] ' . $data['key']);
 
-        return $set->getId();
+        return $set;
+    }
+
+    private function addFolderPath($path, $kind = "DAO")
+    {
+        $parts = explode("/", $path);
+        $currentPath = "";
+        $currentParentId = 1;
+
+        for($i = 0; $i < count($parts); $i++)
+        {
+            $currentPath .= "/" . $parts[$i];
+
+            if($kind == "DAO")
+            {
+                $c = DataObject::getByPath($currentPath);
+                if($c == null)
+                {
+                    $crumb = new DataObject\Folder();
+                    $crumb->setParentId($currentParentId);
+                    $crumb->setKey($parts[$i]);
+                    $crumb->save();
+                    $this->writeInfo("[+] $currentPath");
+                    $currentParentId = $crumb->getId();
+                }
+                else
+                {
+                    $currentParentId = $c->getId();
+                }
+            }
+            elseif($kind == "ASSET")
+            {
+                $c = Asset::getByPath($currentPath);
+                if ($c == null)
+                {
+                    $crumb = new Asset\Folder();
+                    $crumb->setParentId($currentParentId);
+                    $crumb->setKey($parts[$i]);
+                    $crumb->save();
+                    $this->writeInfo("[+] $currentPath");
+                    $currentParentId = $crumb->getId();
+                }
+                else
+                {
+                    $currentParentId = $c->getId();
+                }
+            }
+            else
+            {
+                throw new Exception(("Unknown kind " . $kind));
+            }
+        }
+    }
+
+    private function addGallery($imageURLs, $folder) : array
+    {
+        $images = [];
+
+        foreach ($imageURLs as $imurl)
+        {
+            if($imurl)
+            {
+                $imname = explode("/", $imurl);
+                $imname = str_replace("%", "_", $imname[count($imname) - 1]);
+
+                $img = Asset\Image::getByPath($folder . "/" . $imname);
+                if($img)
+                {
+                    $hs = new DataObject\Data\Hotspotimage($img);
+                    $images[] = $hs;
+                }
+                else
+                {
+                    $im = new \Pimcore\Model\Asset\Image();
+                    $im->setFilename($imname);
+                    $im->setData(file_get_contents($imurl));
+                    $im->setParent($folder);
+                    $im->save();
+
+                    $hs = new DataObject\Data\Hotspotimage($img);
+                    $images[] = $hs;
+                }
+            }
+        }
+
+        return $images;
     }
 
     /**
