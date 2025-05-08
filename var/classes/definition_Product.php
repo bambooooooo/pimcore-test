@@ -49,7 +49,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Produkt',
    'description' => 'Towar, który można sprzedać',
    'creationDate' => NULL,
-   'modificationDate' => 1746606736,
+   'modificationDate' => 1746703477,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -894,7 +894,7 @@ Producent',
                  'tooltip' => 'Grupy
 
 Grupy, do których przypisany jest produkt.',
-                 'mandatory' => false,
+                 'mandatory' => true,
                  'noteditable' => false,
                  'index' => false,
                  'locked' => false,

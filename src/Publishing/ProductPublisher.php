@@ -31,6 +31,7 @@ class ProductPublisher
 
             $this->assertNamePL($product);
             $this->assertPackageQuantityAndPublished($product);
+            $this->assertGroupsArePublished($product);
 
             $this->translateNames($product);
             $this->updatePackagesMassAndVolume($product);
@@ -431,5 +432,17 @@ class ProductPublisher
         ];
 
         $this->broker->publishByREST('PRD', 'product', $data);
+    }
+
+    private function assertGroupsArePublished(Product $product)
+    {
+        assert($product->getGroup()?->isPublished(), "Product's main group must be published");
+
+        assert($product->getGroups(), "Product must be assigned to at least one group");
+
+        foreach($product->getGroups() as $group)
+        {
+            assert($group->isPublished(), "Product's group [" . $group->getKey() . "] must be published");
+        }
     }
 }
