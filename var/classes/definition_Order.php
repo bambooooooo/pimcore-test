@@ -23,7 +23,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => 'Dokument dotyczący kontrahenta, zbioru produktów oraz konkretnej daty',
    'creationDate' => NULL,
-   'modificationDate' => 1746530745,
+   'modificationDate' => 1746712494,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -282,11 +282,20 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                     'key' => 'Description',
                     'label' => 'Description',
                   ),
+                  2 => 
+                  array (
+                    'type' => 'number',
+                    'position' => 3,
+                    'key' => 'QuantityDone',
+                    'label' => 'Done',
+                    'value' => '0',
+                  ),
                 ),
                  'columnKeys' => 
                 array (
                   0 => 'Quantity',
                   1 => 'Description',
+                  2 => 'QuantityDone',
                 ),
                  'enableBatchEdit' => false,
                  'allowMultipleAssignments' => true,
@@ -363,21 +372,33 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 ),
                  'classes' => 
                 array (
+                  0 => 
+                  array (
+                    'classes' => '',
+                  ),
                 ),
                  'displayMode' => NULL,
                  'pathFormatterClass' => '',
                  'maxItems' => NULL,
                  'assetInlineDownloadAllowed' => false,
-                 'assetUploadPath' => '',
+                 'assetUploadPath' => '/ZLECENIA',
                  'allowToClearRelation' => true,
                  'objectsAllowed' => false,
-                 'assetsAllowed' => false,
+                 'assetsAllowed' => true,
                  'assetTypes' => 
                 array (
+                  0 => 
+                  array (
+                    'assetTypes' => 'document',
+                  ),
                 ),
                  'documentsAllowed' => false,
                  'documentTypes' => 
                 array (
+                  0 => 
+                  array (
+                    'documentTypes' => '',
+                  ),
                 ),
                  'enableTextSelection' => false,
                  'width' => '',

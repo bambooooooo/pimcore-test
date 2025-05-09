@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace App\Command;
 
+use App\Model\DataObject\User;
+use Carbon\Carbon;
 use Pimcore\Console\AbstractCommand;
 use Pimcore\Model\DataObject;
 use Pimcore\Model\Asset;
 use Pimcore\Model\DataObject\Data\QuantityValue;
 use Pimcore\Model\DataObject\Group;
+use Pimcore\Model\DataObject\Order;
 use Pimcore\Model\DataObject\Package;
 use Pimcore\Model\DataObject\Product;
 use Pimcore\Model\DataObject\ProductSet;
@@ -39,6 +42,7 @@ class CustomCommand extends AbstractCommand
         $this->getProducts("/PRODUKTY", "/PRODUKTY");
         $this->getSuspendedProducts("/PRODUKTY NIEWDROŻONE", "/PRODUKTY");
         $this->getSets("/ZESTAWY", "/ZESTAWY");
+        $this->getOrders("/ZLECENIA/PRODUKCJA", "/ZLECENIA", "/USERS");
 
         return Command::SUCCESS;
     }
@@ -658,6 +662,99 @@ class CustomCommand extends AbstractCommand
         }
 
         return $images;
+    }
+
+    private function getOrders($ORDERS_PATH, $ORDER_FILES_PATH, $USERS_PATH)
+    {
+        DataObject::setHideUnpublished(false);
+
+        $this->addFolderPath($ORDERS_PATH);
+        $FOLDER = DataObject\Folder::getByPath($ORDERS_PATH);
+
+        $this->addFolderPath($ORDER_FILES_PATH, "ASSET");
+        $FILES_FOLDER = Asset\Folder::getByPath($ORDER_FILES_PATH);
+
+        $this->addFolderPath($USERS_PATH);
+        $FOLDER_USERS = DataObject\Folder::getByPath($USERS_PATH);
+
+        $data = $this->httpClient->request("GET", "http://10.10.100.1/api/order/export")->toArray();
+
+        foreach($data as $orderKey => $orderData)
+        {
+            $o = new Order();
+            $o->setKey($orderKey);
+            $o->setParent($FOLDER);
+            $o->setDate(new Carbon($orderData['DueDate']));
+            $o->setDone($orderData['Done']);
+
+            $o->save();
+            $this->writeInfo("[+] $orderKey");
+
+            foreach($orderData['Series'] as $serieKey => $serieData)
+            {
+                $s = new Order();
+                $s->setKey($serieKey);
+                $s->setParent($o);
+                $s->setDone($serieData['Done']);
+                $s->setDate(new Carbon($serieData['DueDate']));
+
+                if($serieData['User'])
+                {
+                    $u = User::getByPath($FOLDER_USERS->getPath() . "/" . $FOLDER_USERS->getKey() . "/" . $serieData['User']);
+                    if(!$u)
+                    {
+                        $u = new DataObject\User();
+                        $u->setKey($serieData['User']);
+                        $u->setParent($FOLDER_USERS);
+                        $u->save();
+                    }
+
+                    $s->setUser($u);
+                }
+
+                if($serieData['Files'])
+                {
+                    foreach($serieData['Files'] as $fileURL)
+                    {
+                        $fileName = explode("/", $fileURL);
+                        $fileName = str_replace("%", "_", $fileName[count($fileName) - 1]);
+
+                        $f = Asset\Document::getByPath($FILES_FOLDER->getPath() . $FILES_FOLDER->getKey() . "/" . $fileName);
+                        if($f)
+                        {
+                            $s->setAttachments([$f]);
+                        }
+                        else
+                        {
+                            $f = new \Pimcore\Model\Asset\Document();
+                            $f->setFilename($fileName);
+                            $f->setData(file_get_contents($fileURL));
+                            $f->setParent($FILES_FOLDER);
+                            $f->save();
+
+                            $s->setAttachments([$f]);
+                        }
+                    }
+                }
+
+                $items = [];
+                foreach ($serieData['Products'] as $productKey => $quantity)
+                {
+                    $product = $this->findDataObjectByKey($productKey);
+
+                    $rowItem = new DataObject\Data\ObjectMetadata('Products', ['Quantity', 'QuantityDone'], $product);
+                    $rowItem->setQuantity($quantity['Quantity']);
+                    $rowItem->setQuantityDone($quantity['Done']);
+
+                    $items[] = $rowItem;
+                }
+
+                $s->setProducts($items);
+                $s->save();
+
+                $this->writeInfo("[+] \t$serieKey");
+            }
+        }
     }
 
     /**
