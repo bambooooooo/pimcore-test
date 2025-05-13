@@ -23,7 +23,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => 'Dokument dotyczący kontrahenta, zbioru produktów oraz konkretnej daty',
    'creationDate' => NULL,
-   'modificationDate' => 1746530745,
+   'modificationDate' => 1746819185,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -234,7 +234,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'name' => 'Products',
                  'title' => 'Products',
                  'tooltip' => '',
-                 'mandatory' => true,
+                 'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
                  'locked' => false,
@@ -371,9 +371,13 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'assetUploadPath' => '',
                  'allowToClearRelation' => true,
                  'objectsAllowed' => false,
-                 'assetsAllowed' => false,
+                 'assetsAllowed' => true,
                  'assetTypes' => 
                 array (
+                  0 => 
+                  array (
+                    'assetTypes' => 'document',
+                  ),
                 ),
                  'documentsAllowed' => false,
                  'documentTypes' => 

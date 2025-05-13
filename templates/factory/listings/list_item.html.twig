@@ -1,0 +1,21 @@
+<a href="{{ path("factory_tree", {id: item.id}) }}" class="list-item">
+    <div class="container-fluid" style="{% if (not item is instanceof("\\Pimcore\\Model\\DataObject\\Folder")) and not item.published %}opacity:0.3{% endif %}">
+        <div class="row">
+            <div class="col-12">
+                {% if item is instanceof("\\Pimcore\\Model\\DataObject\\Folder") %}
+                    <img src="{{ asset('bundles/pimcoreadmin/img/flat-color-icons/folder.svg') }}" width="50" height="50">
+
+                {% elseif item is pimcore_data_object_class("Package") %}
+                    <img src="/bundles/pimcoreadmin/img/flat-color-icons/deployment.svg" width="50" height="50">
+                {% elseif item.Image is defined and item.Image %}
+                    <img src="{{ item.Image.thumbnail("50x50") }}" width="50" height="50">
+                {% else %}
+                    <img src="/UI/2-puzzle.svg" width="50" height="50">
+                {% endif %}
+                <span style="margin-left: 8px">
+                    {{ item.key }}
+                </span>
+            </div>
+        </div>
+    </div>
+</a>

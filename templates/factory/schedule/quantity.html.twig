@@ -1,0 +1,11 @@
+<div style="position: relative; z-index: 150;">
+    {% if item.data.QuantityDone is defined and item.data.QuantityDone > 0 and item.data.QuantityDone != item.data.Quantity %}
+        <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMi4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iRWJlbmVfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHdpZHRoPSIyNHB4IiBoZWlnaHQ9IjI0cHgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMjQgMjQiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPGNpcmNsZSBmaWxsPSIjRjBEQzI4IiBjeD0iMTIiIGN5PSIxMiIgcj0iMTAiLz4NCjxyZWN0IHg9IjExIiB5PSI3IiBmaWxsPSIjMEMwRjEyIiB3aWR0aD0iMiIgaGVpZ2h0PSIyIi8+DQo8cmVjdCB4PSIxMSIgeT0iMTEiIGZpbGw9IiMwQzBGMTIiIHdpZHRoPSIyIiBoZWlnaHQ9IjYiLz4NCjwvc3ZnPg0K" height="18">
+        {{ item.data.QuantityDone }}
+        <span style="text-decoration: line-through">
+            {{ item.data.Quantity }}
+        </span>
+    {% else %}
+        {{ item.data.Quantity }}
+    {% endif %}
+</div>
