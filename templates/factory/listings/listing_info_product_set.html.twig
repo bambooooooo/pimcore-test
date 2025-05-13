@@ -1,0 +1,53 @@
+<div class="container-fluid">
+    <div class="row">
+        {% if obj.Image %}
+            <div class="col-12 text-center">
+                <a href="{{ obj.Image }}">
+                    <img src="{{ obj.Image.thumbnail("200x200") }}" class="img-fluid"/>
+                </a>
+            </div>
+        {% endif %}
+        <div class="col-12 text-center">
+            <h1>
+                {{ obj.key }}
+                <a target="_blank" href="/admin/login/deeplink?object_{{ obj.id }}_object">
+                    <img height="40" src="/bundles/pimcoreadmin/img/flat-color-icons/input.svg"/>
+                </a>
+            </h1>
+        </div>
+        <div class="col-12 text-center">
+            <div>
+                {% if obj.Name is defined and obj.Name %}
+                    {{ obj.Name }}
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="col-12 mt-1">
+            <a href="{{ path("factory_datasheet", {id: obj.id}) }}">
+                <div class="btn btn-outline-primary" style="width: 100%;">
+                    <img height="40" src="/bundles/pimcoreadmin/img/flat-color-icons/pdf.svg" class="card-img-top" alt="...">
+                    {{ "Datasheet"|trans }}
+                </div>
+            </a>
+        </div>
+
+        {% if obj.Set %}
+            {% for lip in obj.Set %}
+                <div class="col-12 mt-1">
+                    <a href="{{ path("factory_tree", {id: lip.object.id}) }}">
+                        <div class="btn btn-outline-primary" style="width: 100%;">
+                            {% if lip.data.Quantity and lip.data.Quantity > 1 %}
+                                {{ lip.data.Quantity }}x
+                            {% endif %}
+                            {% if lip.object.Image %}
+                                <img src="{{ lip.object.Image.thumbnail("50x50") }}" width="50" height="50">
+                            {% endif %}
+                            {{ lip.object.key }}
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>

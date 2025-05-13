@@ -1,0 +1,26 @@
+pimcore:
+    assets:
+        image:
+            thumbnails:
+                definitions:
+                    400x400:
+                        items:
+                            -
+                                method: resize
+                                arguments:
+                                    width: 400
+                                    height: 400
+                        medias: {  }
+                        name: 400x400
+                        description: ''
+                        group: ''
+                        format: SOURCE
+                        quality: 85
+                        highResolution: null
+                        preserveColor: false
+                        preserveMetaData: false
+                        rasterizeSVG: false
+                        downloadable: false
+                        modificationDate: 1746789950
+                        creationDate: 1746789941
+                        preserveAnimation: false

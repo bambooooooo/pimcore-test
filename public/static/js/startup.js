@@ -143,7 +143,7 @@ document.addEventListener(pimcore.events.pimcoreReady, (e) => {
         }
 
         Ext.MessageBox.prompt(t("Enter sibling key"), t("Enter sibling key"), function(btn, text){
-            if(btn == 'ok'){
+            if(btn === 'ok'){
                 var options = {
                     url: Routing.generate('pimcore_admin_dataobject_dataobject_add'),
                     elementType: "object",
@@ -170,7 +170,11 @@ document.addEventListener(pimcore.events.pimcoreReady, (e) => {
     })
 
     const openDocs = function(){
-        window.open("http://localhost:8005", "_blank");
+        window.open(document.location.origin +  ":8005", "_blank");
+    }
+
+    const openFactory = function(){
+        window.open(document.location.origin + "/factory", "_blank");
     }
 
     const toolbar = pimcore.globalmanager.get("layout_toolbar");
@@ -182,6 +186,12 @@ document.addEventListener(pimcore.events.pimcoreReady, (e) => {
             text: "Megstyl Docs",
             iconCls: "pimcore_nav_icon_documentation",
             handler: openDocs,
+        })
+
+        fileMenu.insert({
+            text: "Megstyl Factory",
+            iconCls: "pimcore_nav_icon_documentation",
+            handler: openFactory,
         })
     }
 })
