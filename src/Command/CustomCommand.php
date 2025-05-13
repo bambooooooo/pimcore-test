@@ -378,7 +378,8 @@ class CustomCommand extends AbstractCommand
         $this->addFolderPath($FILES_FOLDER_PATH, "ASSET");
         $filesFolder = Asset\Folder::getByPath($FILES_FOLDER_PATH);
 
-        // assembly
+        $docs = [];
+
         if($data['AssemblyGuide'])
         {
             $fileURL = $data['AssemblyGuide'];
@@ -389,7 +390,7 @@ class CustomCommand extends AbstractCommand
             $f = Asset\Document::getByPath($filesFolder->getPath() . $filesFolder->getKey() . "/" . $fileName);
             if($f)
             {
-                $prod->setDocuments([$f]);
+                $docs[] = $f;
             }
             else
             {
@@ -399,8 +400,37 @@ class CustomCommand extends AbstractCommand
                 $f->setParent($filesFolder);
                 $f->save();
 
-                $prod->setDocuments([$f]);
+                $docs[] = $f;
             }
+        }
+
+        if($data['Manual'])
+        {
+            $fileURL = $data['Manual'];
+
+            $fileName = explode("/", $fileURL);
+            $fileName = str_replace("%", "_", $fileName[count($fileName) - 1]);
+
+            $f = Asset\Document::getByPath($filesFolder->getPath() . $filesFolder->getKey() . "/" . $fileName);
+            if($f)
+            {
+                $docs[] = $f;
+            }
+            else
+            {
+                $f = new \Pimcore\Model\Asset\Document();
+                $f->setFilename($fileName);
+                $f->setData(file_get_contents($fileURL));
+                $f->setParent($filesFolder);
+                $f->save();
+
+                $docs[] = $f;
+            }
+        }
+
+        if($docs)
+        {
+            $prod->setDocuments($docs);
         }
 
         if($data['Image'])
