@@ -49,7 +49,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Produkt',
    'description' => 'Towar, który można sprzedać',
    'creationDate' => NULL,
-   'modificationDate' => 1746703477,
+   'modificationDate' => 1747141579,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -139,9 +139,13 @@ Główne zdjęcie produktu, najczęściej z przeźroczystym tłem',
 
 Wyróżnia się następujące typy produktu:
 
-- ACTUAL - Konkretna realizacja produktu. Można go sprzedać lub kupić, nie zawiera danych abstrakcyjnych.
+- VIRTUAL - Obiekt wirtualny, który nie może być sprzedany (brakuje mu ukonkretnień), natomiast pomaga w grupowaniu produktów i ułatwia uzupełnianie danych dzięki dziedziczeniu
 
-- VIRTUAL - Obiekt wirtualny, który nie może być sprzedany (brakuje mu ukonkretnień), natomiast pomaga w grupowaniu produktów i ułatwia uzupełnianie danych dzięki dziedziczeniu',
+- MODEL - Obiekt abstrakcyjny, który stanowi Produkt w rozumieniu wariantowości. Zawiera wspólne cechy produktów końcowych, które można opublikować końcowemu klientowi
+
+- SKU - realizacja produktu, którą można składować w magazynie, jednak nie jest przeznaczona do bezpośredniej sprzedaży, ponieważ nie stanowi produktu pełnowartościowego, którym zainteresowany jest klient
+
+- ACTUAL - Konkretna realizacja produktu. Można go sprzedać lub kupić, nie zawiera danych abstrakcyjnych.',
                  'mandatory' => true,
                  'noteditable' => false,
                  'index' => false,
@@ -167,6 +171,16 @@ Wyróżnia się następujące typy produktu:
                   array (
                     'key' => 'VIRTUAL',
                     'value' => 'VIRTUAL',
+                  ),
+                  2 => 
+                  array (
+                    'key' => 'MODEL',
+                    'value' => 'MODEL',
+                  ),
+                  3 => 
+                  array (
+                    'key' => 'SKU',
+                    'value' => 'SKU',
                   ),
                 ),
                  'defaultValue' => 'ACTUAL',
