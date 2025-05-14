@@ -37,11 +37,13 @@ class CustomCommand extends AbstractCommand
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $this->importCollections("/GRUPY/KOLEKCJE", "/GRUPY");
+        $COLLECTION_FOLDER_PATH = "/GRUPY/KOLEKCJE";
+
+        $this->importCollections($COLLECTION_FOLDER_PATH, "/GRUPY");
         $this->importPackages("/PACZKI");
-        $this->getProducts("/PRODUKTY", "/PRODUKTY");
-        $this->getSuspendedProducts("/PRODUKTY NIEWDROŻONE", "/PRODUKTY");
-        $this->getSets("/ZESTAWY", "/ZESTAWY");
+        $this->getProducts("/PRODUKTY", "/PRODUKTY", $COLLECTION_FOLDER_PATH);
+        $this->getSuspendedProducts("/PRODUKTY NIEWDROŻONE", "/PRODUKTY", $COLLECTION_FOLDER_PATH);
+        $this->getSets("/ZESTAWY", "/ZESTAWY", $COLLECTION_FOLDER_PATH);
         $this->getOrders("/ZLECENIA/PRODUKCJA", "/ZLECENIA", "/USERS");
 
         return Command::SUCCESS;
@@ -185,7 +187,41 @@ class CustomCommand extends AbstractCommand
         return $package->getId();
     }
 
-    private function getProducts($PRODUKTY_PATH, $PRODUKTY_ASSET_PATH)
+    private function getProducts($productsFolderPath, $productsAssetPath, $collectionFolderPath)
+    {
+        $this->addFolderPath($productsFolderPath);
+        $PRODUKTY_FOLDER = DataObject\Folder::getByPath($productsFolderPath);
+
+        $this->addFolderPath($productsAssetPath, "ASSET");
+        $IMAGE_FOLDER = Asset\Folder::getByPath($productsAssetPath);
+
+        $this->importProducts(6249, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $collectionFolderPath);
+        $this->importProducts(6250, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $collectionFolderPath);
+        $this->importProducts(6251, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $collectionFolderPath);
+        $this->importProducts(6252, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $collectionFolderPath);
+        $this->importProducts(6253, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $collectionFolderPath);
+        $this->importProducts(6254, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $collectionFolderPath);
+        $this->importProducts(6255, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $collectionFolderPath);
+        $this->importProducts(6256, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $collectionFolderPath);
+        $this->importProducts(6257, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $collectionFolderPath);
+        $this->importProducts(6258, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $collectionFolderPath);
+        $this->importProducts(6259, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $collectionFolderPath);
+        $this->importProducts(6260, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $collectionFolderPath);
+        $this->importProducts(6261, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $collectionFolderPath);
+        $this->importProducts(6262, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $collectionFolderPath);
+        $this->importProducts(455, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $collectionFolderPath);
+        $this->importProducts(456, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $collectionFolderPath);
+        $this->importProducts(457, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $collectionFolderPath);
+        $this->importProducts(6269, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $collectionFolderPath);
+        $this->importProducts(6267, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $collectionFolderPath);
+        $this->importProducts(6271, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $collectionFolderPath);
+        $this->importProducts(6263, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $collectionFolderPath);
+        $this->importProducts(6264, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $collectionFolderPath);
+        $this->importProducts(6266, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $collectionFolderPath);
+        $this->importProducts(6265, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $collectionFolderPath);
+    }
+
+    private function getSuspendedProducts($PRODUKTY_PATH, $PRODUKTY_ASSET_PATH, $COLLECTION_FOLDER)
     {
         $this->addFolderPath($PRODUKTY_PATH);
         $PRODUKTY_FOLDER = DataObject\Folder::getByPath($PRODUKTY_PATH);
@@ -193,118 +229,84 @@ class CustomCommand extends AbstractCommand
         $this->addFolderPath($PRODUKTY_ASSET_PATH, "ASSET");
         $IMAGE_FOLDER = Asset\Folder::getByPath($PRODUKTY_ASSET_PATH);
 
-        $this->importProducts(6249, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(6250, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(6251, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(6252, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(6253, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(6254, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(6255, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(6256, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(6257, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(6258, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(6259, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(6260, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(6261, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(6262, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(455, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(456, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(457, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(6269, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(6267, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(6271, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(6263, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(6264, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(6266, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(6265, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
+        $this->importProducts(1194, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1195, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1196, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1197, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1198, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1199, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1200, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1201, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1202, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1206, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1207, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1208, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1209, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1210, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1211, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1235, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1236, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1237, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1238, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1239, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1240, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1241, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1242, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1243, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1244, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1245, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1246, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1247, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1251, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1252, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1253, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1254, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1255, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1256, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1257, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1258, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1260, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1261, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1262, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1263, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1264, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1265, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1266, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1270, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1271, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1272, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1273, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1274, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1275, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1280, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1281, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1283, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1290, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1291, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1292, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1298, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1299, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1300, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1301, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1302, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1303, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1316, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
+        $this->importProducts(1318, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
     }
 
-    private function getSuspendedProducts($PRODUKTY_PATH, $PRODUKTY_ASSET_PATH)
-    {
-        $this->addFolderPath($PRODUKTY_PATH);
-        $PRODUKTY_FOLDER = DataObject\Folder::getByPath($PRODUKTY_PATH);
-
-        $this->addFolderPath($PRODUKTY_ASSET_PATH, "ASSET");
-        $IMAGE_FOLDER = Asset\Folder::getByPath($PRODUKTY_ASSET_PATH);
-
-        $this->importProducts(1194, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1195, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1196, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1197, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1198, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1199, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1200, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1201, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1202, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1206, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1207, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1208, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1209, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1210, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1211, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1235, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1236, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1237, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1238, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1239, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1240, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1241, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1242, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1243, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1244, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1245, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1246, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1247, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1251, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1252, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1253, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1254, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1255, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1256, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1257, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1258, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1260, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1261, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1262, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1263, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1264, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1265, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1266, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1270, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1271, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1272, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1273, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1274, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1275, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1280, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1281, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1283, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1290, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1291, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1292, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1298, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1299, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1300, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1301, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1302, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1303, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1316, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-        $this->importProducts(1318, $PRODUKTY_FOLDER, $IMAGE_FOLDER);
-    }
-
-    private function importProducts($id, $parent, $imageFolder)
+    private function importProducts($id, $parent, $imageFolder, $COLLECTION_FOLDER)
     {
         \Pimcore::collectGarbage();
         $res = $this->httpClient->request("GET", "http://10.10.100.1/api/v1/product/export/$id")->toArray();
 
-        $newParent = $this->addProduct($res, $parent, $imageFolder);
+        $newParent = $this->addProduct($res, $parent, $imageFolder, $COLLECTION_FOLDER);
         foreach ($res['Children'] as $childId) {
             \Pimcore::collectGarbage();
-            $this->importProducts($childId, $newParent, $imageFolder);
+            $this->importProducts($childId, $newParent, $imageFolder, $COLLECTION_FOLDER);
         }
     }
 
-    private function addProduct($data, $parent, $imageFolder) : Product
+    private function addProduct($data, $parent, $imageFolder, $COLLECTION_FOLDER) : Product
     {
         \Pimcore::collectGarbage();
         DataObject::setHideUnpublished(false);
@@ -487,6 +489,15 @@ class CustomCommand extends AbstractCommand
         if($data['Summary'])
             $prod->setSummary($data['Summary'], "pl");
 
+        $collName = explode("-", $prod->getKey())[0];
+
+        $coll = DataObject::getByPath($COLLECTION_FOLDER . "/" . $collName);
+
+        if($coll && count($prod->getGroups()) == 0)
+        {
+            $prod->setGroups([$coll]);
+        }
+
         $prod->save();
 
         $this->writeInfo('[+] ' . $data['key']);
@@ -494,29 +505,29 @@ class CustomCommand extends AbstractCommand
         return $prod;
     }
 
-    private function getSets($SETS_PATH, $SETS_ASSETS_PATH)
+    private function getSets($setFolderPath, $setFolderAssetPath, $collectionFolderPath)
     {
-        $this->addFolderPath($SETS_PATH);
-        $FOLDER = DataObject\Folder::getByPath($SETS_PATH);
+        $this->addFolderPath($setFolderPath);
+        $FOLDER = DataObject\Folder::getByPath($setFolderPath);
 
-        $this->addFolderPath($SETS_ASSETS_PATH, "ASSET");
-        $IMAGE_FOLDER = Asset\Folder::getByPath($SETS_ASSETS_PATH);
+        $this->addFolderPath($setFolderAssetPath, "ASSET");
+        $IMAGE_FOLDER = Asset\Folder::getByPath($setFolderAssetPath);
 
-        $this->importSets(6270, $FOLDER, $IMAGE_FOLDER);
+        $this->importSets(6270, $FOLDER, $IMAGE_FOLDER, $collectionFolderPath);
     }
 
-    private function importSets($id, $FOLDER, $IMAGE_FOLDER)
+    private function importSets($id, $folder, $imageFolder, $collectionFolder)
     {
         \Pimcore::collectGarbage();
         $res = $this->httpClient->request("GET", "http://10.10.100.1/api/v1/product/export/$id")->toArray();
 
-        $newParent = $this->addSet($res, $FOLDER, $IMAGE_FOLDER);
+        $newParent = $this->addSet($res, $folder, $imageFolder, $collectionFolder);
         foreach ($res['Children'] as $childId) {
-            $this->importSets($childId, $newParent, $IMAGE_FOLDER);
+            $this->importSets($childId, $newParent, $imageFolder, $collectionFolder);
         }
     }
 
-    private function addSet($data, $parent, $IMAGE_FOLDER) : ProductSet
+    private function addSet($data, $parent, $imageFolder, $collectionFolder) : ProductSet
     {
         DataObject::setHideUnpublished(false);
 
@@ -551,7 +562,7 @@ class CustomCommand extends AbstractCommand
             $imname = explode("/", $imurl);
             $imname = str_replace("%", "_", $imname[count($imname) - 1]);
 
-            $img = Asset\Image::getByPath($IMAGE_FOLDER . "/" . $imname);
+            $img = Asset\Image::getByPath($imageFolder . "/" . $imname);
             if($img)
             {
                 $set->setImage($img);
@@ -561,7 +572,7 @@ class CustomCommand extends AbstractCommand
                 $im = new \Pimcore\Model\Asset\Image();
                 $im->setFilename($imname);
                 $im->setData(file_get_contents($imurl));
-                $im->setParent($IMAGE_FOLDER);
+                $im->setParent($imageFolder);
                 $im->save();
 
                 $set->setImage($im);
@@ -570,14 +581,14 @@ class CustomCommand extends AbstractCommand
 
         if($data['Images'])
         {
-            $images = $this->addGallery($data['Images'], $IMAGE_FOLDER);
+            $images = $this->addGallery($data['Images'], $imageFolder);
             $gallery = new DataObject\Data\ImageGallery($images);
             $set->setImages($gallery);
         }
 
         if($data['ImagesModel'])
         {
-            $images = $this->addGallery($data['ImagesModel'], $IMAGE_FOLDER);
+            $images = $this->addGallery($data['ImagesModel'], $imageFolder);
             $gallery = new DataObject\Data\ImageGallery($images);
             $set->setImagesModel($gallery);
         }
@@ -600,6 +611,15 @@ class CustomCommand extends AbstractCommand
             }
 
             $set->setSet($refs);
+        }
+
+        $collName = explode("-", $set->getKey())[0];
+
+        $coll = DataObject::getByPath($collectionFolder . "/" . $collName);
+
+        if($coll && count($set->getGroups()) == 0)
+        {
+            $set->setGroups([$coll]);
         }
 
         $set->save();
@@ -694,18 +714,18 @@ class CustomCommand extends AbstractCommand
         return $images;
     }
 
-    private function getOrders($ORDERS_PATH, $ORDER_FILES_PATH, $USERS_PATH)
+    private function getOrders($ordersFolderPath, $orderFilesFolderPath, $usersPath)
     {
         DataObject::setHideUnpublished(false);
 
-        $this->addFolderPath($ORDERS_PATH);
-        $FOLDER = DataObject\Folder::getByPath($ORDERS_PATH);
+        $this->addFolderPath($ordersFolderPath);
+        $FOLDER = DataObject\Folder::getByPath($ordersFolderPath);
 
-        $this->addFolderPath($ORDER_FILES_PATH, "ASSET");
-        $FILES_FOLDER = Asset\Folder::getByPath($ORDER_FILES_PATH);
+        $this->addFolderPath($orderFilesFolderPath, "ASSET");
+        $FILES_FOLDER = Asset\Folder::getByPath($orderFilesFolderPath);
 
-        $this->addFolderPath($USERS_PATH);
-        $FOLDER_USERS = DataObject\Folder::getByPath($USERS_PATH);
+        $this->addFolderPath($usersPath);
+        $FOLDER_USERS = DataObject\Folder::getByPath($usersPath);
 
         $data = $this->httpClient->request("GET", "http://10.10.100.1/api/order/export")->toArray();
 
