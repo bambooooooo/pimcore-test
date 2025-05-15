@@ -91,7 +91,7 @@ class CustomCommand extends AbstractCommand
         return Command::SUCCESS;
     }
 
-    private function getClassificationStore($csId, $verbose = true): void
+    private function getClassificationStore($csId, $verbose = false): void
     {
         $groupDef = [];
         if(1==1)
