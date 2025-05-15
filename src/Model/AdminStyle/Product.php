@@ -20,6 +20,14 @@ class Product extends AdminStyle
             {
                 $this->elementIcon = '/UI/square-gray.svg';
             }
+            else if($element->getObjectType() == 'MODEL')
+            {
+                $this->elementIcon = '/UI/square-blue.svg';
+            }
+            else if($element->getObjectType() == 'SKU')
+            {
+                $this->elementIcon = '/UI/square-orange.svg';
+            }
         });
     }
 

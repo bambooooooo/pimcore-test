@@ -1,0 +1,18 @@
+pimcore:
+    objects:
+        select_options:
+            definitions:
+                BorderGlue:
+                    id: BorderGlue
+                    group: ''
+                    useTraits: ''
+                    implementsInterfaces: ''
+                    selectOptions:
+                        -
+                            value: EVA
+                            label: EVA
+                            name: ''
+                        -
+                            value: PUR
+                            label: PUR
+                            name: ''

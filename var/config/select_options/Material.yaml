@@ -1,0 +1,42 @@
+pimcore:
+    objects:
+        select_options:
+            definitions:
+                Material:
+                    id: Material
+                    group: ''
+                    useTraits: ''
+                    implementsInterfaces: ''
+                    selectOptions:
+                        -
+                            value: Ceramika
+                            label: Ceramika
+                            name: ''
+                        -
+                            value: Stal
+                            label: Stal
+                            name: ''
+                        -
+                            value: Szklo
+                            label: Szklo
+                            name: ''
+                        -
+                            value: Porcelana
+                            label: Porcelana
+                            name: ''
+                        -
+                            value: Konglomerat
+                            label: Konglomerat
+                            name: ''
+                        -
+                            value: 'Plyta wiorowa'
+                            label: 'Plyta wiorowa'
+                            name: ''
+                        -
+                            value: 'Plyta MDF'
+                            label: 'Plyta MDF'
+                            name: ''
+                        -
+                            value: 'Plyta HDF'
+                            label: 'Plyta HDF'
+                            name: ''
