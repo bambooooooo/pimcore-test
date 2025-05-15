@@ -47,6 +47,18 @@ class ProductSet extends AdminStyle
 
             if($set->getSet() and count($set->getSet()) > 0)
             {
+                $text .= '<div>';
+
+                foreach ($set->getSet() as $li)
+                {
+                    if($li->getElement()->getImage())
+                    {
+                        $text .= '<img style="margin-right: 4px" src="' . $li->getElement()->getImage()->getThumbnail("50x50") . '" height="40" />';
+                    }
+                }
+
+                $text .= '</div>';
+
                 $text .= "<div>";
 
                 foreach ($set->getSet() as $set) {
