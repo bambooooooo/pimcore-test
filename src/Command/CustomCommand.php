@@ -18,7 +18,9 @@ use Pimcore\Model\DataObject\ProductSet;
 use Pimcore\Model\DataObject\QuantityValue\Unit;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\HttpClient\HttpClient;
 
@@ -38,23 +40,58 @@ class CustomCommand extends AbstractCommand
         $this->keyId = [];
     }
 
+    protected function configure(): void
+    {
+        $this->addArgument("classification_store_id", InputArgument::REQUIRED, "ClassificationStore(Products) Id?");
+
+        $this->addOption("group", "g", InputOption::VALUE_NONE, "Add groups (collections)");
+        $this->addOption("cartoon", "c", InputOption::VALUE_NONE, "Add cartoons (packages)");
+        $this->addOption("product", "p", InputOption::VALUE_NONE, "Add products");
+        $this->addOption("suspended_products", "x", InputOption::VALUE_NONE, "Add suspended products");
+        $this->addOption("sets", "s", InputOption::VALUE_NONE, "Add sets");
+        $this->addOption("orders", "o", InputOption::VALUE_NONE, "Add orders");
+    }
+
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $csId = (int)$input->getArgument("classification_store_id");
+        if(!\Pimcore\Model\DataObject\Classificationstore\StoreConfig::getById($csId))
+        {
+            $this->writeError("ClassificationStore(Products Id={$csId}) not found");
+            return self::FAILURE;
+        }
+
         $COLLECTION_FOLDER_PATH = "/GRUPY/KOLEKCJE";
 
-        $this->getClassificationStore(1);
+        $this->getClassificationStore($csId);
 
-        $this->importCollections($COLLECTION_FOLDER_PATH, "/GRUPY");
-        $this->importPackages("/PACZKI");
-        $this->getProducts("/PRODUKTY", "/PRODUKTY", $COLLECTION_FOLDER_PATH);
-        $this->getSuspendedProducts("/PRODUKTY NIEWDROŻONE", "/PRODUKTY", $COLLECTION_FOLDER_PATH);
-        $this->getSets("/ZESTAWY", "/ZESTAWY", $COLLECTION_FOLDER_PATH);
-        $this->getOrders("/ZLECENIA/PRODUKCJA", "/ZLECENIA", "/USERS");
+        if($input->getOption("group")) {
+            $this->importCollections($COLLECTION_FOLDER_PATH, "/GRUPY");
+        }
 
+        if($input->getOption("cartoon")) {
+            $this->importPackages("/PACZKI");
+        }
+
+        if($input->getOption("product")) {
+            $this->getProducts("/PRODUKTY", "/PRODUKTY", $COLLECTION_FOLDER_PATH);
+        }
+
+        if($input->getOption("suspended_products")) {
+            $this->getSuspendedProducts("/PRODUKTY NIEWDROŻONE", "/PRODUKTY", $COLLECTION_FOLDER_PATH);
+        }
+
+        if($input->getOption("sets")) {
+            $this->getSets("/ZESTAWY", "/ZESTAWY", $COLLECTION_FOLDER_PATH);
+        }
+
+        if($input->getOption("orders")) {
+            $this->getOrders("/ZLECENIA/PRODUKCJA", "/ZLECENIA", "/USERS");
+        }
         return Command::SUCCESS;
     }
 
-    private function getClassificationStore($csId): void
+    private function getClassificationStore($csId, $verbose = false): void
     {
         $groupDef = [];
         if(1==1)
@@ -499,10 +536,22 @@ class CustomCommand extends AbstractCommand
             $rel[] = ['group' =>'41', 'key' => '214'];
         }
 
-        $this->writeInfo("Groups: " . count($groupDef) . ", Keys: " . count($keyDefs) . ", Relations: " . count($rel));
+        $this->writeInfo("[ClassificationStore] Groups: " . count($groupDef) . ", Keys: " . count($keyDefs) . ", Relations: " . count($rel));
 
         foreach ($groupDef as $gid => $gname)
         {
+            $gg = \Pimcore\Model\DataObject\Classificationstore\GroupConfig::getByName($gname, $csId);
+            if($gg)
+            {
+                if($verbose)
+                {
+                    $this->writeComment("[~] Skipping $gname.");
+                }
+
+                $this->groupId[$gid] = $gg->getId();
+                continue;
+            }
+
             $group = new \Pimcore\Model\DataObject\Classificationstore\GroupConfig();
             $group->setName($gname);
             $group->setStoreId($csId);
@@ -522,6 +571,17 @@ class CustomCommand extends AbstractCommand
             $def = $this->removePolishDiacritics($defPl);
             $def = str_replace("\\", "\\\\", $def);
 
+            $kk = \Pimcore\Model\DataObject\Classificationstore\KeyConfig::getByName($name, $csId);
+            if($kk)
+            {
+                if($verbose)
+                {
+                    $this->writeComment("[~] Skipping $name.");
+                }
+                $this->keyId[$id] = $kk->getId();
+                continue;
+            }
+
             $key = new \Pimcore\Model\DataObject\Classificationstore\KeyConfig();
             $key->setStoreId($csId);
             $key->setName($name);
@@ -540,6 +600,17 @@ class CustomCommand extends AbstractCommand
             $gid = $this->groupId[$sourceRelation['group']];
             $kid = $this->keyId[$sourceRelation['key']];
 
+            $r = \Pimcore\Model\DataObject\Classificationstore\KeyGroupRelation::getByGroupAndKeyId($gid, $kid);
+
+            if($r)
+            {
+                if($verbose)
+                {
+                    $this->writeComment("[~] Skipping $gid-$kid.");
+                }
+                continue;
+            }
+
             $keyRel = new \Pimcore\Model\DataObject\Classificationstore\KeyGroupRelation();
             $keyRel->setGroupId($gid);
             $keyRel->setKeyId($kid);
@@ -549,7 +620,7 @@ class CustomCommand extends AbstractCommand
         }
     }
 
-    private function importCollections($GRUPY_PATH, $GRUPY_ASSET_PATH)
+    private function importCollections($GRUPY_PATH, $GRUPY_ASSET_PATH, $verbose = false)
     {
         DataObject::setHideUnpublished(false);
 
@@ -564,11 +635,16 @@ class CustomCommand extends AbstractCommand
         $i = 0;
         $total = count($data);
 
+        $this->writeInfo("[Collections] $total items");
+
         foreach ($data as $key => $imageURL)
         {
             if(Group::getByPath($GRUPY_PATH . "/" . $key))
             {
-                $this->writeComment("Skipping $key.");
+                if($verbose)
+                {
+                    $this->writeComment("Skipping $key.");
+                }
                 continue;
             }
 
@@ -598,7 +674,7 @@ class CustomCommand extends AbstractCommand
 
             $g->save();
 
-            $this->writeInfo("[$i / $total][+] " . $g->getKey());
+            $this->writeInfo("[+] " . $g->getKey());
             $i++;
 
             if($i % 20 == 0)
@@ -610,6 +686,8 @@ class CustomCommand extends AbstractCommand
     {
         $this->addFolderPath($PACZKI_PATH);
         $PACZKI_ID = DataObject\Folder::getByPath($PACZKI_PATH)->getId();
+
+        $this->writeInfo("[Packages]");
 
         $this->importPackage(146, $PACZKI_ID);
         $this->importPackage(2627, $PACZKI_ID);
@@ -637,7 +715,7 @@ class CustomCommand extends AbstractCommand
         }
     }
 
-    private function addPackage($data, $parentId) : int
+    private function addPackage($data, $parentId, $verbose = false) : int
     {
         $mm = Unit::getByAbbreviation("mm");
         $kg = Unit::getByAbbreviation("kg");
@@ -648,7 +726,10 @@ class CustomCommand extends AbstractCommand
         $curr = DataObject::getByPath($path);
         if($curr)
         {
-            $this->writeComment("[~] Skipping " . $data['key'] . " (" . $curr->getId() . ").");
+            if($verbose)
+            {
+                $this->writeComment("[~] Skipping " . $data['key'] . " (" . $curr->getId() . ").");
+            }
             return $curr->getId();
         }
 
@@ -695,6 +776,8 @@ class CustomCommand extends AbstractCommand
         $this->addFolderPath($productsAssetPath, "ASSET");
         $IMAGE_FOLDER = Asset\Folder::getByPath($productsAssetPath);
 
+        $this->writeInfo("[Products]");
+
         $this->importProducts(6249, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $collectionFolderPath); // BLAT
         $this->importProducts(6250, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $collectionFolderPath); // REGAL
         $this->importProducts(6251, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $collectionFolderPath); // FRONT
@@ -729,6 +812,8 @@ class CustomCommand extends AbstractCommand
 
         $this->addFolderPath($PRODUKTY_ASSET_PATH, "ASSET");
         $IMAGE_FOLDER = Asset\Folder::getByPath($PRODUKTY_ASSET_PATH);
+
+        $this->writeInfo("[Suspended products]");
 
         $this->importProducts(1194, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
         $this->importProducts(1195, $PRODUKTY_FOLDER, $IMAGE_FOLDER, $COLLECTION_FOLDER);
@@ -807,7 +892,7 @@ class CustomCommand extends AbstractCommand
         }
     }
 
-    private function addProduct($data, $parent, $imageFolder, $COLLECTION_FOLDER) : Product
+    private function addProduct($data, $parent, $imageFolder, $COLLECTION_FOLDER, $verbose = false) : Product
     {
         \Pimcore::collectGarbage();
         DataObject::setHideUnpublished(false);
@@ -817,7 +902,10 @@ class CustomCommand extends AbstractCommand
         $curr = Product::getByPath($path);
         if($curr)
         {
-            $this->writeComment("[~] Skipping " . $data['key'] . " (" . $curr->getId() . ").");
+            if($verbose)
+            {
+                $this->writeComment("[~] Skipping " . $data['key'] . " (" . $curr->getId() . ").");
+            }
             return $curr;
         }
 
@@ -1051,6 +1139,8 @@ class CustomCommand extends AbstractCommand
         $this->addFolderPath($setFolderAssetPath, "ASSET");
         $IMAGE_FOLDER = Asset\Folder::getByPath($setFolderAssetPath);
 
+        $this->writeInfo("[Sets]");
+
         $this->importSets(6270, $FOLDER, $IMAGE_FOLDER, $collectionFolderPath);
     }
 
@@ -1065,7 +1155,7 @@ class CustomCommand extends AbstractCommand
         }
     }
 
-    private function addSet($data, $parent, $imageFolder, $collectionFolder) : ProductSet
+    private function addSet($data, $parent, $imageFolder, $collectionFolder, $verbose = false) : ProductSet
     {
         DataObject::setHideUnpublished(false);
 
@@ -1074,7 +1164,10 @@ class CustomCommand extends AbstractCommand
         $curr = ProductSet::getByPath($path);
         if($curr)
         {
-            $this->writeComment("[~] Skipping " . $data['key'] . " (" . $curr->getId() . ").");
+            if($verbose)
+            {
+                $this->writeComment("[~] Skipping " . $data['key'] . " (" . $curr->getId() . ").");
+            }
             return $curr;
         }
 
