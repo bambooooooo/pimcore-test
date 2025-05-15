@@ -1,0 +1,494 @@
+pimcore:
+    objects:
+        select_options:
+            definitions:
+                Color:
+                    id: Color
+                    group: ''
+                    useTraits: ''
+                    implementsInterfaces: ''
+                    selectOptions:
+                        -
+                            value: akacja
+                            label: akacja
+                            name: ''
+                        -
+                            value: antracyt
+                            label: antracyt
+                            name: ''
+                        -
+                            value: 'antyczny zloty'
+                            label: 'antyczny zloty'
+                            name: ''
+                        -
+                            value: beton
+                            label: beton
+                            name: ''
+                        -
+                            value: 'beton ciemny'
+                            label: 'beton ciemny'
+                            name: ''
+                        -
+                            value: 'beton jasny'
+                            label: 'beton jasny'
+                            name: ''
+                        -
+                            value: 'bellato szary'
+                            label: 'bellato szary'
+                            name: ''
+                        -
+                            value: bezbarwny
+                            label: bezbarwny
+                            name: ''
+                        -
+                            value: bialy
+                            label: bialy
+                            name: ''
+                        -
+                            value: 'bialy - sosna'
+                            label: 'bialy - sosna'
+                            name: ''
+                        -
+                            value: bordo
+                            label: bordo
+                            name: ''
+                        -
+                            value: brzoza
+                            label: brzoza
+                            name: ''
+                        -
+                            value: buk
+                            label: buk
+                            name: ''
+                        -
+                            value: 'buk ciemny'
+                            label: 'buk ciemny'
+                            name: ''
+                        -
+                            value: 'buk jasny'
+                            label: 'buk jasny'
+                            name: ''
+                        -
+                            value: calvados
+                            label: calvados
+                            name: ''
+                        -
+                            value: cappuccino
+                            label: cappuccino
+                            name: ''
+                        -
+                            value: chrom
+                            label: chrom
+                            name: ''
+                        -
+                            value: czarny
+                            label: czarny
+                            name: ''
+                        -
+                            value: czekoladowy
+                            label: czekoladowy
+                            name: ''
+                        -
+                            value: czeresnia
+                            label: czeresnia
+                            name: ''
+                        -
+                            value: 'czern perlista'
+                            label: 'czern perlista'
+                            name: ''
+                        -
+                            value: dab
+                            label: dab
+                            name: ''
+                        -
+                            value: 'dab antyczny'
+                            label: 'dab antyczny'
+                            name: ''
+                        -
+                            value: 'dab artisan'
+                            label: 'dab artisan'
+                            name: ''
+                        -
+                            value: 'dab bialy'
+                            label: 'dab bialy'
+                            name: ''
+                        -
+                            value: 'dab biszkoptowy'
+                            label: 'dab biszkoptowy'
+                            name: ''
+                        -
+                            value: 'dab brunico'
+                            label: 'dab brunico'
+                            name: ''
+                        -
+                            value: 'dab canterbury'
+                            label: 'dab canterbury'
+                            name: ''
+                        -
+                            value: 'dab castello miodowy'
+                            label: 'dab castello miodowy'
+                            name: ''
+                        -
+                            value: 'dab craft'
+                            label: 'dab craft'
+                            name: ''
+                        -
+                            value: 'dab craft tobacco'
+                            label: 'dab craft tobacco'
+                            name: ''
+                        -
+                            value: 'dab craft zloty'
+                            label: 'dab craft zloty'
+                            name: ''
+                        -
+                            value: 'dab czarny'
+                            label: 'dab czarny'
+                            name: ''
+                        -
+                            value: 'dab dziki'
+                            label: 'dab dziki'
+                            name: ''
+                        -
+                            value: 'dab evoke coast'
+                            label: 'dab evoke coast'
+                            name: ''
+                        -
+                            value: 'dab halifax'
+                            label: 'dab halifax'
+                            name: ''
+                        -
+                            value: 'dab halifax bialy'
+                            label: 'dab halifax bialy'
+                            name: ''
+                        -
+                            value: 'dab halifax cynowany'
+                            label: 'dab halifax cynowany'
+                            name: ''
+                        -
+                            value: 'dab halifax czarny'
+                            label: 'dab halifax czarny'
+                            name: ''
+                        -
+                            value: 'dab halifax naturalny'
+                            label: 'dab halifax naturalny'
+                            name: ''
+                        -
+                            value: 'dab halifax tabak'
+                            label: 'dab halifax tabak'
+                            name: ''
+                        -
+                            value: 'dab jasny'
+                            label: 'dab jasny'
+                            name: ''
+                        -
+                            value: 'dab kamienny'
+                            label: 'dab kamienny'
+                            name: ''
+                        -
+                            value: 'dab lancelot'
+                            label: 'dab lancelot'
+                            name: ''
+                        -
+                            value: 'dab lefkas'
+                            label: 'dab lefkas'
+                            name: ''
+                        -
+                            value: 'dab miodowy'
+                            label: 'dab miodowy'
+                            name: ''
+                        -
+                            value: 'dab naturalny'
+                            label: 'dab naturalny'
+                            name: ''
+                        -
+                            value: 'dab odwieczny'
+                            label: 'dab odwieczny'
+                            name: ''
+                        -
+                            value: 'dab olejowany'
+                            label: 'dab olejowany'
+                            name: ''
+                        -
+                            value: 'dab orzech'
+                            label: 'dab orzech'
+                            name: ''
+                        -
+                            value: 'dab postarzany'
+                            label: 'dab postarzany'
+                            name: ''
+                        -
+                            value: 'dab pradawny'
+                            label: 'dab pradawny'
+                            name: ''
+                        -
+                            value: 'dab rustykalny'
+                            label: 'dab rustykalny'
+                            name: ''
+                        -
+                            value: 'dab sloneczny'
+                            label: 'dab sloneczny'
+                            name: ''
+                        -
+                            value: 'dab sonoma'
+                            label: 'dab sonoma'
+                            name: ''
+                        -
+                            value: 'dab sonoma jasna'
+                            label: 'dab sonoma jasna'
+                            name: ''
+                        -
+                            value: 'dab truflowy'
+                            label: 'dab truflowy'
+                            name: ''
+                        -
+                            value: 'dab wenge'
+                            label: 'dab wenge'
+                            name: ''
+                        -
+                            value: 'dab wotan'
+                            label: 'dab wotan'
+                            name: ''
+                        -
+                            value: 'dab zloty'
+                            label: 'dab zloty'
+                            name: ''
+                        -
+                            value: 'drewno retro'
+                            label: 'drewno retro'
+                            name: ''
+                        -
+                            value: fiolet
+                            label: fiolet
+                            name: ''
+                        -
+                            value: grafit
+                            label: grafit
+                            name: ''
+                        -
+                            value: grusza
+                            label: grusza
+                            name: ''
+                        -
+                            value: hawana
+                            label: hawana
+                            name: ''
+                        -
+                            value: jablon
+                            label: jablon
+                            name: ''
+                        -
+                            value: jesion
+                            label: jesion
+                            name: ''
+                        -
+                            value: jodla
+                            label: jodla
+                            name: ''
+                        -
+                            value: kaszmir
+                            label: kaszmir
+                            name: ''
+                        -
+                            value: kasztan
+                            label: kasztan
+                            name: ''
+                        -
+                            value: klon
+                            label: klon
+                            name: ''
+                        -
+                            value: 'marmur bianco'
+                            label: 'marmur bianco'
+                            name: ''
+                        -
+                            value: krem
+                            label: krem
+                            name: ''
+                        -
+                            value: 'marmur black royal'
+                            label: 'marmur black royal'
+                            name: ''
+                        -
+                            value: matera
+                            label: matera
+                            name: ''
+                        -
+                            value: mahon
+                            label: mahon
+                            name: ''
+                        -
+                            value: metal
+                            label: metal
+                            name: ''
+                        -
+                            value: niebieski
+                            label: niebieski
+                            name: ''
+                        -
+                            value: 'odcienie bezu'
+                            label: 'odcienie bezu'
+                            name: ''
+                        -
+                            value: 'odcienie brazu'
+                            label: 'odcienie brazu'
+                            name: ''
+                        -
+                            value: czerwony
+                            label: czerwony
+                            name: ''
+                        -
+                            value: fioletowy
+                            label: fioletowy
+                            name: ''
+                        -
+                            value: granatowy
+                            label: granatowy
+                            name: ''
+                        -
+                            value: 'odcienie niebieskiego'
+                            label: 'odcienie niebieskiego'
+                            name: ''
+                        -
+                            value: 'odcienie pomaranczowego'
+                            label: 'odcienie pomaranczowego'
+                            name: ''
+                        -
+                            value: 'odcienie rozu'
+                            label: 'odcienie rozu'
+                            name: ''
+                        -
+                            value: 'odcienie szarosci'
+                            label: 'odcienie szarosci'
+                            name: ''
+                        -
+                            value: 'odcienie zieleni'
+                            label: 'odcienie zieleni'
+                            name: ''
+                        -
+                            value: 'piasek pustyni '
+                            label: 'piasek pustyni '
+                            name: ''
+                        -
+                            value: olcha
+                            label: olcha
+                            name: ''
+                        -
+                            value: oliwka
+                            label: oliwka
+                            name: ''
+                        -
+                            value: orzech
+                            label: orzech
+                            name: ''
+                        -
+                            value: 'orzech zloty'
+                            label: 'orzech zloty'
+                            name: ''
+                        -
+                            value: pomarancz
+                            label: pomarancz
+                            name: ''
+                        -
+                            value: przezroczysty
+                            label: przezroczysty
+                            name: ''
+                        -
+                            value: roz
+                            label: roz
+                            name: ''
+                        -
+                            value: 'rozowe zloto'
+                            label: 'rozowe zloto'
+                            name: ''
+                        -
+                            value: 'san sebastian'
+                            label: 'san sebastian'
+                            name: ''
+                        -
+                            value: Sheesham
+                            label: Sheesham
+                            name: ''
+                        -
+                            value: 'swierk alpejski'
+                            label: 'swierk alpejski'
+                            name: ''
+                        -
+                            value: sosna
+                            label: sosna
+                            name: ''
+                        -
+                            value: 'sosna remo ciemna'
+                            label: 'sosna remo ciemna'
+                            name: ''
+                        -
+                            value: 'sosna bielona'
+                            label: 'sosna bielona'
+                            name: ''
+                        -
+                            value: 'stare drewno'
+                            label: 'stare drewno'
+                            name: ''
+                        -
+                            value: srebrny
+                            label: srebrny
+                            name: ''
+                        -
+                            value: suar
+                            label: suar
+                            name: ''
+                        -
+                            value: szary
+                            label: szary
+                            name: ''
+                        -
+                            value: teak
+                            label: teak
+                            name: ''
+                        -
+                            value: 'trawa morska'
+                            label: 'trawa morska'
+                            name: ''
+                        -
+                            value: wanilia
+                            label: wanilia
+                            name: ''
+                        -
+                            value: wenge
+                            label: wenge
+                            name: ''
+                        -
+                            value: wielokolorowy
+                            label: wielokolorowy
+                            name: ''
+                        -
+                            value: wisnia
+                            label: wisnia
+                            name: ''
+                        -
+                            value: wrzos
+                            label: wrzos
+                            name: ''
+                        -
+                            value: zielen
+                            label: zielen
+                            name: ''
+                        -
+                            value: zloty
+                            label: zloty
+                            name: ''
+                        -
+                            value: zolty
+                            label: zolty
+                            name: ''
+                        -
+                            value: surowy
+                            label: surowy
+                            name: ''
+                        -
+                            value: 'butelkowa zielen'
+                            label: 'butelkowa zielen'
+                            name: ''
+                        -
+                            value: Colors
+                            label: Colors
+                            name: ''

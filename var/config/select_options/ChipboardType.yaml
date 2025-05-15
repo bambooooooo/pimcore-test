@@ -1,0 +1,22 @@
+pimcore:
+    objects:
+        select_options:
+            definitions:
+                ChipboardType:
+                    id: ChipboardType
+                    group: ''
+                    useTraits: ''
+                    implementsInterfaces: ''
+                    selectOptions:
+                        -
+                            value: 'plyta wiorowa'
+                            label: 'plyta wiorowa'
+                            name: ''
+                        -
+                            value: 'plyta mdf'
+                            label: 'plyta mdf'
+                            name: ''
+                        -
+                            value: 'plyta hdf'
+                            label: 'plyta hdf'
+                            name: ''
