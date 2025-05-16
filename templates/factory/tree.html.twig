@@ -62,6 +62,10 @@
                     {% endif %}
                 </div>
             {% endif %}
+
+            {% if obj is pimcore_data_object_class("Order") %}
+                {{ include("factory/listings/listing_data_order.html.twig", {obj: obj}) }}
+            {% endif %}
         </div>
         <div class="col-md-4">
             {% if obj is pimcore_data_object_class("Product") %}
@@ -75,6 +79,9 @@
 
             {% elseif obj is pimcore_data_object_class("Package") %}
                 {{ include("factory/listings/listing_info_package.html.twig", {obj: obj}) }}
+
+            {% elseif obj is pimcore_data_object_class("Order") %}
+                {{ include("factory/listings/listing_info_order.html.twig", {obj: obj}) }}
 
             {% else %}
                 <div class="col text-center">
