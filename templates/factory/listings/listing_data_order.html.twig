@@ -1,0 +1,54 @@
+{% if obj.Products %}
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-bordered table-sm mt-2">
+                <thead>
+                    <tr>
+                        <th class="text-center">#</th>
+                        <th>Zdjęcie</th>
+                        <th>Kod</th>
+                        <th>Nazwa</th>
+                        <th>Ilość</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% set total = 0 %}
+                {% for li in obj.Products %}
+                    {% set total = total + li.data.Quantity %}
+                    <tr style="line-height: 50px;">
+                        <td class="text-center">
+                            {{ loop.index }}
+                        </td>
+                        <td class="text-center">
+                            {% if li.object.Image %}
+                                {{ li.object.Image.thumbnail("50x50").html|raw }}
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{{ path("factory_tree", {id: li.object.id}) }}">
+                                {{ li.object.key }}
+                            </a>
+                        </td>
+                        <td>
+                            {{ li.object.Name }}
+                        </td>
+                        <td class="tc">
+                            {{ li.data.Quantity }}
+                        </td>
+                    </tr>
+                {% endfor %}
+                    <tr>
+                        <td colspan="4" class="text-end">
+                            Razem
+                        </td>
+                        <td>
+                            {{ total }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endif %}

@@ -7,6 +7,12 @@
 
                 {% elseif item is pimcore_data_object_class("Package") %}
                     <img src="/bundles/pimcoreadmin/img/flat-color-icons/deployment.svg" width="50" height="50">
+                {% elseif item is pimcore_data_object_class("Order") %}
+                    {% if item.user and item.user.Image %}
+                        <img src="{{ item.user.Image.thumbnail("200x200") }}" width="50" height="50">
+                    {% else %}
+                        <img src="/bundles/pimcoreadmin/img/flat-color-icons/shopping-cart.svg" width="50" height="50">
+                    {% endif %}
                 {% elseif item.Image is defined and item.Image %}
                     <img src="{{ item.Image.thumbnail("50x50") }}" width="50" height="50">
                 {% else %}
