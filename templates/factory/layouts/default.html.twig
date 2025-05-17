@@ -51,7 +51,6 @@
                                     {{ item.element.key|capitalize }}
                                 </a>
                             {% else %}
-                                {% dump item.element %}
                                 {% if item.element is pimcore_data_object_class('PortalMenu') %}
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle show" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="true">

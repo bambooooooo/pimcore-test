@@ -63,7 +63,9 @@
                 </div>
             {% endif %}
 
-            {% if obj is pimcore_data_object_class("Order") %}
+            {% if obj is pimcore_data_object_class("Product") %}
+                {{ include("factory/listings/listing_data_product.html.twig", {obj: obj}) }}
+            {% elseif obj is pimcore_data_object_class("Order") %}
                 {{ include("factory/listings/listing_data_order.html.twig", {obj: obj}) }}
             {% endif %}
         </div>

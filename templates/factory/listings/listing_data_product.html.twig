@@ -1,0 +1,36 @@
+<div class="container-fluid mt-4">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+        {% for req in obj.getDependencies().getFilterRequiredByPath() %}
+            {% if req.type == 'object' %}
+                {% set item = pimcore_object(req.id) %}
+
+                <div class="col" style="{% if (not item is instanceof("\\Pimcore\\Model\\DataObject\\Folder")) and not item.published %}opacity:0.3{% endif %}">
+                    <a href="{{ path("factory_tree", {id: item.id}) }}" class="text-center">
+                        <div class="card h-100 p-1">
+                            {% if item is instanceof("\\Pimcore\\Model\\DataObject\\Folder") %}
+                                <img src="{{ asset('bundles/pimcoreadmin/img/flat-color-icons/folder.svg') }}" class="img-fluid">
+                            {% elseif item is pimcore_data_object_class("Package") %}
+                                <img src="/bundles/pimcoreadmin/img/flat-color-icons/deployment.svg" class="img-fluid">
+                            {% elseif item is pimcore_data_object_class("Order") %}
+                                {% if item.user and item.user.Image %}
+                                    <img src="{{ item.user.Image.thumbnail("200x200") }}" class="img-fluid">
+                                {% else %}
+                                    <img src="/bundles/pimcoreadmin/img/flat-color-icons/shopping-cart.svg" class="img-fluid">
+                                {% endif %}
+                            {% elseif item.Image %}
+                                <img src="{{ item.Image.thumbnail("200x200") }}" class="img-fluid">
+                            {% else %}
+                                <img src="/UI/2-puzzle.svg" class="img-fluid">
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    {{ item.key }}
+                                </h5>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
