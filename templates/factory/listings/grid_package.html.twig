@@ -1,0 +1,14 @@
+{% for el in obj.elements %}
+    <div class="col">
+        <a href="{{ el.element }}" class="text-center">
+            <div class="card h-100 p-1">
+                <div class="card-body">
+                    <img src="{{ el.element.getImageThumbnail("200x200") }}" class="img-fluid"/>
+                    <h5 class="card-title">
+                        {{ el.element.key }}
+                    </h5>
+                </div>
+            </div>
+        </a>
+    </div>
+{% endfor %}

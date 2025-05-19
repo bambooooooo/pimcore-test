@@ -32,58 +32,70 @@
             {% if style == 'gallery' %}
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
                     {% for c in obj.children %}
-                        {{ include('factory/listings/grid_item.html.twig', {item: c}) }}
+                        {{ include('factory/listings/_grid_item.html.twig', {item: c}) }}
                     {% endfor %}
 
                     {% if obj is pimcore_data_object_class("Group") %}
                         {% for c in obj.Products %}
-                            {{ include('factory/listings/grid_item.html.twig', {item: c}) }}
+                            {{ include('factory/listings/_grid_item.html.twig', {item: c}) }}
                         {% endfor %}
 
                         {% for c in obj.Sets %}
-                            {{ include('factory/listings/grid_item.html.twig', {item: c}) }}
+                            {{ include('factory/listings/_grid_item.html.twig', {item: c}) }}
                         {% endfor %}
+
+                    {% elseif obj is pimcore_data_object_class("Package") %}
+                        {{ include("factory/listings/grid_package.html.twig", {obj: obj}) }}
+
+                    {% elseif obj is pimcore_data_object_class("Product") %}
+                        {{ include("factory/listings/grid_product.html.twig", {obj: obj}) }}
                     {% endif %}
+
                 </div>
             {% else %}
                 <div class="row">
                     {% for c in obj.children %}
-                        {{ include('factory/listings/list_item.html.twig', {item: c}) }}
+                        {{ include('factory/listings/_list_item.html.twig', {item: c}) }}
                     {% endfor %}
 
                     {% if obj is pimcore_data_object_class("Group") %}
                         {% for c in obj.Products %}
-                            {{ include('factory/listings/list_item.html.twig', {item: c}) }}
+                            {{ include('factory/listings/_list_item.html.twig', {item: c}) }}
                         {% endfor %}
 
                         {% for c in obj.Sets %}
-                            {{ include('factory/listings/list_item.html.twig', {item: c}) }}
+                            {{ include('factory/listings/_list_item.html.twig', {item: c}) }}
                         {% endfor %}
+
+                    {% elseif obj is pimcore_data_object_class("Package") %}
+                        {{ include("factory/listings/list_package.html.twig", {obj: obj}) }}
+
+                    {% elseif obj is pimcore_data_object_class("Product") %}
+                        {{ include("factory/listings/list_product.html.twig", {obj: obj}) }}
+
                     {% endif %}
                 </div>
             {% endif %}
 
-            {% if obj is pimcore_data_object_class("Product") %}
-                {{ include("factory/listings/listing_data_product.html.twig", {obj: obj}) }}
-            {% elseif obj is pimcore_data_object_class("Order") %}
-                {{ include("factory/listings/listing_data_order.html.twig", {obj: obj}) }}
+            {% if obj is pimcore_data_object_class("Order") %}
+                {{ include("factory/listings/list_order.html.twig", {obj: obj}) }}
             {% endif %}
         </div>
         <div class="col-md-4">
             {% if obj is pimcore_data_object_class("Product") %}
-                {{ include("factory/listings/listing_info_product.html.twig", {obj: obj}) }}
+                {{ include("factory/listings/info_product.html.twig", {obj: obj}) }}
 
             {% elseif obj is pimcore_data_object_class("ProductSet") %}
-                {{ include("factory/listings/listing_info_product_set.html.twig", {obj: obj}) }}
+                {{ include("factory/listings/info_productset.html.twig", {obj: obj}) }}
 
             {% elseif obj is pimcore_data_object_class("Group") %}
-                {{ include("factory/listings/listing_info_group.html.twig", {obj: obj}) }}
+                {{ include("factory/listings/list_group.html.twig", {obj: obj}) }}
 
             {% elseif obj is pimcore_data_object_class("Package") %}
-                {{ include("factory/listings/listing_info_package.html.twig", {obj: obj}) }}
+                {{ include("factory/listings/info_package.html.twig", {obj: obj}) }}
 
             {% elseif obj is pimcore_data_object_class("Order") %}
-                {{ include("factory/listings/listing_info_order.html.twig", {obj: obj}) }}
+                {{ include("factory/listings/info_order.html.twig", {obj: obj}) }}
 
             {% else %}
                 <div class="col text-center">

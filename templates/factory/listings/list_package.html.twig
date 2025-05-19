@@ -1,0 +1,15 @@
+{% for el in obj.elements %}
+    <a href="{{ el.element }}" class="list-item">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <img src="{{ el.element.getImageThumbnail("200x200") }}" height="50"/>
+                    <span style="margin-left: 8px">
+                        {{ el.element.key }}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </a>
+{% endfor %}
+

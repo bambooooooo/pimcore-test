@@ -20,7 +20,7 @@
  * - BDOPlastic [quantityValue]
  * - Barcode [input]
  * - Codes [objectbricks]
- * - Elements [manyToManyRelation]
+ * - Elements [advancedManyToManyRelation]
  */
 
 return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
@@ -30,7 +30,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Opakowanie',
    'description' => 'Opakowanie zawierające elementy produktu',
    'creationDate' => NULL,
-   'modificationDate' => 1746606600,
+   'modificationDate' => 1747632444,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -756,7 +756,7 @@ Domyślny kod kreskowy paczki tworzony na podstawie jego unikalnego identyfikato
              'children' => 
             array (
               0 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyRelation::__set_state(array(
+              \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyRelation::__set_state(array(
                  'name' => 'Elements',
                  'title' => 'Elements',
                  'tooltip' => '',
@@ -776,6 +776,10 @@ Domyślny kod kreskowy paczki tworzony na podstawie jego unikalnego identyfikato
                 ),
                  'classes' => 
                 array (
+                  0 => 
+                  array (
+                    'classes' => '',
+                  ),
                 ),
                  'displayMode' => NULL,
                  'pathFormatterClass' => '',
@@ -795,10 +799,33 @@ Domyślny kod kreskowy paczki tworzony na podstawie jego unikalnego identyfikato
                  'documentsAllowed' => false,
                  'documentTypes' => 
                 array (
+                  0 => 
+                  array (
+                    'documentTypes' => '',
+                  ),
                 ),
                  'enableTextSelection' => false,
                  'width' => '',
-                 'height' => '',
+                 'height' => NULL,
+                 'columns' => 
+                array (
+                  0 => 
+                  array (
+                    'type' => 'number',
+                    'position' => 1,
+                    'key' => 'Quantity',
+                    'label' => 'Quantity',
+                    'value' => '',
+                  ),
+                ),
+                 'columnKeys' => 
+                array (
+                  0 => 'Quantity',
+                ),
+                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\ElementMetadata[]',
+                 'optimizedAdminLoading' => false,
+                 'enableBatchEdit' => false,
+                 'allowMultipleAssignments' => false,
               )),
             ),
              'locked' => false,

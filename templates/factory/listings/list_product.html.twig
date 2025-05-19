@@ -1,0 +1,29 @@
+{% for req in obj.getDependencies().getFilterRequiredByPath() %}
+    {% if req.type == 'object' %}
+        {% set item = pimcore_object(req.id) %}
+
+        <a href="{{ path("factory_tree", {id: item.id}) }}" class="list-item" style="{% if (not item is instanceof("\\Pimcore\\Model\\DataObject\\Folder")) and not item.published %}opacity:0.3{% endif %}">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        {% if item is pimcore_data_object_class("ProductSet") and item.Image %}
+                            <img src="{{ item.Image.thumbnail("200x200") }}" height="50"/>
+                        {% elseif item is pimcore_data_object_class("Order") %}
+                            {% if item.user and item.user.Image %}
+                                <img src="{{ item.user.Image.thumbnail("200x200") }}" height="50"">
+                            {% else %}
+                                <img src="/bundles/pimcoreadmin/img/flat-color-icons/shopping-cart.svg" height="50">
+                            {% endif %}
+                        {% else %}
+                            <img src="/UI/2-puzzle.svg" height="50">
+                        {% endif %}
+                        <span style="margin-left: 8px">
+                        {{ item.key }}
+                    </span>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+    {% endif %}
+{% endfor %}
