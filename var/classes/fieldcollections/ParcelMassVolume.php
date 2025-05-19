@@ -11,7 +11,7 @@ return \Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
    'key' => 'ParcelMassVolume',
    'parentClass' => '',
    'implementsInterfaces' => '',
-   'title' => 'Waga i objętość paczek',
+   'title' => '+ Waga i objętość paczek',
    'group' => 'Pricing',
    'layoutDefinitions' => 
   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
