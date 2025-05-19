@@ -44,7 +44,8 @@ class FactoryController extends FrontendController
 
         $data = [
             'obj' => $obj,
-            'style' => $grid
+            'style' => $grid,
+            'title' => $obj->getKey()
         ];
 
         $response = $this->render("factory/tree.html.twig", $data);

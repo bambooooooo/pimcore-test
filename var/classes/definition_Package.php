@@ -30,7 +30,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Opakowanie',
    'description' => 'Opakowanie zawierające elementy produktu',
    'creationDate' => NULL,
-   'modificationDate' => 1747632444,
+   'modificationDate' => 1747644908,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -778,7 +778,7 @@ Domyślny kod kreskowy paczki tworzony na podstawie jego unikalnego identyfikato
                 array (
                   0 => 
                   array (
-                    'classes' => '',
+                    'classes' => 'Package',
                   ),
                 ),
                  'displayMode' => NULL,
@@ -787,7 +787,7 @@ Domyślny kod kreskowy paczki tworzony na podstawie jego unikalnego identyfikato
                  'assetInlineDownloadAllowed' => true,
                  'assetUploadPath' => '/ELEMENTY',
                  'allowToClearRelation' => true,
-                 'objectsAllowed' => false,
+                 'objectsAllowed' => true,
                  'assetsAllowed' => true,
                  'assetTypes' => 
                 array (
