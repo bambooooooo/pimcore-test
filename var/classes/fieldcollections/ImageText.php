@@ -61,7 +61,7 @@ return \Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
             array (
             ),
              'uploadPath' => '',
-             'width' => '50%',
+             'width' => '49%',
              'height' => '',
           )),
           1 => 
@@ -87,7 +87,7 @@ return \Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
              'excludeFromSearchIndex' => false,
              'maxCharacters' => '',
              'height' => '',
-             'width' => '50%',
+             'width' => '49%',
           )),
         ),
          'locked' => false,

@@ -76,7 +76,7 @@ return \Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
               3 => 'dailymotion',
             ),
              'height' => '',
-             'width' => '50%',
+             'width' => '49%',
           )),
           1 => 
           \Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
@@ -101,7 +101,7 @@ return \Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
              'excludeFromSearchIndex' => false,
              'maxCharacters' => '',
              'height' => '',
-             'width' => '50%',
+             'width' => '49%',
           )),
         ),
          'locked' => false,

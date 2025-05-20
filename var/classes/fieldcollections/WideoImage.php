@@ -76,7 +76,7 @@ return \Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
               3 => 'dailymotion',
             ),
              'height' => '',
-             'width' => '50%',
+             'width' => '49%',
           )),
           1 => 
           \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
@@ -98,7 +98,7 @@ return \Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
             array (
             ),
              'uploadPath' => '',
-             'width' => '50%',
+             'width' => '49%',
              'height' => '',
           )),
         ),
