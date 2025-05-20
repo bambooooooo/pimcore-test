@@ -19,6 +19,8 @@
  * - City [input]
  * - PostalCode [input]
  * - Groups [manyToManyObjectRelation]
+ * - schedule_show_completed_item [checkbox]
+ * - PackageTemplate [input]
  */
 
 return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
@@ -28,7 +30,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Użytkownik',
    'description' => 'Podmiot w systemie',
    'creationDate' => NULL,
-   'modificationDate' => 1746602496,
+   'modificationDate' => 1747734241,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -502,6 +504,86 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'border' => false,
              'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/reverse_object_relation.svg',
              'labelWidth' => 100,
+             'labelAlign' => 'left',
+          )),
+          3 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+             'name' => 'Settings',
+             'type' => NULL,
+             'region' => NULL,
+             'title' => 'Settings',
+             'width' => '',
+             'height' => '',
+             'collapsible' => false,
+             'collapsed' => false,
+             'bodyStyle' => '',
+             'datatype' => 'layout',
+             'children' => 
+            array (
+              0 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                 'name' => 'schedule_show_completed_item',
+                 'title' => 'Schedule _show _completed _item',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'defaultValue' => 0,
+                 'defaultValueGenerator' => '',
+              )),
+              1 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                 'name' => 'PackageTemplate',
+                 'title' => 'Package Template',
+                 'tooltip' => 'nazwa szablonów etykiet, które znajdują się w katalogach templates/factory/labels/[ wymiar etykiety ]/[ PackageTemplate ].html.twig
+przykładowo:
+templates/factory/labels/60x150/MIRJAN.html.twig',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'defaultValue' => NULL,
+                 'columnLength' => 190,
+                 'regex' => '',
+                 'regexFlags' => 
+                array (
+                ),
+                 'unique' => false,
+                 'showCharCount' => false,
+                 'width' => '',
+                 'defaultValueGenerator' => '',
+              )),
+            ),
+             'locked' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'fieldtype' => 'panel',
+             'layout' => NULL,
+             'border' => false,
+             'icon' => '',
+             'labelWidth' => 220,
              'labelAlign' => 'left',
           )),
         ),

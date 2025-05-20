@@ -67,7 +67,24 @@
 
 {% for year, months in queue %}
     {% for month, orders in months %}
-        <div class="container mt-4">
+
+        {% set monthsize = 0 %}
+        {% for order in orders %}
+            {% for serie in order.children %}
+                {% if app.user.schedule_show_completed_item %}
+                    {% set monthsize = monthsize + serie.products|length %}
+                {% else %}
+                    {% for sp in serie.products %}
+                        {% if not sp.data.QuantityDone %}
+                            {% set monthsize = monthsize + 1 %}
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+
+        {% if monthsize %}
+            <div class="container mt-4">
             <table class="schedule">
                 <thead>
                 <tr>
@@ -99,82 +116,106 @@
                     {% set orderSize = 0 %}
 
                     {% for serie in order.children %}
-                        {% set orderSize = orderSize + serie.products|length %}
+                        {% if app.user.schedule_show_completed_item %}
+                            {% set orderSize = orderSize + serie.products|length %}
+                        {% else %}
+                            {% for sp in serie.products %}
+                                {% if not sp.data.QuantityDone %}
+                                    {% set orderSize = orderSize + 1 %}
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
                     {% endfor %}
 
                     {% if order.children|length > 0 %}
                         {% set orderCodePrinted = false %}
 
                         {% for serie in order.children %}
-                            {% set serieSize = serie.products|length %}
+
+                            {% if app.user.schedule_show_completed_item %}
+                                {% set serieSize = serie.products|length %}
+
+                            {% else %}
+                                {% set serieSize = 0 %}
+                                {% for sp in serie.products %}
+                                    {% if not sp.data.QuantityDone %}
+                                        {% set serieSize = serieSize + 1 %}
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+
                             {% for item in serie.products %}
-                                {% set p = pimcore_object(item.objectId) %}
+                                {% if app.user.schedule_show_completed_item or (not item.data.QuantityDone) %}
+                                    {% set p = pimcore_object(item.objectId) %}
 
-                                {% if orderCodePrinted == false %}
-                                        {% set orderCodePrinted = true %}
-                                        <tr>
-                                            <td rowspan="{{ orderSize }}">
-                                                {{ loop.parent.loop.parent.loop.index }}
-                                            </td>
-                                            <td rowspan="{{ orderSize }}">
-                                                {{ order.key }}
-                                            </td>
-                                            <td rowspan="{{ serieSize }}">
-                                                {{ serie.user.key }}
-                                            </td>
-                                            <td class="{% if item.data.QuantityDone is defined and item.data.QuantityDone > 0 %}lineitem-done{% endif %}">1</td>
-                                            <td class="{% if item.data.QuantityDone is defined and item.data.QuantityDone > 0 %}lineitem-done{% endif %}">
-                                                {{ include('factory/schedule/product.html.twig', {p: p}) }}
-                                            </td>
-                                            <td style="position: relative">
-                                                {{ include('factory/schedule/quantity.html.twig', {item: item}) }}
-                                            </td>
-                                            <td rowspan="{{ orderSize }}">
-                                                {{ include('factory/schedule/order_date.html.twig', ) }}
-                                            </td>
-                                            <td rowspan="{{ serieSize }}">
-                                                {% if serie.date == null %}
-                                                    Brak daty
-                                                {% else %}
-                                                    {{ serie.date|date("d.m") }}
-                                                {% endif %}
-                                            </td>
-                                        </tr>
-                                    {% elseif loop.index == 1 %}
-                                        <tr>
-                                            {% if orderCodePrinted == false %}
-                                                <td rowspan="{{ orderSize }}">{{ loop.parent.loop.parent.loop.index }}</td>
-                                                <td rowspan="{{ orderSize }}">{{ order.key }}</td>
-                                            {% endif %}
-
-                                            <td rowspan="{{ serieSize }}">{{ serie.user.key }}</td>
-                                            <td class="{% if item.data.QuantityDone is defined and item.data.QuantityDone > 0 %}lineitem-done{% endif %}">1</td>
-                                            <td class="{% if item.data.QuantityDone is defined and item.data.QuantityDone > 0 %}lineitem-done{% endif %}">
-                                                {{ include('factory/schedule/product.html.twig', {p: p}) }}
-                                            </td>
-                                            <td style="position: relative">
-                                                {{ include('factory/schedule/quantity.html.twig', {item: item}) }}
-                                            </td>
-                                            {% if orderCodePrinted == false %}
+                                    {% if orderCodePrinted == false %}
+                                            {% set orderCodePrinted = true %}
+                                            <tr>
                                                 <td rowspan="{{ orderSize }}">
+                                                    {{ loop.parent.loop.parent.loop.index }}
+                                                </td>
+                                                <td rowspan="{{ orderSize }}">
+                                                    {{ order.key }}
+                                                </td>
+                                                <td rowspan="{{ serieSize }}">
+                                                    {{ include('factory/schedule/user.html.twig', {user: serie.user}) }}
+                                                </td>
+                                                <td class="{% if item.data.QuantityDone is defined and item.data.QuantityDone > 0 %}lineitem-done{% endif %}">1</td>
+                                                <td class="{% if item.data.QuantityDone is defined and item.data.QuantityDone > 0 %}lineitem-done{% endif %}">
+                                                    {{ include('factory/schedule/product.html.twig', {p: item, s:serie}) }}
+                                                </td>
+                                                <td style="position: relative" class="{% if item.data.QuantityDone is defined and item.data.QuantityDone > 0 %}lineitem-done{% endif %}">
+                                                    {{ include('factory/schedule/quantity.html.twig', {item: item}) }}
+                                                </td>
+                                                <td rowspan="{{ orderSize }}">
+                                                    {{ include('factory/schedule/order_date.html.twig') }}
+                                                </td>
+                                                <td rowspan="{{ serieSize }}">
+                                                    {% if serie.date == null %}
+                                                        Brak daty
+                                                    {% else %}
+                                                        {{ serie.date|date("d.m") }}
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                        {% elseif loop.index == 1 %}
+                                            <tr>
+                                                {% if orderCodePrinted == false %}
+                                                    <td rowspan="{{ orderSize }}">{{ loop.parent.loop.parent.loop.index }}</td>
+                                                    <td rowspan="{{ orderSize }}">{{ order.key }}</td>
+                                                {% endif %}
+
+                                                <td rowspan="{{ serieSize }}">
+                                                    {{ include('factory/schedule/user.html.twig', {user: serie.user}) }}
+                                                </td>
+                                                <td class="{% if item.data.QuantityDone is defined and item.data.QuantityDone > 0 %}lineitem-done{% endif %}">1</td>
+                                                <td class="{% if item.data.QuantityDone is defined and item.data.QuantityDone > 0 %}lineitem-done{% endif %}">
+                                                    {{ include('factory/schedule/product.html.twig', {p: item, s:serie}) }}
+                                                </td>
+                                                <td style="position: relative" class="{% if item.data.QuantityDone is defined and item.data.QuantityDone > 0 %}lineitem-done{% endif %}">
+                                                    {{ include('factory/schedule/quantity.html.twig', {item: item}) }}
+                                                </td>
+                                                {% if orderCodePrinted == false %}
+                                                    <td rowspan="{{ orderSize }}">
+
+                                                    </td>
+                                                {% endif %}
+                                                <td rowspan="{{ serieSize }}">
 
                                                 </td>
-                                            {% endif %}
-                                            <td rowspan="{{ serieSize }}">
-
-                                            </td>
-                                        </tr>
-                                    {% else %}
-                                        <tr>
-                                            <td class="{% if item.data.QuantityDone is defined and item.data.QuantityDone > 0 %}lineitem-done{% endif %}">{{ loop.index }}</td>
-                                            <td class="{% if item.data.QuantityDone is defined and item.data.QuantityDone > 0 %}lineitem-done{% endif %}">
-                                                {{ include('factory/schedule/product.html.twig', {p: p}) }}
-                                            </td>
-                                            <td style="position: relative">
-                                                {{ include('factory/schedule/quantity.html.twig', {item: item}) }}
-                                            </td>
-                                        </tr>
-                                    {% endif %}
+                                            </tr>
+                                        {% else %}
+                                            <tr>
+                                                <td class="{% if item.data.QuantityDone is defined and item.data.QuantityDone > 0 %}lineitem-done{% endif %}">{{ loop.index }}</td>
+                                                <td class="{% if item.data.QuantityDone is defined and item.data.QuantityDone > 0 %}lineitem-done{% endif %}">
+                                                    {{ include('factory/schedule/product.html.twig', {p: item, s:serie}) }}
+                                                </td>
+                                                <td style="position: relative" class="{% if item.data.QuantityDone is defined and item.data.QuantityDone > 0 %}lineitem-done{% endif %}">
+                                                    {{ include('factory/schedule/quantity.html.twig', {item: item}) }}
+                                                </td>
+                                            </tr>
+                                        {% endif %}
+                                {% endif %}
                             {% endfor %}
                         {% endfor %}
                     {% endif %}
@@ -182,6 +223,7 @@
                 </tbody>
             </table>
         </div>
+        {% endif %}
     {% endfor %}
 {% endfor %}
 

@@ -31,6 +31,8 @@ class ProductPublisher
 
             $this->assertNamePL($product);
             $this->assertPackageQuantityAndPublished($product);
+            $this->assertPackageCodeIfProductMirjanCode($product);
+            $this->assertPackageCodeIfProductAgataCode($product);
             $this->assertGroupsArePublished($product);
 
             $this->translateNames($product);
@@ -43,6 +45,31 @@ class ProductPublisher
                 $this->sendToErp($product);
             }
         });
+    }
+
+    private function assertPackageCodeIfProductAgataCode(Product $product): void
+    {
+        if($product->getCodes()?->getIndexAgata())
+        {
+            foreach($product->getPackages() as $lip)
+            {
+                $code = $lip->getElement()->getKey();
+                assert($lip->getElement()->getCodes()?->getIndexAgata()?->getBarcode(), "Package [$code] has to get Agata barcode");
+                assert($lip->getElement()->getCodes()?->getIndexAgata()?->getCode(), "Package [$code] has to get Agata index");
+            }
+        }
+    }
+
+    private function assertPackageCodeIfProductMirjanCode(Product $product): void
+    {
+        if($product->getCodes()?->getIndexMirjan24()?->getCode())
+        {
+            foreach($product->getPackages() as $lip)
+            {
+                $code = $lip->getElement()->getKey();
+                assert($lip->getElement()->getCodes()->getIndexMirjan24()?->getCode(), "Package [$code] has to get Mirjan 24 index, because product already got");
+            }
+        }
     }
 
     private function assertNamePL(Product $product) : void

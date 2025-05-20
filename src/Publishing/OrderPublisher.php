@@ -14,12 +14,25 @@ class OrderPublisher
     public function publish(Order $order): void
     {
         $this->assertProductArePublished($order);
-        $this->sendToERP($order);
+
+        if($order->getUser())
+        {
+            $this->sendToERP($order);
+        }
     }
 
     private function assertProductArePublished(Order $order): void
     {
-        assert($order->getProducts(), "Order has to get products");
+        if($order->getUser())
+        {
+            $name = $order->getUser()->getKey();
+            assert($order->getUser()->isPublished(), "Order.User [$name] must be published");
+
+            if(!$order->hasChildren())
+            {
+                assert($order->getProducts(), "Order with specified user has to get products");
+            }
+        }
 
         foreach ($order->getProducts() as $li) {
             assert($li->getElement()->isPublished(), "Product [" . $li->getElement()->getKey() . "] must be published");

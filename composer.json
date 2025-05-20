@@ -7,6 +7,7 @@
     "sort-packages": true,
     "process-timeout": 0,
     "allow-plugins": {
+      "endroid/installer": true,
       "php-http/discovery": true,
       "symfony/flex": true,
       "symfony/runtime": true
@@ -16,7 +17,10 @@
   "require": {
     "ext-zip": "*",
     "deeplcom/deepl-php": "^1.11",
+    "endroid/qr-code": "^5.1",
+    "endroid/qr-code-bundle": "^5.0",
     "gotenberg/gotenberg-php": "^2.0",
+    "picqer/php-barcode-generator": "^3.2",
     "pimcore/admin-ui-classic-bundle": "^1.7",
     "pimcore/data-importer": "^1.10",
     "pimcore/pimcore": "*",

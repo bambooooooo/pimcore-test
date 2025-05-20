@@ -2,20 +2,26 @@
 
 namespace App\Controller;
 
-use Pimcore\Bundle\AdminBundle\Controller\Admin\ElementController;
+use App\Model\DataObject\User;
 use Pimcore\Controller\FrontendController;
 use Pimcore\Model\DataObject;
+use Pimcore\Model\Asset;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Twig\Environment;
 
 #[Route('/factory/{_locale}', name: 'factory_', defaults: ['_locale' => 'en', 'locale' => 'en'])]
 class FactoryController extends FrontendController
 {
+    public function __construct(private Environment $twig)
+    {
+
+    }
+
     #[Route('', name: 'home')]
     public function defaultAction(Request $request): Response
     {
@@ -52,6 +58,78 @@ class FactoryController extends FrontendController
         $response->headers->setCookie(new Cookie("grid_style", $grid, time() + (86400 * 30)));
 
         return $response;
+    }
+
+    #[Route('/search', name: 'search')]
+    public function searchAction(Request $request): Response
+    {
+        DataObject::setHideUnpublished(false);
+
+        $search = $request->query->get('search');
+
+        $objects = [];
+        $assets = [];
+
+        $kind = $request->query->all('kind');
+
+        if($search)
+        {
+            $id = intval($search);
+
+            $obj = DataObject::getById($id);
+
+            if($obj)
+            {
+                return $this->redirectToRoute('factory_tree', ['id' => $id]);
+            }
+        }
+
+        if($search && $kind)
+        {
+            $allowedObjectClasses = ['product', 'package', 'group'];
+            if(array_intersect($allowedObjectClasses, $kind))
+            {
+                $objectCls = [];
+                if(in_array('product', $kind))
+                    $objectCls[] = "'Product'";
+
+                if(in_array('package', $kind))
+                    $objectCls[] = "'Package'";
+
+                if(in_array('group', $kind))
+                    $objectCls[] = "'Group'";
+
+                $objects = new DataObject\Listing();
+                $objects->setCondition("UPPER(`key`) LIKE UPPER('%" . $search . "%') AND `className` IN (".implode(',', $objectCls).")");
+
+                $objects->load();
+            }
+
+            $allowedAssetClasses = ['pdf', 'image'];
+
+            if(array_intersect($allowedAssetClasses, $kind))
+            {
+                $assetCls = [];
+                if(in_array('pdf', $kind))
+                    $assetCls[] = "'document'";
+
+                if(in_array('image', $kind))
+                    $assetCls[] = "'image'";
+
+                $where = implode(', ', $assetCls);
+
+                $assets = new Asset\Listing();
+                $assets->setCondition("UPPER(`filename`) LIKE UPPER('%" . $search . "%') AND `type` IN (" . $where . ")");
+
+                $assets->load();
+            }
+        }
+
+        return $this->render("factory/search.html.twig", [
+            'error' => "",
+            'objects' => $objects,
+            'assets' => $assets,
+        ]);
     }
 
     #[Route('/{id}/datasheet', name: 'datasheet')]
@@ -97,16 +175,25 @@ class FactoryController extends FrontendController
     {
         $orders = new DataObject\Order\Listing();
 
+        $root = DataObject::getByPath("/ZLECENIA/PRODUKCJA");
+
+        if(!$root)
+        {
+            return new Response("Schedule root /ZLECENIA/PRODUKCJA not found", Response::HTTP_NOT_FOUND);
+        }
+
+        $rootId = $root->getId();
+
         if($request->query->get('y') && $request->query->get('m'))
         {
             $y = (int)$request->query->get('y');
             $m = (int)$request->query->get('m');
 
-            $orders->setCondition("YEAR(`Date`) = $y AND MONTH(`Date`) = $m AND parentid = 15366");
+            $orders->setCondition("YEAR(`Date`) = $y AND MONTH(`Date`) = $m AND parentid = $rootId");
         }
         else
         {
-            $orders->setCondition("parentid = ?", [15366]);
+            $orders->setCondition("parentid = ?", [$rootId]);
         }
 
         $orders->setOrderKey("Date");
@@ -133,7 +220,104 @@ class FactoryController extends FrontendController
         return $this->render("factory/schedule.html.twig", [
             "queue" => $queue,
             "toplan" => $toplan,
+            "title" => "Harmonogram produkcyjny"
         ]);
+    }
+
+    #[Route('/account', name: 'account')]
+    public function accountAction(Request $request, UserInterface $user = null): Response
+    {
+        if($request->query->get('schedule_show_completed_item'))
+        {
+            $schedule_show_completed_item = $request->query->get('schedule_show_completed_item');
+
+            $userData = User::getById($user->getId());
+
+            if($schedule_show_completed_item == 'on' && !$userData->getSchedule_show_completed_item())
+            {
+                $userData->setSchedule_show_completed_item(true);
+                $userData->save();
+            }
+            else if($schedule_show_completed_item == 'off' && $userData->getSchedule_show_completed_item())
+            {
+                $userData->setSchedule_show_completed_item(false);
+                $userData->save();
+            }
+        }
+
+        return $this->render("factory/account.html.twig");
+    }
+
+    #[Route('/labels/{id}', name: 'labels')]
+    public function labelsAction(Request $request): Response
+    {
+        $format = $request->query->get('format') ?? "pdf";
+        $size = $request->query->get('size') ?? "32x20"; // auto - adjust to package height
+        $tplType = $request->query->get('tpl') ?? "default";
+        $step = $request->query->get('step') ?? 1;
+        $repeat = $request->query->get('repeat') ?? 1;
+
+        $copies = $request->query->get('copies') ?? 1;
+
+        $obj = DataObject\Package::getById($request->get('id'));
+        if(!$obj)
+        {
+            return new Response("Not found", Response::HTTP_NOT_FOUND);
+        }
+
+        $orderId = $request->query->get('serie_id');
+        $order = ($orderId) ? DataObject\Order::getById($orderId) : null;
+
+        $productId = $request->query->get('product_id');
+        $product = ($productId) ? DataObject\Product::getById($productId) : null;
+
+        $customerId = $request->query->get('customer_id');
+        $customer = ($customerId) ? DataObject\User::getById($customerId) : null;
+
+        if($customer && $customer->getPackageTemplate())
+        {
+            $tplType = $customer->getPackageTemplate();
+        }
+
+        $tplPath = 'factory/labels/' . $size . '/' . $tplType . '.html.twig';
+
+        if(!$this->twig->getLoader()->exists($tplPath))
+        {
+            return new Response("Template [$tplPath] not found", Response::HTTP_NOT_FOUND);
+        }
+
+        $dims = explode("x", $size);
+        $w = (int)$dims[0];
+        $h = (int)$dims[1];
+
+        $pdfPageParams = [
+            'paperWidth' => $w . 'mm',
+            'paperHeight' => $h . 'mm',
+            'marginTop' => 0,
+            'marginBottom' => 0,
+            'marginLeft' => 0,
+            'marginRight' => 0,
+            'metadata' => [
+                'Title' => $obj->getKey() . "@" . $size,
+                'Author' => 'pim'
+            ]
+        ];
+
+        $html = $this->renderView($tplPath, [
+            'package' => $obj,
+            'product' => $product,
+            'order' => $order,
+            'copies' => $copies,
+            'step' => $step,
+            'w' => $w,
+            'h' => $h,
+            'repeat' => $repeat,
+        ]);
+
+        $adapter = \Pimcore\Bundle\WebToPrintBundle\Processor::getInstance();
+        $pdf = $adapter->getPdfFromString($html, $pdfPageParams);
+
+        return new Response($pdf, Response::HTTP_OK, ['Content-Type' => 'application/pdf']);
     }
 
     #[Route('/login', name: 'login')]

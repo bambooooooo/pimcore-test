@@ -2,8 +2,9 @@
 
 /**
  * Fields Summary:
- * - Barcode [input]
  * - Code [input]
+ * - Barcode [input]
+ * - Name [input]
  */
 
 return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
@@ -43,10 +44,10 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
         array (
           0 => 
           \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-             'name' => 'Barcode',
-             'title' => 'Kod kreskowy',
+             'name' => 'Code',
+             'title' => 'Code (Index)',
              'tooltip' => '',
-             'mandatory' => false,
+             'mandatory' => true,
              'noteditable' => false,
              'index' => false,
              'locked' => false,
@@ -73,8 +74,38 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
           )),
           1 => 
           \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-             'name' => 'Code',
-             'title' => 'Code',
+             'name' => 'Barcode',
+             'title' => 'Barcode',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'defaultValue' => NULL,
+             'columnLength' => 190,
+             'regex' => '',
+             'regexFlags' => 
+            array (
+            ),
+             'unique' => false,
+             'showCharCount' => false,
+             'width' => '',
+             'defaultValueGenerator' => '',
+          )),
+          2 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+             'name' => 'Name',
+             'title' => 'Name',
              'tooltip' => '',
              'mandatory' => false,
              'noteditable' => false,

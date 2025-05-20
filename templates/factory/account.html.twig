@@ -1,0 +1,39 @@
+{% extends 'factory/layouts/default.html.twig' %}
+
+{% block content %}
+
+    <h1>{{ app.user.email }}</h1>
+    <hr/>
+
+    <form method="GET" action="?">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 mt-1">
+                <div class="btn-group" role="group" aria-label="">
+                    <input type="radio" class="btn-check" name="schedule_show_completed_item" id="btn-ssci-y" value="on" autocomplete="off"
+                        {% if app.user.schedule_show_completed_item == true %}checked{% endif %}>
+                    <label class="btn btn-outline-primary" for="btn-ssci-y">
+                        {{ "Yes"|trans }}
+                    </label>
+
+                    <input type="radio" class="btn-check" name="schedule_show_completed_item" id="btn-ssci-n" value="off" autocomplete="off"
+                       {% if app.user.schedule_show_completed_item == false %}checked{% endif %}>
+                    <label class="btn btn-outline-primary" for="btn-ssci-n">
+                        {{ "No"|trans }}
+                    </label>
+                </div>
+                <span>
+                    {{ "Show schedule's completed items"|trans }}
+                </span>
+            </div>
+        </div>
+    </div>
+    <hr/>
+
+    <input class="btn btn-primary" type="submit" value="{{ "Save"|trans }}">
+
+    </form>
+
+
+{% endblock %}
+

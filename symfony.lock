@@ -23,6 +23,9 @@
             "repo": "github.com/symfony/recipes"
         }
     },
+    "endroid/qr-code-bundle": {
+        "version": "5.0.2"
+    },
     "friendsofsymfony/jsrouting-bundle": {
         "version": "99999",
         "recipe": {

@@ -1,0 +1,101 @@
+{% extends 'factory/layouts/default.html.twig' %}
+
+{% block content %}
+
+    <style>
+        .list-item
+        {
+            padding: 2px 0px 4px 12px;
+            border-bottom: 1px solid lightgray;
+            color: #000;
+            text-decoration: none;
+            font-weight: 600;
+            line-height: 50px;
+        }
+
+        .list-item:first-child
+        {
+            border-top: 1px solid lightgray;
+        }
+
+        .list-item:hover
+        {
+            background-color: lightgray;
+            cursor: pointer;
+        }
+
+        .stock-indicator
+        {
+            position: relative;
+            height: 24px;
+            top: -2px;
+        }
+    </style>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mt-5 text-center">
+                <form method="GET">
+                    <h2>Szukaj...</h2>
+
+                    <div class="mt-2">
+                        <div class="input-group">
+                            <input type="text" class="form-control" value="{% if app.request.query.has('search') %}{{ app.request.query.get('search') }}{% endif %}"
+                                   name="search" aria-label="Text input">
+                            <button type="submit" class="btn btn-primary">Otwórz</button>
+                        </div>
+                        {% if error %}
+                            <div class="alert alert-warning mt-2" role="alert">
+                                {{ error }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="container mt-2 me-2">
+                        <div class="row">
+                            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                                <input type="checkbox" class="btn-check" name="kind[]" value="product" id="product" autocomplete="off"
+                                    {% if 'product' in app.request.query.all('kind') %}checked{% endif %}>
+                                <label class="btn btn-outline-primary" for="product">Produkty</label>
+
+                                <input type="checkbox" class="btn-check" name="kind[]" value="package" id="package" autocomplete="off"
+                                       {% if 'package' in app.request.query.all('kind') %}checked{% endif %}>
+                                <label class="btn btn-outline-primary" for="package">Paczki</label>
+
+                                <input type="checkbox" class="btn-check" name="kind[]" value="image" id="image" autocomplete="off"
+                                       {% if 'image' in app.request.query.all('kind') %}checked{% endif %}>
+                                <label class="btn btn-outline-primary" for="image">Zdjęcia</label>
+
+                                <input type="checkbox" class="btn-check" name="kind[]" value="pdf" id="pdf" autocomplete="off"
+                                       {% if 'pdf' in app.request.query.all('kind') %}checked{% endif %}>
+                                <label class="btn btn-outline-primary" for="pdf">PDF</label>
+
+                                <input type="checkbox" class="btn-check" name="kind[]" value="group" id="group" autocomplete="off"
+                                       {% if 'group' in app.request.query.all('kind') %}checked{% endif %}>
+                                <label class="btn btn-outline-primary" for="group">Grupy</label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-2">
+        <div class="row">
+            {% if objects %}
+                {% for c in objects %}
+                    {{ include('factory/listings/_list_item.html.twig', {item: c}) }}
+                {% endfor %}
+            {% endif %}
+
+            {% if assets %}
+                {% for c in assets %}
+                    {{ include('factory/listings/_list_item.html.twig', {item: c}) }}
+                {% endfor %}
+
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,12 +1,38 @@
-<a href="{{ path("factory_tree", {id:p.id})}}">
-    {{ p.key }}
+<a href="{{ path("factory_tree", {id:p.element.id})}}">
+    {{ p.element.key }}
 </a>
-<div class="btn-group ms-2">
-    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        <img src="/bundles/pimcoreadmin/img/flat-white-icons/support.svg" height="16"/>
-    </button>
-    <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">Drukuj etykiety</a></li>
-        <li><a class="dropdown-item" href="#">Zrealizowane</a></li>
-    </ul>
-</div>
+{% for lip in p.element.packages %}
+    <div class="btn-group ms-2"  data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ lip.element.key }}">
+        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="{{ asset('bundles/pimcoreadmin/img/flat-color-icons/deployment.svg') }}" height="16"/>
+        </button>
+        <ul class="dropdown-menu">
+            <li>
+                <a class="dropdown-item" href="{{ path("factory_tree", {id: lip.element.id}) }}" target="_blank">
+                    {{ lip.element.key }}
+                </a>
+            </li>
+            <li>
+                <a target="_blank" class="dropdown-item" href="{{ path("factory_labels", {id: lip.element.id, serie_id: s.id, copies: lip.data.Quantity * p.data.Quantity, product_id: p.element.id, step: 90} ) }}">
+                    Naklejki (co 90 szt)
+                </a>
+            </li>
+            <li>
+                {% set dim = "150x60" %}
+                {% if lip.element.Height.value < 60 %}
+                    {% set dim = "140x30" %}
+                {% endif %}
+
+                <a target="_blank" class="dropdown-item" href="{{ path("factory_labels", {
+                    id: lip.element.id,
+                    serie_id: s.id,
+                    copies: lip.data.Quantity * p.data.Quantity,
+                    product_id: p.element.id, size: dim,
+                    customer_id: s.user.id
+                }) }}">
+                    Etykieta
+                </a>
+            </li>
+        </ul>
+    </div>
+{% endfor %}

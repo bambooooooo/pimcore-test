@@ -99,7 +99,7 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">
+                        <a class="nav-link" href="{{ path("factory_search") }}">
                             <img src="/bundles/pimcoreadmin/img/flat-color-icons/search.svg" height="18">
                         </a>
                     </li>
@@ -111,7 +111,7 @@
 
             <div class="me-3">
                 {% if app.user %}
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="{{ path("factory_account") }}">
                         {{ app.user.email }}
                         <img src="/bundles/pimcoreadmin/img/flat-white-icons/person.svg">
                     </a>
