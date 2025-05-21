@@ -1,0 +1,14 @@
+{% if serie.date == null %}
+    Brak daty
+{% else %}
+    {{ serie.date|date("d.m") }}
+{% endif %}
+
+{% if app.user.schedule_change_date %}
+    <div id="add-date-{{ serie.id }}-form" style="display: none">
+        <input class="datepicker" style="width: 85px;" value="{{ serie.date|date("d.m.Y") }}" data-id="{{ serie.id }}"/>
+    </div>
+    <div id="add-date-{{ serie.id }}-toggle" data-id="{{ serie.id }}" class="add-date-toggle btn btn-outline-primary btn-sm ms-1">
+        <img src="/bundles/pimcoreadmin/img/flat-color-icons/edit.svg" height="18"/>
+    </div>
+{% endif %}

@@ -1,12 +1,16 @@
-<div>
-{{ order.date|date("d.m") }}
-</div>
+{% if order.date == null %}
+    Brak daty
+{% else %}
+    {{ order.date|date("d.m") }}
+{% endif %}
 
-<div class="btn-group ms-2">
-    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        <img src="/bundles/pimcoreadmin/img/flat-white-icons/support.svg" height="16"/>
-    </button>
-    <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">Zmień datę</a></li>
-    </ul>
-</div>
+{% if app.user.schedule_change_date %}
+    <div id="add-date-{{ order.id }}-form" style="display: none">
+        <input class="datepicker" style="width: 85px;" value="{{ order.date|date("d.m.Y") }}" data-id="{{ order.id }}"/>
+    </div>
+    <div id="add-date-{{ order.id }}-toggle" data-id="{{ order.id }}" class="add-date-toggle btn btn-outline-primary btn-sm ms-1">
+        <img src="/bundles/pimcoreadmin/img/flat-color-icons/edit.svg" height="18"/>
+    </div>
+{% endif %}
+
+

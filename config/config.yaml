@@ -68,8 +68,8 @@ pimcore:
 
 #### SYSTEM SETTINGS
 
-#    general:
-#        timezone: Europe/Berlin
+    general:
+        timezone: Europe/Warsaw
 #        path_variable: ''
 #        instance_identifier: ''
 #    full_page_cache:

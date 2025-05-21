@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Carbon\Carbon;
 use App\Model\DataObject\User;
 use Pimcore\Controller\FrontendController;
 use Pimcore\Model\DataObject;
@@ -171,7 +172,7 @@ class FactoryController extends FrontendController
     }
 
     #[Route('/schedule', name: 'schedule')]
-    public function scheduleAction(Request $request): Response
+    public function scheduleAction(Request $request, UserInterface $user): Response
     {
         $orders = new DataObject\Order\Listing();
 
@@ -196,6 +197,12 @@ class FactoryController extends FrontendController
             $orders->setCondition("parentid = ?", [$rootId]);
         }
 
+        $userData = DataObject\User::getById($user->getId());
+        if($userData->getSchedule_show_unpublished_orders())
+        {
+            DataObject::setHideUnpublished(false);
+        }
+
         $orders->setOrderKey("Date");
         $orders->setOrder("ASC");
         $orders->load();
@@ -204,17 +211,11 @@ class FactoryController extends FrontendController
 
         $toplan = [];
 
-        foreach ($orders as $order) {
-            if($order->getDate() == null)
-            {
-                $toplan[] = $order;
-            }
-            else
-            {
-                $y = $order->getDate()->year;
-                $m = $order->getDate()->month;
-                $queue[$y][$m][] = $order;
-            }
+        foreach ($orders as $order)
+        {
+            $y = $order->getDate()->year ?? 0;
+            $m = $order->getDate()->month ?? 0;
+            $queue[$y][$m][] = $order;
         }
 
         return $this->render("factory/schedule.html.twig", [
@@ -318,6 +319,66 @@ class FactoryController extends FrontendController
         $pdf = $adapter->getPdfFromString($html, $pdfPageParams);
 
         return new Response($pdf, Response::HTTP_OK, ['Content-Type' => 'application/pdf']);
+    }
+
+    #[Route('/order/move', name: 'move')]
+    public function moveAction(Request $request): Response
+    {
+        $id = $request->get('id');
+        $newDate = $request->get('newDate');
+        $date = Carbon::parse($newDate);
+
+        $o = DataObject\Order::getById($id);
+
+        if(!$o)
+        {
+            return new Response("Order not found", Response::HTTP_NOT_FOUND);
+        }
+
+        $o->setDate($date);
+        $o->save();
+
+        return new Response("Changed", Response::HTTP_OK);
+    }
+
+    #[Route('/order/item/done', name: 'item_done')]
+    public function orderItemDone(Request $request, UserInterface $user): Response
+    {
+        $userData = User::getById($user->getId());
+        if(!$userData->getSchedule_mark_line_item_done())
+        {
+            return new Response("User has no permissions", Response::HTTP_FORBIDDEN);
+        }
+
+        $orderId = (int)$request->get('orderid');
+        $productId = (int)$request->get('productid');
+        $quantity= (int)$request->get('quantity');
+        $done= (int)$request->get('done');
+
+        $o = DataObject\Order::getById($orderId);
+        if(!$o)
+        {
+            return new Response("Order not found", Response::HTTP_NOT_FOUND);
+        }
+
+        $found = false;
+
+        foreach ($o->getProducts() as $li)
+        {
+            if($li->getObject()->getId() == $productId and $li->getQuantity() == $quantity)
+            {
+                $found = true;
+                $li->setQuantityDone($done);
+                $o->save();
+
+                break;
+            }
+        }
+
+        if(!$found)
+            return new Response("Product not found in order", Response::HTTP_NOT_FOUND);
+
+        return new Response("Ok", Response::HTTP_OK);
     }
 
     #[Route('/login', name: 'login')]

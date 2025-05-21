@@ -1,5 +1,7 @@
 <div>
-    {{ user.key }}
+    <a href="{{ path('factory_tree', {'id': serie.id}) }}">
+        {{ user.key }}
+    </a>
 </div>
 <div class="btn-group ms-2">
     <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">

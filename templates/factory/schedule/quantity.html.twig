@@ -1,11 +1,23 @@
 <div style="position: relative; z-index: 150;">
-    {% if item.data.QuantityDone is defined and item.data.QuantityDone > 0 and item.data.QuantityDone != item.data.Quantity %}
+    {% if item.data.QuantityDone is defined and item.data.QuantityDone > 0 %}
         <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMi4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iRWJlbmVfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHdpZHRoPSIyNHB4IiBoZWlnaHQ9IjI0cHgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMjQgMjQiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPGNpcmNsZSBmaWxsPSIjRjBEQzI4IiBjeD0iMTIiIGN5PSIxMiIgcj0iMTAiLz4NCjxyZWN0IHg9IjExIiB5PSI3IiBmaWxsPSIjMEMwRjEyIiB3aWR0aD0iMiIgaGVpZ2h0PSIyIi8+DQo8cmVjdCB4PSIxMSIgeT0iMTEiIGZpbGw9IiMwQzBGMTIiIHdpZHRoPSIyIiBoZWlnaHQ9IjYiLz4NCjwvc3ZnPg0K" height="18">
-        {{ item.data.QuantityDone }}
-        <span style="text-decoration: line-through">
+        <span id="li-quantity-{{ p.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}">
+            {{ item.data.QuantityDone }}
+        </span>
+        {% if item.data.QuantityDone != item.data.Quantity %}
+            <span id="li-quantity-source-{{ p.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}" style="text-decoration: line-through">
+                {{ item.data.Quantity }}
+            </span>
+        {% endif %}
+    {% else %}
+        <span id="li-quantity-{{ p.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}">
             {{ item.data.Quantity }}
         </span>
-    {% else %}
-        {{ item.data.Quantity }}
+        <div class="mb-1">
+            <input type="number" style="width: 50px; display: none;" min="0" value="{{ item.data.Quantity }}" id="li-done-input-{{ p.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}"/>
+            <span class="btn btn-outline-success btn-sm li-done-toggle" data-id="{{ p.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}">
+                <img height="18" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMi4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iRWJlbmVfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHdpZHRoPSIyNHB4IiBoZWlnaHQ9IjI0cHgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMjQgMjQiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPGNpcmNsZSBmaWxsPSIjMjhBMDUwIiBjeD0iMTIiIGN5PSIxMiIgcj0iMTAiLz4NCjxwb2x5Z29uIGZpbGw9IiNGRkZGRkYiIHBvaW50cz0iMTYuNiw3LjYgMTAsMTQuMiA3LjQsMTEuNiA2LDEzIDEwLDE3IDE4LDkgIi8+DQo8L3N2Zz4NCg==" />
+            </span>
+        </div>
     {% endif %}
 </div>

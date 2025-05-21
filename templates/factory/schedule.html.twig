@@ -89,14 +89,20 @@
                 <thead>
                 <tr>
                     <td colspan="8" class="month-name">
-                        {{ orders[0].date.locale(app.request.locale).translatedFormat('F Y') }}
-                        <span>
-                            {% set cY = orders[0].date.year %}
-                            {% set cM = orders[0].date.month %}
-                            <a class="btn btn-primary-outline" href="{{ path("factory_schedule", {y: cY, m: cM, type: 'print'}) }}" target="_blank">
-                                <img src="/bundles/pimcoreadmin/img/flat-color-icons/print.svg" alt="print month">
-                            </a>
-                        </span>
+                        {% if year > 0 and month > 0 and month < 13 %}
+                            {{ orders[0].date.locale(app.request.locale).translatedFormat('F Y') }}
+                            <span>
+                                {% set cY = orders[0].date.year %}
+                                {% set cM = orders[0].date.month %}
+                                <a class="btn btn-primary-outline" href="{{ path("factory_schedule", {y: cY, m: cM, type: 'print'}) }}" target="_blank">
+                                    <img src="/bundles/pimcoreadmin/img/flat-color-icons/print.svg" alt="print month">
+                                </a>
+                            </span>
+                        {% else %}
+                            <span>
+                                Do zaplanowania
+                            </span>
+                        {% endif %}
                     </td>
                 </tr>
                 <tr class="head-col-name">
@@ -171,11 +177,7 @@
                                                     {{ include('factory/schedule/order_date.html.twig') }}
                                                 </td>
                                                 <td rowspan="{{ serieSize }}">
-                                                    {% if serie.date == null %}
-                                                        Brak daty
-                                                    {% else %}
-                                                        {{ serie.date|date("d.m") }}
-                                                    {% endif %}
+                                                    {{ include('factory/schedule/serie_date.html.twig') }}
                                                 </td>
                                             </tr>
                                         {% elseif loop.index == 1 %}
@@ -201,7 +203,7 @@
                                                     </td>
                                                 {% endif %}
                                                 <td rowspan="{{ serieSize }}">
-
+                                                    {{ include('factory/schedule/serie_date.html.twig') }}
                                                 </td>
                                             </tr>
                                         {% else %}
@@ -226,5 +228,142 @@
         {% endif %}
     {% endfor %}
 {% endfor %}
+    <script type="text/javascript">
 
+        function convertToUTCString(dateString)
+        {
+            const [day, month, year] = dateString.split('.').map(Number);
+            const date = new Date(Date.UTC(year, month - 1, day));
+
+            return date.toUTCString();
+        }
+
+        function changeDate(id, newDate) {
+            $.ajax({
+                url: '/factory/pl/order/move',
+                type: 'POST',
+                data: {
+                    id: id,
+                    newDate: newDate.toUTCString()
+                },
+                success: function(data) {
+                    console.log(data);
+                    alert("Ok");
+                },
+                error: function(data) {
+                    console.log('error');
+                    console.log(data)
+                }
+            })
+        }
+
+        $.datepicker.regional.pl = {
+            closeText: "Zamknij",
+            prevText: "Poprzedni",
+            nextText: "Następny",
+            currentText: "Dziś",
+            monthNames: [ "Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec",
+                "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień" ],
+            monthNamesShort: [ "Sty", "Lu", "Mar", "Kw", "Maj", "Cze",
+                "Lip", "Sie", "Wrz", "Pa", "Lis", "Gru" ],
+            dayNames: [ "Niedziela", "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota" ],
+            dayNamesShort: [ "Nie", "Pn", "Wt", "Śr", "Czw", "Pt", "So" ],
+            dayNamesMin: [ "N", "Pn", "Wt", "Śr", "Cz", "Pt", "So" ],
+            weekHeader: "Tydz",
+            dateFormat: "dd.mm.yy",
+            firstDay: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: ""
+        };
+
+        $.datepicker.setDefaults($.datepicker.regional.pl );
+
+        $(".datepicker").datepicker({
+            dateFormat: 'dd.mm.yy',
+            onSelect: function(date) {
+
+                var h = $(this);
+                var id = h.attr('data-id');
+
+                var parts = date.split(".");
+
+                var year = parseInt(parts[2]);
+                var month = parseInt(parts[1]) - 1;
+                var day = parseInt(parts[0]);
+
+                var newDate = new Date(year, month, day);
+
+                console.log("#" + id + " => " + newDate);
+
+                changeDate(id, newDate);
+            }
+        });
+
+        function markOrderItemDone(orderId, productId, itemNo, quantity, done, id)
+        {
+            $.ajax({
+                url: '/factory/en/order/item/done',
+                type: 'POST',
+                data: {
+                    orderid: orderId,
+                    productid: productId,
+                    itemno: itemNo,
+                    quantity: quantity,
+                    done: done
+                },
+                success: function(data) {
+                    console.log(data);
+                    $("#li-done-input-" + id).hide();
+                    $(".li-done-toggle[data-id=" + id + "]").hide();
+                    $("#li-quantity-" + id).html(done);
+                },
+                error: function(data) {
+                    console.log('[Error]');
+                    alert('Error: ' + data.responseText);
+                    console.log(data.responseText);
+                }
+            })
+        }
+
+        $(".li-done-toggle").click(function(){
+            var h = $(this);
+            var id = h.attr('data-id');
+
+            if($("#li-done-input-" + id + ":visible").length == 0)
+            {
+                $("#li-done-input-" + id).show();
+            }
+            else
+            {
+                console.log("Mark as done #" + id);
+
+                var done = $("#li-done-input-" + id).val();
+                var res = confirm("Potwierdź realizację: " + done + " szt.");
+
+                if(!res)
+                    return;
+
+                var chunks = id.split("-");
+
+                var productId = chunks[0];
+                var orderId = chunks[1];
+                var quantity = chunks[2];
+                var itemNo = chunks[3];
+
+                console.log(chunks);
+                markOrderItemDone(orderId, productId, itemNo, quantity, done, id);
+
+                console.log(res);
+            }
+        })
+
+        $(".add-date-toggle").click(function() {
+            var h = $(this);
+            var id = h.attr('data-id');
+
+            $("#add-date-" + id + "-form").toggle();
+            $("#add-date-" + id + "-placeholder").toggle();
+        });
+    </script>
 {% endblock %}

@@ -21,6 +21,9 @@
  * - Groups [manyToManyObjectRelation]
  * - schedule_show_completed_item [checkbox]
  * - PackageTemplate [input]
+ * - schedule_mark_line_item_done [checkbox]
+ * - schedule_change_date [checkbox]
+ * - schedule_show_unpublished_orders [checkbox]
  */
 
 return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
@@ -30,7 +33,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Użytkownik',
    'description' => 'Podmiot w systemie',
    'creationDate' => NULL,
-   'modificationDate' => 1747734241,
+   'modificationDate' => 1747828068,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -572,6 +575,72 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                  'unique' => false,
                  'showCharCount' => false,
                  'width' => '',
+                 'defaultValueGenerator' => '',
+              )),
+              2 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                 'name' => 'schedule_mark_line_item_done',
+                 'title' => 'Schedule _mark _line _item _done',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'defaultValue' => 0,
+                 'defaultValueGenerator' => '',
+              )),
+              3 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                 'name' => 'schedule_change_date',
+                 'title' => 'Schedule _change _date',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'defaultValue' => NULL,
+                 'defaultValueGenerator' => '',
+              )),
+              4 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                 'name' => 'schedule_show_unpublished_orders',
+                 'title' => 'Schedule _show _unpublished _orders',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'defaultValue' => NULL,
                  'defaultValueGenerator' => '',
               )),
             ),
