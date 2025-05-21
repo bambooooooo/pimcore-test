@@ -381,6 +381,18 @@ class FactoryController extends FrontendController
         return new Response("Ok", Response::HTTP_OK);
     }
 
+    #[Route('/elements/{id}', name: 'elements')]
+    public function serieAction(Request $request): Response
+    {
+        $serie = DataObject\Order::getById($request->get('id'));
+        if(!$serie)
+        {
+            return new Response("Not found", Response::HTTP_NOT_FOUND);
+        }
+
+        return $this->render("factory/pdf/serie_elemets.html.twig", ['serie' => $serie]);
+    }
+
     #[Route('/login', name: 'login')]
     public function loginAction(
         Request $request,
