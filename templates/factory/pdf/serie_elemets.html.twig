@@ -1,0 +1,62 @@
+{% extends 'factory/layouts/default.html.twig' %}
+
+{% block content %}
+<h1>{{ serie.key }}</h1>
+
+{% for li in serie.Products %}
+    <div style="text-align: center; font-size: 21px;">
+        <a href="{{ path("factory_tree", {id: li.element.id}) }}">
+            {{ li.element.key }} - {{ li.data.Quantity }} szt
+        </a>
+    </div>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <td>#</td>
+                <td>Paczka</td>
+                <td>Element</td>
+                <td>Ilość</td>
+                <td>Materiał</td>
+                <td>Długość</td>
+                <td>Szerokość</td>
+                <td>Wysokość</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for lip in li.element.Packages %}
+                {% for el in lip.element.Elements %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>
+                            <a href="{{ path("factory_tree", {id: lip.element.id}) }}">
+                                {{ lip.element.key }}
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{{ path("factory_tree", {id: el.element.id}) }}">
+                                {{ el.element.key }}
+                            </a>
+                        </td>
+                        <td>{{ lip.data.Quantity }}</td>
+                        <td>
+                            {% if el.element is pimcore_data_object_class("Element") %}
+                                {% if el.element.Material %}
+                                    <a href="{{ path("factory_tree", {id: el.element.Material.id}) }}">
+                                        <div>
+                                            {{ el.element.Material.key }}
+                                        </div>
+                                    </a>
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                        <td>{{ el.element.Width }}</td>
+                        <td>{{ el.element.Depth }}</td>
+                        <td>{{ el.element.Height }}</td>
+                    </tr>
+                {% endfor %}
+            {% endfor %}
+        </tbody>
+    </table>
+{% endfor %}
+{% endblock %}
