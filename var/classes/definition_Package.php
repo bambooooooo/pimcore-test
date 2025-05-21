@@ -30,7 +30,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Opakowanie',
    'description' => 'Opakowanie zawierające elementy produktu',
    'creationDate' => NULL,
-   'modificationDate' => 1747644908,
+   'modificationDate' => 1747807069,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -131,32 +131,6 @@ Wyróżnia się następujące typy produktu:
                  'optionsProviderType' => 'configure',
                  'optionsProviderClass' => '',
                  'optionsProviderData' => '',
-              )),
-              1 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
-                 'name' => 'Layout',
-                 'type' => NULL,
-                 'region' => NULL,
-                 'title' => '',
-                 'width' => '',
-                 'height' => '',
-                 'collapsible' => false,
-                 'collapsed' => false,
-                 'bodyStyle' => '',
-                 'datatype' => 'layout',
-                 'children' => 
-                array (
-                ),
-                 'locked' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'fieldtype' => 'text',
-                 'html' => '<h1><br></h1><ul>
-</ul>',
-                 'renderingClass' => '',
-                 'renderingData' => '',
-                 'border' => false,
               )),
             ),
              'locked' => false,
@@ -780,15 +754,19 @@ Domyślny kod kreskowy paczki tworzony na podstawie jego unikalnego identyfikato
                   array (
                     'classes' => 'Package',
                   ),
+                  1 => 
+                  array (
+                    'classes' => 'Element',
+                  ),
                 ),
                  'displayMode' => NULL,
                  'pathFormatterClass' => '',
                  'maxItems' => NULL,
-                 'assetInlineDownloadAllowed' => true,
+                 'assetInlineDownloadAllowed' => false,
                  'assetUploadPath' => '/ELEMENTY',
                  'allowToClearRelation' => true,
                  'objectsAllowed' => true,
-                 'assetsAllowed' => true,
+                 'assetsAllowed' => false,
                  'assetTypes' => 
                 array (
                   0 => 
@@ -799,10 +777,6 @@ Domyślny kod kreskowy paczki tworzony na podstawie jego unikalnego identyfikato
                  'documentsAllowed' => false,
                  'documentTypes' => 
                 array (
-                  0 => 
-                  array (
-                    'documentTypes' => '',
-                  ),
                 ),
                  'enableTextSelection' => false,
                  'width' => '',
@@ -815,7 +789,7 @@ Domyślny kod kreskowy paczki tworzony na podstawie jego unikalnego identyfikato
                     'position' => 1,
                     'key' => 'Quantity',
                     'label' => 'Quantity',
-                    'value' => '',
+                    'value' => '1',
                   ),
                 ),
                  'columnKeys' => 
