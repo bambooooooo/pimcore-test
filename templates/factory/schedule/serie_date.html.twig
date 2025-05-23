@@ -1,7 +1,11 @@
-{% if serie.date == null %}
-    Brak daty
+{% if app.user.schedule_show_send_date %}
+    {% if serie.date == null %}
+        Brak daty
+    {% else %}
+        {{ serie.date|date("d.m") }}
+    {% endif %}
 {% else %}
-    {{ serie.date|date("d.m") }}
+    ****
 {% endif %}
 
 {% if app.user.schedule_change_date %}

@@ -44,7 +44,7 @@
                 {% endif %}
             </div>
         </div>
-        <div class="col-12 text-center mt-2 mb-2">
+        <div class="col-12 text-center mt-2 mb-2" style="font-size: 18px">
             {% if obj.Width and obj.Width.Value %}
                 <img src="/bundles/pimcoreadmin/img/flat-color-icons/right.svg" height="28"/>
                 {{ obj.Width }}
@@ -63,7 +63,7 @@
         <div class="col-12">
             <div class="container-fluid">
                 <div class="row">
-                    {% if obj.Documents %}
+                    {% if obj.Documents and app.user.product_show_files %}
                         {% for doc in obj.Documents %}
                             <div class="col-12 mt-1">
                                 <a href="{{ doc }}">
@@ -76,16 +76,18 @@
                         {% endfor %}
                     {% endif %}
 
-                    <div class="col-12 mt-1">
-                        <a href="{{ path("factory_datasheet", {id: obj.id}) }}">
-                            <div class="btn btn-outline-primary" style="width: 100%;">
-                                <img height="40" src="/bundles/pimcoreadmin/img/flat-color-icons/pdf.svg" class="card-img-top" alt="...">
-                                {{ "Datasheet"|trans }}
-                            </div>
-                        </a>
-                    </div>
+                    {% if app.user.product_show_datasheet %}
+                        <div class="col-12 mt-1">
+                            <a href="{{ path("factory_datasheet", {id: obj.id}) }}">
+                                <div class="btn btn-outline-primary" style="width: 100%;">
+                                    <img height="40" src="/bundles/pimcoreadmin/img/flat-color-icons/pdf.svg" class="card-img-top" alt="...">
+                                    {{ "Datasheet"|trans }}
+                                </div>
+                            </a>
+                        </div>
+                    {% endif %}
 
-                    {% if obj.Packages %}
+                    {% if obj.Packages and app.user.product_show_packages %}
                         {% for lip in obj.Packages %}
                             <div class="col-12 mt-1">
                                 <a href="{{ path("factory_tree", {id: lip.object.id}) }}">

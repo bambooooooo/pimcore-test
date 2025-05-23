@@ -72,11 +72,25 @@
         {% for order in orders %}
             {% for serie in order.children %}
                 {% if app.user.schedule_show_completed_item %}
-                    {% set monthsize = monthsize + serie.products|length %}
+                    {% for sp in serie.products %}
+                        {% if app.user.schedule_show_only_user_related_products %}
+                            {% if app.user.id in sp.element.suppliers|map(x=>x.id) %}
+                                {% set monthsize = monthsize + 1 %}
+                            {% endif %}
+                        {% else %}
+                            {% set monthsize = monthsize + 1 %}
+                        {% endif %}
+                    {% endfor %}
                 {% else %}
                     {% for sp in serie.products %}
                         {% if not sp.data.QuantityDone %}
-                            {% set monthsize = monthsize + 1 %}
+                            {% if app.user.schedule_show_only_user_related_products %}
+                                {% if app.user.id in sp.element.suppliers|map(x=>x.id) %}
+                                    {% set monthsize = monthsize + 1 %}
+                                {% endif %}
+                            {% else %}
+                                {% set monthsize = monthsize + 1 %}
+                            {% endif %}
                         {% endif %}
                     {% endfor %}
                 {% endif %}
@@ -107,7 +121,7 @@
                 </tr>
                 <tr class="head-col-name">
                     <td>L.p.</td>
-                    <td>#</td>
+                    <td>Dostawca</td>
                     <td>Odbiorca</td>
                     <td>#</td>
                     <td>Kod produktu</td>
@@ -124,10 +138,17 @@
                     {% for serie in order.children %}
                         {% if app.user.schedule_show_completed_item %}
                             {% set orderSize = orderSize + serie.products|length %}
+
                         {% else %}
                             {% for sp in serie.products %}
                                 {% if not sp.data.QuantityDone %}
-                                    {% set orderSize = orderSize + 1 %}
+                                    {% if app.user.schedule_show_only_user_related_products %}
+                                        {% if app.user.id in sp.element.suppliers|map(x=>x.id) %}
+                                            {% set orderSize = orderSize + 1 %}
+                                        {% endif %}
+                                    {% else %}
+                                        {% set orderSize = orderSize + 1 %}
+                                    {% endif %}
                                 {% endif %}
                             {% endfor %}
                         {% endif %}
@@ -145,13 +166,48 @@
                                 {% set serieSize = 0 %}
                                 {% for sp in serie.products %}
                                     {% if not sp.data.QuantityDone %}
-                                        {% set serieSize = serieSize + 1 %}
+                                        {% if app.user.schedule_show_only_user_related_products %}
+                                            {% if app.user.id in sp.element.suppliers|map(x=>x.id) %}
+                                                {% set serieSize = serieSize + 1 %}
+                                            {% endif %}
+                                        {% else %}
+                                            {% set serieSize = serieSize + 1 %}
+                                        {% endif %}
                                     {% endif %}
                                 {% endfor %}
                             {% endif %}
 
                             {% for item in serie.products %}
-                                {% if app.user.schedule_show_completed_item or (not item.data.QuantityDone) %}
+
+                                {% set sc = app.user.schedule_show_completed_item %}
+                                {% set c = item.data.QuantityDone %}
+                                {% set sor = app.user.schedule_show_only_user_related_products %}
+                                {% set r = app.user.id in item.element.suppliers|map(x=>x.id) %}
+
+                                {% set show = false %}
+
+                                {% if sc %}
+                                    {% if sor %}
+                                        {% if r %}
+                                            {% set show = true %}
+                                        {% endif %}
+                                    {% else %}
+                                        {% set show = true %}
+                                    {% endif %}
+
+                                {% else %}
+                                    {% if not c %}
+                                        {% if sor %}
+                                            {% if r %}
+                                                {% set show = true %}
+                                            {% endif %}
+                                        {% else %}
+                                            {% set show = true %}
+                                        {% endif %}
+                                    {% endif %}
+                                {% endif %}
+
+                                {% if show %}
                                     {% set p = pimcore_object(item.objectId) %}
 
                                     {% if orderCodePrinted == false %}
@@ -161,7 +217,7 @@
                                                     {{ loop.parent.loop.parent.loop.index }}
                                                 </td>
                                                 <td rowspan="{{ orderSize }}">
-                                                    {{ order.key }}
+                                                    {{ include('factory/schedule/order.html.twig', {order: order}) }}
                                                 </td>
                                                 <td rowspan="{{ serieSize }}">
                                                     {{ include('factory/schedule/user.html.twig', {user: serie.user}) }}
@@ -184,7 +240,9 @@
                                             <tr>
                                                 {% if orderCodePrinted == false %}
                                                     <td rowspan="{{ orderSize }}">{{ loop.parent.loop.parent.loop.index }}</td>
-                                                    <td rowspan="{{ orderSize }}">{{ order.key }}</td>
+                                                    <td rowspan="{{ orderSize }}">
+                                                        {{ include('factory/schedule/order.html.twig', {order: order}) }}
+                                                    </td>
                                                 {% endif %}
 
                                                 <td rowspan="{{ serieSize }}">
@@ -219,7 +277,9 @@
                                         {% endif %}
                                 {% endif %}
                             {% endfor %}
+
                         {% endfor %}
+
                     {% endif %}
                 {% endfor %}
                 </tbody>
@@ -364,6 +424,39 @@
 
             $("#add-date-" + id + "-form").toggle();
             $("#add-date-" + id + "-placeholder").toggle();
+        });
+
+        $(".package").click(function() {
+            var id = $(this).attr('data-id');
+
+            $(".package[data-id=" + id + "]").toggleClass('active');
+            $(this).toggleClass('active');
+
+            var packages = [];
+            // packages["package-OP-261"] = 0;
+
+            $(".package.active").each(function(){
+                var packageId = $(this).attr('data-id');
+                var qty = $(this).attr('data-quantity');
+
+                if(packages[packageId])
+                {
+                    packages[packageId] += parseInt(qty);
+                }
+                else
+                {
+                    packages[packageId] = parseInt(qty);
+                }
+            });
+
+            var output = "";
+
+            for(let key in packages) {
+                console.log(key);
+                output += key + ": " + packages[key] + "<br>";
+            }
+
+            $("#statusbar").html(output);
         });
     </script>
 {% endblock %}

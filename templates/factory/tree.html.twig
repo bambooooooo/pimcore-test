@@ -28,12 +28,14 @@
 </style>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-{% if app.user.explorer_show_info %}8{% else %}12{% endif %}">
             {% if style == 'gallery' %}
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-                    {% for c in obj.children %}
-                        {{ include('factory/listings/_grid_item.html.twig', {item: c}) }}
-                    {% endfor %}
+                    {% if app.user.explorer_show_children %}
+                        {% for c in obj.children %}
+                            {{ include('factory/listings/_grid_item.html.twig', {item: c}) }}
+                        {% endfor %}
+                    {% endif %}
 
                     {% if obj is pimcore_data_object_class("Group") %}
                         {% for c in obj.Products %}
@@ -54,9 +56,11 @@
                 </div>
             {% else %}
                 <div class="row">
-                    {% for c in obj.children %}
-                        {{ include('factory/listings/_list_item.html.twig', {item: c}) }}
-                    {% endfor %}
+                    {% if app.user.explorer_show_children %}
+                        {% for c in obj.children %}
+                            {{ include('factory/listings/_list_item.html.twig', {item: c}) }}
+                        {% endfor %}
+                    {% endif %}
 
                     {% if obj is pimcore_data_object_class("Group") %}
                         {% for c in obj.Products %}
@@ -81,7 +85,8 @@
                 {{ include("factory/listings/list_order.html.twig", {obj: obj}) }}
             {% endif %}
         </div>
-        <div class="col-md-4">
+        {% if app.user.explorer_show_info %}
+            <div class="col-md-4">
             {% if obj is pimcore_data_object_class("Product") %}
                 {{ include("factory/listings/info_product.html.twig", {obj: obj}) }}
 
@@ -103,6 +108,7 @@
                 </div>
             {% endif %}
         </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

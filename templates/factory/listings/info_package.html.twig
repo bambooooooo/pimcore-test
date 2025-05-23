@@ -101,6 +101,22 @@
                 {{ obj.Width }}
             {% endif %}
         </div>
+        <div class="col-12 text-center mt-2 mb-2" style="font-size: 14px">
+            {% if obj.WidthOuter and obj.WidthOuter.Value %}
+                <img src="/bundles/pimcoreadmin/img/flat-color-icons/right.svg" height="22"/>
+                {{ obj.WidthOuter }}
+            {% endif %}
+
+            {% if obj.HeightOuter and obj.HeightOuter.Value %}
+                <img src="/bundles/pimcoreadmin/img/flat-color-icons/up.svg" height="22"/>
+                {{ obj.HeightOuter }}
+            {% endif %}
+
+            {% if obj.DepthOuter and obj.DepthOuter.Value %}
+                <img src="/bundles/pimcoreadmin/img/flat-color-icons/right_up.svg" height="22"/>
+                {{ obj.DepthOuter }}
+            {% endif %}
+        </div>
         <div class="col-12 text-center mt-2 mb-2">
             {% if obj.Mass and obj.Mass.value %}
                 {{ obj.Mass }}

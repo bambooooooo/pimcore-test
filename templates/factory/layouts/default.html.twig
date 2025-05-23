@@ -87,18 +87,11 @@
                             {% endif %}
                         </li>
                     {% endfor %}
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle show" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="true">
-                            {{ "Factory"|trans }}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path("factory_schedule") }}">
+                            {{ "Schedule"|trans }}
                             <img src="/bundles/pimcoreadmin/img/flat-white-icons/factory.svg" height="20" style="position: relative; top: -3px;" alt="Factory"/>
                         </a>
-                        <ul class="dropdown-menu" data-bs-popper="static">
-                            <li>
-                                <a class="dropdown-item" href="{{ path("factory_schedule") }}">
-                                    {{ "Schedule"|trans }}
-                                </a>
-                            </li>
-                        </ul>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path("factory_search") }}">
@@ -132,6 +125,9 @@
 
         </div>
     </nav>
+    <div style="width: 100%; background: #086513; color: #fafafa; border-bottom: 1px solid #282A35; text-align: center">
+        <div id="statusbar"></div>
+    </div>
 </header>
 <main style="min-height: 100vh;">
     <div class="container">

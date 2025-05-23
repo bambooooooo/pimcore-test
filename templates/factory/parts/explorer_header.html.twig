@@ -1,24 +1,26 @@
 <div class="row mt-2 mb-2">
     <div class="col-10">
-        {% set p = "" %}
-        {% if p != obj.path %}
-            {% for item in obj.path|split("/") %}
-                {% if loop.index > 1 %}
-                    {% set p = p ~ "/" ~ item %}
+        {% if app.user.explorer_show_children %}
+            {% set p = "" %}
+            {% if p != obj.path %}
+                {% for item in obj.path|split("/") %}
+                    {% if loop.index > 1 %}
+                        {% set p = p ~ "/" ~ item %}
 
-                    {% if loop.last %}
-                        <strong>{{ obj.key }}</strong>
-                    {% else %}
-                        {% set chunk = pimcore_object_by_path(p) %}
-                        <a href="{{ path("factory_tree", {id: chunk.id}) }}">
-                            {{ item }}
-                        </a>
-                        <span style="margin: 0 8px">
-                            &#x2022;
-                        </span>
+                        {% if loop.last %}
+                            <strong>{{ obj.key }}</strong>
+                        {% else %}
+                            {% set chunk = pimcore_object_by_path(p) %}
+                            <a href="{{ path("factory_tree", {id: chunk.id}) }}">
+                                {{ item }}
+                            </a>
+                            <span style="margin: 0 8px">
+                                &#x2022;
+                            </span>
+                        {% endif %}
                     {% endif %}
-                {% endif %}
-            {% endfor %}
+                {% endfor %}
+            {% endif %}
         {% endif %}
     </div>
 

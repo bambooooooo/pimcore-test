@@ -1,13 +1,20 @@
 <div>
-    <a href="{{ path('factory_tree', {'id': serie.id}) }}">
-        {{ user.key }}
-    </a>
+    {% if app.user.schedule_show_receiver %}
+        <a href="{{ path('factory_tree', {'id': serie.id}) }}">
+            {{ user.key }}
+        </a>
+    {% else %}
+        ****
+    {% endif %}
+
 </div>
-<div class="btn-group ms-2">
-    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        <img src="/bundles/pimcoreadmin/img/flat-white-icons/support.svg" height="16"/>
-    </button>
-    <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="{{ path("factory_elements", {id: serie.id}) }}">Drukuj karty kontrolne (test)</a></li>
-    </ul>
-</div>
+{% if app.user.schedule_print_control_card %}
+    <div class="btn-group ms-2">
+        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="/bundles/pimcoreadmin/img/flat-white-icons/support.svg" height="16"/>
+        </button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{{ path("factory_elements", {id: serie.id}) }}">Drukuj karty kontrolne (test)</a></li>
+        </ul>
+    </div>
+{% endif %}

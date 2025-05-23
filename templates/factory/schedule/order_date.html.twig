@@ -1,7 +1,11 @@
-{% if order.date == null %}
-    Brak daty
+{% if app.user.schedule_show_supply_date %}
+    {% if order.date == null %}
+        Brak daty
+    {% else %}
+        {{ order.date|date("d.m") }}
+    {% endif %}
 {% else %}
-    {{ order.date|date("d.m") }}
+    ****
 {% endif %}
 
 {% if app.user.schedule_change_date %}
@@ -10,6 +14,25 @@
     </div>
     <div id="add-date-{{ order.id }}-toggle" data-id="{{ order.id }}" class="add-date-toggle btn btn-outline-primary btn-sm ms-1">
         <img src="/bundles/pimcoreadmin/img/flat-color-icons/edit.svg" height="18"/>
+    </div>
+{% endif %}
+
+{% if app.user.schedule_show_all_suppliers %}
+    {% set suppliers = [] %}
+
+    {% for serie in order.children %}
+        {% for lip in serie.products %}
+            {% for supplier in lip.element.suppliers %}
+                {% if supplier.key not in suppliers|map(x => x.key) %}
+                    {% set suppliers = suppliers|merge([supplier]) %}
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+    {% endfor %}
+    <div>
+        {% for supplier in suppliers %}
+            <div>{{ supplier.key }}</div>
+        {% endfor %}
     </div>
 {% endif %}
 
