@@ -108,6 +108,27 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
             ]
         })
     }
+
+    if(e.detail.object.data.general.className === "Pricing")
+    {
+        e.detail.object.toolbar.add({
+            icon: '/bundles/pimcoreadmin/img/flat-white-icons/download-cloud.svg',
+            scale: 'medium',
+            tooltip: 'Download',
+            menu: [
+                {
+                    text: t('Price list'),
+                    tooltip: t('Download PDF price list'),
+                    icon: '/bundles/pimcoreadmin/img/flat-white-icons/gallery.svg',
+                    scale: 'medium',
+                    handler: function () {
+                        const path = "/prices/" + e.detail.object.id;
+                        window.open(path);
+                    }
+                }
+            ]
+        })
+    }
 })
 
 document.addEventListener(pimcore.events.pimcoreReady, (e) => {

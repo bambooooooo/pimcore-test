@@ -1,0 +1,76 @@
+<style>
+
+    table
+    {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+    td
+    {
+        border: 1px solid black;
+        border-collapse: collapse;
+        padding: 6px;
+    }
+</style>
+<table>
+    <thead>
+    <tr>
+        <td>#</td>
+        <td>Image</td>
+        <td>Product</td>
+        <td>Base Price</td>
+        <td>{{ pricing.key }}</td>
+        <td>Narzut</td>
+        <td>Marża</td>
+        <td>Zysk</td>
+    </tr>
+    </thead>
+    <tbody>
+    {% for req in pricing.getDependencies().getFilterRequiredByPath() %}
+        {% if req.type == 'object' %}
+            {% set product = pimcore_object(req.id) %}
+            <tr>
+                <td>
+                    {{ loop.index }}
+                </td>
+                <td>
+                    {{ product.Image.thumbnail("50x50").html|raw }}
+                </td>
+                <td>
+                    <strong>
+                        {{ product.key }}
+                    </strong><br/>
+                    {{ product.Name }}
+                    <br/>
+                    {{ product.Width }} x {{ product.Height }} x {{ product.Depth }}
+                </td>
+                <td>
+                    {{ product.BasePrice }}
+                </td>
+                <td>
+                    {% set diff = 0 %}
+                    {% set pr = 0 %}
+
+                    {% for price in product.Pricing %}
+                        {% if price.objectId == pricing.id %}
+                            {{ price.data.Price }} zł
+                            {% set pr = price.data.Price %}
+                            {% set diff = price.data.Price - product.BasePrice.Value %}
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    {{ (100 * diff / product.BasePrice.Value)|round }} %
+                </td>
+                <td>
+                    {{ (100 * diff / pr)|round }} %
+                </td>
+                <td>
+                    {{ diff }} zł
+                </td>
+            </tr>
+        {% endif %}
+    {% endfor %}
+    </tbody>
+</table>

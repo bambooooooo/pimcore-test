@@ -451,6 +451,11 @@ class ProductPublisher
 
                         $price += $otherPrice->getPrice();
                     }
+
+                    if($rule instanceof DataObject\Fieldcollection\Data\ParcelVolume)
+                    {
+                        $price += (float)$totalVolume * (float)$rule->getPrice()->getValue();
+                    }
                 }
 
                 $price = round($price, 2);
