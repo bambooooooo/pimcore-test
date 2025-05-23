@@ -25,6 +25,7 @@
  * - GPC [select]
  * - COO [country]
  * - Manufacturer [manyToOneRelation]
+ * - Suppliers [manyToManyRelation]
  * - Groups [manyToManyObjectRelation]
  * - Parameters [classificationstore]
  * - BasePrice [quantityValue]
@@ -50,7 +51,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Produkt',
    'description' => 'Towar, który można sprzedać',
    'creationDate' => NULL,
-   'modificationDate' => 1747744830,
+   'modificationDate' => 1747907811,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -875,6 +876,59 @@ Producent',
                 array (
                 ),
                  'width' => '',
+              )),
+              10 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyRelation::__set_state(array(
+                 'name' => 'Suppliers',
+                 'title' => 'Suppliers',
+                 'tooltip' => 'Dostawcy produktu lub części składowych (elementów) produktu',
+                 'mandatory' => true,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => true,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'classes' => 
+                array (
+                  0 => 
+                  array (
+                    'classes' => 'User',
+                  ),
+                ),
+                 'displayMode' => NULL,
+                 'pathFormatterClass' => '',
+                 'maxItems' => NULL,
+                 'assetInlineDownloadAllowed' => false,
+                 'assetUploadPath' => '',
+                 'allowToClearRelation' => true,
+                 'objectsAllowed' => true,
+                 'assetsAllowed' => false,
+                 'assetTypes' => 
+                array (
+                  0 => 
+                  array (
+                    'assetTypes' => '',
+                  ),
+                ),
+                 'documentsAllowed' => false,
+                 'documentTypes' => 
+                array (
+                  0 => 
+                  array (
+                    'documentTypes' => '',
+                  ),
+                ),
+                 'enableTextSelection' => false,
+                 'width' => '',
+                 'height' => '',
               )),
             ),
              'locked' => false,
