@@ -41,6 +41,7 @@
  * - explorer_show_children [checkbox]
  * - product_show_packages [checkbox]
  * - explorer_show_info [checkbox]
+ * - schedule_show_serie_attachments [checkbox]
  */
 
 return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
@@ -50,7 +51,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Użytkownik',
    'description' => 'Podmiot w systemie',
    'creationDate' => NULL,
-   'modificationDate' => 1747984426,
+   'modificationDate' => 1748001330,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -1032,6 +1033,28 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                 array (
                 ),
                  'defaultValue' => 1,
+                 'defaultValueGenerator' => '',
+              )),
+              22 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                 'name' => 'schedule_show_serie_attachments',
+                 'title' => 'Schedule _show _serie _attachments',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'defaultValue' => NULL,
                  'defaultValueGenerator' => '',
               )),
             ),
