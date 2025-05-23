@@ -238,11 +238,17 @@ class FactoryController extends FrontendController
             {
                 $userData->setSchedule_show_completed_item(true);
                 $userData->save();
+
+                $this->addFlash("success", "Saved");
+                return $this->redirectToRoute('factory_account');
             }
             else if($schedule_show_completed_item == 'off' && $userData->getSchedule_show_completed_item())
             {
                 $userData->setSchedule_show_completed_item(false);
                 $userData->save();
+
+                $this->addFlash("success", "Saved");
+                return $this->redirectToRoute('factory_account');
             }
         }
 

@@ -1,0 +1,9 @@
+{{ order.key }}<br/>
+
+{% if order.user %}
+    {% if app.user.schedule_show_supplier %}
+        {{ order.user.key }}
+    {% else %}
+        ****
+    {% endif %}
+{% endif %}
