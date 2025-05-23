@@ -108,7 +108,7 @@
                             <span>
                                 {% set cY = orders[0].date.year %}
                                 {% set cM = orders[0].date.month %}
-                                <a class="btn btn-primary-outline" href="{{ path("factory_schedule", {y: cY, m: cM, type: 'print'}) }}" target="_blank">
+                                <a class="btn btn-primary-outline" href="{{ path("factory_schedule", {y: cY, m: cM, type: 'pdf'}) }}" target="_blank">
                                     <img src="/bundles/pimcoreadmin/img/flat-color-icons/print.svg" alt="print month">
                                 </a>
                             </span>

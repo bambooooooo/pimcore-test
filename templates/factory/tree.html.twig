@@ -30,7 +30,7 @@
     <div class="row">
         <div class="col-md-{% if app.user.explorer_show_info %}8{% else %}12{% endif %}">
             {% if style == 'gallery' %}
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-6 g-4">
                     {% if app.user.explorer_show_children %}
                         {% for c in obj.children %}
                             {{ include('factory/listings/_grid_item.html.twig', {item: c}) }}

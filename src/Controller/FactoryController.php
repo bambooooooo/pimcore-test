@@ -209,8 +209,6 @@ class FactoryController extends FrontendController
 
         $queue = [];
 
-        $toplan = [];
-
         foreach ($orders as $order)
         {
             $y = $order->getDate()->year ?? 0;
@@ -218,9 +216,35 @@ class FactoryController extends FrontendController
             $queue[$y][$m][] = $order;
         }
 
+        $type = $request->get("type") ?? "preview";
+
+        if($type == "pdf")
+        {
+            $pdfPageParams = [
+                'paperWidth' => '210mm',
+                'paperHeight' => '297mm',
+                'marginTop' => '3mm',
+                'marginBottom' => '3mm',
+                'marginLeft' => '3mm',
+                'marginRight' => '3mm',
+                'metadata' => [
+                    'Title' => "Harmonogram",
+                    'Author' => 'pim'
+                ]
+            ];
+
+            $html = $this->renderView('factory/schedule.pdf.twig', [
+                'queue' => $queue,
+            ]);
+
+            $adapter = \Pimcore\Bundle\WebToPrintBundle\Processor::getInstance();
+            $pdf = $adapter->getPdfFromString($html, $pdfPageParams);
+
+            return new Response($pdf, Response::HTTP_OK, ['Content-Type' => 'application/pdf']);
+        }
+
         return $this->render("factory/schedule.html.twig", [
             "queue" => $queue,
-            "toplan" => $toplan,
             "title" => "Harmonogram produkcyjny"
         ]);
     }
