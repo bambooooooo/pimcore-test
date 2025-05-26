@@ -23,7 +23,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => 'Dokument dotyczący kontrahenta, zbioru produktów oraz konkretnej daty',
    'creationDate' => NULL,
-   'modificationDate' => 1747646462,
+   'modificationDate' => 1748244245,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -290,12 +290,22 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                     'label' => 'Done',
                     'value' => '0',
                   ),
+                  3 => 
+                  array (
+                    'type' => 'select',
+                    'position' => 4,
+                    'key' => 'Status',
+                    'label' => 'Status',
+                    'value' => 'Ready;Process',
+                    'width' => NULL,
+                  ),
                 ),
                  'columnKeys' => 
                 array (
                   0 => 'Quantity',
                   1 => 'Description',
                   2 => 'QuantityDone',
+                  3 => 'Status',
                 ),
                  'enableBatchEdit' => false,
                  'allowMultipleAssignments' => true,

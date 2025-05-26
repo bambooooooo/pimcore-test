@@ -462,6 +462,39 @@ class FactoryController extends FrontendController
         return new Response("Ok", Response::HTTP_OK);
     }
 
+    #[Route('/order/item/status', name: 'item_status')]
+    public function orderItemStatusAction(Request $request, UserInterface $user): Response
+    {
+        $orderId = (int)$request->get('orderid');
+        $productId = (int)$request->get('productid');
+        $newStatus = $request->get('status');
+
+        $o = DataObject\Order::getById($orderId);
+        if(!$o)
+        {
+            return new Response("Order not found", Response::HTTP_NOT_FOUND);
+        }
+
+        $found = false;
+
+        foreach ($o->getProducts() as $li)
+        {
+            if($li->getObject()->getId() == $productId)
+            {
+                $found = true;
+                $li->setStatus($newStatus);
+                $o->save();
+
+                break;
+            }
+        }
+
+        if(!$found)
+            return new Response("Product not found in order", Response::HTTP_NOT_FOUND);
+
+        return new Response("Ok", Response::HTTP_OK);
+    }
+
     #[Route('/elements/{id}', name: 'elements')]
     public function serieAction(Request $request): Response
     {

@@ -13,6 +13,25 @@
         <span id="li-quantity-{{ p.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}">
             {{ item.data.Quantity }}
         </span>
+
+        {% if (item.data.Status is not defined) or (item.data.Status is defined and item.data.Status != "Process" and item.data.Status != "Ready") %}
+            <button class="btn status-bg-Process item-status item-status-{{ p.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}"
+                    data-id="{{ p.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}"
+                    data-status="null" data-next="Process"
+                    type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Oklejone - do sprawdzenia">
+                <img src="/bundles/pimcoreadmin/img/flat-white-icons/redo.svg" height="20" width="20">
+            </button>
+        {% endif %}
+
+        {% if (item.data.Status is not defined) or (item.data.Status != "Ready") %}
+            <button class="btn status-bg-Ready item-status item-status-{{ p.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}"
+                    data-id="{{ p.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}"
+                    data-status="Process" data-next="Ready"
+                    type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Sprawdzone - do pakowania">
+                <img src="/bundles/pimcoreadmin/img/flat-white-icons/redo.svg" height="20" width="20">
+            </button>
+        {% endif %}
+
         {% if app.user.schedule_mark_line_item_done %}
             <div class="mb-1">
                 <input type="number" style="width: 50px; display: none;" min="0" value="{{ item.data.Quantity }}" id="li-done-input-{{ p.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}"/>
