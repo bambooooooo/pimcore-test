@@ -351,6 +351,57 @@ class FactoryController extends FrontendController
         return new Response($pdf, Response::HTTP_OK, ['Content-Type' => 'application/pdf']);
     }
 
+
+    #[Route('/labels/elements/{id}', name: 'labels_elements')]
+    public function elementLabelsAction(Request $request): Response
+    {
+        $packageId = (int)$request->get('id');
+        $size = $request->query->get('size') ?? "20x32";
+        $copies = $request->query->get('copies') ?? 1;
+        $step = $request->query->get('step') ?? 1;
+        $repeat = $request->query->get('repeat') ?? 1;
+        $tplType = $request->query->get('tpltype') ?? "elements";
+
+        $package = DataObject\Package::getById($packageId);
+        if(!$package)
+        {
+            return new Response("Not found", Response::HTTP_NOT_FOUND);
+        }
+
+        $dims = explode("x", $size);
+        $w = (int)$dims[0];
+        $h = (int)$dims[1];
+
+        $pdfPageParams = [
+            'paperWidth' => $w . 'mm',
+            'paperHeight' => $h . 'mm',
+            'marginTop' => 0,
+            'marginBottom' => 0,
+            'marginLeft' => 0,
+            'marginRight' => 0,
+            'metadata' => [
+                'Title' => $package->getKey() . "@" . $size,
+                'Author' => 'pim'
+            ]
+        ];
+
+        $tplPath = 'factory/labels/' . $size . '/' . $tplType . '.html.twig';
+
+        $html = $this->renderView($tplPath, [
+            'package' => $package,
+            'copies' => $copies,
+            'step' => $step,
+            'w' => $w,
+            'h' => $h,
+            'repeat' => $repeat,
+        ]);
+
+        $adapter = \Pimcore\Bundle\WebToPrintBundle\Processor::getInstance();
+        $pdf = $adapter->getPdfFromString($html, $pdfPageParams);
+
+        return new Response($pdf, Response::HTTP_OK, ['Content-Type' => 'application/pdf']);
+    }
+
     #[Route('/order/move', name: 'move')]
     public function moveAction(Request $request): Response
     {
