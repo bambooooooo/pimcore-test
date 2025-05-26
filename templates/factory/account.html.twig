@@ -5,27 +5,31 @@
     <h1>{{ app.user.email }}</h1>
     <hr/>
 
-    <form method="GET" action="?">
+    <form method="POST" action="?">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12 mt-1">
-                <div class="btn-group" role="group" aria-label="">
-                    <input type="radio" class="btn-check" name="schedule_show_completed_item" id="btn-ssci-y" value="on" autocomplete="off"
-                        {% if app.user.schedule_show_completed_item == true %}checked{% endif %}>
-                    <label class="btn btn-outline-primary" for="btn-ssci-y">
-                        {{ "Yes"|trans }}
-                    </label>
+            {% for k, v in app.user.getObjectVars() %}
+                {% if k starts with "theme_" %}
+                    <div class="col-12 mt-1">
+                        <div class="btn-group" role="group" aria-label="">
+                            <input type="radio" class="btn-check" name="{{ k }}" id="btn-{{ k }}-y" value="on" autocomplete="off"
+                                   {% if v == true %}checked{% endif %}>
+                            <label class="btn btn-outline-primary" for="btn-{{ k }}-y">
+                                {{ "Yes"|trans }}
+                            </label>
 
-                    <input type="radio" class="btn-check" name="schedule_show_completed_item" id="btn-ssci-n" value="off" autocomplete="off"
-                       {% if app.user.schedule_show_completed_item == false %}checked{% endif %}>
-                    <label class="btn btn-outline-primary" for="btn-ssci-n">
-                        {{ "No"|trans }}
-                    </label>
-                </div>
-                <span>
-                    {{ "Show schedule's completed items"|trans }}
-                </span>
-            </div>
+                            <input type="radio" class="btn-check" name="{{ k }}" id="btn-{{ k }}-n" value="off" autocomplete="off"
+                                   {% if not v %}checked{% endif %}>
+                            <label class="btn btn-outline-primary" for="btn-{{ k }}-n">
+                                {{ "No"|trans }}
+                            </label>
+                        </div>
+                        <span>
+                            {{ k }}
+                        </span>
+                    </div>
+                {% endif %}
+            {% endfor %}
         </div>
     </div>
     <hr/>

@@ -252,28 +252,22 @@ class FactoryController extends FrontendController
     #[Route('/account', name: 'account')]
     public function accountAction(Request $request, UserInterface $user = null): Response
     {
-        if($request->query->get('schedule_show_completed_item'))
+        $changed = false;
+        $userData = User::getById($user->getId());
+
+        foreach($request->request->all() as $key => $value)
         {
-            $schedule_show_completed_item = $request->query->get('schedule_show_completed_item');
-
-            $userData = User::getById($user->getId());
-
-            if($schedule_show_completed_item == 'on' && !$userData->getSchedule_show_completed_item())
+            if(strpos($key, "theme_") === 0 && $userData->get($key) != ($value === "on"))
             {
-                $userData->setSchedule_show_completed_item(true);
-                $userData->save();
-
-                $this->addFlash("success", "Saved");
-                return $this->redirectToRoute('factory_account');
+                $userData->set($key, $value === "on");
+                $changed = true;
             }
-            else if($schedule_show_completed_item == 'off' && $userData->getSchedule_show_completed_item())
-            {
-                $userData->setSchedule_show_completed_item(false);
-                $userData->save();
+        }
 
-                $this->addFlash("success", "Saved");
-                return $this->redirectToRoute('factory_account');
-            }
+        if($changed)
+        {
+            $userData->save();
+            $this->addFlash("success", "Saved");
         }
 
         return $this->render("factory/account.html.twig");

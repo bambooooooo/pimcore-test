@@ -1,4 +1,4 @@
-<a href="{{ path("factory_tree", {id:p.element.id})}}">
+<a href="{{ path("factory_tree", {id:p.element.id})}}" {% if not p.element.published %}style="text-decoration: line-through"{% endif %}>
     {{ p.element.key }}
 </a>
 {% if app.user.schedule_show_packages %}

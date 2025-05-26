@@ -88,16 +88,28 @@
 
 </style>
 
+{% set orderSuppliers = [] %}
+
 {% for year, months in queue %}
     {% for month, orders in months %}
 
         {% set monthsize = 0 %}
         {% for order in orders %}
+
+            {% set orderSuppliers = [] %}
+
             {% for serie in order.children %}
-                {% if app.user.schedule_show_completed_item %}
+                {% if app.user.theme_schedule_show_completed_item %}
                     {% for sp in serie.products %}
+
+                        {% for supplier in sp.element.suppliers %}
+                            {% if supplier.key not in orderSuppliers|map(x => x.key) or app.user.id == serie.user.id  %}
+                                {% set orderSuppliers = orderSuppliers|merge([supplier]) %}
+                            {% endif %}
+                        {% endfor %}
+
                         {% if app.user.schedule_show_only_user_related_products %}
-                            {% if app.user.id in sp.element.suppliers|map(x=>x.id) %}
+                            {% if app.user.id in sp.element.suppliers|map(x=>x.id) or app.user.id == serie.user.id %}
                                 {% set monthsize = monthsize + 1 %}
                             {% endif %}
                         {% else %}
@@ -106,9 +118,16 @@
                     {% endfor %}
                 {% else %}
                     {% for sp in serie.products %}
+
+                        {% for supplier in sp.element.suppliers %}
+                            {% if supplier.key not in orderSuppliers|map(x => x.key) or app.user.id == serie.user.id %}
+                                {% set orderSuppliers = orderSuppliers|merge([supplier]) %}
+                            {% endif %}
+                        {% endfor %}
+
                         {% if not sp.data.QuantityDone %}
                             {% if app.user.schedule_show_only_user_related_products %}
-                                {% if app.user.id in sp.element.suppliers|map(x=>x.id) %}
+                                {% if app.user.id in sp.element.suppliers|map(x=>x.id) or app.user.id == serie.user.id %}
                                     {% set monthsize = monthsize + 1 %}
                                 {% endif %}
                             {% else %}
@@ -118,6 +137,7 @@
                     {% endfor %}
                 {% endif %}
             {% endfor %}
+
         {% endfor %}
 
         {% if monthsize %}
@@ -159,14 +179,14 @@
                     {% set orderSize = 0 %}
 
                     {% for serie in order.children %}
-                        {% if app.user.schedule_show_completed_item %}
+                        {% if app.user.theme_schedule_show_completed_item %}
                             {% set orderSize = orderSize + serie.products|length %}
 
                         {% else %}
                             {% for sp in serie.products %}
                                 {% if not sp.data.QuantityDone %}
                                     {% if app.user.schedule_show_only_user_related_products %}
-                                        {% if app.user.id in sp.element.suppliers|map(x=>x.id) %}
+                                        {% if app.user.id in sp.element.suppliers|map(x=>x.id) or app.user.id == serie.user.id %}
                                             {% set orderSize = orderSize + 1 %}
                                         {% endif %}
                                     {% else %}
@@ -182,7 +202,7 @@
 
                         {% for serie in order.children %}
 
-                            {% if app.user.schedule_show_completed_item %}
+                            {% if app.user.theme_schedule_show_completed_item %}
                                 {% set serieSize = serie.products|length %}
 
                             {% else %}
@@ -190,7 +210,7 @@
                                 {% for sp in serie.products %}
                                     {% if not sp.data.QuantityDone %}
                                         {% if app.user.schedule_show_only_user_related_products %}
-                                            {% if app.user.id in sp.element.suppliers|map(x=>x.id) %}
+                                            {% if app.user.id in sp.element.suppliers|map(x=>x.id) or app.user.id == serie.user.id %}
                                                 {% set serieSize = serieSize + 1 %}
                                             {% endif %}
                                         {% else %}
@@ -204,18 +224,20 @@
 
                                 {% set bgStyle = "" %}
 
-                                {% if item.data.QuantityDone is defined and item.data.QuantityDone > 0 %}
-                                    {% set bgStyle = "status-bg-Done" %}
-                                {% else %}
-                                    {% if item.data.Status is defined and item.data.Status %}
-                                        {% set bgStyle = "status-bg-" ~ item.data.Status %}
+                                {% if app.user.schedule_item_show_status %}
+                                    {% if item.data.QuantityDone is defined and item.data.QuantityDone > 0 %}
+                                        {% set bgStyle = "status-bg-Done" %}
+                                    {% else %}
+                                        {% if item.data.Status is defined and item.data.Status %}
+                                            {% set bgStyle = "status-bg-" ~ item.data.Status %}
+                                        {% endif %}
                                     {% endif %}
                                 {% endif %}
 
-                                {% set sc = app.user.schedule_show_completed_item %}
+                                {% set sc = app.user.theme_schedule_show_completed_item %}
                                 {% set c = item.data.QuantityDone %}
                                 {% set sor = app.user.schedule_show_only_user_related_products %}
-                                {% set r = app.user.id in item.element.suppliers|map(x=>x.id) %}
+                                {% set r = app.user.id in item.element.suppliers|map(x=>x.id) or app.user.id == serie.user.id %}
 
                                 {% set show = false %}
 
@@ -263,7 +285,7 @@
                                                     {{ include('factory/schedule/quantity.html.twig', {item: item, p:product}) }}
                                                 </td>
                                                 <td rowspan="{{ orderSize }}">
-                                                    {{ include('factory/schedule/order_date.html.twig') }}
+                                                    {{ include('factory/schedule/order_date.html.twig', {suppliers: orderSuppliers}) }}
                                                 </td>
                                                 <td rowspan="{{ serieSize }}">
                                                     {{ include('factory/schedule/serie_date.html.twig') }}

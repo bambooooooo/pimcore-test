@@ -1,8 +1,12 @@
-{{ order.key }}<br/>
+<div {% if not order.published %}style="text-decoration: line-through"{% endif %}>
+    {{ order.key }}
+</div>
 
 {% if order.user %}
     {% if app.user.schedule_show_supplier %}
-        {{ order.user.key }}
+        <div {% if not order.published %}style="text-decoration: line-through"{% endif %}>
+            {{ order.user.key }}
+        </div>
     {% else %}
         ****
     {% endif %}

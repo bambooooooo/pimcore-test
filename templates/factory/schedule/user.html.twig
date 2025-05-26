@@ -1,6 +1,6 @@
 <div>
     {% if app.user.schedule_show_receiver %}
-        <a href="{{ path('factory_tree', {'id': serie.id}) }}">
+        <a href="{{ path('factory_tree', {'id': serie.id}) }}" {% if not serie.published %}style="text-decoration: line-through"{% endif %}>
             {{ user.key }}
         </a>
     {% else %}
