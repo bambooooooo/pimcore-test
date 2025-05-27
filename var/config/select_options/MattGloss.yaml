@@ -1,0 +1,18 @@
+pimcore:
+    objects:
+        select_options:
+            definitions:
+                MattGloss:
+                    id: MattGloss
+                    group: ''
+                    useTraits: ''
+                    implementsInterfaces: ''
+                    selectOptions:
+                        -
+                            value: mat
+                            label: mat
+                            name: ''
+                        -
+                            value: polysk
+                            label: polysk
+                            name: ''

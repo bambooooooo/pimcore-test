@@ -1,0 +1,28 @@
+{% if app.user.schedule_show_supply_date %}
+    {% if order.date == null %}
+        Brak daty
+    {% else %}
+        {{ order.date|date("d.m") }}
+    {% endif %}
+{% else %}
+    ****
+{% endif %}
+
+{% if app.user.schedule_change_date %}
+    <div id="add-date-{{ order.id }}-form" style="display: none">
+        <input class="datepicker" style="width: 85px;" value="{{ order.date|date("d.m.Y") }}" data-id="{{ order.id }}"/>
+    </div>
+    <div id="add-date-{{ order.id }}-toggle" data-id="{{ order.id }}" class="add-date-toggle btn btn-outline-primary btn-sm ms-1">
+        <img src="/bundles/pimcoreadmin/img/flat-color-icons/edit.svg" height="18"/>
+    </div>
+{% endif %}
+
+{% if app.user.schedule_show_all_suppliers %}
+    <div>
+        {% for supplier in suppliers %}
+            <div>{{ supplier.key }}</div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+

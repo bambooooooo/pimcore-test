@@ -1,0 +1,18 @@
+pimcore:
+    objects:
+        select_options:
+            definitions:
+                ChipboardFinish:
+                    id: ChipboardFinish
+                    group: ''
+                    useTraits: ''
+                    implementsInterfaces: ''
+                    selectOptions:
+                        -
+                            value: Laminat
+                            label: Laminat
+                            name: ''
+                        -
+                            value: Folia
+                            label: 'Folia PCV'
+                            name: ''

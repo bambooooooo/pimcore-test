@@ -1,0 +1,29 @@
+{% for el in obj.elements %}
+    {% if el.element is pimcore_asset_document %}
+        <div class="col">
+            <a href="{{ el.element }}" class="text-center">
+                <div class="card h-100 p-1">
+                    <div class="card-body">
+                        <img src="{{ el.element.getImageThumbnail("200x200") }}" class="img-fluid"/>
+                        <h5 class="card-title">
+                            {{ el.element.key }}
+                        </h5>
+                    </div>
+                </div>
+            </a>
+        </div>
+    {% elseif el.element is pimcore_data_object_class("Package") %}
+        <div class="col" style="{% if not el.element.published %}opacity:0.3{% endif %}">
+            <a href="{{ path("factory_tree", {id: el.element.id}) }}" class="text-center">
+                <div class="card h-100 p-1">
+                    <img src="/bundles/pimcoreadmin/img/flat-color-icons/deployment.svg" class="img-fluid"/>
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            {{ el.element.key }}
+                        </h5>
+                    </div>
+                </div>
+            </a>
+        </div>
+    {% endif %}
+{% endfor %}

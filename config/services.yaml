@@ -108,6 +108,10 @@ services:
             - Pimcore\Security\Hasher\PasswordFieldHasher
             - [ 'password' ]
 
+    # twig
+    App\Twig\BarcodeExtension:
+        tags: ['twig.extension']
+
     # Example custom templating helper
     # App\Templating\Helper\Example:
     #     # templating helpers need to be public as they

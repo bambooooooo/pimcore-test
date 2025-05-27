@@ -1,0 +1,94 @@
+<a href="{{ path("factory_tree", {id:p.element.id})}}" {% if not p.element.published %}style="text-decoration: line-through"{% endif %}>
+    {{ p.element.key }}
+</a>
+{% if app.user.schedule_show_packages %}
+    {% for lip in p.element.packages %}
+        <div class="btn-group ms-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ lip.element.key }}">
+            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="{{ asset('bundles/pimcoreadmin/img/flat-color-icons/deployment.svg') }}" height="16"/>
+            </button>
+            <ul class="dropdown-menu">
+                <li>
+                    <a class="dropdown-item" href="{{ path("factory_tree", {id: lip.element.id}) }}" target="_blank">
+                        {{ lip.element.key }}
+                    </a>
+                </li>
+                <li>
+                    <a target="_blank" class="dropdown-item" href="{{ path("factory_labels", {id: lip.element.id, serie_id: s.id, copies: lip.data.Quantity * p.data.Quantity, product_id: p.element.id, step: 90} ) }}">
+                        Naklejki (co 90 szt)
+                    </a>
+                </li>
+                <li>
+                    {% set dim = "150x60" %}
+                    {% if lip.element.Height.value < 60 %}
+                        {% set dim = "140x30" %}
+                    {% endif %}
+
+                    <a target="_blank" class="dropdown-item" href="{{ path("factory_labels", {
+                        id: lip.element.id,
+                        serie_id: s.id,
+                        copies: lip.data.Quantity * p.data.Quantity,
+                        product_id: p.element.id, size: dim,
+                        customer_id: s.user.id
+                    }) }}">
+                        Etykiety ({{ lip.data.Quantity * p.data.Quantity }} szt)
+                    </a>
+                </li>
+                <li>
+                    {% set dim = "150x100" %}
+
+                    <a target="_blank" class="dropdown-item" href="{{ path("factory_labels", {
+                        id: lip.element.id,
+                        serie_id: s.id,
+                        copies: 1,
+                        product_id: p.element.id, size: dim
+                    }) }}">
+                        Etykieta duża ({{ dim }})
+                    </a>
+                </li>
+                <li>
+                    {% set dim = "100x150" %}
+
+                    <a target="_blank" class="dropdown-item" href="{{ path("factory_labels", {
+                        id: lip.element.id,
+                        serie_id: s.id,
+                        copies: 1,
+                        product_id: p.element.id, size: dim
+                    }) }}">
+                        Etykieta duża ({{ dim }})
+                    </a>
+                </li>
+                <li>
+                    <a target="_blank" class="dropdown-item" href="{{ path("factory_labels_elements", {
+                        id: lip.element.id,
+                        size: "20x32"})
+                    }}">
+                        Elementy - QR
+                    </a>
+                </li>
+                <li>
+                    <a target="_blank" class="dropdown-item" href="{{ path("factory_labels_elements", {
+                        id: lip.element.id,
+                        tpltype: "elements",
+                        size: "32x20"})
+                    }}">
+                        Elementy - C128
+                    </a>
+                </li>
+            </ul>
+        </div>
+    {% endfor %}
+{% endif %}
+
+{% if app.user.schedule_show_cartoon %}
+    {% for lip in p.element.packages %}
+        <button {% if lip.element.Model %}data-id="{{ lip.element.Model }}"{% endif %} data-quantity="{{ p.data.Quantity }}" class="package btn btn-outline-secondary btn-sm" type="button" role="button" data-bs-toggle="button">
+            {% if lip.element.Model %}
+               {{ lip.element.Model }}
+            {% else %}
+                {{ lip.element.key }}
+            {% endif %}
+            <img src="{{ asset('bundles/pimcoreadmin/img/flat-color-icons/deployment.svg') }}" height="16"/>
+        </button>
+    {% endfor %}
+{% endif %}

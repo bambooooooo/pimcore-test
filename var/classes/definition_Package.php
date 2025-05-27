@@ -9,9 +9,13 @@
  * Fields Summary:
  * - ObjectType [select]
  * - Model [input]
+ * - Fefco [select]
  * - Width [quantityValue]
+ * - WidthOuter [quantityValue]
  * - Height [quantityValue]
+ * - HeightOuter [quantityValue]
  * - Depth [quantityValue]
+ * - DepthOuter [quantityValue]
  * - Volume [quantityValue]
  * - Mass [quantityValue]
  * - BDOPaper [quantityValue]
@@ -20,7 +24,7 @@
  * - BDOPlastic [quantityValue]
  * - Barcode [input]
  * - Codes [objectbricks]
- * - Elements [manyToManyRelation]
+ * - Elements [advancedManyToManyRelation]
  */
 
 return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
@@ -30,7 +34,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Opakowanie',
    'description' => 'Opakowanie zawierające elementy produktu',
    'creationDate' => NULL,
-   'modificationDate' => 1746606600,
+   'modificationDate' => 1747992724,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -132,32 +136,6 @@ Wyróżnia się następujące typy produktu:
                  'optionsProviderClass' => '',
                  'optionsProviderData' => '',
               )),
-              1 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
-                 'name' => 'Layout',
-                 'type' => NULL,
-                 'region' => NULL,
-                 'title' => '',
-                 'width' => '',
-                 'height' => '',
-                 'collapsible' => false,
-                 'collapsed' => false,
-                 'bodyStyle' => '',
-                 'datatype' => 'layout',
-                 'children' => 
-                array (
-                ),
-                 'locked' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'fieldtype' => 'text',
-                 'html' => '<h1><br></h1><ul>
-</ul>',
-                 'renderingClass' => '',
-                 'renderingData' => '',
-                 'border' => false,
-              )),
             ),
              'locked' => false,
              'blockedVarsForExport' => 
@@ -191,7 +169,7 @@ Wyróżnia się następujące typy produktu:
                  'tooltip' => 'Model
 
 Projekt bazowy, na podstawie którego powstała dana paczka.',
-                 'mandatory' => false,
+                 'mandatory' => true,
                  'noteditable' => false,
                  'index' => false,
                  'locked' => false,
@@ -217,10 +195,10 @@ Projekt bazowy, na podstawie którego powstała dana paczka.',
                  'defaultValueGenerator' => '',
               )),
               1 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                 'name' => 'Width',
-                 'title' => 'Width',
-                 'tooltip' => 'Szerokość gabarytowa paczki',
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                 'name' => 'Fefco',
+                 'title' => 'Fefco',
+                 'tooltip' => 'Rodzaj opakowania FEFCO',
                  'mandatory' => true,
                  'noteditable' => false,
                  'index' => false,
@@ -235,32 +213,38 @@ Projekt bazowy, na podstawie którego powstała dana paczka.',
                  'blockedVarsForExport' => 
                 array (
                 ),
-                 'unitWidth' => '',
-                 'defaultUnit' => 'mm',
-                 'validUnits' => 
+                 'options' => 
                 array (
-                  0 => 'mm',
-                  1 => 'cm',
-                  2 => 'm',
-                  3 => 'cal',
+                  0 => 
+                  array (
+                    'key' => '300',
+                    'value' => '300',
+                  ),
+                  1 => 
+                  array (
+                    'key' => '403',
+                    'value' => '403',
+                  ),
+                  2 => 
+                  array (
+                    'key' => '201',
+                    'value' => '201',
+                  ),
                 ),
-                 'unique' => false,
-                 'autoConvert' => false,
+                 'defaultValue' => '',
+                 'columnLength' => 190,
+                 'dynamicOptions' => false,
                  'defaultValueGenerator' => '',
                  'width' => '',
-                 'defaultValue' => NULL,
-                 'integer' => false,
-                 'unsigned' => true,
-                 'minValue' => NULL,
-                 'maxValue' => NULL,
-                 'decimalSize' => NULL,
-                 'decimalPrecision' => NULL,
+                 'optionsProviderType' => 'configure',
+                 'optionsProviderClass' => '',
+                 'optionsProviderData' => '',
               )),
               2 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                 'name' => 'Height',
-                 'title' => 'Height',
-                 'tooltip' => 'Wysokość gabarytowa paczki',
+                 'name' => 'Width',
+                 'title' => 'Width',
+                 'tooltip' => 'Szerokość wewnętrzna paczki',
                  'mandatory' => true,
                  'noteditable' => false,
                  'index' => false,
@@ -298,10 +282,10 @@ Projekt bazowy, na podstawie którego powstała dana paczka.',
               )),
               3 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                 'name' => 'Depth',
-                 'title' => 'Depth',
-                 'tooltip' => 'Długość gabarytowa paczki',
-                 'mandatory' => true,
+                 'name' => 'WidthOuter',
+                 'title' => 'Width Outer',
+                 'tooltip' => 'Szerokość gabarytowa paczki',
+                 'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
                  'locked' => false,
@@ -338,6 +322,166 @@ Projekt bazowy, na podstawie którego powstała dana paczka.',
               )),
               4 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                 'name' => 'Height',
+                 'title' => 'Height',
+                 'tooltip' => 'Wysokość wewnętrzna paczki',
+                 'mandatory' => true,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'unitWidth' => '',
+                 'defaultUnit' => 'mm',
+                 'validUnits' => 
+                array (
+                  0 => 'mm',
+                  1 => 'cm',
+                  2 => 'm',
+                  3 => 'cal',
+                ),
+                 'unique' => false,
+                 'autoConvert' => false,
+                 'defaultValueGenerator' => '',
+                 'width' => '',
+                 'defaultValue' => NULL,
+                 'integer' => false,
+                 'unsigned' => true,
+                 'minValue' => NULL,
+                 'maxValue' => NULL,
+                 'decimalSize' => NULL,
+                 'decimalPrecision' => NULL,
+              )),
+              5 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                 'name' => 'HeightOuter',
+                 'title' => 'Height Outer',
+                 'tooltip' => 'Wysokość gabarytowa paczki',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'unitWidth' => '',
+                 'defaultUnit' => 'mm',
+                 'validUnits' => 
+                array (
+                  0 => 'mm',
+                  1 => 'cm',
+                  2 => 'm',
+                  3 => 'cal',
+                ),
+                 'unique' => false,
+                 'autoConvert' => false,
+                 'defaultValueGenerator' => '',
+                 'width' => '',
+                 'defaultValue' => NULL,
+                 'integer' => false,
+                 'unsigned' => true,
+                 'minValue' => NULL,
+                 'maxValue' => NULL,
+                 'decimalSize' => NULL,
+                 'decimalPrecision' => NULL,
+              )),
+              6 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                 'name' => 'Depth',
+                 'title' => 'Depth',
+                 'tooltip' => 'Długość wewnętrzna paczki',
+                 'mandatory' => true,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'unitWidth' => '',
+                 'defaultUnit' => 'mm',
+                 'validUnits' => 
+                array (
+                  0 => 'mm',
+                  1 => 'cm',
+                  2 => 'm',
+                  3 => 'cal',
+                ),
+                 'unique' => false,
+                 'autoConvert' => false,
+                 'defaultValueGenerator' => '',
+                 'width' => '',
+                 'defaultValue' => NULL,
+                 'integer' => false,
+                 'unsigned' => true,
+                 'minValue' => NULL,
+                 'maxValue' => NULL,
+                 'decimalSize' => NULL,
+                 'decimalPrecision' => NULL,
+              )),
+              7 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                 'name' => 'DepthOuter',
+                 'title' => 'Depth Outer',
+                 'tooltip' => 'Długość gabarytowa paczki',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'unitWidth' => '',
+                 'defaultUnit' => 'mm',
+                 'validUnits' => 
+                array (
+                  0 => 'mm',
+                  1 => 'cm',
+                  2 => 'm',
+                  3 => 'cal',
+                ),
+                 'unique' => false,
+                 'autoConvert' => false,
+                 'defaultValueGenerator' => '',
+                 'width' => '',
+                 'defaultValue' => NULL,
+                 'integer' => false,
+                 'unsigned' => true,
+                 'minValue' => NULL,
+                 'maxValue' => NULL,
+                 'decimalSize' => NULL,
+                 'decimalPrecision' => NULL,
+              )),
+              8 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                  'name' => 'Volume',
                  'title' => 'Volume',
                  'tooltip' => 'Objętość gabarytowa',
@@ -373,7 +517,7 @@ Projekt bazowy, na podstawie którego powstała dana paczka.',
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
               )),
-              5 => 
+              9 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                  'name' => 'Mass',
                  'title' => 'Mass',
@@ -756,7 +900,7 @@ Domyślny kod kreskowy paczki tworzony na podstawie jego unikalnego identyfikato
              'children' => 
             array (
               0 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyRelation::__set_state(array(
+              \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyRelation::__set_state(array(
                  'name' => 'Elements',
                  'title' => 'Elements',
                  'tooltip' => '',
@@ -776,11 +920,19 @@ Domyślny kod kreskowy paczki tworzony na podstawie jego unikalnego identyfikato
                 ),
                  'classes' => 
                 array (
+                  0 => 
+                  array (
+                    'classes' => 'Package',
+                  ),
+                  1 => 
+                  array (
+                    'classes' => 'Element',
+                  ),
                 ),
                  'displayMode' => NULL,
                  'pathFormatterClass' => '',
                  'maxItems' => NULL,
-                 'assetInlineDownloadAllowed' => true,
+                 'assetInlineDownloadAllowed' => false,
                  'assetUploadPath' => '/ELEMENTY',
                  'allowToClearRelation' => true,
                  'objectsAllowed' => false,
@@ -798,7 +950,26 @@ Domyślny kod kreskowy paczki tworzony na podstawie jego unikalnego identyfikato
                 ),
                  'enableTextSelection' => false,
                  'width' => '',
-                 'height' => '',
+                 'height' => NULL,
+                 'columns' => 
+                array (
+                  0 => 
+                  array (
+                    'type' => 'number',
+                    'position' => 1,
+                    'key' => 'Quantity',
+                    'label' => 'Quantity',
+                    'value' => '1',
+                  ),
+                ),
+                 'columnKeys' => 
+                array (
+                  0 => 'Quantity',
+                ),
+                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\ElementMetadata[]',
+                 'optimizedAdminLoading' => false,
+                 'enableBatchEdit' => false,
+                 'allowMultipleAssignments' => false,
               )),
             ),
              'locked' => false,

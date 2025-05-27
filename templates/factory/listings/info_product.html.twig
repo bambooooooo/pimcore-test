@@ -1,0 +1,110 @@
+<div class="container-fluid">
+    <div class="row">
+        {% if obj.Image %}
+            <div class="col-12 text-center">
+                <a href="{{ obj.Image }}">
+                    <img src="{{ obj.Image.thumbnail("200x200") }}" class="img-fluid"/>
+                </a>
+            </div>
+        {% endif %}
+        {% if obj.Images %}
+        <div class="col-12 text-center">
+            <div class="container-fluid">
+                <div class="row" style="display: flex; justify-content: center">
+                    {% for item in obj.Images %}
+                        <div class="col-2">
+                            <a href="{{ item }}">
+                                {{ item.thumbnail("50x50").html|raw }}
+                            </a>
+                        </div>
+                    {% endfor %}
+                    {% for item in obj.ImagesModel %}
+                        <div class="col-2">
+                            <a href="{{ item }}">
+                                {{ item.thumbnail("50x50").html|raw }}
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        <div class="col-12 text-center">
+            <h1>
+                {{ obj.key }}
+                <a target="_blank" href="/admin/login/deeplink?object_{{ obj.id }}_object">
+                    <img height="40" src="/bundles/pimcoreadmin/img/flat-color-icons/input.svg"/>
+                </a>
+            </h1>
+        </div>
+        <div class="col-12 text-center">
+            <div>
+                {% if obj.Name is defined and obj.Name %}
+                    {{ obj.Name }}
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-12 text-center mt-2 mb-2" style="font-size: 18px">
+            {% if obj.Width and obj.Width.Value %}
+                <img src="/bundles/pimcoreadmin/img/flat-color-icons/right.svg" height="28"/>
+                {{ obj.Width }}
+            {% endif %}
+
+            {% if obj.Height and obj.Height.Value %}
+                <img src="/bundles/pimcoreadmin/img/flat-color-icons/up.svg" height="28"/>
+                {{ obj.Height }}
+            {% endif %}
+
+            {% if obj.Depth and obj.Depth.Value %}
+                <img src="/bundles/pimcoreadmin/img/flat-color-icons/right_up.svg" height="28"/>
+                {{ obj.Depth }}
+            {% endif %}
+        </div>
+        <div class="col-12">
+            <div class="container-fluid">
+                <div class="row">
+                    {% if obj.Documents and app.user.product_show_files %}
+                        {% for doc in obj.Documents %}
+                            <div class="col-12 mt-1">
+                                <a href="{{ doc }}">
+                                    <div class="btn btn-outline-primary" style="width: 100%;">
+                                        <img height="40" src="/bundles/pimcoreadmin/img/flat-color-icons/file-types.svg" class="card-img-top" alt="...">
+                                        {{ doc.key }}
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    {% if app.user.product_show_datasheet %}
+                        <div class="col-12 mt-1">
+                            <a href="{{ path("factory_datasheet", {id: obj.id}) }}">
+                                <div class="btn btn-outline-primary" style="width: 100%;">
+                                    <img height="40" src="/bundles/pimcoreadmin/img/flat-color-icons/pdf.svg" class="card-img-top" alt="...">
+                                    {{ "Datasheet"|trans }}
+                                </div>
+                            </a>
+                        </div>
+                    {% endif %}
+
+                    {% if obj.Packages and app.user.product_show_packages %}
+                        {% for lip in obj.Packages %}
+                            <div class="col-12 mt-1">
+                                <a href="{{ path("factory_tree", {id: lip.object.id}) }}">
+                                    <div class="btn btn-outline-primary" style="width: 100%;">
+                                        {% if lip.data.Quantity and lip.data.Quantity > 1 %}
+                                            {{ lip.data.Quantity }})x
+                                        {% endif %}
+                                        <img height="40" src="/bundles/pimcoreadmin/img/flat-color-icons/deployment.svg" class="card-img-top" alt="...">
+                                        {{ lip.object.key }}
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

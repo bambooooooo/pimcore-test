@@ -1,0 +1,61 @@
+{% for req in obj.getDependencies().getFilterRequiredByPath() %}
+    {% if req.type == 'object' %}
+        {% set item = pimcore_object(req.id) %}
+
+        {% set skip = false %}
+
+        {% if item is pimcore_data_object_class("Package") %}
+
+        {% elseif item is pimcore_data_object_class("Order") and not app.user.product_show_orders %}
+            {% set skip = true %}
+
+        {% elseif item is pimcore_data_object_class("ProductSet") and not app.user.product_show_sets %}
+            {% set skip = true %}
+
+        {% endif %}
+
+        {% if not skip %}
+            <a href="{{ path("factory_tree", {id: item.id}) }}" class="list-item" style="{% if (not item is instanceof("\\Pimcore\\Model\\DataObject\\Folder")) and not item.published %}opacity:0.3{% endif %}">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        {% if item is pimcore_data_object_class("ProductSet") and item.Image %}
+                            <img src="{{ item.Image.thumbnail("200x200") }}" height="50"/>
+                        {% elseif item is pimcore_data_object_class("Order") %}
+                            {% if item.user and item.user.Image %}
+                                <img src="{{ item.user.Image.thumbnail("200x200") }}" height="50"">
+                            {% else %}
+                                <img src="/bundles/pimcoreadmin/img/flat-color-icons/shopping-cart.svg" height="50">
+                            {% endif %}
+                        {% else %}
+                            <img src="/UI/2-puzzle.svg" height="50">
+                        {% endif %}
+                        <span style="margin-left: 8px">
+                        {{ item.key }}
+                    </span>
+                    </div>
+                </div>
+            </div>
+        </a>
+        {% endif %}
+    {% endif %}
+{% endfor %}
+
+{% if obj is pimcore_data_object_class("Product") and app.user.product_show_elements %}
+    {% for lip in obj.Packages %}
+        {% for el in lip.element.Elements %}
+            <a href="{{ el.element }}" class="list-item">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <img src="{{ el.element.getImageThumbnail("200x200") }}" height="50"/>
+                            <span style="margin-left: 8px">
+                            {{ el.element.key }}
+                        </span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+    {% endfor %}
+{% endif %}

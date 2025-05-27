@@ -20,7 +20,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Pricing',
    'description' => 'Wycena',
    'creationDate' => NULL,
-   'modificationDate' => 1746515419,
+   'modificationDate' => 1747895577,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -29,13 +29,13 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'useTraits' => '',
    'listingUseTraits' => '',
    'encryption' => false,
-   'encryptedTables' =>
+   'encryptedTables' => 
   array (
   ),
    'allowInherit' => true,
    'allowVariants' => false,
    'showVariants' => false,
-   'layoutDefinitions' =>
+   'layoutDefinitions' => 
   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
      'name' => 'pimcore_root',
      'type' => NULL,
@@ -47,9 +47,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
      'collapsed' => false,
      'bodyStyle' => NULL,
      'datatype' => 'layout',
-     'children' =>
+     'children' => 
     array (
-      0 =>
+      0 => 
       \Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
          'name' => 'Layout',
          'type' => NULL,
@@ -61,9 +61,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'collapsed' => false,
          'bodyStyle' => '',
          'datatype' => 'layout',
-         'children' =>
+         'children' => 
         array (
-          0 =>
+          0 => 
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'System data',
              'type' => NULL,
@@ -75,9 +75,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'collapsed' => false,
              'bodyStyle' => '',
              'datatype' => 'layout',
-             'children' =>
+             'children' => 
             array (
-              0 =>
+              0 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Countrymultiselect::__set_state(array(
                  'name' => 'Countries',
                  'title' => 'Countries',
@@ -96,7 +96,7 @@ Kraj, w którym obowiązuje usługa
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
                  'maxItems' => NULL,
@@ -113,7 +113,7 @@ Kraj, w którym obowiązuje usługa
               )),
             ),
              'locked' => false,
-             'blockedVarsForExport' =>
+             'blockedVarsForExport' => 
             array (
             ),
              'fieldtype' => 'panel',
@@ -123,7 +123,7 @@ Kraj, w którym obowiązuje usługa
              'labelWidth' => 100,
              'labelAlign' => 'left',
           )),
-          1 =>
+          1 => 
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Restrictions',
              'type' => NULL,
@@ -135,9 +135,9 @@ Kraj, w którym obowiązuje usługa
              'collapsed' => false,
              'bodyStyle' => '',
              'datatype' => 'layout',
-             'children' =>
+             'children' => 
             array (
-              0 =>
+              0 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Objectbricks::__set_state(array(
                  'name' => 'Restrictions',
                  'title' => 'Restrictions',
@@ -153,20 +153,27 @@ Kraj, w którym obowiązuje usługa
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
-                 'allowedTypes' =>
+                 'allowedTypes' => 
                 array (
                   0 => 'MaxPackageLength',
                   1 => 'MaxPackageSideLengthSum',
                   2 => 'MaxPackageWeight',
                   3 => 'LoadCarriers',
+                  4 => 'MinimalProfit',
+                  5 => 'SelectedGroups',
+                  6 => 'BasePrice',
+                  7 => 'ProductDimensions',
+                  8 => 'ProductCOO',
+                  9 => 'MinimalPercentageProfit',
+                  10 => 'MinimalMarkup',
                 ),
                  'maxItems' => NULL,
                  'border' => false,
               )),
-              1 =>
+              1 => 
               \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                  'name' => 'Layout',
                  'type' => NULL,
@@ -178,11 +185,11 @@ Kraj, w którym obowiązuje usługa
                  'collapsed' => false,
                  'bodyStyle' => '',
                  'datatype' => 'layout',
-                 'children' =>
+                 'children' => 
                 array (
                 ),
                  'locked' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
                  'fieldtype' => 'text',
@@ -195,7 +202,7 @@ Wymagania, które musi spełnić produkt, aby wycena była możliwa',
               )),
             ),
              'locked' => false,
-             'blockedVarsForExport' =>
+             'blockedVarsForExport' => 
             array (
             ),
              'fieldtype' => 'panel',
@@ -205,7 +212,7 @@ Wymagania, które musi spełnić produkt, aby wycena była możliwa',
              'labelWidth' => 100,
              'labelAlign' => 'left',
           )),
-          2 =>
+          2 => 
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Pricing',
              'type' => NULL,
@@ -217,9 +224,9 @@ Wymagania, które musi spełnić produkt, aby wycena była możliwa',
              'collapsed' => false,
              'bodyStyle' => '',
              'datatype' => 'layout',
-             'children' =>
+             'children' => 
             array (
-              0 =>
+              0 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                  'name' => 'UseBasePrice',
                  'title' => 'Use Base Price',
@@ -235,13 +242,13 @@ Wymagania, które musi spełnić produkt, aby wycena była możliwa',
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
                  'defaultValue' => 1,
                  'defaultValueGenerator' => '',
               )),
-              1 =>
+              1 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections::__set_state(array(
                  'name' => 'Rules',
                  'title' => 'Rules',
@@ -257,15 +264,16 @@ Wymagania, które musi spełnić produkt, aby wycena była możliwa',
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
-                 'allowedTypes' =>
+                 'allowedTypes' => 
                 array (
                   0 => 'Factor',
                   1 => 'Surcharge',
                   2 => 'ParcelMassVolume',
                   3 => 'Pricing',
+                  4 => 'ParcelVolume',
                 ),
                  'lazyLoading' => true,
                  'maxItems' => NULL,
@@ -275,7 +283,7 @@ Wymagania, które musi spełnić produkt, aby wycena była możliwa',
                  'collapsible' => false,
                  'border' => false,
               )),
-              2 =>
+              2 => 
               \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                  'name' => 'Layout',
                  'type' => NULL,
@@ -287,11 +295,11 @@ Wymagania, które musi spełnić produkt, aby wycena była możliwa',
                  'collapsed' => false,
                  'bodyStyle' => '',
                  'datatype' => 'layout',
-                 'children' =>
+                 'children' => 
                 array (
                 ),
                  'locked' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
                  'fieldtype' => 'text',
@@ -304,7 +312,7 @@ Kroki służące do wyznaczenia końcowej ceny usługi',
               )),
             ),
              'locked' => false,
-             'blockedVarsForExport' =>
+             'blockedVarsForExport' => 
             array (
             ),
              'fieldtype' => 'panel',
@@ -316,7 +324,7 @@ Kroki służące do wyznaczenia końcowej ceny usługi',
           )),
         ),
          'locked' => false,
-         'blockedVarsForExport' =>
+         'blockedVarsForExport' => 
         array (
         ),
          'fieldtype' => 'tabpanel',
@@ -325,7 +333,7 @@ Kroki służące do wyznaczenia końcowej ceny usługi',
       )),
     ),
      'locked' => false,
-     'blockedVarsForExport' =>
+     'blockedVarsForExport' => 
     array (
     ),
      'fieldtype' => 'panel',
@@ -340,13 +348,13 @@ Kroki służące do wyznaczenia końcowej ceny usługi',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',
    'previewGeneratorReference' => '',
-   'compositeIndices' =>
+   'compositeIndices' => 
   array (
   ),
    'showFieldLookup' => false,
-   'propertyVisibility' =>
+   'propertyVisibility' => 
   array (
-    'grid' =>
+    'grid' => 
     array (
       'id' => true,
       'key' => false,
@@ -355,7 +363,7 @@ Kroki służące do wyznaczenia końcowej ceny usługi',
       'modificationDate' => true,
       'creationDate' => true,
     ),
-    'search' =>
+    'search' => 
     array (
       'id' => true,
       'key' => false,
@@ -366,16 +374,16 @@ Kroki służące do wyznaczenia końcowej ceny usługi',
     ),
   ),
    'enableGridLocking' => false,
-   'deletedDataComponents' =>
+   'deletedDataComponents' => 
   array (
   ),
-   'blockedVarsForExport' =>
+   'blockedVarsForExport' => 
   array (
   ),
-   'fieldDefinitionsCache' =>
+   'fieldDefinitionsCache' => 
   array (
   ),
-   'activeDispatchingEvents' =>
+   'activeDispatchingEvents' => 
   array (
   ),
 ));

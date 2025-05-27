@@ -31,6 +31,8 @@ class ProductPublisher
 
             $this->assertNamePL($product);
             $this->assertPackageQuantityAndPublished($product);
+            $this->assertPackageCodeIfProductMirjanCode($product);
+            $this->assertPackageCodeIfProductAgataCode($product);
             $this->assertGroupsArePublished($product);
 
             $this->translateNames($product);
@@ -43,6 +45,31 @@ class ProductPublisher
                 $this->sendToErp($product);
             }
         });
+    }
+
+    private function assertPackageCodeIfProductAgataCode(Product $product): void
+    {
+        if($product->getCodes()?->getIndexAgata())
+        {
+            foreach($product->getPackages() as $lip)
+            {
+                $code = $lip->getElement()->getKey();
+                assert($lip->getElement()->getCodes()?->getIndexAgata()?->getBarcode(), "Package [$code] has to get Agata barcode");
+                assert($lip->getElement()->getCodes()?->getIndexAgata()?->getCode(), "Package [$code] has to get Agata index");
+            }
+        }
+    }
+
+    private function assertPackageCodeIfProductMirjanCode(Product $product): void
+    {
+        if($product->getCodes()?->getIndexMirjan24()?->getCode())
+        {
+            foreach($product->getPackages() as $lip)
+            {
+                $code = $lip->getElement()->getKey();
+                assert($lip->getElement()->getCodes()->getIndexMirjan24()?->getCode(), "Package [$code] has to get Mirjan 24 index, because product already got");
+            }
+        }
     }
 
     private function assertNamePL(Product $product) : void
@@ -220,6 +247,50 @@ class ProductPublisher
                         }
                     }
                 }
+
+                if($pricing->getRestrictions()->getBasePrice())
+                {
+                    $low = $pricing->getRestrictions()->getBasePrice()->getRange()->getMinimum();
+                    $high = $pricing->getRestrictions()->getBasePrice()->getRange()->getMaximum();
+
+                    if($product->getBasePrice()->getValue() < $low || $product->getBasePrice()->getValue() > $high)
+                        return null;
+                }
+
+                if($pricing->getRestrictions()->getProductCOO())
+                {
+                    if(!in_array($product->getCOO(), $pricing->getRestrictions()->getProductCOO()->getCOO()))
+                    {
+                        return null;
+                    }
+                }
+
+                if($pricing->getRestrictions()->getSelectedGroups())
+                {
+                    if(!in_array($product->getGroup(), $pricing->getRestrictions()->getSelectedGroups()->getGroups()) &&
+                        !array_intersect($pricing->getRestrictions()->getSelectedGroups()->getGroups(), $product->getGroups()))
+                    {
+                        return null;
+                    }
+                }
+
+                if($pricing->getRestrictions()->getProductDimensions())
+                {
+                    $w = $product->getWidth()->getValue();
+                    $h = $product->getHeight()->getValue();
+                    $d = $product->getDepth()->getValue();
+
+                    $wRange = $pricing->getRestrictions()->getProductDimensions()->getWidthRange();
+                    $hRange = $pricing->getRestrictions()->getProductDimensions()->getHeightRange();
+                    $dRange = $pricing->getRestrictions()->getProductDimensions()->getDepthRange();
+
+                    if(($w < $wRange->getMinimum() || $w > $wRange->getMaximum()) ||
+                        ($h < $hRange->getMinimum() || $h > $hRange->getMaximum()) ||
+                        ($d < $dRange->getMinimum() || $d > $dRange->getMaximum()))
+                    {
+                        return null;
+                    }
+                }
             }
 
             if($product->getLoadCarriers())
@@ -380,9 +451,50 @@ class ProductPublisher
 
                         $price += $otherPrice->getPrice();
                     }
+
+                    if($rule instanceof DataObject\Fieldcollection\Data\ParcelVolume)
+                    {
+                        $price += (float)$totalVolume * (float)$rule->getPrice()->getValue();
+                    }
                 }
 
                 $price = round($price, 2);
+
+                if($pricing->getRestrictions())
+                {
+                    if($pricing->getRestrictions()->getMinimalProfit())
+                    {
+                        $profit = $price - $product->getBasePrice()->getValue();
+
+                        if($profit < $pricing->getRestrictions()->getMinimalProfit()->getLimit()->getValue())
+                        {
+                            return null;
+                        }
+                    }
+
+                    if($pricing->getRestrictions()->getMinimalPercentageProfit())
+                    {
+                        $profit = $price - $product->getBasePrice()->getValue();
+                        $percentage = ($product->getBasePrice()->getValue()) ? $profit / $product->getBasePrice()->getValue() : 0;
+
+                        if($profit < $pricing->getRestrictions()->getMinimalPercentageProfit()->getLimit())
+                        {
+                            return null;
+                        }
+                    }
+
+                    if($pricing->getRestrictions()->getMinimalMarkup())
+                    {
+                        $profit = $price - $product->getBasePrice()->getValue();
+                        $markup = ($price) ? 100 * $profit / $price : 0;
+
+                        if($markup < $pricing->getRestrictions()->getMinimalMarkup()->getLimit())
+                        {
+                            return null;
+                        }
+                    }
+                }
+
                 $item->setPrice($price);
                 return $item;
             }

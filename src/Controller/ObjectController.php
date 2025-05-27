@@ -228,4 +228,18 @@ class ObjectController extends FrontendController
 
         return new Response("Object type not supported", Response::HTTP_NOT_IMPLEMENTED);
     }
+
+    #[Route("/prices/{id}", name: "prices")]
+    public function pricesAction(Request $request): Response
+    {
+        $id = $request->get("id");
+
+        $obj = DataObject\Pricing::getById($id);
+
+        $data = [
+            'pricing' => $obj
+        ];
+
+        return $this->render('admin/prices.html.twig', $data);
+    }
 }

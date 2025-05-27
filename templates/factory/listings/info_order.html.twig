@@ -1,0 +1,28 @@
+<div class="container-fluid">
+    <div class="row text-center">
+        {% if obj.user and obj.user.Image %}
+            <div class="col-12 text-center">
+                <a href="#">
+                    <img src="{{ obj.user.Image.thumbnail("200x200") }}" width="50"/>
+                </a>
+            </div>
+        {% endif %}
+        <div class="col-12 text-center">
+            <h1>
+                {{ obj.key }}
+                <a target="_blank" href="/admin/login/deeplink?object_{{ obj.id }}_object">
+                    <img height="40" src="/bundles/pimcoreadmin/img/flat-color-icons/input.svg"/>
+                </a>
+            </h1>
+        </div>
+        <div class="col-12 text-center">
+            <div>
+                {% if obj.parent is pimcore_data_object_class("Order") %}
+                    <strong>
+                        {{ obj.parent.key }}
+                    </strong>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

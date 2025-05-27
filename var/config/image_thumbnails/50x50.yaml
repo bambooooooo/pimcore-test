@@ -1,0 +1,26 @@
+pimcore:
+    assets:
+        image:
+            thumbnails:
+                definitions:
+                    50x50:
+                        items:
+                            -
+                                method: resize
+                                arguments:
+                                    width: 50
+                                    height: 50
+                        medias: {  }
+                        name: 50x50
+                        description: ''
+                        group: ''
+                        format: SOURCE
+                        quality: 85
+                        highResolution: null
+                        preserveColor: false
+                        preserveMetaData: false
+                        rasterizeSVG: false
+                        downloadable: false
+                        modificationDate: 1746776704
+                        creationDate: 1746776695
+                        preserveAnimation: false

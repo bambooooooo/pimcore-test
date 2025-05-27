@@ -37,6 +37,7 @@ jobs:
                       echo "GS1_PASSWORD=${{ secrets.GS1_PWD }}" >> .env
                       echo "DEEPL_APIKEY=${{ secrets.DEEPL_APIKEY }}" >> .env
 
+                      docker compose -f dokcer-compose.yaml -f docker-compose.prod.yaml up -d
                       docker compose exec php composer install --no-dev --optimize-autoloader
                       docker compose exec php bin/console pimcore:maintenance-mode --ignore-maintenance-mode --enable
                       docker compose exec php bin/console pimcore:deployment:classes-rebuild -c --ignore-maintenance-mode

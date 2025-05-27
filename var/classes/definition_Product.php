@@ -25,6 +25,7 @@
  * - GPC [select]
  * - COO [country]
  * - Manufacturer [manyToOneRelation]
+ * - Suppliers [manyToManyRelation]
  * - Groups [manyToManyObjectRelation]
  * - Parameters [classificationstore]
  * - BasePrice [quantityValue]
@@ -37,6 +38,7 @@
  * - PackagesVolume [quantityValue]
  * - LoadCarriers [manyToManyRelation]
  * - Quality [numeric]
+ * - Description [fieldcollections]
  * - Barcode [input]
  * - Codes [objectbricks]
  * - Documents [manyToManyRelation]
@@ -49,7 +51,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Produkt',
    'description' => 'Towar, który można sprzedać',
    'creationDate' => NULL,
-   'modificationDate' => 1746703477,
+   'modificationDate' => 1747907811,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -139,9 +141,13 @@ Główne zdjęcie produktu, najczęściej z przeźroczystym tłem',
 
 Wyróżnia się następujące typy produktu:
 
-- ACTUAL - Konkretna realizacja produktu. Można go sprzedać lub kupić, nie zawiera danych abstrakcyjnych.
+- VIRTUAL - Obiekt wirtualny, który nie może być sprzedany (brakuje mu ukonkretnień), natomiast pomaga w grupowaniu produktów i ułatwia uzupełnianie danych dzięki dziedziczeniu
 
-- VIRTUAL - Obiekt wirtualny, który nie może być sprzedany (brakuje mu ukonkretnień), natomiast pomaga w grupowaniu produktów i ułatwia uzupełnianie danych dzięki dziedziczeniu',
+- MODEL - Obiekt abstrakcyjny, który stanowi Produkt w rozumieniu wariantowości. Zawiera wspólne cechy produktów końcowych, które można opublikować końcowemu klientowi
+
+- SKU - realizacja produktu, którą można składować w magazynie, jednak nie jest przeznaczona do bezpośredniej sprzedaży, ponieważ nie stanowi produktu pełnowartościowego, którym zainteresowany jest klient
+
+- ACTUAL - Konkretna realizacja produktu. Można go sprzedać lub kupić, nie zawiera danych abstrakcyjnych.',
                  'mandatory' => true,
                  'noteditable' => false,
                  'index' => false,
@@ -167,6 +173,16 @@ Wyróżnia się następujące typy produktu:
                   array (
                     'key' => 'VIRTUAL',
                     'value' => 'VIRTUAL',
+                  ),
+                  2 => 
+                  array (
+                    'key' => 'MODEL',
+                    'value' => 'MODEL',
+                  ),
+                  3 => 
+                  array (
+                    'key' => 'SKU',
+                    'value' => 'SKU',
                   ),
                 ),
                  'defaultValue' => 'ACTUAL',
@@ -861,6 +877,59 @@ Producent',
                 ),
                  'width' => '',
               )),
+              10 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyRelation::__set_state(array(
+                 'name' => 'Suppliers',
+                 'title' => 'Suppliers',
+                 'tooltip' => 'Dostawcy produktu lub części składowych (elementów) produktu',
+                 'mandatory' => true,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => true,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'classes' => 
+                array (
+                  0 => 
+                  array (
+                    'classes' => 'User',
+                  ),
+                ),
+                 'displayMode' => NULL,
+                 'pathFormatterClass' => '',
+                 'maxItems' => NULL,
+                 'assetInlineDownloadAllowed' => false,
+                 'assetUploadPath' => '',
+                 'allowToClearRelation' => true,
+                 'objectsAllowed' => true,
+                 'assetsAllowed' => false,
+                 'assetTypes' => 
+                array (
+                  0 => 
+                  array (
+                    'assetTypes' => '',
+                  ),
+                ),
+                 'documentsAllowed' => false,
+                 'documentTypes' => 
+                array (
+                  0 => 
+                  array (
+                    'documentTypes' => '',
+                  ),
+                ),
+                 'enableTextSelection' => false,
+                 'width' => '',
+                 'height' => '',
+              )),
             ),
              'locked' => false,
              'blockedVarsForExport' => 
@@ -1533,6 +1602,45 @@ Stopień uzupełnienia danych produktu',
                  'decimalPrecision' => NULL,
                  'width' => '',
                  'defaultValueGenerator' => '',
+              )),
+              1 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections::__set_state(array(
+                 'name' => 'Description',
+                 'title' => 'Description',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'allowedTypes' => 
+                array (
+                  0 => 'Image',
+                  1 => 'ImageText',
+                  2 => 'ImageWideo',
+                  3 => 'TextImage',
+                  4 => 'Text',
+                  5 => 'TextWideo',
+                  6 => 'WideoImage',
+                  7 => 'Wideo',
+                  8 => 'WideoText',
+                ),
+                 'lazyLoading' => true,
+                 'maxItems' => NULL,
+                 'disallowAddRemove' => false,
+                 'disallowReorder' => false,
+                 'collapsed' => false,
+                 'collapsible' => false,
+                 'border' => false,
               )),
             ),
              'locked' => false,

@@ -1,0 +1,143 @@
+<div class="container-fluid">
+    <div class="row">
+        <div>
+            <style>
+                .cuboid {
+                    --width: {{ (obj.Depth.value / 5)|round }}px;
+                    --height: {{ (obj.Height.value / 5)|round }}px;
+                    --depth: {{ (obj.Width.value / 5)|round }}px;
+                    height: var(--height);
+                    width: var(--width);
+                    position: relative;
+                    /*transform: rotateX(50deg) rotateY(32deg);*/
+                    transform: rotate3d(0.75, 1, 0, 30deg);
+                    transform-style: preserve-3d;
+                }
+
+                .cuboid__side {
+                    background-color: hsla(0, 0%, 100%, 0.2);
+                    border: 1px solid hsl(0, 0%, 10%);
+                    position: absolute;
+                }
+
+                .cuboid__side:nth-of-type(1),
+                .cuboid__side:nth-of-type(2) {
+                    --coefficient: -0.5;
+                    height: var(--height);
+                    width: var(--width);
+                    transform: translate3d(0, 0, calc(var(--depth) * var(--coefficient)));
+                }
+
+                .cuboid__side:nth-of-type(2) {
+                    --coefficient: 0.5;
+                }
+
+                .cuboid__side:nth-of-type(3),
+                .cuboid__side:nth-of-type(4) {
+                    --rotation: 90deg;
+                    height: var(--height);
+                    width: var(--depth);
+                    left: 50%;
+                    top: 50%;
+                    transform: translate(-50%, -50%) rotateY(var(--rotation)) translate3d(0, 0, calc(var(--width) * -0.5));
+                }
+
+                .cuboid__side:nth-of-type(4) {
+                    --rotation: -90deg;
+                }
+
+                .cuboid__side:nth-of-type(5),
+                .cuboid__side:nth-of-type(6) {
+                    --rotation: -90deg;
+                    height: var(--depth);
+                    width: var(--width);
+                    left: 50%;
+                    top: 50%;
+                    transform: translate(-50%, -50%) rotateX(var(--rotation)) translate3d(0, 0, calc(var(--height) * -0.5));
+                }
+
+                .cuboid__side:nth-of-type(6) {
+                    --rotation: 90deg;
+                }
+
+                .cuboid:nth-of-type(2) {
+                    --width: 5vmin;
+                    --height: 15vmin;
+                    --depth: 10vmin;
+                }
+            </style>
+            <div style="position:relative; display: flex; justify-content: center; height: 100px; margin-top:80px;">
+                <div class="cuboid">
+                    <div class="cuboid__side"></div>
+                    <div class="cuboid__side"></div>
+                    <div class="cuboid__side"></div>
+                    <div class="cuboid__side"></div>
+                    <div class="cuboid__side"></div>
+                    <div class="cuboid__side"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 text-center">
+            <h1>
+                {{ obj.key }}
+                <a target="_blank" href="/admin/login/deeplink?object_{{ obj.id }}_object">
+                    <img height="40" src="/bundles/pimcoreadmin/img/flat-color-icons/input.svg"/>
+                </a>
+            </h1>
+        </div>
+        <div class="col-12 text-center mt-2 mb-2">
+            {% if obj.Depth and obj.Depth.Value %}
+                <img src="/bundles/pimcoreadmin/img/flat-color-icons/right.svg" height="28"/>
+                {{ obj.Depth }}
+            {% endif %}
+
+            {% if obj.Height and obj.Height.Value %}
+                <img src="/bundles/pimcoreadmin/img/flat-color-icons/up.svg" height="28"/>
+                {{ obj.Height }}
+            {% endif %}
+
+            {% if obj.Width and obj.Width.Value %}
+                <img src="/bundles/pimcoreadmin/img/flat-color-icons/right_up.svg" height="28"/>
+                {{ obj.Width }}
+            {% endif %}
+        </div>
+        <div class="col-12 text-center mt-2 mb-2" style="font-size: 14px">
+            {% if obj.WidthOuter and obj.WidthOuter.Value %}
+                <img src="/bundles/pimcoreadmin/img/flat-color-icons/right.svg" height="22"/>
+                {{ obj.WidthOuter }}
+            {% endif %}
+
+            {% if obj.HeightOuter and obj.HeightOuter.Value %}
+                <img src="/bundles/pimcoreadmin/img/flat-color-icons/up.svg" height="22"/>
+                {{ obj.HeightOuter }}
+            {% endif %}
+
+            {% if obj.DepthOuter and obj.DepthOuter.Value %}
+                <img src="/bundles/pimcoreadmin/img/flat-color-icons/right_up.svg" height="22"/>
+                {{ obj.DepthOuter }}
+            {% endif %}
+        </div>
+        <div class="col-12 text-center mt-2 mb-2">
+            {% if obj.Mass and obj.Mass.value %}
+                {{ obj.Mass }}
+            {% endif %}
+        </div>
+        <div class="containter-fluid">
+            <div class="row">
+                {% for req in obj.getDependencies().getFilterRequiredByPath() %}
+                    {% if req.type == 'object' %}
+                        <div class="col-12 mt-1">
+                            <a href="{{ path("factory_tree", {id: req.id}) }}">
+                                <div class="btn btn-outline-primary" style="width: 100%;">
+                                    {% set prod = pimcore_object(req.id) %}
+                                    {{ prod.key }}
+                                    <img src="/bundles/pimcoreadmin/img/flat-color-icons/link.svg" height="22"/>
+                                </div>
+                            </a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>

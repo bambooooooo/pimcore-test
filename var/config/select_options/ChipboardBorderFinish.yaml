@@ -1,0 +1,26 @@
+pimcore:
+    objects:
+        select_options:
+            definitions:
+                ChipboardBorderFinish:
+                    id: ChipboardBorderFinish
+                    group: ''
+                    useTraits: ''
+                    implementsInterfaces: ''
+                    selectOptions:
+                        -
+                            value: PCV
+                            label: PCV
+                            name: ''
+                        -
+                            value: ABS
+                            label: ABS
+                            name: ''
+                        -
+                            value: Papier
+                            label: Papier
+                            name: ''
+                        -
+                            value: Brak
+                            label: Brak
+                            name: ''
