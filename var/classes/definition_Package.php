@@ -34,7 +34,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Opakowanie',
    'description' => 'Opakowanie zawierające elementy produktu',
    'creationDate' => NULL,
-   'modificationDate' => 1747992724,
+   'modificationDate' => 1748353735,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -98,7 +98,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'tooltip' => 'Typ paczki
 
 Wyróżnia się następujące typy produktu:
-- ACTUAL - Konkretna realizacja paczki, którą można wysłać do klienta
+- SKU - Konkretna realizacja paczki, którą można wysłać do klienta
 - VIRTUAL - Obiekt wirtualny, który nie może być sprzedany (brakuje mu ukonkretnień), natomiast pomaga w grupowaniu produktów i ułatwia uzupełnianie danych dzięki dziedziczeniu',
                  'mandatory' => true,
                  'noteditable' => false,
@@ -118,8 +118,8 @@ Wyróżnia się następujące typy produktu:
                 array (
                   0 => 
                   array (
-                    'key' => 'ACTUAL',
-                    'value' => 'ACTUAL',
+                    'key' => 'SKU',
+                    'value' => 'SKU',
                   ),
                   1 => 
                   array (
@@ -127,7 +127,7 @@ Wyróżnia się następujące typy produktu:
                     'value' => 'VIRTUAL',
                   ),
                 ),
-                 'defaultValue' => 'ACTUAL',
+                 'defaultValue' => 'SKU',
                  'columnLength' => 190,
                  'dynamicOptions' => false,
                  'defaultValueGenerator' => '',

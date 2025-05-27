@@ -21,7 +21,7 @@ class PackagePublisher
 
             $this->updateVolume($package);
 
-            if($package->getObjectType() == 'ACTUAL')
+            if($package->getObjectType() == 'SKU')
             {
                 $this->updateDefaultBarcode($package);
 
