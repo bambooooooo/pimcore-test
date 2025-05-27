@@ -45,48 +45,6 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
-                    {% set menu = pimcore_object_by_path('/PORTALE/Factory') %}
-                    {% for item in menu.items %}
-                        <li class="nav-item">
-                            {% if item.element is pimcore_asset %}
-                                <a class="nav-link" href="{{ item }}">
-                                    {{ item.element.key|capitalize }}
-                                </a>
-                            {% else %}
-                                {% if item.element is pimcore_data_object_class('PortalMenu') %}
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle show" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="true">
-                                            {{ item.element.key|capitalize }}
-                                        </a>
-                                        <ul class="dropdown-menu" data-bs-popper="static">
-                                            {% set submenu = pimcore_object(item.element.id) %}
-                                            {% if submenu and submenu.items %}
-                                                {% for sub_item in submenu.items %}
-                                                    {% if sub_item.element is pimcore_asset %}
-                                                        <li>
-                                                            <a class="dropdown-item" href="{{ sub_item }}">
-                                                                {{ sub_item.element.key|capitalize }}
-                                                            </a>
-                                                        </li>
-                                                    {% else %}
-                                                        <li>
-                                                            <a class="dropdown-item" href="{{ path("factory_tree", {id: sub_item.element.id}) }}">
-                                                                {{ sub_item.element.key }}
-                                                            </a>
-                                                        </li>
-                                                    {% endif %}
-                                                {% endfor %}
-                                            {% endif %}
-                                        </ul>
-                                    </li>
-                                {% else %}
-                                    <a class="nav-link" href="{{ path("factory_tree", {id: item.element.id}) }}">
-                                        {{ item.element.key|capitalize }}
-                                    </a>
-                                {% endif %}
-                            {% endif %}
-                        </li>
-                    {% endfor %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path("factory_schedule") }}">
                             {{ "Schedule"|trans }}
