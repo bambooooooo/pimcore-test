@@ -22,7 +22,7 @@ pimcore:
                         position: left
                         sort: 2
                         expanded: true
-
+                        
             Sets:
                 icon: /UI/4-squares-red.svg
                 toolbar:
@@ -55,3 +55,21 @@ pimcore:
                         id: products_read_only
                         sort: 0
                         expanded: true
+
+            Packages:
+                icon: /bundles/pimcoreadmin/img/flat-color-icons/deployment.svg
+                elementTree:
+                    -
+                        name: 'Produkty'
+                        type: customview
+                        position: left
+                        id: products_read_only
+                        expanded: true
+                        sort: 1
+                    -
+                        name: 'Paczki'
+                        type: customview
+                        position: right
+                        id: packages_read_only
+                        expanded: true
+                        sort: 1

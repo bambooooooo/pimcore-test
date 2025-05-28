@@ -42,3 +42,15 @@ pimcore:
                             unlockAndPropagate: false
                             changeChildrenSortBy: false
                     classes: 'Product'
+
+            packages_read_only:
+                name: Packages
+                treetype: object
+                position: right
+                icon: /bundles/pimcoreadmin/img/flat-color-icons/deployment.svg
+                rootfolder: /PACZKI
+                showroot: true
+                sort: 1
+                id: packages_read_only
+                treeContextMenu:
+                    classes: 'Product'
