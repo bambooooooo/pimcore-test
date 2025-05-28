@@ -229,6 +229,50 @@ class ObjectController extends FrontendController
         return new Response("Object type not supported", Response::HTTP_NOT_IMPLEMENTED);
     }
 
+    #[Route("/object/base-price", name: "add_baseprice")]
+    public function basePriceAction(Request $request): Response
+    {
+        DataObject::setHideUnpublished(false);
+
+        $id = $request->get("id");
+
+        $obj = DataObject::getById($id);
+
+        if($obj instanceof Product)
+        {
+            $baseprice = 0.0;
+
+            if(!$obj->getPackages())
+            {
+                return new Response("No packages available.", Response::HTTP_NOT_FOUND);
+            }
+
+            foreach($obj->getPackages() as $lip)
+            {
+                if(!$lip->getElement()->getBasePrice())
+                {
+                    return new Response("No base price available for package [" . $lip->getElement()->getKey() . "]", Response::HTTP_NOT_FOUND);
+                }
+
+                if(!$lip->getQuantity())
+                {
+                    return new Response("No quantity for package [" . $lip->getElement()->getKey() . "]", Response::HTTP_NOT_FOUND);
+                }
+
+                $baseprice += $lip->getElement()->getBasePrice()->getValue() * $lip->getQuantity();
+            }
+
+            $PLN = DataObject\QuantityValue\Unit::getById("PLN");
+            $bp  = new DataObject\Data\QuantityValue($baseprice, $PLN);
+            $obj->setBasePrice($bp);
+            $obj->save();
+
+            return new JsonResponse(["status" => "success"]);
+        }
+
+        return new Response("Object type not supported", Response::HTTP_NOT_IMPLEMENTED);
+    }
+
     #[Route("/prices/{id}", name: "prices")]
     public function pricesAction(Request $request): Response
     {

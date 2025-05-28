@@ -8,6 +8,7 @@
  *
  * Fields Summary:
  * - ObjectType [select]
+ * - BasePrice [quantityValue]
  * - Model [input]
  * - Fefco [select]
  * - Width [quantityValue]
@@ -34,7 +35,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Opakowanie',
    'description' => 'Opakowanie zawierające elementy produktu',
    'creationDate' => NULL,
-   'modificationDate' => 1748371979,
+   'modificationDate' => 1748432353,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -135,6 +136,48 @@ Wyróżnia się następujące typy produktu:
                  'optionsProviderType' => 'configure',
                  'optionsProviderClass' => '',
                  'optionsProviderData' => '',
+              )),
+              1 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                 'name' => 'BasePrice',
+                 'title' => 'Base Price',
+                 'tooltip' => 'Cena bazowa
+
+Cena zakupu paczki u producenta lub techniczny koszt wytworzenia przy własnej produkcji',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'unitWidth' => '',
+                 'defaultUnit' => 'PLN',
+                 'validUnits' => 
+                array (
+                  0 => 'PLN',
+                  1 => 'USD',
+                  2 => 'EUR',
+                  3 => 'GBP',
+                ),
+                 'unique' => false,
+                 'autoConvert' => false,
+                 'defaultValueGenerator' => '',
+                 'width' => '',
+                 'defaultValue' => NULL,
+                 'integer' => false,
+                 'unsigned' => false,
+                 'minValue' => NULL,
+                 'maxValue' => NULL,
+                 'decimalSize' => NULL,
+                 'decimalPrecision' => NULL,
               )),
             ),
              'locked' => false,
