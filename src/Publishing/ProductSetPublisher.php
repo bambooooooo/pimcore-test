@@ -222,6 +222,59 @@ class ProductSetPublisher
                         }
                     }
                 }
+
+                if($pricing->getRestrictions()->getBasePrice())
+                {
+                    $low = $pricing->getRestrictions()->getBasePrice()->getRange()->getMinimum();
+                    $high = $pricing->getRestrictions()->getBasePrice()->getRange()->getMaximum();
+
+                    if($set->getBasePrice()->getValue() < $low || $set->getBasePrice()->getValue() > $high)
+                        return null;
+                }
+
+                if($pricing->getRestrictions()->getProductCOO())
+                {
+                    foreach ($set->getSet() as $li)
+                    {
+                        if(!in_array($li->getElement()->getCOO(), $pricing->getRestrictions()->getProductCOO()->getCOO()))
+                        {
+                            return null;
+                        }
+                    }
+
+                }
+
+                if($pricing->getRestrictions()->getSelectedGroups())
+                {
+                    if(!in_array($set->getGroup(), $pricing->getRestrictions()->getSelectedGroups()->getGroups()) &&
+                        !array_intersect($pricing->getRestrictions()->getSelectedGroups()->getGroups(), $set->getGroups()))
+                    {
+                        return null;
+                    }
+                }
+
+                if($pricing->getRestrictions()->getProductDimensions())
+                {
+                    foreach ($set->getSet() as $li)
+                    {
+                        $product = $li->getElement();
+
+                        $w = $product->getWidth()->getValue();
+                        $h = $product->getHeight()->getValue();
+                        $d = $product->getDepth()->getValue();
+
+                        $wRange = $pricing->getRestrictions()->getProductDimensions()->getWidthRange();
+                        $hRange = $pricing->getRestrictions()->getProductDimensions()->getHeightRange();
+                        $dRange = $pricing->getRestrictions()->getProductDimensions()->getDepthRange();
+
+                        if(($w < $wRange->getMinimum() || $w > $wRange->getMaximum()) ||
+                            ($h < $hRange->getMinimum() || $h > $hRange->getMaximum()) ||
+                            ($d < $dRange->getMinimum() || $d > $dRange->getMaximum()))
+                        {
+                            return null;
+                        }
+                    }
+                }
             }
 
             foreach ($set->getSet() as $li)
