@@ -32,9 +32,9 @@ class ProductSetPublisher
             $this->updatePackageMass($set);
             $this->updatePackageVolumes($set);
 
+            $this->updateBasePrice($set);
             $this->updatePricings($set);
 
-            $this->updateBasePrice($set);
             $this->translateName($set);
 
             $this->sendToErp($set);
@@ -380,9 +380,50 @@ class ProductSetPublisher
 
                         $price += $otherPrice->getPrice();
                     }
+
+                    if($rule instanceof DataObject\Fieldcollection\Data\ParcelVolume)
+                    {
+                        $price += (float)$totalVolume * (float)$rule->getPrice()->getValue();
+                    }
                 }
 
                 $price = round($price, 2);
+
+                if($pricing->getRestrictions())
+                {
+                    if($pricing->getRestrictions()->getMinimalProfit())
+                    {
+                        $profit = $price - $set->getBasePrice()->getValue();
+
+                        if($profit < $pricing->getRestrictions()->getMinimalProfit()->getLimit()->getValue())
+                        {
+                            return null;
+                        }
+                    }
+
+                    if($pricing->getRestrictions()->getMinimalPercentageProfit())
+                    {
+                        $profit = $price - $set->getBasePrice()->getValue();
+                        $percentage = ($set->getBasePrice()->getValue()) ? $profit / $set->getBasePrice()->getValue() : 0;
+
+                        if($profit < $pricing->getRestrictions()->getMinimalPercentageProfit()->getLimit())
+                        {
+                            return null;
+                        }
+                    }
+
+                    if($pricing->getRestrictions()->getMinimalMarkup())
+                    {
+                        $profit = $price - $set->getBasePrice()->getValue();
+                        $markup = ($price) ? 100 * $profit / $price : 0;
+
+                        if($markup < $pricing->getRestrictions()->getMinimalMarkup()->getLimit())
+                        {
+                            return null;
+                        }
+                    }
+                }
+
                 $item->setPrice($price);
                 return $item;
             }
