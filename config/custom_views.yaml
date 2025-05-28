@@ -14,7 +14,7 @@ pimcore:
 
             products_read_only:
                 id: products_read_only
-                name: 'Produkty'
+                name: 'Products'
                 treetype: object
                 position: left
                 icon: /UI/square-red.svg
@@ -54,3 +54,15 @@ pimcore:
                 id: packages_read_only
                 treeContextMenu:
                     classes: 'Product'
+
+            users_read_only:
+                name: Users
+                treetype: object
+                position: right
+                icon: /bundles/pimcoreadmin/img/flat-color-icons/manager.svg
+                rootfolder: /USERS/KONTRAHENCI
+                showroot: true
+                sort: 1
+                id: users_read_only
+                treeContextMenu:
+                    classes: 'User'

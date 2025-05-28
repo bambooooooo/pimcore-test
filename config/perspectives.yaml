@@ -60,16 +60,23 @@ pimcore:
                 icon: /bundles/pimcoreadmin/img/flat-color-icons/deployment.svg
                 elementTree:
                     -
-                        name: 'Produkty'
+                        name: 'Products'
                         type: customview
                         position: left
                         id: products_read_only
                         expanded: true
                         sort: 1
                     -
-                        name: 'Paczki'
+                        name: 'Packages'
                         type: customview
                         position: right
                         id: packages_read_only
                         expanded: true
                         sort: 1
+                    -
+                        name: 'Users'
+                        type: customview
+                        position: right
+                        id: users_read_only
+                        expanded: false
+                        sort: 2
