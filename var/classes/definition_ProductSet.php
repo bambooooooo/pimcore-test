@@ -11,6 +11,7 @@
  * - Set [advancedManyToManyObjectRelation]
  * - EAN [input]
  * - GPC [select]
+ * - CN [select]
  * - Mass [quantityValue]
  * - PackagesMass [quantityValue]
  * - PackagesVolume [quantityValue]
@@ -30,7 +31,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1746622227,
+   'modificationDate' => 1748419940,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -290,7 +291,7 @@ Ośmiocyfrowy numer "Brick" klasyfikacji produktowej GS1 GPC. Wyszukiwarka kodó
                  'permissions' => NULL,
                  'fieldtype' => '',
                  'relationType' => false,
-                 'invisible' => false,
+                 'invisible' => true,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
                  'blockedVarsForExport' => 
@@ -344,6 +345,44 @@ Ośmiocyfrowy numer "Brick" klasyfikacji produktowej GS1 GPC. Wyszukiwarka kodó
                  'optionsProviderData' => '',
               )),
               5 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                 'name' => 'CN',
+                 'title' => 'CN Code',
+                 'tooltip' => 'CN
+
+Klasyfikacja CN produktu. Można skorzystać z wyszukiwarki ext-isztar4.mf.gov.pl',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => true,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'options' => 
+                array (
+                  0 => 
+                  array (
+                    'key' => '9403 60 90 (Meble drewniane...)',
+                    'value' => '9403 60 90',
+                  ),
+                ),
+                 'defaultValue' => '',
+                 'columnLength' => 190,
+                 'dynamicOptions' => false,
+                 'defaultValueGenerator' => '',
+                 'width' => 300,
+                 'optionsProviderType' => 'configure',
+                 'optionsProviderClass' => '',
+                 'optionsProviderData' => '',
+              )),
+              6 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                  'name' => 'Mass',
                  'title' => 'Mass',
@@ -382,7 +421,7 @@ Ośmiocyfrowy numer "Brick" klasyfikacji produktowej GS1 GPC. Wyszukiwarka kodó
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
               )),
-              6 => 
+              7 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                  'name' => 'PackagesMass',
                  'title' => 'Packages Mass',
@@ -421,7 +460,7 @@ Ośmiocyfrowy numer "Brick" klasyfikacji produktowej GS1 GPC. Wyszukiwarka kodó
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
               )),
-              7 => 
+              8 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                  'name' => 'PackagesVolume',
                  'title' => 'Packages Volume',
@@ -460,7 +499,7 @@ Ośmiocyfrowy numer "Brick" klasyfikacji produktowej GS1 GPC. Wyszukiwarka kodó
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
               )),
-              8 => 
+              9 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'name' => 'PackageCount',
                  'title' => 'Package Count',

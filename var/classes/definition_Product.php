@@ -51,7 +51,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Produkt',
    'description' => 'Towar, który można sprzedać',
    'creationDate' => NULL,
-   'modificationDate' => 1747907811,
+   'modificationDate' => 1748419936,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -705,7 +705,7 @@ Waga netto produktu - bez opakowania',
                  'tooltip' => 'CN
 
 Klasyfikacja CN produktu. Można skorzystać z wyszukiwarki ext-isztar4.mf.gov.pl',
-                 'mandatory' => true,
+                 'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
                  'locked' => false,
@@ -713,7 +713,7 @@ Klasyfikacja CN produktu. Można skorzystać z wyszukiwarki ext-isztar4.mf.gov.p
                  'permissions' => NULL,
                  'fieldtype' => '',
                  'relationType' => false,
-                 'invisible' => false,
+                 'invisible' => true,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
                  'blockedVarsForExport' => 
@@ -751,7 +751,7 @@ Ośmiocyfrowy numer "Brick" klasyfikacji produktowej GS1 GPC. Wyszukiwarka kodó
                  'permissions' => NULL,
                  'fieldtype' => '',
                  'relationType' => false,
-                 'invisible' => false,
+                 'invisible' => true,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
                  'blockedVarsForExport' => 
@@ -913,18 +913,10 @@ Producent',
                  'assetsAllowed' => false,
                  'assetTypes' => 
                 array (
-                  0 => 
-                  array (
-                    'assetTypes' => '',
-                  ),
                 ),
                  'documentsAllowed' => false,
                  'documentTypes' => 
                 array (
-                  0 => 
-                  array (
-                    'documentTypes' => '',
-                  ),
                 ),
                  'enableTextSelection' => false,
                  'width' => '',
