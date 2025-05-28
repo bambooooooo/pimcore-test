@@ -246,8 +246,7 @@ class ProductSetPublisher
 
                 if($pricing->getRestrictions()->getSelectedGroups())
                 {
-                    if(!in_array($set->getGroup(), $pricing->getRestrictions()->getSelectedGroups()->getGroups()) &&
-                        !array_intersect($pricing->getRestrictions()->getSelectedGroups()->getGroups(), $set->getGroups()))
+                    if(!array_intersect($pricing->getRestrictions()->getSelectedGroups()->getGroups(), $set->getGroups()))
                     {
                         return null;
                     }
