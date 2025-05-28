@@ -22,3 +22,36 @@ pimcore:
                         position: left
                         sort: 2
                         expanded: true
+
+            Sets:
+                icon: /UI/4-squares-red.svg
+                toolbar:
+                    file:
+                        items:
+                            dashboards: false
+                            openDocument: false
+                            openAsset: false
+                            searchReplace: false
+                            seemode: false
+                            help: false
+                            about: false
+                    settings:
+                        hidden: true
+                    extras:
+                        hidden: true
+                    datahub:
+                        hidden: true
+
+                elementTree:
+                    -
+                        type: customview
+                        position: left
+                        id: sets
+                        sort: 0
+                        expanded: true
+                    -
+                        type: customview
+                        position: right
+                        id: products_read_only
+                        sort: 0
+                        expanded: true

@@ -1,2 +1,44 @@
 pimcore:
     custom_views:
+        definitions:
+            sets:
+                name: Sets
+                treetype: object
+                position: left
+                classes: 'ProductSet'
+                icon: /UI/4-squares-red.svg
+                rootfolder: /ZESTAWY
+                showroot: true
+                sort: 0
+                id: sets
+
+            products_read_only:
+                id: products_read_only
+                name: 'Produkty'
+                treetype: object
+                position: left
+                icon: /UI/square-red.svg
+                rootfolder: /PRODUKTY
+                showroot: true
+                sort: 0
+                treeContextMenu:
+                    object:
+                        items:
+                            add: false
+                            addFolder: false
+                            importCsv: false
+                            cut: false
+                            copy: false
+                            paste: false
+                            delete: false
+                            rename: false
+                            reload: true
+                            publish: false
+                            unpublish: false
+                            searchAndMove: false
+                            lock: false
+                            unlock: false
+                            lockAndPropagate: false
+                            unlockAndPropagate: false
+                            changeChildrenSortBy: false
+                    classes: 'Product'
