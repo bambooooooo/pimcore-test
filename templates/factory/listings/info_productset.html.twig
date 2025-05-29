@@ -23,6 +23,16 @@
             </div>
         </div>
 
+        <div class="col-12 text-center">
+            {% if obj.Groups %}
+                {% for g in obj.Groups %}
+                    <a href="{{ path("factory_tree", {id: g.id}) }}" style="display: inline-block">
+                        <div class="badge rounded-pill bg-primary">#{{ g.key }}</div>
+                    </a>
+                {% endfor %}
+            {% endif %}
+        </div>
+
         <div class="col-12 mt-1">
             <a href="{{ path("factory_datasheet", {id: obj.id}) }}">
                 <div class="btn btn-outline-primary" style="width: 100%;">

@@ -45,12 +45,49 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path("factory_schedule") }}">
-                            {{ "Schedule"|trans }}
-                            <img src="/bundles/pimcoreadmin/img/flat-white-icons/factory.svg" height="20" style="position: relative; top: -3px;" alt="Factory"/>
-                        </a>
-                    </li>
+                    {% if app.user.nav_show_collections %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path("factory_tree", {id: pimcore_object_by_path('/GRUPY/KOLEKCJE').id}) }}">
+                                {{ "Collections"|trans }}
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if app.user.nav_show_products %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path("factory_tree", {id: pimcore_object_by_path('/PRODUKTY').id}) }}">
+                                {{ "Products"|trans }}
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if app.user.nav_show_types %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path("factory_tree", {id: pimcore_object_by_path('/GRUPY/TYP').id}) }}">
+                                {{ "Types"|trans }}
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if app.user.nav_show_sets %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path("factory_tree", {id: pimcore_object_by_path('/ZESTAWY').id}) }}">
+                                {{ "Sets"|trans }}
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if app.user.nav_show_packages %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path("factory_tree", {id: pimcore_object_by_path('/PACZKI').id}) }}">
+                                {{ "Packages"|trans }}
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if app.user.permission_schedule %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path("factory_schedule") }}">
+                                {{ "Schedule"|trans }}
+                                <img src="/bundles/pimcoreadmin/img/flat-white-icons/factory.svg" height="20" style="position: relative; top: -3px;" alt="Factory"/>
+                            </a>
+                        </li>
+                    {% endif %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path("factory_search") }}">
                             <img src="/bundles/pimcoreadmin/img/flat-color-icons/search.svg" height="18">

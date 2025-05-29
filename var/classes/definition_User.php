@@ -46,6 +46,11 @@
  * - product_show_elements [checkbox]
  * - product_show_orders [checkbox]
  * - product_show_packages [checkbox]
+ * - nav_show_collections [checkbox]
+ * - nav_show_products [checkbox]
+ * - nav_show_types [checkbox]
+ * - nav_show_sets [checkbox]
+ * - nav_show_packages [checkbox]
  */
 
 return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
@@ -55,7 +60,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Użytkownik',
    'description' => 'Podmiot w systemie',
    'creationDate' => NULL,
-   'modificationDate' => 1748272214,
+   'modificationDate' => 1748463311,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -1211,6 +1216,116 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'product_show_packages',
                          'title' => 'Product _show _packages',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'defaultValueGenerator' => '',
+                      )),
+                      8 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                         'name' => 'nav_show_collections',
+                         'title' => 'Nav _show _collections',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'defaultValueGenerator' => '',
+                      )),
+                      9 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                         'name' => 'nav_show_products',
+                         'title' => 'Nav _show _products',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'defaultValueGenerator' => '',
+                      )),
+                      10 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                         'name' => 'nav_show_types',
+                         'title' => 'Nav _show _types',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'defaultValueGenerator' => '',
+                      )),
+                      11 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                         'name' => 'nav_show_sets',
+                         'title' => 'Nav _show _sets',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'defaultValueGenerator' => '',
+                      )),
+                      12 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                         'name' => 'nav_show_packages',
+                         'title' => 'Nav _show _packages',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,

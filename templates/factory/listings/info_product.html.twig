@@ -60,6 +60,21 @@
                 {{ obj.Depth }}
             {% endif %}
         </div>
+        <div class="col-12 text-center">
+            {% if obj.Group %}
+                <a href="{{ path("factory_tree", {id: obj.Group.id}) }}" style="display: inline-block">
+                    <div class="badge rounded-pill bg-primary">#{{ obj.Group.key }}</div>
+                </a>
+            {% endif %}
+
+            {% if obj.Groups %}
+                {% for g in obj.Groups %}
+                    <a href="{{ path("factory_tree", {id: g.id}) }}" style="display: inline-block">
+                        <div class="badge rounded-pill bg-primary">#{{ g.key }}</div>
+                    </a>
+                {% endfor %}
+            {% endif %}
+        </div>
         <div class="col-12">
             <div class="container-fluid">
                 <div class="row">
@@ -102,7 +117,6 @@
                             </div>
                         {% endfor %}
                     {% endif %}
-
                 </div>
             </div>
         </div>
