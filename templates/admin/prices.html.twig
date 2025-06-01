@@ -28,11 +28,14 @@
     </thead>
     <tbody>
     {% for req in pricing.getDependencies().getFilterRequiredByPath() %}
-        {% if req.type == 'object' %}
-            {% set product = pimcore_object(req.id) %}
+        {% set product = pimcore_object(req.id) %}
+
+        {% if product and req.type == 'object' and (product is pimcore_data_object_class("Product") or product is pimcore_data_object_class("ProductSet")) %}
+
             <tr>
                 <td>
-                    {{ loop.index }}
+{#                    {{ loop.index }}#}
+                    {{ product.id }}
                 </td>
                 <td>
                     {{ product.Image.thumbnail("50x50").html|raw }}
@@ -43,7 +46,10 @@
                     </strong><br/>
                     {{ product.Name }}
                     <br/>
-                    {{ product.Width }} x {{ product.Height }} x {{ product.Depth }}
+                    {% if product is pimcore_data_object_class("Product") %}
+                        {{ product.Width }} x {{ product.Height }} x {{ product.Depth }}
+
+                    {% endif %}
                 </td>
                 <td>
                     {{ product.BasePrice }}
@@ -52,11 +58,12 @@
                     {% set diff = 0 %}
                     {% set pr = 0 %}
 
-                    {% for price in product.Pricing %}
-                        {% if price.objectId == pricing.id %}
-                            {{ price.data.Price }} zł
-                            {% set pr = price.data.Price %}
-                            {% set diff = price.data.Price - product.BasePrice.Value %}
+                    {% for offer in product.Offers %}
+                        {% if offer["Offer"].data.id == pricing.id %}
+                            {{ offer["Price"].data }}
+
+                            {% set pr = offer["Price"].data.Value %}
+                            {% set diff = offer["Price"].data.Value - product.BasePrice.Value %}
                         {% endif %}
                     {% endfor %}
                 </td>
@@ -64,7 +71,9 @@
                     {{ (100 * diff / product.BasePrice.Value)|round }} %
                 </td>
                 <td>
-                    {{ (100 * diff / pr)|round }} %
+                    {% if pr %}
+                        {{ (100 * diff / pr)|round }} %
+                    {% endif %}
                 </td>
                 <td>
                     {{ diff }} zł

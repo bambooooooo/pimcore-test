@@ -143,7 +143,7 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
         })
     }
 
-    if(e.detail.object.data.general.className === "Pricing")
+    if(e.detail.object.data.general.className === "Offer")
     {
         e.detail.object.toolbar.add({
             icon: '/bundles/pimcoreadmin/img/flat-white-icons/download-cloud.svg',

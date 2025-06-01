@@ -3,6 +3,7 @@
 namespace App\EventListener;
 
 use App\Publishing\EanPoolPublisher;
+use App\Publishing\OfferPublisher;
 use App\Publishing\OrderPublisher;
 use App\Publishing\PackagePublisher;
 use App\Publishing\PricingPublisher;
@@ -12,6 +13,7 @@ use App\Publishing\GroupPublisher;
 use Pimcore\Event\Model\ElementEventInterface;
 use Pimcore\Model\DataObject\EanPool;
 use Pimcore\Model\DataObject\Group;
+use Pimcore\Model\DataObject\Offer;
 use Pimcore\Model\DataObject\Order;
 use Pimcore\Model\DataObject\Package;
 use Pimcore\Model\DataObject\Pricing;
@@ -27,7 +29,8 @@ class ObjectPublishListener
         private readonly EanPoolPublisher    $eanPoolPublisher,
         private readonly PricingPublisher    $pricingPublisher,
         private readonly GroupPublisher      $groupPublisher,
-        private readonly OrderPublisher      $orderPublisher
+        private readonly OrderPublisher      $orderPublisher,
+        private readonly OfferPublisher      $offerPublisher
     ) {}
     public function onPublish(ElementEventInterface $event): void
     {
@@ -60,6 +63,10 @@ class ObjectPublishListener
         else if($obj instanceof Order and $obj->isPublished())
         {
             $this->orderPublisher->publish($obj);
+        }
+        else if($obj instanceof Offer and $obj->isPublished())
+        {
+            $this->offerPublisher->publish($obj);
         }
     }
 }

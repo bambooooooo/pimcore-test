@@ -37,6 +37,11 @@
                 </a>
             </h1>
         </div>
+        {% if app.user.product_show_baseprice %}
+            <div class="col-12 text-center">
+                tkw: {{ obj.BasePrice }}
+            </div>
+        {% endif %}
         <div class="col-12 text-center">
             <div>
                 {% if obj.Name is defined and obj.Name %}

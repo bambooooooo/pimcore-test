@@ -1,20 +1,38 @@
 <?php
 
 /**
+ * Inheritance: no
+ * Variants: no
+ *
  * Fields Summary:
- * - Pricing [manyToOneRelation]
+ * - Pricings [manyToManyObjectRelation]
  */
 
-return \Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
+return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'dao' => NULL,
-   'key' => 'Pricing',
+   'id' => 'Offer',
+   'name' => 'Offer',
+   'title' => '',
+   'description' => '',
+   'creationDate' => NULL,
+   'modificationDate' => 1748689726,
+   'userOwner' => 2,
+   'userModification' => 2,
    'parentClass' => '',
    'implementsInterfaces' => '',
-   'title' => '+ Inna wycena',
-   'group' => 'Pricing',
+   'listingParentClass' => '',
+   'useTraits' => '',
+   'listingUseTraits' => '',
+   'encryption' => false,
+   'encryptedTables' => 
+  array (
+  ),
+   'allowInherit' => false,
+   'allowVariants' => false,
+   'showVariants' => false,
    'layoutDefinitions' => 
   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-     'name' => NULL,
+     'name' => 'pimcore_root',
      'type' => NULL,
      'region' => NULL,
      'title' => NULL,
@@ -41,10 +59,10 @@ return \Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
          'children' => 
         array (
           0 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-             'name' => 'Pricing',
-             'title' => 'Pricing',
-             'tooltip' => 'Get price from another pricing',
+          \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+             'name' => 'Pricings',
+             'title' => 'Pricings',
+             'tooltip' => '',
              'mandatory' => true,
              'noteditable' => false,
              'index' => false,
@@ -68,19 +86,17 @@ return \Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
             ),
              'displayMode' => 'grid',
              'pathFormatterClass' => '',
-             'assetInlineDownloadAllowed' => false,
-             'assetUploadPath' => '',
-             'allowToClearRelation' => true,
-             'objectsAllowed' => true,
-             'assetsAllowed' => false,
-             'assetTypes' => 
-            array (
-            ),
-             'documentsAllowed' => false,
-             'documentTypes' => 
+             'maxItems' => NULL,
+             'visibleFields' => 'fullpath',
+             'allowToCreateNewObject' => false,
+             'allowToClearRelation' => false,
+             'optimizedAdminLoading' => false,
+             'enableTextSelection' => false,
+             'visibleFieldDefinitions' => 
             array (
             ),
              'width' => '',
+             'height' => '',
           )),
         ),
          'locked' => false,
@@ -106,8 +122,44 @@ return \Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
      'labelWidth' => 100,
      'labelAlign' => 'left',
   )),
-   'fieldDefinitionsCache' => NULL,
+   'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/percent.svg',
+   'group' => '',
+   'showAppLoggerTab' => false,
+   'linkGeneratorReference' => '',
+   'previewGeneratorReference' => '',
+   'compositeIndices' => 
+  array (
+  ),
+   'showFieldLookup' => false,
+   'propertyVisibility' => 
+  array (
+    'grid' => 
+    array (
+      'id' => true,
+      'key' => false,
+      'path' => true,
+      'published' => true,
+      'modificationDate' => true,
+      'creationDate' => true,
+    ),
+    'search' => 
+    array (
+      'id' => true,
+      'key' => false,
+      'path' => true,
+      'published' => true,
+      'modificationDate' => true,
+      'creationDate' => true,
+    ),
+  ),
+   'enableGridLocking' => false,
+   'deletedDataComponents' => 
+  array (
+  ),
    'blockedVarsForExport' => 
+  array (
+  ),
+   'fieldDefinitionsCache' => 
   array (
   ),
    'activeDispatchingEvents' => 

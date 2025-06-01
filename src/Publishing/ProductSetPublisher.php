@@ -4,6 +4,8 @@ namespace App\Publishing;
 
 use App\Service\BrokerService;
 use App\Service\DeepLService;
+use App\Service\OfferService;
+use App\Service\PricingService;
 use Pimcore\Bundle\ApplicationLoggerBundle\ApplicationLogger;
 use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\Data\ObjectMetadata;
@@ -16,7 +18,10 @@ use Pimcore\Tool;
 
 class ProductSetPublisher
 {
-    public function __construct(private readonly BrokerService $broker, private readonly DeepLService $deepLService)
+    public function __construct(private readonly BrokerService $broker,
+                                private readonly DeepLService $deepLService,
+                                private readonly PricingService $pricingService,
+                                private readonly OfferService $offerService)
     {
 
     }
@@ -34,6 +39,7 @@ class ProductSetPublisher
 
             $this->updateBasePrice($set);
             $this->updatePricings($set);
+            $this->updateOffers($set);
 
             $this->translateName($set);
 
@@ -132,17 +138,19 @@ class ProductSetPublisher
     private function updatePricings(ProductSet $set) : void
     {
         $pricingList = new Pricing\Listing();
-        $pricingList->setCondition("`Countries` IS NOT NULL AND `published` = 1");
+        $pricingList->setCondition("`published` = 1");
 
         $productPrices = [];
 
         foreach ($pricingList as $pricing)
         {
-            $res = $this->getPricing($pricing, $set);
+            $price = $this->pricingService->getPricing($set, $pricing);
 
-            if($res)
+            if($price)
             {
-                $productPrices[] = $res;
+                $item = new ObjectMetadata('Pricing', ['Price'], $pricing);
+                $item->setPrice($price);
+                $productPrices[] = $item;
             }
         }
 
@@ -150,338 +158,10 @@ class ProductSetPublisher
         $set->save();
     }
 
-    private function getPricing($pricing, $set)
+    function updateOffers(ProductSet $set) : void
     {
-        return DataObject\Service::useInheritedValues(true, function() use ($pricing, $set){
-
-            $totalMass = $set->getPackagesMass()->getValue();
-            $totalVolume = $set->getPackagesVolume()->getValue();
-            $packageCount = $set->getPackageCount();
-
-            $price = 0;
-            if($pricing->getUseBasePrice())
-            {
-                $price = $set->getBasePrice()->getValue();
-            }
-
-            $item = new ObjectMetadata('Pricing', ['Price'], $pricing);
-
-            if($pricing->getRestrictions())
-            {
-                if($pricing->getRestrictions()->getMaxPackageLength())
-                {
-                    $limit = $pricing->getRestrictions()->getMaxPackageLength()->getLimit()->getValue();
-
-                    foreach ($set->getSet() as $li)
-                    {
-                        foreach ($li->getElement()->getPackages() as $lip)
-                        {
-                            $dim = max([
-                                $lip->getElement()->getWidth()->getValue(),
-                                $lip->getElement()->getHeight()->getValue(),
-                                $lip->getElement()->getDepth()->getValue()
-                            ]);
-
-                            if($dim > $limit)
-                            {
-                                return null;
-                            }
-                        }
-                    }
-
-                }
-
-                if($pricing->getRestrictions()->getMaxPackageWeight())
-                {
-                    $limit = $pricing->getRestrictions()->getMaxPackageWeight()->getLimit()->getValue();
-
-                    foreach ($set->getSet() as $li) {
-                        foreach ($li->getElement()->getPackages() as $lip) {
-                            $dim = $lip->getElement()->getMass()->getValue();
-
-                            if ($dim > $limit) {
-                                return null;
-                            }
-                        }
-                    }
-                }
-
-                if($pricing->getRestrictions()->getMaxPackageSideLengthSum())
-                {
-                    $limit = $pricing->getRestrictions()->getMaxPackageSideLengthSum()->getLimit()->getValue();
-
-                    foreach ($set->getSet() as $li) {
-                        foreach ($li->getElement()->getPackages() as $lip) {
-                            $dim = $lip->getElement()->getWidth()->getValue() +
-                                $lip->getElement()->getHeight()->getValue() +
-                                $lip->getElement()->getDepth()->getValue();
-
-                            if ($dim > $limit) {
-                                return null;
-                            }
-                        }
-                    }
-                }
-
-                if($pricing->getRestrictions()->getBasePrice())
-                {
-                    $low = $pricing->getRestrictions()->getBasePrice()->getRange()->getMinimum();
-                    $high = $pricing->getRestrictions()->getBasePrice()->getRange()->getMaximum();
-
-                    if($set->getBasePrice()->getValue() < $low || $set->getBasePrice()->getValue() > $high)
-                        return null;
-                }
-
-                if($pricing->getRestrictions()->getProductCOO())
-                {
-                    foreach ($set->getSet() as $li)
-                    {
-                        if(!in_array($li->getElement()->getCOO(), $pricing->getRestrictions()->getProductCOO()->getCOO()))
-                        {
-                            return null;
-                        }
-                    }
-
-                }
-
-                if($pricing->getRestrictions()->getSelectedGroups())
-                {
-                    if(!array_intersect($pricing->getRestrictions()->getSelectedGroups()->getGroups(), $set->getGroups()))
-                    {
-                        return null;
-                    }
-                }
-
-                if($pricing->getRestrictions()->getProductDimensions())
-                {
-                    foreach ($set->getSet() as $li)
-                    {
-                        $product = $li->getElement();
-
-                        $w = $product->getWidth()->getValue();
-                        $h = $product->getHeight()->getValue();
-                        $d = $product->getDepth()->getValue();
-
-                        $wRange = $pricing->getRestrictions()->getProductDimensions()->getWidthRange();
-                        $hRange = $pricing->getRestrictions()->getProductDimensions()->getHeightRange();
-                        $dRange = $pricing->getRestrictions()->getProductDimensions()->getDepthRange();
-
-                        if(($w < $wRange->getMinimum() || $w > $wRange->getMaximum()) ||
-                            ($h < $hRange->getMinimum() || $h > $hRange->getMaximum()) ||
-                            ($d < $dRange->getMinimum() || $d > $dRange->getMaximum()))
-                        {
-                            return null;
-                        }
-                    }
-                }
-            }
-
-            foreach ($set->getSet() as $li)
-            {
-                if($li->getElement()->getLoadCarriers())
-                {
-                    if($pricing->getRestrictions() and $pricing->getRestrictions()->getLoadCarriers() and $pricing->getRestrictions()->getLoadCarriers()->getLoadCarriers())
-                    {
-                        $found = false;
-
-                        foreach ($li->getElement()->getLoadCarriers() as $productCarrier)
-                        {
-                            foreach ($pricing->getRestrictions()->getLoadCarriers()->getLoadCarriers() as $parcelCarrier)
-                            {
-                                if($productCarrier->getId() == $parcelCarrier->getId())
-                                {
-                                    $found = true;
-                                }
-                            }
-                        }
-
-                        if(!$found)
-                            return false;
-                    }
-                    else
-                    {
-                        return null;
-                    }
-                }
-            }
-
-            if($pricing->getRules())
-            {
-                foreach ($pricing->getRules() as $rule)
-                {
-                    if($rule instanceof ParcelMassVolume)
-                    {
-                        $massLimits = [];
-                        $volumeLimits = [];
-
-                        $skipCols = 2;
-                        $i = 0;
-
-                        foreach ($rule->getPrices()[0] as $headCell)
-                        {
-                            $i++;
-                            if($i <= $skipCols)
-                            {
-                                continue;
-                            }
-
-                            $massLimits[] = intval(str_replace(",00", "", $headCell));
-                        }
-
-                        $skipRows = 2;
-                        $j = 0;
-
-                        foreach($rule->getPrices() as $row)
-                        {
-                            $j++;
-                            if($j <= $skipRows)
-                            {
-                                continue;
-                            }
-
-                            $volumeLimits[] = floatval(str_replace(",", ".", $row[0]));
-                        }
-
-                        if($rule->getMode() == "PARCEL")
-                        {
-                            $x = 0;
-                            $y = 0;
-
-                            foreach ($massLimits as $m)
-                            {
-                                if($m <= $totalMass)
-                                {
-                                    $x++;
-                                }
-                                else
-                                {
-                                    break;
-                                }
-                            }
-
-                            foreach ($volumeLimits as $v)
-                            {
-                                if($v <= $totalVolume)
-                                {
-                                    $y++;
-                                }
-                                else
-                                {
-                                    break;
-                                }
-                            }
-
-                            $y++;
-                            $x++;
-
-                            $price += floatval(str_replace(",", ".", $rule->getPrices()[$y][$x]));
-                        }
-                        elseif($rule->getMode() == "PACKAGE")
-                        {
-                            foreach ($set->getSet() as $li) {
-                                foreach ($li->getElement()->getPackages() as $lip) {
-                                    $x = 0;
-                                    $y = 0;
-
-                                    foreach ($massLimits as $m) {
-                                        $packageMass = $lip->getElement()->getMass()->getValue();
-
-                                        if ($m <= $packageMass) {
-                                            $x++;
-                                        } else {
-                                            break;
-                                        }
-                                    }
-
-                                    foreach ($volumeLimits as $v) {
-                                        $packageVolume = $li->getElement()->getVolume();
-
-                                        if ($v <= $packageVolume) {
-                                            $y++;
-                                        } else {
-                                            break;
-                                        }
-                                    }
-
-                                    $y++;
-                                    $x++;
-
-                                    $price += floatval(str_replace(",", ".", $rule->getPrices()[$y][$x]))
-                                        * (float) $li->getQuantity()
-                                        * (float) $lip->getQuantity();
-                                }
-                            }
-                        }
-                    }
-
-                    if($rule instanceof DataObject\Fieldcollection\Data\Surcharge)
-                    {
-                        $price += ($rule->getMode() == "PACKAGE") ? $rule->getFee()->getValue() * $packageCount : $rule->getFee()->getValue();
-                    }
-
-                    if($rule instanceof DataObject\Fieldcollection\Data\Factor)
-                    {
-                        $price *= $rule->getFactor();
-                    }
-
-                    if($rule instanceof DataObject\Fieldcollection\Data\Pricing)
-                    {
-                        $otherPrice = $this->getPricing($rule->getPricing(), $set);
-                        if(!$otherPrice)
-                            return null;
-
-                        $price += $otherPrice->getPrice();
-                    }
-
-                    if($rule instanceof DataObject\Fieldcollection\Data\ParcelVolume)
-                    {
-                        $price += (float)$totalVolume * (float)$rule->getPrice()->getValue();
-                    }
-                }
-
-                $price = round($price, 2);
-
-                if($pricing->getRestrictions())
-                {
-                    if($pricing->getRestrictions()->getMinimalProfit())
-                    {
-                        $profit = $price - $set->getBasePrice()->getValue();
-
-                        if($profit < $pricing->getRestrictions()->getMinimalProfit()->getLimit()->getValue())
-                        {
-                            return null;
-                        }
-                    }
-
-                    if($pricing->getRestrictions()->getMinimalPercentageProfit())
-                    {
-                        $profit = $price - $set->getBasePrice()->getValue();
-                        $percentage = ($set->getBasePrice()->getValue()) ? $profit / $set->getBasePrice()->getValue() : 0;
-
-                        if($profit < $pricing->getRestrictions()->getMinimalPercentageProfit()->getLimit())
-                        {
-                            return null;
-                        }
-                    }
-
-                    if($pricing->getRestrictions()->getMinimalMarkup())
-                    {
-                        $profit = $price - $set->getBasePrice()->getValue();
-                        $markup = ($price) ? 100 * $profit / $price : 0;
-
-                        if($markup < $pricing->getRestrictions()->getMinimalMarkup()->getLimit())
-                        {
-                            return null;
-                        }
-                    }
-                }
-
-                $item->setPrice($price);
-                return $item;
-            }
-
-            return null;
-        });
+        $offers = $this->offerService->getObjectOffers($set);
+        $set->setOffers($offers);
     }
 
     function updateBasePrice(ProductSet $productSet) : void

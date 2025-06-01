@@ -278,7 +278,7 @@ class ObjectController extends FrontendController
     {
         $id = $request->get("id");
 
-        $obj = DataObject\Pricing::getById($id);
+        $obj = DataObject\Offer::getById($id);
 
         $data = [
             'pricing' => $obj
