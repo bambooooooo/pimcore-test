@@ -2,7 +2,8 @@
 
 /**
  * Fields Summary:
- * - Image [image]
+ * - localizedfields [localizedfields]
+ * -- Image [image]
  */
 
 return \Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
@@ -41,27 +42,67 @@ return \Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
          'children' => 
         array (
           0 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
-             'name' => 'Image',
-             'title' => 'Image',
-             'tooltip' => '',
-             'mandatory' => true,
+          \Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+             'name' => 'localizedfields',
+             'title' => '',
+             'tooltip' => NULL,
+             'mandatory' => false,
              'noteditable' => false,
              'index' => false,
              'locked' => false,
-             'style' => '',
+             'style' => NULL,
              'permissions' => NULL,
              'fieldtype' => '',
              'relationType' => false,
              'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => false,
+             'visibleGridView' => true,
+             'visibleSearch' => true,
              'blockedVarsForExport' => 
             array (
             ),
-             'uploadPath' => '',
-             'width' => '100%',
+             'children' => 
+            array (
+              0 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                 'name' => 'Image',
+                 'title' => 'Image',
+                 'tooltip' => '',
+                 'mandatory' => true,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'uploadPath' => '',
+                 'width' => '100%',
+                 'height' => '',
+              )),
+            ),
+             'region' => NULL,
+             'layout' => NULL,
+             'maxTabs' => NULL,
+             'border' => false,
+             'provideSplitView' => false,
+             'tabPosition' => 'top',
+             'hideLabelsWhenTabsReached' => NULL,
+             'referencedFields' => 
+            array (
+            ),
+             'permissionView' => NULL,
+             'permissionEdit' => NULL,
+             'labelWidth' => 100,
+             'labelAlign' => 'left',
+             'width' => '',
              'height' => '',
+             'fieldDefinitionsCache' => NULL,
           )),
         ),
          'locked' => false,

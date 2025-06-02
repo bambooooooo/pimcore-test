@@ -2,8 +2,9 @@
 
 /**
  * Fields Summary:
- * - Video [video]
- * - Text [wysiwyg]
+ * - localizedfields [localizedfields]
+ * -- Video [video]
+ * -- Text [wysiwyg]
  */
 
 return \Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
@@ -42,66 +43,106 @@ return \Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
          'children' => 
         array (
           0 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\Video::__set_state(array(
-             'name' => 'Video',
-             'title' => 'Video',
-             'tooltip' => '',
-             'mandatory' => true,
+          \Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+             'name' => 'localizedfields',
+             'title' => '',
+             'tooltip' => NULL,
+             'mandatory' => false,
              'noteditable' => false,
              'index' => false,
              'locked' => false,
-             'style' => 'float: left;',
+             'style' => NULL,
              'permissions' => NULL,
              'fieldtype' => '',
              'relationType' => false,
              'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => false,
+             'visibleGridView' => true,
+             'visibleSearch' => true,
              'blockedVarsForExport' => 
             array (
             ),
-             'uploadPath' => '',
-             'allowedTypes' => 
+             'children' => 
             array (
-              0 => 'asset',
-              1 => 'youtube',
-              2 => 'vimeo',
-              3 => 'dailymotion',
+              0 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Video::__set_state(array(
+                 'name' => 'Video',
+                 'title' => 'Video',
+                 'tooltip' => '',
+                 'mandatory' => true,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => 'float: left;',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'uploadPath' => '',
+                 'allowedTypes' => 
+                array (
+                  0 => 'asset',
+                  1 => 'youtube',
+                  2 => 'vimeo',
+                  3 => 'dailymotion',
+                ),
+                 'supportedTypes' => 
+                array (
+                  0 => 'asset',
+                  1 => 'youtube',
+                  2 => 'vimeo',
+                  3 => 'dailymotion',
+                ),
+                 'height' => '',
+                 'width' => '49%',
+              )),
+              1 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
+                 'name' => 'Text',
+                 'title' => 'Text',
+                 'tooltip' => '',
+                 'mandatory' => true,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => 'float: right;',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'toolbarConfig' => '',
+                 'excludeFromSearchIndex' => false,
+                 'maxCharacters' => '',
+                 'height' => '',
+                 'width' => '49%',
+              )),
             ),
-             'supportedTypes' => 
+             'region' => NULL,
+             'layout' => NULL,
+             'maxTabs' => NULL,
+             'border' => false,
+             'provideSplitView' => false,
+             'tabPosition' => 'top',
+             'hideLabelsWhenTabsReached' => NULL,
+             'referencedFields' => 
             array (
-              0 => 'asset',
-              1 => 'youtube',
-              2 => 'vimeo',
-              3 => 'dailymotion',
             ),
+             'permissionView' => NULL,
+             'permissionEdit' => NULL,
+             'labelWidth' => 100,
+             'labelAlign' => 'left',
+             'width' => '',
              'height' => '',
-             'width' => '49%',
-          )),
-          1 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
-             'name' => 'Text',
-             'title' => 'Text',
-             'tooltip' => '',
-             'mandatory' => true,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => 'float: right;',
-             'permissions' => NULL,
-             'fieldtype' => '',
-             'relationType' => false,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => false,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'toolbarConfig' => '',
-             'excludeFromSearchIndex' => false,
-             'maxCharacters' => '',
-             'height' => '',
-             'width' => '49%',
+             'fieldDefinitionsCache' => NULL,
           )),
         ),
          'locked' => false,
