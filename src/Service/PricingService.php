@@ -239,14 +239,14 @@ class PricingService
                         }
                         elseif($rule->getMode() == "PACKAGE")
                         {
-                            foreach ($product->getPackages() as $lip)
+                            foreach ($this->getPackages($obj) as $packageData)
                             {
                                 $x = 0;
                                 $y = 0;
 
                                 foreach ($massLimits as $m)
                                 {
-                                    $packageMass = $lip->getElement()->getMass()->getValue();
+                                    $packageMass = $packageData["Package"]->getMass()->getValue();
 
                                     if($m <= $packageMass)
                                     {
@@ -260,7 +260,7 @@ class PricingService
 
                                 foreach ($volumeLimits as $v)
                                 {
-                                    $packageVolume = $lip->getElement()->getVolume()->getValue();
+                                    $packageVolume = $packageData["Package"]->getVolume()->getValue();
 
                                     if($v <= $packageVolume)
                                     {
@@ -275,14 +275,14 @@ class PricingService
                                 $y++;
                                 $x++;
 
-                                $price += floatval(str_replace(",", ".", $rule->getPrices()[$y][$x])) * $lip->getQuantity();
+                                $price += floatval(str_replace(",", ".", $rule->getPrices()[$y][$x])) * $packageData["Quantity"];
                             }
                         }
                     }
 
                     if($rule instanceof Surcharge)
                     {
-                        $price += ($rule->getMode() == "PACKAGE") ? $rule->getFee()->getValue() * $packageCount : $rule->getFee()->getValue();
+                        $price += ($rule->getMode() == "PACKAGE") ? $rule->getFee()->getValue() * $obj->getPackageCount() : $rule->getFee()->getValue();
                     }
 
                     if($rule instanceof Factor)
@@ -292,16 +292,16 @@ class PricingService
 
                     if($rule instanceof DataObject\Fieldcollection\Data\Pricing)
                     {
-                        $otherPrice = $this->getPricing($product, $rule->getPricing());
+                        $otherPrice = $this->getPricing($obj, $rule->getPricing());
                         if(!$otherPrice)
                             return null;
 
-                        $price += $otherPrice->getPrice();
+                        $price += $otherPrice;
                     }
 
                     if($rule instanceof DataObject\Fieldcollection\Data\ParcelVolume)
                     {
-                        $price += (float)$totalVolume * (float)$rule->getPrice()->getValue();
+                        $price += (float)$obj->getPackagesVolume()->getValue() * (float)$rule->getPrice()->getValue();
                     }
                 }
 
