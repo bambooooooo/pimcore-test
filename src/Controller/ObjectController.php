@@ -2,9 +2,14 @@
 
 namespace App\Controller;
 
+use PhpOffice\PhpSpreadsheet\Helper\Html;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Pimcore\Controller\FrontendController;
 use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\Group;
+use Pimcore\Model\DataObject\Offer;
 use Pimcore\Model\DataObject\Product;
 use Pimcore\Model\DataObject\ProductSet;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -13,11 +18,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Validator\Constraints\Json;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use ZipArchive;
 
 class ObjectController extends FrontendController
 {
+
+    public function __construct(private TranslatorInterface $translator)
+    {
+
+    }
     /**
      * Exports objects images
      *
@@ -277,13 +287,114 @@ class ObjectController extends FrontendController
     public function pricesAction(Request $request): Response
     {
         $id = $request->get("id");
+        $kind = $request->get("kind") ?? "preview";
 
         $obj = DataObject\Offer::getById($id);
+
+        if($kind == "xlsx")
+        {
+            return $this->offerPriceListXlsx($obj);
+        }
 
         $data = [
             'pricing' => $obj
         ];
 
         return $this->render('admin/prices.html.twig', $data);
+    }
+
+    private function offerPriceListXlsx(Offer $offer): Response
+    {
+        DataObject::setHideUnpublished(false);
+        $id = $offer->getId();
+
+        $spreadsheet = new SpreadSheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $sheet->setTitle($offer->getKey());
+        $sheet->setCellValue('A1', '#');
+        $sheet->setCellValue('B1', $this->translator->trans('Image') );
+        $sheet->setCellValue('C1', $this->translator->trans('Product'));
+        $sheet->setCellValue('D1', $this->translator->trans('Name'));
+        $sheet->setCellValue('E1', $this->translator->trans('Width'));
+        $sheet->setCellValue('F1', $this->translator->trans('Height'));
+        $sheet->setCellValue('G1', $this->translator->trans('Depth'));
+        $sheet->setCellValue('H1', $this->translator->trans('Price'));
+
+        $sheet->getStyle('E')->getAlignment()->setWrapText(true);
+
+        $i = 1;
+        foreach ($offer->getDependencies()->getRequiredBy() as $req) {
+            $i++;
+
+            $obj = DataObject::getById($req['id']);
+
+            if(!$obj)
+                continue;
+
+            if(!($obj instanceof Product || $obj instanceof ProductSet))
+                continue;
+
+            $sheet->getRowDimension($i)->setRowHeight(64);
+            $sheet->setCellValue('A' . $i, $i - 1);
+            $sheet->setCellValue('C' . $i, $obj->getKey());
+            $sheet->setCellValue('D' . $i, $obj->getName());
+
+            if($obj instanceof Product)
+            {
+                $sheet->setCellValue('E' . $i, $obj->getWidth());
+                $sheet->setCellValue('F' . $i, $obj->getHeight());
+                $sheet->setCellValue('G' . $i, $obj->getDepth());
+            }
+
+            foreach ($obj->getOffers() as $off)
+            {
+                if($off["Offer"]->getData()->getId() == $offer->getId())
+                {
+                    $price = round($off["Price"]->getData()->getValue(), 2);
+                    $sheet->setCellValue('H' . $i, $price);
+                }
+            }
+
+            if ($obj->getImage()) {
+
+                $image = $obj->getImage()->getThumbnail("200x200");
+
+                $stream = $image->getStream();
+
+                // Create temporary file
+                $tempFile = tempnam(sys_get_temp_dir(), 'pim_image_');
+                file_put_contents($tempFile, stream_get_contents($stream));
+
+                if (file_exists($tempFile)) {
+                    $drawing = new Drawing();
+                    $drawing->setPath($tempFile);
+                    $drawing->setHeight(80); // Set image height (adjust as needed)
+                    $drawing->setCoordinates('B' . $i); // Place image in column D
+                    $drawing->setWorksheet($sheet);
+                }
+            }
+        }
+
+        $columns = ['A', 'C', 'D', 'E', 'F', 'G', 'H'];
+
+        foreach ($columns as $column) {
+            $sheet->getColumnDimension($column)->setAutoSize(true);
+        }
+
+        $sheet->getColumnDimension('B')->setWidth(12);
+
+        $writer = new Xlsx($spreadsheet);
+        $fileName = $offer->getKey() . '.xlsx';
+
+        $response = new Response();
+        $response->headers->set('Content-Type', 'application/vnd.ms-excel');
+        $response->headers->set('Content-Disposition', 'attachment;filename="' . $fileName . '"');
+
+        ob_start();
+        $writer->save('php://output');
+        $response->setContent(ob_get_clean());
+
+        return $response;
     }
 }

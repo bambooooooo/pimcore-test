@@ -151,12 +151,22 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
             tooltip: 'Download',
             menu: [
                 {
-                    text: t('Price list'),
+                    text: t('Price list (preview)'),
                     tooltip: t('Download PDF price list'),
-                    icon: '/bundles/pimcoreadmin/img/flat-white-icons/gallery.svg',
+                    icon: '/bundles/pimcoreadmin/img/flat-white-icons/download-cloud.svg',
                     scale: 'medium',
                     handler: function () {
                         const path = "/prices/" + e.detail.object.id;
+                        window.open(path);
+                    }
+                },
+                {
+                    text: t('Price list (xlsx)'),
+                    tooltip: t('Download XLSX price list'),
+                    icon: '/bundles/pimcoreadmin/img/flat-white-icons/download-cloud.svg',
+                    scale: 'medium',
+                    handler: function () {
+                        const path = "/prices/" + e.detail.object.id + "?kind=xlsx";
                         window.open(path);
                     }
                 }
