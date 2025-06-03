@@ -112,6 +112,9 @@ services:
     App\Twig\BarcodeExtension:
         tags: ['twig.extension']
 
+    App\Twig\KeyNameExtension:
+        tags: ['twig.extension']
+
     # Example custom templating helper
     # App\Templating\Helper\Example:
     #     # templating helpers need to be public as they

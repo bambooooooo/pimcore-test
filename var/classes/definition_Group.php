@@ -14,6 +14,7 @@
  * - Products [reverseObjectRelation]
  * - Sets [reverseObjectRelation]
  * - Users [reverseObjectRelation]
+ * - Keys [multiselect]
  */
 
 return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
@@ -23,7 +24,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Grupa',
    'description' => 'Zbiór produktów, zestawów produktów, użytkowników',
    'creationDate' => NULL,
-   'modificationDate' => 1746703829,
+   'modificationDate' => 1748933478,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -357,6 +358,62 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'layout' => NULL,
              'border' => false,
              'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/reverse_object_relation.svg',
+             'labelWidth' => 100,
+             'labelAlign' => 'left',
+          )),
+          2 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+             'name' => 'Layout',
+             'type' => NULL,
+             'region' => NULL,
+             'title' => 'Extras',
+             'width' => '',
+             'height' => '',
+             'collapsible' => false,
+             'collapsed' => false,
+             'bodyStyle' => '',
+             'datatype' => 'layout',
+             'children' => 
+            array (
+              0 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                 'name' => 'Keys',
+                 'title' => 'Keys',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'maxItems' => NULL,
+                 'renderType' => 'tags',
+                 'dynamicOptions' => false,
+                 'defaultValue' => NULL,
+                 'height' => '',
+                 'width' => 420,
+                 'defaultValueGenerator' => '',
+                 'optionsProviderType' => 'class',
+                 'optionsProviderClass' => 'App\\OptionProvider\\ClassificationStoreKeysProvider',
+                 'optionsProviderData' => '27',
+              )),
+            ),
+             'locked' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'fieldtype' => 'panel',
+             'layout' => NULL,
+             'border' => false,
+             'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/star.svg',
              'labelWidth' => 100,
              'labelAlign' => 'left',
           )),
