@@ -163,7 +163,25 @@ class FactoryController extends FrontendController
         }
         elseif ($obj instanceof DataObject\Group)
         {
-            $html = $this->renderView('factory/pdf/datasheet_group.html.twig', ['group' => $obj]);
+            $commonProductsInSetsNotDirectlyInGroup = [];
+
+            foreach($obj->getSets() as $set)
+            {
+                foreach($set->getSet() as $lip)
+                {
+                    $product = $lip->getElement();
+
+                    if(!in_array($obj, $product->getGroups()) && $product->getGroup() != $obj && !in_array($product, $commonProductsInSetsNotDirectlyInGroup))
+                    {
+                        $commonProductsInSetsNotDirectlyInGroup[] = $product;
+                    }
+                }
+            }
+
+            $html = $this->renderView('factory/pdf/datasheet_group.html.twig', [
+                'group' => $obj,
+                'common' => $commonProductsInSetsNotDirectlyInGroup
+            ]);
         }
 
         $pdf = $adapter->getPdfFromString($html, $params);
