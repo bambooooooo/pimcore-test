@@ -14,8 +14,9 @@
                     </a>
                 </li>
                 <li>
-                    <a target="_blank" class="dropdown-item" href="{{ path("factory_labels", {id: lip.element.id, serie_id: s.id, copies: lip.data.Quantity * p.data.Quantity, product_id: p.element.id, step: 90} ) }}">
-                        Naklejki (co 90 szt)
+                    {% set stickerStep = 90 %}
+                    <a target="_blank" class="dropdown-item" href="{{ path("factory_labels", {id: lip.element.id, serie_id: s.id, copies: lip.data.Quantity * p.data.Quantity, product_id: p.element.id, step: stickerStep} ) }}">
+                        {{ "Stickers"|trans }}
                     </a>
                 </li>
                 <li>
@@ -31,7 +32,7 @@
                         product_id: p.element.id, size: dim,
                         customer_id: s.user.id
                     }) }}">
-                        Etykiety ({{ lip.data.Quantity * p.data.Quantity }} szt)
+                        {{ "Labels"|trans }} (x{{ lip.data.Quantity * p.data.Quantity }})
                     </a>
                 </li>
                 <li>
@@ -43,7 +44,7 @@
                         copies: 1,
                         product_id: p.element.id, size: dim
                     }) }}">
-                        Etykieta duża ({{ dim }})
+                        {{"Large label"|trans}} ({{ dim }})
                     </a>
                 </li>
                 <li>
@@ -55,7 +56,7 @@
                         copies: 1,
                         product_id: p.element.id, size: dim
                     }) }}">
-                        Etykieta duża ({{ dim }})
+                        {{ "Large label"|trans }} ({{ dim }})
                     </a>
                 </li>
                 <li>
@@ -63,7 +64,7 @@
                         id: lip.element.id,
                         size: "20x32"})
                     }}">
-                        Elementy - QR
+                        {{ "Elements"|trans }} - QR
                     </a>
                 </li>
                 <li>
@@ -72,7 +73,7 @@
                         tpltype: "elements",
                         size: "32x20"})
                     }}">
-                        Elementy - C128
+                        {{ "Elements"|trans }} - C128
                     </a>
                 </li>
             </ul>

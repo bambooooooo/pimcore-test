@@ -1,6 +1,6 @@
 {% if app.user.schedule_show_supply_date %}
     {% if order.date == null %}
-        Brak daty
+        {{ "Missing Date"|trans }}
     {% else %}
         {{ order.date|date("d.m") }}
     {% endif %}

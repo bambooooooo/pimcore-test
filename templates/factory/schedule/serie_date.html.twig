@@ -1,6 +1,6 @@
 {% if app.user.schedule_show_send_date %}
     {% if serie.date == null %}
-        Brak daty
+        {{ "Missing Date"|trans }}
     {% else %}
         {{ serie.date|date("d.m") }}
     {% endif %}

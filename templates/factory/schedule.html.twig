@@ -145,8 +145,8 @@
             <table class="schedule">
                 <thead>
                 <tr>
-                    <td colspan="8" class="month-name">
-                        {% if year > 0 and month > 0 and month < 13 %}
+                    {% if year > 0 and month > 0 and month < 13 %}
+                        <td colspan="8" class="month-name">
                             {{ orders[0].date.locale(app.request.locale).translatedFormat('F Y') }}
                             <span>
                                 {% set cY = orders[0].date.year %}
@@ -155,22 +155,24 @@
                                     <img src="/bundles/pimcoreadmin/img/flat-color-icons/print.svg" alt="print month">
                                 </a>
                             </span>
-                        {% else %}
+                        </td>
+                    {% else %}
+                        <td colspan="8" class="month-name" style="background: #ff2121; color: #000; font-weight: bold; font-size: 22px; padding: 14px 0">
                             <span>
-                                Do zaplanowania
+                                {{ "To plan"|trans }}
                             </span>
-                        {% endif %}
-                    </td>
+                        </td>
+                    {% endif %}
                 </tr>
                 <tr class="head-col-name">
-                    <td>L.p.</td>
-                    <td>Dostawca</td>
-                    <td>Odbiorca</td>
+                    <td>{{ "No"|trans }}</td>
+                    <td>{{ "Vendor"|trans }}Dostawca</td>
+                    <td>{{ "Receiver"|trans }}</td>
                     <td>#</td>
-                    <td>Kod produktu</td>
-                    <td>Ilość</td>
-                    <td>Dostawy</td>
-                    <td>Wysyłka</td>
+                    <td>{{ "Product"|trans }}</td>
+                    <td>{{ "Quantity"|trans }}</td>
+                    <td>{{ "Supplies"|trans }}</td>
+                    <td>{{ "Shipment"|trans }}</td>
                 </tr>
                 </thead>
                 <tbody class="schedule-data">
