@@ -39,22 +39,22 @@
 
 {% for i in range(1, steps) %}
     <div class="page">
-        <div style="float: left; width: 65px; margin-right: 5px;">
+        <div style="float: left; width: 50px; margin-right: 2px;">
             {% set packageUrl = app.request.server.get("REQUEST_SCHEME") ~ "://" ~ app.request.server.get("HTTP_HOST") ~ path("factory_tree", {id: package.id}) %}
-            <img src="{{ qr_code_data_uri(packageUrl) }}" height="65"/>
+            <img src="{{ qr_code_data_uri(packageUrl) }}" height="50"/>
 
         </div>
         <div class="content">
-            <div style="font-size: 7px; margin-left: 4px; margin-right: 4px;">
+            <div style="font-size: 10px; margin-left: 4px; margin-right: 4px;">
                 <strong>
                     {{ package.key }}
                 </strong>
-                <span style="font-size: 5px; font-style: italic">
+                <span style="font-size: 8px; font-style: italic">
                     #{{ package.id }}
                 </span>
             </div>
             {% if product %}
-                <div style="font-size: 4px;">
+                <div style="font-size: 6px;">
                     {{ product.key }}
                 </div>
             {% endif %}
@@ -69,7 +69,7 @@
                 </div>
                 <div style="clear: both;"></div>
             </div>
-            <div style="font-size: 3px; text-align: left;">
+            <div style="font-size: 5px; text-align: left;">
                 {{ "now"|date("H:m:s d.m.Y") }}
             </div>
         </div>
