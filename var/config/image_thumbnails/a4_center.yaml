@@ -1,0 +1,28 @@
+pimcore:
+    assets:
+        image:
+            thumbnails:
+                definitions:
+                    a4_center:
+                        items:
+                            -
+                                method: cover
+                                arguments:
+                                    width: 2480
+                                    height: 3508
+                                    positioning: center
+                                    forceResize: true
+                        medias: {  }
+                        name: a4_center
+                        description: ''
+                        group: ''
+                        format: SOURCE
+                        quality: 85
+                        highResolution: null
+                        preserveColor: false
+                        preserveMetaData: false
+                        rasterizeSVG: false
+                        downloadable: false
+                        modificationDate: 1749017300
+                        creationDate: 1749017180
+                        preserveAnimation: false

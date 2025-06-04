@@ -14,18 +14,11 @@
             height: 76px;
             box-sizing: border-box;
             padding: 4px;
-            border: 1px solid black;
             font-size: 8px;
         }
 
         .content
         {
-            float: left;
-            width: 42px;
-            height: 64px;
-            writing-mode: vertical-rl;
-            text-orientation: sideways;
-            transform: rotate(180deg);
             text-align: center;
             box-sizing: border-box;
         }
@@ -39,13 +32,8 @@
 
 {% for i in range(1, steps) %}
     <div class="page">
-        <div style="float: left; width: 50px; margin-right: 2px;">
-            {% set packageUrl = app.request.server.get("REQUEST_SCHEME") ~ "://" ~ app.request.server.get("HTTP_HOST") ~ path("factory_tree", {id: package.id}) %}
-            <img src="{{ qr_code_data_uri(packageUrl) }}" height="50"/>
-
-        </div>
         <div class="content">
-            <div style="font-size: 10px; margin-left: 4px; margin-right: 4px;">
+            <div style="font-size: 14px; margin-left: 4px; margin-right: 4px;">
                 <strong>
                     {{ package.key }}
                 </strong>
@@ -54,22 +42,29 @@
                 </span>
             </div>
             {% if product %}
-                <div style="font-size: 6px;">
+                <div style="font-size: 6px; margin-top: 4px; margin-bottom: 4px;">
                     {{ product.key }}
+                    <span style="font-size: 5px; font-style: italic">
+                    #{{ product.id }}
+                </span>
                 </div>
             {% endif %}
             <div style="font-size: 6px; margin-right: 3px">
-                <div style="text-align: left; float:left;">
+                <div style="text-align: left; float:left; font-size: 11px">
                     {{ min(i * step, copies) }} / {{ copies }}
                 </div>
                 <div style="text-align: right; float: right;">
                     {% if order %}
-                        {{ "Serie"|trans }} {{ order.id }}
+                        {{ "Serie"|trans }} #{{ order.id }}<br/>
+                        [{{ order.key }}]
+                        {% if order.parent %}
+                            [{{ order.parent.key }}]
+                        {% endif %}
                     {% endif %}
                 </div>
                 <div style="clear: both;"></div>
             </div>
-            <div style="font-size: 5px; text-align: left;">
+            <div style="font-size: 5px; text-align: center; margin-top: 4px;">
                 {{ "now"|date("H:m:s d.m.Y") }}
             </div>
         </div>

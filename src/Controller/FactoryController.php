@@ -136,6 +136,8 @@ class FactoryController extends FrontendController
     #[Route('/{id}/datasheet', name: 'datasheet')]
     public function datasheetAction(Request $request): Response
     {
+        DataObject::setHideUnpublished(false);
+
         $obj = DataObject::getById($request->get('id'));
         if(!$obj)
             return new Response("Not found", Response::HTTP_NOT_FOUND);
@@ -148,7 +150,7 @@ class FactoryController extends FrontendController
             'marginLeft' => 0,
             'marginRight' => 0,
             'metadata' => [
-                'Title' => 'title',
+                'Title' => $obj->getKey(),
                 'Author' => 'pim'
             ]
         ];
@@ -163,23 +165,45 @@ class FactoryController extends FrontendController
         }
         elseif ($obj instanceof DataObject\Group)
         {
+            $productListing = new DataObject\Product\Listing();
+            $productListing->setCondition("Groups like '%," . $obj->getId() . ",%' AND `ObjectType`='ACTUAL'");
+            $prods = $productListing->load();
+
+            usort($prods, function ($a, $b) {
+               return strcmp($a->getKey(), $b->getKey());
+            });
+
+            $setListing = new DataObject\ProductSet\Listing();
+            $setListing->setCondition("Groups like '%," . $obj->getId() . ",%'");
+            $sets = $setListing->load();
+
+            usort($sets, function ($a, $b) {
+                return $a->getBasePrice()->getValue() > $b->getBasePrice()->getValue();
+            });
+
             $commonProductsInSetsNotDirectlyInGroup = [];
 
-            foreach($obj->getSets() as $set)
+            foreach($sets as $set)
             {
                 foreach($set->getSet() as $lip)
                 {
                     $product = $lip->getElement();
 
-                    if(!in_array($obj, $product->getGroups()) && $product->getGroup() != $obj && !in_array($product, $commonProductsInSetsNotDirectlyInGroup))
+                    if(!in_array($product, $prods) && !in_array($product, $commonProductsInSetsNotDirectlyInGroup))
                     {
                         $commonProductsInSetsNotDirectlyInGroup[] = $product;
                     }
                 }
             }
 
+            usort($commonProductsInSetsNotDirectlyInGroup, function ($a, $b) {
+                return $a->getBasePrice()->getValue() >= $b->getBasePrice()->getValue();
+            });
+
             $html = $this->renderView('factory/pdf/datasheet_group.html.twig', [
                 'group' => $obj,
+                'prods' => $prods,
+                'sets' => $sets,
                 'common' => $commonProductsInSetsNotDirectlyInGroup
             ]);
         }

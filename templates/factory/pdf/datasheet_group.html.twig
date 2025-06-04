@@ -1,90 +1,261 @@
 <html>
 <head>
-<style>
-    .pb
-    {
-        page-break-after: always;
-    }
+    <title>Cennik</title>
+{#    <link rel="stylesheet" type="text/css" href="/static/print/css/print-style.css"/>#}
+{#    <link rel="stylesheet" type="text/css" href="/bundles/pimcorewebtoprint/css/print/print-printermarks.css" media="print" />#}
+{#    <link rel="stylesheet" type="text/css" href="/static/print/css/print-preview.css" media="screen" />#}
+    <style>
 
-    @page {
-        size: A4;
-        margin: -2mm;
+        html, body
+        {
+            font-family: Tahoma, sans-serif;
+            padding: 0;
+            margin: 0;
+        }
 
-        @bottom-right {
-            content: counter(page) " / " counter(pages);
+        .pb
+        {
+            page-break-after: always;
+        }
+
+        @page {
+            size: A4;
+
+            @bottom-right {
+                content: counter(page) " / " counter(pages);
+                font-size: 12px;
+                color: #555;
+            }
+
+            @bottom-center {
+                content: " ";
+                border-top: 2px solid #cacaca;
+                color: #cacaca;
+            }
+        }
+
+        .page-content
+        {
+            padding: 10mm;
+            box-sizing: border-box;
+        }
+
+
+        .h3
+        {
+            padding: 12px 8px 6px 24px;
+            transform: skew(-20deg);
+            border-top: 4px solid red;
+            border-left: 4px solid red;
+            background: none;
+            position: relative;
+            display: inline-block;
+            margin-top: 4px;
+            font-size: 21px;
+        }
+
+        .h3-bottom
+        {
+            padding: 6px 8px 12px 12px;
+            position: absolute;
+            left: 30px;
+            top: 8px;
+            border-right: 4px solid black;
+            border-bottom: 4px solid black;
+            /*border-radius: 12px;*/
+        }
+
+        h2
+        {
+            background: #b8b8b8;
+            border-top: 2px solid #121212;
+            padding: 6px 0;
+        }
+
+        .table
+        {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+            text-align: center;
+        }
+
+        .table td
+        {
+            border-collapse: collapse;
+            border: 1px solid #cacaca;
+        }
+
+        .table th
+        {
+            border-collapse: collapse;
+            border: 1px solid #cacaca;
             font-size: 12px;
-            color: #555;
         }
 
-        @bottom-center {
-            content: " ";
-            border-top: 2px solid #cacaca;
-            color: #cacaca;
-        }
-    }
-</style>
+    </style>
 </head>
 <body>
-<div class="page" style="position: relative">
-    <img src="{{ group.Image.thumbnail("200x200") }}" style="display: block; width: 100%; height: 100%"/>
-    <div style="position: absolute; right: 16px; bottom: 16px; font-weight: bold; font-size: 72px;">
-        {{ group.key }}
+
+{% set sets_row_cnt = 3 %}
+{% set related_row_cnt = 8 %}
+{% set products_row_cnt = 7 %}
+
+{% if 1==1 %}
+    <div class="page" style="position: relative">
+        <img src="{{ asset("/LOGO/megstyl.svg") }}" style="display: block; height: 100px; top: 12px; left: 50%; transform: translateX(-50%); position: absolute"/>
+        <img src="{{ group.Image.thumbnail("a4_center") }}" style="display: block; height: 100%; width: 100%"/>
+        <div style="position: absolute; right: 16px; bottom: 16px; font-weight: bold; font-size: 72px;">
+            {{ group.key }}
+        </div>
+    </div>
+
+
+    <div class="pb"></div>
+
+    <div class="page" style="position: relative">
+        <img src="{{ group.Image.thumbnail("a4_center") }}" style="display: block; height: 100%"/>
+        <div style="position: absolute; width: 10cm; right: 16px; top: 30%; background: none">
+            {{ group.description|raw }}
+        </div>
+    </div>
+
+    <div class="pb"></div>
+{% endif %}
+
+<div class="page">
+    <div class="page-content">
+        <div class="h3">
+            <div class="h3-top">
+                {{ "Sets"|trans }}
+            </div>
+
+            <div class="h3-bottom">
+                <div style="visibility: hidden">
+                    {{ "Sets"|trans }}
+                </div>
+            </div>
+        </div>
+
+        <table>
+            <tbody>
+                {% set c = 0 %}
+
+                {% for s in sets %}
+                    {% if s.published %}
+                        {% if c == 0 %}
+                            <tr>
+                        {% endif %}
+                        <td>
+                            <a href="#{{ s.key }}" style="text-decoration: none; color: black;">
+                                <div style="text-align: center; padding: 18px 10px;">
+                                    <img src="{{ s.Image.thumbnail("200x200") }}" width="100"/>
+                                    <div style="font-size: 12px; margin-top: 6px;">
+    {#                                    <img src="{{ asset('bundles/pimcoreadmin/img/flat-color-icons/link.svg') }}" height="18"/>#}
+                                        {{ s.id }}
+                                    </div>
+                                </div>
+                            </a>
+                        </td>
+                        {% if c == sets_row_cnt %}
+                            </tr>
+                        {% endif %}
+                        {% set c = (c + 1) % (sets_row_cnt + 1) %}
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 </div>
 
-<div class="pb"></div>
+{#<div class="pb"></div>#}
 
 <div class="page">
-    {{ group.description|raw }}
+    <div class="page-content">
+        <div class="h3">
+            <div class="h3-top">
+                {{ "Related products"|trans }}
+            </div>
+
+            <div class="h3-bottom">
+                <div style="visibility: hidden">
+                    {{ "Related products"|replace({' ': '_'}) }}
+                </div>
+            </div>
+        </div>
+        <table>
+        <tbody>
+        {% set c = 0 %}
+
+        {% for s in common %}
+            {% if s.published %}
+                {% if c == 0 %}
+                    <tr>
+                {% endif %}
+                <td>
+                    <a href="#{{ s.key }}" style="text-decoration: none; color: black;">
+                        <div style="text-align: center; padding: 18px 10px;">
+                            <img src="{{ s.Image.thumbnail("200x200") }}" width="100"/>
+                            <div style="font-size: 12px; margin-top: 6px;">
+                                {#                                    <img src="{{ asset('bundles/pimcoreadmin/img/flat-color-icons/link.svg') }}" height="18"/>#}
+                                {{ s.id }}
+                            </div>
+                        </div>
+                    </a>
+                </td>
+                {% if c == related_row_cnt %}
+                    </tr>
+                {% endif %}
+                {% set c = (c + 1) % (related_row_cnt + 1) %}
+            {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
 </div>
 
-<div class="pb"></div>
-
-<h3>Products</h3>
-<ol>
-{% for product in group.Products %}
-
-    <li>
-        <img src="{{ product.Image.thumbnail("200x200") }}" />
-        {{ product.key }}
-    </li>
-
-    {% for child in product.children %}
-
-        <li>
-            <img src="{{ child.Image.thumbnail("200x200")|raw }}" />
-            {{ child.key }}
-        </li>
-
-    {% endfor %}
-
-{% endfor %}
-
-</ol>
-
-<h3>Sets</h3>
-<ol>
-    {% for set in group.Sets %}
-        {% if set.published %}
-            <li>
-                <img src="{{ set.Image.thumbnail("200x200")}}" />
-                {{ set.key }}
-            </li>
-        {% endif %}
-    {% endfor %}
-</ol>
-
-<h3>Additional products (in sets, but not in group)</h3>
-<ol>
-    {% for product in common %}
-        {% if product.published %}
-            <li>
-                <img src="{{ product.Image.thumbnail("200x200") }}" />
-                {{ product.key }}
-            </li>
-        {% endif %}
-    {% endfor %}
-</ol>
+{% if 1==1 %}
+    <div class="page">
+        <div class="page-content">
+            <div class="h3">
+                {{ "Products"|trans }}
+                <div class="h3-bottom">
+                    <div style="visibility: hidden">
+                        {{ "Products"|trans }}
+                    </div>
+                </div>
+            </div>
+            <table>
+            <tbody>
+            {% set c = 0 %}
+            {% for s in prods %}
+                {% if s.published %}
+                    {% if c == 0 %}
+                        <tr>
+                    {% endif %}
+                    <td>
+                        <a href="#{{ s.key }}" style="text-decoration: none; color: black;">
+                            <div style="text-align: center; padding: 18px 10px;">
+                                <img src="{{ s.Image.thumbnail("200x200") }}" width="100"/>
+                                <div style="font-size: 12px; margin-top: 6px;">
+                                    {#                                    <img src="{{ asset('bundles/pimcoreadmin/img/flat-color-icons/link.svg') }}" height="18"/>#}
+                                    {{ s.id }}
+                                </div>
+                            </div>
+                        </a>
+                    </td>
+                    {% if c == products_row_cnt %}
+                        </tr>
+                    {% endif %}
+                    {% set c = (c + 1) % (products_row_cnt + 1) %}
+                {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </div>
+    <div class="pb"></div>
+{% endif %}
 
 </body>
 </html>
