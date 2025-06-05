@@ -404,11 +404,11 @@
                                                         {% if key.value is iterable %}
                                                             {% for keyItem in key.value %}
                                                                 {% if keyItem is iterable %}
-                                                                    {{ dump(key.value) }}
+                                                                    {{ key.value }}
                                                                 {% else %}
                                                                     <span>
-                                                        {{ keyItem }}
-                                                    </span>
+                                                                        {{ keyItem }}
+                                                                    </span>
                                                                 {% endif %}
                                                             {% endfor %}
                                                         {% else %}
@@ -471,11 +471,11 @@
                                                             {% if key.value is iterable %}
                                                                 {% for keyItem in key.value %}
                                                                     {% if keyItem is iterable %}
-                                                                        {{ dump(key.value) }}
+                                                                        {{ key.value }}
                                                                     {% else %}
                                                                         <span>
-                                                        {{ keyItem }}
-                                                    </span>
+                                                                            {{ keyItem }}
+                                                                        </span>
                                                                     {% endif %}
                                                                 {% endfor %}
                                                             {% else %}
