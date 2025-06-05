@@ -149,6 +149,7 @@ class FactoryController extends FrontendController
             'marginBottom' => 0,
             'marginLeft' => 0,
             'marginRight' => 0,
+            "displayHeaderFooter" => true,
             'metadata' => [
                 'Title' => $obj->getKey(),
                 'Author' => 'pim'
@@ -204,12 +205,16 @@ class FactoryController extends FrontendController
                 'group' => $obj,
                 'prods' => $prods,
                 'sets' => $sets,
-                'common' => $commonProductsInSetsNotDirectlyInGroup
+                'common' => $commonProductsInSetsNotDirectlyInGroup,
+                'sets_row_cnt' => $request->query->get("sets") ?? 5,
+                'related_row_cnt' => $request->query->get("related") ?? 5,
+                'products_row_cnt' => $request->query->get("products") ?? 4,
             ]);
         }
 
         $pdf = $adapter->getPdfFromString($html, $params);
 
+//        return new Response($html, 200);
         return new Response($pdf, Response::HTTP_OK, ['Content-Type' => 'application/pdf']);
     }
 

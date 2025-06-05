@@ -115,6 +115,9 @@ services:
     App\Twig\KeyNameExtension:
         tags: ['twig.extension']
 
+    App\Twig\SelectedLanguagesExtension:
+        tags: ['twig.extension']
+
     # Example custom templating helper
     # App\Templating\Helper\Example:
     #     # templating helpers need to be public as they

@@ -1,0 +1,55 @@
+<section>
+    <h1>
+        {{ "Packages"|trans }}
+    </h1>
+    <div>
+        <table class="packages-table">
+            <thead>
+                <tr>
+                    <td>#</td>
+                    <td>{{ "Index"|trans }}</td>
+                    <td>{{ "Quantity"|trans }}</td>
+                    <td>{{ "Length"|trans }}</td>
+                    <td>{{ "Width"|trans }}</td>
+                    <td>{{ "Height"|trans }}</td>
+                    <td>{{ "Volume"|trans }}</td>
+                    <td>{{ "Weight"|trans }}</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% if item is pimcore_data_object_class("Product") %}
+                    {% for lip in item.Packages %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ lip.element.key }}</td>
+                            <td>{{ lip.data.Quantity }}</td>
+                            <td>{{ (lip.element.Depth.Value / 10)|round }} cm</td>
+                            <td>{{ (lip.element.Width.Value / 10)|round }} cm</td>
+                            <td>{{ (lip.element.Height.Value / 10)|round }} cm</td>
+                            <td>{{ lip.element.Volume }}</td>
+                            <td>{{ lip.element.Mass }}</td>
+                        </tr>
+                    {% endfor %}
+
+                {% elseif item is pimcore_data_object_class("ProductSet") %}
+                    {% set idx = 0 %}
+                    {% for prod in item.Set %}
+                        {% for lip in prod.element.Packages %}
+                            {% set idx = idx + 1 %}
+                            <tr>
+                                <td>{{ idx }}</td>
+                                <td>{{ lip.element.Barcode }}</td>
+                                <td>{{ prod.data.Quantity * lip.data.Quantity }}</td>
+                                <td>{{ (lip.element.Depth.Value / 10)|round }} cm</td>
+                                <td>{{ (lip.element.Width.Value / 10)|round }} cm</td>
+                                <td>{{ (lip.element.Height.Value / 10)|round }} cm</td>
+                                <td>{{ lip.element.Volume }}</td>
+                                <td>{{ lip.element.Mass }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</section>

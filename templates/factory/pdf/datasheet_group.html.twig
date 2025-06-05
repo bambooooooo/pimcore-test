@@ -8,7 +8,7 @@
 
         html, body
         {
-            font-family: Tahoma, sans-serif;
+            font-family: Poppins, sans-serif;
             padding: 0;
             margin: 0;
         }
@@ -20,128 +20,246 @@
 
         @page {
             size: A4;
+            margin: 10mm 0 10mm 0;
 
-            @bottom-right {
-                content: counter(page) " / " counter(pages);
+            @top-right {
+                content: "{{ "Datasheet"|trans }} - {{ group.name }}";
+                padding: 16px;
                 font-size: 12px;
-                color: #555;
+                font-style: italic;
             }
 
             @bottom-center {
-                content: " ";
-                border-top: 2px solid #cacaca;
-                color: #cacaca;
+                content: "www.megstyl.pl";
+                padding: 16px;
             }
+
+            @bottom-right {
+                content: counter(page);
+                padding: 16px;
+            }
+        }
+
+        @page :first {
+            margin: 0;
         }
 
         .page-content
         {
-            padding: 10mm;
+            padding: 0 10mm 0 10mm;
             box-sizing: border-box;
-        }
-
-
-        .h3
-        {
-            padding: 12px 8px 6px 24px;
-            transform: skew(-20deg);
-            border-top: 4px solid red;
-            border-left: 4px solid red;
-            background: none;
-            position: relative;
-            display: inline-block;
-            margin-top: 4px;
-            font-size: 21px;
-        }
-
-        .h3-bottom
-        {
-            padding: 6px 8px 12px 12px;
-            position: absolute;
-            left: 30px;
-            top: 8px;
-            border-right: 4px solid black;
-            border-bottom: 4px solid black;
-            /*border-radius: 12px;*/
-        }
-
-        h2
-        {
-            background: #b8b8b8;
-            border-top: 2px solid #121212;
-            padding: 6px 0;
         }
 
         .table
         {
             width: 100%;
-            border-collapse: collapse;
-            font-size: 11px;
             text-align: center;
+            box-sizing: border-box;
         }
 
-        .table td
+        .packages-table, .set-table
         {
+            width: 100%;
+            text-align: center;
             border-collapse: collapse;
             border: 1px solid #cacaca;
         }
 
-        .table th
+        .packages-table td, .set-table td
         {
-            border-collapse: collapse;
             border: 1px solid #cacaca;
-            font-size: 12px;
+            border-collapse: collapse;
+        }
+
+        .packages-table thead tr, .set-table thead tr
+        {
+            background: #e5e5e5;
+            padding: 4px;
+            font-weight: bolder;
+            font-size: 9px;
+        }
+
+        .packages-table tbody tr td, .set-table tbody tr td
+        {
+            padding: 3px;
+            font-size: 9px;
+            font-weight: normal;
+        }
+
+        section
+        {
+            margin-bottom: 32px;
+        }
+
+        .download-button
+        {
+            display: inline-block;
+            padding: 6px 8px;
+            background: #1d9cf3;
+            border-radius: 12px;
+            text-align: center;
+            color: #fff;
+            margin-top: 12px;
+        }
+
+        .download-button-icon
+        {
+            position: relative;
+            top: 3px;
+            height: 18px;
+        }
+
+        .page
+        {
+            position: relative;
+            page-break-before: always;
         }
 
     </style>
 </head>
 <body>
 
-{% set sets_row_cnt = 3 %}
-{% set related_row_cnt = 8 %}
-{% set products_row_cnt = 7 %}
-
-{% if 1==1 %}
-    <div class="page" style="position: relative">
+{% if "cover"=="cover" %}
+    <div class="page">
         <img src="{{ asset("/LOGO/megstyl.svg") }}" style="display: block; height: 100px; top: 12px; left: 50%; transform: translateX(-50%); position: absolute"/>
-        <img src="{{ group.Image.thumbnail("a4_center") }}" style="display: block; height: 100%; width: 100%"/>
-        <div style="position: absolute; right: 16px; bottom: 16px; font-weight: bold; font-size: 72px;">
-            {{ group.key }}
+        <img src="{{ group.Image.thumbnail("a4_center") }}" style="display: block; z-index: 500; height: 100%; width: 100%"/>
+        <img src="{{ asset("/UI/gear.png") }}" style="display: block; height: 285px; width: 285px; position: absolute; right: -20px; bottom: -20px; opacity: 0.16;"/>
+
+        <div style="position: absolute; right: 48px; bottom: 85px; color: #fff; text-align: right;">
+            <div style="font-size: 60px">
+                {{ group.key }}
+            </div>
+            <div style="font-size: 18px">
+                {{ "Data Sheet"|trans|upper }}
+            </div>
         </div>
-    </div>
 
+        <div style="position: absolute; left: 16px; bottom: 16px; width: 100%">
+            {% set ref = app.request.requestUri %}
+            {% set curr = app.request.locale %}
 
-    <div class="pb"></div>
+            {% for l in selected_languages() %}
 
-    <div class="page" style="position: relative">
-        <img src="{{ group.Image.thumbnail("a4_center") }}" style="display: block; height: 100%"/>
-        <div style="position: absolute; width: 10cm; right: 16px; top: 30%; background: none">
-            {{ group.description|raw }}
+                {% set flag = l %}
+
+                <a href="{{ ref|replace({('/' ~ curr ~ '/'): ('/' ~ l ~ '/')}) }}" style="text-decoration: none">
+                    <img src="{{ pimcore_language_flag(l)|replace({"/var/www/html/public": ""}) }}"
+                         style="display: inline-block; height: 18px; margin: 3px"/>
+                </a>
+
+            {% endfor %}
         </div>
-    </div>
 
+    </div>
     <div class="pb"></div>
 {% endif %}
 
-<div class="page">
-    <div class="page-content">
-        <div class="h3">
-            <div class="h3-top">
-                {{ "Sets"|trans }}
-            </div>
-
-            <div class="h3-bottom">
-                <div style="visibility: hidden">
-                    {{ "Sets"|trans }}
-                </div>
-            </div>
+{% if "summary"=="summary" %}
+    <div class="page" style="overflow: hidden">
+        <div style="background-image: url('{{ group.Image.thumbnail("a4_center") }}'); width: 100%; height: 100%; background-position: center; background-size: cover"></div>
+{#        <img src="{{ " style="display: block; width: 100%;"/>#}
+        <div style="position: absolute; width: 12.5cm; right: 32px; top: 32px; background: none; color: #fafafa; font-weight: bolder">
+            {{ group.description|raw }}
         </div>
+    </div>
+    <div class="pb"></div>
+{% endif %}
 
-        <table>
+{% if "sets"=="sets" %}
+    <div class="page">
+        <div class="page-content">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td colspan="{{ sets_row_cnt }}" style="text-align: left">
+                            <h1>
+                                {{ "Sets"|trans }}
+                            </h1>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% set c = 0 %}
+
+                    {% for s in sets %}
+                        {% if s.published %}
+                            {% if c == 0 %}
+                                <tr>
+                            {% endif %}
+                            <td>
+                                <a href="#{{ s.key }}" style="text-decoration: none; color: black;">
+                                    <div style="text-align: center; padding: 18px 10px">
+                                        <img src="{{ s.Image.thumbnail("200x200") }}" width="100"/>
+                                        <div style="font-size: 12px; margin-top: 6px;">
+        {#                                    <img src="{{ asset('bundles/pimcoreadmin/img/flat-color-icons/link.svg') }}" height="18"/>#}
+                                            {{ s.id }}
+                                        </div>
+                                    </div>
+                                </a>
+                            </td>
+                            {% if c == sets_row_cnt - 1 %}
+                                </tr>
+                            {% endif %}
+                            {% set c = (c + 1) % (sets_row_cnt) %}
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="pb"></div>
+{% endif %}
+
+{% if "related"=="related" %}
+    <div class="page">
+        <div class="page-content">
+            <h1>
+                {{ "Related products"|trans }}
+            </h1>
+            <table class="table">
             <tbody>
-                {% set c = 0 %}
+            {% set c = 0 %}
 
-                {% for s in sets %}
+            {% for s in common %}
+                {% if s.published %}
+                    {% if c == 0 %}
+                        <tr>
+                    {% endif %}
+                    <td>
+                        <a href="#{{ s.key }}" style="text-decoration: none; color: black;">
+                            <div style="text-align: center; padding: 18px 10px;">
+                                <img src="{{ s.Image.thumbnail("200x200") }}" style="width: 200px; max-width: 100%"/>
+                                <div style="font-size: 12px; margin-top: 6px;">
+                                    {#                                    <img src="{{ asset('bundles/pimcoreadmin/img/flat-color-icons/link.svg') }}" height="18"/>#}
+                                    {{ s.id }}
+                                </div>
+                            </div>
+                        </a>
+                    </td>
+                    {% if c == related_row_cnt - 1 %}
+                        </tr>
+                    {% endif %}
+                    {% set c = (c + 1) % (related_row_cnt) %}
+                {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+        </div>
+        
+    </div>
+    <div class="pb"></div>
+{% endif %}
+
+{% if "products" == "products" %}
+    <div class="page">
+            <div class="page-content">
+                <h1>
+                    {{ "Products"|trans }}
+                </h1>
+                <table class="table">
+                <tbody>
+                {% set c = 0 %}
+                {% for s in prods %}
                     {% if s.published %}
                         {% if c == 0 %}
                             <tr>
@@ -151,110 +269,238 @@
                                 <div style="text-align: center; padding: 18px 10px;">
                                     <img src="{{ s.Image.thumbnail("200x200") }}" width="100"/>
                                     <div style="font-size: 12px; margin-top: 6px;">
-    {#                                    <img src="{{ asset('bundles/pimcoreadmin/img/flat-color-icons/link.svg') }}" height="18"/>#}
+                                        {#                                    <img src="{{ asset('bundles/pimcoreadmin/img/flat-color-icons/link.svg') }}" height="18"/>#}
                                         {{ s.id }}
                                     </div>
                                 </div>
                             </a>
                         </td>
-                        {% if c == sets_row_cnt %}
+                        {% if c == products_row_cnt - 1 %}
                             </tr>
                         {% endif %}
-                        {% set c = (c + 1) % (sets_row_cnt + 1) %}
+                        {% set c = (c + 1) % (products_row_cnt) %}
                     {% endif %}
                 {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</div>
-
-{#<div class="pb"></div>#}
-
-<div class="page">
-    <div class="page-content">
-        <div class="h3">
-            <div class="h3-top">
-                {{ "Related products"|trans }}
+                </tbody>
+            </table>
             </div>
 
-            <div class="h3-bottom">
-                <div style="visibility: hidden">
-                    {{ "Related products"|replace({' ': '_'}) }}
-                </div>
-            </div>
         </div>
-        <table>
-        <tbody>
-        {% set c = 0 %}
+    <div class="pb"></div>
+{% endif %}
 
-        {% for s in common %}
-            {% if s.published %}
-                {% if c == 0 %}
-                    <tr>
-                {% endif %}
-                <td>
-                    <a href="#{{ s.key }}" style="text-decoration: none; color: black;">
-                        <div style="text-align: center; padding: 18px 10px;">
-                            <img src="{{ s.Image.thumbnail("200x200") }}" width="100"/>
-                            <div style="font-size: 12px; margin-top: 6px;">
-                                {#                                    <img src="{{ asset('bundles/pimcoreadmin/img/flat-color-icons/link.svg') }}" height="18"/>#}
-                                {{ s.id }}
-                            </div>
-                        </div>
-                    </a>
-                </td>
-                {% if c == related_row_cnt %}
-                    </tr>
-                {% endif %}
-                {% set c = (c + 1) % (related_row_cnt + 1) %}
-            {% endif %}
-        {% endfor %}
-        </tbody>
-    </table>
-    </div>
-</div>
+{% if "set" == "set" %}
+    {% for s in sets %}
+        {% if s.published %}
+            <article id="{{ s.id }}">
+                <div class="page">
+                    <div class="page-content">
+                        {{ include('factory/pdf/parts/_item_header.html.twig', {item: s}) }}
+                        {{ include('factory/pdf/parts/_packages.html.twig', {item: s}) }}
+                        <section>
+                            <h1>
+                                {{ "Set elements"|trans }}
+                            </h1>
+                            <div style="column-count: 1">
+                                <div class="mb-4">
+                                    <table class="set-table">
+                                        <thead>
+                                            <tr>
+                                                <td>{{ "No"|trans }}</td>
+                                                <td>{{ "Image"|trans }}</td>
+                                                <td>{{ "Quantity"|trans }}</td>
+                                                <td>{{ "Description"|trans }}</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for lip in s.Set %}
+                                                <tr>
+                                                    <td>{{ loop.index }}</td>
+                                                    <td>
+                                                        {% if lip.element.Image %}
+                                                            <div>
+                                                                <img src="{{ lip.element.Image.thumbnail("50x50") }}" width="50"/>
+                                                            </div>
+                                                        {% endif %}
+                                                        {{ lip.element.key }}
+                                                    </td>
+                                                    <td>
+                                                        {{ lip.data.Quantity }}
+                                                    </td>
+                                                    <td>
+                                                        {% if  lip.element.Group %}
 
-{% if 1==1 %}
-    <div class="page">
-        <div class="page-content">
-            <div class="h3">
-                {{ "Products"|trans }}
-                <div class="h3-bottom">
-                    <div style="visibility: hidden">
-                        {{ "Products"|trans }}
-                    </div>
-                </div>
-            </div>
-            <table>
-            <tbody>
-            {% set c = 0 %}
-            {% for s in prods %}
-                {% if s.published %}
-                    {% if c == 0 %}
-                        <tr>
-                    {% endif %}
-                    <td>
-                        <a href="#{{ s.key }}" style="text-decoration: none; color: black;">
-                            <div style="text-align: center; padding: 18px 10px;">
-                                <img src="{{ s.Image.thumbnail("200x200") }}" width="100"/>
-                                <div style="font-size: 12px; margin-top: 6px;">
-                                    {#                                    <img src="{{ asset('bundles/pimcoreadmin/img/flat-color-icons/link.svg') }}" height="18"/>#}
-                                    {{ s.id }}
+                                                        <ul>
+                                                            {% if lip.element.Group.Keys %}
+                                                                {% for k in lip.element.Group.Keys %}
+                                                                    {% set chunks = k|split('~') %}
+                                                                    {% set groupId = chunks[0] %}
+                                                                    {% set keyId = chunks[1] %}
+
+                                                                    {% if lip.element.Parameters.items[groupId] is defined and lip.element.Parameters.items[groupId][keyId] is defined %}
+                                                                        <li>
+                                                                            {{ keyname(keyId) }}:
+
+                                                                            {% if lip.element.Parameters.items[groupId][keyId]["default"] is iterable %}
+                                                                                {{ lip.element.Parameters.items[groupId][keyId]["default"]|join(", ") }}
+                                                                            {% else %}
+                                                                                {{ lip.element.Parameters.items[groupId][keyId]["default"] }}
+                                                                            {% endif %}
+                                                                        </li>
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                        </ul>
+
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
-                        </a>
-                    </td>
-                    {% if c == products_row_cnt %}
-                        </tr>
-                    {% endif %}
-                    {% set c = (c + 1) % (products_row_cnt + 1) %}
-                {% endif %}
-            {% endfor %}
-            </tbody>
-        </table>
-        </div>
-    </div>
-    <div class="pb"></div>
+                        </section>
+                    </div>
+                </div>
+            </article>
+            <div class="pb"></div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+{% if "item" == "item" %}
+    {% for s in prods %}
+        {% if s.published %}
+            <article id="{{ s.id }}">
+                <div class="page">
+                <div class="page-content">
+                    {{ include('factory/pdf/parts/_item_header.html.twig', {item: s}) }}
+                    {{ include('factory/pdf/parts/_packages.html.twig', {item: s}) }}
+                    <section>
+                        <h1>{{ "Parameters"|trans }}</h1>
+                        <div style="column-count: 3">
+
+                            {% for group in s.Parameters.groups %}
+                                <div class="mb-4">
+                                    <table class="packages-table">
+                                        <thead>
+                                        <tr>
+                                            <td colspan="2">
+                                                <div>
+                                                    {{ group.configuration.name }}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for key in group.keys %}
+                                            <tr>
+                                                <td>
+                                                    {{ key.configuration.title }}
+                                                </td>
+                                                <td>
+                                                    {% if key.value %}
+                                                        {% if key.value is iterable %}
+                                                            {% for keyItem in key.value %}
+                                                                {% if keyItem is iterable %}
+                                                                    {{ dump(key.value) }}
+                                                                {% else %}
+                                                                    <span>
+                                                        {{ keyItem }}
+                                                    </span>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        {% else %}
+                                                            {{ key.value }}
+                                                        {% endif %}
+                                                    {% else %}
+                                                        -
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            {% endfor %}
+
+                        </div>
+                    </section>
+                </div>
+                
+            </div>
+            </article>
+            <div class="pb"></div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+{% if "related_item" == "related_item" %}
+    {% for s in common %}
+        {% if s.published %}
+            <article id="{{ s.id }}">
+                <div class="page">
+                    <div class="page-content">
+                        {{ include('factory/pdf/parts/_item_header.html.twig', {item: s}) }}
+                        {{ include('factory/pdf/parts/_packages.html.twig', {item: s}) }}
+                        <section>
+                            <h1>{{ "Parameters"|trans }}</h1>
+                            <div style="column-count: 3">
+
+                                {% for group in s.Parameters.groups %}
+                                    <div class="mb-4">
+                                        <table class="packages-table">
+                                            <thead>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <div>
+                                                        {{ group.configuration.name }}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for key in group.keys %}
+                                                <tr>
+                                                    <td>
+                                                        {{ key.configuration.title }}
+                                                    </td>
+                                                    <td>
+                                                        {% if key.value %}
+                                                            {% if key.value is iterable %}
+                                                                {% for keyItem in key.value %}
+                                                                    {% if keyItem is iterable %}
+                                                                        {{ dump(key.value) }}
+                                                                    {% else %}
+                                                                        <span>
+                                                        {{ keyItem }}
+                                                    </span>
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                            {% else %}
+                                                                {{ key.value }}
+                                                            {% endif %}
+                                                        {% else %}
+                                                            -
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                {% endfor %}
+
+                            </div>
+                        </section>
+                    </div>
+
+                </div>
+            </article>
+            <div class="pb"></div>
+        {% endif %}
+    {% endfor %}
 {% endif %}
 
 </body>
