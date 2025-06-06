@@ -17,6 +17,12 @@
     </div>
 {% endif %}
 
+{% if app.user.schedule_show_serie_carrier and  serie.Carrier %}
+<div>
+    {{ serie.Carrier.key }}
+</div>
+{% endif %}
+
 {% if serie.Attachments and app.user.schedule_show_serie_attachments %}
     <div>
         {% for att in serie.Attachments %}

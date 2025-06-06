@@ -28,6 +28,7 @@
  * - schedule_show_send_date [checkbox]
  * - schedule_show_supply_date [checkbox]
  * - schedule_show_all_suppliers [checkbox]
+ * - schedule_show_serie_carrier [checkbox]
  * - schedule_show_serie_attachments [checkbox]
  * - schedule_item_show_status [checkbox]
  * - schedule_show_cartoon [checkbox]
@@ -61,7 +62,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Użytkownik',
    'description' => 'Podmiot w systemie',
    'creationDate' => NULL,
-   'modificationDate' => 1748769800,
+   'modificationDate' => 1749200996,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -789,6 +790,28 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                       )),
                       8 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                         'name' => 'schedule_show_serie_carrier',
+                         'title' => 'Schedule _show _serie _carrier',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'defaultValueGenerator' => '',
+                      )),
+                      9 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'schedule_show_serie_attachments',
                          'title' => 'Schedule _show _serie _attachments',
                          'tooltip' => '',
@@ -809,7 +832,7 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      9 => 
+                      10 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'schedule_item_show_status',
                          'title' => 'Schedule _item _show _status',
@@ -831,7 +854,7 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      10 => 
+                      11 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'schedule_show_cartoon',
                          'title' => 'Schedule _show _cartoon',
@@ -853,7 +876,7 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      11 => 
+                      12 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'schedule_show_only_user_related_products',
                          'title' => 'Schedule _show _only _user _related _products',
@@ -875,7 +898,7 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      12 => 
+                      13 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'permission_schedule',
                          'title' => 'Permission _schedule',
