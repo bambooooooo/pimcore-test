@@ -8,15 +8,16 @@
                 <tr>
                     <td>#</td>
                     <td>{{ "Index"|trans }}</td>
+                    <td>{{ "Sku"|trans }}</td>
                     <td>{{ "Quantity"|trans }}</td>
                     <td>{{ "Length"|trans }}</td>
                     <td>{{ "Width"|trans }}</td>
                     <td>{{ "Height"|trans }}</td>
                     <td>{{ "Volume"|trans }}</td>
                     <td>{{ "Weight"|trans }}</td>
-                    <td>{{ "Sku"|trans }}</td>
                     <td>{{ "Pallet Size"|trans }}</td>
                     <td>{{ "Pallet Count"|trans }}</td>
+                    <td>{{ "Pallet Weight"|trans }}</td>
                 </tr>
             </thead>
             <tbody>
@@ -24,6 +25,7 @@
                     {% for lip in item.Packages %}
                         <tr>
                             <td>{{ loop.index }}</td>
+                            <td>{{ lip.element.key }}</td>
                             <td>{{ lip.element.Barcode }}</td>
                             <td>{{ lip.data.Quantity }}</td>
                             <td>{{ (lip.element.Depth.Value / 10)|round }} cm</td>
@@ -31,7 +33,6 @@
                             <td>{{ (lip.element.Height.Value / 10)|round }} cm</td>
                             <td>{{ lip.element.Volume }}</td>
                             <td>{{ lip.element.Mass }}</td>
-                            <td>{{ lip.element.key }}</td>
                             <td>
                                 {% if lip.element.Carriers %}
                                     {% for lic in lip.element.Carriers %}
@@ -42,12 +43,19 @@
                                 {% endif %}
                             </td>
                             <td>
+                                {% set licQty = 0 %}
                                 {% if lip.element.Carriers %}
                                     {% for lic in lip.element.Carriers %}
                                         {{ lic.data.Quantity }}
+                                        {% set licQty = lic.data.Quantity %}
                                     {% endfor %}
                                 {% else %}
                                     -
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if licQty %}
+                                    {{ licQty * lip.element.Mass.Value }} kg
                                 {% endif %}
                             </td>
                         </tr>
@@ -60,6 +68,7 @@
                             {% set idx = idx + 1 %}
                             <tr>
                                 <td>{{ idx }}</td>
+                                <td>{{ lip.element.key }}</td>
                                 <td>{{ lip.element.Barcode }}</td>
                                 <td>{{ prod.data.Quantity * lip.data.Quantity }}</td>
                                 <td>{{ (lip.element.Depth.Value / 10)|round }} cm</td>
@@ -67,7 +76,6 @@
                                 <td>{{ (lip.element.Height.Value / 10)|round }} cm</td>
                                 <td>{{ lip.element.Volume }}</td>
                                 <td>{{ lip.element.Mass }}</td>
-                                <td>{{ lip.element.key }}</td>
                                 <td>
                                     {% if lip.element.Carriers %}
                                         {% for lic in lip.element.Carriers %}
@@ -78,12 +86,19 @@
                                     {% endif %}
                                 </td>
                                 <td>
+                                    {% set licQty = 0 %}
                                     {% if lip.element.Carriers %}
                                         {% for lic in lip.element.Carriers %}
                                             {{ lic.data.Quantity }}
+                                            {% set licQty = lic.data.Quantity %}
                                         {% endfor %}
                                     {% else %}
                                         -
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if licQty %}
+                                        {{ licQty * lip.element.Mass.Value }} kg
                                     {% endif %}
                                 </td>
                             </tr>

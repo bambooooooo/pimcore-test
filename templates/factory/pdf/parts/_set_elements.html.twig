@@ -9,9 +9,10 @@
                 <tr>
                     <td>{{ "No"|trans }}</td>
                     <td>{{ "Image"|trans }}</td>
+                    <td>{{ "Dimensions"|trans }}</td>
                     <td>{{ "Quantity"|trans }}</td>
-                    <td>{{ "Bulk count"|trans }}</td>
                     <td>{{ "Description"|trans }}</td>
+                    <td>{{ "Bulk count"|trans }}</td>
                 </tr>
                 </thead>
                 <tbody>
@@ -27,14 +28,10 @@
                             {{ lip.element.key }}
                         </td>
                         <td>
-                            {{ lip.data.Quantity }}
+                            {{ lip.element.Width }} x {{ lip.element.Height }} x {{ lip.element.Depth }}
                         </td>
                         <td>
-                            {% if lip.element.SerieSize %}
-                                {{ lip.element.SerieSize }}
-                            {% else %}
-                                -
-                            {% endif %}
+                            {{ lip.data.Quantity }}
                         </td>
                         <td style="text-align: left">
                             {% if lip.element.Group %}
@@ -62,6 +59,13 @@
                                     {% endif %}
                                 </ul>
 
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if lip.element.SerieSize %}
+                                {{ lip.element.SerieSize }}
+                            {% else %}
+                                -
                             {% endif %}
                         </td>
                     </tr>
