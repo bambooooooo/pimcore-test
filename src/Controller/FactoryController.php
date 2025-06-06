@@ -136,8 +136,6 @@ class FactoryController extends FrontendController
     #[Route('/{id}/datasheet', name: 'datasheet')]
     public function datasheetAction(Request $request): Response
     {
-        DataObject::setHideUnpublished(false);
-
         $obj = DataObject::getById($request->get('id'));
         if(!$obj)
             return new Response("Not found", Response::HTTP_NOT_FOUND);
@@ -170,8 +168,15 @@ class FactoryController extends FrontendController
             $productListing->setCondition("Groups like '%," . $obj->getId() . ",%' AND `ObjectType`='ACTUAL'");
             $prods = $productListing->load();
 
-            usort($prods, function ($a, $b) {
-               return strcmp($a->getKey(), $b->getKey());
+            usort($prods, function (DataObject\Product $a, DataObject\Product $b) {
+                $comp = strcmp($a->getGroup()->getKey(), $b->getGroup()->getKey());
+
+                if($comp === 0)
+                {
+                    return strcmp($a->getKey(), $b->getKey());
+                }
+
+                return $comp;
             });
 
             $setListing = new DataObject\ProductSet\Listing();
@@ -197,8 +202,16 @@ class FactoryController extends FrontendController
                 }
             }
 
-            usort($commonProductsInSetsNotDirectlyInGroup, function ($a, $b) {
-                return $a->getBasePrice()->getValue() >= $b->getBasePrice()->getValue();
+            usort($commonProductsInSetsNotDirectlyInGroup, function (DataObject\Product $a, DataObject\Product $b) {
+
+                $comp = strcmp($a->getGroup()->getKey(), $b->getGroup()->getKey());
+
+                if($comp === 0)
+                {
+                    return strcmp($a->getKey(), $b->getKey());
+                }
+
+                return $comp;
             });
 
             $html = $this->renderView('factory/pdf/datasheet_group.html.twig', [
@@ -207,8 +220,8 @@ class FactoryController extends FrontendController
                 'sets' => $sets,
                 'common' => $commonProductsInSetsNotDirectlyInGroup,
                 'sets_row_cnt' => $request->query->get("sets") ?? 5,
-                'related_row_cnt' => $request->query->get("related") ?? 5,
-                'products_row_cnt' => $request->query->get("products") ?? 4,
+                'products_row_cnt' => $request->query->get("products") ?? 5,
+                'new_after_date' => (new Carbon("now"))->subDays((int)$request->query->get("new") ?? 1),
             ]);
         }
 

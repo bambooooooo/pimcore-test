@@ -1,7 +1,7 @@
 <section>
     <div style="width: 100%">
         <div style="float:left; width: 70%">
-            <div>
+            <div style="position:relative">
                 <div style="font-weight: bold; font-size: 32px; line-height: 32px">
                     {{ s.Name }}
                 </div>
@@ -39,8 +39,13 @@
             </div>
         </div>
         <div style="float:left; width: 30%">
-            <div style="text-align: center; padding: 18px 10px;">
+            <div style="text-align: center; padding: 18px 10px; position: relative">
                 <img src="{{ s.Image.thumbnail("200x200") }}" width="200"/>
+                {% if s.modificationDate|date('Y-m-d') < new_after_date|date('Y-m-d') %}
+                    <div style="position: absolute; top: 0; right: 0; display: inline-block; padding: 6px 8px; background: #1d9cf3; color: #fff; font-size: 12px; font-weight: bold">
+                        {{ "New"|trans }}
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>

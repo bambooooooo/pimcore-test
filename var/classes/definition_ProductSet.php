@@ -16,6 +16,7 @@
  * - PackagesMass [quantityValue]
  * - PackagesVolume [quantityValue]
  * - PackageCount [numeric]
+ * - SerieSize [numeric]
  * - Images [imageGallery]
  * - ImagesModel [imageGallery]
  * - Groups [manyToManyObjectRelation]
@@ -34,7 +35,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1748837908,
+   'modificationDate' => 1749204019,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -507,6 +508,36 @@ Klasyfikacja CN produktu. Można skorzystać z wyszukiwarki ext-isztar4.mf.gov.p
                  'name' => 'PackageCount',
                  'title' => 'Package Count',
                  'tooltip' => 'Ilość paczek',
+                 'mandatory' => false,
+                 'noteditable' => true,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'defaultValue' => NULL,
+                 'integer' => false,
+                 'unsigned' => false,
+                 'minValue' => NULL,
+                 'maxValue' => NULL,
+                 'unique' => false,
+                 'decimalSize' => NULL,
+                 'decimalPrecision' => NULL,
+                 'width' => '',
+                 'defaultValueGenerator' => '',
+              )),
+              10 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                 'name' => 'SerieSize',
+                 'title' => 'Serie Size',
+                 'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => true,
                  'index' => false,

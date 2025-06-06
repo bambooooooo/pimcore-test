@@ -1,0 +1,73 @@
+<section>
+    <h1>
+        {{ "Set elements"|trans }}
+    </h1>
+    <div style="column-count: 1">
+        <div class="mb-4">
+            <table class="set-table">
+                <thead>
+                <tr>
+                    <td>{{ "No"|trans }}</td>
+                    <td>{{ "Image"|trans }}</td>
+                    <td>{{ "Quantity"|trans }}</td>
+                    <td>{{ "Bulk count"|trans }}</td>
+                    <td>{{ "Description"|trans }}</td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for lip in s.Set %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>
+                            {% if lip.element.Image %}
+                                <div>
+                                    <img src="{{ lip.element.Image.thumbnail("50x50") }}" width="50"/>
+                                </div>
+                            {% endif %}
+                            {{ lip.element.key }}
+                        </td>
+                        <td>
+                            {{ lip.data.Quantity }}
+                        </td>
+                        <td>
+                            {% if lip.element.SerieSize %}
+                                {{ lip.element.SerieSize }}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                        <td style="text-align: left">
+                            {% if lip.element.Group %}
+                                <ul>
+                                    {% if lip.element.Group.Keys %}
+                                        {% for k in lip.element.Group.Keys %}
+                                            {% set chunks = k|split('~') %}
+                                            {% set groupId = chunks[0] %}
+                                            {% set keyId = chunks[1] %}
+
+                                            {% if lip.element.Parameters.items[groupId] is defined and lip.element.Parameters.items[groupId][keyId] is defined %}
+                                                <li>
+                                                    {{ keyname(keyId) }}:
+
+                                                    <strong>
+                                                        {% if lip.element.Parameters.items[groupId][keyId]["default"] is iterable %}
+                                                            {{ lip.element.Parameters.items[groupId][keyId]["default"]|join(", ") }}
+                                                        {% else %}
+                                                            {{ lip.element.Parameters.items[groupId][keyId]["default"] }}
+                                                        {% endif %}
+                                                    </strong>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                </ul>
+
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>

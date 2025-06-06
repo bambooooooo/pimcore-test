@@ -14,6 +14,9 @@
                     <td>{{ "Height"|trans }}</td>
                     <td>{{ "Volume"|trans }}</td>
                     <td>{{ "Weight"|trans }}</td>
+                    <td>{{ "Sku"|trans }}</td>
+                    <td>{{ "Pallet Size"|trans }}</td>
+                    <td>{{ "Pallet Count"|trans }}</td>
                 </tr>
             </thead>
             <tbody>
@@ -21,13 +24,32 @@
                     {% for lip in item.Packages %}
                         <tr>
                             <td>{{ loop.index }}</td>
-                            <td>{{ lip.element.key }}</td>
+                            <td>{{ lip.element.Barcode }}</td>
                             <td>{{ lip.data.Quantity }}</td>
                             <td>{{ (lip.element.Depth.Value / 10)|round }} cm</td>
                             <td>{{ (lip.element.Width.Value / 10)|round }} cm</td>
                             <td>{{ (lip.element.Height.Value / 10)|round }} cm</td>
                             <td>{{ lip.element.Volume }}</td>
                             <td>{{ lip.element.Mass }}</td>
+                            <td>{{ lip.element.key }}</td>
+                            <td>
+                                {% if lip.element.Carriers %}
+                                    {% for lic in lip.element.Carriers %}
+                                        {{ lic.element.Length }} x {{ lic.element.Width }}
+                                    {% endfor %}
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if lip.element.Carriers %}
+                                    {% for lic in lip.element.Carriers %}
+                                        {{ lic.data.Quantity }}
+                                    {% endfor %}
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
                         </tr>
                     {% endfor %}
 
@@ -45,6 +67,25 @@
                                 <td>{{ (lip.element.Height.Value / 10)|round }} cm</td>
                                 <td>{{ lip.element.Volume }}</td>
                                 <td>{{ lip.element.Mass }}</td>
+                                <td>{{ lip.element.key }}</td>
+                                <td>
+                                    {% if lip.element.Carriers %}
+                                        {% for lic in lip.element.Carriers %}
+                                            {{ lic.element.Length.Value / 10 }} cm x {{ lic.element.Width.Value / 10 }} cm
+                                        {% endfor %}
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if lip.element.Carriers %}
+                                        {% for lic in lip.element.Carriers %}
+                                            {{ lic.data.Quantity }}
+                                        {% endfor %}
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </td>
                             </tr>
                         {% endfor %}
                     {% endfor %}

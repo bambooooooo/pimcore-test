@@ -35,7 +35,7 @@ class ProductSetPublisher
             $this->updatePackageCount($set);
             $this->updateMass($set);
             $this->updatePackageMass($set);
-            $this->updatePackageVolumes($set);
+            $this->updatePackageVolumesAndSerieSize($set);
 
             $this->updateBasePrice($set);
             $this->updatePricings($set);
@@ -110,12 +110,46 @@ class ProductSetPublisher
         $productSet->setPackagesMass(new QuantityValue($mass, $kg));
     }
 
-    private function updatePackageVolumes(ProductSet $productSet) : void
+    function gcd(int $a, int $b): int {
+        return $b === 0 ? $a : $this->gcd($b, $a % $b);
+    }
+
+    function lcm(int $a, int $b): int {
+        return ($a * $b) / $this->gcd($a, $b);
+    }
+
+    function lcmArray(array $numbers): int {
+        if (empty($numbers)) {
+            throw new \InvalidArgumentException("Input array cannot be empty.");
+        }
+
+        return array_reduce($numbers, function($carry, $item) {
+            return $this->lcm($carry, $item);
+        }, 1);
+    }
+
+    private function updatePackageVolumesAndSerieSize(ProductSet $productSet) : void
     {
+        $counts = [];
         $volume = 0;
         foreach ($productSet->getSet() as $li) {
             foreach($li->getElement()->getPackages() as $lip)
             {
+                if($lip->getElement()->getCarriers())
+                {
+                    foreach ($lip->getElement()->getCarriers() as $lic)
+                    {
+                        if($lic->getQuantity())
+                        {
+                            $counts[] = $lic->getQuantity();
+                        }
+                        else
+                        {
+                            $counts[] = 0;
+                        }
+                    }
+                }
+
                 $v = $lip->getQuantity() * $li->getQuantity()
                     * $lip->getElement()->getWidth()->getValue()
                     * $lip->getElement()->getHeight()->getValue()
@@ -129,6 +163,12 @@ class ProductSetPublisher
 
                 $volume += $v;
             }
+        }
+
+        if(!array_any($counts, function($c){ return $c == 0; }))
+        {
+            $lcm = $this->lcmArray($counts);
+            $productSet->setSerieSize($lcm);
         }
 
         $m3 = Unit::getByAbbreviation("m3");

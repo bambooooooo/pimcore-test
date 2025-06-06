@@ -1,0 +1,32 @@
+<a href="#{{ item.key }}" style="text-decoration: none; color: black; break-inside: avoid">
+    <div style="text-align: center; padding: 12px 10px; break-inside: avoid; position: relative;">
+        <img src="{{ item.Image.thumbnail("200x200") }}" width="100"/>
+
+        {% if s.modificationDate|date('Y-m-d') < new_after_date|date('Y-m-d') %}
+            <div style="position: absolute; top: 0; right: 0; display: inline-block; padding: 3px 4px; background: #1d9cf3; color: #fff; font-size: 9px; font-weight: bold;">
+                {{ "New"|trans }}
+            </div>
+        {% endif %}
+
+        <div style="font-size: 10px; margin-top: 6px; margin-bottom: 4px;">
+            <strong>
+                {{ item.id }}
+            </strong>
+            {% if s.EAN %}
+                <div style="color: #7a7a7a">
+                    {{ s.EAN }}
+                </div>
+            {% endif %}
+        </div>
+        <div style="font-size: 9px; break-inside: avoid">
+            <div style="margin-bottom: 4px;">
+                {{ item.Name|replace({'MEGSTYL': ''}) }}
+            </div>
+            {% if s is pimcore_data_object_class("Product") %}
+                <div>
+                    {{ item.Width.Value }} x {{ item.Height.Value }} x {{ item.Depth.Value }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</a>

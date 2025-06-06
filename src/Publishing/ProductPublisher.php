@@ -6,6 +6,7 @@ use App\Service\BrokerService;
 use App\Service\DeepLService;
 use App\Service\OfferService;
 use App\Service\PricingService;
+use InvalidArgumentException;
 use Pimcore\Logger;
 use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\Data\ObjectMetadata;
@@ -41,7 +42,7 @@ class ProductPublisher
             $this->assertGroupsArePublished($product);
 
             $this->translateNames($product);
-            $this->updatePackagesMassAndVolume($product);
+            $this->updatePackagesMassAndVolumeAndSerieSize($product);
 
             if($product->getObjectType() == 'ACTUAL')
             {
@@ -131,16 +132,51 @@ class ProductPublisher
         }
     }
 
-    function updatePackagesMassAndVolume(Product $product) : void
+    function gcd(int $a, int $b): int {
+        return $b === 0 ? $a : $this->gcd($b, $a % $b);
+    }
+
+    function lcm(int $a, int $b): int {
+        return ($a * $b) / $this->gcd($a, $b);
+    }
+
+    function lcmArray(array $numbers): int {
+        if (empty($numbers)) {
+            throw new InvalidArgumentException("Input array cannot be empty.");
+        }
+
+        return array_reduce($numbers, function($carry, $item) {
+            return $this->lcm($carry, $item);
+        }, 1);
+    }
+
+    function updatePackagesMassAndVolumeAndSerieSize(Product $product) : void
     {
         $mass = 0;
         $volume = 0;
         $count = 0;
 
+        $counts = [];
+
         foreach ($product->getPackages() as $li)
         {
             $count += $li->getQuantity();
             $mass += $li->getElement()->getMass()->getValue() * $li->getQuantity();
+
+            if($li->getElement()->getCarriers())
+            {
+                foreach ($li->getElement()->getCarriers() as $lic)
+                {
+                    if($lic->getQuantity())
+                    {
+                        $counts[] = $lic->getQuantity();
+                    }
+                    else
+                    {
+                        $counts[] = 0;
+                    }
+                }
+            }
 
             $v = $li->getQuantity()
                 * $li->getElement()->getWidth()->getValue()
@@ -149,6 +185,12 @@ class ProductPublisher
 
             $v = ((float)$v) / (1000000000.0);
             $volume += $v;
+        }
+
+        if(!array_any($counts, function($c){ return $c == 0; }))
+        {
+            $lcm = $this->lcmArray($counts);
+            $product->setSerieSize($lcm);
         }
 
         $kg = Unit::getByAbbreviation("kg");

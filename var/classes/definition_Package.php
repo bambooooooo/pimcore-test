@@ -26,6 +26,7 @@
  * - Barcode [input]
  * - Codes [objectbricks]
  * - Elements [advancedManyToManyRelation]
+ * - Carriers [advancedManyToManyObjectRelation]
  */
 
 return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
@@ -35,7 +36,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Opakowanie',
    'description' => 'Opakowanie zawierające elementy produktu',
    'creationDate' => NULL,
-   'modificationDate' => 1748432353,
+   'modificationDate' => 1749202425,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -1023,6 +1024,87 @@ Domyślny kod kreskowy paczki tworzony na podstawie jego unikalnego identyfikato
              'layout' => NULL,
              'border' => false,
              'icon' => '/UI/2-puzzle.svg',
+             'labelWidth' => 100,
+             'labelAlign' => 'left',
+          )),
+          5 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+             'name' => 'Load',
+             'type' => NULL,
+             'region' => NULL,
+             'title' => 'Load',
+             'width' => '',
+             'height' => '',
+             'collapsible' => false,
+             'collapsed' => false,
+             'bodyStyle' => '',
+             'datatype' => 'layout',
+             'children' => 
+            array (
+              0 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
+                 'name' => 'Carriers',
+                 'title' => 'Carriers',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => true,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'classes' => 
+                array (
+                ),
+                 'displayMode' => NULL,
+                 'pathFormatterClass' => '',
+                 'maxItems' => NULL,
+                 'visibleFields' => 'key,Length,Width',
+                 'allowToCreateNewObject' => false,
+                 'allowToClearRelation' => true,
+                 'optimizedAdminLoading' => false,
+                 'enableTextSelection' => false,
+                 'visibleFieldDefinitions' => 
+                array (
+                ),
+                 'width' => '',
+                 'height' => '',
+                 'allowedClassId' => 'LoadCarrier',
+                 'columns' => 
+                array (
+                  0 => 
+                  array (
+                    'type' => 'number',
+                    'position' => 1,
+                    'key' => 'Quantity',
+                    'label' => 'Quantity',
+                    'value' => '',
+                    'width' => NULL,
+                  ),
+                ),
+                 'columnKeys' => 
+                array (
+                  0 => 'Quantity',
+                ),
+                 'enableBatchEdit' => true,
+                 'allowMultipleAssignments' => true,
+              )),
+            ),
+             'locked' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'fieldtype' => 'panel',
+             'layout' => NULL,
+             'border' => false,
+             'icon' => '/UI/pallet.png',
              'labelWidth' => 100,
              'labelAlign' => 'left',
           )),

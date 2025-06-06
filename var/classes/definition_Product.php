@@ -40,6 +40,7 @@
  * - PackageCount [numeric]
  * - PackagesMass [quantityValue]
  * - PackagesVolume [quantityValue]
+ * - SerieSize [numeric]
  * - LoadCarriers [manyToManyRelation]
  * - Quality [numeric]
  * - Description [fieldcollections]
@@ -55,7 +56,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Produkt',
    'description' => 'Towar, który można sprzedać',
    'creationDate' => NULL,
-   'modificationDate' => 1748769269,
+   'modificationDate' => 1749202969,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -1640,6 +1641,36 @@ Paczki produktu',
                  'decimalPrecision' => NULL,
               )),
               4 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                 'name' => 'SerieSize',
+                 'title' => 'Serie Size',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => true,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'defaultValue' => NULL,
+                 'integer' => false,
+                 'unsigned' => false,
+                 'minValue' => NULL,
+                 'maxValue' => NULL,
+                 'unique' => false,
+                 'decimalSize' => NULL,
+                 'decimalPrecision' => NULL,
+                 'width' => '',
+                 'defaultValueGenerator' => '',
+              )),
+              5 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyRelation::__set_state(array(
                  'name' => 'LoadCarriers',
                  'title' => 'Load Carriers',
@@ -1679,10 +1710,18 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                  'assetsAllowed' => false,
                  'assetTypes' => 
                 array (
+                  0 => 
+                  array (
+                    'assetTypes' => '',
+                  ),
                 ),
                  'documentsAllowed' => false,
                  'documentTypes' => 
                 array (
+                  0 => 
+                  array (
+                    'documentTypes' => '',
+                  ),
                 ),
                  'enableTextSelection' => false,
                  'width' => '',

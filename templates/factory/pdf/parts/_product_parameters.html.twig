@@ -1,0 +1,50 @@
+<section>
+    <h1>{{ "Parameters"|trans }}</h1>
+    <div style="column-count: 3">
+
+        {% for group in s.Parameters.groups %}
+            <div class="mb-4">
+                <table class="packages-table">
+                    <thead>
+                    <tr>
+                        <td colspan="2">
+                            <div>
+                                {{ group.configuration.name }}
+                            </div>
+                        </td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for key in group.keys %}
+                        <tr>
+                            <td>
+                                {{ key.configuration.title }}
+                            </td>
+                            <td>
+                                {% if key.value %}
+                                    {% if key.value is iterable %}
+                                        {% for keyItem in key.value %}
+                                            {% if keyItem is iterable %}
+                                                {{ key.value }}
+                                            {% else %}
+                                                <strong>
+                                                    {{ keyItem }}
+                                                </strong>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% else %}
+                                        {{ key.value }}
+                                    {% endif %}
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endfor %}
+
+    </div>
+</section>
