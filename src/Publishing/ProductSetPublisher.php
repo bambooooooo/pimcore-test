@@ -165,7 +165,7 @@ class ProductSetPublisher
             }
         }
 
-        if(!array_any($counts, function($c){ return $c == 0; }))
+        if(count($counts) > 0 && !array_any($counts, function($c){ return $c == 0; }))
         {
             $lcm = $this->lcmArray($counts);
             $productSet->setSerieSize($lcm);
