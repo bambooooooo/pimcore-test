@@ -191,22 +191,24 @@ class FactoryController extends FrontendController
                 return $a->getBasePrice()->getValue() > $b->getBasePrice()->getValue();
             });
 
-            $commonProductsInSetsNotDirectlyInGroup = [];
+            $common = [];
 
             foreach($sets as $set)
             {
                 foreach($set->getSet() as $lip)
                 {
-                    $product = $lip->getElement();
+                    $product = $lip->getObject();
 
-                    if(!in_array($product, $prods) && !in_array($product, $commonProductsInSetsNotDirectlyInGroup))
+                    if(!in_array($product, $prods) && !in_array($product, $common))
                     {
-                        $commonProductsInSetsNotDirectlyInGroup[] = $product;
+                        $common[] = $product;
                     }
                 }
             }
 
-            usort($commonProductsInSetsNotDirectlyInGroup, function (DataObject\Product $a, DataObject\Product $b) {
+            $common = array_unique($common);
+
+            usort($common, function (DataObject\Product $a, DataObject\Product $b) {
 
                 if($a->getGroup() == null || $b->getGroup() == null)
                     return 0;
@@ -225,7 +227,7 @@ class FactoryController extends FrontendController
                 'group' => $obj,
                 'prods' => $prods,
                 'sets' => $sets,
-                'common' => $commonProductsInSetsNotDirectlyInGroup,
+                'common' => $common,
                 'sets_row_cnt' => $request->query->get("sets") ?? 5,
                 'products_row_cnt' => $request->query->get("products") ?? 5,
                 'new_after_date' => (new Carbon("now"))->subDays((int)$request->query->get("new") ?? 1),
