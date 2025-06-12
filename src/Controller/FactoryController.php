@@ -165,10 +165,14 @@ class FactoryController extends FrontendController
         elseif ($obj instanceof DataObject\Group)
         {
             $productListing = new DataObject\Product\Listing();
-            $productListing->setCondition("Groups like '%," . $obj->getId() . ",%' AND `ObjectType`='ACTUAL'");
+            $productListing->setCondition("Groups like '%," . $obj->getId() . ",%' AND `ObjectType`='ACTUAL' AND `published` = 1 ");
             $prods = $productListing->load();
 
             usort($prods, function (DataObject\Product $a, DataObject\Product $b) {
+
+                if($a->getGroup() == null || $b->getGroup() == null)
+                    return 0;
+
                 $comp = strcmp($a->getGroup()->getKey(), $b->getGroup()->getKey());
 
                 if($comp === 0)
@@ -180,7 +184,7 @@ class FactoryController extends FrontendController
             });
 
             $setListing = new DataObject\ProductSet\Listing();
-            $setListing->setCondition("Groups like '%," . $obj->getId() . ",%'");
+            $setListing->setCondition("Groups like '%," . $obj->getId() . ",%' AND `published` = 1 ");
             $sets = $setListing->load();
 
             usort($sets, function ($a, $b) {
@@ -203,6 +207,9 @@ class FactoryController extends FrontendController
             }
 
             usort($commonProductsInSetsNotDirectlyInGroup, function (DataObject\Product $a, DataObject\Product $b) {
+
+                if($a->getGroup() == null || $b->getGroup() == null)
+                    return 0;
 
                 $comp = strcmp($a->getGroup()->getKey(), $b->getGroup()->getKey());
 
