@@ -103,7 +103,7 @@ class PricingService
                     {
                         if($obj instanceof Product)
                         {
-                            if(!in_array($obj->getGroup(), $pricing->getRestrictions()->getSelectedGroups()->getGroups()))
+                            if(!array_intersect([$obj->getGroup()], $pricing->getRestrictions()->getSelectedGroups()->getGroups()))
                             {
                                 return null;
                             }

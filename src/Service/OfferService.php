@@ -27,8 +27,6 @@ class OfferService
             }
         }
 
-        dump($productOffers);
-
         foreach ($offers as $offer)
         {
             if(in_array($offer->getId(), $offerIds))

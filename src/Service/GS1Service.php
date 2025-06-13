@@ -67,7 +67,7 @@ class GS1Service
             $eanPool->save();
         }
         catch (\Exception $e) {
-            dump($e);
+
         }
     }
 
