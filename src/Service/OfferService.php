@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use Pimcore\Model\DataObject\Data\ObjectMetadata;
 use Pimcore\Model\DataObject\Data\QuantityValue;
 use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\Product;
@@ -10,15 +11,31 @@ use Pimcore\Model\DataObject\QuantityValue\Unit;
 
 class OfferService
 {
-    public function getObjectOffers(Product|ProductSet $obj): array
+    public function getObjectPrices(Product|ProductSet $obj): array
     {
         $offers = new DataObject\Offer\Listing();
         $offers->setCondition("`published` = 1");
 
+        $offerIds = [];
         $productOffers = [];
+
+        foreach ($obj->getPrice() as $price) {
+            if($price->getFixed())
+            {
+                $productOffers[] = $price;
+                $offerIds[] = $price->getElement()->getId();
+            }
+        }
+
+        dump($productOffers);
 
         foreach ($offers as $offer)
         {
+            if(in_array($offer->getId(), $offerIds))
+            {
+                continue;
+            }
+
             $price = null;
 
             foreach($offer->getPricings() as $offerPricing)
@@ -34,16 +51,12 @@ class OfferService
 
             if($price)
             {
-                $PLN = Unit::getById("PLN");
-                $rel = new DataObject\Data\BlockElement("offer", "manyToOneRelation", $offer);
-                $p = new DataObject\Data\BlockElement("price", "quantityValue", new QuantityValue($price, $PLN));
+                $item = new ObjectMetadata('Price', ['Price', 'Currency', 'Fixed'], $offer);
+                $item->setPrice($price);
+                $item->setCurrency("PLN");
+                $item->setFixed(false);
 
-                $data = [
-                    "Offer" => $rel,
-                    "Price" => $p,
-                ];
-
-                $productOffers[] = $data;
+                $productOffers[] = $item;
             }
         }
 

@@ -197,8 +197,7 @@ class ProductSetPublisher
 
     function updateOffers(ProductSet $set) : void
     {
-        $offers = $this->offerService->getObjectOffers($set);
-        $set->setOffers($offers);
+        $set->setPrice($this->offerService->getObjectPrices($set));
     }
 
     function updateBasePrice(ProductSet $productSet) : void

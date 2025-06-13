@@ -30,9 +30,7 @@
  * - Parameters [classificationstore]
  * - BasePrice [quantityValue]
  * - Pricing [advancedManyToManyObjectRelation]
- * - Offers [block]
- * -- Offer [manyToOneRelation]
- * -- Price [quantityValue]
+ * - Price [advancedManyToManyObjectRelation]
  * - Images [imageGallery]
  * - Photos [imageGallery]
  * - ImagesModel [imageGallery]
@@ -56,7 +54,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Produkt',
    'description' => 'Towar, który można sprzedać',
    'creationDate' => NULL,
-   'modificationDate' => 1749202969,
+   'modificationDate' => 1749831076,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -1162,9 +1160,9 @@ Wycena produktu lub innej usługi związanej z produktem, np. transport',
                  'allowMultipleAssignments' => false,
               )),
               2 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\Block::__set_state(array(
-                 'name' => 'Offers',
-                 'title' => 'Offers',
+              \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
+                 'name' => 'Price',
+                 'title' => 'Price',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
@@ -1173,110 +1171,66 @@ Wycena produktu lub innej usługi związanej z produktem, np. transport',
                  'style' => '',
                  'permissions' => NULL,
                  'fieldtype' => '',
-                 'relationType' => false,
+                 'relationType' => true,
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
                  'blockedVarsForExport' => 
                 array (
                 ),
-                 'lazyLoading' => false,
-                 'disallowAddRemove' => false,
-                 'disallowReorder' => false,
-                 'collapsible' => false,
-                 'collapsed' => false,
+                 'classes' => 
+                array (
+                ),
+                 'displayMode' => NULL,
+                 'pathFormatterClass' => '',
                  'maxItems' => NULL,
-                 'styleElement' => '',
-                 'children' => 
+                 'visibleFields' => 'key',
+                 'allowToCreateNewObject' => false,
+                 'allowToClearRelation' => false,
+                 'optimizedAdminLoading' => false,
+                 'enableTextSelection' => false,
+                 'visibleFieldDefinitions' => 
+                array (
+                ),
+                 'width' => '',
+                 'height' => '',
+                 'allowedClassId' => 'Offer',
+                 'columns' => 
                 array (
                   0 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-                     'name' => 'Offer',
-                     'title' => 'Offer',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => true,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'classes' => 
-                    array (
-                      0 => 
-                      array (
-                        'classes' => 'Offer',
-                      ),
-                    ),
-                     'displayMode' => 'grid',
-                     'pathFormatterClass' => '',
-                     'assetInlineDownloadAllowed' => false,
-                     'assetUploadPath' => '',
-                     'allowToClearRelation' => true,
-                     'objectsAllowed' => true,
-                     'assetsAllowed' => false,
-                     'assetTypes' => 
-                    array (
-                    ),
-                     'documentsAllowed' => false,
-                     'documentTypes' => 
-                    array (
-                    ),
-                     'width' => '',
-                  )),
+                  array (
+                    'type' => 'number',
+                    'position' => 1,
+                    'key' => 'Price',
+                    'label' => 'Price',
+                    'value' => '',
+                    'width' => NULL,
+                  ),
                   1 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                     'name' => 'Price',
-                     'title' => 'Price',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'unitWidth' => '',
-                     'defaultUnit' => NULL,
-                     'validUnits' => 
-                    array (
-                      0 => 'PLN',
-                      1 => 'USD',
-                      2 => 'EUR',
-                      3 => 'GBP',
-                    ),
-                     'unique' => false,
-                     'autoConvert' => true,
-                     'defaultValueGenerator' => '',
-                     'width' => '',
-                     'defaultValue' => NULL,
-                     'integer' => false,
-                     'unsigned' => false,
-                     'minValue' => NULL,
-                     'maxValue' => NULL,
-                     'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
-                  )),
+                  array (
+                    'type' => 'text',
+                    'position' => 2,
+                    'key' => 'Currency',
+                    'label' => 'Currency',
+                    'value' => '',
+                    'width' => NULL,
+                  ),
+                  2 => 
+                  array (
+                    'type' => 'bool',
+                    'position' => 3,
+                    'key' => 'Fixed',
+                    'label' => 'Is Fixed?',
+                  ),
                 ),
-                 'layout' => NULL,
-                 'referencedFields' => 
+                 'columnKeys' => 
                 array (
+                  0 => 'Price',
+                  1 => 'Currency',
+                  2 => 'Fixed',
                 ),
-                 'fieldDefinitionsCache' => NULL,
+                 'enableBatchEdit' => false,
+                 'allowMultipleAssignments' => false,
               )),
             ),
              'locked' => false,
@@ -1710,18 +1664,10 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                  'assetsAllowed' => false,
                  'assetTypes' => 
                 array (
-                  0 => 
-                  array (
-                    'assetTypes' => '',
-                  ),
                 ),
                  'documentsAllowed' => false,
                  'documentTypes' => 
                 array (
-                  0 => 
-                  array (
-                    'documentTypes' => '',
-                  ),
                 ),
                  'enableTextSelection' => false,
                  'width' => '',
@@ -2046,6 +1992,145 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
    'enableGridLocking' => false,
    'deletedDataComponents' => 
   array (
+    0 => 
+    \Pimcore\Model\DataObject\ClassDefinition\Data\Block::__set_state(array(
+       'name' => 'Offers',
+       'title' => 'Offers',
+       'tooltip' => '',
+       'mandatory' => false,
+       'noteditable' => false,
+       'index' => false,
+       'locked' => false,
+       'style' => '',
+       'permissions' => NULL,
+       'fieldtype' => '',
+       'relationType' => false,
+       'invisible' => false,
+       'visibleGridView' => false,
+       'visibleSearch' => false,
+       'blockedVarsForExport' => 
+      array (
+      ),
+       'lazyLoading' => false,
+       'disallowAddRemove' => false,
+       'disallowReorder' => false,
+       'collapsible' => false,
+       'collapsed' => false,
+       'maxItems' => NULL,
+       'styleElement' => '',
+       'children' => 
+      array (
+        0 => 
+        \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+           'name' => 'Offer',
+           'title' => 'Offer',
+           'tooltip' => '',
+           'mandatory' => false,
+           'noteditable' => false,
+           'index' => false,
+           'locked' => false,
+           'style' => '',
+           'permissions' => NULL,
+           'fieldtype' => '',
+           'relationType' => true,
+           'invisible' => false,
+           'visibleGridView' => false,
+           'visibleSearch' => false,
+           'blockedVarsForExport' => 
+          array (
+          ),
+           'classes' => 
+          array (
+            0 => 
+            array (
+              'classes' => 'Offer',
+            ),
+          ),
+           'displayMode' => 'grid',
+           'pathFormatterClass' => '',
+           'assetInlineDownloadAllowed' => false,
+           'assetUploadPath' => '',
+           'allowToClearRelation' => true,
+           'objectsAllowed' => true,
+           'assetsAllowed' => false,
+           'assetTypes' => 
+          array (
+          ),
+           'documentsAllowed' => false,
+           'documentTypes' => 
+          array (
+          ),
+           'width' => '',
+        )),
+        1 => 
+        \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+           'name' => 'Price',
+           'title' => 'Price',
+           'tooltip' => '',
+           'mandatory' => false,
+           'noteditable' => false,
+           'index' => false,
+           'locked' => false,
+           'style' => '',
+           'permissions' => NULL,
+           'fieldtype' => '',
+           'relationType' => false,
+           'invisible' => false,
+           'visibleGridView' => false,
+           'visibleSearch' => false,
+           'blockedVarsForExport' => 
+          array (
+          ),
+           'unitWidth' => '',
+           'defaultUnit' => NULL,
+           'validUnits' => 
+          array (
+            0 => 'PLN',
+            1 => 'USD',
+            2 => 'EUR',
+            3 => 'GBP',
+          ),
+           'unique' => false,
+           'autoConvert' => true,
+           'defaultValueGenerator' => '',
+           'width' => '',
+           'defaultValue' => NULL,
+           'integer' => false,
+           'unsigned' => false,
+           'minValue' => NULL,
+           'maxValue' => NULL,
+           'decimalSize' => NULL,
+           'decimalPrecision' => NULL,
+        )),
+        2 => 
+        \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+           'name' => 'Override',
+           'title' => 'Override',
+           'tooltip' => '',
+           'mandatory' => false,
+           'noteditable' => false,
+           'index' => false,
+           'locked' => false,
+           'style' => '',
+           'permissions' => NULL,
+           'fieldtype' => '',
+           'relationType' => false,
+           'invisible' => false,
+           'visibleGridView' => false,
+           'visibleSearch' => false,
+           'blockedVarsForExport' => 
+          array (
+          ),
+           'defaultValue' => 1,
+           'defaultValueGenerator' => '',
+        )),
+      ),
+       'layout' => NULL,
+       'referencedFields' => 
+      array (
+      ),
+       'fieldDefinitionsCache' => NULL,
+    )),
   ),
    'blockedVarsForExport' => 
   array (

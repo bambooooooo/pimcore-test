@@ -58,12 +58,12 @@
                     {% set diff = 0 %}
                     {% set pr = 0 %}
 
-                    {% for offer in product.Offers %}
-                        {% if offer["Offer"].data.id == pricing.id %}
-                            {{ offer["Price"].data }}
+                    {% for offer in product.Price %}
+                        {% if offer.objectId == pricing.id %}
+                            {{ offer.data.Price }}
 
-                            {% set pr = offer["Price"].data.Value %}
-                            {% set diff = offer["Price"].data.Value - product.BasePrice.Value %}
+                            {% set pr = offer.data.Price %}
+                            {% set diff = offer.data.Price - product.BasePrice.Value %}
                         {% endif %}
                     {% endfor %}
                 </td>

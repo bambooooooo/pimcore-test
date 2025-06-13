@@ -200,8 +200,7 @@ class ProductPublisher
 
     function updateOffers(Product $product) : void
     {
-        $offers = $this->offerService->getObjectOffers($product);
-        $product->setOffers($offers);
+        $product->setPrice($this->offerService->getObjectPrices($product));
     }
 
     function getPricing(Product $product, Pricing $pricing)
