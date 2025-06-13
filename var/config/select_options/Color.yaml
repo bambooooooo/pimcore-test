@@ -45,8 +45,20 @@ pimcore:
                             label: bialy
                             name: ''
                         -
+                            value: 'bialy cieply'
+                            label: 'biały ciepły'
+                            name: ''
+                        -
+                            value: 'bialy neutralny'
+                            label: 'biały neutralny'
+                            name: ''
+                        -
                             value: 'bialy - sosna'
                             label: 'bialy - sosna'
+                            name: ''
+                        -
+                            value: 'bialy zimny'
+                            label: 'biały zimny'
                             name: ''
                         -
                             value: bordo
