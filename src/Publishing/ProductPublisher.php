@@ -22,7 +22,6 @@ use Pimcore\Tool;
 class ProductPublisher
 {
     public function __construct(private readonly BrokerService $broker,
-                                private readonly DeepLService $deepLService,
                                 private readonly PricingService $pricingService,
                                 private readonly OfferService $offerService)
     {
@@ -41,7 +40,6 @@ class ProductPublisher
             $this->assertPackageCodeIfProductAgataCode($product);
             $this->assertGroupsArePublished($product);
 
-            $this->translateNames($product);
             $this->updatePackagesMassAndVolumeAndSerieSize($product);
 
             if($product->getObjectType() == 'ACTUAL')
@@ -104,30 +102,6 @@ class ProductPublisher
         {
             $barcode = "11" . str_pad($product->getId(), 18, "0", STR_PAD_LEFT);
             $product->setBarcode($barcode);
-            $product->save();
-        }
-    }
-
-    function translateNames(Product $product) : void
-    {
-        $plName = $product->getName("pl");
-
-        $languages = Tool::getValidLanguages();
-
-        foreach ($languages as $locale)
-        {
-            $nameForeign = $product->getName($locale);
-
-            if($nameForeign)
-            {
-                continue;
-            }
-
-            $deeplLocale = ($locale == "en") ? "EN-US" : $locale;
-
-            $tx = $this->deepLService->translate($plName, $deeplLocale, "pl");
-
-            $product->setName($tx, $locale);
             $product->save();
         }
     }

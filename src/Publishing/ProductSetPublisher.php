@@ -19,7 +19,6 @@ use Pimcore\Tool;
 class ProductSetPublisher
 {
     public function __construct(private readonly BrokerService $broker,
-                                private readonly DeepLService $deepLService,
                                 private readonly PricingService $pricingService,
                                 private readonly OfferService $offerService)
     {
@@ -40,8 +39,6 @@ class ProductSetPublisher
             $this->updateBasePrice($set);
             $this->updatePricings($set);
             $this->updateOffers($set);
-
-            $this->translateName($set);
 
             $this->sendToErp($set);
             ApplicationLogger::getInstance()->info("Publishing ProductSet {$set->getId()}");
@@ -217,28 +214,6 @@ class ProductSetPublisher
 
         $PLN = Unit::getById("PLN");
         $productSet->setBasePrice(new QuantityValue($price, $PLN));
-    }
-
-    function translateName(ProductSet $set) : void
-    {
-        $languages = Tool::getValidLanguages();
-
-        foreach ($languages as $locale)
-        {
-            $nameForeign = $set->getName($locale);
-
-            if($nameForeign)
-            {
-                continue;
-            }
-
-            $deeplLocale = ($locale == "en") ? "EN-US" : $locale;
-
-            $tx = $this->deepLService->translate($set->getName("pl"), $deeplLocale, "pl");
-
-            $set->setName($tx, $locale);
-            $set->save();
-        }
     }
 
     function sendToErp(ProductSet $productSet) : void

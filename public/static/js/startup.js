@@ -69,6 +69,108 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
                         },
                     })
                 }
+            },
+            {
+                text: t('Translate name'),
+                iconCls: 'pimcore_material_icon_translation',
+                scale: 'medium',
+                tooltip: t('Translate full name to all system languages'),
+                handler: function () {
+
+                    var current = 0;
+                    var total = pimcore.settings.websiteLanguages.length;
+
+                    var progressbar = new Ext.ProgressBar({
+                        text: t('Progress'),
+                        style: "margin-top: 0px;",
+                        width: 500
+                    })
+
+                    var cancelBtn = Ext.create('Ext.Button', {
+                        scale: 'small',
+                        text: t('Cancel'),
+                        tooltip: t('Cancel'),
+                        icon: '/bundles/pimcoreadmin/img/flat-color-icons/cancel.svg',
+                        style: 'margin-left: 5px; height: 30px',
+                        handler: function () {
+                            current = Infinity;
+                        }
+                    })
+
+                    var panel = Ext.create('Ext.panel.Panel', {
+                        layout: {
+                            type: 'hbox'
+                        },
+                        items: [
+                            progressbar,
+                            cancelBtn
+                        ]
+                    });
+
+                    var pbWin = new Ext.Window({
+                        title: t('Translating'),
+                        items: [
+                            panel
+                        ],
+                        layout: 'fit',
+                        width: 650,
+                        bodyStyle: "padding: 10px",
+                        closable: false,
+                        plain: true,
+                        modal: false
+                    });
+
+                    var translate = function ()
+                    {
+                        console.log("Translate into " + pimcore.settings.websiteLanguages[current] + "...");
+
+                        Ext.Ajax.request({
+                            url: "/object/translate-name",
+                            params: {
+                                'id': e.detail.object.id,
+                                'name': e.detail.object.data.data.localizedfields.data[pimcore.settings.language].Name,
+                                'origin': pimcore.settings.language,
+                                'loc': pimcore.settings.websiteLanguages[current]
+                            },
+                            success: function (data) {
+                                console.log(data.responseText);
+                            },
+                            failure: function (error) {
+                                console.log("[Error] " + error.responseText);
+                            },
+                            callback: function (response) {
+
+                                current = current + 1;
+
+                                if(current >= total)
+                                {
+                                    pbWin.close();
+                                    e.detail.object.reload();
+                                }
+                                else
+                                {
+                                    var progress = current / total;
+                                    var percent = Math.ceil(progress * 100);
+                                    var status = t("Translating into ") + pimcore.settings.websiteLanguages[current] + "... (" + percent + "%)";
+
+                                    progressbar.updateProgress(progress, status);
+                                    setTimeout(translate(), 500);
+                                }
+                            }
+                        });
+                    }
+
+                    var sourceText = e.detail.object.data.data.localizedfields.data[pimcore.settings.language].Name;
+
+                    Ext.Msg.confirm("Translate", "Translate [" + sourceText + "] into " + total + " languages?", function(btn){
+                        if(btn === "yes")
+                        {
+                            pbWin.show();
+                            console.log("[TX] " + sourceText);
+                            translate();
+                        }
+                    })
+                }
             }
         ]
 

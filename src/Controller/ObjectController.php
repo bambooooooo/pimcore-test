@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\DeepLService;
 use PhpOffice\PhpSpreadsheet\Helper\Html;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
@@ -18,13 +19,15 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Validator\Constraints\Json;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use ZipArchive;
 
 class ObjectController extends FrontendController
 {
 
-    public function __construct(private TranslatorInterface $translator)
+    public function __construct(private TranslatorInterface $translator,
+                                private readonly DeepLService $deepLService)
     {
 
     }
@@ -396,5 +399,36 @@ class ObjectController extends FrontendController
         $response->setContent(ob_get_clean());
 
         return $response;
+    }
+
+    #[Route("/object/translate-name", name: "translate_name")]
+    public function translateAction(Request $request): Response
+    {
+        DataObject::setHideUnpublished(false);
+
+        $obj = DataObject::getById($request->get("id"));
+
+        $name = $request->get("name");
+        $origin = $request->get("origin");
+        $locale = $request->get("loc");
+
+        if(!$obj)
+        {
+            return new Response("Product not found", Response::HTTP_NOT_FOUND);
+        }
+
+        if(!($obj instanceof Product or $obj instanceof ProductSet))
+        {
+            throw new \Exception("Object [class: " . $obj->getClassId() . "] not supported", Response::HTTP_BAD_REQUEST);
+        }
+
+        $deeplLocale = ($locale == "en") ? "EN-US" : $locale;
+
+        $tx = $this->deepLService->translate($name, $deeplLocale, $origin);
+
+        $obj->setName($tx, $locale);
+        $obj->save();
+
+        return new JsonResponse(["status" => $obj->getKey() . "[" . $locale . "] = " . $tx]);
     }
 }
