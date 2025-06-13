@@ -115,19 +115,37 @@
                     <td rowspan="4">
                         <div>
                             <div style="font-size: 16px; font-weight: bold; transform: rotate(-90deg)">
-                                {{ code_128(package.Codes.IndexMirjan24.Code, "C128", 120, 1) }}
+                                {% if package.Codes.IndexMirjan24.Code is defined %}
+                                    {{ code_128(package.Codes.IndexMirjan24.Code, "C128", 120, 1) }}
+                                {% else %}
+                                    <div class="error">
+                                        {{ "Missing barcode" }}
+                                    </div>
+                                {% endif %}
                             </div>
                         </div>
                     </td>
                     <td rowspan="4">
                         <div class="v">
-                            {{ package.Codes.IndexMirjan24.Code }}
+                            {% if package.Codes.IndexMirjan24.Code is defined %}
+                                {{ package.Codes.IndexMirjan24.Code }}
+                            {% else %}
+                                <div class="error">
+                                    {{ "Missing IndexMirjan24.Code" }}
+                                </div>
+                            {% endif %}
                         </div>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="6">
-                        {{ product.Codes.IndexMirjan24.Code }}
+                        {% if product.Codes.IndexMirjan24.Code is defined %}
+                            {{ product.Codes.IndexMirjan24.Code }}
+                        {% else %}
+                            <div class="error">
+                                {{ "Missing product IndexMirjan24.Code" }}
+                            </div>
+                        {% endif %}
                     </td>
                 </tr>
                 <tr>
