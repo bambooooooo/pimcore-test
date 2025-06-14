@@ -350,11 +350,11 @@ class ObjectController extends FrontendController
                 $sheet->setCellValue('G' . $i, $obj->getDepth());
             }
 
-            foreach ($obj->getOffers() as $off)
+            foreach ($obj->getPrice() as $price)
             {
-                if($off["Offer"]->getData()->getId() == $offer->getId())
+                if($price->getElement()->getId() == $offer->getId())
                 {
-                    $price = round($off["Price"]->getData()->getValue(), 2);
+                    $price = round(floatval($price->getPrice()), 2);
                     $sheet->setCellValue('H' . $i, $price);
                 }
             }
