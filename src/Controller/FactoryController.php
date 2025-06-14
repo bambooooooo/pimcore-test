@@ -193,6 +193,11 @@ class FactoryController extends FrontendController
 
             $common = [];
 
+            foreach ($prods as $prod)
+            {
+                $common[] = $prod;
+            }
+
             foreach($sets as $set)
             {
                 foreach($set->getSet() as $lip)
