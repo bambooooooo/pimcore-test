@@ -252,14 +252,16 @@
 {% if "set" == "set" and sets|length > 0 %}
     {% for s in sets %}
         {% if s.published %}
-            <article id="{{ s.id }}">
-                <div class="page">
-                    <div class="page-content">
-                        {{ include('factory/pdf/parts/_item_header.html.twig', {item: s}) }}
-                        {{ include('factory/pdf/parts/_packages.html.twig', {item: s}) }}
-                        {{ include('factory/pdf/parts/_set_elements.html.twig', {item: s}) }}
+            <article>
+                <section id="{{ s.id }}">
+                    <div class="page">
+                        <div class="page-content">
+                            {{ include('factory/pdf/parts/_item_header.html.twig', {item: s}) }}
+                            {{ include('factory/pdf/parts/_packages.html.twig', {item: s}) }}
+                            {{ include('factory/pdf/parts/_set_elements.html.twig', {item: s}) }}
+                        </div>
                     </div>
-                </div>
+                </section>
             </article>
             <div class="pb"></div>
         {% endif %}
@@ -269,15 +271,16 @@
 {% if "item" == "item" and prods|length > 0 %}
     {% for s in prods %}
         {% if s.published %}
-            <article id="{{ s.id }}">
-                <div class="page">
-                <div class="page-content">
-                    {{ include('factory/pdf/parts/_item_header.html.twig', {item: s}) }}
-                    {{ include('factory/pdf/parts/_packages.html.twig', {item: s}) }}
-                    {{ include('factory/pdf/parts/_product_parameters.html.twig', {item: s}) }}
-                </div>
-                
-            </div>
+            <article>
+                <section id="{{ s.id }}">
+                    <div class="page">
+                        <div class="page-content">
+                            {{ include('factory/pdf/parts/_item_header.html.twig', {item: s}) }}
+                            {{ include('factory/pdf/parts/_packages.html.twig', {item: s}) }}
+                            {{ include('factory/pdf/parts/_product_parameters.html.twig', {item: s}) }}
+                        </div>
+                    </div>
+                </section>
             </article>
             <div class="pb"></div>
         {% endif %}
@@ -287,64 +290,62 @@
 {% if "related_item" == "related_item" and common|length > 0 %}
     {% for s in common %}
         {% if s.published %}
-            <article id="{{ s.id }}">
-                <div class="page">
-                    <div class="page-content">
-                        {{ include('factory/pdf/parts/_item_header.html.twig', {item: s}) }}
-                        {{ include('factory/pdf/parts/_packages.html.twig', {item: s}) }}
-                        <section>
+            <article>
+                <section id="{{ s.id }}">
+                    <div class="page">
+                        <div class="page-content">
+                            {{ include('factory/pdf/parts/_item_header.html.twig', {item: s}) }}
+                            {{ include('factory/pdf/parts/_packages.html.twig', {item: s}) }}
                             <h1>{{ "Parameters"|trans }}</h1>
                             <div style="column-count: 3">
 
-                                {% for group in s.Parameters.groups %}
-                                    <div class="mb-4">
-                                        <table class="packages-table">
-                                            <thead>
-                                            <tr>
-                                                <td colspan="2">
-                                                    <div>
-                                                        {{ group.configuration.name }}
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            {% for key in group.keys %}
+                                    {% for group in s.Parameters.groups %}
+                                        <div class="mb-4">
+                                            <table class="packages-table">
+                                                <thead>
                                                 <tr>
-                                                    <td>
-                                                        {{ key.configuration.title }}
-                                                    </td>
-                                                    <td>
-                                                        {% if key.value %}
-                                                            {% if key.value is iterable %}
-                                                                {% for keyItem in key.value %}
-                                                                    {% if keyItem is iterable %}
-                                                                        {{ key.value }}
-                                                                    {% else %}
-                                                                        <span>
-                                                                            {{ keyItem }}
-                                                                        </span>
-                                                                    {% endif %}
-                                                                {% endfor %}
-                                                            {% else %}
-                                                                {{ key.value }}
-                                                            {% endif %}
-                                                        {% else %}
-                                                            -
-                                                        {% endif %}
+                                                    <td colspan="2">
+                                                        <div>
+                                                            {{ group.configuration.name }}
+                                                        </div>
                                                     </td>
                                                 </tr>
-                                            {% endfor %}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                {% endfor %}
-
+                                                </thead>
+                                                <tbody>
+                                                {% for key in group.keys %}
+                                                    <tr>
+                                                        <td>
+                                                            {{ key.configuration.title }}
+                                                        </td>
+                                                        <td>
+                                                            {% if key.value %}
+                                                                {% if key.value is iterable %}
+                                                                    {% for keyItem in key.value %}
+                                                                        {% if keyItem is iterable %}
+                                                                            {{ key.value }}
+                                                                        {% else %}
+                                                                            <span>
+                                                                                {{ keyItem }}
+                                                                            </span>
+                                                                        {% endif %}
+                                                                    {% endfor %}
+                                                                {% else %}
+                                                                    {{ key.value }}
+                                                                {% endif %}
+                                                            {% else %}
+                                                                -
+                                                            {% endif %}
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    {% endfor %}
                             </div>
-                        </section>
+                        </div>
                     </div>
-
-                </div>
+                </section>
             </article>
             <div class="pb"></div>
         {% endif %}

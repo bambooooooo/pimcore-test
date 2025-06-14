@@ -41,6 +41,7 @@ class ObjectController extends FrontendController
     public function exportImagesAction(Request $request): Response
     {
         $id = $request->get("id");
+        $mode = $request->get("mode") ?? "object";
         $obj = DataObject::getById($id);
 
         if(!$obj) {
@@ -65,6 +66,13 @@ class ObjectController extends FrontendController
         elseif ($obj instanceof ProductSet)
         {
             $productImages[$obj->getId()] = $this->getProductSetImages($obj);
+            if($mode == "dependencies")
+            {
+                foreach($obj->getSet() as $lip)
+                {
+                    $productImages[$lip->getElement()->getId()] = $this->getProductImages($lip->getElement());
+                }
+            }
         }
         elseif ($obj instanceof Group)
         {
@@ -165,6 +173,14 @@ class ObjectController extends FrontendController
             }
         }
 
+        if($obj->getInfographics())
+        {
+            foreach($obj->getInfographics() as $image)
+            {
+                $out[] = $image->getImage();
+            }
+        }
+
         return $out;
     }
 
@@ -180,6 +196,14 @@ class ObjectController extends FrontendController
         if($obj->getImages())
         {
             foreach($obj->getImages() as $image)
+            {
+                $out[] = $image->getImage();
+            }
+        }
+
+        if($obj->getImagesModel())
+        {
+            foreach ($obj->getImagesModel() as $image)
             {
                 $out[] = $image->getImage();
             }

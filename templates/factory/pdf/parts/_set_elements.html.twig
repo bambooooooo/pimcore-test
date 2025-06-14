@@ -20,12 +20,16 @@
                     <tr>
                         <td>{{ loop.index }}</td>
                         <td>
-                            {% if lip.element.Image %}
+                            <a href="#{{ lip.element.id }}" style="text-decoration: none; color: #000; font-weight: bolder; font-size: 7px;">
+                                {% if lip.element.Image %}
+                                    <div>
+                                        <img src="{{ lip.element.Image.thumbnail("50x50") }}" width="50"/>
+                                    </div>
+                                {% endif %}
                                 <div>
-                                    <img src="{{ lip.element.Image.thumbnail("50x50") }}" width="50"/>
+                                    {{ lip.element.key }}
                                 </div>
-                            {% endif %}
-                            {{ lip.element.key }}
+                            </a>
                         </td>
                         <td>
                             {{ lip.element.Width }} x {{ lip.element.Height }} x {{ lip.element.Depth }}

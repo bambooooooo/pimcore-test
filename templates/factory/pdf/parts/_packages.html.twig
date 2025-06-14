@@ -56,6 +56,8 @@
                             <td>
                                 {% if licQty %}
                                     {{ licQty * lip.element.Mass.Value }} kg
+                                {% else %}
+                                    -
                                 {% endif %}
                             </td>
                         </tr>

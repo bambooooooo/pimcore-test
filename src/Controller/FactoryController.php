@@ -197,9 +197,9 @@ class FactoryController extends FrontendController
             {
                 foreach($set->getSet() as $lip)
                 {
-                    $product = $lip->getObject();
+                    $product = $lip->getElement();
 
-                    if(!in_array($product, $prods) && !in_array($product, $common))
+                    if($product && !in_array($product, $prods) && !in_array($product, $common))
                     {
                         $common[] = $product;
                     }

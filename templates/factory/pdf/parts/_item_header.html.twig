@@ -7,11 +7,16 @@
                 </div>
                 <div style="line-height: 26px; font-size: 14px; ">
                     <div style="text-decoration: italic">
-                        {{ "Product identifier"|trans }}: {{ s.id }}
+                        {{ "Product identifier"|trans }}:
+                        <a href="#{{ item.id }}-gallery" style="text-decoration: none; color: #000; font-weight: bold">
+                            {{ s.id }}
+                        </a>
                     </div>
-                    <div>
-                        {{ "Ean"|trans }}: {{ s.EAN }}
-                    </div>
+                    {% if s.EAN %}
+                        <div>
+                            {{ "Ean"|trans }}: {{ s.EAN }}
+                        </div>
+                    {% endif %}
                     {% if s is pimcore_data_object_class("Product") %}
                         <div>
                             {{ "Dimensions"|trans }}: {{ s.Width }} x {{ s.Height }} x {{ s.Depth }}
@@ -27,7 +32,7 @@
                     </div>
                     {% if s is pimcore_data_object_class("ProductSet") %}
                         <div>
-                            <a href="{{ path('export_images', {id: s.id}) }}">
+                            <a href="{{ path('export_images', {id: s.id, mode: 'dependencies'}) }}">
                                 <div class="download-button">
                                     <img class="download-button-icon" src="{{ asset('/bundles/pimcoreadmin/img/flat-white-icons/download.svg') }}"/>
                                     {{ "Download images of elements"|trans }}
