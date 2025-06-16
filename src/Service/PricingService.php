@@ -305,7 +305,22 @@ class PricingService
                     }
                 }
 
-                $price = round($price, 2);
+                if($price <= 0)
+                    return null;
+
+                if($pricing->getRate() == 0)
+                    throw new \Exception("Pricing rate can not be zero");
+
+                $price = $price / $pricing->getRate();
+
+                if($pricing->getRounding())
+                {
+                    $price = $this->roundPrettyPrice($price);
+                }
+                else
+                {
+                    $price = round($price, 2);
+                }
 
                 if($pricing->getRestrictions())
                 {
@@ -345,6 +360,50 @@ class PricingService
                 return $price;
             }
         });
+    }
+
+    private function roundPrettyPrice(float $price, float $maxDeltaPercent = 5.0): float
+    {
+        if ($price < 3) {
+            $step = 0.10;
+            $ending = 0.00;
+        } elseif ($price < 10) {
+            $step = 0.50;
+            $ending = 0.00;
+        } elseif ($price < 50) {
+            $step = 1.00;
+            $ending = 0.00;
+        } elseif ($price < 100) {
+            $step = 5.00;
+            $ending = 0.00;
+        } elseif ($price < 500) {
+            $step = 10.00;
+            $ending = 0.00;
+        } elseif ($price < 1000) {
+            $step = 25.00;
+            $ending = 0.00;
+        } else {
+            $step = 50.00;
+            $ending = 0.00;
+        }
+
+        // 1. Round down to nearest "pretty" step
+        $core = floor(($price - $ending) / $step) * $step;
+        $pretty = $core + $ending;
+
+        // 2. Check if price delta is within allowed threshold
+        $deltaPercent = abs($price - $pretty) / $price * 100;
+
+        if ($deltaPercent > $maxDeltaPercent) {
+            // Adjust in the opposite direction
+            if ($pretty < $price) {
+                $pretty += $step;
+            } else {
+                $pretty -= $step;
+            }
+        }
+
+        return round($pretty, 2);
     }
 
     private function getProducts(Product|ProductSet $obj): array

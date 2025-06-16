@@ -315,22 +315,24 @@ class ObjectController extends FrontendController
     {
         $id = $request->get("id");
         $kind = $request->get("kind") ?? "preview";
+        $references = $request->get("references") ?? [];
 
         $obj = DataObject\Offer::getById($id);
 
         if($kind == "xlsx")
         {
-            return $this->offerPriceListXlsx($obj);
+            return $this->offerPriceListXlsx($obj, $references);
         }
 
         $data = [
-            'pricing' => $obj
+            'pricing' => $obj,
+            'references' => $references,
         ];
 
         return $this->render('admin/prices.html.twig', $data);
     }
 
-    private function offerPriceListXlsx(Offer $offer): Response
+    private function offerPriceListXlsx(Offer $offer, array $references = []): Response
     {
         DataObject::setHideUnpublished(false);
         $id = $offer->getId();
@@ -346,7 +348,15 @@ class ObjectController extends FrontendController
         $sheet->setCellValue('E1', $this->translator->trans('Width'));
         $sheet->setCellValue('F1', $this->translator->trans('Height'));
         $sheet->setCellValue('G1', $this->translator->trans('Depth'));
-        $sheet->setCellValue('H1', $this->translator->trans('Price'));
+        $sheet->setCellValue('H1', $this->translator->trans('Price') . " " . $offer->getName());
+
+        $i = 9;
+        foreach($references as $reference)
+        {
+            $refOffer = DataObject\Offer::getById($reference);
+            $sheet->setCellValue([$i, 1], $this->translator->trans('Price') . " " . $refOffer->getName());
+            $i++;
+        }
 
         $sheet->getStyle('E')->getAlignment()->setWrapText(true);
 
@@ -381,6 +391,20 @@ class ObjectController extends FrontendController
                     $price = round(floatval($price->getPrice()), 2);
                     $sheet->setCellValue('H' . $i, $price);
                 }
+            }
+
+            $j = 9;
+            foreach($references as $reference)
+            {
+                foreach ($obj->getPrice() as $price)
+                {
+                    if ($price->getElement()->getId() == $reference) {
+                        $price = round(floatval($price->getPrice()), 2);
+                        $sheet->setCellValue([$j, $i], $price);
+                    }
+                }
+
+                $j++;
             }
 
             if ($obj->getImage()) {

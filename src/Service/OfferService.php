@@ -35,23 +35,25 @@ class OfferService
             }
 
             $price = null;
+            $currency = null;
 
             foreach($offer->getPricings() as $offerPricing)
             {
                 foreach($obj->getPricing() as $productPricing)
                 {
-                    if($offerPricing == $productPricing->getElement() && !$price)
+                    if($offerPricing->getId() == $productPricing->getElement()->getId() && !$price)
                     {
                         $price = $productPricing->getPrice();
+                        $currency = $productPricing->getCurrency();
                     }
                 }
             }
 
-            if($price)
+            if($price and $currency)
             {
                 $item = new ObjectMetadata('Price', ['Price', 'Currency', 'Fixed'], $offer);
                 $item->setPrice($price);
-                $item->setCurrency("PLN");
+                $item->setCurrency($currency);
                 $item->setFixed(false);
 
                 $productOffers[] = $item;

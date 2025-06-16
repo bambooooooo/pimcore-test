@@ -24,18 +24,23 @@
         <td>Narzut</td>
         <td>Marża</td>
         <td>Zysk</td>
+        {% for ref in references %}
+            <td>
+                {% set refObj = pimcore_object(ref) %}
+                {{ refObj.key }}
+            </td>
+        {% endfor %}
     </tr>
     </thead>
     <tbody>
     {% for req in pricing.getDependencies().getFilterRequiredByPath() %}
         {% set product = pimcore_object(req.id) %}
 
-        {% if product and req.type == 'object' and (product is pimcore_data_object_class("Product") or product is pimcore_data_object_class("ProductSet")) %}
+        {% if product and product.published and req.type == 'object' and (product is pimcore_data_object_class("Product") or product is pimcore_data_object_class("ProductSet")) %}
 
             <tr>
                 <td>
-{#                    {{ loop.index }}#}
-                    {{ product.id }}
+                    {{ loop.index }}
                 </td>
                 <td>
                     {{ product.Image.thumbnail("50x50").html|raw }}
@@ -44,6 +49,9 @@
                     <strong>
                         {{ product.key }}
                     </strong><br/>
+                    <div style="font-size: 12px; font-style: italic">
+                        {{ product.id }}
+                    </div>
                     {{ product.Name }}
                     <br/>
                     {% if product is pimcore_data_object_class("Product") %}
@@ -78,6 +86,15 @@
                 <td>
                     {{ diff }} zł
                 </td>
+                {% for ref in references %}
+                    <td>
+                        {% for offer in product.Price %}
+                            {% if offer.objectId == ref %}
+                                {{ offer.data.Price }}
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                {% endfor %}
             </tr>
         {% endif %}
     {% endfor %}
