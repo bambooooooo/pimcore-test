@@ -185,8 +185,10 @@ class ProductSetPublisher
 
             if($price)
             {
-                $item = new ObjectMetadata('Pricing', ['Price'], $pricing);
+                $item = new ObjectMetadata('Pricing', ['Price', 'Currency'], $pricing);
                 $item->setPrice($price);
+                $item->setCurrency($pricing->getCurrency());
+
                 $productPrices[] = $item;
             }
         }

@@ -208,8 +208,10 @@ class ProductPublisher
         $price = $this->pricingService->getPricing($product, $pricing);
         if($price)
         {
-            $item = new ObjectMetadata('Pricing', ['Price'], $pricing);
+            $item = new ObjectMetadata('Pricing', ['Price', 'Currency'], $pricing);
             $item->setPrice($price);
+            $item->setCurrency($pricing->getCurrency());
+
             return $item;
         }
     }
