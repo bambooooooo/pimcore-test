@@ -2,7 +2,9 @@
 
 /**
  * Fields Summary:
- * - Limit [quantityValue]
+ * - LimitLength [quantityValue]
+ * - LimitWidth [quantityValue]
+ * - LimitHeight [quantityValue]
  */
 
 return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
@@ -10,7 +12,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'key' => 'MaxPackageLength',
    'parentClass' => '',
    'implementsInterfaces' => '',
-   'title' => 'Maksymalna długość paczki',
+   'title' => 'Rozmiar paczki',
    'group' => '',
    'layoutDefinitions' => 
   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -42,9 +44,83 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
         array (
           0 => 
           \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-             'name' => 'Limit',
-             'title' => 'Limit',
-             'tooltip' => 'Maksymalna długość najdłuższego z boków dowolnej paczki nie może być większa niż wskazany limit.',
+             'name' => 'LimitLength',
+             'title' => 'Limit Length',
+             'tooltip' => 'Maksymalna długość dowolnej paczki nie może być większa niż wskazany limit.',
+             'mandatory' => true,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'unitWidth' => '',
+             'defaultUnit' => 'mm',
+             'validUnits' => 
+            array (
+              0 => 'mm',
+            ),
+             'unique' => false,
+             'autoConvert' => false,
+             'defaultValueGenerator' => '',
+             'width' => '',
+             'defaultValue' => NULL,
+             'integer' => true,
+             'unsigned' => true,
+             'minValue' => NULL,
+             'maxValue' => NULL,
+             'decimalSize' => NULL,
+             'decimalPrecision' => NULL,
+          )),
+          1 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+             'name' => 'LimitWidth',
+             'title' => 'Limit Width',
+             'tooltip' => 'Maksymalna szerokość dowolnej paczki nie może być większa niż wskazany limit.',
+             'mandatory' => true,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'unitWidth' => '',
+             'defaultUnit' => 'mm',
+             'validUnits' => 
+            array (
+              0 => 'mm',
+            ),
+             'unique' => false,
+             'autoConvert' => false,
+             'defaultValueGenerator' => '',
+             'width' => '',
+             'defaultValue' => NULL,
+             'integer' => true,
+             'unsigned' => true,
+             'minValue' => NULL,
+             'maxValue' => NULL,
+             'decimalSize' => NULL,
+             'decimalPrecision' => NULL,
+          )),
+          2 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+             'name' => 'LimitHeight',
+             'title' => 'Limit Height',
+             'tooltip' => 'Maksymalna wysokość dowolnej paczki nie może być większa niż wskazany limit.',
              'mandatory' => true,
              'noteditable' => false,
              'index' => false,
@@ -86,7 +162,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
          'layout' => NULL,
          'border' => false,
          'icon' => '',
-         'labelWidth' => 100,
+         'labelWidth' => 150,
          'labelAlign' => 'left',
       )),
     ),

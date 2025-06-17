@@ -28,17 +28,11 @@ class PricingService
             {
                 if($pricing->getRestrictions()->getMaxPackageLength())
                 {
-                    $limit = $pricing->getRestrictions()->getMaxPackageLength()->getLimit()->getValue();
-
                     foreach ($this->getPackages($obj) as $lip)
                     {
-                        $dim = max([
-                            $lip["Package"]->getWidth()->getValue(),
-                            $lip["Package"]->getHeight()->getValue(),
-                            $lip["Package"]->getDepth()->getValue()
-                        ]);
-
-                        if($dim > $limit)
+                        if($lip["Package"]->getLength()->getValue() > $pricing->getRestrictions()->getMaxPackageLength()->getLimitLength()->getValue()
+                            || $lip["Package"]->getWidth()->getValue() > $pricing->getRestrictions()->getMaxPackageLength()->getLimitWidth()->getValue()
+                            || $lip["Package"]->getHeight()->getValue() > $pricing->getRestrictions()->getMaxPackageLength()->getLimitHeight()->getValue())
                         {
                             return null;
                         }
