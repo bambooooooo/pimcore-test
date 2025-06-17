@@ -55,7 +55,6 @@ pimcore:
                         id: products_read_only
                         sort: 0
                         expanded: true
-
             Packages:
                 icon: /bundles/pimcoreadmin/img/flat-color-icons/deployment.svg
                 elementTree:
@@ -78,5 +77,67 @@ pimcore:
                         type: customview
                         position: right
                         id: users_read_only
+                        expanded: false
+                        sort: 2
+                    -
+                        name: 'Carriers'
+                        type: customview
+                        position: right
+                        id: load_carriers_readonly
+                        expanded: false
+                        sort: 3
+            Orders:
+                icon: /bundles/pimcoreadmin/img/flat-color-icons/shopping-cart.svg
+                toolbar:
+                    file:
+                        items:
+                            dashboards: false
+                            openDocument: false
+                            openAsset: false
+                            searchReplace: false
+                            seemode: false
+                            help: false
+                            about: false
+                    settings:
+                        hidden: true
+                    marketing:
+                        hidden: true
+                    extras:
+                        hidden: true
+                    datahub:
+                        hidden: true
+                    search:
+                        items:
+                            quickSearch: false
+                            documents: false
+                            assets: false
+                            objects: true
+                elementTree:
+                    -
+                        name: 'Production'
+                        type: customview
+                        position: left
+                        id: orders
+                        sort: 0
+                        expanded: true
+                    -
+                        name: 'Products'
+                        type: customview
+                        position: right
+                        id: products_read_only
+                        expanded: true
+                        sort: 0
+                    -
+                        name: 'Users'
+                        type: customview
+                        position: right
+                        id: users_read_only
+                        expanded: false
+                        sort: 1
+                    -
+                        name: 'Carriers'
+                        type: customview
+                        position: right
+                        id: load_carriers_readonly
                         expanded: false
                         sort: 2

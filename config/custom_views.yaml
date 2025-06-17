@@ -66,3 +66,25 @@ pimcore:
                 id: users_read_only
                 treeContextMenu:
                     classes: 'User'
+
+            load_carriers_readonly:
+                name: Carriers
+                treetype: object
+                position: right
+                icon: /UI/pallet.png
+                rootfolder: /NOŚNIKI
+                showroot: true
+                sort: 2
+                id: load_carriers_readonly
+                treeContextMenu:
+                    classes: 'LoadCarrier'
+
+            orders:
+                name: Orders
+                treetype: object
+                position: left
+                icon: /bundles/pimcoreadmin/img/flat-color-icons/shopping-cart.svg
+                rootfolder: '/ZLECENIA/PRODUKCJA'
+                showroot: true
+                sort: 0
+                id: orders
