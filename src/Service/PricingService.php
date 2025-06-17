@@ -297,6 +297,41 @@ class PricingService
                     {
                         $price += (float)$obj->getPackagesVolume()->getValue() * (float)$rule->getPrice()->getValue();
                     }
+
+                    if($rule instanceof DataObject\Fieldcollection\Data\PricingAgg)
+                    {
+                        $prices = [];
+                        foreach ($rule->getPricings() as $groupPricing)
+                        {
+                            $groupPrice = $this->getPricing($obj, $groupPricing);
+
+                            if($groupPrice)
+                            {
+                                $prices[] = $groupPrice;
+                            }
+                        }
+
+                        if($prices)
+                        {
+                            switch ($rule->getOperator())
+                            {
+                                case "Minimum":
+                                {
+                                    $price += min($prices);
+                                    break;
+                                }
+                                case "Maximum":
+                                {
+                                    $price += max($prices);
+                                    break;
+                                }
+                                case "Average":
+                                {
+                                    $price += array_sum($prices) / count($prices);
+                                }
+                            }
+                        }
+                    }
                 }
 
                 if($price <= 0)
