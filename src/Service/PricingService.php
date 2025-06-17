@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use Pimcore\Bundle\ApplicationLoggerBundle\ApplicationLogger;
 use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\Data\ObjectMetadata;
 use Pimcore\Model\DataObject\Fieldcollection\Data\Factor;
@@ -328,6 +329,7 @@ class PricingService
                                 case "Average":
                                 {
                                     $price += array_sum($prices) / count($prices);
+                                    break;
                                 }
                             }
                         }
