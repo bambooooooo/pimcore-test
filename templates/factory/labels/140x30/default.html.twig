@@ -155,7 +155,13 @@
                         {% endif %}
                     </div>
                     <div>
-                        {{ "Serie"|trans }}: {{ order.id }}
+                        {{ "Serie"|trans }}:
+                        {% if order.parent is pimcore_data_object_class("Order") %}
+                            {{ order.parent.key }}
+                        {% else %}
+                            {{ order.key }}
+                        {% endif %}
+                        ({{ order.id }})
                     </div>
                 </td>
             </tr>

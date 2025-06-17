@@ -1,0 +1,84 @@
+<html>
+<head>
+    <style>
+        html, body
+        {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .page
+        {
+            width: 76px;
+            height: 122px;
+            box-sizing: border-box;
+            padding: 4px;
+            font-size: 8px;
+        }
+
+        .content
+        {
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+    </style>
+</head>
+<body>
+
+{% set step = min(copies, step) %}
+{% set steps = (copies / step)|round(0, 'ceil') %}
+
+{% for i in range(1, steps) %}
+    <div class="page">
+        <div class="content">
+            <div style="font-size: 9px; margin-left: 4px; margin-right: 4px;">
+                <strong>
+                    {{ package.key }}
+                </strong>
+                <span style="font-size: 6px; font-style: italic">
+                    #{{ package.id }}
+                </span>
+            </div>
+            {% if product %}
+                <div style="font-size: 6px; margin-top: 4px; margin-bottom: 4px;">
+                    {{ product.key }}
+                    <span style="font-size: 5px; font-style: italic">
+                    #{{ product.id }}
+                </span>
+                </div>
+            {% endif %}
+            <div style="font-size: 6px; margin-right: 3px">
+                <div style="text-align: left; float:left; font-size: 9px">
+                    {{ min(i * step, copies) }} / {{ copies }}
+                </div>
+                <div style="text-align: right; float: right;">
+                    {% if order %}
+                        <div>
+                            {{ "Serie"|trans }}:
+                            {% if order.parent is pimcore_data_object_class("Order") %}
+                                {{ order.parent.key }}
+                            {% else %}
+                                {{ order.key }}
+                            {% endif %}
+
+                            ({{ order.id }})
+                        </div>
+                        {% if order.user %}
+                            <div>
+                                {{ order.user.key|u.truncate(7) }}
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <div style="font-size: 5px; text-align: center; margin-top: 4px;">
+                {{ "now"|date("H:m:s d.m.Y") }}
+            </div>
+        </div>
+    </div>
+{% endfor %}
+</body>
+</html>

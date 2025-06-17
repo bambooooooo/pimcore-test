@@ -40,6 +40,17 @@
             <div style="font-size: 64px; font-weight: bold; word-break: keep-all">
                 {{ package.key }}<br/>
             </div>
+            {% if order %}
+                <div style="font-size: 16px">
+                    {{ order.key }}
+                    {% if order.parent is pimcore_data_object_class("Order") %}
+                        {{ order.parent.key }}
+                    {% endif %}
+                </div>
+                <div style="font-size: 12px">
+                    ({{ order.id }})
+                </div>
+            {% endif %}
         </div>
     </div>
 {% endfor %}
