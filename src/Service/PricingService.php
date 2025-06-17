@@ -30,7 +30,7 @@ class PricingService
                 {
                     foreach ($this->getPackages($obj) as $lip)
                     {
-                        if($lip["Package"]->getLength()->getValue() > $pricing->getRestrictions()->getMaxPackageLength()->getLimitLength()->getValue()
+                        if($lip["Package"]->getDepth()->getValue() > $pricing->getRestrictions()->getMaxPackageLength()->getLimitLength()->getValue()
                             || $lip["Package"]->getWidth()->getValue() > $pricing->getRestrictions()->getMaxPackageLength()->getLimitWidth()->getValue()
                             || $lip["Package"]->getHeight()->getValue() > $pricing->getRestrictions()->getMaxPackageLength()->getLimitHeight()->getValue())
                         {
