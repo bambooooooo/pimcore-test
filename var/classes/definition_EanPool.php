@@ -132,8 +132,8 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 ),
                  'defaultValue' => NULL,
                  'columnLength' => 12,
-                 'regex' => '^[0-9]{9,12}$',
-                 'regexFlags' =>
+                 'regex' => '^[0-9]{7,12}$',
+                 'regexFlags' => 
                 array (
                 ),
                  'unique' => true,
