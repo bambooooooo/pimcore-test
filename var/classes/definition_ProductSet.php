@@ -17,6 +17,7 @@
  * - PackagesVolume [quantityValue]
  * - PackageCount [numeric]
  * - SerieSize [numeric]
+ * - LoadCarriers [manyToManyRelation]
  * - Images [imageGallery]
  * - ImagesModel [imageGallery]
  * - Video [video]
@@ -34,7 +35,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1750753423,
+   'modificationDate' => 1750759455,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -561,6 +562,55 @@ Klasyfikacja CN produktu. Można skorzystać z wyszukiwarki ext-isztar4.mf.gov.p
                  'decimalPrecision' => NULL,
                  'width' => '',
                  'defaultValueGenerator' => '',
+              )),
+              11 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyRelation::__set_state(array(
+                 'name' => 'LoadCarriers',
+                 'title' => 'Load Carriers',
+                 'tooltip' => 'Nośniki
+
+Nośniki, na których może być wysyłany towar. Przykładowo: wrażliwe na uszkodzenia towary mogą być ograniczone do transportu wyłącznie na wybranej palecie.
+
+Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącznie',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => true,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'classes' => 
+                array (
+                  0 => 
+                  array (
+                    'classes' => 'LoadCarrier',
+                  ),
+                ),
+                 'displayMode' => NULL,
+                 'pathFormatterClass' => '',
+                 'maxItems' => NULL,
+                 'assetInlineDownloadAllowed' => false,
+                 'assetUploadPath' => '',
+                 'allowToClearRelation' => true,
+                 'objectsAllowed' => true,
+                 'assetsAllowed' => false,
+                 'assetTypes' => 
+                array (
+                ),
+                 'documentsAllowed' => false,
+                 'documentTypes' => 
+                array (
+                ),
+                 'enableTextSelection' => false,
+                 'width' => '',
+                 'height' => '',
               )),
             ),
              'locked' => false,
