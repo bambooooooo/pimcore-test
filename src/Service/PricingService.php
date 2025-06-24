@@ -135,7 +135,7 @@ class PricingService
                 }
             }
 
-            if($obj instanceof Product && $obj->getLoadCarriers())
+            if($obj->getLoadCarriers())
             {
                 if($pricing->getRestrictions()?->getLoadCarriers()?->getLoadCarriers())
                 {
@@ -334,6 +334,39 @@ class PricingService
                             }
                         }
                     }
+
+                    if($rule instanceof DataObject\Fieldcollection\Data\MPal)
+                    {
+                        if(!$obj->getLoadCarriers())
+                        {
+                            return null;
+                        }
+
+                        $carrierPrices = [];
+
+                        foreach ($obj->getLoadCarriers() as $loadCarrier)
+                        {
+                            if($loadCarrier->isPublished())
+                            {
+                                $l = $this->ceil($loadCarrier->getLength()->getValue() / 1000);
+                                $w = $this->ceil($loadCarrier->getWidth()->getValue() / 1000);
+                                $mpal = ceil(100 * $l * $w / 0.96) / 100.0;
+
+                                $carrierPrices[] = $rule->getPrice()->getValue() * $mpal;
+                            }
+                        }
+
+                        dump($carrierPrices);
+
+                        if($carrierPrices)
+                        {
+                            $price += min($carrierPrices);
+                        }
+                        else
+                        {
+                            return null;
+                        }
+                    }
                 }
 
                 if($price <= 0)
@@ -498,5 +531,9 @@ class PricingService
         }
 
         throw new \Exception("Unsupported object type");
+    }
+
+    private function ceil(float $value, float $resolution = 0.2): float {
+        return ceil($value / $resolution) * $resolution;
     }
 }
