@@ -53,6 +53,7 @@
  * - nav_show_types [checkbox]
  * - nav_show_sets [checkbox]
  * - nav_show_packages [checkbox]
+ * - Offers [manyToManyObjectRelation]
  */
 
 return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
@@ -62,7 +63,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Użytkownik',
    'description' => 'Podmiot w systemie',
    'creationDate' => NULL,
-   'modificationDate' => 1749200996,
+   'modificationDate' => 1750742329,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -324,7 +325,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'fieldtype' => 'panel',
              'layout' => NULL,
              'border' => false,
-             'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/tools.svg',
+             'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/manager.svg',
              'labelWidth' => 100,
              'labelAlign' => 'left',
           )),
@@ -1419,8 +1420,74 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
              'fieldtype' => 'panel',
              'layout' => NULL,
              'border' => false,
-             'icon' => '',
+             'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/tools.svg',
              'labelWidth' => 220,
+             'labelAlign' => 'left',
+          )),
+          4 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+             'name' => 'Offers',
+             'type' => NULL,
+             'region' => NULL,
+             'title' => 'Offers',
+             'width' => '',
+             'height' => '',
+             'collapsible' => false,
+             'collapsed' => false,
+             'bodyStyle' => '',
+             'datatype' => 'layout',
+             'children' => 
+            array (
+              0 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                 'name' => 'Offers',
+                 'title' => 'Offers',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => true,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'classes' => 
+                array (
+                  0 => 
+                  array (
+                    'classes' => 'Offer',
+                  ),
+                ),
+                 'displayMode' => 'grid',
+                 'pathFormatterClass' => '',
+                 'maxItems' => NULL,
+                 'visibleFields' => 'key',
+                 'allowToCreateNewObject' => false,
+                 'allowToClearRelation' => true,
+                 'optimizedAdminLoading' => false,
+                 'enableTextSelection' => false,
+                 'visibleFieldDefinitions' => 
+                array (
+                ),
+                 'width' => '',
+                 'height' => '',
+              )),
+            ),
+             'locked' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'fieldtype' => 'panel',
+             'layout' => NULL,
+             'border' => false,
+             'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/percent.svg',
+             'labelWidth' => 100,
              'labelAlign' => 'left',
           )),
         ),

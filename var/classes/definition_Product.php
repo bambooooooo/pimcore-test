@@ -34,6 +34,7 @@
  * - Images [imageGallery]
  * - Photos [imageGallery]
  * - ImagesModel [imageGallery]
+ * - Video [video]
  * - Packages [advancedManyToManyObjectRelation]
  * - PackageCount [numeric]
  * - PackagesMass [quantityValue]
@@ -54,7 +55,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Produkt',
    'description' => 'Towar, który można sprzedać',
    'creationDate' => NULL,
-   'modificationDate' => 1750081345,
+   'modificationDate' => 1750753425,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -1131,7 +1132,7 @@ Wycena produktu lub innej usługi związanej z produktem, np. transport',
                  'displayMode' => NULL,
                  'pathFormatterClass' => '',
                  'maxItems' => NULL,
-                 'visibleFields' => 'fullpath',
+                 'visibleFields' => 'fullpath,Countries',
                  'allowToCreateNewObject' => false,
                  'allowToClearRelation' => true,
                  'optimizedAdminLoading' => false,
@@ -1254,10 +1255,10 @@ Wycena produktu lub innej usługi związanej z produktem, np. transport',
           )),
           4 => 
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-             'name' => 'Images',
+             'name' => 'Media',
              'type' => NULL,
              'region' => NULL,
-             'title' => 'Images',
+             'title' => 'Media',
              'width' => '',
              'height' => '',
              'collapsible' => false,
@@ -1411,6 +1412,40 @@ Przykładowo: rysunek z wymiarami',
                  'width' => '',
                  'height' => '',
                  'fieldDefinitionsCache' => NULL,
+              )),
+              4 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Video::__set_state(array(
+                 'name' => 'Video',
+                 'title' => 'Video',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'uploadPath' => '',
+                 'allowedTypes' => 
+                array (
+                  0 => 'youtube',
+                ),
+                 'supportedTypes' => 
+                array (
+                  0 => 'asset',
+                  1 => 'youtube',
+                  2 => 'vimeo',
+                  3 => 'dailymotion',
+                ),
+                 'height' => '',
+                 'width' => '',
               )),
             ),
              'locked' => false,

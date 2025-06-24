@@ -19,6 +19,7 @@
  * - SerieSize [numeric]
  * - Images [imageGallery]
  * - ImagesModel [imageGallery]
+ * - Video [video]
  * - Groups [manyToManyObjectRelation]
  * - Parameters [classificationstore]
  * - BasePrice [quantityValue]
@@ -33,7 +34,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1750081566,
+   'modificationDate' => 1750753423,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -81,7 +82,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'name' => 'System data',
              'type' => NULL,
              'region' => NULL,
-             'title' => 'Dane systemowe',
+             'title' => 'System data',
              'width' => '',
              'height' => '',
              'collapsible' => false,
@@ -575,10 +576,10 @@ Klasyfikacja CN produktu. Można skorzystać z wyszukiwarki ext-isztar4.mf.gov.p
           )),
           1 => 
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-             'name' => 'Images',
+             'name' => 'Media',
              'type' => NULL,
              'region' => NULL,
-             'title' => 'Zdjęcia',
+             'title' => 'Media',
              'width' => '',
              'height' => '',
              'collapsible' => false,
@@ -643,6 +644,40 @@ Przykładowo: rysunek z wymiarami',
                  'height' => '',
                  'width' => '',
               )),
+              2 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Video::__set_state(array(
+                 'name' => 'Video',
+                 'title' => 'Video',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'uploadPath' => '',
+                 'allowedTypes' => 
+                array (
+                  0 => 'youtube',
+                ),
+                 'supportedTypes' => 
+                array (
+                  0 => 'asset',
+                  1 => 'youtube',
+                  2 => 'vimeo',
+                  3 => 'dailymotion',
+                ),
+                 'height' => '',
+                 'width' => '',
+              )),
             ),
              'locked' => false,
              'blockedVarsForExport' => 
@@ -660,7 +695,7 @@ Przykładowo: rysunek z wymiarami',
              'name' => 'Parameters',
              'type' => NULL,
              'region' => NULL,
-             'title' => 'Parametry',
+             'title' => 'Parameters',
              'width' => '',
              'height' => '',
              'collapsible' => false,
@@ -771,7 +806,7 @@ Kolekcje i grupy parametrów dotyczące całego zestawu. Nie wprowadzamy tutaj p
              'name' => 'Prices',
              'type' => NULL,
              'region' => NULL,
-             'title' => 'Ceny',
+             'title' => 'Prices',
              'width' => '',
              'height' => '',
              'collapsible' => false,
@@ -844,7 +879,7 @@ Suma cen bazowych produktów',
                  'displayMode' => NULL,
                  'pathFormatterClass' => '',
                  'maxItems' => NULL,
-                 'visibleFields' => 'key',
+                 'visibleFields' => 'key,Countries',
                  'allowToCreateNewObject' => false,
                  'allowToClearRelation' => true,
                  'optimizedAdminLoading' => false,

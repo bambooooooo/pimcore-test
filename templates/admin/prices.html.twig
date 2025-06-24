@@ -21,9 +21,11 @@
         <td>Product</td>
         <td>Base Price</td>
         <td>{{ pricing.key }}</td>
-        <td>Narzut</td>
-        <td>Marża</td>
-        <td>Zysk</td>
+        {% if show_indices %}
+            <td>Narzut</td>
+            <td>Marża</td>
+            <td>Zysk</td>
+        {% endif %}
         {% for ref in references %}
             <td>
                 {% set refObj = pimcore_object(ref) %}
@@ -60,32 +62,42 @@
                     {% endif %}
                 </td>
                 <td>
-                    {{ product.BasePrice }}
+                    {{ product.BasePrice.Value }}
                 </td>
-                <td>
-                    {% set diff = 0 %}
-                    {% set pr = 0 %}
+                {% if show_indices %}
+                    <td>
+                        {% set diff = 0 %}
+                        {% set pr = 0 %}
 
-                    {% for offer in product.Price %}
-                        {% if offer.objectId == pricing.id %}
-                            {{ offer.data.Price }}
+                        {% for offer in product.Price %}
+                            {% if offer.objectId == pricing.id %}
+                                {{ offer.data.Price }}
 
-                            {% set pr = offer.data.Price %}
-                            {% set diff = offer.data.Price - product.BasePrice.Value %}
+                                {% set pr = offer.data.Price %}
+                                {% set diff = offer.data.Price - product.BasePrice.Value %}
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {{ (100 * diff / product.BasePrice.Value)|round }} %
+                    </td>
+                    <td>
+                        {% if pr %}
+                            {{ (100 * diff / pr)|round }} %
                         {% endif %}
-                    {% endfor %}
-                </td>
-                <td>
-                    {{ (100 * diff / product.BasePrice.Value)|round }} %
-                </td>
-                <td>
-                    {% if pr %}
-                        {{ (100 * diff / pr)|round }} %
-                    {% endif %}
-                </td>
-                <td>
-                    {{ diff }} zł
-                </td>
+                    </td>
+                    <td>
+                        {{ diff }} zł
+                    </td>
+                {% else %}
+                    <td>
+                        {% for offer in product.Price %}
+                            {% if offer.objectId == pricing.id %}
+                                {{ offer.data.Price }}
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                {% endif %}
                 {% for ref in references %}
                     <td>
                         {% for offer in product.Price %}

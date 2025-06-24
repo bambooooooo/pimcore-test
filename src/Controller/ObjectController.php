@@ -316,23 +316,25 @@ class ObjectController extends FrontendController
         $id = $request->get("id");
         $kind = $request->get("kind") ?? "preview";
         $references = $request->get("references") ?? [];
+        $filename = $request->get("filename") ?? null;
 
         $obj = DataObject\Offer::getById($id);
 
         if($kind == "xlsx")
         {
-            return $this->offerPriceListXlsx($obj, $references);
+            return $this->offerPriceListXlsx($obj, $references, $filename);
         }
 
         $data = [
             'pricing' => $obj,
             'references' => $references,
+            'show_indices' => $request->get("show_indices") ?? false
         ];
 
         return $this->render('admin/prices.html.twig', $data);
     }
 
-    private function offerPriceListXlsx(Offer $offer, array $references = []): Response
+    private function offerPriceListXlsx(Offer $offer, array $references = [], string $filename = null): Response
     {
         DataObject::setHideUnpublished(false);
         $id = $offer->getId();
@@ -436,7 +438,15 @@ class ObjectController extends FrontendController
         $sheet->getColumnDimension('B')->setWidth(12);
 
         $writer = new Xlsx($spreadsheet);
-        $fileName = $offer->getKey() . '.xlsx';
+
+        if(!$filename)
+        {
+            $fileName = $offer->getKey() . '.xlsx';
+        }
+        else
+        {
+            $fileName = $filename . '.xlsx';
+        }
 
         $response = new Response();
         $response->headers->set('Content-Type', 'application/vnd.ms-excel');
@@ -456,27 +466,37 @@ class ObjectController extends FrontendController
 
         $obj = DataObject::getById($request->get("id"));
 
-        $name = $request->get("name");
+        $text = $request->get("name");
         $origin = $request->get("origin");
         $locale = $request->get("loc");
+        $deeplLocale = ($locale == "en") ? "EN-US" : $locale;
+        $field = $request->get("field");
 
         if(!$obj)
         {
-            return new Response("Product not found", Response::HTTP_NOT_FOUND);
+            return new Response("Object not found", Response::HTTP_NOT_FOUND);
         }
 
-        if(!($obj instanceof Product or $obj instanceof ProductSet))
+        if($field == "name" && ($obj instanceof Product or $obj instanceof ProductSet or $obj instanceof Group))
         {
-            throw new \Exception("Object [class: " . $obj->getClassId() . "] not supported", Response::HTTP_BAD_REQUEST);
+            $tx = $this->deepLService->translate($text, $deeplLocale, $origin);
+
+            $obj->setName($tx, $locale);
+            $obj->save();
+
+            return new JsonResponse(["status" => $obj->getKey() . "[" . $locale . "] = " . $tx]);
         }
 
-        $deeplLocale = ($locale == "en") ? "EN-US" : $locale;
+        if($field == "description" && $obj instanceof Group)
+        {
+            $tx = $this->deepLService->translate($text, $deeplLocale, $origin);
 
-        $tx = $this->deepLService->translate($name, $deeplLocale, $origin);
+            $obj->setDescription($tx, $locale);
+            $obj->save();
 
-        $obj->setName($tx, $locale);
-        $obj->save();
+            return new JsonResponse(["status" => $obj->getKey() . "[" . $locale . "] = " . $tx]);
+        }
 
-        return new JsonResponse(["status" => $obj->getKey() . "[" . $locale . "] = " . $tx]);
+        throw new \Exception("Object [class: " . $obj->getClassId() . "] or field: " . $field . " not supported", Response::HTTP_BAD_REQUEST);
     }
 }

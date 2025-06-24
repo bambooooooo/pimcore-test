@@ -1,5 +1,171 @@
+Date.prototype.ddmmyyyy = function() {
+    var mm = this.getMonth() + 1;
+    var dd = this.getDate();
+
+    return [
+        (dd > 9 ? '' : '0') + dd,
+        (mm > 9 ? '': '0') + mm,
+        this.getFullYear(),
+    ].join('.');
+}
 
 document.addEventListener(pimcore.events.postOpenObject, function(e){
+
+    const translate = function (field = "name") {
+
+        var current = 0;
+        var total = pimcore.settings.websiteLanguages.length;
+
+        var progressbar = new Ext.ProgressBar({
+            text: t('Progress'),
+            style: "margin-top: 0px;",
+            width: 500
+        })
+
+        var cancelBtn = Ext.create('Ext.Button', {
+            scale: 'small',
+            text: t('Cancel'),
+            tooltip: t('Cancel'),
+            icon: '/bundles/pimcoreadmin/img/flat-color-icons/cancel.svg',
+            style: 'margin-left: 5px; height: 30px',
+            handler: function () {
+                current = Infinity;
+            }
+        })
+
+        var panel = Ext.create('Ext.panel.Panel', {
+            layout: {
+                type: 'hbox'
+            },
+            items: [
+                progressbar,
+                cancelBtn
+            ]
+        });
+
+        var pbWin = new Ext.Window({
+            title: t('Translating'),
+            items: [
+                panel
+            ],
+            layout: 'fit',
+            width: 650,
+            bodyStyle: "padding: 10px",
+            closable: false,
+            plain: true,
+            modal: false
+        });
+
+        var sourceText = null;
+
+        switch(field)
+        {
+            case "name":
+            {
+                sourceText = e.detail.object.data.data.localizedfields.data[pimcore.settings.language].Name;
+                break;
+            }
+            case "description":
+            {
+                sourceText = e.detail.object.data.data.localizedfields.data[pimcore.settings.language].Description;
+                break;
+            }
+            default:
+            {
+                console.log("Error: Invalid field name [" + field + "]");
+                return;
+            }
+        }
+
+        var translate = function ()
+        {
+            console.log("Translate into " + pimcore.settings.websiteLanguages[current] + "...");
+
+            let params =  {
+                'id': e.detail.object.id,
+                'origin': pimcore.settings.language,
+                'loc': pimcore.settings.websiteLanguages[current],
+                'field': field
+            };
+
+            switch(field)
+            {
+                case "name":
+                {
+                    params['name'] = e.detail.object.data.data.localizedfields.data[pimcore.settings.language].Name;
+                    sourceText = e.detail.object.data.data.localizedfields.data[pimcore.settings.language].Name;
+                    break;
+                }
+                case "description":
+                {
+                    params['name'] = e.detail.object.data.data.localizedfields.data[pimcore.settings.language].Description;
+                    sourceText = e.detail.object.data.data.localizedfields.data[pimcore.settings.language].Description;
+                    break;
+                }
+            }
+
+            Ext.Ajax.request({
+                url: "/object/translate-name",
+                params: params,
+                success: function (data) {
+                    console.log(data.responseText);
+                },
+                failure: function (error) {
+                    console.log("[Error] " + error.responseText);
+                },
+                callback: function (response) {
+
+                    current = current + 1;
+
+                    if(current >= total)
+                    {
+                        pbWin.close();
+                        e.detail.object.reload();
+                    }
+                    else
+                    {
+                        var progress = current / total;
+                        var percent = Math.ceil(progress * 100);
+                        var status = t("Translating into ") + pimcore.settings.websiteLanguages[current] + "... (" + percent + "%)";
+
+                        progressbar.updateProgress(progress, status);
+                        setTimeout(translate, 500);
+                    }
+                }
+            });
+        }
+
+        Ext.Msg.confirm("Translate", "Translate [" + sourceText + "] into " + total + " languages?", function(btn){
+            if(btn === "yes")
+            {
+                pbWin.show();
+                console.log("[TX] " + sourceText);
+                translate();
+            }
+        })
+    }
+
+    const translateNameSubItem = {
+        text: t('Translate name'),
+        iconCls: 'pimcore_material_icon_translation',
+        scale: 'medium',
+        tooltip: t('Translate full name to all system languages'),
+        handler: function()
+        {
+            translate("name")
+        }
+    };
+
+    const translateDescriptionSubItem = {
+        text: t('Translate description'),
+        iconCls: 'pimcore_material_icon_translation',
+        scale: 'medium',
+        tooltip: t('Translate description to all system languages'),
+        handler: function()
+        {
+            translate("description")
+        }
+    }
 
     if(e.detail.object.data.general.className === "Product" || e.detail.object.data.general.className === "ProductSet")
     {
@@ -70,108 +236,7 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
                     })
                 }
             },
-            {
-                text: t('Translate name'),
-                iconCls: 'pimcore_material_icon_translation',
-                scale: 'medium',
-                tooltip: t('Translate full name to all system languages'),
-                handler: function () {
-
-                    var current = 0;
-                    var total = pimcore.settings.websiteLanguages.length;
-
-                    var progressbar = new Ext.ProgressBar({
-                        text: t('Progress'),
-                        style: "margin-top: 0px;",
-                        width: 500
-                    })
-
-                    var cancelBtn = Ext.create('Ext.Button', {
-                        scale: 'small',
-                        text: t('Cancel'),
-                        tooltip: t('Cancel'),
-                        icon: '/bundles/pimcoreadmin/img/flat-color-icons/cancel.svg',
-                        style: 'margin-left: 5px; height: 30px',
-                        handler: function () {
-                            current = Infinity;
-                        }
-                    })
-
-                    var panel = Ext.create('Ext.panel.Panel', {
-                        layout: {
-                            type: 'hbox'
-                        },
-                        items: [
-                            progressbar,
-                            cancelBtn
-                        ]
-                    });
-
-                    var pbWin = new Ext.Window({
-                        title: t('Translating'),
-                        items: [
-                            panel
-                        ],
-                        layout: 'fit',
-                        width: 650,
-                        bodyStyle: "padding: 10px",
-                        closable: false,
-                        plain: true,
-                        modal: false
-                    });
-
-                    var translate = function ()
-                    {
-                        console.log("Translate into " + pimcore.settings.websiteLanguages[current] + "...");
-
-                        Ext.Ajax.request({
-                            url: "/object/translate-name",
-                            params: {
-                                'id': e.detail.object.id,
-                                'name': e.detail.object.data.data.localizedfields.data[pimcore.settings.language].Name,
-                                'origin': pimcore.settings.language,
-                                'loc': pimcore.settings.websiteLanguages[current]
-                            },
-                            success: function (data) {
-                                console.log(data.responseText);
-                            },
-                            failure: function (error) {
-                                console.log("[Error] " + error.responseText);
-                            },
-                            callback: function (response) {
-
-                                current = current + 1;
-
-                                if(current >= total)
-                                {
-                                    pbWin.close();
-                                    e.detail.object.reload();
-                                }
-                                else
-                                {
-                                    var progress = current / total;
-                                    var percent = Math.ceil(progress * 100);
-                                    var status = t("Translating into ") + pimcore.settings.websiteLanguages[current] + "... (" + percent + "%)";
-
-                                    progressbar.updateProgress(progress, status);
-                                    setTimeout(translate(), 500);
-                                }
-                            }
-                        });
-                    }
-
-                    var sourceText = e.detail.object.data.data.localizedfields.data[pimcore.settings.language].Name;
-
-                    Ext.Msg.confirm("Translate", "Translate [" + sourceText + "] into " + total + " languages?", function(btn){
-                        if(btn === "yes")
-                        {
-                            pbWin.show();
-                            console.log("[TX] " + sourceText);
-                            translate();
-                        }
-                    })
-                }
-            }
+            translateNameSubItem
         ]
 
         if(e.detail.object.data.general.className === "Product")
@@ -243,6 +308,16 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
                 }
             ]
         })
+
+        e.detail.object.toolbar.add({
+            icon: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMi4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iRWJlbmVfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHdpZHRoPSIyNHB4IiBoZWlnaHQ9IjI0cHgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMjQgMjQ7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+DQoJLnN0MHtmaWxsOiNGRkZGRkY7fQ0KPC9zdHlsZT4NCjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0yMS43LDE0LjdMMTkuNCwxM2wwLjEtMWwtMC4xLTFsMi4xLTEuNmMwLjItMC4xLDAuMy0wLjQsMC4xLTAuNmwtMi0zLjVDMTkuNSw1LDE5LjMsNSwxOSw1bC0yLjUsMQ0KCWMtMC41LTAuNC0xLjEtMC43LTEuNy0xbC0wLjQtMi43QzE0LjUsMi4yLDE0LjMsMiwxNCwyaC00QzkuOCwyLDkuNSwyLjIsOS41LDIuNEw5LjEsNS4xQzguNSw1LjMsOCw1LjcsNy40LDZMNSw1DQoJQzQuNyw1LDQuNSw1LDQuMyw1LjNsLTIsMy41QzIuMiw5LDIuMyw5LjIsMi41LDkuNEw0LjYsMTFsLTAuMSwxbDAuMSwxbC0yLjEsMS43Yy0wLjIsMC4yLTAuMywwLjQtMC4xLDAuNmwyLDMuNQ0KCUM0LjUsMTksNC43LDE5LDUsMTlsMi41LTFjMC41LDAuNCwxLjEsMC43LDEuNywxbDAuNCwyLjdjMCwwLjIsMC4zLDAuNCwwLjUsMC40aDRjMC4zLDAsMC41LTAuMiwwLjUtMC40TDE1LDE5DQoJYzAuNi0wLjMsMS4yLTAuNiwxLjctMWwyLjUsMWMwLjIsMC4xLDAuNSwwLDAuNi0wLjJsMi0zLjVDMjEuOSwxNS4xLDIxLjksMTQuOCwyMS43LDE0Ljd6IE0xMiwxOXYtMmMtMi44LDAtNS0yLjItNS01DQoJYzAtMC45LDAuMi0xLjcsMC42LTIuNGwxLjUsMS41QzkuMSwxMS40LDksMTEuNyw5LDEyYzAsMS43LDEuMywzLDMsM3YtMmwzLDNMMTIsMTl6IE0xNi40LDE0LjRsLTEuNS0xLjVDMTUsMTIuNiwxNSwxMi4zLDE1LDEyDQoJYzAtMS43LTEuMy0zLTMtM3YyTDksOGwzLTN2MmMyLjgsMCw1LDIuMiw1LDVDMTcsMTIuOSwxNi44LDEzLjcsMTYuNCwxNC40eiIvPg0KPC9zdmc+DQo=',
+            scale: 'medium',
+            tooltip: 'Modify',
+            menu: [
+                translateNameSubItem,
+                translateDescriptionSubItem
+            ]
+        });
     }
 
     if(e.detail.object.data.general.className === "Offer")
@@ -270,6 +345,69 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
                     handler: function () {
                         const path = "/prices/" + e.detail.object.id + "?kind=xlsx";
                         window.open(path);
+                    }
+                }
+            ]
+        })
+    }
+
+    if(e.detail.object.data.general.className === "User")
+    {
+        var path = "/prices/";
+        if(e.detail.object.data.data.Offers.length > 0)
+        {
+            console.log(e.detail.object.data.general.key);
+
+            let first = true;
+            for(let offer of e.detail.object.data.data.Offers)
+            {
+                if(first)
+                {
+                    first = false;
+                    path = path + offer.id + "?kind={kind}&filename=" + e.detail.object.data.general.key + "-" + (new Date().ddmmyyyy());
+                }
+                else
+                {
+                    path = path + "&references[]=" + offer.id;
+                }
+            }
+        }
+
+        e.detail.object.toolbar.add({
+            icon: '/bundles/pimcoreadmin/img/flat-white-icons/download-cloud.svg',
+            scale: 'medium',
+            tooltip: 'Download',
+            menu: [
+                {
+                    text: t('Offers (preview)'),
+                    tooltip: t('Download all offers (preview)'),
+                    icon: '/bundles/pimcoreadmin/img/flat-white-icons/download-cloud.svg',
+                    scale: 'medium',
+                    handler: function () {
+                        if(e.detail.object.data.data.Offers.length > 0)
+                        {
+                            window.open(path.replace("{kind}", "preview"));
+                        }
+                        else
+                        {
+                            Ext.Msg.alert("No offer assigned to the user");
+                        }
+                    }
+                },
+                {
+                    text: t('Price list (xlsx)'),
+                    tooltip: t('Download all offers (xlsx)'),
+                    icon: '/bundles/pimcoreadmin/img/flat-white-icons/download-cloud.svg',
+                    scale: 'medium',
+                    handler: function () {
+                        if(e.detail.object.data.data.Offers.length > 0)
+                        {
+                            window.open(path.replace("{kind}", "xlsx"));
+                        }
+                        else
+                        {
+                            Ext.Msg.alert("No offer assigned to the user");
+                        }
                     }
                 }
             ]

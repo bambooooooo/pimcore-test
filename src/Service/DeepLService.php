@@ -26,7 +26,11 @@ class DeepLService
      */
     public function translate(string $text, string $targetLanguage, string $sourceLanguage = null): string
     {
-        return $this->deepLClient->translateText($text, $sourceLanguage, $targetLanguage)->text;
+        $options = [
+            \DeepL\TranslateTextOptions::TAG_HANDLING => "html"
+        ];
+
+        return $this->deepLClient->translateText($text, $sourceLanguage, $targetLanguage, $options)->text;
     }
 
     /**

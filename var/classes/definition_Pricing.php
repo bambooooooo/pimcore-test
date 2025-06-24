@@ -7,6 +7,7 @@
  * Wycena
  *
  * Fields Summary:
+ * - Countries [countrymultiselect]
  * - Restrictions [objectbricks]
  * - UseBasePrice [checkbox]
  * - Currency [select]
@@ -22,7 +23,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Pricing',
    'description' => 'Wycena',
    'creationDate' => NULL,
-   'modificationDate' => 1750167982,
+   'modificationDate' => 1750746856,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -66,6 +67,63 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'children' => 
         array (
           0 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+             'name' => 'System',
+             'type' => NULL,
+             'region' => NULL,
+             'title' => 'System data',
+             'width' => '',
+             'height' => '',
+             'collapsible' => false,
+             'collapsed' => false,
+             'bodyStyle' => '',
+             'datatype' => 'layout',
+             'children' => 
+            array (
+              0 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Countrymultiselect::__set_state(array(
+                 'name' => 'Countries',
+                 'title' => 'Countries',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'maxItems' => NULL,
+                 'renderType' => 'tags',
+                 'dynamicOptions' => false,
+                 'defaultValue' => NULL,
+                 'height' => '',
+                 'width' => '',
+                 'defaultValueGenerator' => '',
+                 'optionsProviderType' => NULL,
+                 'optionsProviderClass' => NULL,
+                 'optionsProviderData' => NULL,
+                 'restrictTo' => '',
+              )),
+            ),
+             'locked' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'fieldtype' => 'panel',
+             'layout' => NULL,
+             'border' => false,
+             'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/tools.svg',
+             'labelWidth' => 120,
+             'labelAlign' => 'left',
+          )),
+          1 => 
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Restrictions',
              'type' => NULL,
@@ -154,7 +212,7 @@ Wymagania, które musi spełnić produkt, aby wycena była możliwa',
              'labelWidth' => 100,
              'labelAlign' => 'left',
           )),
-          1 => 
+          2 => 
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Pricing',
              'type' => NULL,
