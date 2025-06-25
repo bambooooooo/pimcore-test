@@ -51,6 +51,7 @@ services:
             COMPOSER_HOME: /var/www/html
             PHP_IDE_CONFIG: serverName=localhost
             PHP_MEMORY_LIMIT: 1024M
+            PHP_MAX_EXECUTION_TIME: 90
             # Feed installer configuration via ENV variables.
             # See: https://pimcore.com/docs/pimcore/current/Development_Documentation/Getting_Started/Advanced_Installation_Topics.html#page_Advanced-Installation-Topics
             PIMCORE_INSTALL_MYSQL_USERNAME: pimcore
