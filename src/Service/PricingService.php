@@ -356,8 +356,6 @@ class PricingService
                             }
                         }
 
-                        dump($carrierPrices);
-
                         if($carrierPrices)
                         {
                             $price += min($carrierPrices);
