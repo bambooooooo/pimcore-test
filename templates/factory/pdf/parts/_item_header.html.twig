@@ -40,6 +40,29 @@
                             </a>
                         </div>
                     {% endif %}
+
+                    {% if prices %}
+                        <table class="set-table" style="margin-top: 12px;">
+                            <thead>
+                            <tr>
+                                <td>{{ "Price level" }}</td>
+                                <td>{{ "Price" }}</td>
+                                <td>{{ "Currency" }}</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for price in s.Price %}
+                                    {% if price.element.id == prices %}
+                                        <tr>
+                                            <td>{{ price.element.key}}</td>
+                                            <td>{{ price.data.Price }}</td>
+                                            <td>{{ price.data.Currency }}</td>
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -48,5 +71,6 @@
                 <img src="{{ s.Image.thumbnail("200x200") }}" width="200"/>
             </div>
         </div>
+        <div style="clear: both"></div>
     </div>
 </section>

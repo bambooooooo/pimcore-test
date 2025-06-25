@@ -8,6 +8,7 @@
                 <thead>
                 <tr>
                     <td>{{ "No"|trans }}</td>
+                    <td>{{ "Sku"|trans }}</td>
                     <td>{{ "Image"|trans }}</td>
                     <td>{{ "Dimensions"|trans }}</td>
                     <td>{{ "Quantity"|trans }}</td>
@@ -19,6 +20,7 @@
                 {% for lip in s.Set %}
                     <tr>
                         <td>{{ loop.index }}</td>
+                        <td>{{ lip.element.Id }}</td>
                         <td>
                             <a href="#{{ lip.element.id }}" style="text-decoration: none; color: #000; font-weight: bolder; font-size: 7px;">
                                 {% if lip.element.Image %}

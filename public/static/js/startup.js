@@ -291,7 +291,7 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
                 {
                     text: t('Product(Set) images'),
                     tooltip: t('Download all images from assigned Products and ProductSets as zip archive'),
-                    icon: '/bundles/pimcoreadmin/img/flat-white-icons/gallery.svg',
+                    icon: '/bundles/pimcoreadmin/img/flat-white-icons/download-cloud.svg',
                     scale: 'medium',
                     handler: function () {
 
@@ -304,6 +304,16 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
                         {
                             Ext.Msg.alert('Warning', 'Group has no Products and Sets!');
                         }
+                    }
+                },
+                {
+                    text: t('Bulk datasheet'),
+                    tooltip: t('Download Bulk datasheet'),
+                    icon: '/bundles/pimcoreadmin/img/flat-white-icons/download-cloud.svg',
+                    scale: 'medium',
+                    handler: function () {
+                        const path = "/factory/en/" + e.detail.object.id + "/datasheet";
+                        window.open(path);
                     }
                 }
             ]
@@ -329,7 +339,7 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
             menu: [
                 {
                     text: t('Price list (preview)'),
-                    tooltip: t('Download PDF price list'),
+                    tooltip: t('Preview price list'),
                     icon: '/bundles/pimcoreadmin/img/flat-white-icons/download-cloud.svg',
                     scale: 'medium',
                     handler: function () {
@@ -344,6 +354,16 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
                     scale: 'medium',
                     handler: function () {
                         const path = "/prices/" + e.detail.object.id + "?kind=xlsx";
+                        window.open(path);
+                    }
+                },
+                {
+                    text: t('Datasheet (PDF)'),
+                    tooltip: t('Download PDF datasheets'),
+                    icon: '/bundles/pimcoreadmin/img/flat-white-icons/download-cloud.svg',
+                    scale: 'medium',
+                    handler: function () {
+                        const path = "/factory/" + pimcore.settings.language + "/" + e.detail.object.id + "/datasheet?show_prices=" + e.detail.object.id;
                         window.open(path);
                     }
                 }
