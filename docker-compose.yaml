@@ -90,6 +90,8 @@ services:
 
     gotenberg:
         image: gotenberg/gotenberg:8
+        command:
+            - "--api-timeout=120s  --api-start-timeout=120s"
         ports:
             - "3000:3000"
 
