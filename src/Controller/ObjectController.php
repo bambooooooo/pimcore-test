@@ -344,15 +344,16 @@ class ObjectController extends FrontendController
 
         $sheet->setTitle($offer->getKey());
         $sheet->setCellValue('A1', '#');
-        $sheet->setCellValue('B1', $this->translator->trans('Image') );
-        $sheet->setCellValue('C1', $this->translator->trans('Product'));
-        $sheet->setCellValue('D1', $this->translator->trans('Name'));
-        $sheet->setCellValue('E1', $this->translator->trans('Width'));
-        $sheet->setCellValue('F1', $this->translator->trans('Height'));
-        $sheet->setCellValue('G1', $this->translator->trans('Depth'));
-        $sheet->setCellValue('H1', $this->translator->trans('Price') . " " . $offer->getName());
+        $sheet->setCellValue('B1', $this->translator->trans('Image'));
+        $sheet->setCellValue('C1', $this->translator->trans('Sku'));
+        $sheet->setCellValue('D1', $this->translator->trans('Ean'));
+        $sheet->setCellValue('E1', $this->translator->trans('Name'));
+        $sheet->setCellValue('F1', $this->translator->trans('Width'));
+        $sheet->setCellValue('G1', $this->translator->trans('Height'));
+        $sheet->setCellValue('H1', $this->translator->trans('Depth'));
+        $sheet->setCellValue('I1', $this->translator->trans('Price') . " " . $offer->getName());
 
-        $i = 9;
+        $i = 10;
         foreach($references as $reference)
         {
             $refOffer = DataObject\Offer::getById($reference);
@@ -376,14 +377,15 @@ class ObjectController extends FrontendController
 
             $sheet->getRowDimension($i)->setRowHeight(64);
             $sheet->setCellValue('A' . $i, $i - 1);
-            $sheet->setCellValue('C' . $i, $obj->getKey());
-            $sheet->setCellValue('D' . $i, $obj->getName());
+            $sheet->setCellValue('C' . $i, $obj->getId());
+            $sheet->setCellValueExplicit('D' . $i, $obj->getEan(), \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
+            $sheet->setCellValue('E' . $i, $obj->getName());
 
             if($obj instanceof Product)
             {
-                $sheet->setCellValue('E' . $i, $obj->getWidth());
-                $sheet->setCellValue('F' . $i, $obj->getHeight());
-                $sheet->setCellValue('G' . $i, $obj->getDepth());
+                $sheet->setCellValue('F' . $i, $obj->getWidth());
+                $sheet->setCellValue('G' . $i, $obj->getHeight());
+                $sheet->setCellValue('H' . $i, $obj->getDepth());
             }
 
             foreach ($obj->getPrice() as $price)
@@ -391,7 +393,7 @@ class ObjectController extends FrontendController
                 if($price->getElement()->getId() == $offer->getId())
                 {
                     $price = round(floatval($price->getPrice()), 2);
-                    $sheet->setCellValue('H' . $i, $price);
+                    $sheet->setCellValue('I' . $i, $price);
                 }
             }
 
