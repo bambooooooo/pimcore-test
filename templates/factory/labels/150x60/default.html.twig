@@ -136,7 +136,24 @@
                 </tr>
                 <tr>
                     <td colspan="6">
-                        {{ product.Name }}
+                        <div>
+                            {{ product.Name }}
+                        </div>
+                        <div style="font-size: 11px; padding-top: 4px;">
+                            {{ "Compatible with: "|trans }}
+                            {% for req in package.getDependencies().getFilterRequiredByPath() %}
+                                {% if req.type == 'object' %}
+                                    {% set prod = pimcore_object(req.id) %}
+                                    {% if prod is pimcore_data_object_class("Product") %}
+                                        {% if loop.last %}
+                                            {{ prod.key }}
+                                        {% else %}
+                                            {{ prod.key }},
+                                        {% endif %}
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
                     </td>
                 </tr>
                 <tr>

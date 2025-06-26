@@ -40,6 +40,21 @@
             <div style="font-size: 64px; font-weight: bold; word-break: keep-all">
                 {{ package.key }}<br/>
             </div>
+            <div style="font-size: 11px; padding-top: 4px; padding-bottom: 8px;">
+                {{ "Compatible with: "|trans }}
+                {% for req in package.getDependencies().getFilterRequiredByPath() %}
+                    {% if req.type == 'object' %}
+                        {% set prod = pimcore_object(req.id) %}
+                        {% if prod is pimcore_data_object_class("Product") %}
+                            {% if loop.last %}
+                                {{ prod.key }}
+                            {% else %}
+                                {{ prod.key }},
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </div>
             {% if order %}
                 <div style="font-size: 16px">
                     {{ order.key }}

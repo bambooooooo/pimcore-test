@@ -107,6 +107,21 @@
                     <div style="font-size: 9px;">
                         {{ product.Name }}
                     </div>
+                    <div style="font-size: 7px; padding-top: 4px;">
+                        {{ "Compatible with: "|trans }}
+                        {% for req in package.getDependencies().getFilterRequiredByPath() %}
+                            {% if req.type == 'object' %}
+                                {% set prod = pimcore_object(req.id) %}
+                                {% if prod is pimcore_data_object_class("Product") %}
+                                    {% if loop.last %}
+                                        {{ prod.key }}
+                                    {% else %}
+                                        {{ prod.key }},
+                                    {% endif %}
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
                 </td>
                 <td rowspan="2" style="text-align: center">
                     <svg fill="#000000" width="40px" height="40px" viewBox="0 0 24 24" id="up-double-arrow" data-name="Flat Line" xmlns="http://www.w3.org/2000/svg" class="icon flat-line"><polyline id="primary" points="20 7 17 4 14 7" style="fill: none; stroke: rgb(0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></polyline><path id="primary-2" data-name="primary" d="M10,7,7,4,4,7" style="fill: none; stroke: rgb(0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><path id="primary-3" data-name="primary" d="M17,20V4M7,20V4" style="fill: none; stroke: rgb(0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path></svg>
