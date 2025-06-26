@@ -50,13 +50,26 @@
 
                                             {% if lip.element.Parameters.items[groupId] is defined and lip.element.Parameters.items[groupId][keyId] is defined %}
                                                 <li>
-                                                    {{ keyname(keyId) }}:
-
+                                                    {% set keyCfg = keyConfig(keyId) %}
+                                                    {{ keyCfg.title }}:
                                                     <strong>
                                                         {% if lip.element.Parameters.items[groupId][keyId]["default"] is iterable %}
-                                                            {{ lip.element.Parameters.items[groupId][keyId]["default"]|join(", ") }}
+                                                            {% set txvalues = [] %}
+                                                            {% for item in lip.element.Parameters.items[groupId][keyId]["default"] %}
+                                                                {% set txvalues = txvalues|merge(item|trans) %}
+                                                            {% endfor %}
+
+                                                            {{ txvalues|join(", ") }}
                                                         {% else %}
-                                                            {{ lip.element.Parameters.items[groupId][keyId]["default"] }}
+                                                            {% if keyCfg.type == "booleanSelect" %}
+                                                                {% if lip.element.Parameters.items[groupId][keyId]["default"] %}
+                                                                    {{ "yes"|trans }}
+                                                                {% else %}
+                                                                    {{ "no"|trans }}
+                                                                {% endif %}
+                                                            {% else %}
+                                                                {{ lip.element.Parameters.items[groupId][keyId]["default"]|trans }}
+                                                            {% endif %}
                                                         {% endif %}
                                                     </strong>
                                                 </li>

@@ -1,5 +1,5 @@
 <section>
-    <h1>{{ "Parameters"|trans }}</h1>
+    <h1>{{ "Parameters"|trans }}XXX</h1>
     <div style="column-count: 3">
 
         {% for group in s.Parameters.groups %}
@@ -9,7 +9,7 @@
                     <tr>
                         <td colspan="2">
                             <div>
-                                {{ group.configuration.name }}
+                                {{ group.configuration.name|trans }}
                             </div>
                         </td>
                     </tr>
@@ -18,25 +18,35 @@
                     {% for key in group.keys %}
                         <tr>
                             <td>
-                                {{ key.configuration.title }}
+                                {{ key.configuration.title|trans }}
                             </td>
                             <td>
                                 {% if key.value %}
                                     {% if key.value is iterable %}
                                         {% for keyItem in key.value %}
                                             {% if keyItem is iterable %}
-                                                {{ key.value }}
+                                                <strong>
+                                                    {{ key.value|trans }}
+                                                </strong>
                                             {% else %}
                                                 <strong>
-                                                    {{ keyItem }}
+                                                    {{ keyItem|trans }}
                                                 </strong>
                                             {% endif %}
                                         {% endfor %}
                                     {% else %}
-                                        {{ key.value }}
+                                        {% if key.configuration.type == "booleanSelect" %}
+                                            <strong>{{ "yes"|trans }}</strong>
+                                        {% else %}
+                                            <strong>{{ key.value|trans }}</strong>
+                                        {% endif %}
                                     {% endif %}
                                 {% else %}
-                                    -
+                                    {% if key.configuration.type == "booleanSelect" %}
+                                        <strong>{{ "no"|trans }}</strong>
+                                    {% else %}
+                                        -
+                                    {% endif %}
                                 {% endif %}
                             </td>
                         </tr>
