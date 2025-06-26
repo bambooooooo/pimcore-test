@@ -250,6 +250,7 @@ class FactoryController extends FrontendController
                 if($item instanceof DataObject\Product)
                 {
                     $prods[] = $item;
+                    $common[] = $item;
                 }
                 elseif($item instanceof DataObject\ProductSet)
                 {
