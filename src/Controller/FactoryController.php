@@ -396,6 +396,7 @@ class FactoryController extends FrontendController
         $tplType = $request->query->get('tpl') ?? "default";
         $step = $request->query->get('step') ?? 1;
         $repeat = $request->query->get('repeat') ?? 1;
+        $compatibility = $request->query->get('compatibility') ?? "model";
 
         $copies = $request->query->get('copies') ?? 1;
 
@@ -452,6 +453,7 @@ class FactoryController extends FrontendController
             'w' => $w,
             'h' => $h,
             'repeat' => $repeat,
+            'compatibility' => $compatibility
         ]);
 
         $adapter = \Pimcore\Bundle\WebToPrintBundle\Processor::getInstance();

@@ -42,16 +42,24 @@
             </div>
             <div style="font-size: 11px; padding-top: 4px; padding-bottom: 8px;">
                 {{ "Compatible with: "|trans }}
+                {% set comp = [] %}
                 {% for req in package.getDependencies().getFilterRequiredByPath() %}
                     {% if req.type == 'object' %}
                         {% set prod = pimcore_object(req.id) %}
-                        {% if prod is pimcore_data_object_class("Product") %}
-                            {% if loop.last %}
-                                {{ prod.key }}
-                            {% else %}
-                                {{ prod.key }},
+                        {% if compatibility == "model" %}
+                            {% if prod is pimcore_data_object_class("Product") and prod.model not in comp and prod.model|length > 1 %}
+                                {% set comp = comp|merge([prod.model]) %}
                             {% endif %}
+                        {% elseif compatibility == "product" %}
+                            {% set comp = comp|merge([prod.key]) %}
                         {% endif %}
+                    {% endif %}
+                {% endfor %}
+                {% for item in comp %}
+                    {% if loop.last %}
+                        {{ item }}
+                    {% else %}
+                        {{ item }},
                     {% endif %}
                 {% endfor %}
             </div>
