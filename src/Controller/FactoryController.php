@@ -350,6 +350,32 @@ class FactoryController extends FrontendController
 
             $html = $this->renderView('factory/schedule.pdf.twig', [
                 'queue' => $queue,
+                'type' => $type,
+            ]);
+
+            $adapter = \Pimcore\Bundle\WebToPrintBundle\Processor::getInstance();
+            $pdf = $adapter->getPdfFromString($html, $pdfPageParams);
+
+            return new Response($pdf, Response::HTTP_OK, ['Content-Type' => 'application/pdf']);
+        }
+        else if($type == "vendor")
+        {
+            $pdfPageParams = [
+                'paperWidth' => '210mm',
+                'paperHeight' => '297mm',
+                'marginTop' => '3mm',
+                'marginBottom' => '3mm',
+                'marginLeft' => '3mm',
+                'marginRight' => '3mm',
+                'metadata' => [
+                    'Title' => "Harmonogram",
+                    'Author' => 'pim'
+                ]
+            ];
+
+            $html = $this->renderView('factory/schedule_vendor.pdf.twig', [
+                'queue' => $queue,
+                'type' => $type,
             ]);
 
             $adapter = \Pimcore\Bundle\WebToPrintBundle\Processor::getInstance();
@@ -360,7 +386,8 @@ class FactoryController extends FrontendController
 
         return $this->render("factory/schedule.html.twig", [
             "queue" => $queue,
-            "title" => "Harmonogram produkcyjny"
+            "title" => "Harmonogram produkcyjny",
+            'type' => $type,
         ]);
     }
 

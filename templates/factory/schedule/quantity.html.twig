@@ -1,6 +1,6 @@
 <div style="position: relative; z-index: 150;">
     {% if item.data.QuantityDone is defined and item.data.QuantityDone > 0 %}
-        {% if item.data.QuantityDone != item.data.Quantity %}
+        {% if item.data.QuantityDone != item.data.Quantity and type != 'pdf' %}
             <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMi4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iRWJlbmVfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHdpZHRoPSIyNHB4IiBoZWlnaHQ9IjI0cHgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMjQgMjQiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPGNpcmNsZSBmaWxsPSIjRjBEQzI4IiBjeD0iMTIiIGN5PSIxMiIgcj0iMTAiLz4NCjxyZWN0IHg9IjExIiB5PSI3IiBmaWxsPSIjMEMwRjEyIiB3aWR0aD0iMiIgaGVpZ2h0PSIyIi8+DQo8cmVjdCB4PSIxMSIgeT0iMTEiIGZpbGw9IiMwQzBGMTIiIHdpZHRoPSIyIiBoZWlnaHQ9IjYiLz4NCjwvc3ZnPg0K" height="18">
             <span id="li-quantity-source-{{ product.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}" style="text-decoration: line-through">
                 {{ item.data.Quantity }}
@@ -14,35 +14,37 @@
             {{ item.data.Quantity }}
         </span>
 
-        {% if (item.data.Status is not defined) or (item.data.Status is defined and item.data.Status != "Process" and item.data.Status != "Ready") %}
-            {% if app.user.schedule_item_status_process %}
-                <button class="btn status-bg-Process item-status item-status-{{ product.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}"
-                        data-id="{{ product.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}"
-                        data-status="null" data-next="Process"
-                        type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Oklejone - do sprawdzenia">
-                    <img src="/bundles/pimcoreadmin/img/flat-white-icons/redo.svg" height="20" width="20">
-                </button>
+        {% if type != 'pdf' %}
+            {% if (item.data.Status is not defined) or (item.data.Status is defined and item.data.Status != "Process" and item.data.Status != "Ready") %}
+                {% if app.user.schedule_item_status_process %}
+                    <button class="btn status-bg-Process item-status item-status-{{ product.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}"
+                            data-id="{{ product.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}"
+                            data-status="null" data-next="Process"
+                            type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Oklejone - do sprawdzenia">
+                        <img src="/bundles/pimcoreadmin/img/flat-white-icons/redo.svg" height="20" width="20">
+                    </button>
+                {% endif %}
             {% endif %}
-        {% endif %}
 
-        {% if (item.data.Status is not defined) or (item.data.Status != "Ready") %}
-            {% if app.user.schedule_item_status_ready %}
-                <button class="btn status-bg-Ready item-status item-status-{{ product.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}"
-                        data-id="{{ product.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}"
-                        data-status="Process" data-next="Ready"
-                        type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Sprawdzone - do pakowania">
-                    <img src="/bundles/pimcoreadmin/img/flat-white-icons/redo.svg" height="20" width="20">
-                </button>
+            {% if (item.data.Status is not defined) or (item.data.Status != "Ready") %}
+                {% if app.user.schedule_item_status_ready %}
+                    <button class="btn status-bg-Ready item-status item-status-{{ product.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}"
+                            data-id="{{ product.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}"
+                            data-status="Process" data-next="Ready"
+                            type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Sprawdzone - do pakowania">
+                        <img src="/bundles/pimcoreadmin/img/flat-white-icons/redo.svg" height="20" width="20">
+                    </button>
+                {% endif %}
             {% endif %}
-        {% endif %}
 
-        {% if app.user.schedule_mark_line_item_done %}
-            <div class="mb-1">
-                <input type="number" style="width: 50px; display: none;" min="0" value="{{ item.data.Quantity }}" id="li-done-input-{{ product.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}"/>
-                <span class="btn btn-outline-success btn-sm li-done-toggle" data-id="{{ product.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}">
-                    <img height="18" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMi4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iRWJlbmVfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHdpZHRoPSIyNHB4IiBoZWlnaHQ9IjI0cHgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMjQgMjQiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPGNpcmNsZSBmaWxsPSIjMjhBMDUwIiBjeD0iMTIiIGN5PSIxMiIgcj0iMTAiLz4NCjxwb2x5Z29uIGZpbGw9IiNGRkZGRkYiIHBvaW50cz0iMTYuNiw3LjYgMTAsMTQuMiA3LjQsMTEuNiA2LDEzIDEwLDE3IDE4LDkgIi8+DQo8L3N2Zz4NCg==" />
-                </span>
-            </div>
+            {% if app.user.schedule_mark_line_item_done %}
+                <div class="mb-1">
+                    <input type="number" style="width: 50px; display: none;" min="0" value="{{ item.data.Quantity }}" id="li-done-input-{{ product.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}"/>
+                    <span class="btn btn-outline-success btn-sm li-done-toggle" data-id="{{ product.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}">
+                        <img height="18" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMi4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iRWJlbmVfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHdpZHRoPSIyNHB4IiBoZWlnaHQ9IjI0cHgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMjQgMjQiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPGNpcmNsZSBmaWxsPSIjMjhBMDUwIiBjeD0iMTIiIGN5PSIxMiIgcj0iMTAiLz4NCjxwb2x5Z29uIGZpbGw9IiNGRkZGRkYiIHBvaW50cz0iMTYuNiw3LjYgMTAsMTQuMiA3LjQsMTEuNiA2LDEzIDEwLDE3IDE4LDkgIi8+DQo8L3N2Zz4NCg==" />
+                    </span>
+                </div>
+            {% endif %}
         {% endif %}
     {% endif %}
 </div>

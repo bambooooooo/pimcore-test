@@ -1,7 +1,7 @@
-<a href="{{ path("factory_tree", {id:p.element.id})}}" {% if not p.element.published %}style="text-decoration: line-through"{% endif %}>
+<a href="{{ path("factory_tree", {id:p.element.id})}}" {% if not p.element.published and type != "pdf" %}style="text-decoration: line-through"{% endif %}>
     {{ p.element.key }}
 </a>
-{% if app.user.schedule_show_packages %}
+{% if app.user.schedule_show_packages and type != 'pdf' %}
     {% for lip in p.element.packages %}
         <div class="btn-group ms-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ lip.element.key }}">
             <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -81,7 +81,7 @@
     {% endfor %}
 {% endif %}
 
-{% if app.user.schedule_show_cartoon %}
+{% if app.user.schedule_show_cartoon and type != 'pdf' %}
     {% for lip in p.element.packages %}
         <button {% if lip.element.Model %}data-id="{{ lip.element.Model }}"{% endif %} data-quantity="{{ p.data.Quantity }}" class="package btn btn-outline-secondary btn-sm" type="button" role="button" data-bs-toggle="button">
             {% if lip.element.Model %}

@@ -8,7 +8,7 @@
     ****
 {% endif %}
 
-{% if app.user.schedule_change_date %}
+{% if app.user.schedule_change_date and type != 'pdf' %}
     <div id="add-date-{{ serie.id }}-form" style="display: none">
         <input class="datepicker" style="width: 85px;" value="{{ serie.date|date("d.m.Y") }}" data-id="{{ serie.id }}"/>
     </div>
@@ -17,7 +17,7 @@
     </div>
 {% endif %}
 
-{% if app.user.schedule_show_serie_carrier and  serie.Carrier %}
+{% if app.user.schedule_show_serie_carrier and serie.Carrier %}
 <div>
     {{ serie.Carrier.key }}
 </div>
