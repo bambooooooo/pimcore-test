@@ -2,6 +2,8 @@
 
 namespace App\EventListener;
 
+use App\Publishing\BaselinkerCatalogPublisher;
+use App\Publishing\BaselinkerPublisher;
 use App\Publishing\EanPoolPublisher;
 use App\Publishing\OfferPublisher;
 use App\Publishing\OrderPublisher;
@@ -11,6 +13,8 @@ use App\Publishing\ProductPublisher;
 use App\Publishing\ProductSetPublisher;
 use App\Publishing\GroupPublisher;
 use Pimcore\Event\Model\ElementEventInterface;
+use Pimcore\Model\DataObject\Baselinker;
+use Pimcore\Model\DataObject\BaselinkerCatalog;
 use Pimcore\Model\DataObject\EanPool;
 use Pimcore\Model\DataObject\Group;
 use Pimcore\Model\DataObject\Offer;
@@ -23,14 +27,16 @@ use Pimcore\Model\DataObject\ProductSet;
 class ObjectPublishListener
 {
     public function __construct(
-        private readonly ProductPublisher    $productPublisher,
-        private readonly ProductSetPublisher $productSetPublisher,
-        private readonly PackagePublisher    $packagePublisher,
-        private readonly EanPoolPublisher    $eanPoolPublisher,
-        private readonly PricingPublisher    $pricingPublisher,
-        private readonly GroupPublisher      $groupPublisher,
-        private readonly OrderPublisher      $orderPublisher,
-        private readonly OfferPublisher      $offerPublisher
+        private readonly ProductPublisher           $productPublisher,
+        private readonly ProductSetPublisher        $productSetPublisher,
+        private readonly PackagePublisher           $packagePublisher,
+        private readonly EanPoolPublisher           $eanPoolPublisher,
+        private readonly PricingPublisher           $pricingPublisher,
+        private readonly GroupPublisher             $groupPublisher,
+        private readonly OrderPublisher             $orderPublisher,
+        private readonly OfferPublisher             $offerPublisher,
+        private readonly BaselinkerPublisher        $baselinkerPublisher,
+        private readonly BaselinkerCatalogPublisher $baselinkerCatalogPublisher,
     ) {}
     public function onPublish(ElementEventInterface $event): void
     {
@@ -67,6 +73,14 @@ class ObjectPublishListener
         else if($obj instanceof Offer and $obj->isPublished())
         {
             $this->offerPublisher->publish($obj);
+        }
+        else if($obj instanceof Baselinker and $obj->isPublished())
+        {
+            $this->baselinkerPublisher->publish($obj);
+        }
+        else if($obj instanceof BaselinkerCatalog and $obj->isPublished())
+        {
+            $this->baselinkerCatalogPublisher->updateInventory($obj);
         }
     }
 }
