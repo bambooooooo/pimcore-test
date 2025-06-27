@@ -26,6 +26,7 @@
  * - BasePrice [quantityValue]
  * - Pricing [advancedManyToManyObjectRelation]
  * - Price [advancedManyToManyObjectRelation]
+ * - BaselinkerCatalog [advancedManyToManyObjectRelation]
  */
 
 return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
@@ -35,7 +36,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1750759455,
+   'modificationDate' => 1751001493,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -1050,6 +1051,85 @@ Suma cen bazowych produktów',
              'border' => false,
              'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/sales_performance.svg',
              'labelWidth' => 200,
+             'labelAlign' => 'left',
+          )),
+          4 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+             'name' => 'Integrations',
+             'type' => NULL,
+             'region' => NULL,
+             'title' => 'Integrations',
+             'width' => '',
+             'height' => '',
+             'collapsible' => false,
+             'collapsed' => false,
+             'bodyStyle' => '',
+             'datatype' => 'layout',
+             'children' => 
+            array (
+              0 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
+                 'name' => 'BaselinkerCatalog',
+                 'title' => 'Baselinker Catalog',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => true,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'classes' => 
+                array (
+                ),
+                 'displayMode' => NULL,
+                 'pathFormatterClass' => '',
+                 'maxItems' => NULL,
+                 'visibleFields' => 'key,CatalogId,Name',
+                 'allowToCreateNewObject' => false,
+                 'allowToClearRelation' => true,
+                 'optimizedAdminLoading' => false,
+                 'enableTextSelection' => false,
+                 'visibleFieldDefinitions' => 
+                array (
+                ),
+                 'width' => '',
+                 'height' => '',
+                 'allowedClassId' => 'BaselinkerCatalog',
+                 'columns' => 
+                array (
+                  0 => 
+                  array (
+                    'type' => 'number',
+                    'position' => 1,
+                    'key' => 'ProductId',
+                    'label' => 'Product Id',
+                  ),
+                ),
+                 'columnKeys' => 
+                array (
+                  0 => 'ProductId',
+                ),
+                 'enableBatchEdit' => false,
+                 'allowMultipleAssignments' => false,
+              )),
+            ),
+             'locked' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'fieldtype' => 'panel',
+             'layout' => NULL,
+             'border' => false,
+             'icon' => 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMi4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iRWJlbmVfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHdpZHRoPSIyNHB4IiBoZWlnaHQ9IjI0cHgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMjQgMjQiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPHJlY3QgeD0iMy4yIiB5PSIxNS40IiB0cmFuc2Zvcm09Im1hdHJpeCgwLjc1OTcgLTAuNjUwMyAwLjY1MDMgMC43NTk3IC04LjgzNCA3Ljk5MzQpIiBmaWxsPSIjMjg3OEYwIiB3aWR0aD0iNi4zIiBoZWlnaHQ9IjEiLz4NCjxyZWN0IHg9IjUuOCIgeT0iNC45IiB0cmFuc2Zvcm09Im1hdHJpeCgwLjY1MSAtMC43NTkxIDAuNzU5MSAwLjY1MSAtMy44NjA4IDcuNTk5MykiIGZpbGw9IiMyODc4RjAiIHdpZHRoPSIxIiBoZWlnaHQ9IjYuMSIvPg0KPHJlY3QgeD0iMTAuOSIgeT0iNi4zIiB0cmFuc2Zvcm09Im1hdHJpeCgwLjUzMDQgLTAuODQ3OCAwLjg0NzggMC41MzA0IDAuOTI3MyAxNS4yNzY1KSIgZmlsbD0iIzI4NzhGMCIgd2lkdGg9IjYuNiIgaGVpZ2h0PSIxIi8+DQo8cmVjdCB4PSIxMy43IiB5PSIxMS41IiBmaWxsPSIjMjg3OEYwIiB3aWR0aD0iNi4zIiBoZWlnaHQ9IjEiLz4NCjxyZWN0IHg9IjEzLjgiIHk9IjEzLjkiIHRyYW5zZm9ybT0ibWF0cml4KDAuODQ3OCAtMC41MzAzIDAuNTMwMyAwLjg0NzggLTYuOTUxOSAxMC4xNzYyKSIgZmlsbD0iIzI4NzhGMCIgd2lkdGg9IjEiIGhlaWdodD0iNi42Ii8+DQo8Zz4NCgk8cGF0aCBmaWxsPSIjMjg3OEYwIiBkPSJNMTEsMTBjMS4xLDAsMiwwLjksMiwycy0wLjksMi0yLDJzLTItMC45LTItMlM5LjksMTAsMTEsMTAgTTExLDhjLTIuMiwwLTQsMS44LTQsNHMxLjgsNCw0LDRzNC0xLjgsNC00DQoJCVMxMy4yLDgsMTEsOEwxMSw4eiIvPg0KPC9nPg0KPGNpcmNsZSBmaWxsPSIjMjg3OEYwIiBjeD0iNCIgY3k9IjYiIHI9IjIiLz4NCjxjaXJjbGUgZmlsbD0iIzI4NzhGMCIgY3g9IjQiIGN5PSIxOCIgcj0iMiIvPg0KPGNpcmNsZSBmaWxsPSIjMjg3OEYwIiBjeD0iMTYiIGN5PSI0IiByPSIyIi8+DQo8Y2lyY2xlIGZpbGw9IiMyODc4RjAiIGN4PSIxNiIgY3k9IjIwIiByPSIyIi8+DQo8Y2lyY2xlIGZpbGw9IiMyODc4RjAiIGN4PSIyMCIgY3k9IjEyIiByPSIyIi8+DQo8L3N2Zz4NCg==',
+             'labelWidth' => 100,
              'labelAlign' => 'left',
           )),
         ),

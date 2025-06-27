@@ -2,6 +2,7 @@
 
 namespace App\Publishing;
 
+use App\Service\BaselinkerService;
 use App\Service\BrokerService;
 use App\Service\DeepLService;
 use App\Service\OfferService;
@@ -20,6 +21,7 @@ class ProductSetPublisher
 {
     public function __construct(private readonly BrokerService $broker,
                                 private readonly PricingService $pricingService,
+                                private readonly BaselinkerService $baselinkerService,
                                 private readonly OfferService $offerService)
     {
 
@@ -41,6 +43,7 @@ class ProductSetPublisher
             $this->updateOffers($set);
 
             $this->sendToErp($set);
+            $this->baselinkerService->export($set);
             ApplicationLogger::getInstance()->info("Publishing ProductSet {$set->getId()}");
         });
     }
