@@ -3,10 +3,15 @@ pimcore:
         image:
             thumbnails:
                 definitions:
-                    webp:
-                        items: {  }
+                    webp_1400:
+                        items:
+                            -
+                                method: scaleByHeight
+                                arguments:
+                                    height: 1400
+                                    forceResize: true
                         medias: {  }
-                        name: webp
+                        name: webp_1400
                         description: ''
                         group: ''
                         format: SOURCE
@@ -16,6 +21,6 @@ pimcore:
                         preserveMetaData: false
                         rasterizeSVG: false
                         downloadable: false
-                        modificationDate: 1751010066
-                        creationDate: 1750941541
+                        modificationDate: 1751010794
+                        creationDate: 1751010093
                         preserveAnimation: false
