@@ -131,48 +131,31 @@ class BaselinkerService
 
         if($fetchMode == "base64")
         {
-            $serverAddr = $this->kernel->getEnvironment() == 'dev' ? "http://10.10.1.1/" : $_SERVER['HTTP_ORIGIN'];
-
-            $imurl = $serverAddr . $obj->getImage()->getThumbnail("webp");
-            $im = file_get_contents($imurl);
-            $b64 = 'data:' . base64_encode($im);
-            $images[] = $b64;
+            $images[] = $this->getBaselinkerBase64Image($obj->getImage());
 
             foreach($obj->getImages() as $image)
             {
-                $imurl = $serverAddr . $image->getThumbnail("webp");
-                $im = file_get_contents($imurl);
-                $b64 = 'data:' . base64_encode($im);
-                $images[] = $b64;
+                $images[] = $this->getBaselinkerBase64Image($image->getImage());
             }
 
             if($obj instanceof Product)
             {
                 foreach($obj->getPhotos() as $image)
                 {
-                    $imurl = $serverAddr . $image->getThumbnail("webp");
-                    $im = file_get_contents($imurl);
-                    $b64 = 'data:' . base64_encode($im);
-                    $images[] = $b64;
+                    $images[] = $this->getBaselinkerBase64Image($image->getImage());
                 }
             }
             elseif($obj instanceof ProductSet)
             {
                 foreach($obj->getSet() as $lip)
                 {
-                    $imurl = $serverAddr . $lip->getElement()->getImage()->getThumbnail("webp");
-                    $im = file_get_contents($imurl);
-                    $b64 = 'data:' . base64_encode($im);
-                    $images[] = $b64;
+                    $images[] = $this->getBaselinkerBase64Image($image->getImage());
                 }
             }
 
             foreach($obj->getImagesModel() as $image)
             {
-                $imurl = $serverAddr . $image->getThumbnail("webp");
-                $im = file_get_contents($imurl);
-                $b64 = 'data:' . base64_encode($im);
-                $images[] = $b64;
+                $images[] = $this->getBaselinkerBase64Image($image->getImage());
             }
         }
 
@@ -278,5 +261,27 @@ class BaselinkerService
                 }
             }
         }
+    }
+
+    private function getBaselinkerBase64Image($image): string
+    {
+        $serverAddr = $this->kernel->getEnvironment() == 'dev' ? "http://10.10.1.1/" : $_SERVER['HTTP_ORIGIN'];
+
+        $thumbs = ["webp", "webp_1800", "webp_1600", "webp_1400"];
+
+        foreach ($thumbs as $thumb)
+        {
+            $imurl = $serverAddr . $image->getThumbnail($thumb);
+            $im = file_get_contents($imurl);
+
+            $size = round(strlen($im) / (1024 * 1024), 2);
+
+            if($size < 2)
+            {
+                return 'data:' . base64_encode($im);
+            }
+        }
+
+        return "";
     }
 }

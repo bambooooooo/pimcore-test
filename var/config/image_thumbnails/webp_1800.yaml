@@ -3,19 +3,24 @@ pimcore:
         image:
             thumbnails:
                 definitions:
-                    webp:
-                        items: {  }
+                    webp_1800:
+                        items:
+                            -
+                                method: scaleByHeight
+                                arguments:
+                                    height: 1800
+                                    forceResize: true
                         medias: {  }
-                        name: webp
+                        name: webp_1800
                         description: ''
                         group: ''
                         format: SOURCE
-                        quality: 90
+                        quality: 85
                         highResolution: null
                         preserveColor: false
                         preserveMetaData: false
                         rasterizeSVG: false
                         downloadable: false
-                        modificationDate: 1751010066
-                        creationDate: 1750941541
+                        modificationDate: 1751011340
+                        creationDate: 1751011323
                         preserveAnimation: false
