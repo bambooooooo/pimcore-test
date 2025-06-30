@@ -43,7 +43,7 @@ class ProductSetPublisher
             $this->updateOffers($set);
 
             $this->sendToErp($set);
-            $this->baselinkerService->export($set);
+            //$this->baselinkerService->export($set);
             ApplicationLogger::getInstance()->info("Publishing ProductSet {$set->getId()}");
         });
     }
