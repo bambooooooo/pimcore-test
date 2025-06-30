@@ -50,7 +50,7 @@ class ProductPublisher
                 $this->updatePricing($product);
                 $this->updateOffers($product);
                 $this->sendToErp($product);
-                $this->baselinkerService->export($product);
+                //$this->baselinkerService->export($product);
             }
         });
     }
