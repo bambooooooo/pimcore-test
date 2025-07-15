@@ -110,6 +110,21 @@ class BaselinkerService
             ]
         ])->toArray();
 
+        $note = new \Pimcore\Model\Element\Note();
+        $note->setElement($catalog);
+        $note->setDate(time());
+        $note->setType("notice");
+        $note->setTitle("getInventoryAvailableTextFieldKeys");
+        $note->setDescription(json_encode($res));
+        $note->setUser(0);
+
+// you can add as much additional data to notes & events as you want
+        $note->addData("myText", "text", "getInventoryAvailableTextFieldKeys");
+        $note->addData("myObject", "object", $catalog);
+
+        $note->save();
+
+
         if($res['status'] != "SUCCESS") {
             throw new \Exception($res['error_code'] . ": " . $res['error_message']);
         }
@@ -191,6 +206,22 @@ class BaselinkerService
 
                 $textFields = [];
                 $textFields['name'] = $obj->getName($c->getBaselinkerCatalog()->getLang());
+                $textFields["features"] = [];
+
+                if($obj instanceof Product)
+                {
+                    foreach($obj->getParameters()->getGroups() as $group)
+                    {
+                        foreach($group->getKeys() as $key)
+                        {
+                            if(!is_iterable($key->getValue()))
+                            {
+                                $textFields["features"][$key->getConfiguration()->getTitle()] = $key->getValue();
+                            }
+                        }
+                    }
+                }
+
 
                 foreach($c->getBaselinkerCatalog()->getLanguages() as $locale)
                 {
