@@ -2,15 +2,16 @@
 
 namespace App\Publishing;
 
-use App\Service\BrokerService;
+use App\Message\ErpIndex;
 use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\Data\QuantityValue;
 use Pimcore\Model\DataObject\Package;
 use Pimcore\Model\DataObject\QuantityValue\Unit;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 class PackagePublisher
 {
-    public function __construct(private readonly BrokerService $broker)
+    public function __construct(private readonly MessageBusInterface $bus)
     {
 
     }
@@ -56,22 +57,6 @@ class PackagePublisher
 
     function sendToErp(Package $package) : void
     {
-        $name = $package->getKey();
-        $name = substr($name, 0, min(strlen($name), 50));
-
-        $data = [
-            "Kind" => "PACKAGE",
-            "Sku" => $package->getId(),
-            "Barcode" => $package->getBarcode(),
-            "Name" => $name,
-            "Description" => $name,
-            "Mass" => $package->getMass()->getValue(),
-            "Width" => $package->getWidth()->getValue(),
-            "Height" => $package->getHeight()->getValue(),
-            "Depth" => $package->getDepth()->getValue(),
-            "Volume" => $package->getVolume()->getValue(),
-        ];
-
-        $this->broker->publishByREST('PRD', 'product', $data);
+        $this->bus->dispatch(new ErpIndex($package->getId()));
     }
 }

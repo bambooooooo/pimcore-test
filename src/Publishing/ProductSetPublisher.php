@@ -2,27 +2,23 @@
 
 namespace App\Publishing;
 
-use App\Service\BaselinkerService;
-use App\Service\BrokerService;
-use App\Service\DeepLService;
+use App\Message\ErpIndex;
 use App\Service\OfferService;
 use App\Service\PricingService;
 use Pimcore\Bundle\ApplicationLoggerBundle\ApplicationLogger;
 use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\Data\ObjectMetadata;
 use Pimcore\Model\DataObject\Data\QuantityValue;
-use Pimcore\Model\DataObject\Fieldcollection\Data\ParcelMassVolume;
 use Pimcore\Model\DataObject\ProductSet;
 use Pimcore\Model\DataObject\Pricing;
 use Pimcore\Model\DataObject\QuantityValue\Unit;
-use Pimcore\Tool;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 class ProductSetPublisher
 {
-    public function __construct(private readonly BrokerService $broker,
-                                private readonly PricingService $pricingService,
-                                private readonly BaselinkerService $baselinkerService,
-                                private readonly OfferService $offerService)
+    public function __construct(private readonly PricingService    $pricingService,
+                                private readonly OfferService      $offerService,
+                                private readonly MessageBusInterface $bus)
     {
 
     }
@@ -222,40 +218,6 @@ class ProductSetPublisher
 
     function sendToErp(ProductSet $productSet) : void
     {
-        $name = substr($productSet->getKey(), 0, min(strlen($productSet->getKey()), 50));
-
-        $image = $productSet->getImage()->getThumbnail("200x200");
-        $stream = $image->getStream();
-
-        $tempFile = tempnam(sys_get_temp_dir(), 'pim_image_');
-        file_put_contents($tempFile, stream_get_contents($stream));
-
-        $imageBase64 = base64_encode(file_get_contents($tempFile));
-        unlink($tempFile);
-
-        $packages = [];
-        foreach ($productSet->getSet() as $li) {
-            foreach($li->getElement()->getPackages() as $lip)
-            {
-                $packages[] = [
-                    'Sku' => $lip->getElement()->getId(),
-                    'Count' => (int)$lip->getQuantity() * (int)$li->getQuantity(),
-                ];
-            }
-        }
-
-        $data = [
-            "Kind" => "PRODUCT",
-            "Sku" => $productSet->getId(),
-            "Barcode" => ($productSet->getEan() and strlen($productSet->getEan()) == 13) ? $productSet->getEan() : null,
-            "Name" => $name,
-            "NameEn" => $productSet->getName("en") ?? "",
-            "Description" => $productSet->getName("pl"),
-            "Image" => $imageBase64,
-            "Mass" => $productSet->getMass()->getValue(),
-            "Set" => $packages
-        ];
-
-        $this->broker->publishByREST('PRD', 'product', $data);
+        $this->bus->dispatch(new ErpIndex($productSet->getId()));
     }
 }

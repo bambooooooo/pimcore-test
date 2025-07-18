@@ -2,9 +2,7 @@
 
 namespace App\Publishing;
 
-use App\Service\BaselinkerService;
-use App\Service\BrokerService;
-use App\Service\DeepLService;
+use App\Message\ErpIndex;
 use App\Service\OfferService;
 use App\Service\PricingService;
 use InvalidArgumentException;
@@ -12,19 +10,15 @@ use Pimcore\Logger;
 use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\Data\ObjectMetadata;
 use Pimcore\Model\DataObject\Data\QuantityValue;
-use Pimcore\Model\DataObject\Fieldcollection\Data\Surcharge;
-use Pimcore\Model\DataObject\Fieldcollection\Data\Factor;
-use Pimcore\Model\DataObject\Fieldcollection\Data\ParcelMassVolume;
 use Pimcore\Model\DataObject\Pricing;
 use Pimcore\Model\DataObject\Product;
 use Pimcore\Model\DataObject\QuantityValue\Unit;
-use Pimcore\Tool;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 class ProductPublisher
 {
-    public function __construct(private readonly BrokerService $broker,
-                                private readonly PricingService $pricingService,
-                                private readonly BaselinkerService $baselinkerService,
+    public function __construct(private readonly PricingService $pricingService,
+                                private readonly MessageBusInterface $bus,
                                 private readonly OfferService $offerService)
     {
 
@@ -221,45 +215,7 @@ class ProductPublisher
 
     function sendToErp(Product $product) : void
     {
-        $name = $product->getKey();
-        $name = substr($name, 0, min(strlen($name), 50));
-
-        $image = $product->getImage()->getThumbnail("200x200");
-        $stream = $image->getStream();
-
-        $tempFile = tempnam(sys_get_temp_dir(), 'pim_image_');
-        file_put_contents($tempFile, stream_get_contents($stream));
-
-        $imageBase64 = base64_encode(file_get_contents($tempFile));
-        unlink($tempFile);
-
-        $packages = [];
-        foreach($product->getPackages() as $lip)
-        {
-            $packages[] = [
-                'Sku' => $lip->getElement()->getId(),
-                'Count' => (int)$lip->getQuantity()
-            ];
-        }
-
-        $data = [
-            "Kind" => "PRODUCT",
-            "Sku" => $product->getId(),
-            "Barcode" => ($product->getEan() and strlen($product->getEan()) == 13) ? $product->getEan() : $product->getBarcode(),
-            "Name" => $name,
-            "NameEn" => $product->getName("en") ?? "",
-            "Description" => $product->getName("pl"),
-            "Image" => $imageBase64,
-            "Mass" => $product->getMass()->getValue(),
-            "Width" => $product->getWidth()->getValue(),
-            "Height" => $product->getHeight()->getValue(),
-            "Depth" => $product->getDepth()->getValue(),
-            "CN" => $product->getCn(),
-            "Volume" => ((float)($product->getWidth()->getValue() * $product->getHeight()->getValue() * $product->getDepth()->getValue())) / 1000000000,
-            "Set" => $packages
-        ];
-
-        $this->broker->publishByREST('PRD', 'product', $data);
+        $this->bus->dispatch(new ErpIndex($product->getId()));
     }
 
     private function assertGroupsArePublished(Product $product)

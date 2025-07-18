@@ -6,3 +6,6 @@ framework:
             pimcore_scheduled_tasks: 'amqp://rabbitmq:5672/%2f/pimcore_scheduled_tasks'
             pimcore_image_optimize: 'amqp://rabbitmq:5672/%2f/pimcore_image_optimize'
             pimcore_asset_update: 'amqp://rabbitmq:5672/%2f/pimcore_asset_update'
+            sgt: 'amqp://rabbitmq:5672/%2f/sgt'
+        routing:
+            'App\Message\ErpIndex': sgt

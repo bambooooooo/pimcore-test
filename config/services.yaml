@@ -71,10 +71,19 @@ services:
         resource: '../src/Service'
         public: true
 
+    App\MessageHandler\:
+        resource: '../src/MessageHandler'
+        public: true
+
     App\Service\GS1Service:
         arguments:
             $username: '%env(GS1_USERNAME)%'
             $password: '%env(GS1_PASSWORD)%'
+
+    App\Service\SubiektGTService:
+        arguments:
+            $host: '%env(SGT_HOST)%'
+            $port: '%env(SGT_PORT)%'
 
     App\Service\BrokerService:
         arguments:
