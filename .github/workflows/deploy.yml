@@ -28,6 +28,7 @@ jobs:
                       git checkout main
                       git log -n 1 --pretty='format:%h'
 
+                      echo "APP_DOMAIN=${{ secrets.APP_DOMAIN }}" >> .env
                       echo "MQ_HOST=${{ secrets.MQ_HOST }}" >> .env
                       echo "MQ_PORT=${{ secrets.MQ_PORT }}" >> .env
                       echo "MQ_VHOST=${{ secrets.MQ_VHOST }}" >> .env

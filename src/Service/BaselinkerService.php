@@ -12,7 +12,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
 
 class BaselinkerService
 {
-    public function __construct(private readonly KernelInterface $kernel, private readonly HttpClientInterface $httpClient)
+    public function __construct(private readonly KernelInterface $kernel, private readonly HttpClientInterface $httpClient, private readonly string $appdomain)
     {
 
     }
@@ -296,13 +296,11 @@ class BaselinkerService
 
     private function getBaselinkerBase64Image($image): string
     {
-        $serverAddr = $this->kernel->getEnvironment() == 'dev' ? "http://10.10.1.1/" : $_SERVER['HTTP_ORIGIN'];
-
         $thumbs = ["webp", "webp_1800", "webp_1600", "webp_1400"];
 
         foreach ($thumbs as $thumb)
         {
-            $imurl = $serverAddr . $image->getThumbnail($thumb);
+            $imurl = $this->appdomain . $image->getThumbnail($thumb);
             $im = file_get_contents($imurl);
 
             $size = round(strlen($im) / (1024 * 1024), 2);

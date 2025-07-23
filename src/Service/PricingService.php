@@ -179,7 +179,7 @@ class PricingService
 
                             foreach ($massLimits as $m)
                             {
-                                if($m <= $totalMass)
+                                if($m <= $obj->getPackagesMass()->getValue())
                                 {
                                     $x++;
                                 }
@@ -191,7 +191,7 @@ class PricingService
 
                             foreach ($volumeLimits as $v)
                             {
-                                if($v <= $totalVolume)
+                                if($v <= $obj->getPackagesVolume()->getValue())
                                 {
                                     $y++;
                                 }
