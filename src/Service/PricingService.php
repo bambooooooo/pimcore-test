@@ -135,32 +135,6 @@ class PricingService
                 }
             }
 
-            if($obj->getLoadCarriers())
-            {
-                if($pricing->getRestrictions()?->getLoadCarriers()?->getLoadCarriers())
-                {
-                    $found = false;
-
-                    foreach ($obj->getLoadCarriers() as $objCarrier)
-                    {
-                        foreach ($pricing->getRestrictions()->getLoadCarriers()->getLoadCarriers() as $parcelCarrier)
-                        {
-                            if($objCarrier->getId() == $parcelCarrier->getId())
-                            {
-                                $found = true;
-                            }
-                        }
-                    }
-
-                    if(!$found)
-                        return false;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-
             if($pricing->getRules())
             {
                 foreach ($pricing->getRules() as $rule)
