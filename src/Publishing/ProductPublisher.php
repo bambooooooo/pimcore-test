@@ -2,6 +2,7 @@
 
 namespace App\Publishing;
 
+use App\Message\BlkIndex;
 use App\Message\ErpIndex;
 use App\Service\OfferService;
 use App\Service\PricingService;
@@ -44,7 +45,7 @@ class ProductPublisher
                 $this->updatePricing($product);
                 $this->updateOffers($product);
                 $this->sendToErp($product);
-                //$this->baselinkerService->export($product);
+                $this->bus->dispatch(new BlkIndex($product->getId()));
             }
         });
     }

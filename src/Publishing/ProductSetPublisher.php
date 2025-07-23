@@ -2,6 +2,7 @@
 
 namespace App\Publishing;
 
+use App\Message\BlkIndex;
 use App\Message\ErpIndex;
 use App\Service\OfferService;
 use App\Service\PricingService;
@@ -38,8 +39,9 @@ class ProductSetPublisher
             $this->updatePricings($set);
             $this->updateOffers($set);
 
+            $this->bus->dispatch(new BlkIndex($set->getId()));
             $this->sendToErp($set);
-            //$this->baselinkerService->export($set);
+
             ApplicationLogger::getInstance()->info("Publishing ProductSet {$set->getId()}");
         });
     }

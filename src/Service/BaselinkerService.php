@@ -190,7 +190,8 @@ class BaselinkerService
 
             if($c and $c->isPublished() and $c->getBaselinkerCatalog())
             {
-                $data["inventory_id"] = $c->getBaselinkerCatalog()->getCatalogId();
+                $data["inventory_id"] = (int)$c->getBaselinkerCatalog()->getCatalogId();
+                unset($data["product_id"]);
 
                 $relation = null;
 
@@ -221,7 +222,6 @@ class BaselinkerService
                         }
                     }
                 }
-
 
                 foreach($c->getBaselinkerCatalog()->getLanguages() as $locale)
                 {
