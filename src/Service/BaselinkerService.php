@@ -7,12 +7,12 @@ use Pimcore\Model\DataObject\BaselinkerCatalog;
 use Pimcore\Model\DataObject\Data\ObjectMetadata;
 use Pimcore\Model\DataObject\Product;
 use Pimcore\Model\DataObject\ProductSet;
+use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Component\HttpKernel\KernelInterface;
 
 class BaselinkerService
 {
-    public function __construct(private readonly KernelInterface $kernel, private readonly HttpClientInterface $httpClient, private readonly string $appdomain)
+    public function __construct(private readonly HttpClientInterface $httpClient, private readonly string $appdomain, private readonly CacheInterface $cache)
     {
 
     }
@@ -159,12 +159,17 @@ class BaselinkerService
                 {
                     $images[] = $this->getBaselinkerBase64Image($image->getImage());
                 }
+
+                foreach ($obj->getInfographics() as $image)
+                {
+                    $images[] = $this->getBaselinkerBase64Image($image->getImage());
+                }
             }
             elseif($obj instanceof ProductSet)
             {
                 foreach($obj->getSet() as $lip)
                 {
-                    $images[] = $this->getBaselinkerBase64Image($image->getImage());
+                    $images[] = $this->getBaselinkerBase64Image($lip->getElement()->getImage());
                 }
             }
 
@@ -288,10 +293,12 @@ class BaselinkerService
                     $relations[] = $relation;
 
                     $obj->setBaselinkerCatalog($relations);
-                    $obj->save();
+                    $obj->saveVersion();
                 }
             }
         }
+
+        $this->cache->delete($obj->getId() . "");
     }
 
     private function getBaselinkerBase64Image($image): string
