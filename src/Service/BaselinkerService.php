@@ -5,6 +5,7 @@ namespace App\Service;
 use Pimcore\Model\DataObject\Baselinker;
 use Pimcore\Model\DataObject\BaselinkerCatalog;
 use Pimcore\Model\DataObject\Data\ObjectMetadata;
+use Pimcore\Model\DataObject\Offer;
 use Pimcore\Model\DataObject\Product;
 use Pimcore\Model\DataObject\ProductSet;
 use Symfony\Contracts\Cache\CacheInterface;
@@ -46,11 +47,18 @@ class BaselinkerService
             $languages[] = $language;
         }
 
+        $priceGroups = [];
+        foreach ($catalog->getOffers() as $offer) {
+            $priceGroups[] = $offer->getBaselinkerPriceGroupId();
+        }
+
         $data = [
             "name" => $catalog->getName(),
             "description" => $catalog->getDescription(),
             "languages" => $languages,
-            "default_language" => $catalog->getLang()
+            "default_language" => $catalog->getLang(),
+            "price_groups" => $priceGroups,
+            "default_price_group" => $priceGroups[0]
         ];
 
         if($catalog->getCatalogId())
@@ -74,59 +82,47 @@ class BaselinkerService
             throw new \Exception($res['error_code'] . ": " . $res['error_message']);
         }
 
-        $catalog->setCatalogId($res["inventory_id"]);
+        if(!$catalog->getCatalogId()) {
+            $catalog->setCatalogId($res["inventory_id"]);
+        }
+    }
 
-        $res = $this->httpClient->request("POST", "https://api.baselinker.com/connector.php", [
-            'headers' => [
-                'X-BLToken' => $catalog->getBaselinker()->getApiKey()
-            ],
-            'body' => [
-                'method' => 'getInventoryPriceGroups',
-                'parameters' => json_encode([])
-            ]
-        ])->toArray();
+    public function updatePriceGroup(Offer $offer): void
+    {
+        $params = [
+            'name' => $offer->getKey(),
+            'description' => $offer->getKey(),
+            'currency' => $offer->getCurrency()
+        ];
 
-        if($res['status'] != "SUCCESS") {
-            throw new \Exception($res['error_code'] . ": " . $res['error_message']);
+        if($offer->getBaselinkerPriceGroupId())
+        {
+            $params['price_group_id'] = $offer->getBaselinkerPriceGroupId();
         }
 
-        foreach ($res["price_groups"] as $priceGroup) {
-            if($priceGroup["is_default"]) {
-                $catalog->setPriceGroupId((int)$priceGroup["price_group_id"]);
+        $response = $this->httpClient->request("POST", "https://api.baselinker.com/connector.php", [
+            'headers' => [
+                'X-BLToken' => $offer->getBaselinker()->getApiKey()
+            ],
+            'body' => [
+                'method' => 'addInventoryPriceGroup',
+                'parameters' => json_encode($params)
+            ]
+        ]);
+
+        $data = $response->toArray();
+
+        if($data['status'] != 'SUCCESS')
+        {
+            throw new \Exception($data['error_code'] . ": " . $data['error_message']);
+        }
+        else
+        {
+            if(!$offer->getBaselinkerPriceGroupId())
+            {
+                $offer->setBaselinkerPriceGroupId($data['price_group_id']);
+                $offer->save();
             }
-        }
-
-        $catalog->save();
-
-        $res = $this->httpClient->request("POST", "https://api.baselinker.com/connector.php", [
-            'headers' => [
-                'X-BLToken' => $catalog->getBaselinker()->getApiKey()
-            ],
-            'body' => [
-                'method' => 'getInventoryAvailableTextFieldKeys',
-                'parameters' => json_encode([
-                    'inventory_id' => $catalog->getCatalogId()
-                ])
-            ]
-        ])->toArray();
-
-        $note = new \Pimcore\Model\Element\Note();
-        $note->setElement($catalog);
-        $note->setDate(time());
-        $note->setType("notice");
-        $note->setTitle("getInventoryAvailableTextFieldKeys");
-        $note->setDescription(json_encode($res));
-        $note->setUser(0);
-
-// you can add as much additional data to notes & events as you want
-        $note->addData("myText", "text", "getInventoryAvailableTextFieldKeys");
-        $note->addData("myObject", "object", $catalog);
-
-        $note->save();
-
-
-        if($res['status'] != "SUCCESS") {
-            throw new \Exception($res['error_code'] . ": " . $res['error_message']);
         }
     }
 
@@ -159,11 +155,6 @@ class BaselinkerService
                 {
                     $images[] = $this->getBaselinkerBase64Image($image->getImage());
                 }
-
-                foreach ($obj->getInfographics() as $image)
-                {
-                    $images[] = $this->getBaselinkerBase64Image($image->getImage());
-                }
             }
             elseif($obj instanceof ProductSet)
             {
@@ -189,116 +180,140 @@ class BaselinkerService
             $data["average_cost"] = $obj->getBasePrice()->getValue();
         }
 
-        foreach($obj->getPrice() as $price)
-        {
+        $catalogs = [];
+
+        foreach($obj->getPrice() as $price) {
             $c = $price->getElement();
 
-            if($c and $c->isPublished() and $c->getBaselinkerCatalog())
-            {
-                $data["inventory_id"] = (int)$c->getBaselinkerCatalog()->getCatalogId();
-                unset($data["product_id"]);
-
-                $relation = null;
-
-                foreach ($obj->getBaselinkerCatalog() as $rel)
-                {
-                    if($rel->getElement()->getId() == $c->getBaselinkerCatalog()->getId())
-                    {
-                        $relation = $rel;
-                        $data["product_id"] = $rel->getProductId();
-                        break;
-                    }
-                }
-
-                $textFields = [];
-                $textFields['name'] = $obj->getName($c->getBaselinkerCatalog()->getLang());
-                $textFields["features"] = [];
-
-                if($obj instanceof Product)
-                {
-                    foreach($obj->getParameters()->getGroups() as $group)
-                    {
-                        foreach($group->getKeys() as $key)
-                        {
-                            if(!is_iterable($key->getValue()))
-                            {
-                                $textFields["features"][$key->getConfiguration()->getTitle()] = $key->getValue();
-                            }
-                        }
-                    }
-                }
-
-                foreach($c->getBaselinkerCatalog()->getLanguages() as $locale)
-                {
-                    $textFields["name|" . $locale] = $obj->getName($locale);
-                }
-
-                $data["text_fields"] = $textFields;
-
-                $data['prices'] = [
-                    $c->getBaselinkerCatalog()->getPriceGroupId() => (float)$price->getPrice()
-                ];
-
-                $bundle = [];
-                if($obj instanceof ProductSet)
-                {
-                    foreach($obj->getSet() as $lip)
-                    {
-                        $found = false;
-
-                        foreach($lip->getElement()->getBaselinkerCatalog() as $rel)
-                        {
-                            if($rel->getElement()->getId() == $c->getBaselinkerCatalog()->getId())
-                            {
-                                $bundle[$rel->getProductId()] = $lip->getQuantity();
-                                $found = true;
-                                break;
-                            }
-                        }
-
-                        if(!$found)
-                        {
-                            throw new \Exception("Set item [" . $lip->getElement()->getKey() . "] is not assigned to given catalog [" . $c->getBaselinkerCatalog()->getId() . "]");
-                        }
-                    }
-
-                    $data["bundle_products"] = $bundle;
-                }
-
-
-                $response = $this->httpClient->request("POST", "https://api.baselinker.com/connector.php", [
-                    'headers' => [
-                        'X-BLToken' => $c->getBaselinkerCatalog()->getBaselinker()->getApiKey()
-                    ],
-                    'body' => [
-                        'method' => 'addInventoryProduct',
-                        'parameters' => json_encode($data)
-                    ]
-                ]);
-
-                $res = $response->toArray();
-
-                if($res['status'] != "SUCCESS") {
-                    throw new \Exception($res['error_code'] . ": " . $res['error_message']);
-                }
-
-                $pid = (int)$res["product_id"];
-
-                if(!$relation)
-                {
-                    $relation = new ObjectMetadata('BaselinkerCatalog', ['ProductId'], $c->getBaselinkerCatalog());
-                    $relation->setProductId($pid);
-
-                    $relations = $obj->getBaselinkerCatalog();
-                    $relations[] = $relation;
-
-                    $obj->setBaselinkerCatalog($relations);
-                    $obj->saveVersion();
-                }
+            if ($c and $c->isPublished() and $c->getBaselinkerCatalog()) {
+                $catalogs[] = $c->getBaselinkerCatalog()->getId();
             }
         }
 
-        $this->cache->delete($obj->getId() . "");
+        $catalog = array_unique($catalogs);
+
+        $changed = false;
+
+        foreach($catalog as $id)
+        {
+            $catalog = BaselinkerCatalog::getById($id);
+            $priceGroupIds = [];
+            foreach ($catalog->getOffers() as $offer) {
+                $priceGroupIds[] = $offer->getBaselinkerPriceGroupId();
+            }
+
+            $data["inventory_id"] = (int)$catalog->getCatalogId();
+            unset($data["product_id"]);
+
+            $relation = null;
+
+            foreach ($obj->getBaselinkerCatalog() as $rel)
+            {
+                if($rel->getElement()->getId() == $catalog->getId())
+                {
+                    $relation = $rel;
+                    $data["product_id"] = $rel->getProductId();
+                    break;
+                }
+            }
+
+            $textFields = [];
+            $textFields['name'] = $obj->getName($catalog->getLang());
+            $textFields["features"] = [];
+
+            if($obj instanceof Product)
+            {
+                foreach($obj->getParameters()->getGroups() as $group)
+                {
+                    foreach($group->getKeys() as $key)
+                    {
+                        if(!is_iterable($key->getValue()))
+                        {
+                            $textFields["features"][$key->getConfiguration()->getTitle()] = $key->getValue();
+                        }
+                    }
+                }
+            }
+
+            foreach($catalog->getLanguages() as $locale)
+            {
+                $textFields["name|" . $locale] = $obj->getName($locale);
+            }
+
+            $data["text_fields"] = $textFields;
+
+            foreach ($obj->getPrice() as $price) {
+                if(in_array($price->getElement()->getBaselinkerPriceGroupId(), $priceGroupIds))
+                {
+                    $data['prices'][$price->getElement()->getBaselinkerPriceGroupId()] = $price->getPrice();
+                }
+            }
+
+            $bundle = [];
+            if($obj instanceof ProductSet)
+            {
+                foreach($obj->getSet() as $lip)
+                {
+                    $found = false;
+
+                    foreach($lip->getElement()->getBaselinkerCatalog() as $rel)
+                    {
+                        if($rel->getElement()->getId() == $catalog->getId())
+                        {
+                            $bundle[$rel->getProductId()] = $lip->getQuantity();
+                            $found = true;
+                            break;
+                        }
+                    }
+
+                    if(!$found)
+                    {
+                        throw new \Exception("Set item [" . $lip->getElement()->getKey() . "] is not assigned to given catalog [" . $c->getBaselinkerCatalog()->getId() . "]");
+                    }
+                }
+
+                $data["bundle_products"] = $bundle;
+            }
+
+            $response = $this->httpClient->request("POST", "https://api.baselinker.com/connector.php", [
+                'headers' => [
+                    'X-BLToken' => $c->getBaselinkerCatalog()->getBaselinker()->getApiKey()
+                ],
+                'body' => [
+                    'method' => 'addInventoryProduct',
+                    'parameters' => json_encode($data)
+                ]
+            ]);
+
+            $res = $response->toArray();
+
+            if($res['status'] != "SUCCESS") {
+                throw new \Exception($res['error_code'] . ": " . $res['error_message']);
+            }
+
+            $pid = (int)$res["product_id"];
+
+            if(!$relation)
+            {
+                $relation = new ObjectMetadata('BaselinkerCatalog', ['ProductId'], $catalog);
+                $relation->setProductId($pid);
+
+                $relations = $obj->getBaselinkerCatalog();
+                $relations[] = $relation;
+
+                $obj->setBaselinkerCatalog($relations);
+                $changed = true;
+
+                echo '[+] ' . $obj->getKey() . " --> " . $pid . '@' . $data["inventory_id"] . PHP_EOL;
+            }
+        }
+
+        if($changed) {
+            echo '[~] ' . $obj->getKey() . ' updated.' . PHP_EOL;
+            $obj->saveVersion();
+        }
+
+        echo $obj->getKey() .  ': Done.' . PHP_EOL;
     }
 
     private function getBaselinkerBase64Image($image): string

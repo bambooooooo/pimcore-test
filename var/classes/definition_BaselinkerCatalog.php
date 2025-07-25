@@ -7,11 +7,11 @@
  * Fields Summary:
  * - Baselinker [manyToOneRelation]
  * - CatalogId [numeric]
- * - PriceGroupId [numeric]
  * - Name [input]
  * - Description [input]
  * - Lang [language]
  * - Languages [languagemultiselect]
+ * - Offers [manyToManyObjectRelation]
  */
 
 return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
@@ -21,7 +21,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1750999556,
+   'modificationDate' => 1753434480,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -151,36 +151,6 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'defaultValueGenerator' => '',
               )),
               2 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                 'name' => 'PriceGroupId',
-                 'title' => 'Price Group Id',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => true,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'defaultValue' => NULL,
-                 'integer' => false,
-                 'unsigned' => false,
-                 'minValue' => NULL,
-                 'maxValue' => NULL,
-                 'unique' => false,
-                 'decimalSize' => NULL,
-                 'decimalPrecision' => NULL,
-                 'width' => '',
-                 'defaultValueGenerator' => '',
-              )),
-              3 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'Name',
                  'title' => 'Name',
@@ -210,7 +180,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'width' => '',
                  'defaultValueGenerator' => '',
               )),
-              4 => 
+              3 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'Description',
                  'title' => 'Description',
@@ -240,7 +210,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'width' => '',
                  'defaultValueGenerator' => '',
               )),
-              5 => 
+              4 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Language::__set_state(array(
                  'name' => 'Lang',
                  'title' => 'Lang',
@@ -270,7 +240,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'optionsProviderData' => NULL,
                  'onlySystemLanguages' => true,
               )),
-              6 => 
+              5 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Languagemultiselect::__set_state(array(
                  'name' => 'Languages',
                  'title' => 'Languages',
@@ -301,6 +271,46 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'optionsProviderClass' => NULL,
                  'optionsProviderData' => NULL,
                  'onlySystemLanguages' => true,
+              )),
+              6 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                 'name' => 'Offers',
+                 'title' => 'Offers',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => true,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'classes' => 
+                array (
+                  0 => 
+                  array (
+                    'classes' => 'Offer',
+                  ),
+                ),
+                 'displayMode' => 'grid',
+                 'pathFormatterClass' => '',
+                 'maxItems' => NULL,
+                 'visibleFields' => 'key,Currency,BaselinkerPriceGroupId',
+                 'allowToCreateNewObject' => false,
+                 'allowToClearRelation' => true,
+                 'optimizedAdminLoading' => false,
+                 'enableTextSelection' => false,
+                 'visibleFieldDefinitions' => 
+                array (
+                ),
+                 'width' => '',
+                 'height' => '',
               )),
             ),
              'locked' => false,
@@ -369,28 +379,45 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'deletedDataComponents' => 
   array (
     0 => 
-    \Pimcore\Model\DataObject\ClassDefinition\Data\Password::__set_state(array(
-       'name' => 'ApiKey',
-       'title' => 'Api Key',
+    \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+       'name' => 'DefaultOffer',
+       'title' => 'Default Offer',
        'tooltip' => '',
-       'mandatory' => false,
+       'mandatory' => true,
        'noteditable' => false,
        'index' => false,
        'locked' => false,
        'style' => '',
        'permissions' => NULL,
        'fieldtype' => '',
-       'relationType' => false,
+       'relationType' => true,
        'invisible' => false,
        'visibleGridView' => false,
        'visibleSearch' => false,
        'blockedVarsForExport' => 
       array (
       ),
-       'algorithm' => 'password_hash',
-       'salt' => '',
-       'saltlocation' => 'back',
-       'minimumLength' => NULL,
+       'classes' => 
+      array (
+        0 => 
+        array (
+          'classes' => 'Offer',
+        ),
+      ),
+       'displayMode' => 'grid',
+       'pathFormatterClass' => '',
+       'assetInlineDownloadAllowed' => false,
+       'assetUploadPath' => '',
+       'allowToClearRelation' => true,
+       'objectsAllowed' => true,
+       'assetsAllowed' => false,
+       'assetTypes' => 
+      array (
+      ),
+       'documentsAllowed' => false,
+       'documentTypes' => 
+      array (
+      ),
        'width' => '',
     )),
   ),

@@ -9,7 +9,10 @@
  *
  * Fields Summary:
  * - Pricings [manyToManyObjectRelation]
+ * - Baselinker [manyToOneRelation]
  * - BaselinkerCatalog [manyToOneRelation]
+ * - BaselinkerPriceGroupId [numeric]
+ * - Currency [select]
  * - Image [image]
  * - localizedfields [localizedfields]
  * -- Name [input]
@@ -26,7 +29,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
 
 Ofertę stanowi lista Wycen w ustalonej kolejności. Cena produktu w ofercie to pierwsza z Wycen, dla której zostaną spełnione ograniczenia.',
    'creationDate' => NULL,
-   'modificationDate' => 1750956618,
+   'modificationDate' => 1753431154,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -132,6 +135,48 @@ Przykładowo:
               )),
               1 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+                 'name' => 'Baselinker',
+                 'title' => 'Baselinker',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => true,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'classes' => 
+                array (
+                  0 => 
+                  array (
+                    'classes' => 'Baselinker',
+                  ),
+                ),
+                 'displayMode' => 'grid',
+                 'pathFormatterClass' => '',
+                 'assetInlineDownloadAllowed' => false,
+                 'assetUploadPath' => '',
+                 'allowToClearRelation' => true,
+                 'objectsAllowed' => true,
+                 'assetsAllowed' => false,
+                 'assetTypes' => 
+                array (
+                ),
+                 'documentsAllowed' => false,
+                 'documentTypes' => 
+                array (
+                ),
+                 'width' => '',
+              )),
+              2 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
                  'name' => 'BaselinkerCatalog',
                  'title' => 'Baselinker Catalog',
                  'tooltip' => '',
@@ -171,6 +216,87 @@ Przykładowo:
                 array (
                 ),
                  'width' => '',
+              )),
+              3 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                 'name' => 'BaselinkerPriceGroupId',
+                 'title' => 'Baselinker Price Group Id',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => true,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'defaultValue' => NULL,
+                 'integer' => false,
+                 'unsigned' => false,
+                 'minValue' => NULL,
+                 'maxValue' => NULL,
+                 'unique' => false,
+                 'decimalSize' => NULL,
+                 'decimalPrecision' => NULL,
+                 'width' => '',
+                 'defaultValueGenerator' => '',
+              )),
+              4 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                 'name' => 'Currency',
+                 'title' => 'Currency',
+                 'tooltip' => 'Waluta dla oferty',
+                 'mandatory' => true,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'options' => 
+                array (
+                  0 => 
+                  array (
+                    'key' => 'PLN',
+                    'value' => 'PLN',
+                  ),
+                  1 => 
+                  array (
+                    'key' => 'EUR',
+                    'value' => 'EUR',
+                  ),
+                  2 => 
+                  array (
+                    'key' => 'USD',
+                    'value' => 'USD',
+                  ),
+                  3 => 
+                  array (
+                    'key' => 'GBP',
+                    'value' => 'GBP',
+                  ),
+                ),
+                 'defaultValue' => 'PLN',
+                 'columnLength' => 190,
+                 'dynamicOptions' => false,
+                 'defaultValueGenerator' => '',
+                 'width' => '',
+                 'optionsProviderType' => 'configure',
+                 'optionsProviderClass' => '',
+                 'optionsProviderData' => '',
               )),
             ),
              'locked' => false,

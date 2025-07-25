@@ -7,33 +7,38 @@ use App\Service\BaselinkerService;
 use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\Product;
 use Pimcore\Model\DataObject\ProductSet;
+use Symfony\Component\Lock\LockFactory;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
-use Symfony\Contracts\Cache\CacheInterface;
-use Symfony\Contracts\Cache\ItemInterface;
 
 #[AsMessageHandler]
 class BlkProductHandler
 {
-    public function __construct(private readonly BaselinkerService $baselinkerService, private readonly CacheInterface $cache)
+    public function __construct(private readonly BaselinkerService $baselinkerService, private readonly LockFactory $lockFactory)
     {
 
     }
     public function __invoke(BlkIndex $message) : void
     {
-        $obj = DataObject::getById($message->getObjectId());
+        $k = 'obj_' . $message->getObjectId();
+        $lock = $this->lockFactory->createLock($k, 30);
 
-        if($obj instanceof ProductSet || $obj instanceof Product) {
+        $lock->acquire(true);
 
-            $this->cache->get($obj->getId() . "", function(ItemInterface $item) use ($obj) {
-                $item->set($obj->getId() . "");
-                $item->expiresAfter(10);
-
-                $this->baselinkerService->export($obj);
-            });
-        }
-        else
+        try
         {
-            throw new \InvalidArgumentException("Unknown object type");
+            $obj = DataObject::getById($message->getObjectId());
+            if($obj instanceof ProductSet || $obj instanceof Product)
+            {
+                $this->baselinkerService->export($obj);
+            }
+            else
+            {
+                throw new \InvalidArgumentException("Unknown object type");
+            }
+        }
+        finally
+        {
+            $lock->release();
         }
     }
 }

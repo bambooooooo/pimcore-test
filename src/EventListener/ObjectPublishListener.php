@@ -42,6 +42,11 @@ class ObjectPublishListener
     {
         $obj = $event->getElement();
 
+        if($event->hasArgument('saveVersionOnly'))
+        {
+            return;
+        }
+
         if($obj instanceof Product and $obj->isPublished())
         {
             $this->productPublisher->publish($obj);
