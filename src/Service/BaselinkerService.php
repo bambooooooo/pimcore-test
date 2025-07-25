@@ -276,10 +276,15 @@ class BaselinkerService
                 foreach($obj->getSet() as $lip)
                 {
                     $found = false;
+                    /** @var Product $product */
+                    $product = $lip->getElement();
 
-                    foreach($lip->getElement()->getBaselinkerCatalog() as $rel)
+                    foreach($product->getBaselinkerCatalog() as $rel)
                     {
-                        if($rel->getElement()->getId() == $catalog->getId())
+                        /** @var BaselinkerCatalog $cat */
+                        $cat = $rel->getElement();
+
+                        if($cat->getId() == $catalog->getId())
                         {
                             $bundle[$rel->getProductId()] = $lip->getQuantity();
                             $found = true;
@@ -289,7 +294,7 @@ class BaselinkerService
 
                     if(!$found)
                     {
-                        throw new \Exception("Set item [" . $lip->getElement()->getKey() . "] is not assigned to given catalog [" . $catalog->getBaselinkerCatalog()->getId() . "]");
+                        throw new \Exception("Set item [" . $lip->getElement()->getKey() . "] is not assigned to given catalog [" . $catalog->getId() . "]");
                     }
                 }
 
