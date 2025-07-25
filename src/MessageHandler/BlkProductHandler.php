@@ -23,6 +23,7 @@ class BlkProductHandler
         $lock = $this->lockFactory->createLock($k, 30);
 
         $lock->acquire(true);
+        echo '[' . time() . '] ' . $k . ' - lock acquired' . PHP_EOL;
 
         try
         {

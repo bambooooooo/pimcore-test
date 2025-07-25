@@ -331,7 +331,7 @@ class BaselinkerService
 
         if($changed) {
             echo '[~] ' . $obj->getKey() . ' updated.' . PHP_EOL;
-            $obj->saveVersion();
+            $obj->save();
         }
 
         echo $obj->getKey() .  ': Done.' . PHP_EOL;
