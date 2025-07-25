@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\Baselinker;
 use Pimcore\Model\DataObject\BaselinkerCatalog;
 use Pimcore\Model\DataObject\Data\ObjectMetadata;
@@ -183,10 +184,22 @@ class BaselinkerService
         $catalogIds = [];
 
         foreach($obj->getPrice() as $price) {
-            $catalog = $price->getElement();
+            /** @var Offer $offer */
+            $offer = $price->getElement();
 
-            if ($catalog and $catalog->isPublished() and $catalog->getBaselinkerCatalog()) {
-                $catalogIds[] = $catalog->getBaselinkerCatalog()->getId();
+            if ($offer and $offer->isPublished()) {
+
+                foreach($offer->getDependencies()->getRequiredBy() as $ref)
+                {
+                    if($ref['type'] != 'object')
+                        continue;
+
+                    $refObj = DataObject::getById($ref['id']);
+
+                    if($refObj and $refObj instanceof BaselinkerCatalog) {
+                        $catalogIds[] = $refObj->getId();
+                    }
+                }
             }
         }
 
@@ -209,7 +222,10 @@ class BaselinkerService
 
             foreach ($obj->getBaselinkerCatalog() as $rel)
             {
-                if($rel->getElement()->getId() == $catalog->getId())
+                /** @var $el BaselinkerCatalog */
+                $el = $rel->getElement();
+
+                if($el->getId() == $catalog->getId())
                 {
                     $relation = $rel;
                     $data["product_id"] = $rel->getProductId();
@@ -242,10 +258,15 @@ class BaselinkerService
 
             $data["text_fields"] = $textFields;
 
+            $data['prices'] = [];
+
             foreach ($obj->getPrice() as $price) {
-                if(in_array($price->getElement()->getBaselinkerPriceGroupId(), $priceGroupIds))
+                /** @var $el Offer */
+                $el = $price->getElement();
+
+                if(in_array($el->getBaselinkerPriceGroupId(), $priceGroupIds))
                 {
-                    $data['prices'][$price->getElement()->getBaselinkerPriceGroupId()] = $price->getPrice();
+                    $data['prices'][$el->getBaselinkerPriceGroupId()] = $price->getPrice();
                 }
             }
 
@@ -277,7 +298,7 @@ class BaselinkerService
 
             $response = $this->httpClient->request("POST", "https://api.baselinker.com/connector.php", [
                 'headers' => [
-                    'X-BLToken' => $catalog->getBaselinkerCatalog()->getBaselinker()->getApiKey()
+                    'X-BLToken' => $catalog->getBaselinker()->getApiKey()
                 ],
                 'body' => [
                     'method' => 'addInventoryProduct',
