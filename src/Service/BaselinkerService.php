@@ -180,21 +180,21 @@ class BaselinkerService
             $data["average_cost"] = $obj->getBasePrice()->getValue();
         }
 
-        $catalogs = [];
+        $catalogIds = [];
 
         foreach($obj->getPrice() as $price) {
-            $c = $price->getElement();
+            $catalog = $price->getElement();
 
-            if ($c and $c->isPublished() and $c->getBaselinkerCatalog()) {
-                $catalogs[] = $c->getBaselinkerCatalog()->getId();
+            if ($catalog and $catalog->isPublished() and $catalog->getBaselinkerCatalog()) {
+                $catalogIds[] = $catalog->getBaselinkerCatalog()->getId();
             }
         }
 
-        $catalog = array_unique($catalogs);
+        $catalogIds = array_unique($catalogIds);
 
         $changed = false;
 
-        foreach($catalog as $id)
+        foreach($catalogIds as $id)
         {
             $catalog = BaselinkerCatalog::getById($id);
             $priceGroupIds = [];
@@ -268,7 +268,7 @@ class BaselinkerService
 
                     if(!$found)
                     {
-                        throw new \Exception("Set item [" . $lip->getElement()->getKey() . "] is not assigned to given catalog [" . $c->getBaselinkerCatalog()->getId() . "]");
+                        throw new \Exception("Set item [" . $lip->getElement()->getKey() . "] is not assigned to given catalog [" . $catalog->getBaselinkerCatalog()->getId() . "]");
                     }
                 }
 
@@ -277,7 +277,7 @@ class BaselinkerService
 
             $response = $this->httpClient->request("POST", "https://api.baselinker.com/connector.php", [
                 'headers' => [
-                    'X-BLToken' => $c->getBaselinkerCatalog()->getBaselinker()->getApiKey()
+                    'X-BLToken' => $catalog->getBaselinkerCatalog()->getBaselinker()->getApiKey()
                 ],
                 'body' => [
                     'method' => 'addInventoryProduct',
