@@ -7,7 +7,11 @@ framework:
             pimcore_image_optimize: 'amqp://rabbitmq:5672/%2f/pimcore_image_optimize'
             pimcore_asset_update: 'amqp://rabbitmq:5672/%2f/pimcore_asset_update'
             sgt: 'amqp://rabbitmq:5672/%2f/sgt'
-            blk: 'amqp://rabbitmq:5672/%2f/blk'
+            blk:
+                dsn: 'amqp://rabbitmq:5672/%2f/blk'
+                delay: 8000
+                multiplier: 2
+                jitter: 0.1
         routing:
             'App\Message\ErpIndex': sgt
             'App\Message\BlkIndex': blk
