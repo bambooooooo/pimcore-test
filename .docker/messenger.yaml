@@ -9,9 +9,10 @@ framework:
             sgt: 'amqp://rabbitmq:5672/%2f/sgt'
             blk:
                 dsn: 'amqp://rabbitmq:5672/%2f/blk'
-                delay: 8000
-                multiplier: 2
-                jitter: 0.1
+                options:
+                    delay: 8000
+                    multiplier: 2
+                    jitter: 0.1
         routing:
             'App\Message\ErpIndex': sgt
             'App\Message\BlkIndex': blk

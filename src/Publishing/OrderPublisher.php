@@ -17,7 +17,8 @@ class OrderPublisher
 
         if($order->getUser())
         {
-            $this->sendToERP($order);
+//            TURN ON WHEN SGT BRIDGE ORDER API WILL BE AVAILABLE
+//            $this->sendToERP($order);
         }
     }
 
@@ -38,30 +39,5 @@ class OrderPublisher
             assert($li->getElement()->isPublished(), "Product [" . $li->getElement()->getKey() . "] must be published");
             assert($li->getQuantity() > 0, "Product [" . $li->getElement()->getKey() . "] quantity must be greater than zero");
         }
-    }
-
-    private function sendToERP(Order $order): void
-    {
-        $prods = [];
-
-        foreach ($order->getProducts() as $li) {
-            $prods[] = [
-                "Quantity" => $li->getQuantity(),
-                "Code" => $li->getElement()->getId()
-            ];
-        }
-
-        $data = [
-            "Source" => "MAN",
-            "Invoice" => [
-                "NIP" => $order->getUser()->getVAT()
-            ],
-            "Deadline" => $order->getDate()->toDateString(),
-            "External_number" => $order->getId(),
-            "Subtitle" => $order->getKey(),
-            "Products" => $prods
-        ];
-
-        $this->rabbit->publishByREST("ORD", "order.MAN." . $order->getId(), $data);
     }
 }
