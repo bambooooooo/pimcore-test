@@ -56,7 +56,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Produkt',
    'description' => 'Towar, który można sprzedać',
    'creationDate' => NULL,
-   'modificationDate' => 1751001476,
+   'modificationDate' => 1753696108,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -887,7 +887,7 @@ Producent',
                  'name' => 'Suppliers',
                  'title' => 'Suppliers',
                  'tooltip' => 'Dostawcy produktu lub części składowych (elementów) produktu',
-                 'mandatory' => true,
+                 'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
                  'locked' => false,
@@ -918,10 +918,18 @@ Producent',
                  'assetsAllowed' => false,
                  'assetTypes' => 
                 array (
+                  0 => 
+                  array (
+                    'assetTypes' => '',
+                  ),
                 ),
                  'documentsAllowed' => false,
                  'documentTypes' => 
                 array (
+                  0 => 
+                  array (
+                    'documentTypes' => '',
+                  ),
                 ),
                  'enableTextSelection' => false,
                  'width' => '',
