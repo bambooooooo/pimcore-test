@@ -654,7 +654,8 @@ class FactoryController extends FrontendController
     ): Response
     {
         if($user && $this->isGranted('ROLE_USER')) {
-            return $this->redirectToRoute('factory_home');
+            $u = User::getByEmail($user->getUserIdentifier())->current();
+            return $this->redirectToRoute('factory_home', ['_locale' => $u->getLang()]);
         }
 
         $error = $authenticationUtils->getLastAuthenticationError();
