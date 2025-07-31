@@ -1,0 +1,26 @@
+pimcore:
+    assets:
+        image:
+            thumbnails:
+                definitions:
+                    webp_1200:
+                        items:
+                            -
+                                method: scaleByHeight
+                                arguments:
+                                    height: 1200
+                                    forceResize: true
+                        medias: {  }
+                        name: webp_1200
+                        description: ''
+                        group: ''
+                        format: SOURCE
+                        quality: 85
+                        highResolution: null
+                        preserveColor: false
+                        preserveMetaData: false
+                        rasterizeSVG: false
+                        downloadable: false
+                        modificationDate: 1753936611
+                        creationDate: 1753936574
+                        preserveAnimation: false

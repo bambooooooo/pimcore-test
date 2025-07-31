@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use Pimcore\Model\Asset\Image;
 use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\Baselinker;
 use Pimcore\Model\DataObject\BaselinkerCatalog;
@@ -9,12 +10,11 @@ use Pimcore\Model\DataObject\Data\ObjectMetadata;
 use Pimcore\Model\DataObject\Offer;
 use Pimcore\Model\DataObject\Product;
 use Pimcore\Model\DataObject\ProductSet;
-use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class BaselinkerService
 {
-    public function __construct(private readonly HttpClientInterface $httpClient, private readonly string $appdomain, private readonly CacheInterface $cache)
+    public function __construct(private readonly HttpClientInterface $httpClient, private readonly string $appdomain)
     {
 
     }
@@ -161,7 +161,13 @@ class BaselinkerService
             {
                 foreach($obj->getSet() as $lip)
                 {
-                    $images[] = $this->getBaselinkerBase64Image($lip->getElement()->getImage());
+                    /** @var Product $el */
+                    $el = $lip->getElement();
+                    $images[] = $this->getBaselinkerBase64Image($el->getImage());
+                    foreach($el->getImagesModel() as $modelImage)
+                    {
+                        $images[] = $this->getBaselinkerBase64Image($modelImage->getImage());
+                    }
                 }
             }
 
@@ -301,13 +307,26 @@ class BaselinkerService
                 $data["bundle_products"] = $bundle;
             }
 
+            $payload = json_encode($data);
+            $hash = hash("sha256", $payload);
+
+            if($relation)
+            {
+                $v = $relation->getVersion();
+                if($v && $v == $hash)
+                {
+                    echo 'No changes. Skipping.' . PHP_EOL;
+                    return;
+                }
+            }
+
             $response = $this->httpClient->request("POST", "https://api.baselinker.com/connector.php", [
                 'headers' => [
                     'X-BLToken' => $catalog->getBaselinker()->getApiKey()
                 ],
                 'body' => [
                     'method' => 'addInventoryProduct',
-                    'parameters' => json_encode($data)
+                    'parameters' => $payload
                 ]
             ]);
 
@@ -323,6 +342,7 @@ class BaselinkerService
             {
                 $relation = new ObjectMetadata('BaselinkerCatalog', ['ProductId'], $catalog);
                 $relation->setProductId($pid);
+                $relation->setVersion($hash);
 
                 $relations = $obj->getBaselinkerCatalog();
                 $relations[] = $relation;
@@ -331,6 +351,13 @@ class BaselinkerService
                 $changed = true;
 
                 echo '[+] ' . $obj->getKey() . " --> " . $pid . '@' . $data["inventory_id"] . PHP_EOL;
+            }
+            else
+            {
+                $relation->setVersion($hash);
+                $changed = true;
+
+                echo '[~] ' . $obj->getKey() . " --> " . $pid . '@' . $data["inventory_id"] . PHP_EOL;
             }
         }
 
@@ -342,9 +369,9 @@ class BaselinkerService
         echo $obj->getKey() .  ': Done.' . PHP_EOL;
     }
 
-    private function getBaselinkerBase64Image($image): string
+    private function getBaselinkerBase64Image(Image $image): string
     {
-        $thumbs = ["webp", "webp_1800", "webp_1600", "webp_1400"];
+        $thumbs = ["webp", "webp_1800", "webp_1600", "webp_1400", "webp_1200", "webp_1000"];
 
         foreach ($thumbs as $thumb)
         {
@@ -359,6 +386,7 @@ class BaselinkerService
             }
         }
 
+        echo "[WARN] No thumbnail for image ". $image->getKey() . " #" . $image->getId() . PHP_EOL;
         return "";
     }
 }

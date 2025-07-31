@@ -18,7 +18,7 @@ class OfferPublisher
             }
         }
 
-        if($offer->getPricings())
+        if($offer->getPricings() && $offer->getBaselinker())
         {
             $this->baselinkerService->updatePriceGroup($offer);
         }

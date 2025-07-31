@@ -36,7 +36,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1751001493,
+   'modificationDate' => 1753941640,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -1112,10 +1112,18 @@ Suma cen bazowych produktów',
                     'key' => 'ProductId',
                     'label' => 'Product Id',
                   ),
+                  1 => 
+                  array (
+                    'type' => 'text',
+                    'position' => 2,
+                    'key' => 'Version',
+                    'label' => 'Version',
+                  ),
                 ),
                  'columnKeys' => 
                 array (
                   0 => 'ProductId',
+                  1 => 'Version',
                 ),
                  'enableBatchEdit' => false,
                  'allowMultipleAssignments' => false,

@@ -10,7 +10,6 @@
  * Fields Summary:
  * - Pricings [manyToManyObjectRelation]
  * - Baselinker [manyToOneRelation]
- * - BaselinkerCatalog [manyToOneRelation]
  * - BaselinkerPriceGroupId [numeric]
  * - Currency [select]
  * - Image [image]
@@ -29,7 +28,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
 
 Ofertę stanowi lista Wycen w ustalonej kolejności. Cena produktu w ofercie to pierwsza z Wycen, dla której zostaną spełnione ograniczenia.',
    'creationDate' => NULL,
-   'modificationDate' => 1753431154,
+   'modificationDate' => 1753945813,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -176,48 +175,6 @@ Przykładowo:
                  'width' => '',
               )),
               2 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-                 'name' => 'BaselinkerCatalog',
-                 'title' => 'Baselinker Catalog',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => true,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'classes' => 
-                array (
-                  0 => 
-                  array (
-                    'classes' => 'BaselinkerCatalog',
-                  ),
-                ),
-                 'displayMode' => 'grid',
-                 'pathFormatterClass' => '',
-                 'assetInlineDownloadAllowed' => false,
-                 'assetUploadPath' => '',
-                 'allowToClearRelation' => true,
-                 'objectsAllowed' => true,
-                 'assetsAllowed' => false,
-                 'assetTypes' => 
-                array (
-                ),
-                 'documentsAllowed' => false,
-                 'documentTypes' => 
-                array (
-                ),
-                 'width' => '',
-              )),
-              3 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'name' => 'BaselinkerPriceGroupId',
                  'title' => 'Baselinker Price Group Id',
@@ -247,7 +204,7 @@ Przykładowo:
                  'width' => '',
                  'defaultValueGenerator' => '',
               )),
-              4 => 
+              3 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                  'name' => 'Currency',
                  'title' => 'Currency',
@@ -573,6 +530,48 @@ Przykładowo:
    'enableGridLocking' => false,
    'deletedDataComponents' => 
   array (
+    0 => 
+    \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+       'name' => 'BaselinkerCatalog',
+       'title' => 'Baselinker Catalog',
+       'tooltip' => '',
+       'mandatory' => false,
+       'noteditable' => false,
+       'index' => false,
+       'locked' => false,
+       'style' => '',
+       'permissions' => NULL,
+       'fieldtype' => '',
+       'relationType' => true,
+       'invisible' => false,
+       'visibleGridView' => false,
+       'visibleSearch' => false,
+       'blockedVarsForExport' => 
+      array (
+      ),
+       'classes' => 
+      array (
+        0 => 
+        array (
+          'classes' => 'BaselinkerCatalog',
+        ),
+      ),
+       'displayMode' => 'grid',
+       'pathFormatterClass' => '',
+       'assetInlineDownloadAllowed' => false,
+       'assetUploadPath' => '',
+       'allowToClearRelation' => true,
+       'objectsAllowed' => true,
+       'assetsAllowed' => false,
+       'assetTypes' => 
+      array (
+      ),
+       'documentsAllowed' => false,
+       'documentTypes' => 
+      array (
+      ),
+       'width' => '',
+    )),
   ),
    'blockedVarsForExport' => 
   array (

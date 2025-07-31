@@ -6,12 +6,26 @@ framework:
             pimcore_scheduled_tasks: 'amqp://rabbitmq:5672/%2f/pimcore_scheduled_tasks'
             pimcore_image_optimize: 'amqp://rabbitmq:5672/%2f/pimcore_image_optimize'
             pimcore_asset_update: 'amqp://rabbitmq:5672/%2f/pimcore_asset_update'
-            sgt: 'amqp://rabbitmq:5672/%2f/sgt'
+
+            sgt:
+                dsn: 'amqp://rabbitmq:5672/%2f/sgt'
+                failure_transport: sgt_errors
+                retry_strategy:
+                    max_retries: 10
+                    delay: 5000
+                    max_delay: 0
+                    multiplier: 2
+            sgt_errors: 'amqp://rabbitmq:5672/%2f/sgt_errors'
+
             blk:
                 dsn: 'amqp://rabbitmq:5672/%2f/blk'
+                failure_transport: blk_errors
                 retry_strategy:
-                    delay: 8000
+                    max_retries: 3
+                    delay: 15000
+                    max_delay: 0
                     multiplier: 2
+            blk_errors: 'amqp://rabbitmq:5672/%2f/blk_errors'
 
         routing:
             'App\Message\ErpIndex': sgt

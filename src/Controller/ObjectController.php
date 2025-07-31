@@ -351,22 +351,21 @@ class ObjectController extends FrontendController
         $sheet->setCellValue('F1', $this->translator->trans('Width'));
         $sheet->setCellValue('G1', $this->translator->trans('Height'));
         $sheet->setCellValue('H1', $this->translator->trans('Depth'));
-        $sheet->setCellValue('I1', $this->translator->trans('Price') . " " . $offer->getName());
+        $sheet->setCellValue('I1', $offer->getName());
 
         $i = 10;
         foreach($references as $reference)
         {
             $refOffer = DataObject\Offer::getById($reference);
-            $sheet->setCellValue([$i, 1], $this->translator->trans('Price') . " " . $refOffer->getName());
+            $sheet->setCellValue([$i, 1], $refOffer->getName());
             $i++;
         }
 
         $sheet->getStyle('E')->getAlignment()->setWrapText(true);
 
-        $i = 1;
-        foreach ($offer->getDependencies()->getRequiredBy() as $req) {
-            $i++;
-
+        $i = 2;
+        foreach ($offer->getDependencies()->getRequiredBy() as $req)
+        {
             $obj = DataObject::getById($req['id']);
 
             if(!$obj)
@@ -397,7 +396,7 @@ class ObjectController extends FrontendController
                 }
             }
 
-            $j = 9;
+            $j = 10;
             foreach($references as $reference)
             {
                 foreach ($obj->getPrice() as $price)
@@ -429,15 +428,23 @@ class ObjectController extends FrontendController
                     $drawing->setWorksheet($sheet);
                 }
             }
+
+            $i++;
         }
 
-        $columns = ['A', 'C', 'D', 'E', 'F', 'G', 'H'];
+        $columns = 9 + count($references);
 
-        foreach ($columns as $column) {
-            $sheet->getColumnDimension($column)->setAutoSize(true);
+        for ($j=0; $j<$columns; $j++)
+        {
+            if($j == 1)
+            {
+                $sheet->getColumnDimension(chr(833 + $j))->setWidth(12);
+            }
+            else
+            {
+                $sheet->getColumnDimension(chr(833 + $j))->setAutoSize(true);
+            }
         }
-
-        $sheet->getColumnDimension('B')->setWidth(12);
 
         $writer = new Xlsx($spreadsheet);
 

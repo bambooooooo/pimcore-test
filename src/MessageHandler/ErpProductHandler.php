@@ -54,15 +54,6 @@ class ErpProductHandler
 
     private function exportProductSetData(ProductSet $productSet)
     {
-        $image = $productSet->getImage()->getThumbnail("200x200");
-        $stream = $image->getStream();
-
-        $tempFile = tempnam(sys_get_temp_dir(), 'pim_image_');
-        file_put_contents($tempFile, stream_get_contents($stream));
-
-        $imageBase64 = base64_encode(file_get_contents($tempFile));
-        unlink($tempFile);
-
         $packages = [];
         foreach ($productSet->getSet() as $li) {
             foreach($li->getElement()->getPackages() as $lip)
@@ -74,31 +65,18 @@ class ErpProductHandler
             }
         }
 
-        return [
-            "Id" => "".$productSet->getId(),
-            "Key" => $productSet->getKey(),
-            "NamePl" => $productSet->getName("pl"),
-            "NameEn" => $productSet->getName("en") ?? "",
-            "Barcode" => ($productSet->getEan() and strlen($productSet->getEan()) == 13) ? $productSet->getEan() : null,
-            "Image" => $imageBase64,
-            "Mass" => $productSet->getMass()->getValue(),
-            "Packages" => $packages,
-            "BasePrice" => $productSet->getBasePrice()->getValue(),
-            "Prices" => $this->getPrices($productSet)
-        ];
+        return array_merge(
+            $this->exportErpObjectCommonData($productSet),
+            $this->exportProductOrProductSetData($productSet),
+            [
+                "Mass" => $productSet->getMass()->getValue(),
+                "Packages" => $packages,
+            ]
+        );
     }
 
     private function exportProductData(Product $product)
     {
-        $image = $product->getImage()->getThumbnail("200x200");
-        $stream = $image->getStream();
-
-        $tempFile = tempnam(sys_get_temp_dir(), 'pim_image_');
-        file_put_contents($tempFile, stream_get_contents($stream));
-
-        $imageBase64 = base64_encode(file_get_contents($tempFile));
-        unlink($tempFile);
-
         $packages = [];
         foreach($product->getPackages() as $lip)
         {
@@ -108,21 +86,46 @@ class ErpProductHandler
             ];
         }
 
+        return array_merge(
+            $this->exportErpObjectCommonData($product),
+            $this->exportProductOrProductSetData($product),
+            [
+                "Mass" => $product->getMass()->getValue(),
+                "Width" => $product->getWidth()->getValue(),
+                "Height" => $product->getHeight()->getValue(),
+                "Length" => $product->getDepth()->getValue(),
+                "Volume" => ((float)($product->getWidth()->getValue() * $product->getHeight()->getValue() * $product->getDepth()->getValue())) / 1000000000,
+                "Packages" => $packages,
+            ]
+        );
+    }
+
+    private function exportErpObjectCommonData(Package|Product|ProductSet $obj)
+    {
         return [
-            "Id" => "".$product->getId(),
-            "Key" => $product->getKey(),
-            "NamePl" => $product->getName("pl"),
-            "NameEn" => $product->getName("en") ?? "",
-            "Ean" => ($product->getEan() and strlen($product->getEan()) == 13) ? "".$product->getEan() : "".$product->getBarcode(),
+            "Id" => "".$obj->getId(),
+            "Key" => $obj->getKey(),
+            "BasePrice" => $obj->getBasePrice()->getValue(),
+        ];
+    }
+
+    private function exportProductOrProductSetData(Product|ProductSet $obj): array
+    {
+        $image = $obj->getImage()->getThumbnail("200x200");
+        $stream = $image->getStream();
+
+        $tempFile = tempnam(sys_get_temp_dir(), 'pim_image_');
+        file_put_contents($tempFile, stream_get_contents($stream));
+
+        $imageBase64 = base64_encode(file_get_contents($tempFile));
+        unlink($tempFile);
+
+        return [
+            "NamePl" => $obj->getName("pl"),
+            "NameEn" => $obj->getName("en") ?? "",
+            "Prices" => $this->getPrices($obj),
             "Image" => $imageBase64,
-            "Mass" => $product->getMass()->getValue(),
-            "Width" => $product->getWidth()->getValue(),
-            "Height" => $product->getHeight()->getValue(),
-            "Length" => $product->getDepth()->getValue(),
-            "Volume" => ((float)($product->getWidth()->getValue() * $product->getHeight()->getValue() * $product->getDepth()->getValue())) / 1000000000,
-            "Packages" => $packages,
-            "BasePrice" => $product->getBasePrice()->getValue(),
-            "Prices" => $this->getPrices($product)
+            "Ean" => ($obj->getEan() and strlen($obj->getEan()) == 13) ? $obj->getEan() . "" : null,
         ];
     }
 
@@ -131,19 +134,15 @@ class ErpProductHandler
         $name = $package->getKey();
         $name = substr($name, 0, min(strlen($name), 50));
 
-        return [
-            "Id" => "".$package->getId(),
-            "Key" => $package->getKey(),
-            "Barcode" => $package->getBarcode() . "",
-            "Name" => $name,
+        return array_merge($this->exportErpObjectCommonData($package), [
             "Description" => $name,
-            "Mass" => $package->getMass()->getValue(),
+            "Barcode" => $package->getBarcode() . "",
             "Length" => $package->getDepth()->getValue(),
             "Width" => $package->getWidth()->getValue(),
             "Height" => $package->getHeight()->getValue(),
             "Volume" => $package->getVolume()->getValue(),
-            "BasePrice" => $package->getBasePrice()->getValue()
-        ];
+            "Mass" => $package->getMass()->getValue(),
+        ]);
     }
 
     private function getPrices(Product|ProductSet $p): array

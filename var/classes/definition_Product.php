@@ -56,7 +56,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Produkt',
    'description' => 'Towar, który można sprzedać',
    'creationDate' => NULL,
-   'modificationDate' => 1753696108,
+   'modificationDate' => 1753941637,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -918,18 +918,10 @@ Producent',
                  'assetsAllowed' => false,
                  'assetTypes' => 
                 array (
-                  0 => 
-                  array (
-                    'assetTypes' => '',
-                  ),
                 ),
                  'documentsAllowed' => false,
                  'documentTypes' => 
                 array (
-                  0 => 
-                  array (
-                    'documentTypes' => '',
-                  ),
                 ),
                  'enableTextSelection' => false,
                  'width' => '',
@@ -2049,10 +2041,18 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                     'key' => 'ProductId',
                     'label' => 'Product Id',
                   ),
+                  1 => 
+                  array (
+                    'type' => 'text',
+                    'position' => 2,
+                    'key' => 'Version',
+                    'label' => 'Version',
+                  ),
                 ),
                  'columnKeys' => 
                 array (
                   0 => 'ProductId',
+                  1 => 'Version',
                 ),
                  'enableBatchEdit' => false,
                  'allowMultipleAssignments' => false,

@@ -489,6 +489,18 @@ pimcore:
                             label: zloty
                             name: ''
                         -
+                            value: 'zloty mat'
+                            label: 'zloty mat'
+                            name: ''
+                        -
+                            value: 'zloty polysk'
+                            label: 'zloty polysk'
+                            name: ''
+                        -
+                            value: 'zloty szczotkowany'
+                            label: 'zloty szczotkowany'
+                            name: ''
+                        -
                             value: zolty
                             label: zolty
                             name: ''
