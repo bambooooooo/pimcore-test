@@ -112,6 +112,15 @@
         color: inherit !important;
     }
 
+    .cb-status
+    {
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+        position: relative;
+        top: 7px;
+    }
+
     {% if type == 'pdf' %}
     * {
         background: #fff !important;
@@ -608,6 +617,34 @@
                 }
 
                 $("#statusbar").html(output);
+            });
+
+            var status = JSON.parse(localStorage.getItem("status")) || [];
+
+            status.forEach(function(item) {
+                console.log(item);
+                $("#" + item).attr("checked", true);
+            })
+
+            $(".cb-status").click(function() {
+                // save in cookies
+                var r = $(this);
+                var id = r.attr("name")
+
+                if(r.is(":checked"))
+                {
+                    console.log("Add " + id);
+
+                    status.push(id);
+                    localStorage.setItem("status", JSON.stringify(status));
+                }
+                else
+                {
+                    console.log("Remove " + r.attr("name"));
+
+                    status = status.filter(item => item !== id);
+                    localStorage.setItem("status", JSON.stringify(status));
+                }
             });
         });
     </script>

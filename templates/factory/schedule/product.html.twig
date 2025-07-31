@@ -83,7 +83,7 @@
 
 {% if app.user.schedule_show_cartoon and type != 'pdf' %}
     {% for lip in p.element.packages %}
-        <button {% if lip.element.Model %}data-id="{{ lip.element.Model }}"{% endif %} data-quantity="{{ p.data.Quantity }}" class="package btn btn-outline-secondary btn-sm" type="button" role="button" data-bs-toggle="button">
+        <button {% if lip.element.Model %}data-id="{{ order.key }}-{{ lip.element.Model }}"{% endif %} data-quantity="{{ p.data.Quantity }}" class="package btn btn-outline-secondary btn-sm" type="button" role="button" data-bs-toggle="button">
             {% if lip.element.Model %}
                {{ lip.element.Model }}
             {% else %}

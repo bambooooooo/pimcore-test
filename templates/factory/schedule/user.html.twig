@@ -7,6 +7,12 @@
         ****
     {% endif %}
 
+    {% if type != 'pdf' %}
+        <br/>
+        <input type="checkbox" class="cb-status"
+               id="serie-checkbox-{{ serie.id }}"
+               name="serie-checkbox-{{ serie.id }}">
+    {% endif %}
 </div>
 {% if app.user.schedule_print_control_card %}
     <div class="btn-group ms-2">
