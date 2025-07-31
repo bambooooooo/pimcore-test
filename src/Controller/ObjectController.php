@@ -3,12 +3,12 @@
 namespace App\Controller;
 
 use App\Service\DeepLService;
-use PhpOffice\PhpSpreadsheet\Helper\Html;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Pimcore\Controller\FrontendController;
 use Pimcore\Model\DataObject;
+use Pimcore\Model\DataObject\ClassDefinition\Data\Input;
 use Pimcore\Model\DataObject\Group;
 use Pimcore\Model\DataObject\Offer;
 use Pimcore\Model\DataObject\Product;
@@ -19,7 +19,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Validator\Constraints\Json;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use ZipArchive;
 
@@ -488,12 +487,28 @@ class ObjectController extends FrontendController
 
         if($field == "name" && ($obj instanceof Product or $obj instanceof ProductSet or $obj instanceof Group))
         {
+            $class = DataObject\ClassDefinition::getByName($obj->getClassName());
+
+            /** @var Input $nameDefinition */
+            $nameDefinition = $class->getFieldDefinition('Name');
+            $w = $nameDefinition->getColumnLength();
+
             $tx = $this->deepLService->translate($text, $deeplLocale, $origin);
 
-            $obj->setName($tx, $locale);
+            $trimmed = $tx;
+
+            while(strlen($trimmed) > 0)
+            {
+                if(strlen($trimmed) <= $w)
+                    break;
+
+                $trimmed = $this->removeLastWord($trimmed);
+            }
+
+            $obj->setName($trimmed, $locale);
             $obj->save();
 
-            return new JsonResponse(["status" => $obj->getKey() . "[" . $locale . "] = " . $tx]);
+            return new JsonResponse(["status" => $obj->getKey() . "[" . $locale . "] = " . $trimmed]);
         }
 
         if($field == "description" && $obj instanceof Group)
@@ -507,5 +522,17 @@ class ObjectController extends FrontendController
         }
 
         throw new \Exception("Object [class: " . $obj->getClassId() . "] or field: " . $field . " not supported", Response::HTTP_BAD_REQUEST);
+    }
+
+    private function removeLastWord(string $input): string
+    {
+        $input = trim($input);
+        $lastSpacePos = strrpos($input, ' ');
+
+        if($lastSpacePos === false)
+        {
+            return '';
+        }
+        return substr($input, 0, $lastSpacePos);
     }
 }
