@@ -41,7 +41,6 @@ class ProductPublisher
 
             if($product->getObjectType() == 'ACTUAL')
             {
-                $this->updateDefaultBarcode($product);
                 $this->updatePricing($product);
                 $this->updateOffers($product);
                 $this->sendToErp($product);
@@ -91,16 +90,6 @@ class ProductPublisher
                 assert($lip->getElement()->isPublished(), "Product package [$code] must be published");
                 assert($lip->getQuantity() > 0, "Product package [$code] must be greater than 0");
             }
-        }
-    }
-
-    function updateDefaultBarcode(Product $product) : void
-    {
-        if($product->getBarcode() == null || $product->getBarcode() == "")
-        {
-            $barcode = "11" . str_pad($product->getId(), 18, "0", STR_PAD_LEFT);
-            $product->setBarcode($barcode);
-            $product->save();
         }
     }
 
