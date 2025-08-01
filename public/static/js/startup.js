@@ -9,6 +9,30 @@ Date.prototype.ddmmyyyy = function() {
     ].join('.');
 }
 
+document.addEventListener(pimcore.events.postOpenAsset, function(e) {
+
+    console.log(e.detail.asset);
+
+    e.detail.asset.toolbar.add({
+        text: t('Rotate left'),
+        tooltip: t('Rotate left'),
+        icon: '/bundles/pimcoreadmin/img/flat-white-icons/undo.svg',
+        scale: 'medium',
+        handler: function () {
+            Ext.Ajax.request({
+                url: "/assets/rotate/" + e.detail.asset.id,
+                success: function (data) {
+                    console.log(data.responseText);
+                    e.detail.asset.reload();
+                },
+                failure: function (error) {
+                    console.log("[Error] " + error.responseText);
+                },
+            });
+        }
+    })
+})
+
 document.addEventListener(pimcore.events.postOpenObject, function(e){
 
     const translate = function (field = "name") {

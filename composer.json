@@ -16,6 +16,7 @@
   "prefer-stable": true,
   "require": {
     "ext-zip": "*",
+    "czproject/pdf-rotate": "^2.1",
     "deeplcom/deepl-php": "^1.11",
     "endroid/qr-code": "^5.1",
     "endroid/qr-code-bundle": "^5.0",
