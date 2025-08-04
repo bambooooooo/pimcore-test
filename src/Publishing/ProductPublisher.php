@@ -13,6 +13,7 @@ use Pimcore\Model\DataObject\Data\ObjectMetadata;
 use Pimcore\Model\DataObject\Data\QuantityValue;
 use Pimcore\Model\DataObject\Pricing;
 use Pimcore\Model\DataObject\Product;
+use Pimcore\Model\DataObject\ProductSet;
 use Pimcore\Model\DataObject\QuantityValue\Unit;
 use Symfony\Component\Messenger\MessageBusInterface;
 
@@ -43,6 +44,7 @@ class ProductPublisher
             {
                 $this->updatePricing($product);
                 $this->updateOffers($product);
+                $this->updateProductSets($product);
                 $this->sendToErp($product);
                 $this->bus->dispatch(new BlkIndex($product->getId()));
             }
@@ -109,6 +111,32 @@ class ProductPublisher
         return array_reduce($numbers, function($carry, $item) {
             return $this->lcm($carry, $item);
         }, 1);
+    }
+
+    function updateProductSets(Product $product): void
+    {
+        $refs = $product->getDependencies()->getRequiredBy();
+        $changed = [];
+        foreach($refs as $ref)
+        {
+            if($ref['type'] == 'object')
+            {
+                $obj = DataObject::getById($ref['id']);
+                if($obj instanceof DataObject\ProductSet)
+                {
+                    $basePrice = 0.0;
+                    foreach($obj->getSet() as $lip)
+                    {
+                        /** @var ProductSet $prod */
+                        $prod = $lip->getElement();
+                        $basePrice += $prod->getBasePrice()->getValue() * $lip->getQuantity();
+                    }
+
+                    $obj->getBasePrice()->setValue($basePrice);
+                    $obj->save();
+                }
+            }
+        }
     }
 
     function updatePackagesMassAndVolumeAndSerieSize(Product $product) : void

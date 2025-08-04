@@ -6,6 +6,7 @@ use App\Message\ErpIndex;
 use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\Data\QuantityValue;
 use Pimcore\Model\DataObject\Package;
+use Pimcore\Model\DataObject\Product;
 use Pimcore\Model\DataObject\QuantityValue\Unit;
 use Symfony\Component\Messenger\MessageBusInterface;
 
@@ -25,6 +26,7 @@ class PackagePublisher
             if($package->getObjectType() == 'SKU')
             {
                 $this->updateDefaultBarcode($package);
+                $this->updateReferencedProducts($package);
 
                 $this->sendToErp($package);
             }
@@ -53,6 +55,32 @@ class PackagePublisher
 
         $package->setVolume(new QuantityValue($v, $m3));
         $package->save();
+    }
+
+    function updateReferencedProducts(Package $package) : void
+    {
+        $refs = $package->getDependencies()->getRequiredBy();
+        $changed = [];
+        foreach($refs as $ref)
+        {
+            if($ref['type'] == 'object')
+            {
+                $obj = DataObject::getById($ref['id']);
+                if($obj instanceof Product)
+                {
+                    $basePrice = 0.0;
+                    foreach($obj->getPackages() as $lip)
+                    {
+                        /** @var Product $prod */
+                        $prod = $lip->getElement();
+                        $basePrice += $prod->getBasePrice()->getValue() * $lip->getQuantity();
+                    }
+
+                    $obj->getBasePrice()->setValue($basePrice);
+                    $obj->save();
+                }
+            }
+        }
     }
 
     function sendToErp(Package $package) : void
