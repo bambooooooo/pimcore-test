@@ -130,6 +130,11 @@ services:
     App\Twig\SelectedLanguagesExtension:
         tags: ['twig.extension']
 
+    # assets
+    App\EventListener\AssetsListener:
+        tags:
+            - { name: kernel.event_listener, event: pimcore.asset.postAdd, method: postAddEvents }
+
     # Example custom templating helper
     # App\Templating\Helper\Example:
     #     # templating helpers need to be public as they

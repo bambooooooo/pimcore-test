@@ -2,8 +2,6 @@
 
 namespace App\EventListener;
 
-namespace App\EventListener;
-
 use Pimcore\Bundle\AdminBundle\Event\ElementAdminStyleEvent;
 use Pimcore\Event\BundleManager\PathsEvent;
 use Pimcore\Model\Asset;

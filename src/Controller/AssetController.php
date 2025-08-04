@@ -17,10 +17,18 @@ class AssetController extends FrontendController
 
     }
 
-    #[Route('/rotate/{id}', name: 'rotate')]
+    #[Route('/rotate/{id}/{degrees}', name: 'rotate')]
     public function rotateLeftAction(Request $request)
     {
         $id = $request->get("id");
+        $degrees = (int)$request->get("degrees");
+
+        $possibleDegrees = [90, 180, 270];
+        $pds = join(', ', $possibleDegrees);
+
+        if(!in_array($degrees, $possibleDegrees)){
+            return new Response("Invalid degree. Available degrees: {$pds}", Response::HTTP_BAD_REQUEST);
+        }
 
         $asset = Asset::getById($id);
 
@@ -33,7 +41,7 @@ class AssetController extends FrontendController
             $sourceFile = "../public/var/assets" . $asset->getPath() . $asset->getFilename();
             $outputFile = $sourceFile;
 
-            $pdf->rotatePdf($sourceFile, $outputFile, $pdf::DEGREES_270);
+            $pdf->rotatePdf($sourceFile, $outputFile, $degrees);
             return new Response("Ok.", Response::HTTP_OK);
         }
 

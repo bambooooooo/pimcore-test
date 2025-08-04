@@ -11,26 +11,71 @@ Date.prototype.ddmmyyyy = function() {
 
 document.addEventListener(pimcore.events.postOpenAsset, function(e) {
 
-    console.log(e.detail.asset);
-
-    e.detail.asset.toolbar.add({
-        text: t('Rotate left'),
-        tooltip: t('Rotate left'),
-        icon: '/bundles/pimcoreadmin/img/flat-white-icons/undo.svg',
-        scale: 'medium',
-        handler: function () {
-            Ext.Ajax.request({
-                url: "/assets/rotate/" + e.detail.asset.id,
-                success: function (data) {
-                    console.log(data.responseText);
-                    e.detail.asset.reload();
+    if(e.detail.asset.data.mimetype === 'application/pdf')
+    {
+        e.detail.asset.toolbar.add({
+            text: t('Rotate pages'),
+            tooltip: t('Rotate pages'),
+            icon: '/bundles/pimcoreadmin/img/flat-white-icons/rotate_camera.svg',
+            scale: 'medium',
+            menu: [
+                {
+                    text: t('Rotate left (90)'),
+                    scale: 'medium',
+                    tooltip: t('Rotate left (90)'),
+                    icon: '/bundles/pimcoreadmin/img/flat-white-icons/rotate_camera.svg',
+                    handler: function () {
+                        Ext.Ajax.request({
+                            url: "/assets/rotate/" + e.detail.asset.id + "/270",
+                            success: function (data) {
+                                console.log(data.responseText);
+                                e.detail.asset.reload();
+                            },
+                            failure: function (error) {
+                                console.log("[Error] " + error.responseText);
+                            },
+                        });
+                    }
                 },
-                failure: function (error) {
-                    console.log("[Error] " + error.responseText);
+                {
+                    text: t('Rotate right (90)'),
+                    scale: 'medium',
+                    tooltip: t('Rotate right (90)'),
+                    icon: '/bundles/pimcoreadmin/img/flat-white-icons/rotate_camera.svg',
+                    handler: function () {
+                        Ext.Ajax.request({
+                            url: "/assets/rotate/" + e.detail.asset.id + "/90",
+                            success: function (data) {
+                                console.log(data.responseText);
+                                e.detail.asset.reload();
+                            },
+                            failure: function (error) {
+                                console.log("[Error] " + error.responseText);
+                            },
+                        });
+                    }
                 },
-            });
-        }
-    })
+                {
+                    text: t('Rotate (180)'),
+                    scale: 'medium',
+                    tooltip: t('Rotate (180)'),
+                    icon: '/bundles/pimcoreadmin/img/flat-white-icons/rotate_camera.svg',
+                    handler: function () {
+                        Ext.Ajax.request({
+                            url: "/assets/rotate/" + e.detail.asset.id + "/180",
+                            success: function (data) {
+                                console.log(data.responseText);
+                                e.detail.asset.reload();
+                            },
+                            failure: function (error) {
+                                console.log("[Error] " + error.responseText);
+                            },
+                        });
+                    }
+                }
+            ]
+        })
+    }
 })
 
 document.addEventListener(pimcore.events.postOpenObject, function(e){
