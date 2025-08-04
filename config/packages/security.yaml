@@ -30,7 +30,7 @@ security:
                 login_path: factory_login
                 check_path: factory_login
                 always_use_default_target_path: true
-                default_target_path: factory_login
+                default_target_path: factory_home
 
             logout:
                 path: factory_logout

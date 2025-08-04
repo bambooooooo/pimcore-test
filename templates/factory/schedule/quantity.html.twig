@@ -1,5 +1,5 @@
 <div style="position: relative; z-index: 150;">
-    {% if type != 'pdf' %}
+    {% if type != 'pdf' and app.user.schedule_show_item_checkbox %}
         <input type="checkbox" class="cb-status"
                id="{{ product.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}"
                name="{{ product.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}">

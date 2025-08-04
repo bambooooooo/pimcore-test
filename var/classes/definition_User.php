@@ -34,6 +34,7 @@
  * - schedule_show_cartoon [checkbox]
  * - schedule_show_only_user_related_products [checkbox]
  * - permission_schedule [checkbox]
+ * - schedule_show_item_checkbox [checkbox]
  * - schedule_mark_line_item_done [checkbox]
  * - schedule_change_date [checkbox]
  * - schedule_item_status_ready [checkbox]
@@ -63,7 +64,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Użytkownik',
    'description' => 'Podmiot w systemie',
    'creationDate' => NULL,
-   'modificationDate' => 1750742329,
+   'modificationDate' => 1754281288,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -919,6 +920,28 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                         array (
                         ),
                          'defaultValue' => NULL,
+                         'defaultValueGenerator' => '',
+                      )),
+                      14 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                         'name' => 'schedule_show_item_checkbox',
+                         'title' => 'Schedule _show _item _checkbox',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => 1,
                          'defaultValueGenerator' => '',
                       )),
                     ),

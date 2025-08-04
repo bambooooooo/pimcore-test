@@ -15,7 +15,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Twig\Environment;
 
-#[Route('/factory/{_locale}', name: 'factory_', defaults: ['_locale' => 'en', 'locale' => 'en'])]
+#[Route('/factory/{_locale}', name: 'factory_', defaults: ['_locale' => 'pl', 'locale' => 'pl'])]
 class FactoryController extends FrontendController
 {
     public function __construct(private Environment $twig)

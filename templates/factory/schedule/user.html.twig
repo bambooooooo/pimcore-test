@@ -7,7 +7,7 @@
         ****
     {% endif %}
 
-    {% if type != 'pdf' %}
+    {% if type != 'pdf' and app.user.schedule_show_item_checkbox %}
         <br/>
         <input type="checkbox" class="cb-status"
                id="serie-checkbox-{{ serie.id }}"
