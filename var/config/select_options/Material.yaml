@@ -37,6 +37,10 @@ pimcore:
                             label: 'Plyta MDF'
                             name: ''
                         -
-                            value: 'Plyta HDF'
-                            label: 'Plyta HDF'
+                            value: 'Stal nierdzewna'
+                            label: 'Stal nierdzewna'
+                            name: ''
+                        -
+                            value: 'Mosiadz'
+                            label: 'Mosiadz'
                             name: ''
