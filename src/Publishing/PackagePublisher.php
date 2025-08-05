@@ -76,7 +76,8 @@ class PackagePublisher
                         $basePrice += $prod->getBasePrice()->getValue() * $lip->getQuantity();
                     }
 
-                    $obj->getBasePrice()->setValue($basePrice);
+                    $bp = new QuantityValue($basePrice, Unit::getById("PLN"));
+                    $obj->setBasePrice($bp);
                     $obj->save();
                 }
             }
