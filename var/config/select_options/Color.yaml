@@ -93,8 +93,16 @@ pimcore:
                             label: chrom
                             name: ''
                         -
+                            value: 'chrom szczotkowany'
+                            label: 'chrom szczotkowany'
+                            name: ''
+                        -
                             value: czarny
                             label: czarny
+                            name: ''
+                        -
+                            value: 'czarny mat'
+                            label: 'czarny mat'
                             name: ''
                         -
                             value: czekoladowy
