@@ -11,13 +11,14 @@
             width: 568px;
             height: 227px;
             position: relative;
-            border: 1px solid #000;
+            /*border: 1px solid #000;*/
         }
 
         .head-info
         {
             width: 100%;
-            height: 208px;
+            height: 227px;
+            /*height: 208px;*/
             border-collapse:collapse;
         }
 
@@ -119,28 +120,30 @@
                             {{ package.key }}
                         </div>
                     </td>
-                    <td rowspan="4">
-                        <div>
-                            <div style="font-size: 16px; font-weight: bold; transform: rotate(-90deg)">
-                                {% if package.Codes.IndexMirjan24.Code is defined %}
-                                    {{ code_128(package.Codes.IndexMirjan24.Code, "C128", 120, 1) }}
-                                {% else %}
-                                    <div class="error">
-                                        {{ "Missing barcode" }}
-                                    </div>
-                                {% endif %}
-                            </div>
+                    <td rowspan="4" style="height: 100%; padding-right: 8px; position: relative;">
+                        <div style="width: 256px; height: 180px; padding-left: 8px; padding-right: 8px;">
+                            {% if package.Codes.IndexMirjan24.Code is defined %}
+                                {{ code_128(package.Codes.IndexMirjan24.Code, "C128", 150, 2) }}
+                                <div style="text-align: center; font-size: 21px; word-break: keep-all; margin-top: 6px;">
+                                    {{ package.Codes.IndexMirjan24.Code }}
+                                </div>
+                            {% else %}
+                                <div class="error">
+                                    {{ "Missing barcode" }}
+                                </div>
+                            {% endif %}
                         </div>
+
                     </td>
                     <td rowspan="4">
                         <div class="v">
-                            {% if package.Codes.IndexMirjan24.Code is defined %}
-                                {{ package.Codes.IndexMirjan24.Code }}
-                            {% else %}
-                                <div class="error">
-                                    {{ "Missing IndexMirjan24.Code" }}
-                                </div>
-                            {% endif %}
+{#                            {% if package.Codes.IndexMirjan24.Code is defined %}#}
+{#                                {{ package.Codes.IndexMirjan24.Code }}#}
+{#                            {% else %}#}
+{#                                <div class="error">#}
+{#                                    {{ "Missing IndexMirjan24.Code" }}#}
+{#                                </div>#}
+{#                            {% endif %}#}
                         </div>
                     </td>
                 </tr>
@@ -163,7 +166,7 @@
 
                     </td>
                 </tr>
-                <tr>
+                <tr style="font-size: 11px;">
                     <td style="text-align: center">
                         <div>
                             <img src="/bundles/pimcoreadmin/img/flat-color-icons/right.svg" height="24">
