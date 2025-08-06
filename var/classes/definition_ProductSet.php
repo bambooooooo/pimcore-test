@@ -23,6 +23,7 @@
  * - Video [video]
  * - Groups [manyToManyObjectRelation]
  * - Parameters [classificationstore]
+ * - ParametersAllegro [classificationstore]
  * - BasePrice [quantityValue]
  * - Pricing [advancedManyToManyObjectRelation]
  * - Price [advancedManyToManyObjectRelation]
@@ -36,7 +37,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1753941640,
+   'modificationDate' => 1754468601,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -761,7 +762,7 @@ Przykładowo: rysunek z wymiarami',
                  'title' => 'Grupy',
                  'tooltip' => 'Grupy
 
-Grupy (kolekcje, kategorie, oferty) do których należy zestaw',
+Grupy (kolekcje, kategorie, oferty) do których należy zestaw)',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -798,47 +799,163 @@ Grupy (kolekcje, kategorie, oferty) do których należy zestaw',
                  'height' => '',
               )),
               1 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\Classificationstore::__set_state(array(
-                 'name' => 'Parameters',
-                 'title' => 'Parametry',
-                 'tooltip' => 'Parametry
+              \Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
+                 'name' => 'Layout',
+                 'type' => NULL,
+                 'region' => NULL,
+                 'title' => '',
+                 'width' => '',
+                 'height' => '',
+                 'collapsible' => false,
+                 'collapsed' => false,
+                 'bodyStyle' => '',
+                 'datatype' => 'layout',
+                 'children' => 
+                array (
+                  0 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                     'name' => 'Layout',
+                     'type' => NULL,
+                     'region' => NULL,
+                     'title' => 'System',
+                     'width' => '',
+                     'height' => '',
+                     'collapsible' => false,
+                     'collapsed' => false,
+                     'bodyStyle' => '',
+                     'datatype' => 'layout',
+                     'children' => 
+                    array (
+                      0 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Classificationstore::__set_state(array(
+                         'name' => 'Parameters',
+                         'title' => 'Parametry',
+                         'tooltip' => 'Parametry
 
 Kolekcje i grupy parametrów dotyczące całego zestawu. Nie wprowadzamy tutaj parametrów produktów składowych.',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'children' => 
+                        array (
+                        ),
+                         'labelWidth' => 200,
+                         'localized' => false,
+                         'storeId' => 1,
+                         'hideEmptyData' => false,
+                         'disallowAddRemove' => false,
+                         'referencedFields' => 
+                        array (
+                        ),
+                         'fieldDefinitionsCache' => NULL,
+                         'allowedGroupIds' => 
+                        array (
+                        ),
+                         'activeGroupDefinitions' => 
+                        array (
+                        ),
+                         'maxItems' => NULL,
+                         'height' => NULL,
+                         'width' => NULL,
+                      )),
+                    ),
+                     'locked' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'fieldtype' => 'panel',
+                     'layout' => NULL,
+                     'border' => false,
+                     'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/tools.svg',
+                     'labelWidth' => 100,
+                     'labelAlign' => 'left',
+                  )),
+                  1 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                     'name' => 'Layout',
+                     'type' => NULL,
+                     'region' => NULL,
+                     'title' => 'Allegro',
+                     'width' => '',
+                     'height' => '',
+                     'collapsible' => false,
+                     'collapsed' => false,
+                     'bodyStyle' => '',
+                     'datatype' => 'layout',
+                     'children' => 
+                    array (
+                      0 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Classificationstore::__set_state(array(
+                         'name' => 'ParametersAllegro',
+                         'title' => 'Parameters Allegro',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'children' => 
+                        array (
+                        ),
+                         'labelWidth' => 0,
+                         'localized' => false,
+                         'storeId' => 31,
+                         'hideEmptyData' => false,
+                         'disallowAddRemove' => false,
+                         'referencedFields' => 
+                        array (
+                        ),
+                         'fieldDefinitionsCache' => NULL,
+                         'allowedGroupIds' => 
+                        array (
+                        ),
+                         'activeGroupDefinitions' => 
+                        array (
+                        ),
+                         'maxItems' => 1,
+                         'height' => NULL,
+                         'width' => NULL,
+                      )),
+                    ),
+                     'locked' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'fieldtype' => 'panel',
+                     'layout' => NULL,
+                     'border' => false,
+                     'icon' => '/LOGO/allegro.svg',
+                     'labelWidth' => 100,
+                     'labelAlign' => 'left',
+                  )),
+                ),
                  'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
                  'blockedVarsForExport' => 
                 array (
                 ),
-                 'children' => 
-                array (
-                ),
-                 'labelWidth' => 200,
-                 'localized' => false,
-                 'storeId' => 1,
-                 'hideEmptyData' => false,
-                 'disallowAddRemove' => false,
-                 'referencedFields' => 
-                array (
-                ),
-                 'fieldDefinitionsCache' => NULL,
-                 'allowedGroupIds' => 
-                array (
-                ),
-                 'activeGroupDefinitions' => 
-                array (
-                ),
-                 'maxItems' => NULL,
-                 'height' => NULL,
-                 'width' => NULL,
+                 'fieldtype' => 'tabpanel',
+                 'border' => false,
+                 'tabPosition' => 'top',
               )),
             ),
              'locked' => false,
