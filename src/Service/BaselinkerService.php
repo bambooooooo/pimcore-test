@@ -139,22 +139,27 @@ class BaselinkerService
 
         $images = [];
 
+        $MAX_IMAGE_COUNT = 16;
         $fetchMode = "base64"; // base64 -> data:, url -> url:
 
         if($fetchMode == "base64")
         {
-            $images[] = $this->getBaselinkerBase64Image($obj->getImage());
+            $firstImages = [];
+            $middleImages = [];
+            $lastImages = [];
+
+            $firstImages[] = $this->getBaselinkerBase64Image($obj->getImage());
 
             foreach($obj->getImages() as $image)
             {
-                $images[] = $this->getBaselinkerBase64Image($image->getImage());
+                $middleImages[] = $this->getBaselinkerBase64Image($image->getImage());
             }
 
             if($obj instanceof Product)
             {
                 foreach($obj->getPhotos() as $image)
                 {
-                    $images[] = $this->getBaselinkerBase64Image($image->getImage());
+                    $middleImages[] = $this->getBaselinkerBase64Image($image->getImage());
                 }
             }
             elseif($obj instanceof ProductSet)
@@ -163,18 +168,26 @@ class BaselinkerService
                 {
                     /** @var Product $el */
                     $el = $lip->getElement();
-                    $images[] = $this->getBaselinkerBase64Image($el->getImage());
-                    foreach($el->getImagesModel() as $modelImage)
+                    $lastImages[] = $this->getBaselinkerBase64Image($el->getImage());
+                    if($el->getImagesModel())
                     {
-                        $images[] = $this->getBaselinkerBase64Image($modelImage->getImage());
+                        $lastImages[] = $this->getBaselinkerBase64Image($el->getImagesModel()->current()->getImage());
                     }
                 }
             }
 
             foreach($obj->getImagesModel() as $image)
             {
-                $images[] = $this->getBaselinkerBase64Image($image->getImage());
+                $lastImages[] = $this->getBaselinkerBase64Image($image->getImage());
             }
+
+            $middleImagesCount = min([$MAX_IMAGE_COUNT - count($firstImages) - count($lastImages), count($middleImages)]);
+            if($middleImagesCount > 0)
+            {
+                $middleImages = array_slice($middleImages, 0, $middleImagesCount);
+            }
+
+            $images = array_merge($firstImages, $middleImages, $lastImages);
         }
 
         $data["images"] = $images;
