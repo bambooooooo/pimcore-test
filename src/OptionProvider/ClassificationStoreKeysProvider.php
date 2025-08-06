@@ -12,22 +12,23 @@ class ClassificationStoreKeysProvider implements SelectOptionsProviderInterface
 
     public function getOptions(array $context, Data $fieldDefinition): array
     {
-        $storeId = (int)$fieldDefinition->getOptionsProviderData();
-        if(!$storeId)
+        $storeName = (string)$fieldDefinition->getOptionsProviderData();
+        if(!$storeName)
         {
             return [];
         }
 
-        $store = Classificationstore\StoreConfig::getById($storeId);
-
-        $groups = new Classificationstore\GroupConfig\Listing();
-        $groups->setCondition("storeId = $storeId");
-        $groups = $groups->load();
-
+        $store = Classificationstore\StoreConfig::getByName($storeName);
         if(!$store)
         {
             return [];
         }
+
+        $storeId = $store->getId();
+
+        $groups = new Classificationstore\GroupConfig\Listing();
+        $groups->setCondition("storeId = $storeId");
+        $groups = $groups->load();
 
         $output = [];
 
