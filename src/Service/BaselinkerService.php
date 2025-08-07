@@ -188,6 +188,14 @@ class BaselinkerService
             }
 
             $images = array_merge($firstImages, $middleImages, $lastImages);
+
+            if(count($images) < $MAX_IMAGE_COUNT)
+            {
+                for($i = count($images); $i < $MAX_IMAGE_COUNT; $i++)
+                {
+                    $images["".$i] = "";
+                }
+            }
         }
 
         $data["images"] = $images;
