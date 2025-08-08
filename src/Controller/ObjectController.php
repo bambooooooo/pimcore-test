@@ -26,7 +26,8 @@ class ObjectController extends FrontendController
 {
 
     public function __construct(private TranslatorInterface $translator,
-                                private readonly DeepLService $deepLService)
+                                private readonly DeepLService $deepLService,
+                                private readonly string $appdomain)
     {
 
     }
@@ -522,6 +523,28 @@ class ObjectController extends FrontendController
         }
 
         throw new \Exception("Object [class: " . $obj->getClassId() . "] or field: " . $field . " not supported", Response::HTTP_BAD_REQUEST);
+    }
+
+    #[Route("/objects/mainimage/{id}", name: "main_image")]
+    public function getLastImageAction(Request $request, int $id): Response
+    {
+        $obj = DataObject::getById($id);
+        if(!$obj)
+        {
+            return new Response("Object not found", Response::HTTP_NOT_FOUND);
+        }
+
+        if($obj instanceof Product or $obj instanceof ProductSet)
+        {
+            if($obj->getImage())
+            {
+                $path = $obj->getImage()->getThumbnail("200x200")->getFrontendPath();
+                $path = substr($path, 1);
+                return new Response($this->appdomain . $path);
+            }
+        }
+
+        return new Response("Object type not supported", Response::HTTP_BAD_REQUEST);
     }
 
     private function removeLastWord(string $input): string
