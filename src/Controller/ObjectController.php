@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use ZipArchive;
@@ -537,8 +538,16 @@ class ObjectController extends FrontendController
         {
             if($obj->getImage())
             {
-                $path = $obj->getImage()->getThumbnail("200x200")->getFrontendPath();
-                return new Response($path);
+                $thumbnail = $obj->getImage()->getThumbnail('200x200');
+
+                $response = new StreamedResponse(function () use ($thumbnail) {
+                    fpassthru($thumbnail->getStream());
+                });
+
+                $response->headers->set('Content-Type', $obj->getImage()->getMimeType());
+                $response->headers->set('Content-Disposition', 'inline; filename="' . $obj->getImage()->getFilename() . '"');
+
+                return $response;
             }
         }
 
