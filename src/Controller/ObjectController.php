@@ -26,8 +26,7 @@ class ObjectController extends FrontendController
 {
 
     public function __construct(private TranslatorInterface $translator,
-                                private readonly DeepLService $deepLService,
-                                private readonly string $appdomain)
+                                private readonly DeepLService $deepLService)
     {
 
     }
@@ -539,8 +538,7 @@ class ObjectController extends FrontendController
             if($obj->getImage())
             {
                 $path = $obj->getImage()->getThumbnail("200x200")->getFrontendPath();
-                $path = substr($path, 1);
-                return new Response($this->appdomain . $path);
+                return new Response($path);
             }
         }
 
