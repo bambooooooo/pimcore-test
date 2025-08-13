@@ -27,6 +27,7 @@ class OfferPublisher
         $this->subiektGTService->request("POST", "prices", [
             'Code' => "" . $offer->getId(),
             'Name' => $offer->getKey(),
+            'Brutto' => $offer->getBrutto() ?? false,
         ]);
     }
 }

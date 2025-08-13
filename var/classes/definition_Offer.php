@@ -12,6 +12,7 @@
  * - Baselinker [manyToOneRelation]
  * - BaselinkerPriceGroupId [numeric]
  * - Currency [select]
+ * - Brutto [checkbox]
  * - Image [image]
  * - localizedfields [localizedfields]
  * -- Name [input]
@@ -28,7 +29,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
 
 Ofertę stanowi lista Wycen w ustalonej kolejności. Cena produktu w ofercie to pierwsza z Wycen, dla której zostaną spełnione ograniczenia.',
    'creationDate' => NULL,
-   'modificationDate' => 1753945813,
+   'modificationDate' => 1755083682,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -254,6 +255,28 @@ Przykładowo:
                  'optionsProviderType' => 'configure',
                  'optionsProviderClass' => '',
                  'optionsProviderData' => '',
+              )),
+              4 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                 'name' => 'Brutto',
+                 'title' => 'Brutto',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'defaultValue' => NULL,
+                 'defaultValueGenerator' => '',
               )),
             ),
              'locked' => false,
@@ -530,48 +553,6 @@ Przykładowo:
    'enableGridLocking' => false,
    'deletedDataComponents' => 
   array (
-    0 => 
-    \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-       'name' => 'BaselinkerCatalog',
-       'title' => 'Baselinker Catalog',
-       'tooltip' => '',
-       'mandatory' => false,
-       'noteditable' => false,
-       'index' => false,
-       'locked' => false,
-       'style' => '',
-       'permissions' => NULL,
-       'fieldtype' => '',
-       'relationType' => true,
-       'invisible' => false,
-       'visibleGridView' => false,
-       'visibleSearch' => false,
-       'blockedVarsForExport' => 
-      array (
-      ),
-       'classes' => 
-      array (
-        0 => 
-        array (
-          'classes' => 'BaselinkerCatalog',
-        ),
-      ),
-       'displayMode' => 'grid',
-       'pathFormatterClass' => '',
-       'assetInlineDownloadAllowed' => false,
-       'assetUploadPath' => '',
-       'allowToClearRelation' => true,
-       'objectsAllowed' => true,
-       'assetsAllowed' => false,
-       'assetTypes' => 
-      array (
-      ),
-       'documentsAllowed' => false,
-       'documentTypes' => 
-      array (
-      ),
-       'width' => '',
-    )),
   ),
    'blockedVarsForExport' => 
   array (
