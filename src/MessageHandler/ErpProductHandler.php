@@ -154,7 +154,7 @@ class ErpProductHandler
                 'Id' => "".$priceLevel->getElement()->getId(),
                 'Code' => $priceLevel->getElement()->getKey(),
                 'Price' => $priceLevel->getPrice(),
-                'Brutto' => $priceLevel->getElement()->getBrutto(),
+                'Brutto' => $priceLevel->getElement()->getBrutto() ?? false,
             ];
         }
 
