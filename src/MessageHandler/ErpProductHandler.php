@@ -151,8 +151,10 @@ class ErpProductHandler
         foreach ($p->getPrice() as $priceLevel)
         {
             $prices[] = [
+                'Id' => "".$priceLevel->getElement()->getId(),
                 'Code' => $priceLevel->getElement()->getKey(),
-                'Price' => $priceLevel->getPrice()
+                'Price' => $priceLevel->getPrice(),
+                'Brutto' => $priceLevel->getElement()->getBrutto(),
             ];
         }
 
