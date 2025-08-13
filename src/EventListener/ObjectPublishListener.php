@@ -12,6 +12,7 @@ use App\Publishing\PricingPublisher;
 use App\Publishing\ProductPublisher;
 use App\Publishing\ProductSetPublisher;
 use App\Publishing\GroupPublisher;
+use App\Publishing\UserPublisher;
 use Pimcore\Event\Model\ElementEventInterface;
 use Pimcore\Model\DataObject\Baselinker;
 use Pimcore\Model\DataObject\BaselinkerCatalog;
@@ -23,6 +24,7 @@ use Pimcore\Model\DataObject\Package;
 use Pimcore\Model\DataObject\Pricing;
 use Pimcore\Model\DataObject\Product;
 use Pimcore\Model\DataObject\ProductSet;
+use Pimcore\Model\DataObject\User;
 
 class ObjectPublishListener
 {
@@ -37,6 +39,7 @@ class ObjectPublishListener
         private readonly OfferPublisher             $offerPublisher,
         private readonly BaselinkerPublisher        $baselinkerPublisher,
         private readonly BaselinkerCatalogPublisher $baselinkerCatalogPublisher,
+        private readonly UserPublisher              $userPublisher,
     ) {}
     public function onPublish(ElementEventInterface $event): void
     {
@@ -86,6 +89,10 @@ class ObjectPublishListener
         else if($obj instanceof BaselinkerCatalog and $obj->isPublished())
         {
             $this->baselinkerCatalogPublisher->updateInventory($obj);
+        }
+        else if($obj instanceof User and $obj->isPublished())
+        {
+            $this->userPublisher->publish($obj);
         }
     }
 }

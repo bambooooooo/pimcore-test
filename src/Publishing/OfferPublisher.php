@@ -3,11 +3,12 @@
 namespace App\Publishing;
 
 use App\Service\BaselinkerService;
+use App\Service\SubiektGTService;
 use Pimcore\Model\DataObject\Offer;
 
 class OfferPublisher
 {
-    public function __construct(private readonly BaselinkerService $baselinkerService){}
+    public function __construct(private readonly BaselinkerService $baselinkerService, private readonly SubiektGTService $subiektGTService){}
 
     public function publish(Offer $offer)
     {
@@ -22,5 +23,10 @@ class OfferPublisher
         {
             $this->baselinkerService->updatePriceGroup($offer);
         }
+
+        $this->subiektGTService->request("POST", "prices", [
+            'Code' => "" . $offer->getId(),
+            'Name' => $offer->getKey(),
+        ]);
     }
 }

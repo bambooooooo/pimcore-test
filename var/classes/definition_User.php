@@ -66,7 +66,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Użytkownik',
    'description' => 'Podmiot w systemie',
    'creationDate' => NULL,
-   'modificationDate' => 1754308291,
+   'modificationDate' => 1754980909,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -75,13 +75,13 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'useTraits' => '',
    'listingUseTraits' => '',
    'encryption' => false,
-   'encryptedTables' => 
+   'encryptedTables' =>
   array (
   ),
    'allowInherit' => false,
    'allowVariants' => false,
    'showVariants' => false,
-   'layoutDefinitions' => 
+   'layoutDefinitions' =>
   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
      'name' => 'pimcore_root',
      'type' => NULL,
@@ -93,9 +93,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
      'collapsed' => false,
      'bodyStyle' => NULL,
      'datatype' => 'layout',
-     'children' => 
+     'children' =>
     array (
-      0 => 
+      0 =>
       \Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
          'name' => 'Layout',
          'type' => NULL,
@@ -107,9 +107,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'collapsed' => false,
          'bodyStyle' => '',
          'datatype' => 'layout',
-         'children' => 
+         'children' =>
         array (
-          0 => 
+          0 =>
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'System',
              'type' => NULL,
@@ -121,9 +121,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'collapsed' => false,
              'bodyStyle' => '',
              'datatype' => 'layout',
-             'children' => 
+             'children' =>
             array (
-              0 => 
+              0 =>
               \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                  'name' => 'Image',
                  'title' => 'Image',
@@ -139,14 +139,14 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' => 
+                 'blockedVarsForExport' =>
                 array (
                 ),
                  'uploadPath' => '',
                  'width' => 300,
                  'height' => 300,
               )),
-              1 => 
+              1 =>
               \Pimcore\Model\DataObject\ClassDefinition\Data\Email::__set_state(array(
                  'name' => 'email',
                  'title' => 'Email',
@@ -162,13 +162,13 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' => 
+                 'blockedVarsForExport' =>
                 array (
                 ),
                  'defaultValue' => NULL,
                  'columnLength' => 190,
                  'regex' => '',
-                 'regexFlags' => 
+                 'regexFlags' =>
                 array (
                 ),
                  'unique' => false,
@@ -176,7 +176,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'width' => '',
                  'defaultValueGenerator' => '',
               )),
-              2 => 
+              2 =>
               \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'Name',
                  'title' => 'Name',
@@ -192,21 +192,21 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' => 
+                 'blockedVarsForExport' =>
                 array (
                 ),
                  'defaultValue' => NULL,
-                 'columnLength' => 190,
+                 'columnLength' => 20,
                  'regex' => '',
-                 'regexFlags' => 
+                 'regexFlags' =>
                 array (
                 ),
                  'unique' => false,
-                 'showCharCount' => false,
+                 'showCharCount' => true,
                  'width' => '',
                  'defaultValueGenerator' => '',
               )),
-              3 => 
+              3 =>
               \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'VAT',
                  'title' => 'VAT Number',
@@ -222,13 +222,13 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' => 
+                 'blockedVarsForExport' =>
                 array (
                 ),
                  'defaultValue' => NULL,
                  'columnLength' => 190,
                  'regex' => '',
-                 'regexFlags' => 
+                 'regexFlags' =>
                 array (
                 ),
                  'unique' => false,
@@ -236,7 +236,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'width' => '',
                  'defaultValueGenerator' => '',
               )),
-              4 => 
+              4 =>
               \Pimcore\Model\DataObject\ClassDefinition\Data\Password::__set_state(array(
                  'name' => 'password',
                  'title' => 'Password',
@@ -252,7 +252,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' => 
+                 'blockedVarsForExport' =>
                 array (
                 ),
                  'algorithm' => 'password_hash',
@@ -261,7 +261,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'minimumLength' => NULL,
                  'width' => '',
               )),
-              5 => 
+              5 =>
               \Pimcore\Model\DataObject\ClassDefinition\Data\Language::__set_state(array(
                  'name' => 'Lang',
                  'title' => 'Language',
@@ -277,7 +277,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' => 
+                 'blockedVarsForExport' =>
                 array (
                 ),
                  'options' => NULL,
@@ -291,7 +291,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'optionsProviderData' => NULL,
                  'onlySystemLanguages' => true,
               )),
-              6 => 
+              6 =>
               \Pimcore\Model\DataObject\ClassDefinition\Data\Country::__set_state(array(
                  'name' => 'Country',
                  'title' => 'Country',
@@ -307,7 +307,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' => 
+                 'blockedVarsForExport' =>
                 array (
                 ),
                  'defaultValue' => NULL,
@@ -322,7 +322,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               )),
             ),
              'locked' => false,
-             'blockedVarsForExport' => 
+             'blockedVarsForExport' =>
             array (
             ),
              'fieldtype' => 'panel',
@@ -332,7 +332,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'labelWidth' => 100,
              'labelAlign' => 'left',
           )),
-          1 => 
+          1 =>
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Addresses',
              'type' => NULL,
@@ -344,9 +344,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'collapsed' => false,
              'bodyStyle' => '',
              'datatype' => 'layout',
-             'children' => 
+             'children' =>
             array (
-              0 => 
+              0 =>
               \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'Address1',
                  'title' => 'Address1',
@@ -362,13 +362,13 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' => 
+                 'blockedVarsForExport' =>
                 array (
                 ),
                  'defaultValue' => NULL,
                  'columnLength' => 190,
                  'regex' => '',
-                 'regexFlags' => 
+                 'regexFlags' =>
                 array (
                 ),
                  'unique' => false,
@@ -376,7 +376,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'width' => '',
                  'defaultValueGenerator' => '',
               )),
-              1 => 
+              1 =>
               \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'Address2',
                  'title' => 'Address2',
@@ -392,13 +392,13 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' => 
+                 'blockedVarsForExport' =>
                 array (
                 ),
                  'defaultValue' => NULL,
                  'columnLength' => 190,
                  'regex' => '',
-                 'regexFlags' => 
+                 'regexFlags' =>
                 array (
                 ),
                  'unique' => false,
@@ -406,7 +406,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'width' => '',
                  'defaultValueGenerator' => '',
               )),
-              2 => 
+              2 =>
               \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'City',
                  'title' => 'City',
@@ -422,13 +422,13 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' => 
+                 'blockedVarsForExport' =>
                 array (
                 ),
                  'defaultValue' => NULL,
                  'columnLength' => 190,
                  'regex' => '',
-                 'regexFlags' => 
+                 'regexFlags' =>
                 array (
                 ),
                  'unique' => false,
@@ -436,7 +436,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'width' => '',
                  'defaultValueGenerator' => '',
               )),
-              3 => 
+              3 =>
               \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'PostalCode',
                  'title' => 'PostalCode',
@@ -452,13 +452,13 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' => 
+                 'blockedVarsForExport' =>
                 array (
                 ),
                  'defaultValue' => NULL,
                  'columnLength' => 190,
                  'regex' => '',
-                 'regexFlags' => 
+                 'regexFlags' =>
                 array (
                 ),
                  'unique' => false,
@@ -468,7 +468,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               )),
             ),
              'locked' => false,
-             'blockedVarsForExport' => 
+             'blockedVarsForExport' =>
             array (
             ),
              'fieldtype' => 'panel',
@@ -478,7 +478,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'labelWidth' => 100,
              'labelAlign' => 'left',
           )),
-          2 => 
+          2 =>
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Relations',
              'type' => NULL,
@@ -490,9 +490,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'collapsed' => false,
              'bodyStyle' => '',
              'datatype' => 'layout',
-             'children' => 
+             'children' =>
             array (
-              0 => 
+              0 =>
               \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
                  'name' => 'Groups',
                  'title' => 'Groups',
@@ -508,23 +508,23 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' => 
+                 'blockedVarsForExport' =>
                 array (
                 ),
-                 'classes' => 
+                 'classes' =>
                 array (
                 ),
                  'displayMode' => 'grid',
                  'pathFormatterClass' => '',
                  'maxItems' => NULL,
-                 'visibleFields' => 
+                 'visibleFields' =>
                 array (
                 ),
                  'allowToCreateNewObject' => false,
                  'allowToClearRelation' => true,
                  'optimizedAdminLoading' => false,
                  'enableTextSelection' => false,
-                 'visibleFieldDefinitions' => 
+                 'visibleFieldDefinitions' =>
                 array (
                 ),
                  'width' => '',
@@ -532,7 +532,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               )),
             ),
              'locked' => false,
-             'blockedVarsForExport' => 
+             'blockedVarsForExport' =>
             array (
             ),
              'fieldtype' => 'panel',
@@ -542,7 +542,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'labelWidth' => 100,
              'labelAlign' => 'left',
           )),
-          3 => 
+          3 =>
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Settings',
              'type' => NULL,
@@ -554,9 +554,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'collapsed' => false,
              'bodyStyle' => '',
              'datatype' => 'layout',
-             'children' => 
+             'children' =>
             array (
-              0 => 
+              0 =>
               \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'PackageTemplate',
                  'title' => 'Package Template',
@@ -574,13 +574,13 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' => 
+                 'blockedVarsForExport' =>
                 array (
                 ),
                  'defaultValue' => NULL,
                  'columnLength' => 190,
                  'regex' => '',
-                 'regexFlags' => 
+                 'regexFlags' =>
                 array (
                 ),
                  'unique' => false,
@@ -588,7 +588,7 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                  'width' => '',
                  'defaultValueGenerator' => '',
               )),
-              1 => 
+              1 =>
               \Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
                  'name' => 'Layout',
                  'type' => NULL,
@@ -600,9 +600,9 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                  'collapsed' => false,
                  'bodyStyle' => '',
                  'datatype' => 'layout',
-                 'children' => 
+                 'children' =>
                 array (
-                  0 => 
+                  0 =>
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Schedule',
                      'type' => NULL,
@@ -614,9 +614,9 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                      'collapsed' => false,
                      'bodyStyle' => '',
                      'datatype' => 'layout',
-                     'children' => 
+                     'children' =>
                     array (
-                      0 => 
+                      0 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'permission_schedule',
                          'title' => 'Permission _schedule',
@@ -632,13 +632,13 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      1 => 
+                      1 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'theme_schedule_show_completed_item',
                          'title' => 'Schedule _show _completed _item',
@@ -654,13 +654,13 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'defaultValue' => 0,
                          'defaultValueGenerator' => '',
                       )),
-                      2 => 
+                      2 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'schedule_show_unpublished_orders',
                          'title' => 'Schedule _show _unpublished _orders',
@@ -676,13 +676,13 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      3 => 
+                      3 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'schedule_show_receiver',
                          'title' => 'Schedule _show _receiver',
@@ -698,13 +698,13 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      4 => 
+                      4 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'schedule_show_supplier',
                          'title' => 'Schedule _show _supplier',
@@ -720,13 +720,13 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      5 => 
+                      5 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'schedule_show_packages',
                          'title' => 'Schedule _show _packages',
@@ -742,13 +742,13 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      6 => 
+                      6 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'schedule_show_send_date',
                          'title' => 'Schedule _show _send _date',
@@ -764,13 +764,13 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      7 => 
+                      7 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'schedule_show_supply_date',
                          'title' => 'Schedule _show _supply_date',
@@ -786,13 +786,13 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      8 => 
+                      8 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'schedule_show_all_suppliers',
                          'title' => 'Schedule _show _all _suppliers',
@@ -808,13 +808,13 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      9 => 
+                      9 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'schedule_show_serie_carrier',
                          'title' => 'Schedule _show _serie _carrier',
@@ -830,13 +830,13 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      10 => 
+                      10 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'schedule_show_serie_attachments',
                          'title' => 'Schedule _show _serie _attachments',
@@ -852,13 +852,13 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      11 => 
+                      11 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'schedule_item_show_status',
                          'title' => 'Schedule _item _show _status',
@@ -874,13 +874,13 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      12 => 
+                      12 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'schedule_show_cartoon',
                          'title' => 'Schedule _show _cartoon',
@@ -896,13 +896,13 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      13 => 
+                      13 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'schedule_show_only_user_related_products',
                          'title' => 'Schedule _show _only _user _related _products',
@@ -918,13 +918,13 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      14 => 
+                      14 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'schedule_show_item_checkbox',
                          'title' => 'Schedule _show _item _checkbox',
@@ -940,13 +940,13 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'defaultValue' => 1,
                          'defaultValueGenerator' => '',
                       )),
-                      15 => 
+                      15 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'schedule_product_link',
                          'title' => 'Schedule _product _link',
@@ -962,7 +962,7 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'defaultValue' => NULL,
@@ -970,7 +970,7 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                       )),
                     ),
                      'locked' => false,
-                     'blockedVarsForExport' => 
+                     'blockedVarsForExport' =>
                     array (
                     ),
                      'fieldtype' => 'panel',
@@ -980,7 +980,7 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                      'labelWidth' => 300,
                      'labelAlign' => 'left',
                   )),
-                  1 => 
+                  1 =>
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Schedule actions',
                      'type' => NULL,
@@ -992,9 +992,9 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                      'collapsed' => false,
                      'bodyStyle' => '',
                      'datatype' => 'layout',
-                     'children' => 
+                     'children' =>
                     array (
-                      0 => 
+                      0 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'schedule_mark_line_item_done',
                          'title' => 'Schedule _mark _line _item _done',
@@ -1010,13 +1010,13 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'defaultValue' => 0,
                          'defaultValueGenerator' => '',
                       )),
-                      1 => 
+                      1 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'schedule_change_date',
                          'title' => 'Schedule _change _date',
@@ -1032,13 +1032,13 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      2 => 
+                      2 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'schedule_item_status_ready',
                          'title' => 'Schedule _item _status _ready',
@@ -1054,13 +1054,13 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      3 => 
+                      3 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'schedule_item_status_process',
                          'title' => 'Schedule _item _status _process',
@@ -1076,13 +1076,13 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      4 => 
+                      4 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'schedule_print_control_card',
                          'title' => 'Schedule _print _control _card',
@@ -1098,7 +1098,7 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'defaultValue' => NULL,
@@ -1106,7 +1106,7 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                       )),
                     ),
                      'locked' => false,
-                     'blockedVarsForExport' => 
+                     'blockedVarsForExport' =>
                     array (
                     ),
                      'fieldtype' => 'panel',
@@ -1116,7 +1116,7 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                      'labelWidth' => 300,
                      'labelAlign' => 'left',
                   )),
-                  2 => 
+                  2 =>
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Explorer',
                      'type' => NULL,
@@ -1128,9 +1128,9 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                      'collapsed' => false,
                      'bodyStyle' => '',
                      'datatype' => 'layout',
-                     'children' => 
+                     'children' =>
                     array (
-                      0 => 
+                      0 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'explorer_show_info',
                          'title' => 'Explorer _show _info',
@@ -1146,13 +1146,13 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'defaultValue' => 1,
                          'defaultValueGenerator' => '',
                       )),
-                      1 => 
+                      1 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'explorer_show_children',
                          'title' => 'Explorer _show _children',
@@ -1168,13 +1168,13 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      2 => 
+                      2 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'product_show_baseprice',
                          'title' => 'Product _show _baseprice',
@@ -1190,13 +1190,13 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      3 => 
+                      3 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'product_show_files',
                          'title' => 'Product _show _files',
@@ -1212,13 +1212,13 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      4 => 
+                      4 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'product_show_datasheet',
                          'title' => 'Product _show _datasheet',
@@ -1234,13 +1234,13 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      5 => 
+                      5 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'product_show_sets',
                          'title' => 'Product _show _sets',
@@ -1256,13 +1256,13 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      6 => 
+                      6 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'product_show_elements',
                          'title' => 'Product _show _elements',
@@ -1278,13 +1278,13 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      7 => 
+                      7 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'product_show_orders',
                          'title' => 'Product _show _orders',
@@ -1300,13 +1300,13 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      8 => 
+                      8 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'product_show_packages',
                          'title' => 'Product _show _packages',
@@ -1322,13 +1322,13 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      9 => 
+                      9 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'nav_show_collections',
                          'title' => 'Nav _show _collections',
@@ -1344,13 +1344,13 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      10 => 
+                      10 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'nav_show_products',
                          'title' => 'Nav _show _products',
@@ -1366,13 +1366,13 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      11 => 
+                      11 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'nav_show_types',
                          'title' => 'Nav _show _types',
@@ -1388,13 +1388,13 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      12 => 
+                      12 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'nav_show_sets',
                          'title' => 'Nav _show _sets',
@@ -1410,13 +1410,13 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      13 => 
+                      13 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'nav_show_packages',
                          'title' => 'Nav _show _packages',
@@ -1432,13 +1432,13 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      14 => 
+                      14 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'explorer_show_search',
                          'title' => 'Explorer _show _search',
@@ -1454,7 +1454,7 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'defaultValue' => NULL,
@@ -1462,7 +1462,7 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                       )),
                     ),
                      'locked' => false,
-                     'blockedVarsForExport' => 
+                     'blockedVarsForExport' =>
                     array (
                     ),
                      'fieldtype' => 'panel',
@@ -1474,7 +1474,7 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                   )),
                 ),
                  'locked' => false,
-                 'blockedVarsForExport' => 
+                 'blockedVarsForExport' =>
                 array (
                 ),
                  'fieldtype' => 'tabpanel',
@@ -1483,7 +1483,7 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
               )),
             ),
              'locked' => false,
-             'blockedVarsForExport' => 
+             'blockedVarsForExport' =>
             array (
             ),
              'fieldtype' => 'panel',
@@ -1493,7 +1493,7 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
              'labelWidth' => 220,
              'labelAlign' => 'left',
           )),
-          4 => 
+          4 =>
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Offers',
              'type' => NULL,
@@ -1505,9 +1505,9 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
              'collapsed' => false,
              'bodyStyle' => '',
              'datatype' => 'layout',
-             'children' => 
+             'children' =>
             array (
-              0 => 
+              0 =>
               \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
                  'name' => 'Offers',
                  'title' => 'Offers',
@@ -1523,12 +1523,12 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' => 
+                 'blockedVarsForExport' =>
                 array (
                 ),
-                 'classes' => 
+                 'classes' =>
                 array (
-                  0 => 
+                  0 =>
                   array (
                     'classes' => 'Offer',
                   ),
@@ -1541,7 +1541,7 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                  'allowToClearRelation' => true,
                  'optimizedAdminLoading' => false,
                  'enableTextSelection' => false,
-                 'visibleFieldDefinitions' => 
+                 'visibleFieldDefinitions' =>
                 array (
                 ),
                  'width' => '',
@@ -1549,7 +1549,7 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
               )),
             ),
              'locked' => false,
-             'blockedVarsForExport' => 
+             'blockedVarsForExport' =>
             array (
             ),
              'fieldtype' => 'panel',
@@ -1561,7 +1561,7 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
           )),
         ),
          'locked' => false,
-         'blockedVarsForExport' => 
+         'blockedVarsForExport' =>
         array (
         ),
          'fieldtype' => 'tabpanel',
@@ -1570,7 +1570,7 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
       )),
     ),
      'locked' => false,
-     'blockedVarsForExport' => 
+     'blockedVarsForExport' =>
     array (
     ),
      'fieldtype' => 'panel',
@@ -1585,13 +1585,13 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',
    'previewGeneratorReference' => '',
-   'compositeIndices' => 
+   'compositeIndices' =>
   array (
   ),
    'showFieldLookup' => false,
-   'propertyVisibility' => 
+   'propertyVisibility' =>
   array (
-    'grid' => 
+    'grid' =>
     array (
       'id' => true,
       'key' => false,
@@ -1600,7 +1600,7 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
       'modificationDate' => false,
       'creationDate' => false,
     ),
-    'search' => 
+    'search' =>
     array (
       'id' => true,
       'key' => false,
@@ -1611,16 +1611,16 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
     ),
   ),
    'enableGridLocking' => false,
-   'deletedDataComponents' => 
+   'deletedDataComponents' =>
   array (
   ),
-   'blockedVarsForExport' => 
+   'blockedVarsForExport' =>
   array (
   ),
-   'fieldDefinitionsCache' => 
+   'fieldDefinitionsCache' =>
   array (
   ),
-   'activeDispatchingEvents' => 
+   'activeDispatchingEvents' =>
   array (
   ),
 ));
