@@ -36,7 +36,7 @@ class OrderController extends FrontendController
 
                 fprintf($handle, "[~(Z)~]\r\n");
 
-                fprintf($handle, ";;{$orderCode};;;;;;;\r\n\r\n");
+                fprintf($handle, ";;{$orderCode};;;;;;1;\r\n\r\n");
                 fprintf($handle, "[~(X)~]\r\n");
 
                 foreach ($obj->getProducts() as $lip)
