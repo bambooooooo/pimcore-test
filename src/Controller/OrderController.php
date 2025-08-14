@@ -49,7 +49,7 @@ class OrderController extends FrontendController
             });
 
             $response->headers->set('Content-Type', 'text/csv; charset=UTF-8');
-            $response->headers->set('Content-Disposition', 'attachment; filename=orders.csv');
+            $response->headers->set('Content-Disposition', 'attachment; filename=' . $orderCode . '.csv');
 
             return $response;
         }
