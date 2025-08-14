@@ -502,6 +502,23 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
             ]
         })
     }
+
+    if(e.detail.object.data.general.className === "Order") {
+
+        if(e.detail.object.data.general.published)
+        {
+            e.detail.object.toolbar.add({
+                icon: '/bundles/pimcoreadmin/img/flat-white-icons/download-cloud.svg',
+                scale: 'medium',
+                tooltip: 'Optimik - zlecenie',
+                text: t('Optimik 3 - zlecenie'),
+                handler: function () {
+                    const path = "/orders/optimik/" + e.detail.object.id;
+                    window.open(path);
+                }
+            });
+        }
+    }
 })
 
 document.addEventListener(pimcore.events.pimcoreReady, (e) => {
