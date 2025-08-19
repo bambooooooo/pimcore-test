@@ -361,7 +361,7 @@ class BaselinkerService
 
             if(!$relation)
             {
-                $relation = new ObjectMetadata('BaselinkerCatalog', ['ProductId'], $catalog);
+                $relation = new ObjectMetadata('BaselinkerCatalog', ['ProductId', 'Version'], $catalog);
                 $relation->setProductId($pid);
                 $relation->setVersion($hash);
 
