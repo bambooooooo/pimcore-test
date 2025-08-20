@@ -37,6 +37,7 @@ jobs:
                       echo "GS1_USERNAME=${{ secrets.GS1_USER }}" >> .env
                       echo "GS1_PASSWORD=${{ secrets.GS1_PWD }}" >> .env
                       echo "DEEPL_APIKEY=${{ secrets.DEEPL_APIKEY }}" >> .env
+                      echo "DEEPL_DOM_RENEW=${{ secrets.DEEPL_DOM_RENEW }}" >> .env
                       echo "SGT_HOST=${{ secrets.SGT_HOST }}" >> .env
                       echo "SGT_PORT=${{ secrets.SGT_PORT }}" >> .env
 
