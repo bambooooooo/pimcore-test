@@ -11,13 +11,15 @@ services:
             DEBUG_MODE: true
             DUMP_ON_RESTART: true
             POST_SCRIPTS_DIR: /tmp/post-scripts
+            # APIKEY WITH ALL PERMISSIONS GRANTED
+            # AWVDMSUHIPXEQD7EA9A1GIKDSSLE9D4H
             POST_SCRIPTS_ON_RESTART: true
         ports:
             - "7777:80"
         expose:
             - 80
         volumes:
-            - ./presta:/tmp/post-scripts
+            - ./post-scripts:/tmp/post-scripts
 
     mysql:
         image: mariadb:lts
