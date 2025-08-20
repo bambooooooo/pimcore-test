@@ -2,16 +2,28 @@ site_name: Pimcore Megstyl
 site_url: https://pim.megstyl.com/
 repo_url: https://github.com/bambooooooo/
 nav:
-    - Home: index.md
-    - Klasy obiektów:
-        - Produkt (Product): product.md
-        - Zestaw (ProductSet): productset.md
-        - Paczka (Package): package.md
-        - Użytkownik (User): user.md
-        - Grupa (Group): group.md
-        - Przesyłka (Parcel): parcel.md
-        - Póla kodów EAN (EanPool): eanpool.md
-    - Lista wdrożeniowa: todo.md
+    - Wprowadzenie: index.md
+    - Instrukcja użytkownika:
+        - Zarządzanie produktami (PIM): guides/pim.md
+        - Zarządzanie zasobami cyfrowymi (DAM): guides/dam.md
+        - Skróty klawiszowe: guides/shortcuts.md
+        - Dodatki (różne): guides/addons.md
+        - Zgłaszanie błędów: guides/errors.md
+    - Architektura systemu:
+        - Hosting: architecture/hosting.md
+    - Integracje:
+        - SubiektGT: integrations/subiekt_gt.md
+        - Baselinker: integrations/baselinker.md
+        - GS1: integrations/gs1.md
+        - Prestashop: integrations/prestashop.md
+        - Allegro: integrations/allegro.md
+        - Rysunki techniczne: integrations/element_drawing.md
+        - DeepL (tłumaczenia): integrations/deepl.md
+    - Dokumentacja techniczna:
+        - Definicje klas: techdocs/class_definitions.md
+        - Development: techdocs/development.md
+        - Konwencje: techdocs/conventions.md
+    - Nowe propozycje: todo.md
 theme:
     name: material
     primary: black
@@ -23,7 +35,6 @@ theme:
           toggle:
               icon: material/brightness-7
               name: Switch to dark mode
-
 
         # Palette toggle for dark mode
         - scheme: slate

@@ -1,4 +1,8 @@
-# TODO
+## `pim` `dev` `development` `integracje`
+
+Dla każdego z integrowanych serwisów przygotować plik docker-compose, który po dodaniu do głównego docker-compose 
+pimcore pozowli na sprawny rozwój i testowanie integracji. Jeśli nie jest dostępne dedykowane środowisko testowe - 
+utworzyć odwzorowanie w postaci mockupu, np. klienta http.
 
 ## `pim` `Product` `DQM`
 
@@ -9,15 +13,6 @@ Definicja i implementacja wskaźników DQM:
 ## `pim` `deepl`
 
 Integracja tłumaczeń kolejnych obiektów - kategorii, zestawów, parametrów
-
-## `pim` `allegro`
-
-Integracja produktowa z allegro:
-- dedykowana klasa obiektu (allegro)
-- konfiguracja z pozmiomu pim'a
-- wiele kont allegro
-- mapowanie parametrów
-- domyślne cenniki, warunki dostaw, zwrotów, etc
 
 ## `pim` `sklep`
 
@@ -47,10 +42,6 @@ Pobieranie zamówień z systemu MAD Agata meble
 ## `baselinker` `zamówienia`
 
 Poprawnki integracji zamówień z baselinkerem
-
-## `allegro` `stocki`
-
-Integracja stocków z allegro (na podstawie powiązania oferty z produktem w pimcore)
 
 ## `pim` `def` `Product`
 
@@ -83,27 +74,10 @@ Moduł, który będzie cyklicznie dodawał promocje na losowo wybrane produkty.
 
 Integracja z portalem mojegs1.pl - nadawanie kodów EAN. Skorzystać z Rabbit'a MQ. Synchronizacja kodów na podstawie Id obiektu w pim, tj. Id obiektu musi zawierać się w polu Symbol wewnętrzny w mojegs1. Skrypt PHP wyrzuca wymagane dane na kolejkę, program (python 3) odbiera wiadamość, aktualizuje dane przez API GS1 i wysyła POST request do pim'a, dzięki któremu uzupełniane jest pole EAN dla produktu lub zestawu produktów.
 
-## `erp` `migracja`
-
-Należy zmigrować obecnie kodowanie do postaci:
-- Symbol = Id obiektu pimcore
-- Nazwa = Klucz obiektu pimcore
-- Opis = Nazwa obiektu pimcore
-
-Hierarchia kompletów ma być dwupoziomowa:
-Produkt / Zestaw => Paczki
+## `erp` `wzorce wydruków` `crystal reports`
 
 Do aktualizacji będą prawie wszystkie wzorce wydruku
 
-## `pim` `deepl` `limit`
-
-Blokada użycia tłumaczenia (respektowanie limitu tłumaczeń w miesiącu).
-Próba kolejnych tłumaczeń po przekroczeniu progu => wyraźny komunikat
-
-## `pim` `deepl` `kolejka`
-
-Wykorzystanie mechanizmu kolejkowania, żeby nie blokować UI
-Informowanie o statusie - update progress baru co 3 s
 
 ## `pim` `zlecenie` `wydruk`
 
@@ -131,19 +105,6 @@ Aktualizacja kursów walut na życzenie - aktualizacja produktów - zmiana ceny 
 ## `pim` `ec` `opis`
 
 Długi opis produktu w standardzie allegro (wiersze po 1 lub 2 sekcje tekstu / zdjęć)
-
-## `erp` `ec` `update`
-
-Odebranie informacji o produkcie i aktualizacja bazy subiekta:
-- nazwy
-- opisu
-- ceny
-- zdjęcia
-- paczek
-
-## `erp` `backup`
-
-Instalacja ms sql na serwerze. Backup tworzony co godzinę
 
 ## `erp` `sandbox`
 
