@@ -176,14 +176,7 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
             Ext.Ajax.request({
                 url: "/object/translate-name",
                 params: params,
-                success: function (data) {
-                    console.log(data.responseText);
-                },
-                failure: function (error) {
-                    console.log("[Error] " + error.responseText);
-                },
-                callback: function (response) {
-
+                success: function () {
                     current = current + 1;
 
                     if(current >= total)
@@ -200,6 +193,10 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
                         progressbar.updateProgress(progress, status);
                         setTimeout(translate, 500);
                     }
+                },
+                failure: function (error) {
+                    console.log("[Error] " + error.responseText);
+                    pbWin.close();
                 }
             });
         }
