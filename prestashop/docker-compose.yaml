@@ -19,7 +19,7 @@ services:
         expose:
             - 80
         volumes:
-            - ./post-scripts:/tmp/post-scripts
+            - ./prestashop/post-scripts:/tmp/post-scripts
 
     mysql:
         image: mariadb:lts
