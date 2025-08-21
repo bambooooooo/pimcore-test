@@ -29,6 +29,7 @@
  * - Groups [manyToManyObjectRelation]
  * - Parameters [classificationstore]
  * - ParametersAllegro [classificationstore]
+ * - GoogleCategory [select]
  * - BasePrice [quantityValue]
  * - Pricing [advancedManyToManyObjectRelation]
  * - Price [advancedManyToManyObjectRelation]
@@ -57,7 +58,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Produkt',
    'description' => 'Towar, który można sprzedać',
    'creationDate' => NULL,
-   'modificationDate' => 1754465182,
+   'modificationDate' => 1755799471,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -1143,6 +1144,60 @@ Parametry produktu podzielone na kolekcje i grupy.',
                      'layout' => NULL,
                      'border' => false,
                      'icon' => '/LOGO/allegro.svg',
+                     'labelWidth' => 100,
+                     'labelAlign' => 'left',
+                  )),
+                  2 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                     'name' => 'Google',
+                     'type' => NULL,
+                     'region' => NULL,
+                     'title' => 'Google',
+                     'width' => '',
+                     'height' => '',
+                     'collapsible' => false,
+                     'collapsed' => false,
+                     'bodyStyle' => '',
+                     'datatype' => 'layout',
+                     'children' => 
+                    array (
+                      0 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                         'name' => 'GoogleCategory',
+                         'title' => 'Google Category',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => '',
+                         'columnLength' => 190,
+                         'dynamicOptions' => false,
+                         'defaultValueGenerator' => '',
+                         'width' => 500,
+                         'optionsProviderType' => 'select_options',
+                         'optionsProviderClass' => 'Pimcore\\Bundle\\CoreBundle\\OptionsProvider\\SelectOptionsOptionsProvider',
+                         'optionsProviderData' => 'GoogleCategory',
+                      )),
+                    ),
+                     'locked' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'fieldtype' => 'panel',
+                     'layout' => NULL,
+                     'border' => false,
+                     'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/google.svg',
                      'labelWidth' => 100,
                      'labelAlign' => 'left',
                   )),
