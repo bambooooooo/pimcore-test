@@ -40,6 +40,25 @@
                         {{ "Labels"|trans }} (x{{ lip.data.Quantity * p.data.Quantity }})
                     </a>
                 </li>
+                {% if lip.element.Carriers and lip.element.Carriers[0].data.Quantity %}
+                    <li>
+                        <a target="_blank" class="dropdown-item" href="{{ path("factory_labels", {
+                            id: lip.element.id,
+                            serie_id: s.id,
+                            copies: lip.data.Quantity * p.data.Quantity,
+                            step: lip.element.Carriers[0].data.Quantity,
+                            product_id: p.element.id, size: dim,
+                            size: '150x100',
+                            tpl: 'bulk'
+                        }) }}">
+                            {{ "Bulk labels"|trans }} (x{{ (lip.data.Quantity * p.data.Quantity / lip.element.Carriers[0].data.Quantity)|round(0, 'ceil') }})
+                        </a>
+                    </li>
+                    {% else %}
+                        <li class="dropdown-item disabled">
+                            {{ "Bulk labels"|trans }}
+                        </li>
+                {% endif %}
                 <li>
                     {% set dim = "150x100" %}
 
