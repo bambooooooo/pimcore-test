@@ -41,6 +41,28 @@ class BaselinkerService
         return true;
     }
 
+    public function get(Baselinker $baselinker, string $method, array $payload = [])
+    {
+        $response = $this->httpClient->request("POST", "https://api.baselinker.com/connector.php", [
+            'headers' => [
+                'X-BLToken' => $baselinker->getApiKey()
+            ],
+            'body' => [
+                'method' => $method,
+                'parameters' => json_encode($payload)
+            ]
+        ]);
+
+        $data = $response->toArray();
+
+        if($data['status'] != 'SUCCESS')
+        {
+            throw new \Exception($data['error_code'] . ": " . $data['error_message']);
+        }
+
+        return $data;
+    }
+
     public function updateInventory(BaselinkerCatalog $catalog): void
     {
         $languages = [];
