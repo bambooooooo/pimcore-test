@@ -1,0 +1,49 @@
+pimcore_custom_reports:
+    definitions:
+        productset_missing_descriptions:
+            name: productset_missing_descriptions
+            sql: ''
+            dataSourceConfig:
+                -
+                    sql: "p.Name as Nazwa,\np.ooo_id as Id"
+                    from: 'object_localized_query_ProductSet_pl p'
+                    where: ''
+                    groupby: ''
+                    orderby: ''
+                    orderbydir: null
+                    type: sql
+            columnConfiguration:
+                -
+                    name: Nazwa
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1149-3
+                -
+                    name: Id
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    columnAction: openObject
+                    id: extModel1149-4
+            niceName: 'Brakujące opisy zestawów'
+            group: ''
+            groupIconClass: ''
+            iconClass: ''
+            menuShortcut: true
+            reportClass: ''
+            chartType: ''
+            pieColumn: null
+            pieLabelColumn: null
+            xAxis: ooo_id
+            yAxis:
+                - uzupelnione
+            modificationDate: 1756108120
+            creationDate: 1756106716
+            shareGlobally: true
+            sharedUserNames: {  }
+            sharedRoleNames: {  }
