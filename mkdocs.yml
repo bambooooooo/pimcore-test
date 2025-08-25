@@ -6,6 +6,8 @@ nav:
     - Instrukcja użytkownika:
         - Zarządzanie produktami (PIM): guides/pim.md
         - Zarządzanie zasobami cyfrowymi (DAM): guides/dam.md
+        - Feedy produktowe: guides/feeds.md
+        - Proces produkcyjny: guides/man.md
         - Skróty klawiszowe: guides/shortcuts.md
         - Dodatki (różne): guides/addons.md
         - Zgłaszanie błędów: guides/errors.md
@@ -17,8 +19,10 @@ nav:
         - GS1: integrations/gs1.md
         - Prestashop: integrations/prestashop.md
         - Allegro: integrations/allegro.md
-        - Rysunki techniczne: integrations/element_drawing.md
-        - DeepL (tłumaczenia): integrations/deepl.md
+        - DeepL: integrations/deepl.md
+        - Google: integrations/google.md
+        - Optimik 3: integrations/optimik3.md
+        - Feedy: integrations/feeds.md
     - Dokumentacja techniczna:
         - Definicje klas: techdocs/class_definitions.md
         - Development: techdocs/development.md

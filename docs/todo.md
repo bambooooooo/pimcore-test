@@ -1,9 +1,3 @@
-## `pim` `dev` `development` `integracje`
-
-Dla każdego z integrowanych serwisów przygotować plik docker-compose, który po dodaniu do głównego docker-compose 
-pimcore pozowli na sprawny rozwój i testowanie integracji. Jeśli nie jest dostępne dedykowane środowisko testowe - 
-utworzyć odwzorowanie w postaci mockupu, np. klienta http.
-
 ## `pim` `Product` `DQM`
 
 Definicja i implementacja wskaźników DQM:
@@ -25,27 +19,9 @@ Poprawki w integracji zamówień Subiekt'a GT:
 - tłumaczenia ładowane z pożądnej bazy, a nie z pliku
 - automatyczne montowanie kompletu, jeśli jest to możliwe
 
-## `erp` `formatowanie warunkowe`
-
-Ustalenie formatowania warunkowego dla wybranych dokumentów:
-- ZD przeterminowane - na czerwono - wymaga pilnego wyjaśnienia
-- ZK możliwe do realizacjia - na niebiesko
-
-## `wayfair` `stocki`
-
-Integracja stanów magazynowych z wayfair
-
 ## `agata` `zamówienia`
 
 Pobieranie zamówień z systemu MAD Agata meble
-
-## `baselinker` `zamówienia`
-
-Poprawnki integracji zamówień z baselinkerem
-
-## `pim` `def` `Product`
-
-Nazwa generyczna na podstawie parametrów produktu i jego kategorii głównej
 
 ## `wypłaty`
 - przepisanie aplikacji na web (vue.js)
@@ -69,15 +45,6 @@ Moduł, który będzie cyklicznie dodawał promocje na losowo wybrane produkty.
 
 1. Produkty bez parametrów - Lista produktów ```ACTUAL```, która nie ma lub nie rozszerza odziedziczonych po obiektach ```VIRTUAL``` zbiorów parametrów
 1. DQM - produkty ```ACTUAL``` i ich wskaźniki uzupełnienia DQM
-
-## `pim` `ean`
-
-Integracja z portalem mojegs1.pl - nadawanie kodów EAN. Skorzystać z Rabbit'a MQ. Synchronizacja kodów na podstawie Id obiektu w pim, tj. Id obiektu musi zawierać się w polu Symbol wewnętrzny w mojegs1. Skrypt PHP wyrzuca wymagane dane na kolejkę, program (python 3) odbiera wiadamość, aktualizuje dane przez API GS1 i wysyła POST request do pim'a, dzięki któremu uzupełniane jest pole EAN dla produktu lub zestawu produktów.
-
-## `erp` `wzorce wydruków` `crystal reports`
-
-Do aktualizacji będą prawie wszystkie wzorce wydruku
-
 
 ## `pim` `zlecenie` `wydruk`
 
@@ -122,7 +89,21 @@ Karta zestawu przygotowana do wyruku w formie PDF'a
 
 Automatyczne tworzenie opisu kolekcji o wybranej długości
 
+## `factory` `cache`
+
+Dodać obsługę cache.
+
+## `factory` `harmonogram`
+
+Przepisać w taki sposób, aby możliwe było aktualizowanie treści bez konieczności przeładowywania. Co stały interwał
+wysyłać zapytania, czy zamówienia uległy zmianie (czy zmienił się ich czas modyfikacji), a jeśli tak, to pobrać tylko
+zmienione dane.
+
 ## `factory` `różne`
+
+Dodać konfigurator dla własnych checkboxów - kolor, tooltip, kolejność.
+
+## `factory` `wydruki`
 
 - Wydruki PDF dla zamówień i harmonogramu
 - Dostęp do statycznych plików (regularnie drukowanych, np. tabela terminów dostaw dla dostawców surowców)
@@ -138,3 +119,7 @@ Automatyczne tworzenie opisu kolekcji o wybranej długości
 ## `factory` `etykiety`
 
 - przegląd funkcji poprzedniego progamu, którego dokumentacja znajduję się tutaj: file://10.10.5.1/projects/IT/Dokumentacja/Etykiety/Etykiety.md
+
+## `stocki` `webhook` `integracja`
+
+- wdrożyć webhook'i dla klientów, które będą aktualizować stany magazynowe w czasie rzeczywistym

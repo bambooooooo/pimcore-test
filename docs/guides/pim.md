@@ -7,24 +7,31 @@ W celu dodania nowego produktu należy:
 1. Uzupełnić wymagane dane
 1. Opublikować produkt
 
-[![Foo](https://img.youtube.com/vi/H0JXcsZ42fA/sddefault.jpg)](https://www.youtube.com/watch?v=H0JXcsZ42fA)
-
-## Nadawanie kodu EAN
+### Nadawanie kodu EAN
 
 W celu przypisania kodu EAN do danego produktu należy skorzystać z opcji ``Operacje > Kod EAN (GTIN)``
 
-## Tłumaczenie nazwy produktu
+### Tłumaczenie nazwy produktu
 
 Nazwy są tłumaczone z języka domyślnego dla zalogowanego użytkownika na wszystkie pozostałe, które są dostępne w systemie.
 
 W celu przetłumaczenia nazwy produktu lub zestawu należy uzupełnić nazwę w domyślnym języku, a następnie kliknąć opcję 
 ``Operacje > Tłumacz nazwę``
 
-## Dodatkowe kody odbiorców
+### Dodatkowe kody odbiorców
 
 Specyficzne dla danego odbiorcy kody produktów należy uzupełnić w zakładce ``Kody > Dodatkowe kody``
 
 ## Automatyczne akcje
+
+### Obliczanie danych logistycznych
+
+Na podstawie uzupełnionych danych paczek produktów wyznaczane jest:
+
+- łączna objętość paczek
+- łączna waga paczek
+- łączna ilość paczek
+- wielkość serii (NWW z ilości paczek na domyślnym nośniku, np. palecie EURO)
 
 ### Wyznaczanie cen
 
@@ -74,11 +81,3 @@ Pierwsza wycena spełniająca swoje ograniczenia w ramach oferty jest uznawana z
 
 Istnieje możliwość ręcznej edycji oferty poprzez zaznaczenie pola ```IsFixed```
 
-## Obliczanie danych logistycznych
-
-Na podstawie uzupełnionych danych paczek produktów wyznaczane jest:
-
-- łączna objętość paczek
-- łączna waga paczek
-- łączna ilość paczek
-- wielkość serii (NWW z ilości paczek na domyślnym nośniku, np. palecie EURO)

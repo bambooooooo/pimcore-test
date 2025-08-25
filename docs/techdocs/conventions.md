@@ -9,3 +9,5 @@ głównym, ponieważ informacja o statusie operacji jest istotna w kontekście d
 środowiskowych
 - Integracje wielokrotne - sklepy internetowe, marketplace, portale społecznościowe, kanały wideo - należy programować
 jako zbiór klas, które mogą być łatwo zarządzane przez użytkownika.
+- Integrowane serwisy (np. sklep prestashop 8.2.1) powinny być opracowane jako gotowy do użycia stos docker-compose 
+w dedykowanym folderze.

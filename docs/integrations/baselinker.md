@@ -13,13 +13,16 @@ Synchronizacja jednostronna z Pimcore do Baselinkera obejmuje:
 
 |           Pimcore | →  | Baselinker            |
 |------------------:|:--:|:----------------------|
-|        Nazwa (PL) |→| Nazwa produktu (PL)   |
+|            Nazwa* |→| Nazwa produktu*       |
 | Key (kod obiektu) |→| SKU                   |
 |               EAN |→| EAN                   |
 |              Waga |→| Waga                  |
 |      Cena[Oferta] |→| Cena[Grupa cenowa]    |
 |       Cena bazowa |→| Cena zakupu (średnia) |
 | Parametry Allegro |→| Parametry[Allegro]    |
+|   Opis {1,2,3,4}* |→| Opis {1,2,3,4}*       |
+
+> \* - obsługa języków zdefioniowanych w parametrach danego katalogu
 
 ### Produkt
 
@@ -78,3 +81,4 @@ automatycznie doda go do kolejki integracji baselinker
 * Przed wysłaniem zapytania do API sprawdzana jest suma kontrolna wersji (hash zawartości zapytania do API). 
 * Jeśli produkt został już dodany i suma jest znana - system nie wysyła żadania, w przeciwnym wypadku 
 wysyłane jest żądanie z pełną informacją o produkcie.
+* Zdjęcia są redukowane do maksymalnego rozmiaru 2MB poprzez generowanie miniaturek w coraz mniejszej rozdzielczości
