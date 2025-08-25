@@ -288,14 +288,26 @@ class BaselinkerService
 
             if($obj instanceof Product)
             {
-                foreach($obj->getParameters()->getGroups() as $group)
+                foreach($obj->getParametersAllegro()->getGroups() as $group)
                 {
                     foreach($group->getKeys() as $key)
                     {
-                        if(!is_iterable($key->getValue()))
-                        {
-                            $textFields["features"][$key->getConfiguration()->getTitle()] = $key->getValue();
+                        $cfg = $key->getConfiguration();
+
+                        $value = ($cfg->getType() == 'select') ? explode("_", $key->getValue())[0] : $key->getValue();
+
+                        if ($cfg->getType() === 'select') {
+                            $definition = json_decode($cfg->getDefinition(), true); // contains options array
+
+                            foreach ($definition['options'] as $option) {
+                                if ($option['value'] == $key->getValue()) {
+                                    $value = $option['key']; // this is the "display name"
+                                    break;
+                                }
+                            }
                         }
+
+                        $textFields["features"][$key->getConfiguration()->getTitle()] = $value;
                     }
                 }
             }
