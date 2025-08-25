@@ -99,6 +99,7 @@ services:
     App\Service\DeepLService:
         arguments:
             $apikey: '%env(DEEPL_APIKEY)%'
+            $domRenew: '%env(DEEPL_DOM_RENEW)%'
 
     App\Service\AllegroService:
         arguments:

@@ -21,6 +21,15 @@
                     {{ item.Width.Value }} x {{ item.Height.Value }} x {{ item.Depth.Value }}
                 </div>
             {% endif %}
+            {% if prices %}
+                <div style="margin-top: 4px;">
+                {% for price in s.Price %}
+                    {% if price.element.id == prices %}
+                        {{ price.data.Price }} {{ price.data.Currency }}
+                    {% endif %}
+                {% endfor %}
+                </div>
+            {% endif %}
         </div>
     </div>
 </a>

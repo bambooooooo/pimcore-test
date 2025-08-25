@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Service\DeepLService;
+use DeepL\DeepLException;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -494,7 +495,14 @@ class ObjectController extends FrontendController
             $nameDefinition = $class->getFieldDefinition('Name');
             $w = $nameDefinition->getColumnLength();
 
-            $tx = $this->deepLService->translate($text, $deeplLocale, $origin);
+            try
+            {
+                $tx = $this->deepLService->translate($text, $deeplLocale, $origin);
+            }
+            catch (DeepLException $e)
+            {
+                return new Response($e->getMessage(), Response::HTTP_TOO_MANY_REQUESTS);
+            }
 
             $trimmed = $tx;
 

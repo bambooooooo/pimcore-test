@@ -1,0 +1,43 @@
+services:
+    prestashop:
+        image: prestashop/prestashop-flashlight:latest
+        depends_on:
+            mysql:
+                condition: service_healthy
+        environment:
+            PS_DOMAIN: localhost:7777
+            PS_TRUSTED_PROXIES: 127.0.0.1,localhost
+            PS_ENABLE_SSL: 0
+            DEBUG_MODE: true
+            DUMP_ON_RESTART: true
+            POST_SCRIPTS_DIR: /tmp/post-scripts
+            POST_SCRIPTS_ON_RESTART: true
+        ports:
+            - "7777:80"
+        expose:
+            - 80
+        volumes:
+            - ./presta:/tmp/post-scripts
+
+    mysql:
+        image: mariadb:lts
+        healthcheck:
+            test: ["CMD", "healthcheck.sh", "--connect"]
+            interval: 10s
+            timeout: 10s
+            retries: 5
+        environment:
+            - MYSQL_HOST=mysql
+            - MYSQL_USER=prestashop
+            - MYSQL_PASSWORD=prestashop
+            - MYSQL_ROOT_PASSWORD=prestashop
+            - MYSQL_PORT=3306
+            - MYSQL_DATABASE=prestashop
+        expose:
+            - 3306
+        volumes:
+            - ps-dbdata:/var/lib/mysql
+
+volumes:
+    ps-data:
+    ps-dbdata:

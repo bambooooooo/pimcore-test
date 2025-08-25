@@ -8,6 +8,10 @@
  * - Image [image]
  * - localizedfields [localizedfields]
  * -- Name [input]
+ * -- Desc1 [wysiwyg]
+ * -- Desc2 [wysiwyg]
+ * -- Desc3 [wysiwyg]
+ * -- Desc4 [wysiwyg]
  * - Set [advancedManyToManyObjectRelation]
  * - EAN [input]
  * - GPC [select]
@@ -24,6 +28,7 @@
  * - Groups [manyToManyObjectRelation]
  * - Parameters [classificationstore]
  * - ParametersAllegro [classificationstore]
+ * - GoogleCategory [select]
  * - BasePrice [quantityValue]
  * - Pricing [advancedManyToManyObjectRelation]
  * - Price [advancedManyToManyObjectRelation]
@@ -37,7 +42,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1754468601,
+   'modificationDate' => 1755957744,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -182,6 +187,182 @@ Nazwa zestawu produtków',
                  'hideLabelsWhenTabsReached' => NULL,
                  'referencedFields' => 
                 array (
+                  0 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+                     'name' => 'localizedfields',
+                     'title' => '',
+                     'tooltip' => NULL,
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => NULL,
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => true,
+                     'visibleSearch' => true,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'children' => 
+                    array (
+                      0 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
+                         'name' => 'Desc1',
+                         'title' => 'Desc1',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'toolbarConfig' => '{
+  "modules": {
+    "toolbar": [
+      ["code-block"],
+      [{ "header": [1, 2, false] }],
+      [{ "list": "ordered" }, { "list": "bullet" }],
+      ["bold"]
+    ]
+  }
+}',
+                         'excludeFromSearchIndex' => false,
+                         'maxCharacters' => '',
+                         'height' => '',
+                         'width' => '',
+                      )),
+                      1 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
+                         'name' => 'Desc2',
+                         'title' => 'Desc2',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'toolbarConfig' => '{
+  "modules": {
+    "toolbar": [
+      ["code-block"],
+      [{ "header": [1, 2, false] }],
+      [{ "list": "ordered" }, { "list": "bullet" }],
+      ["bold"]
+    ]
+  }
+}',
+                         'excludeFromSearchIndex' => false,
+                         'maxCharacters' => '',
+                         'height' => '',
+                         'width' => '',
+                      )),
+                      2 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
+                         'name' => 'Desc3',
+                         'title' => 'Desc3',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'toolbarConfig' => '{
+  "modules": {
+    "toolbar": [
+      ["code-block"],
+      [{ "header": [1, 2, false] }],
+      [{ "list": "ordered" }, { "list": "bullet" }],
+      ["bold"]
+    ]
+  }
+}',
+                         'excludeFromSearchIndex' => false,
+                         'maxCharacters' => '',
+                         'height' => '',
+                         'width' => '',
+                      )),
+                      3 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
+                         'name' => 'Desc4',
+                         'title' => 'Desc4',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'toolbarConfig' => '{
+  "modules": {
+    "toolbar": [
+      ["code-block"],
+      [{ "header": [1, 2, false] }],
+      [{ "list": "ordered" }, { "list": "bullet" }],
+      ["bold"]
+    ]
+  }
+}',
+                         'excludeFromSearchIndex' => false,
+                         'maxCharacters' => '',
+                         'height' => '',
+                         'width' => '',
+                      )),
+                    ),
+                     'region' => NULL,
+                     'layout' => NULL,
+                     'maxTabs' => NULL,
+                     'border' => false,
+                     'provideSplitView' => false,
+                     'tabPosition' => 'top',
+                     'hideLabelsWhenTabsReached' => NULL,
+                     'referencedFields' => 
+                    array (
+                    ),
+                     'permissionView' => NULL,
+                     'permissionEdit' => NULL,
+                     'labelWidth' => 100,
+                     'labelAlign' => 'left',
+                     'width' => '',
+                     'height' => '',
+                     'fieldDefinitionsCache' => NULL,
+                  )),
                 ),
                  'permissionView' => NULL,
                  'permissionEdit' => NULL,
@@ -744,6 +925,208 @@ Przykładowo: rysunek z wymiarami',
           )),
           2 => 
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+             'name' => 'Quality',
+             'type' => NULL,
+             'region' => NULL,
+             'title' => 'Quality',
+             'width' => '',
+             'height' => '',
+             'collapsible' => false,
+             'collapsed' => false,
+             'bodyStyle' => '',
+             'datatype' => 'layout',
+             'children' => 
+            array (
+              0 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+                 'name' => 'localizedfields',
+                 'title' => '',
+                 'tooltip' => NULL,
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => NULL,
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => true,
+                 'visibleSearch' => true,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'children' => 
+                array (
+                  0 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
+                     'name' => 'Desc1',
+                     'title' => 'Desc1',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'toolbarConfig' => '{
+  "modules": {
+    "toolbar": [
+      ["code-block"],
+      [{ "header": [1, 2, false] }],
+      [{ "list": "ordered" }, { "list": "bullet" }],
+      ["bold"]
+    ]
+  }
+}',
+                     'excludeFromSearchIndex' => false,
+                     'maxCharacters' => '',
+                     'height' => '',
+                     'width' => '',
+                  )),
+                  1 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
+                     'name' => 'Desc2',
+                     'title' => 'Desc2',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'toolbarConfig' => '{
+  "modules": {
+    "toolbar": [
+      ["code-block"],
+      [{ "header": [1, 2, false] }],
+      [{ "list": "ordered" }, { "list": "bullet" }],
+      ["bold"]
+    ]
+  }
+}',
+                     'excludeFromSearchIndex' => false,
+                     'maxCharacters' => '',
+                     'height' => '',
+                     'width' => '',
+                  )),
+                  2 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
+                     'name' => 'Desc3',
+                     'title' => 'Desc3',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'toolbarConfig' => '{
+  "modules": {
+    "toolbar": [
+      ["code-block"],
+      [{ "header": [1, 2, false] }],
+      [{ "list": "ordered" }, { "list": "bullet" }],
+      ["bold"]
+    ]
+  }
+}',
+                     'excludeFromSearchIndex' => false,
+                     'maxCharacters' => '',
+                     'height' => '',
+                     'width' => '',
+                  )),
+                  3 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
+                     'name' => 'Desc4',
+                     'title' => 'Desc4',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'toolbarConfig' => '{
+  "modules": {
+    "toolbar": [
+      ["code-block"],
+      [{ "header": [1, 2, false] }],
+      [{ "list": "ordered" }, { "list": "bullet" }],
+      ["bold"]
+    ]
+  }
+}',
+                     'excludeFromSearchIndex' => false,
+                     'maxCharacters' => '',
+                     'height' => '',
+                     'width' => '',
+                  )),
+                ),
+                 'region' => NULL,
+                 'layout' => NULL,
+                 'maxTabs' => NULL,
+                 'border' => false,
+                 'provideSplitView' => false,
+                 'tabPosition' => 'top',
+                 'hideLabelsWhenTabsReached' => NULL,
+                 'referencedFields' => 
+                array (
+                ),
+                 'permissionView' => NULL,
+                 'permissionEdit' => NULL,
+                 'labelWidth' => 100,
+                 'labelAlign' => 'left',
+                 'width' => '',
+                 'height' => '',
+                 'fieldDefinitionsCache' => NULL,
+              )),
+            ),
+             'locked' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'fieldtype' => 'panel',
+             'layout' => NULL,
+             'border' => false,
+             'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/star.svg',
+             'labelWidth' => 100,
+             'labelAlign' => 'left',
+          )),
+          3 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Parameters',
              'type' => NULL,
              'region' => NULL,
@@ -948,6 +1331,60 @@ Kolekcje i grupy parametrów dotyczące całego zestawu. Nie wprowadzamy tutaj p
                      'labelWidth' => 100,
                      'labelAlign' => 'left',
                   )),
+                  2 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                     'name' => 'Google',
+                     'type' => NULL,
+                     'region' => NULL,
+                     'title' => 'Google',
+                     'width' => '',
+                     'height' => '',
+                     'collapsible' => false,
+                     'collapsed' => false,
+                     'bodyStyle' => '',
+                     'datatype' => 'layout',
+                     'children' => 
+                    array (
+                      0 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                         'name' => 'GoogleCategory',
+                         'title' => 'Google Category',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => '',
+                         'columnLength' => 190,
+                         'dynamicOptions' => false,
+                         'defaultValueGenerator' => '',
+                         'width' => 500,
+                         'optionsProviderType' => 'select_options',
+                         'optionsProviderClass' => 'Pimcore\\Bundle\\CoreBundle\\OptionsProvider\\SelectOptionsOptionsProvider',
+                         'optionsProviderData' => 'GoogleCategory',
+                      )),
+                    ),
+                     'locked' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'fieldtype' => 'panel',
+                     'layout' => NULL,
+                     'border' => false,
+                     'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/google.svg',
+                     'labelWidth' => 100,
+                     'labelAlign' => 'left',
+                  )),
                 ),
                  'locked' => false,
                  'blockedVarsForExport' => 
@@ -969,7 +1406,7 @@ Kolekcje i grupy parametrów dotyczące całego zestawu. Nie wprowadzamy tutaj p
              'labelWidth' => 100,
              'labelAlign' => 'left',
           )),
-          3 => 
+          4 => 
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Prices',
              'type' => NULL,
@@ -1170,7 +1607,7 @@ Suma cen bazowych produktów',
              'labelWidth' => 200,
              'labelAlign' => 'left',
           )),
-          4 => 
+          5 => 
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Integrations',
              'type' => NULL,
