@@ -6,8 +6,8 @@ pimcore_custom_reports:
             dataSourceConfig:
                 -
                     sql: "p.Name as Nazwa,\np.ooo_id as Id"
-                    from: 'object_localized_query_Product_pl p'
-                    where: ''
+                    from: "object_localized_query_Product_pl p\n     INNER JOIN object_query_Product q ON p.ooo_id = q.oo_id"
+                    where: "q.ObjectType = 'ACTUAL'"
                     groupby: ''
                     orderby: ''
                     orderbydir: null
@@ -20,7 +20,7 @@ pimcore_custom_reports:
                     order: true
                     width: ''
                     label: ''
-                    id: extModel1294-3
+                    id: extModel1312-3
                 -
                     name: Id
                     display: true
@@ -29,7 +29,7 @@ pimcore_custom_reports:
                     width: ''
                     label: ''
                     columnAction: openObject
-                    id: extModel1294-4
+                    id: extModel1312-4
             niceName: 'Brakujące opisy produktów'
             group: ''
             groupIconClass: ''
@@ -42,7 +42,7 @@ pimcore_custom_reports:
             xAxis: ooo_id
             yAxis:
                 - uzupelnione
-            modificationDate: 1756108131
+            modificationDate: 1756109946
             creationDate: 1756106716
             shareGlobally: true
             sharedUserNames: {  }
