@@ -303,6 +303,26 @@ class BaselinkerService
             foreach($catalog->getLanguages() as $locale)
             {
                 $textFields["name|" . $locale] = $obj->getName($locale);
+
+                if($obj->getDesc1($locale))
+                {
+                    $textFields['description_extra1|' . $locale] = $obj->getDesc1($locale);
+                }
+
+                if($obj->getDesc2($locale))
+                {
+                    $textFields['description_extra2|' . $locale] = $obj->getDesc2($locale);
+                }
+
+                if($obj->getDesc3($locale))
+                {
+                    $textFields['description_extra3|' . $locale] = $obj->getDesc3($locale);
+                }
+
+                if($obj->getDesc4($locale))
+                {
+                    $textFields['description_extra4|' . $locale] = $obj->getDesc4($locale);
+                }
             }
 
             $data["text_fields"] = $textFields;
