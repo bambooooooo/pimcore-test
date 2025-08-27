@@ -52,7 +52,7 @@ class FeedCommand extends AbstractCommand
 
         $fw->setStatus(function ($current, $total) use ($progressBar) {
             if($current % 10 == 0)
-                $progressBar->advance();
+                $progressBar->advance(10);
         });
 
         $tmp = tempnam(sys_get_temp_dir(), 'feed_') . "." . $fw->extension();
