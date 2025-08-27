@@ -21,8 +21,6 @@ class XmlFeedMeb24 extends XmlFeedWriter
         $refs = $offer->getDependencies()->getRequiredBy();
         $data = [];
 
-        $extendOffer = Offer::getById(24657);
-
         foreach ($refs as $ref) {
             if($ref['type'] == 'object') {
                 $obj = DataObject::getById($ref['id']);
@@ -36,7 +34,7 @@ class XmlFeedMeb24 extends XmlFeedWriter
                         if($lip->getElement()->getId() == $offer->getId())
                             $price = (float)$lip->getPrice();
 
-                        if($lip->getElement()->getId() == 24657)
+                        if($lip->getElement()->getId() == $referenceOffer->getId())
                             $endPrice = (float)$lip->getPrice();
                     }
 
@@ -48,7 +46,7 @@ class XmlFeedMeb24 extends XmlFeedWriter
             }
         }
 
-        parent::__construct($data, function(Product|ProductSet $item) use ($offer, $extendOffer) {
+        parent::__construct($data, function(Product|ProductSet $item) use ($offer, $referenceOffer) {
 
             $price = 0.0;
             $endPrice = 0.0;
@@ -58,7 +56,7 @@ class XmlFeedMeb24 extends XmlFeedWriter
                 if($lip->getElement()->getId() == $offer->getId())
                     $price = (float)$lip->getPrice();
 
-                if($lip->getElement()->getId() == $extendOffer->getId())
+                if($lip->getElement()->getId() == $referenceOffer->getId())
                     $endPrice = (float)$lip->getPrice();
             }
 
