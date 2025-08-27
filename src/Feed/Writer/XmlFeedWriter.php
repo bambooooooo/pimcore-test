@@ -1,62 +1,33 @@
 <?php
 
 namespace App\Feed\Writer;
-
-use PhpParser\Node\ClosureUse;
-use Pimcore\Model\DataObject;
-use Pimcore\Model\DataObject\Offer;
-use Pimcore\Model\DataObject\Product;
-use Pimcore\Model\DataObject\ProductSet;
 use Closure;
 
-class XmlFeedWriter
+class XmlFeedWriter extends FeedWriter
 {
-    /**
-     * @param Offer $offer
-     * @param Closure(Product|ProductSet):string $formatter
-     */
-    public function __construct(private readonly Offer $offer, private readonly Closure $formatter)
+    public function __construct(private readonly array $iterable, private readonly Closure $formatter)
     {
-
+        parent::__construct($this->iterable, $this->formatter);
     }
 
-    private function feed($stream)
-    {
-        $objects = $this->offer->getDependencies()->getRequiredBy();
-
-        $data = [];
-
-        foreach ($objects as $object)
-        {
-            if($object['type'] == 'object')
-            {
-                $obj = DataObject::getById($object['id']);
-
-                if($obj instanceof Product || $obj instanceof ProductSet)
-                {
-                    fwrite($stream, ($this->formatter)($obj));
-                }
-            }
-        }
-
-        return $data;
-    }
-
-    public function write($stream)
-    {
-        $this->begin($stream);
-        $this->feed($stream);
-        $this->end($stream);
-    }
-
-    private function begin($stream): void
+    public function begin($stream): void
     {
         $now = date('d.m.Y H:i:s');
         fwrite($stream, "<?xml version=\"1.0\" encoding=\"UTF-8\"?><products version=\"$now\">");
     }
 
-    private function end($stream): void
+    public function end($stream): void
     {
         fwrite($stream, "</products>");
+    }
+
+    public function contentType(): string
+    {
+        return 'application/xml';
+    }
+
+    public function extension(): string
+    {
+        return 'xml';
     }
 }
