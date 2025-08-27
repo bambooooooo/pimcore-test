@@ -11,27 +11,55 @@ use Pimcore\Model\DataObject\ProductSet;
 
 class XmlFeedMeb24 extends XmlFeedWriter
 {
-    public function __construct(Offer $offer)
+    public function __construct(Offer $offer, Offer $referenceOffer)
     {
+        if(!$referenceOffer)
+        {
+            throw new \Exception("Reference offer is null");
+        }
+
         $refs = $offer->getDependencies()->getRequiredBy();
         $data = [];
+
+        $extendOffer = Offer::getById(24657);
 
         foreach ($refs as $ref) {
             if($ref['type'] == 'object') {
                 $obj = DataObject::getById($ref['id']);
                 if($obj instanceof Product || $obj instanceof ProductSet) {
-                    $data[] = $obj;
+
+                    $price = 0.0;
+                    $endPrice = 0.0;
+
+                    foreach($obj->getPrice() as $lip)
+                    {
+                        if($lip->getElement()->getId() == $offer->getId())
+                            $price = (float)$lip->getPrice();
+
+                        if($lip->getElement()->getId() == 24657)
+                            $endPrice = (float)$lip->getPrice();
+                    }
+
+                    if($price * $endPrice > 0.0)
+                    {
+                        $data[] = $obj;
+                    }
                 }
             }
         }
 
-        parent::__construct($data, function(Product|ProductSet $item) use ($offer) {
+        parent::__construct($data, function(Product|ProductSet $item) use ($offer, $extendOffer) {
 
             $price = 0.0;
+            $endPrice = 0.0;
+
             foreach($item->getPrice() as $lip)
             {
                 if($lip->getElement()->getId() == $offer->getId())
                     $price = (float)$lip->getPrice();
+
+                if($lip->getElement()->getId() == $extendOffer->getId())
+                    $endPrice = (float)$lip->getPrice();
             }
 
             $output = '<product>';
@@ -50,9 +78,16 @@ class XmlFeedMeb24 extends XmlFeedWriter
                 $output .= '<serie>'. $item->getParent()->getKey() .'</serie>';
             }
             $output .= "<price>". number_format($price, 2, ".", "") .'</price>';
+            $output .= "<endprice>". number_format($endPrice, 2, ".", "") .'</endprice>';
             $output .= "<currency>" . $offer->getCurrency() . "</currency>";
             $output .= "<weight>" . $item->getMass()->getValue() . "</weight>";
-            $output .= "<description></description>";
+            $output .= "<summary></summary>";
+
+            $output .= "<descriptionextra1><![CDATA[" . ($item->getDesc1("pl") ?? "") . "]]></descriptionextra1>";
+            $output .= "<descriptionextra2><![CDATA[" . ($item->getDesc2("pl") ?? "") . "]]></descriptionextra2>";
+            $output .= "<descriptionextra3><![CDATA[" . ($item->getDesc3("pl") ?? "") . "]]></descriptionextra3>";
+            $output .= "<descriptionextra4><![CDATA[" . ($item->getDesc4("pl") ?? "") . "]]></descriptionextra4>";
+
             $output .= "<currency>" . $offer->getCurrency() . "</currency>";
             $output .= '<bundle>' . ($item instanceof Product ? 0 : 1) . '</bundle>';
             if($item instanceof ProductSet)

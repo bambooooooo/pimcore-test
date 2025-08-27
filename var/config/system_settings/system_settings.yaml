@@ -1,5 +1,6 @@
 pimcore:
     general:
+        domain: "%env(APP_DOMAIN)%"
         redirect_to_maindomain: false
         valid_languages:
             - en

@@ -10,7 +10,7 @@ use Pimcore\Model\DataObject\ProductSet;
 
 class JsonFeedBasic extends JsonFeedWriter
 {
-    public function __construct(Offer $offer)
+    public function __construct(Offer $offer, Offer $referenceOffer = null)
     {
         $refs = $offer->getDependencies()->getRequiredBy();
         $data = [];

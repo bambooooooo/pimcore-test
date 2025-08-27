@@ -30,6 +30,9 @@ class FeedCommand extends AbstractCommand
             return Command::INVALID;
         }
 
+        $referenceOfferId = (int)$input->getOption("reference_offer_id");
+        $referenceOffer = Offer::getById($referenceOfferId);
+
         $cname = $input->getArgument("template");
         if(!class_exists($cname))
         {
@@ -40,7 +43,7 @@ class FeedCommand extends AbstractCommand
         $schema = explode("\\", $cname);
         $schema = end($schema);
 
-        $fw = new $cname($offer);
+        $fw = new $cname($offer, $referenceOffer);
 
         $outputFilename = $input->getOption('output_file_name') ?? "feed-" . $schema . "-" . $offer->getId();
 
@@ -71,6 +74,7 @@ class FeedCommand extends AbstractCommand
         $this->addArgument("offer_id", InputArgument::REQUIRED, "Offer ID");
         $this->addArgument("template", InputArgument::OPTIONAL, "Template (e.g. App\Feed\XmlFeedMeb24)", "App\Feed\XmlFeedMeb24");
         $this->addOption("output_file_name", "o", InputOption::VALUE_OPTIONAL, "Output file name");
+        $this->addOption("reference_offer_id", "r", InputOption::VALUE_OPTIONAL, "Reference offer ID");
     }
 
     private function saveToAsset(string $sourceFile, string $fname, string $mimeType, string $extension, string $folder = "/STOCKS"):void
