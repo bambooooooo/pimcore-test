@@ -104,7 +104,7 @@
                         <td>
                             Nazwa produktu / Product name: {{ product.Name("pl") }}
                         </td>
-                        <td rowspan="7" style="text-align: center">
+                        <td rowspan="7" style="text-align: center; padding: 0 20px;">
                             {% if li.object.Barcode %}
                                 <div style="display: flex; justify-content: center; align-items: center;">
                                     {{ code_128(li.object.Barcode) }}
