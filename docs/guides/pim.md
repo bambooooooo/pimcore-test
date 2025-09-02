@@ -37,7 +37,8 @@ Na podstawie uzupełnionych danych paczek produktów wyznaczane jest:
 
 #### Cena bazowa
 
-Cena bazowa wyznaczana jest automatycznie po publikacji na podstawie cen bazowych paczek i ich ilości
+Cenę bazową produktu należy wprowadzić ręcznie, natomiast cena bazowa dla zestawu produtków wyznaczana jest automatycznie
+po publikacji zestawu na podstawie cen bazowych produktów i ich ilości
 
 #### Wyceny
 

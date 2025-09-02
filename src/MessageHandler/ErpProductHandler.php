@@ -105,7 +105,7 @@ class ErpProductHandler
         return [
             "Id" => "".$obj->getId(),
             "Key" => $obj->getKey(),
-            "BasePrice" => $obj->getBasePrice()->getValue(),
+            "BasePrice" => $obj->getBasePrice()?->getValue() ?? 0.0,
         ];
     }
 
