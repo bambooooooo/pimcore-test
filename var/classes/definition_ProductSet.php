@@ -30,8 +30,8 @@
  * - ParametersAllegro [classificationstore]
  * - GoogleCategory [select]
  * - BasePrice [quantityValue]
- * - Pricing [advancedManyToManyObjectRelation]
  * - Price [advancedManyToManyObjectRelation]
+ * - Pricing [advancedManyToManyObjectRelation]
  * - BaselinkerCatalog [advancedManyToManyObjectRelation]
  */
 
@@ -42,13 +42,13 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1755957744,
+   'modificationDate' => 1756880610,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
-   'implementsInterfaces' => '',
+   'implementsInterfaces' => '\\App\\Model\\Interface\\StockInterface',
    'listingParentClass' => '',
-   'useTraits' => '',
+   'useTraits' => '\\App\\Traits\\StockTrait',
    'listingUseTraits' => '',
    'encryption' => false,
    'encryptedTables' => 
@@ -1461,69 +1461,6 @@ Suma cen bazowych produktów',
               )),
               1 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
-                 'name' => 'Pricing',
-                 'title' => 'Pricing',
-                 'tooltip' => 'Wyceny',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => true,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'classes' => 
-                array (
-                ),
-                 'displayMode' => NULL,
-                 'pathFormatterClass' => '',
-                 'maxItems' => NULL,
-                 'visibleFields' => 'key,Countries',
-                 'allowToCreateNewObject' => false,
-                 'allowToClearRelation' => true,
-                 'optimizedAdminLoading' => false,
-                 'enableTextSelection' => false,
-                 'visibleFieldDefinitions' => 
-                array (
-                ),
-                 'width' => '',
-                 'height' => '',
-                 'allowedClassId' => 'Pricing',
-                 'columns' => 
-                array (
-                  0 => 
-                  array (
-                    'type' => 'number',
-                    'position' => 1,
-                    'key' => 'Price',
-                    'label' => 'Price',
-                    'width' => NULL,
-                    'value' => '',
-                  ),
-                  1 => 
-                  array (
-                    'type' => 'text',
-                    'position' => 2,
-                    'key' => 'Currency',
-                    'label' => 'Currency',
-                  ),
-                ),
-                 'columnKeys' => 
-                array (
-                  0 => 'Price',
-                  1 => 'Currency',
-                ),
-                 'enableBatchEdit' => false,
-                 'allowMultipleAssignments' => false,
-              )),
-              2 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
                  'name' => 'Price',
                  'title' => 'Price',
                  'tooltip' => '',
@@ -1591,6 +1528,69 @@ Suma cen bazowych produktów',
                   0 => 'Price',
                   1 => 'Currency',
                   2 => 'Fixed',
+                ),
+                 'enableBatchEdit' => false,
+                 'allowMultipleAssignments' => false,
+              )),
+              2 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
+                 'name' => 'Pricing',
+                 'title' => 'Pricing',
+                 'tooltip' => 'Wyceny',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => true,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'classes' => 
+                array (
+                ),
+                 'displayMode' => NULL,
+                 'pathFormatterClass' => '',
+                 'maxItems' => NULL,
+                 'visibleFields' => 'key,Countries',
+                 'allowToCreateNewObject' => false,
+                 'allowToClearRelation' => true,
+                 'optimizedAdminLoading' => false,
+                 'enableTextSelection' => false,
+                 'visibleFieldDefinitions' => 
+                array (
+                ),
+                 'width' => '',
+                 'height' => '',
+                 'allowedClassId' => 'Pricing',
+                 'columns' => 
+                array (
+                  0 => 
+                  array (
+                    'type' => 'number',
+                    'position' => 1,
+                    'key' => 'Price',
+                    'label' => 'Price',
+                    'width' => NULL,
+                    'value' => '',
+                  ),
+                  1 => 
+                  array (
+                    'type' => 'text',
+                    'position' => 2,
+                    'key' => 'Currency',
+                    'label' => 'Currency',
+                  ),
+                ),
+                 'columnKeys' => 
+                array (
+                  0 => 'Price',
+                  1 => 'Currency',
                 ),
                  'enableBatchEdit' => false,
                  'allowMultipleAssignments' => false,

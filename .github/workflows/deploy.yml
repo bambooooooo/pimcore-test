@@ -49,4 +49,5 @@ jobs:
                       docker compose exec php bin/console pimcore:maintenance-mode --ignore-maintenance-mode --enable
                       docker compose exec php bin/console pimcore:deployment:classes-rebuild -c --ignore-maintenance-mode
                       docker compose exec php bin/console pimcore:deployment:classes-rebuild -d -n --ignore-maintenance-mode
+                      docker compose exec php bin/console stocks:install
                       docker compose exec php bin/console pimcore:maintenance-mode --ignore-maintenance-mode --disable

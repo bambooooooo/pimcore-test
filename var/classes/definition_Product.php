@@ -35,8 +35,8 @@
  * - ParametersAllegro [classificationstore]
  * - GoogleCategory [select]
  * - BasePrice [quantityValue]
- * - Pricing [advancedManyToManyObjectRelation]
  * - Price [advancedManyToManyObjectRelation]
+ * - Pricing [advancedManyToManyObjectRelation]
  * - Images [imageGallery]
  * - Photos [imageGallery]
  * - ImagesModel [imageGallery]
@@ -62,13 +62,13 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Produkt',
    'description' => 'Towar, który można sprzedać',
    'creationDate' => NULL,
-   'modificationDate' => 1756793295,
+   'modificationDate' => 1756877222,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
-   'implementsInterfaces' => '',
+   'implementsInterfaces' => '\\App\\Model\\Interface\\StockInterface',
    'listingParentClass' => '',
-   'useTraits' => '',
+   'useTraits' => '\\App\\Traits\\StockTrait',
    'listingUseTraits' => '',
    'encryption' => false,
    'encryptedTables' => 
@@ -1460,69 +1460,6 @@ Cena zakupu produktu u producenta lub techniczny koszt wytworzenia przy własnej
               )),
               1 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
-                 'name' => 'Pricing',
-                 'title' => 'Pricing',
-                 'tooltip' => 'Wycena
-
-Wycena produktu lub innej usługi związanej z produktem, np. transport',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => true,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'classes' => 
-                array (
-                ),
-                 'displayMode' => NULL,
-                 'pathFormatterClass' => '',
-                 'maxItems' => NULL,
-                 'visibleFields' => 'fullpath,Countries',
-                 'allowToCreateNewObject' => false,
-                 'allowToClearRelation' => true,
-                 'optimizedAdminLoading' => false,
-                 'enableTextSelection' => false,
-                 'visibleFieldDefinitions' => 
-                array (
-                ),
-                 'width' => '',
-                 'height' => '',
-                 'allowedClassId' => 'Pricing',
-                 'columns' => 
-                array (
-                  0 => 
-                  array (
-                    'type' => 'number',
-                    'position' => 1,
-                    'key' => 'Price',
-                    'label' => 'Price',
-                  ),
-                  1 => 
-                  array (
-                    'type' => 'text',
-                    'position' => 2,
-                    'key' => 'Currency',
-                    'label' => 'Currency',
-                  ),
-                ),
-                 'columnKeys' => 
-                array (
-                  0 => 'Price',
-                  1 => 'Currency',
-                ),
-                 'enableBatchEdit' => false,
-                 'allowMultipleAssignments' => false,
-              )),
-              2 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
                  'name' => 'Price',
                  'title' => 'Price',
                  'tooltip' => '',
@@ -1590,6 +1527,69 @@ Wycena produktu lub innej usługi związanej z produktem, np. transport',
                   0 => 'Price',
                   1 => 'Currency',
                   2 => 'Fixed',
+                ),
+                 'enableBatchEdit' => false,
+                 'allowMultipleAssignments' => false,
+              )),
+              2 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
+                 'name' => 'Pricing',
+                 'title' => 'Pricing',
+                 'tooltip' => 'Wycena
+
+Wycena produktu lub innej usługi związanej z produktem, np. transport',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => true,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'classes' => 
+                array (
+                ),
+                 'displayMode' => NULL,
+                 'pathFormatterClass' => '',
+                 'maxItems' => NULL,
+                 'visibleFields' => 'fullpath,Countries',
+                 'allowToCreateNewObject' => false,
+                 'allowToClearRelation' => true,
+                 'optimizedAdminLoading' => false,
+                 'enableTextSelection' => false,
+                 'visibleFieldDefinitions' => 
+                array (
+                ),
+                 'width' => '',
+                 'height' => '',
+                 'allowedClassId' => 'Pricing',
+                 'columns' => 
+                array (
+                  0 => 
+                  array (
+                    'type' => 'number',
+                    'position' => 1,
+                    'key' => 'Price',
+                    'label' => 'Price',
+                  ),
+                  1 => 
+                  array (
+                    'type' => 'text',
+                    'position' => 2,
+                    'key' => 'Currency',
+                    'label' => 'Currency',
+                  ),
+                ),
+                 'columnKeys' => 
+                array (
+                  0 => 'Price',
+                  1 => 'Currency',
                 ),
                  'enableBatchEdit' => false,
                  'allowMultipleAssignments' => false,
@@ -2568,6 +2568,7 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                     'position' => 1,
                     'key' => 'ProductId',
                     'label' => 'Product Id',
+                    'id' => 'extModel9950-1',
                   ),
                   1 => 
                   array (
@@ -2575,6 +2576,7 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                     'position' => 2,
                     'key' => 'Version',
                     'label' => 'Version',
+                    'id' => 'extModel9950-2',
                   ),
                 ),
                  'columnKeys' => 

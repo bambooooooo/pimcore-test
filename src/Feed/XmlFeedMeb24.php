@@ -63,7 +63,7 @@ class XmlFeedMeb24 extends XmlFeedWriter
             $output = '<product>';
             $output .= '<id>'. $item->getId() .'</id>';
             $output .= '<sku>'. $item->getId() .'</sku>';
-            $output .= '<instock id="' . $item->getId() .'">0</instock>';
+            $output .= '<instock id="' . $item->getId() .'">' . $item->getStock() . '</instock>';
             $output .= '<ean>'. $item->getEan() .'</ean>';
             $output .= '<name>'. $item->getName("pl") .'</name>';
 
