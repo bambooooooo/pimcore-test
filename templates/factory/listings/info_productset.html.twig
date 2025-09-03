@@ -23,6 +23,41 @@
             </div>
         </div>
 
+        {% if obj.ObjectType == 'ACTUAL' %}
+            <div class="col-12 text-center">
+                {% if obj.Stock == 0 %}
+                    <span class="badge text-bg-danger pt-2">
+                        <img class="stock-indicator" src="{{ asset('bundles/pimcoreadmin/img/flat-white-icons/empty_battery.svg') }}"/>
+                        {{ obj.Stock }} szt.
+                    </span>
+
+                {% elseif obj.Stock < 3 %}
+                    <span class="badge text-bg-danger pt-2">
+                        <img class="stock-indicator" src="{{ asset('bundles/pimcoreadmin/img/flat-white-icons/low_battery.svg') }}"/>
+                        {{ obj.Stock }} szt.
+                    </span>
+
+                {% elseif obj.Stock < 10 %}
+                    <span class="badge text-bg-warning pt-2">
+                        <img class="stock-indicator" src="{{ asset('bundles/pimcoreadmin/img/flat-white-icons/middle_battery.svg') }}"/>
+                        {{ obj.Stock }} szt.
+                    </span>
+
+                {% elseif obj.Stock < 30 %}
+                    <span class="badge text-bg-success pt-2">
+                        <img class="stock-indicator" src="{{ asset('bundles/pimcoreadmin/img/flat-white-icons/high_battery.svg') }}"/>
+                        {{ obj.Stock }} szt.
+                    </span>
+
+                {% else %}
+                    <span class="badge text-bg-success pt-2">
+                        <img class="stock-indicator" src="{{ asset('bundles/pimcoreadmin/img/flat-white-icons/full_battery.svg') }}"/>
+                        {{ obj.Stock }} szt.
+                    </span>
+                {% endif %}
+            </div>
+        {% endif %}
+
         <div class="col-12 text-center">
             {% if obj.Groups %}
                 {% for g in obj.Groups %}
