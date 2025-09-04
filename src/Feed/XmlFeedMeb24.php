@@ -67,8 +67,8 @@ class XmlFeedMeb24 extends XmlFeedWriter
             $prod->setAttribute('id', $item->getId());
             $prod->appendChild($doc->createElement('sku', (string)$item->getId()));
             $prod->appendChild($doc->createElement('instock', (string)$item->getStock()));
-            $prod->appendChild($doc->createElement('ean', (string)$item->getName("pl")));
-            $prod->appendChild($doc->createElement('name', (string)$item->getId()));
+            $prod->appendChild($doc->createElement('ean', (string)$item->getEan()));
+            $prod->appendChild($doc->createElement('name', (string)$item->getName("pl")));
 
             if($item instanceof Product)
             {
@@ -124,17 +124,17 @@ class XmlFeedMeb24 extends XmlFeedWriter
 
             foreach ($item->getImages() as $image)
             {
-                $images->appendChild($doc->createElement('image', $item->getImage()->getFrontendPath()));
+                $images->appendChild($doc->createElement('image', $image->getImage()->getFrontendPath()));
             }
             if($item instanceof Product)
             {
                 foreach ($item->getPhotos() as $image)
                 {
-                    $images->appendChild($doc->createElement('image', $item->getImage()->getFrontendPath()));
+                    $images->appendChild($doc->createElement('image', $image->getImage()->getFrontendPath()));
                 }
                 foreach ($item->getImagesModel() as $image)
                 {
-                    $images->appendChild($doc->createElement('image', $item->getImage()->getFrontendPath()));
+                    $images->appendChild($doc->createElement('image', $image->getImage()->getFrontendPath()));
                 }
             }
             $prod->appendChild($images);
