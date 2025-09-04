@@ -3,8 +3,6 @@
 namespace App\Feed;
 
 use App\Feed\Writer\CsvFeedWriter;
-use App\Feed\Writer\FeedWriter;
-use Closure;
 use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\Offer;
 use Pimcore\Model\DataObject\Product;
@@ -26,11 +24,33 @@ class CsvFeedBasic extends CsvFeedWriter
             }
         }
 
+        echo 'Found: ' . count($data) . ' items. ' . PHP_EOL;
+
         parent::__construct($data, function (Product|ProductSet $item) use ($offer) {
+
+            $price = 0.0;
+
+            foreach($item->getPrice() as $lip)
+            {
+                if ($lip->getElement()->getId() == $offer->getId())
+                {
+                    $price = (float)$lip->getPrice();
+                }
+            }
+
+            if($price == 0.0)
+            {
+                return "";
+            }
+
 
             $fields = [
                 $item->getId(),
-                $item->getName()
+                $item->getStock(),
+                $item->getKey(),
+                $price,
+                $item->getName("pl"),
+                $item->getName("en")
             ];
 
             return join(';', $fields) . PHP_EOL;
@@ -43,7 +63,11 @@ class CsvFeedBasic extends CsvFeedWriter
 
         $cols = [
             'id',
-            'name'
+            'instock',
+            'key',
+            'price',
+            'name',
+            'nameEn'
         ];
 
         fwrite($stream, "\xEF\xBB\xBF"); // BOM for Excel compatibility
