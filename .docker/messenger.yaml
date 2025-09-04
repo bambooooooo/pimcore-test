@@ -27,6 +27,9 @@ framework:
                     multiplier: 2
             blk_errors: 'amqp://rabbitmq:5672/%2f/blk_errors'
 
+            feed: 'amqp://rabbitmq:5672/%2f/feed'
+
         routing:
             'App\Message\ErpIndex': sgt
             'App\Message\BlkIndex': blk
+            'App\Message\FeedMessage': feed

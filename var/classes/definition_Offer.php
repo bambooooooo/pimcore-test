@@ -4,7 +4,7 @@
  * Inheritance: no
  * Variants: no
  * Oferta
- * 
+ *
  * Ofertę stanowi lista Wycen w ustalonej kolejności. Cena produktu w ofercie to pierwsza z Wycen, dla której zostaną spełnione ograniczenia.
  *
  * Fields Summary:
@@ -33,7 +33,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
 
 Ofertę stanowi lista Wycen w ustalonej kolejności. Cena produktu w ofercie to pierwsza z Wycen, dla której zostaną spełnione ograniczenia.',
    'creationDate' => NULL,
-   'modificationDate' => 1756888579,
+   'modificationDate' => 1756966732,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -42,13 +42,13 @@ Ofertę stanowi lista Wycen w ustalonej kolejności. Cena produktu w ofercie to 
    'useTraits' => '',
    'listingUseTraits' => '',
    'encryption' => false,
-   'encryptedTables' => 
+   'encryptedTables' =>
   array (
   ),
    'allowInherit' => false,
    'allowVariants' => false,
    'showVariants' => false,
-   'layoutDefinitions' => 
+   'layoutDefinitions' =>
   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
      'name' => 'pimcore_root',
      'type' => NULL,
@@ -60,9 +60,9 @@ Ofertę stanowi lista Wycen w ustalonej kolejności. Cena produktu w ofercie to 
      'collapsed' => false,
      'bodyStyle' => NULL,
      'datatype' => 'layout',
-     'children' => 
+     'children' =>
     array (
-      0 => 
+      0 =>
       \Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
          'name' => 'Layout',
          'type' => NULL,
@@ -74,9 +74,9 @@ Ofertę stanowi lista Wycen w ustalonej kolejności. Cena produktu w ofercie to 
          'collapsed' => false,
          'bodyStyle' => '',
          'datatype' => 'layout',
-         'children' => 
+         'children' =>
         array (
-          0 => 
+          0 =>
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'System',
              'type' => NULL,
@@ -88,9 +88,9 @@ Ofertę stanowi lista Wycen w ustalonej kolejności. Cena produktu w ofercie to 
              'collapsed' => false,
              'bodyStyle' => '',
              'datatype' => 'layout',
-             'children' => 
+             'children' =>
             array (
-              0 => 
+              0 =>
               \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
                  'name' => 'Pricings',
                  'title' => 'Pricings',
@@ -113,12 +113,12 @@ Przykładowo:
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' => 
+                 'blockedVarsForExport' =>
                 array (
                 ),
-                 'classes' => 
+                 'classes' =>
                 array (
-                  0 => 
+                  0 =>
                   array (
                     'classes' => 'Pricing',
                   ),
@@ -131,13 +131,13 @@ Przykładowo:
                  'allowToClearRelation' => false,
                  'optimizedAdminLoading' => false,
                  'enableTextSelection' => false,
-                 'visibleFieldDefinitions' => 
+                 'visibleFieldDefinitions' =>
                 array (
                 ),
                  'width' => '',
                  'height' => '',
               )),
-              1 => 
+              1 =>
               \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
                  'name' => 'Baselinker',
                  'title' => 'Baselinker',
@@ -153,12 +153,12 @@ Przykładowo:
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' => 
+                 'blockedVarsForExport' =>
                 array (
                 ),
-                 'classes' => 
+                 'classes' =>
                 array (
-                  0 => 
+                  0 =>
                   array (
                     'classes' => 'Baselinker',
                   ),
@@ -170,16 +170,16 @@ Przykładowo:
                  'allowToClearRelation' => true,
                  'objectsAllowed' => true,
                  'assetsAllowed' => false,
-                 'assetTypes' => 
+                 'assetTypes' =>
                 array (
                 ),
                  'documentsAllowed' => false,
-                 'documentTypes' => 
+                 'documentTypes' =>
                 array (
                 ),
                  'width' => '',
               )),
-              2 => 
+              2 =>
               \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'name' => 'BaselinkerPriceGroupId',
                  'title' => 'Baselinker Price Group Id',
@@ -195,7 +195,7 @@ Przykładowo:
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' => 
+                 'blockedVarsForExport' =>
                 array (
                 ),
                  'defaultValue' => NULL,
@@ -209,7 +209,7 @@ Przykładowo:
                  'width' => '',
                  'defaultValueGenerator' => '',
               )),
-              3 => 
+              3 =>
               \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                  'name' => 'Currency',
                  'title' => 'Currency',
@@ -225,27 +225,27 @@ Przykładowo:
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' => 
+                 'blockedVarsForExport' =>
                 array (
                 ),
-                 'options' => 
+                 'options' =>
                 array (
-                  0 => 
+                  0 =>
                   array (
                     'key' => 'PLN',
                     'value' => 'PLN',
                   ),
-                  1 => 
+                  1 =>
                   array (
                     'key' => 'EUR',
                     'value' => 'EUR',
                   ),
-                  2 => 
+                  2 =>
                   array (
                     'key' => 'USD',
                     'value' => 'USD',
                   ),
-                  3 => 
+                  3 =>
                   array (
                     'key' => 'GBP',
                     'value' => 'GBP',
@@ -260,7 +260,7 @@ Przykładowo:
                  'optionsProviderClass' => '',
                  'optionsProviderData' => '',
               )),
-              4 => 
+              4 =>
               \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                  'name' => 'Brutto',
                  'title' => 'Brutto',
@@ -276,7 +276,7 @@ Przykładowo:
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' => 
+                 'blockedVarsForExport' =>
                 array (
                 ),
                  'defaultValue' => NULL,
@@ -284,7 +284,7 @@ Przykładowo:
               )),
             ),
              'locked' => false,
-             'blockedVarsForExport' => 
+             'blockedVarsForExport' =>
             array (
             ),
              'fieldtype' => 'panel',
@@ -294,7 +294,7 @@ Przykładowo:
              'labelWidth' => 100,
              'labelAlign' => 'left',
           )),
-          1 => 
+          1 =>
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Cover',
              'type' => NULL,
@@ -306,9 +306,9 @@ Przykładowo:
              'collapsed' => false,
              'bodyStyle' => '',
              'datatype' => 'layout',
-             'children' => 
+             'children' =>
             array (
-              0 => 
+              0 =>
               \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                  'name' => 'Image',
                  'title' => 'Image',
@@ -324,14 +324,14 @@ Przykładowo:
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' => 
+                 'blockedVarsForExport' =>
                 array (
                 ),
                  'uploadPath' => '/KATEGORIA-ZDJĘCIA',
                  'width' => 506,
                  'height' => 357,
               )),
-              1 => 
+              1 =>
               \Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
                  'name' => 'localizedfields',
                  'title' => '',
@@ -347,12 +347,12 @@ Przykładowo:
                  'invisible' => false,
                  'visibleGridView' => true,
                  'visibleSearch' => true,
-                 'blockedVarsForExport' => 
+                 'blockedVarsForExport' =>
                 array (
                 ),
-                 'children' => 
+                 'children' =>
                 array (
-                  0 => 
+                  0 =>
                   \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'name' => 'Name',
                      'title' => 'Name',
@@ -368,13 +368,13 @@ Przykładowo:
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
-                     'blockedVarsForExport' => 
+                     'blockedVarsForExport' =>
                     array (
                     ),
                      'defaultValue' => NULL,
                      'columnLength' => 100,
                      'regex' => '',
-                     'regexFlags' => 
+                     'regexFlags' =>
                     array (
                     ),
                      'unique' => false,
@@ -382,7 +382,7 @@ Przykładowo:
                      'width' => 500,
                      'defaultValueGenerator' => '',
                   )),
-                  1 => 
+                  1 =>
                   \Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                      'name' => 'Summary',
                      'title' => 'Summary',
@@ -398,7 +398,7 @@ Przykładowo:
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
-                     'blockedVarsForExport' => 
+                     'blockedVarsForExport' =>
                     array (
                     ),
                      'toolbarConfig' => '',
@@ -415,7 +415,7 @@ Przykładowo:
                  'provideSplitView' => false,
                  'tabPosition' => 'top',
                  'hideLabelsWhenTabsReached' => NULL,
-                 'referencedFields' => 
+                 'referencedFields' =>
                 array (
                 ),
                  'permissionView' => NULL,
@@ -428,7 +428,7 @@ Przykładowo:
               )),
             ),
              'locked' => false,
-             'blockedVarsForExport' => 
+             'blockedVarsForExport' =>
             array (
             ),
              'fieldtype' => 'panel',
@@ -438,7 +438,7 @@ Przykładowo:
              'labelWidth' => 100,
              'labelAlign' => 'left',
           )),
-          2 => 
+          2 =>
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Description',
              'type' => NULL,
@@ -450,9 +450,9 @@ Przykładowo:
              'collapsed' => false,
              'bodyStyle' => '',
              'datatype' => 'layout',
-             'children' => 
+             'children' =>
             array (
-              0 => 
+              0 =>
               \Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections::__set_state(array(
                  'name' => 'Description',
                  'title' => 'Description',
@@ -468,10 +468,10 @@ Przykładowo:
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' => 
+                 'blockedVarsForExport' =>
                 array (
                 ),
-                 'allowedTypes' => 
+                 'allowedTypes' =>
                 array (
                   0 => 'Image',
                   1 => 'ImageText',
@@ -493,7 +493,7 @@ Przykładowo:
               )),
             ),
              'locked' => false,
-             'blockedVarsForExport' => 
+             'blockedVarsForExport' =>
             array (
             ),
              'fieldtype' => 'panel',
@@ -503,7 +503,7 @@ Przykładowo:
              'labelWidth' => 100,
              'labelAlign' => 'left',
           )),
-          3 => 
+          3 =>
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Integrations',
              'type' => NULL,
@@ -515,9 +515,36 @@ Przykładowo:
              'collapsed' => false,
              'bodyStyle' => '',
              'datatype' => 'layout',
-             'children' => 
+             'children' =>
             array (
-              0 => 
+              0 =>
+              \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
+                 'name' => 'Layout',
+                 'type' => NULL,
+                 'region' => NULL,
+                 'title' => '',
+                 'width' => '',
+                 'height' => '',
+                 'collapsible' => false,
+                 'collapsed' => false,
+                 'bodyStyle' => '',
+                 'datatype' => 'layout',
+                 'children' =>
+                array (
+                ),
+                 'locked' => false,
+                 'blockedVarsForExport' =>
+                array (
+                ),
+                 'fieldtype' => 'text',
+                 'html' => '<div class="alert alert-info">
+Feedy produktowe są generowane cyklicznie co kilka godzin
+</div>',
+                 'renderingClass' => '',
+                 'renderingData' => '',
+                 'border' => false,
+              )),
+              1 =>
               \Pimcore\Model\DataObject\ClassDefinition\Data\Block::__set_state(array(
                  'name' => 'Feed',
                  'title' => 'Feed',
@@ -533,7 +560,7 @@ Przykładowo:
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' => 
+                 'blockedVarsForExport' =>
                 array (
                 ),
                  'lazyLoading' => false,
@@ -543,9 +570,9 @@ Przykładowo:
                  'collapsed' => false,
                  'maxItems' => NULL,
                  'styleElement' => '',
-                 'children' => 
+                 'children' =>
                 array (
-                  0 => 
+                  0 =>
                   \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                      'name' => 'Schema',
                      'title' => 'Schema',
@@ -561,7 +588,7 @@ Przykładowo:
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
-                     'blockedVarsForExport' => 
+                     'blockedVarsForExport' =>
                     array (
                     ),
                      'defaultValue' => NULL,
@@ -573,7 +600,7 @@ Przykładowo:
                      'optionsProviderClass' => 'App\\OptionProvider\\FeedClassNameProvider',
                      'optionsProviderData' => '',
                   )),
-                  1 => 
+                  1 =>
                   \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
                      'name' => 'ReferenceOffer',
                      'title' => 'Reference Offer',
@@ -589,12 +616,12 @@ Przykładowo:
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
-                     'blockedVarsForExport' => 
+                     'blockedVarsForExport' =>
                     array (
                     ),
-                     'classes' => 
+                     'classes' =>
                     array (
-                      0 => 
+                      0 =>
                       array (
                         'classes' => 'Offer',
                       ),
@@ -606,16 +633,16 @@ Przykładowo:
                      'allowToClearRelation' => true,
                      'objectsAllowed' => true,
                      'assetsAllowed' => false,
-                     'assetTypes' => 
+                     'assetTypes' =>
                     array (
                     ),
                      'documentsAllowed' => false,
-                     'documentTypes' => 
+                     'documentTypes' =>
                     array (
                     ),
                      'width' => '',
                   )),
-                  2 => 
+                  2 =>
                   \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
                      'name' => 'File',
                      'title' => 'File',
@@ -631,10 +658,10 @@ Przykładowo:
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
-                     'blockedVarsForExport' => 
+                     'blockedVarsForExport' =>
                     array (
                     ),
-                     'classes' => 
+                     'classes' =>
                     array (
                     ),
                      'displayMode' => 'grid',
@@ -644,25 +671,25 @@ Przykładowo:
                      'allowToClearRelation' => true,
                      'objectsAllowed' => false,
                      'assetsAllowed' => true,
-                     'assetTypes' => 
+                     'assetTypes' =>
                     array (
                     ),
                      'documentsAllowed' => false,
-                     'documentTypes' => 
+                     'documentTypes' =>
                     array (
                     ),
                      'width' => '',
                   )),
                 ),
                  'layout' => NULL,
-                 'referencedFields' => 
+                 'referencedFields' =>
                 array (
                 ),
                  'fieldDefinitionsCache' => NULL,
               )),
             ),
              'locked' => false,
-             'blockedVarsForExport' => 
+             'blockedVarsForExport' =>
             array (
             ),
              'fieldtype' => 'panel',
@@ -674,7 +701,7 @@ Przykładowo:
           )),
         ),
          'locked' => false,
-         'blockedVarsForExport' => 
+         'blockedVarsForExport' =>
         array (
         ),
          'fieldtype' => 'tabpanel',
@@ -683,7 +710,7 @@ Przykładowo:
       )),
     ),
      'locked' => false,
-     'blockedVarsForExport' => 
+     'blockedVarsForExport' =>
     array (
     ),
      'fieldtype' => 'panel',
@@ -698,13 +725,13 @@ Przykładowo:
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',
    'previewGeneratorReference' => '',
-   'compositeIndices' => 
+   'compositeIndices' =>
   array (
   ),
    'showFieldLookup' => false,
-   'propertyVisibility' => 
+   'propertyVisibility' =>
   array (
-    'grid' => 
+    'grid' =>
     array (
       'id' => true,
       'key' => false,
@@ -713,7 +740,7 @@ Przykładowo:
       'modificationDate' => true,
       'creationDate' => true,
     ),
-    'search' => 
+    'search' =>
     array (
       'id' => true,
       'key' => false,
@@ -724,16 +751,16 @@ Przykładowo:
     ),
   ),
    'enableGridLocking' => false,
-   'deletedDataComponents' => 
+   'deletedDataComponents' =>
   array (
   ),
-   'blockedVarsForExport' => 
+   'blockedVarsForExport' =>
   array (
   ),
-   'fieldDefinitionsCache' => 
+   'fieldDefinitionsCache' =>
   array (
   ),
-   'activeDispatchingEvents' => 
+   'activeDispatchingEvents' =>
   array (
   ),
 ));
