@@ -41,7 +41,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Opakowanie',
    'description' => 'Opakowanie zawierające elementy produktu',
    'creationDate' => NULL,
-   'modificationDate' => 1757317098,
+   'modificationDate' => 1757320741,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -967,7 +967,7 @@ Domyślny kod kreskowy paczki tworzony na podstawie jego unikalnego identyfikato
                  'blockedVarsForExport' => 
                 array (
                 ),
-                 'uploadPath' => '',
+                 'uploadPath' => '/PACZKI-DOKUMENTACJA',
                  'ratioX' => NULL,
                  'ratioY' => NULL,
                  'predefinedDataTemplates' => '',
