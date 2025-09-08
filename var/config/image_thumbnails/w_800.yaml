@@ -1,0 +1,26 @@
+pimcore:
+    assets:
+        image:
+            thumbnails:
+                definitions:
+                    w_800:
+                        items:
+                            -
+                                method: scaleByWidth
+                                arguments:
+                                    width: 800
+                                    forceResize: true
+                        medias: {  }
+                        name: w_800
+                        description: ''
+                        group: ''
+                        format: SOURCE
+                        quality: 85
+                        highResolution: null
+                        preserveColor: false
+                        preserveMetaData: false
+                        rasterizeSVG: false
+                        downloadable: false
+                        modificationDate: 1757070214
+                        creationDate: 1757070205
+                        preserveAnimation: false

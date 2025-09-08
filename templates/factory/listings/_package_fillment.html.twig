@@ -1,0 +1,45 @@
+{% if app.user.package_show_fillment %}
+    {% if package.Fillment %}
+        <div class="col-12 mb-2">
+            <h2>{{ "Fillment" }}</h2>
+            {% for fillment in package.Fillment %}
+                <table class="package-data">
+                    <thead>
+                    <tr>
+                        <td colspan="4">
+                            {{ fillment['Material'].data }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ "#No"|trans }}</td>
+                        <td>{{"Length"|trans}} [mm]</td>
+                        <td>{{"Width"|trans}} [mm]</td>
+                        <td>{{"Quantity"|trans}}</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% set total_cnt = 0 %}
+                    {% for row in fillment['Elements'].data %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ row[0]|number_format(0, ',', ' ') }}</td>
+                            <td>{{ row[1]|number_format(0, ',', ' ') }}</td>
+                            <td>{{ row[2] }}</td>
+                            {% set total_cnt = total_cnt + row[2] %}
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td colspan="3" style="text-align: right">{{ "Total" }}</td>
+                        <td>{{ total_cnt }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-danger" role="alert">
+            <img src="/bundles/pimcoreadmin/img/flat-color-icons/warning.svg" width="64"/>
+            {{"Waning! No fillment found for"}} <strong>{{ package.key }}</strong>.
+        </div>
+    {% endif %}
+{% endif %}

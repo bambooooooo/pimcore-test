@@ -1,0 +1,24 @@
+{% if app.user.package_show_layout %}
+    {% if package.Layout and package.Layout|length > 0 %}
+        <div class="col-12 mb-2">
+            <div>
+                {% set layerCount = package.Layout|length %}
+                {% for img in package.Layout %}
+                    <div style="margin-bottom: 12px;">
+                        <div style="text-align: center; font-size: 48px; margin: 32px 0;">
+                            {{ "Layer"|trans }} {{ loop.index }} / {{ layerCount }}
+                        </div>
+                        <div>
+                            <img class="img-fluid" src="{{ img.getThumbnail('webp_1000') }}" />
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+        <div class="alert alert-danger" role="alert">
+            <img src="/bundles/pimcoreadmin/img/flat-color-icons/warning.svg" width="64"/>
+            {{"Warning! No image documentation found for layout in package"}} <strong>{{ package.key }}</strong>.
+        </div>
+    {% endif %}
+{% endif %}

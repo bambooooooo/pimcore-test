@@ -32,10 +32,40 @@
         height: 24px;
         top: -2px;
     }
+
+    .package-data
+    {
+        width: 100%;
+        border: 1px solid #ccc;
+        margin-top: 24px;
+    }
+
+    .package-data td
+    {
+        border: 1px solid #ccc;
+        border-collapse: collapse;
+        padding: 6px;
+        font-size: 18px;
+        text-align: center;
+    }
+
+    .package-data thead tr td
+    {
+        font-weight: bold;
+        font-size: 21px;
+        background: #e3e3e3;
+    }
 </style>
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-{% if app.user.explorer_show_info %}8{% else %}12{% endif %}">
+            <div class="row">
+                {% if obj is pimcore_data_object_class("Product") %}
+                    {{ include("factory/listings/product_header.html.twig", {obj: obj}) }}
+                {% elseif obj is pimcore_data_object_class("Package") %}
+                    {{ include("factory/listings/package_header.html.twig", {obj: obj}) }}
+                {% endif %}
+            </div>
             {% if style == 'gallery' %}
                 <div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4 g-1">
                     {% if app.user.explorer_show_children %}
@@ -93,7 +123,7 @@
             {% endif %}
         </div>
         {% if app.user.explorer_show_info %}
-            <div class="col-md-4">
+            <div class="col-md-4" style="position: sticky; top: 4rem; height: calc(100vh - 4rem); overflow-y: auto;">
             {% if obj is pimcore_data_object_class("Product") %}
                 {{ include("factory/listings/info_product.html.twig", {obj: obj}) }}
 

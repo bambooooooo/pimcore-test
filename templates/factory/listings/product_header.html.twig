@@ -1,0 +1,15 @@
+{% if obj.Packages and app.user.package_show_layers or app.user.package_show_layout or app.user.package_show_fillment %}
+    {% for package in obj.Packages %}
+        <div class="col-12" style="margin-bottom: 24px">
+            <div style="font-size: 48px; font-weight: bold;">
+                {{ "Package"|trans }} {{ loop.index }}
+            </div>
+            <div style="font-size: 21px;">
+                {{ package.object.key }}
+            </div>
+        </div>
+        {{ include("factory/listings/_package_layers.html.twig", {package: package.object}) }}
+        {{ include("factory/listings/_package_fillment.html.twig", {package: package.object}) }}
+        {{ include("factory/listings/_package_layout.html.twig", {package: package.object}) }}
+    {% endfor %}
+{% endif %}
