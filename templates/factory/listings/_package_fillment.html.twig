@@ -1,7 +1,7 @@
 {% if app.user.package_show_fillment %}
     {% if package.Fillment %}
         <div class="col-12 mb-2">
-            <h2>{{ "Fillment" }}</h2>
+            <h2>{{ "Fillment"|trans }}</h2>
             {% for fillment in package.Fillment %}
                 <table class="package-data">
                     <thead>
@@ -39,7 +39,7 @@
     {% else %}
         <div class="alert alert-danger" role="alert">
             <img src="/bundles/pimcoreadmin/img/flat-color-icons/warning.svg" width="64"/>
-            {{"Waning! No fillment found for"}} <strong>{{ package.key }}</strong>.
+            {{"Warning! No fillment found for"|trans}} <strong>{{ package.key }}</strong>.
         </div>
     {% endif %}
 {% endif %}
