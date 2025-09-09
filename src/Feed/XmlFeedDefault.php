@@ -10,7 +10,7 @@ use Pimcore\Model\DataObject\Package;
 use Pimcore\Model\DataObject\Product;
 use Pimcore\Model\DataObject\ProductSet;
 
-class XmlFeedMeb24 extends XmlFeedWriter
+class XmlFeedDefault extends XmlFeedWriter
 {
     public function __construct(Offer $offer, Offer $referenceOffer)
     {
@@ -84,6 +84,14 @@ class XmlFeedMeb24 extends XmlFeedWriter
             $prod->appendChild($doc->createElement('endprice', (string)number_format($endPrice, 2, ".", "")));
 
             $prod->appendChild($doc->createElement('currency', (string)$offer->getCurrency()));
+
+            if($item instanceof Product)
+            {
+                $prod->appendChild($doc->createElement('width', $item->getWidth()->getValue() / 10));
+                $prod->appendChild($doc->createElement('height', $item->getHeight()->getValue() / 10));
+                $prod->appendChild($doc->createElement('depth', $item->getHeight()->getValue() / 10));
+            }
+
             $prod->appendChild($doc->createElement('weight', (string)$item->getMass()->getValue()));
 
             $descriptionextra1 = $doc->createElement('descriptionextra1');
@@ -119,28 +127,8 @@ class XmlFeedMeb24 extends XmlFeedWriter
                 $prod->appendChild($items);
             }
 
-            $images = $doc->createElement("images");
-            $images->appendChild($doc->createElement('image', $item->getImage()->getFrontendPath()));
-
-            foreach ($item->getImages() as $image)
-            {
-                $images->appendChild($doc->createElement('image', $image->getImage()->getFrontendPath()));
-            }
-            if($item instanceof Product)
-            {
-                foreach ($item->getPhotos() as $image)
-                {
-                    $images->appendChild($doc->createElement('image', $image->getImage()->getFrontendPath()));
-                }
-                foreach ($item->getImagesModel() as $image)
-                {
-                    $images->appendChild($doc->createElement('image', $image->getImage()->getFrontendPath()));
-                }
-            }
-            $prod->appendChild($images);
-
+            $prod->appendChild($doc->createElement('packagecount', $item->getPackageCount()));
             $packages = $doc->createElement("packages");
-            $prod->appendChild($doc->createElement('count', $item->getPackageCount()));
 
             if($item instanceof Product)
             {
@@ -184,12 +172,28 @@ class XmlFeedMeb24 extends XmlFeedWriter
 
             $prod->appendChild($packages);
 
+            $images = $doc->createElement("images");
+            $images->appendChild($doc->createElement('image', $item->getImage()->getFrontendPath()));
+
+            foreach ($item->getImages() as $image)
+            {
+                $images->appendChild($doc->createElement('image', $image->getImage()->getFrontendPath()));
+            }
             if($item instanceof Product)
             {
-                $prod->appendChild($doc->createElement('width', $item->getWidth()->getValue() / 10));
-                $prod->appendChild($doc->createElement('height', $item->getHeight()->getValue() / 10));
-                $prod->appendChild($doc->createElement('depth', $item->getHeight()->getValue() / 10));
+                foreach ($item->getPhotos() as $image)
+                {
+                    $images->appendChild($doc->createElement('image', $image->getImage()->getFrontendPath()));
+                }
+                foreach ($item->getImagesModel() as $image)
+                {
+                    $images->appendChild($doc->createElement('image', $image->getImage()->getFrontendPath()));
+                }
+            }
+            $prod->appendChild($images);
 
+            if($item instanceof Product)
+            {
                 $files = $doc->createElement("files");
                 foreach ($item->getDocuments() as $document)
                 {
@@ -200,6 +204,7 @@ class XmlFeedMeb24 extends XmlFeedWriter
             }
 
             $prod->appendChild($doc->createElement('googlecategory', $item->getGoogleCategory()));
+            $prod->appendChild($doc->createElement('manufacturer', 'MEGSTYL'));
 
             $parameters = $doc->createElement("parameters");
 
@@ -209,7 +214,6 @@ class XmlFeedMeb24 extends XmlFeedWriter
                 $allegro->appendChild($doc->createElement('category', $item->getParametersAllegro()->getGroups()[0]->getConfiguration()->getId()));
 
                 $allegroParameters = $doc->createElement("parameters");
-
 
                 foreach ($item->getParametersAllegro()->getGroups()[0]->getKeys() as $k)
                 {
@@ -243,7 +247,7 @@ class XmlFeedMeb24 extends XmlFeedWriter
                 $parameters->appendChild($allegro);
             }
 
-            $prod->appendChild($doc->createElement('manufacturer', 'MEGSTYL'));
+
 
             return $doc->saveXML($prod);
         });
