@@ -669,6 +669,41 @@ class ObjectController extends FrontendController
         return new Response("Ok", Response::HTTP_OK);
     }
 
+    #[Route("/objects/stocks", name: "stock_bulk_update", methods: ["POST"])]
+    public function updateBulkStocksAction(Request $request): Response
+    {
+        $data = json_decode($request->getContent(), true) ?? [];
+
+        $found = 0;
+        $changed = 0;
+        $skipped = 0;
+
+        /** @var int $stock */
+        /** @var int $id */
+        foreach($data as $id => $stock)
+        {
+            $obj = DataObject::getById($id);
+            if(!($obj instanceof Product || $obj instanceof ProductSet))
+            {
+                continue;
+            }
+
+            $found++;
+
+            if($obj->getStock() != $stock)
+            {
+                $obj->setStock($stock);
+                $changed++;
+            }
+            else
+            {
+                $skipped++;
+            }
+        }
+
+        return new Response("Ok. Found: {$found}, Changed: {$changed}, Skipped: {$skipped}", Response::HTTP_OK);
+    }
+
     private function removeLastWord(string $input): string
     {
         $input = trim($input);
