@@ -1,0 +1,86 @@
+<html lang="pl">
+<head>
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .tb
+        {
+            width:100%;
+            height: 100%;
+            box-sizing: border-box;
+            border-collapse: collapse;
+        }
+
+        .tb td
+        {
+            border: 1px solid black;
+            border-collapse: collapse;
+            overflow: hidden;
+        }
+
+        .layer-wrapper
+        {
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .layer-text
+        {
+            position: absolute;
+            top: 8px;
+            left: 32px;
+            font-size: 72px;
+            font-weight: bold;
+            opacity: 0.3;
+        }
+
+        .layer
+        {
+            width: 100%;
+            height: 100%;
+            display: block;
+            box-sizing: border-box;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+    </style>
+</head>
+<body>
+
+<table class="tb">
+    {% set idx = 0 %}
+
+    {% for r in range(0, rows - 1) %}
+    <tr style="height: {{ 100 / rows }}%">
+        {% for c in range(0, cols - 1) %}
+        <td>
+            <div class="layer-wrapper">
+                {% set idx = r * cols + c %}
+                {% if idx < layers|length %}
+                    <div class="layer-text">
+                        {{ idx + 1 }}
+                        <div style="font-size: 21px;">
+                            {{ package.key }}<br/>
+                            {{ package.model }}<br/>
+                        </div>
+                    </div>
+                    <div class="layer" style="background-image:url('{{ layers[idx] }}');"></div>
+                {% endif %}
+            </div>
+        </td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>
