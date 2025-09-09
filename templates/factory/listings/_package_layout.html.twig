@@ -6,17 +6,17 @@
             Wybierz warstwy:
             <div class="btn-group">
                 {% for row in package.Layout %}
-                    <button type="button" class="btn btn-outline-primary layer-selector" data-layer-id="{{ loop.index - 1 }}" aria-current="page">
+                    <button type="button" class="btn btn-outline-primary layer-selector  layer-selector-{{ package.id }}" data-layer-id="{{ loop.index - 1 }}" aria-current="page">
                         {{ loop.index }}
                     </button>
                  {% endfor %}
             </div>
             Wyświetl w rzędzie:
             {% for row in 1..4 %}
-                <input type="radio" class="btn-check" value="{{ loop.index }}" name="layer-show-count" id="layer-show-count-{{ loop.index }}" autocomplete="off" {% if loop.last %}checked{% endif %}>
-                <label class="btn btn-outline-primary" for="layer-show-count-{{ loop.index }}">{{ loop.index }}</label>
+                <input type="radio" class="btn-check" value="{{ loop.index }}" name="layer-show-count-{{ package.id }}" id="layer-show-count-{{ package.id }}-{{ loop.index }}" autocomplete="off" {% if loop.last %}checked{% endif %}>
+                <label class="btn btn-outline-primary" for="layer-show-count-{{ package.id }}-{{ loop.index }}">{{ loop.index }}</label>
             {% endfor %}
-            <button class="btn btn-primary active" id="package-layout-go">
+            <button class="btn btn-primary active" id="package-layout-go-{{ package.id }}">
                 Pokaż
             </button>
         </div>
@@ -45,14 +45,15 @@
 {% endif %}
 
 <script type="text/javascript">
-    var pid = {{ package.id }};
+    var pid_{{ package.id }} = {{ package.id }};
 
-    $("#package-layout-go").click(function(){
+    $("#package-layout-go-{{ package.id }}").click(function(){
 
-        var cnt = $("input[name=layer-show-count]:checked").val();
-        var url = "/factory/pl/layout/" + pid + "?cols=" + cnt;
+        var cnt = $("input[name=layer-show-count-{{ package.id }}]:checked").val();
+        var url = "/factory/pl/layout/" + pid_{{ package.id }} + "?cols=" + cnt;
 
-        $(".layer-selector.active").each(function(){
+        $(".layer-selector-{{ package.id }}.active").each(function(){
+
             url += "&layers[]=" + $(this).attr('data-layer-id');
         });
 
