@@ -23,6 +23,7 @@ nav:
         - Google: integrations/google.md
         - Optimik 3: integrations/optimik3.md
         - Feedy: integrations/feeds.md
+        - Stany magazynowe: integrations/stocks.md
     - Dokumentacja techniczna:
         - Definicje klas: techdocs/class_definitions.md
         - Development: techdocs/development.md
