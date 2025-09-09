@@ -1,5 +1,26 @@
 {% if app.user.package_show_layout %}
     {% if package.Layout and package.Layout|length > 0 %}
+        <h2>{{ "Layers"|trans }}</h2>
+
+        <div class="col-12 mb-2">
+            Wybierz warstwy:
+            <div class="btn-group">
+                {% for row in package.Layout %}
+                    <button type="button" class="btn btn-outline-primary layer-selector" data-layer-id="{{ loop.index - 1 }}" aria-current="page">
+                        {{ loop.index }}
+                    </button>
+                 {% endfor %}
+            </div>
+            Wyświetl w rzędzie:
+            {% for row in 1..4 %}
+                <input type="radio" class="btn-check" value="{{ loop.index }}" name="layer-show-count" id="layer-show-count-{{ loop.index }}" autocomplete="off" {% if loop.last %}checked{% endif %}>
+                <label class="btn btn-outline-primary" for="layer-show-count-{{ loop.index }}">{{ loop.index }}</label>
+            {% endfor %}
+            <button class="btn btn-primary active" id="package-layout-go">
+                Pokaż
+            </button>
+        </div>
+
         <div class="col-12 mb-2">
             <div>
                 {% set layerCount = package.Layout|length %}
@@ -22,3 +43,20 @@
         </div>
     {% endif %}
 {% endif %}
+
+<script type="text/javascript">
+    var pid = {{ package.id }};
+
+    $("#package-layout-go").click(function(){
+
+        var cnt = $("input[name=layer-show-count]:checked").val();
+        var url = "/factory/pl/layout/" + pid + "?cols=" + cnt;
+
+        $(".layer-selector.active").each(function(){
+            url += "&layers[]=" + $(this).attr('data-layer-id');
+        });
+
+        console.log(url);
+        window.open(url, "_blank");
+    })
+</script>

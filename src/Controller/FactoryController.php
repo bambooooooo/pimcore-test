@@ -7,6 +7,7 @@ use App\Model\DataObject\User;
 use Pimcore\Controller\FrontendController;
 use Pimcore\Model\DataObject;
 use Pimcore\Model\Asset;
+use Pimcore\Model\DataObject\Package;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -644,6 +645,35 @@ class FactoryController extends FrontendController
         }
 
         return $this->render("factory/pdf/serie_elemets.html.twig", ['serie' => $serie]);
+    }
+
+    #[Route('/layout/{id}', name: 'package_layout')]
+    public function packageLayoutAction(Request $request): Response
+    {
+        $id = (int)$request->get('id');
+        $layers = $request->get('layers') ?? [1,2,3];
+        $cols = $request->get('cols') ?? 3;
+
+        $p = Package::getById($id);
+
+        if(!$p)
+        {
+            return new Response("Not found", Response::HTTP_NOT_FOUND);
+        }
+
+        $imgs = [];
+
+        foreach ($layers as $layer)
+        {
+            if($layer < count($p->getLayout()->getItems()))
+            {
+                $imgs[] = $p->getLayout()->getItems()[$layer];
+            }
+        }
+
+        $rows = ceil(count($imgs) / $cols);
+
+        return $this->render("factory/listings/layout.html.twig", ['package' => $p, 'layers' => $imgs, 'rows' => $rows, 'cols' => $cols]);
     }
 
     #[Route('/login', name: 'login')]
