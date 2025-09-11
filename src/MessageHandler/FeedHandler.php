@@ -72,7 +72,6 @@ class FeedHandler
 
                     $cp->save($cacheItem);
                     $cp->commit();
-                    sleep(1);
                 }
 
                 if($current == $total && ($i + 1) == $tot)
