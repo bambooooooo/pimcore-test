@@ -7,12 +7,13 @@ use App\Message\FeedMessage;
 use Pimcore\Model\Asset;
 use Pimcore\Model\DataObject\Data\BlockElement;
 use Pimcore\Model\DataObject\Offer;
+use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler]
 class FeedHandler
 {
-    public function __construct()
+    public function __construct(private readonly CacheItemPoolInterface $cacheItemPool)
     {
 
     }
@@ -27,7 +28,19 @@ class FeedHandler
             return;
         }
 
+        $cacheKey = "object_status_" . $offer->getId();
+        $cacheItem = $this->cacheItemPool->getItem($cacheKey);
+
+        $cacheItem->set("Processing...");
+        $cacheItem->expiresAfter(3600);
+        $this->cacheItemPool->save($cacheItem);
+
+        $cp = $this->cacheItemPool;
+
         $feeds = [];
+
+        $i = 0;
+        $tot = count($offer->getFeed());
 
         foreach ($offer->getFeed() as $feed)
         {
@@ -48,6 +61,27 @@ class FeedHandler
             /** @var FeedWriter $cname */
             $fw = new $cname($offer, $referenceOffer);
 
+            $fw->setStatus(function ($current, $total) use ($cacheItem, $cp, $i, $tot) {
+
+                if($current % 10 == 0)
+                {
+                    $percentage = round(($i * $total + $current) * 100 / ($tot * $total), 2);
+
+                    $cacheItem->set("Processing {$percentage}%...");
+                    $cacheItem->expiresAfter(3600);
+
+                    $cp->save($cacheItem);
+                    $cp->commit();
+                    sleep(1);
+                }
+
+                if($current == $total && ($i + 1) == $tot)
+                {
+                    $cp->delete($cacheItem->getKey());
+                    $cp->commit();
+                }
+            });
+
             $outputFilename = "feed-" . $schema . "-" . $offer->getId();
 
             $tmp = tempnam(sys_get_temp_dir(), 'feed_') . "." . $fw->extension();
@@ -60,6 +94,7 @@ class FeedHandler
 
             unlink($tmp);
             $feeds[] = $feed;
+            $i++;
         }
 
         $offer->setFeed($feeds);

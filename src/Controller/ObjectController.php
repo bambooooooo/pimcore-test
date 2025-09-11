@@ -15,6 +15,7 @@ use Pimcore\Model\DataObject\Group;
 use Pimcore\Model\DataObject\Offer;
 use Pimcore\Model\DataObject\Product;
 use Pimcore\Model\DataObject\ProductSet;
+use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,7 +30,8 @@ class ObjectController extends FrontendController
 {
 
     public function __construct(private TranslatorInterface $translator,
-                                private readonly DeepLService $deepLService)
+                                private readonly DeepLService $deepLService,
+                                private readonly CacheItemPoolInterface $cache)
     {
 
     }
@@ -702,6 +704,24 @@ class ObjectController extends FrontendController
         }
 
         return new Response("Ok. Found: {$found}, Changed: {$changed}, Skipped: {$skipped}", Response::HTTP_OK);
+    }
+
+    #[Route("objects/status/{id}", name: "objects_status")]
+    public function getStatusAction(int $id): Response
+    {
+        $obj = DataObject::getById($id);
+
+        if(!$obj)
+        {
+            return new Response("Object not found", Response::HTTP_BAD_REQUEST);
+        }
+
+        $key = "object_status_{$id}";
+
+        $item = $this->cache->getItem($key);
+        $data = $item->isHit() ? $item->get() : "";
+
+        return new Response($data, Response::HTTP_OK);
     }
 
     private function removeLastWord(string $input): string
