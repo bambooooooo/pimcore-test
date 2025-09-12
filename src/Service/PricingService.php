@@ -273,6 +273,11 @@ class PricingService
                         $price += (float)$obj->getPackagesVolume()->getValue() * (float)$rule->getPrice()->getValue();
                     }
 
+                    if($rule instanceof DataObject\Fieldcollection\Data\ParcelMass)
+                    {
+                        $price += (float)$obj->getPackagesMass()->getValue() * (float)$rule->getPrice()->getValue();
+                    }
+
                     if($rule instanceof DataObject\Fieldcollection\Data\PricingAgg)
                     {
                         $prices = [];
