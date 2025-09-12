@@ -289,18 +289,20 @@ class PricingService
                         }
                         elseif($rule->getMode() == "PACKAGE")
                         {
-                            foreach ($obj->getPackages() as $lip)
+                            foreach ($this->getPackages($obj) as $lip)
                             {
                                 /** @var DataObject\Package $package */
-                                $package = $lip->getElement();
+                                $package = $lip["Package"];
+                                $quantity = $lip["Quantity"];
+
                                 if($rule->getThreshold() && $rule->getThreshold() < $package->getMass()->getValue())
                                 {
                                     $upFromThreshold = $package->getMass()->getValue() - $rule->getThreshold();
-                                    $price += $upFromThreshold * (float)$rule->getPrice()->getValue();
+                                    $price += $upFromThreshold * (float)$rule->getPrice()->getValue() * $quantity;
                                 }
                                 else
                                 {
-                                    $price += (float)$package->getMass()->getValue() * (float)$rule->getPrice()->getValue();
+                                    $price += (float)$package->getMass()->getValue() * (float)$rule->getPrice()->getValue() * $quantity;
                                 }
                             }
                         }
