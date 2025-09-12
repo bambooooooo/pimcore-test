@@ -39,23 +39,23 @@ class XmlNoweKolory extends XmlFeedWriter
 
             foreach($item->getPrice() as $lip)
             {
-                if($lip->getElement()->getName() == "eMAG - BG")
+                if($lip->getElement()->getKey() == "eMAG - BG")
                 {
                     $priceBG = (float)$lip->getPrice();
                 }
 
-                if($lip->getElement()->getName() == "eMAG - HU")
+                if($lip->getElement()->getKey() == "eMAG - HU")
                 {
                     $priceHU = (float)$lip->getPrice();
                 }
 
-                if($lip->getElement()->getName() == "eMAG - RO")
+                if($lip->getElement()->getKey() == "eMAG - RO")
                 {
                     $priceRO = (float)$lip->getPrice();
                 }
             }
 
-            if($priceBG * $priceRO * $priceHU == 0.0)
+            if($priceBG == 0.0 && $priceRO == 0.0 && $priceHU == 0.0)
             {
                 return null;
             }
