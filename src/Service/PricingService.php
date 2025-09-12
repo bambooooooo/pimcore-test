@@ -275,7 +275,35 @@ class PricingService
 
                     if($rule instanceof DataObject\Fieldcollection\Data\ParcelMass)
                     {
-                        $price += (float)$obj->getPackagesMass()->getValue() * (float)$rule->getPrice()->getValue();
+                        if($rule->getMode() == "PARCEL")
+                        {
+                            if($rule->getThreshold() && $rule->getThreshold() < $obj->getPackagesMass()->getValue())
+                            {
+                                $upFromThreshold = $obj->getPackagesMass()->getValue() - $rule->getThreshold();
+                                $price += $upFromThreshold * (float)$rule->getPrice()->getValue();
+                            }
+                            else
+                            {
+                                $price += (float)$obj->getPackagesMass()->getValue() * (float)$rule->getPrice()->getValue();
+                            }
+                        }
+                        elseif($rule->getMode() == "PACKAGE")
+                        {
+                            foreach ($obj->getPackages() as $lip)
+                            {
+                                /** @var DataObject\Package $package */
+                                $package = $lip->getElement();
+                                if($rule->getThreshold() && $rule->getThreshold() < $package->getMass()->getValue())
+                                {
+                                    $upFromThreshold = $package->getMass()->getValue() - $rule->getThreshold();
+                                    $price += $upFromThreshold * (float)$rule->getPrice()->getValue();
+                                }
+                                else
+                                {
+                                    $price += (float)$package->getMass()->getValue() * (float)$rule->getPrice()->getValue();
+                                }
+                            }
+                        }
                     }
 
                     if($rule instanceof DataObject\Fieldcollection\Data\PricingAgg)

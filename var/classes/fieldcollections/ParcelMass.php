@@ -3,6 +3,8 @@
 /**
  * Fields Summary:
  * - Price [quantityValue]
+ * - Threshold [numeric]
+ * - Mode [select]
  */
 
 return \Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
@@ -63,7 +65,7 @@ return \Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
              'defaultUnit' => 'PLN',
              'validUnits' => 
             array (
-              0 => 'kg',
+              0 => 'PLN',
             ),
              'unique' => false,
              'autoConvert' => false,
@@ -76,6 +78,77 @@ return \Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
              'maxValue' => NULL,
              'decimalSize' => NULL,
              'decimalPrecision' => NULL,
+          )),
+          1 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+             'name' => 'Threshold',
+             'title' => 'Threshold',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'defaultValue' => NULL,
+             'integer' => false,
+             'unsigned' => false,
+             'minValue' => NULL,
+             'maxValue' => NULL,
+             'unique' => false,
+             'decimalSize' => NULL,
+             'decimalPrecision' => NULL,
+             'width' => '',
+             'defaultValueGenerator' => '',
+          )),
+          2 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+             'name' => 'Mode',
+             'title' => 'Mode',
+             'tooltip' => '',
+             'mandatory' => true,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'options' => 
+            array (
+              0 => 
+              array (
+                'key' => 'Per parcel',
+                'value' => 'PARCEL',
+              ),
+              1 => 
+              array (
+                'key' => 'Per package',
+                'value' => 'PACKAGE',
+              ),
+            ),
+             'defaultValue' => 'PARCEL',
+             'columnLength' => 190,
+             'dynamicOptions' => false,
+             'defaultValueGenerator' => '',
+             'width' => '',
+             'optionsProviderType' => 'configure',
+             'optionsProviderClass' => '',
+             'optionsProviderData' => '',
           )),
         ),
          'locked' => false,
