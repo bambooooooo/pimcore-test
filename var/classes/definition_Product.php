@@ -52,6 +52,8 @@
  * - Barcode [input]
  * - Codes [objectbricks]
  * - Documents [manyToManyRelation]
+ * - Instruction [manyToOneRelation]
+ * - InstructionUS [manyToOneRelation]
  * - BaselinkerCatalog [advancedManyToManyObjectRelation]
  */
 
@@ -62,7 +64,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Produkt',
    'description' => 'Towar, który można sprzedać',
    'creationDate' => NULL,
-   'modificationDate' => 1756877222,
+   'modificationDate' => 1757688712,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -2497,6 +2499,90 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                  'enableTextSelection' => false,
                  'width' => '',
                  'height' => '',
+              )),
+              1 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+                 'name' => 'Instruction',
+                 'title' => 'Instruction',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => true,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'classes' => 
+                array (
+                ),
+                 'displayMode' => 'grid',
+                 'pathFormatterClass' => '',
+                 'assetInlineDownloadAllowed' => false,
+                 'assetUploadPath' => '/INSTRUKCJE',
+                 'allowToClearRelation' => true,
+                 'objectsAllowed' => false,
+                 'assetsAllowed' => true,
+                 'assetTypes' => 
+                array (
+                  0 => 
+                  array (
+                    'assetTypes' => 'document',
+                  ),
+                ),
+                 'documentsAllowed' => false,
+                 'documentTypes' => 
+                array (
+                ),
+                 'width' => '',
+              )),
+              2 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+                 'name' => 'InstructionUS',
+                 'title' => 'Instruction US',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => true,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'classes' => 
+                array (
+                ),
+                 'displayMode' => 'grid',
+                 'pathFormatterClass' => '',
+                 'assetInlineDownloadAllowed' => false,
+                 'assetUploadPath' => '/INSTRUKCJE',
+                 'allowToClearRelation' => true,
+                 'objectsAllowed' => false,
+                 'assetsAllowed' => true,
+                 'assetTypes' => 
+                array (
+                  0 => 
+                  array (
+                    'assetTypes' => 'document',
+                  ),
+                ),
+                 'documentsAllowed' => false,
+                 'documentTypes' => 
+                array (
+                ),
+                 'width' => '',
               )),
             ),
              'locked' => false,

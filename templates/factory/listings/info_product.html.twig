@@ -117,29 +117,60 @@
         <div class="col-12">
             <div class="container-fluid">
                 <div class="row">
-                    {% if obj.Documents and app.user.product_show_files %}
-                        {% for doc in obj.Documents %}
+                    {% if app.user.product_show_files %}
+                        {% if obj.Instruction %}
                             <div class="col-12 mt-1">
-                                <a href="{{ doc }}">
+                                <a href="{{ obj.Instruction }}">
                                     <div class="btn btn-outline-primary" style="width: 100%;">
                                         <img height="40" src="/bundles/pimcoreadmin/img/flat-color-icons/file-types.svg" class="card-img-top" alt="...">
-                                        {{ doc.key }}
+                                        {{ "Assembly guide"|trans }}
                                     </div>
                                 </a>
                             </div>
-                        {% endfor %}
+                        {% endif %}
+
+                        {% if obj.InstructionUS %}
+                            <div class="col-12 mt-1">
+                                <a href="{{ obj.InstructionUS }}">
+                                    <div class="btn btn-outline-primary" style="width: 100%;">
+                                        <img height="40" src="/bundles/pimcoreadmin/img/flat-color-icons/file-types.svg" class="card-img-top" alt="...">
+                                        {{ "Assembly guide (US)"|trans }}
+                                    </div>
+                                </a>
+                            </div>
+                        {% endif %}
+
+                        {% if obj.Documents %}
+                            {% for doc in obj.Documents %}
+                                <div class="col-12 mt-1">
+                                    <a href="{{ doc }}">
+                                        <div class="btn btn-outline-primary" style="width: 100%;">
+                                            <img height="40" src="/bundles/pimcoreadmin/img/flat-color-icons/file-types.svg" class="card-img-top" alt="...">
+                                            {{ doc.key }}
+                                        </div>
+                                    </a>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
                     {% endif %}
 
-                    {% if app.user.product_show_datasheet %}
-                        <div class="col-12 mt-1">
-                            <a href="{{ path("factory_datasheet", {id: obj.id}) }}">
-                                <div class="btn btn-outline-primary" style="width: 100%;">
-                                    <img height="40" src="/bundles/pimcoreadmin/img/flat-color-icons/pdf.svg" class="card-img-top" alt="...">
-                                    {{ "Datasheet"|trans }}
-                                </div>
-                            </a>
-                        </div>
-                    {% endif %}
+{#                    {% if app.user.product_show_datasheet %}#}
+{#                                                                                      #}
+{#                                                                                      #}
+{#                                                                                      #}
+{#              do not show product datasheet button when it is not completed           #}
+{#                                                                                      #}
+{#                                                                                      #}
+{#                                                                                      #}
+{#                        <div class="col-12 mt-1">#}
+{#                            <a href="{{ path("factory_datasheet", {id: obj.id}) }}">#}
+{#                                <div class="btn btn-outline-primary" style="width: 100%;">#}
+{#                                    <img height="40" src="/bundles/pimcoreadmin/img/flat-color-icons/pdf.svg" class="card-img-top" alt="...">#}
+{#                                    {{ "Datasheet"|trans }}#}
+{#                                </div>#}
+{#                            </a>#}
+{#                        </div>#}
+{#                    {% endif %}#}
 
                     {% if obj.Packages and app.user.product_show_packages %}
                         {% for lip in obj.Packages %}
