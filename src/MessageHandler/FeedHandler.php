@@ -44,10 +44,11 @@ class FeedHandler
 
         foreach ($offer->getFeed() as $feed)
         {
+            $time = time();
             $cname = $feed['Schema']->getData();
             $referenceOffer = key_exists('ReferenceOffer', $feed) ? $feed['ReferenceOffer']?->getData() : null;
 
-            echo $cname . ' - ' . $referenceOffer . "\n";
+            echo $cname . ' - ' . $referenceOffer . PHP_EOL;
 
             if(!class_exists($cname))
             {
@@ -94,6 +95,10 @@ class FeedHandler
             unlink($tmp);
             $feeds[] = $feed;
             $i++;
+
+            $duration = time() - $time;
+
+            echo $cname . ' - ' . $referenceOffer . ": done in " . $duration . " seconds.";
         }
 
         $offer->setFeed($feeds);

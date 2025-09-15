@@ -196,19 +196,19 @@ class XmlFeedDefault extends XmlFeedWriter
             {
                 if($item->getInstruction())
                 {
-                    $prod->appendChild($doc->createElement('manual', $item->getInstruction()->getFullPath()));
+                    $prod->appendChild($doc->createElement('manual', $item->getInstruction()->getFrontendPath()));
                 }
 
                 if($item->getInstructionUS())
                 {
-                    $prod->appendChild($doc->createElement('manualus', $item->getInstructionUS()->getFullPath()));
+                    $prod->appendChild($doc->createElement('manualus', $item->getInstructionUS()->getFrontendPath()));
                 }
 
                 $files = $doc->createElement("files");
 
                 foreach ($item->getDocuments() as $document)
                 {
-                    $files->appendChild($doc->createElement('file', $document->getFullPath()));
+                    $files->appendChild($doc->createElement('file', $document->getFrontendPath()));
                 }
 
                 $prod->appendChild($files);
