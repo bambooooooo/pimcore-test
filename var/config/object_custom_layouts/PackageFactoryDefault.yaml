@@ -7,7 +7,7 @@ pimcore:
                     name: PackageFactoryDefault
                     description: ''
                     creationDate: 1757321673
-                    modificationDate: 1757321711
+                    modificationDate: 1758017112
                     userOwner: 2
                     classId: Package
                     layoutDefinitions:
@@ -234,6 +234,238 @@ pimcore:
                                         layout: null
                                         border: false
                                         icon: /UI/2-puzzle.svg
+                                        labelWidth: 100
+                                        labelAlign: left
+                                    -
+                                        name: Model
+                                        type: null
+                                        region: null
+                                        title: Model
+                                        width: ''
+                                        height: ''
+                                        collapsible: false
+                                        collapsed: false
+                                        bodyStyle: ''
+                                        datatype: layout
+                                        children:
+                                            -
+                                                name: Model
+                                                title: Model
+                                                tooltip: "Model\n\nProjekt bazowy, na podstawie którego powstała dana paczka."
+                                                mandatory: true
+                                                noteditable: false
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: input
+                                                relationType: false
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                defaultValue: null
+                                                columnLength: 190
+                                                regex: ''
+                                                regexFlags: {  }
+                                                unique: false
+                                                showCharCount: false
+                                                width: ''
+                                                defaultValueGenerator: ''
+                                                datatype: data
+                                            -
+                                                name: Fefco
+                                                title: Fefco
+                                                tooltip: 'Rodzaj opakowania FEFCO'
+                                                mandatory: true
+                                                noteditable: false
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: select
+                                                relationType: false
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                options: {  }
+                                                defaultValue: ''
+                                                columnLength: 190
+                                                dynamicOptions: false
+                                                defaultValueGenerator: ''
+                                                width: ''
+                                                optionsProviderType: configure
+                                                optionsProviderClass: ''
+                                                optionsProviderData: ''
+                                                datatype: data
+                                            -
+                                                name: Width
+                                                title: Width
+                                                tooltip: 'Szerokość wewnętrzna paczki'
+                                                mandatory: true
+                                                noteditable: false
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: quantityValue
+                                                relationType: false
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                unitWidth: ''
+                                                defaultUnit: mm
+                                                validUnits:
+                                                    - mm
+                                                    - cm
+                                                    - m
+                                                    - cal
+                                                unique: false
+                                                autoConvert: false
+                                                defaultValueGenerator: ''
+                                                width: ''
+                                                defaultValue: null
+                                                integer: false
+                                                unsigned: true
+                                                minValue: null
+                                                maxValue: null
+                                                decimalSize: null
+                                                decimalPrecision: null
+                                                datatype: data
+                                            -
+                                                name: Height
+                                                title: Height
+                                                tooltip: 'Wysokość wewnętrzna paczki'
+                                                mandatory: true
+                                                noteditable: false
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: quantityValue
+                                                relationType: false
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                unitWidth: ''
+                                                defaultUnit: mm
+                                                validUnits:
+                                                    - mm
+                                                    - cm
+                                                    - m
+                                                    - cal
+                                                unique: false
+                                                autoConvert: false
+                                                defaultValueGenerator: ''
+                                                width: ''
+                                                defaultValue: null
+                                                integer: false
+                                                unsigned: true
+                                                minValue: null
+                                                maxValue: null
+                                                decimalSize: null
+                                                decimalPrecision: null
+                                                datatype: data
+                                            -
+                                                name: Depth
+                                                title: Depth
+                                                tooltip: 'Długość wewnętrzna paczki'
+                                                mandatory: true
+                                                noteditable: false
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: quantityValue
+                                                relationType: false
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                unitWidth: ''
+                                                defaultUnit: mm
+                                                validUnits:
+                                                    - mm
+                                                    - cm
+                                                    - m
+                                                    - cal
+                                                unique: false
+                                                autoConvert: false
+                                                defaultValueGenerator: ''
+                                                width: ''
+                                                defaultValue: null
+                                                integer: false
+                                                unsigned: true
+                                                minValue: null
+                                                maxValue: null
+                                                decimalSize: null
+                                                decimalPrecision: null
+                                                datatype: data
+                                            -
+                                                name: Volume
+                                                title: Volume
+                                                tooltip: 'Objętość gabarytowa'
+                                                mandatory: false
+                                                noteditable: true
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: quantityValue
+                                                relationType: false
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                unitWidth: ''
+                                                defaultUnit: m3
+                                                validUnits:
+                                                    - m3
+                                                unique: false
+                                                autoConvert: false
+                                                defaultValueGenerator: ''
+                                                width: ''
+                                                defaultValue: null
+                                                integer: false
+                                                unsigned: true
+                                                minValue: null
+                                                maxValue: null
+                                                decimalSize: null
+                                                decimalPrecision: null
+                                                datatype: data
+                                            -
+                                                name: Mass
+                                                title: Mass
+                                                tooltip: 'Masa brutto paczki'
+                                                mandatory: true
+                                                noteditable: false
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: quantityValue
+                                                relationType: false
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                unitWidth: ''
+                                                defaultUnit: kg
+                                                validUnits:
+                                                    - kg
+                                                unique: false
+                                                autoConvert: false
+                                                defaultValueGenerator: ''
+                                                width: ''
+                                                defaultValue: null
+                                                integer: false
+                                                unsigned: false
+                                                minValue: null
+                                                maxValue: null
+                                                decimalSize: null
+                                                decimalPrecision: null
+                                                datatype: data
+                                        locked: false
+                                        fieldtype: panel
+                                        layout: null
+                                        border: false
+                                        icon: /bundles/pimcoreadmin/img/flat-color-icons/ruler.svg
                                         labelWidth: 100
                                         labelAlign: left
                                 locked: false
