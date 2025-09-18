@@ -171,7 +171,7 @@ class CsvNoweKolory extends CsvFeedWriter
         fwrite($stream, join($separator, $cols) . PHP_EOL);
     }
 
-    function csvEscapeCell(string $html): string
+    function csvEscapeCell(string|null $html): string
     {
         if(!$html)
             return "";
