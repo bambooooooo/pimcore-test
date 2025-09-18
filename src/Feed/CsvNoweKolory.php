@@ -109,11 +109,11 @@ class CsvNoweKolory extends CsvFeedWriter
                 '',
                 $item->getName("pl"),
                 'MEGSTYL',
-                $item->getDesc1(),
-                $item?->getDesc2(),
-                $item?->getDesc3(),
-                $item?->getDesc4(),
-                $item?->getImage()
+                $this->csvEscapeCell($item?->getDesc1()),
+                $this->csvEscapeCell($item?->getDesc2()),
+                $this->csvEscapeCell($item?->getDesc3()),
+                $this->csvEscapeCell($item?->getDesc4()),
+                $item->getImage()
             ],
                 $images,
             [
@@ -169,5 +169,17 @@ class CsvNoweKolory extends CsvFeedWriter
 
         fwrite($stream, "\xEF\xBB\xBF"); // BOM for Excel compatibility
         fwrite($stream, join($separator, $cols) . PHP_EOL);
+    }
+
+    function csvEscapeCell(string $html): string
+    {
+        if(!$html)
+            return "";
+
+        // Double the double-quotes
+        $escaped = str_replace('"', '""', $html);
+
+        // Wrap with quotes so commas/newlines won't break the CSV
+        return '"' . $escaped . '"';
     }
 }
