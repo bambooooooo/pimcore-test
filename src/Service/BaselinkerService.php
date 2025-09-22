@@ -14,7 +14,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class BaselinkerService
 {
-    public function __construct(private readonly HttpClientInterface $httpClient, private readonly string $appdomain)
+    public function __construct(private readonly HttpClientInterface $httpClient)
     {
 
     }
@@ -450,7 +450,7 @@ class BaselinkerService
 
         foreach ($thumbs as $thumb)
         {
-            $imurl = $this->appdomain . $image->getThumbnail($thumb);
+            $imurl = $image->getThumbnail($thumb)->getFrontendPath();
             $im = file_get_contents($imurl);
 
             $size = round(strlen($im) / (1024 * 1024), 2);
