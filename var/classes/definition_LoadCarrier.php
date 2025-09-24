@@ -20,7 +20,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Load Carrier',
    'description' => 'Nośnik dla paczek - paleta, TIR, kontener',
    'creationDate' => NULL,
-   'modificationDate' => 1746506217,
+   'modificationDate' => 1758705965,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -82,7 +82,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'name' => 'Image',
                  'title' => 'Image',
                  'tooltip' => '',
-                 'mandatory' => true,
+                 'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
                  'locked' => false,
@@ -286,75 +286,6 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'enableGridLocking' => false,
    'deletedDataComponents' => 
   array (
-    0 => 
-    \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-       'name' => 'Model',
-       'title' => 'Model',
-       'tooltip' => 'Model
-
-Projekt bazowy, na podstawie którego powstała dana paczka.',
-       'mandatory' => false,
-       'noteditable' => false,
-       'index' => false,
-       'locked' => false,
-       'style' => '',
-       'permissions' => NULL,
-       'fieldtype' => '',
-       'relationType' => false,
-       'invisible' => false,
-       'visibleGridView' => false,
-       'visibleSearch' => false,
-       'blockedVarsForExport' => 
-      array (
-      ),
-       'defaultValue' => NULL,
-       'columnLength' => 190,
-       'regex' => '',
-       'regexFlags' => 
-      array (
-      ),
-       'unique' => false,
-       'showCharCount' => false,
-       'width' => '',
-       'defaultValueGenerator' => '',
-    )),
-    1 => 
-    \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-       'name' => 'Mass',
-       'title' => 'Mass',
-       'tooltip' => 'Masa nośnika',
-       'mandatory' => true,
-       'noteditable' => false,
-       'index' => false,
-       'locked' => false,
-       'style' => '',
-       'permissions' => NULL,
-       'fieldtype' => '',
-       'relationType' => false,
-       'invisible' => false,
-       'visibleGridView' => false,
-       'visibleSearch' => false,
-       'blockedVarsForExport' => 
-      array (
-      ),
-       'unitWidth' => '',
-       'defaultUnit' => 'kg',
-       'validUnits' => 
-      array (
-        0 => 'kg',
-      ),
-       'unique' => false,
-       'autoConvert' => false,
-       'defaultValueGenerator' => '',
-       'width' => '',
-       'defaultValue' => NULL,
-       'integer' => false,
-       'unsigned' => false,
-       'minValue' => NULL,
-       'maxValue' => NULL,
-       'decimalSize' => NULL,
-       'decimalPrecision' => NULL,
-    )),
   ),
    'blockedVarsForExport' => 
   array (
