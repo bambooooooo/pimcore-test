@@ -62,6 +62,11 @@ services:
         resource: '../src/Command/*'
         tags: [ 'console.command' ]
 
+    App\Command\PostUpdateCommand:
+        arguments:
+            $systemCsId: '%env(SYSTEM_CS_ID)%'
+            $allegroCsId: '%env(ALLEGRO_CS_ID)%'
+
     # admin styles
     App\EventListener\AdminStyleListener:
         tags:
