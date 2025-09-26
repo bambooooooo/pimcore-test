@@ -26,6 +26,7 @@
  * - COO [country]
  * - Manufacturer [manyToOneRelation]
  * - Suppliers [manyToManyRelation]
+ * - Serie [manyToOneRelation]
  * - Groups [manyToManyObjectRelation]
  * - Parameters [classificationstore]
  * - ParametersAllegro [classificationstore]
@@ -64,7 +65,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Produkt',
    'description' => 'Towar, który można sprzedać',
    'creationDate' => NULL,
-   'modificationDate' => 1758802992,
+   'modificationDate' => 1758861721,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -1014,6 +1015,48 @@ Producent',
                      'children' => 
                     array (
                       0 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+                         'name' => 'Serie',
+                         'title' => 'Serie',
+                         'tooltip' => 'Kolekcja/Seria',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => true,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'classes' => 
+                        array (
+                          0 => 
+                          array (
+                            'classes' => 'Group',
+                          ),
+                        ),
+                         'displayMode' => 'grid',
+                         'pathFormatterClass' => '',
+                         'assetInlineDownloadAllowed' => false,
+                         'assetUploadPath' => '',
+                         'allowToClearRelation' => true,
+                         'objectsAllowed' => true,
+                         'assetsAllowed' => false,
+                         'assetTypes' => 
+                        array (
+                        ),
+                         'documentsAllowed' => false,
+                         'documentTypes' => 
+                        array (
+                        ),
+                         'width' => '',
+                      )),
+                      1 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
                          'name' => 'Groups',
                          'title' => 'Groups',
@@ -1055,7 +1098,7 @@ Grupy, do których przypisany jest produkt.',
                          'width' => '',
                          'height' => '',
                       )),
-                      1 => 
+                      2 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
                          'name' => 'Layout',
                          'type' => NULL,
