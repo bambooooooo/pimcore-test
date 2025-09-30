@@ -1,5 +1,3 @@
-# TODO
-
 ## `pim` `Product` `DQM`
 
 Definicja i implementacja wskaźników DQM:
@@ -9,15 +7,6 @@ Definicja i implementacja wskaźników DQM:
 ## `pim` `deepl`
 
 Integracja tłumaczeń kolejnych obiektów - kategorii, zestawów, parametrów
-
-## `pim` `allegro`
-
-Integracja produktowa z allegro:
-- dedykowana klasa obiektu (allegro)
-- konfiguracja z pozmiomu pim'a
-- wiele kont allegro
-- mapowanie parametrów
-- domyślne cenniki, warunki dostaw, zwrotów, etc
 
 ## `pim` `sklep`
 
@@ -30,31 +19,9 @@ Poprawki w integracji zamówień Subiekt'a GT:
 - tłumaczenia ładowane z pożądnej bazy, a nie z pliku
 - automatyczne montowanie kompletu, jeśli jest to możliwe
 
-## `erp` `formatowanie warunkowe`
-
-Ustalenie formatowania warunkowego dla wybranych dokumentów:
-- ZD przeterminowane - na czerwono - wymaga pilnego wyjaśnienia
-- ZK możliwe do realizacjia - na niebiesko
-
-## `wayfair` `stocki`
-
-Integracja stanów magazynowych z wayfair
-
 ## `agata` `zamówienia`
 
 Pobieranie zamówień z systemu MAD Agata meble
-
-## `baselinker` `zamówienia`
-
-Poprawnki integracji zamówień z baselinkerem
-
-## `allegro` `stocki`
-
-Integracja stocków z allegro (na podstawie powiązania oferty z produktem w pimcore)
-
-## `pim` `def` `Product`
-
-Nazwa generyczna na podstawie parametrów produktu i jego kategorii głównej
 
 ## `wypłaty`
 - przepisanie aplikacji na web (vue.js)
@@ -78,32 +45,6 @@ Moduł, który będzie cyklicznie dodawał promocje na losowo wybrane produkty.
 
 1. Produkty bez parametrów - Lista produktów ```ACTUAL```, która nie ma lub nie rozszerza odziedziczonych po obiektach ```VIRTUAL``` zbiorów parametrów
 1. DQM - produkty ```ACTUAL``` i ich wskaźniki uzupełnienia DQM
-
-## `pim` `ean`
-
-Integracja z portalem mojegs1.pl - nadawanie kodów EAN. Skorzystać z Rabbit'a MQ. Synchronizacja kodów na podstawie Id obiektu w pim, tj. Id obiektu musi zawierać się w polu Symbol wewnętrzny w mojegs1. Skrypt PHP wyrzuca wymagane dane na kolejkę, program (python 3) odbiera wiadamość, aktualizuje dane przez API GS1 i wysyła POST request do pim'a, dzięki któremu uzupełniane jest pole EAN dla produktu lub zestawu produktów.
-
-## `erp` `migracja`
-
-Należy zmigrować obecnie kodowanie do postaci:
-- Symbol = Id obiektu pimcore
-- Nazwa = Klucz obiektu pimcore
-- Opis = Nazwa obiektu pimcore
-
-Hierarchia kompletów ma być dwupoziomowa:
-Produkt / Zestaw => Paczki
-
-Do aktualizacji będą prawie wszystkie wzorce wydruku
-
-## `pim` `deepl` `limit`
-
-Blokada użycia tłumaczenia (respektowanie limitu tłumaczeń w miesiącu).
-Próba kolejnych tłumaczeń po przekroczeniu progu => wyraźny komunikat
-
-## `pim` `deepl` `kolejka`
-
-Wykorzystanie mechanizmu kolejkowania, żeby nie blokować UI
-Informowanie o statusie - update progress baru co 3 s
 
 ## `pim` `zlecenie` `wydruk`
 
@@ -132,19 +73,6 @@ Aktualizacja kursów walut na życzenie - aktualizacja produktów - zmiana ceny 
 
 Długi opis produktu w standardzie allegro (wiersze po 1 lub 2 sekcje tekstu / zdjęć)
 
-## `erp` `ec` `update`
-
-Odebranie informacji o produkcie i aktualizacja bazy subiekta:
-- nazwy
-- opisu
-- ceny
-- zdjęcia
-- paczek
-
-## `erp` `backup`
-
-Instalacja ms sql na serwerze. Backup tworzony co godzinę
-
 ## `erp` `sandbox`
 
 Docker + Docker compose, który umożliwi development integracji z subiektem gt. Kopia bazy produkcyjnej.
@@ -161,7 +89,21 @@ Karta zestawu przygotowana do wyruku w formie PDF'a
 
 Automatyczne tworzenie opisu kolekcji o wybranej długości
 
+## `factory` `cache`
+
+Dodać obsługę cache.
+
+## `factory` `harmonogram`
+
+Przepisać w taki sposób, aby możliwe było aktualizowanie treści bez konieczności przeładowywania. Co stały interwał
+wysyłać zapytania, czy zamówienia uległy zmianie (czy zmienił się ich czas modyfikacji), a jeśli tak, to pobrać tylko
+zmienione dane.
+
 ## `factory` `różne`
+
+Dodać konfigurator dla własnych checkboxów - kolor, tooltip, kolejność.
+
+## `factory` `wydruki`
 
 - Wydruki PDF dla zamówień i harmonogramu
 - Dostęp do statycznych plików (regularnie drukowanych, np. tabela terminów dostaw dla dostawców surowców)
@@ -177,3 +119,7 @@ Automatyczne tworzenie opisu kolekcji o wybranej długości
 ## `factory` `etykiety`
 
 - przegląd funkcji poprzedniego progamu, którego dokumentacja znajduję się tutaj: file://10.10.5.1/projects/IT/Dokumentacja/Etykiety/Etykiety.md
+
+## `stocki` `webhook` `integracja`
+
+- wdrożyć webhook'i dla klientów, które będą aktualizować stany magazynowe w czasie rzeczywistym

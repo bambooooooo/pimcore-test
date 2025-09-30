@@ -1,0 +1,142 @@
+pimcore:
+    objects:
+        select_options:
+            definitions:
+                GoogleCategory:
+                    id: GoogleCategory
+                    group: ''
+                    useTraits: ''
+                    implementsInterfaces: ''
+                    selectOptions:
+                        -
+                            value: '8206'
+                            label: 'Meble > Akcesoria do krzeseł > Części zapasowe do krzeseł wiszących'
+                            name: _8206
+                        -
+                            value: '7559'
+                            label: 'Meble > Akcesoria do mebli biurowych > Akcesoria do krzeseł i foteli biurowych'
+                            name: _7559
+                        -
+                            value: '6964'
+                            label: 'Meble > Akcesoria do mebli zewnętrznych > Pokrowce na meble zewnętrzne'
+                            name: _6964
+                        -
+                            value: '8024'
+                            label: 'Meble > Akcesoria do półek i regałów > Półki zapasowe'
+                            name: _8024
+                        -
+                            value: '7213'
+                            label: 'Meble > Akcesoria do sof > Podpórki pod sofy i krzesła'
+                            name: _7213
+                        -
+                            value: '6910'
+                            label: 'Meble > Akcesoria stołowe > Blaty stołowe'
+                            name: _6910
+                        -
+                            value: '6859'
+                            label: 'Meble > Krzesła i fotele > Fotele bez podłokietników'
+                            name: _6859
+                        -
+                            value: '4191'
+                            label: 'Meble > Meble biurowe > Biurka'
+                            name: _4191
+                        -
+                            value: '4317'
+                            label: 'Meble > Meble biurowe > Stoły do pracy > Stoły konferencyjne'
+                            name: _4317
+                        -
+                            value: '7068'
+                            label: 'Meble > Meble dla dzieci i niemowląt > Akcesoria do koszyków i kołysek'
+                            name: _7068
+                        -
+                            value: '7071'
+                            label: 'Meble > Meble dla dzieci i niemowląt > Akcesoria do łóżeczek i łóżek dziecinnych > Barierki do łóżeczek dziecinnych'
+                            name: _7071
+                        -
+                            value: '6822'
+                            label: 'Meble > Meble zewnętrzne > Otomany na zewnątrz'
+                            name: _6822
+                        -
+                            value: '6828'
+                            label: 'Meble > Meble zewnętrzne > Siedzenia ogrodowe > Krzesła ogrodowe'
+                            name: _6828
+                        -
+                            value: '6372'
+                            label: 'Meble > Półki i regały > Półki ścienne'
+                            name: _6372
+                        -
+                            value: '4484'
+                            label: 'Meble > Stoły > Kotatsu'
+                            name: _4484
+                        -
+                            value: '1395'
+                            label: 'Meble > Stoły > Stoliki > Stoliki kawowe'
+                            name: _1395
+                        -
+                            value: '447'
+                            label: 'Meble > Szafy i przechowywanie > Bufety i kredensy'
+                            name: _447
+                        -
+                            value: '6947'
+                            label: 'Meble > Szafy i przechowywanie > Skrzynie i kufry > Skrzynie'
+                            name: _6947
+                        -
+                            value: '4268'
+                            label: 'Meble > Szafy i przechowywanie > Skrzynie i kufry > Skrzynie na zabawki'
+                            name: _4268
+                        -
+                            value: '6360'
+                            label: 'Meble > Szafy i przechowywanie > Toaletki > Toaletki do sypialni'
+                            name: _6360
+                        -
+                            value: '6374'
+                            label: 'Meble > Wózki > Wyspy kuchenne'
+                            name: _6374
+                        -
+                            value: '6347'
+                            label: 'Meble > Zestawy mebli > Zestawy mebli do kuchni i jadalni'
+                            name: _6347
+                        -
+                            value: '4241'
+                            label: 'Meble > Ławki > Pufy do toaletek'
+                            name: _4241
+                        -
+                            value: '4437'
+                            label: 'Meble > Łóżka i akcesoria > Akcesoria do łóżek'
+                            name: _4437
+                        -
+                            value: '8115'
+                            label: 'Sprzęt > Hydraulika > Armatura wodociągowa i części > Akcesoria do baterii > Perlatory do kranów'
+                            name: _8115
+                        -
+                            value: '1865'
+                            label: 'Sprzęt > Hydraulika > Armatura wodociągowa i części > Akcesoria do toalet i bidetów > Deski sedesowe i bidetowe'
+                            name: _1865
+                        -
+                            value: '1425'
+                            label: 'Sprzęt > Hydraulika > Armatura wodociągowa i części > Akcesoria do toalet i bidetów > Spłuczki toaletowe i korki do spłuczek'
+                            name: _1425
+                        -
+                            value: '2410'
+                            label: 'Sprzęt > Hydraulika > Armatura wodociągowa i części > Akcesoria do umywalek > Nogi do umywalek'
+                            name: _2410
+                        -
+                            value: '2463'
+                            label: 'Sprzęt > Hydraulika > Armatura wodociągowa i części > Akcesoria do wanien > Kurki do baterii nawannowych'
+                            name: _2463
+                        -
+                            value: '2170'
+                            label: 'Sprzęt > Hydraulika > Armatura wodociągowa i części > Części do odpływów > Hydraulika ścieków'
+                            name: _2170
+                        -
+                            value: '2088'
+                            label: 'Sprzęt > Hydraulika > Armatura wodociągowa i części > Części do prysznica > Baterie prysznicowe'
+                            name: _2088
+                        -
+                            value: '8277'
+                            label: 'Sprzęt > Hydraulika > Armatura wodociągowa i części > Części do prysznica > Baterie prysznicowe elektryczne i wysokociśnieniowe'
+                            name: _8277
+                        -
+                            value: '1458'
+                            label: 'Sprzęt > Hydraulika > Armatura wodociągowa i części > Płyty do mocowania'
+                            name: _1458

@@ -7,6 +7,7 @@ use Pimcore\Event\BundleManager\PathsEvent;
 use Pimcore\Model\Asset;
 use Pimcore\Model\DataObject\EanPool;
 use Pimcore\Model\DataObject\Group;
+use Pimcore\Model\DataObject\Order;
 use Pimcore\Model\DataObject\Product;
 use Pimcore\Model\DataObject\ProductSet;
 use Pimcore\Model\DataObject\User;
@@ -69,6 +70,10 @@ class AdminStyleListener
         else if($element instanceof LoadCarrier)
         {
             $event->setAdminStyle(new \App\Model\AdminStyle\LoadCarrier($element));
+        }
+        else if($element instanceof Order)
+        {
+            $event->setAdminStyle(new \App\Model\AdminStyle\Order($element));
         }
         else if ($element instanceof Asset\Image)
         {

@@ -32,6 +32,10 @@ class ApiUsageCommand extends AbstractCommand
         $taken = $usage->character->count;
         $limit = $usage->character->limit;
         $percent = $taken * 100 / $limit;
-        $this->writeInfo("[DEEPL] Usage: $taken / $limit ($percent%)");
+
+        $renew = $this->deepLService->renewDate();
+        $renewIn = $renew->diff(new \DateTime())->days + 1;
+
+        $this->writeInfo("[DEEPL] Usage: $taken / $limit ($percent%). Renew in {$renewIn} days ({$renew->format('d.m.y')}).");
     }
 }

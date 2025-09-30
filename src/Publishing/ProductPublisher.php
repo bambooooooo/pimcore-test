@@ -44,7 +44,6 @@ class ProductPublisher
             {
                 $this->updatePricing($product);
                 $this->updateOffers($product);
-                $this->updateProductSets($product);
                 $this->sendToErp($product);
                 $this->bus->dispatch(new BlkIndex($product->getId()));
             }
@@ -116,7 +115,6 @@ class ProductPublisher
     function updateProductSets(Product $product): void
     {
         $refs = $product->getDependencies()->getRequiredBy();
-        $changed = [];
         foreach($refs as $ref)
         {
             if($ref['type'] == 'object')

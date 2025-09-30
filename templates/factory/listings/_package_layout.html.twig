@@ -1,0 +1,63 @@
+{% if app.user.package_show_layout %}
+    {% if package.Layout and package.Layout|length > 0 %}
+        <h2>{{ "Layers"|trans }}</h2>
+
+        <div class="col-12 mb-2">
+            Wybierz warstwy:
+            <div class="btn-group">
+                {% for row in package.Layout %}
+                    <button type="button" class="btn btn-outline-primary layer-selector  layer-selector-{{ package.id }}" data-layer-id="{{ loop.index - 1 }}" aria-current="page">
+                        {{ loop.index }}
+                    </button>
+                 {% endfor %}
+            </div>
+            Wyświetl w rzędzie:
+            {% for row in 1..4 %}
+                <input type="radio" class="btn-check" value="{{ loop.index }}" name="layer-show-count-{{ package.id }}" id="layer-show-count-{{ package.id }}-{{ loop.index }}" autocomplete="off" {% if loop.last %}checked{% endif %}>
+                <label class="btn btn-outline-primary" for="layer-show-count-{{ package.id }}-{{ loop.index }}">{{ loop.index }}</label>
+            {% endfor %}
+            <button class="btn btn-primary active" id="package-layout-go-{{ package.id }}">
+                Pokaż
+            </button>
+        </div>
+
+        <div class="col-12 mb-2">
+            <div>
+                {% set layerCount = package.Layout|length %}
+                {% for img in package.Layout %}
+                    <div style="margin-bottom: 12px;">
+                        <div style="text-align: center; font-size: 48px; margin: 32px 0;">
+                            {{ "Layer"|trans }} {{ loop.index }} / {{ layerCount }}
+                        </div>
+                        <div>
+                            <img class="img-fluid" src="{{ img.getThumbnail('webp_1000') }}" />
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+        <div class="alert alert-danger" role="alert">
+            <img src="/bundles/pimcoreadmin/img/flat-color-icons/warning.svg" width="64"/>
+            {{"Warning! No image documentation found for layout in package"|trans}} <strong>{{ package.key }}</strong>.
+        </div>
+    {% endif %}
+{% endif %}
+
+<script type="text/javascript">
+    var pid_{{ package.id }} = {{ package.id }};
+
+    $("#package-layout-go-{{ package.id }}").click(function(){
+
+        var cnt = $("input[name=layer-show-count-{{ package.id }}]:checked").val();
+        var url = "/factory/pl/layout/" + pid_{{ package.id }} + "?cols=" + cnt;
+
+        $(".layer-selector-{{ package.id }}.active").each(function(){
+
+            url += "&layers[]=" + $(this).attr('data-layer-id');
+        });
+
+        console.log(url);
+        window.open(url, "_blank");
+    })
+</script>

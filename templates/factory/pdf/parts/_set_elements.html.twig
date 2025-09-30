@@ -56,7 +56,7 @@
                                                         {% if lip.element.Parameters.items[groupId][keyId]["default"] is iterable %}
                                                             {% set txvalues = [] %}
                                                             {% for item in lip.element.Parameters.items[groupId][keyId]["default"] %}
-                                                                {% set txvalues = txvalues|merge(item|trans) %}
+                                                                {% set txvalues = txvalues|merge([item|trans]) %}
                                                             {% endfor %}
 
                                                             {{ txvalues|join(", ") }}

@@ -10,7 +10,7 @@ class DeepLService
 {
     private DeeplClient $deepLClient;
 
-    public function __construct(private string $apikey)
+    public function __construct(private readonly string $apikey, private readonly string $domRenew)
     {
         $this->deepLClient = new DeepLClient($this->apikey);
     }
@@ -42,5 +42,18 @@ class DeepLService
     public function usage()
     {
         return $this->deepLClient->getUsage();
+    }
+
+    /**
+     * Get api renew pool date based on app config
+     *
+     * @return \DateTime
+     */
+    public function renewDate()
+    {
+        $now = new \DateTime();
+        $now->setDate($now->format('Y'), $now->format('m'), $this->domRenew);
+
+        return $now;
     }
 }

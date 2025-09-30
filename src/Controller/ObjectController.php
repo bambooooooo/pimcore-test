@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Service\DeepLService;
+use DeepL\DeepLException;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Pimcore\Controller\FrontendController;
 use Pimcore\Model\DataObject;
@@ -13,6 +15,7 @@ use Pimcore\Model\DataObject\Group;
 use Pimcore\Model\DataObject\Offer;
 use Pimcore\Model\DataObject\Product;
 use Pimcore\Model\DataObject\ProductSet;
+use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,7 +30,8 @@ class ObjectController extends FrontendController
 {
 
     public function __construct(private TranslatorInterface $translator,
-                                private readonly DeepLService $deepLService)
+                                private readonly DeepLService $deepLService,
+                                private readonly CacheItemPoolInterface $cache)
     {
 
     }
@@ -342,7 +346,9 @@ class ObjectController extends FrontendController
         $spreadsheet = new SpreadSheet();
         $sheet = $spreadsheet->getActiveSheet();
 
-        $sheet->setTitle($offer->getKey());
+        $productSheet = $spreadsheet->getActiveSheet();
+
+        $sheet->setTitle($offer->getKey() . " - Products");
         $sheet->setCellValue('A1', '#');
         $sheet->setCellValue('B1', $this->translator->trans('Image'));
         $sheet->setCellValue('C1', $this->translator->trans('Sku'));
@@ -352,6 +358,18 @@ class ObjectController extends FrontendController
         $sheet->setCellValue('G1', $this->translator->trans('Height'));
         $sheet->setCellValue('H1', $this->translator->trans('Depth'));
         $sheet->setCellValue('I1', $offer->getName());
+
+        $ws = new Worksheet($sheet->getParent());
+        $sheetSets = $spreadsheet->addSheet($ws);
+        $sheetSets->setTitle($offer->getKey() . " - Sets");
+        $sheetSets->setCellValue('B1', $this->translator->trans('Image'));
+        $sheetSets->setCellValue('C1', $this->translator->trans('Sku'));
+        $sheetSets->setCellValue('D1', $this->translator->trans('Ean'));
+        $sheetSets->setCellValue('E1', $this->translator->trans('Name'));
+        $sheetSets->setCellValue('F1', $this->translator->trans('Width'));
+        $sheetSets->setCellValue('G1', $this->translator->trans('Height'));
+        $sheetSets->setCellValue('H1', $this->translator->trans('Depth'));
+        $sheetSets->setCellValue('I1', $offer->getName());
 
         $i = 10;
         foreach($references as $reference)
@@ -364,6 +382,7 @@ class ObjectController extends FrontendController
         $sheet->getStyle('E')->getAlignment()->setWrapText(true);
 
         $i = 2;
+
         foreach ($offer->getDependencies()->getRequiredBy() as $req)
         {
             $obj = DataObject::getById($req['id']);
@@ -371,7 +390,77 @@ class ObjectController extends FrontendController
             if(!$obj)
                 continue;
 
-            if(!($obj instanceof Product || $obj instanceof ProductSet))
+            if(!($obj instanceof Product))
+                continue;
+
+            $sheet->getRowDimension($i)->setRowHeight(64);
+            $sheet->setCellValue('A' . $i, $i - 1);
+            $sheet->setCellValue('C' . $i, $obj->getId());
+            $sheet->setCellValueExplicit('D' . $i, $obj->getEan(), \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
+            $sheet->setCellValue('E' . $i, $obj->getName());
+
+            if($obj instanceof Product)
+            {
+                $sheet->setCellValue('F' . $i, $obj->getWidth());
+                $sheet->setCellValue('G' . $i, $obj->getHeight());
+                $sheet->setCellValue('H' . $i, $obj->getDepth());
+            }
+
+            foreach ($obj->getPrice() as $price)
+            {
+                if($price->getElement()->getId() == $offer->getId())
+                {
+                    $price = round(floatval($price->getPrice()), 2);
+                    $sheet->setCellValue('I' . $i, $price);
+                }
+            }
+
+            $j = 10;
+            foreach($references as $reference)
+            {
+                foreach ($obj->getPrice() as $price)
+                {
+                    if ($price->getElement()->getId() == $reference) {
+                        $price = round(floatval($price->getPrice()), 2);
+                        $sheet->setCellValue([$j, $i], $price);
+                    }
+                }
+
+                $j++;
+            }
+
+            if ($obj->getImage()) {
+
+                $image = $obj->getImage()->getThumbnail("200x200");
+
+                $stream = $image->getStream();
+
+                // Create temporary file
+                $tempFile = tempnam(sys_get_temp_dir(), 'pim_image_');
+                file_put_contents($tempFile, stream_get_contents($stream));
+
+                if (file_exists($tempFile)) {
+                    $drawing = new Drawing();
+                    $drawing->setPath($tempFile);
+                    $drawing->setHeight(80); // Set image height (adjust as needed)
+                    $drawing->setCoordinates('B' . $i); // Place image in column D
+                    $drawing->setWorksheet($sheet);
+                }
+            }
+
+            $i++;
+        }
+
+        $sheet = $ws;
+        $i = 2;
+        foreach ($offer->getDependencies()->getRequiredBy() as $req)
+        {
+            $obj = DataObject::getById($req['id']);
+
+            if(!$obj)
+                continue;
+
+            if(!($obj instanceof ProductSet))
                 continue;
 
             $sheet->getRowDimension($i)->setRowHeight(64);
@@ -438,11 +527,13 @@ class ObjectController extends FrontendController
         {
             if($j == 1)
             {
-                $sheet->getColumnDimension(chr(833 + $j))->setWidth(12);
+                $productSheet->getColumnDimension(chr(833 + $j))->setWidth(12);
+                $sheetSets->getColumnDimension(chr(833 + $j))->setWidth(12);
             }
             else
             {
-                $sheet->getColumnDimension(chr(833 + $j))->setAutoSize(true);
+                $productSheet->getColumnDimension(chr(833 + $j))->setAutoSize(true);
+                $sheetSets->getColumnDimension(chr(833 + $j))->setAutoSize(true);
             }
         }
 
@@ -494,7 +585,14 @@ class ObjectController extends FrontendController
             $nameDefinition = $class->getFieldDefinition('Name');
             $w = $nameDefinition->getColumnLength();
 
-            $tx = $this->deepLService->translate($text, $deeplLocale, $origin);
+            try
+            {
+                $tx = $this->deepLService->translate($text, $deeplLocale, $origin);
+            }
+            catch (DeepLException $e)
+            {
+                return new Response($e->getMessage(), Response::HTTP_TOO_MANY_REQUESTS);
+            }
 
             $trimmed = $tx;
 
@@ -552,6 +650,78 @@ class ObjectController extends FrontendController
         }
 
         return new Response("Object type not supported", Response::HTTP_BAD_REQUEST);
+    }
+
+    #[Route("/objects/stocks/{id}/{stocks}", name: "stock_update")]
+    public function updateStocksAction(Request $request, int $id, int $stocks): Response
+    {
+        $obj = DataObject::getById($id);
+        if(!($obj instanceof Product || $obj instanceof ProductSet)){
+            return new Response("Object not found", Response::HTTP_BAD_REQUEST);
+        }
+
+        if($stocks < 0)
+            return new Response("Stocks must be greater than 0", Response::HTTP_BAD_REQUEST);
+
+        if($stocks != $obj->getStock())
+        {
+            $obj->setStock($request->get("stocks"));
+        }
+
+        return new Response("Ok", Response::HTTP_OK);
+    }
+
+    #[Route("/objects/stocks", name: "stock_bulk_update", methods: ["POST"])]
+    public function updateBulkStocksAction(Request $request): Response
+    {
+        $data = json_decode($request->getContent(), true) ?? [];
+
+        $found = 0;
+        $changed = 0;
+        $skipped = 0;
+
+        /** @var int $stock */
+        /** @var int $id */
+        foreach($data as $id => $stock)
+        {
+            $obj = DataObject::getById($id);
+            if(!($obj instanceof Product || $obj instanceof ProductSet))
+            {
+                continue;
+            }
+
+            $found++;
+
+            if($obj->getStock() != $stock)
+            {
+                $obj->setStock($stock);
+                $changed++;
+            }
+            else
+            {
+                $skipped++;
+            }
+        }
+
+        return new Response("Ok. Found: {$found}, Changed: {$changed}, Skipped: {$skipped}", Response::HTTP_OK);
+    }
+
+    #[Route("objects/status/{id}", name: "objects_status")]
+    public function getStatusAction(int $id): Response
+    {
+        $obj = DataObject::getById($id);
+
+        if(!$obj)
+        {
+            return new Response("Object not found", Response::HTTP_BAD_REQUEST);
+        }
+
+        $key = "object_status_{$id}";
+
+        $item = $this->cache->getItem($key);
+        $data = $item->isHit() ? $item->get() : "";
+
+        return new Response($data, Response::HTTP_OK);
     }
 
     private function removeLastWord(string $input): string

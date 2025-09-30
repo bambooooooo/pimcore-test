@@ -25,7 +25,12 @@
  * - BDOPlastic [quantityValue]
  * - Barcode [input]
  * - Codes [objectbricks]
+ * - Layout [imageGallery]
  * - Elements [advancedManyToManyRelation]
+ * - Layers [table]
+ * - Fillment [block]
+ * -- Material [input]
+ * -- Elements [table]
  * - Carriers [advancedManyToManyObjectRelation]
  */
 
@@ -36,7 +41,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Opakowanie',
    'description' => 'Opakowanie zawierające elementy produktu',
    'creationDate' => NULL,
-   'modificationDate' => 1749202425,
+   'modificationDate' => 1757320741,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -944,10 +949,36 @@ Domyślny kod kreskowy paczki tworzony na podstawie jego unikalnego identyfikato
              'children' => 
             array (
               0 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\ImageGallery::__set_state(array(
+                 'name' => 'Layout',
+                 'title' => 'Layout',
+                 'tooltip' => 'Ułożenie elementów w paczce - dokumentacja zdjęciowa. Kolejne zdjęcia traktowane są jak kolejne warstwy, tj. Zdjęcie 1 - warstwa 1, zdjęcie 2 - warstwa 2 itd.',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'uploadPath' => '/PACZKI-DOKUMENTACJA',
+                 'ratioX' => NULL,
+                 'ratioY' => NULL,
+                 'predefinedDataTemplates' => '',
+                 'height' => '',
+                 'width' => '',
+              )),
+              1 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyRelation::__set_state(array(
                  'name' => 'Elements',
                  'title' => 'Elements',
-                 'tooltip' => '',
+                 'tooltip' => 'Rysunki techniczne elementów',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -991,6 +1022,10 @@ Domyślny kod kreskowy paczki tworzony na podstawie jego unikalnego identyfikato
                  'documentsAllowed' => false,
                  'documentTypes' => 
                 array (
+                  0 => 
+                  array (
+                    'documentTypes' => '',
+                  ),
                 ),
                  'enableTextSelection' => false,
                  'width' => '',
@@ -1014,6 +1049,153 @@ Domyślny kod kreskowy paczki tworzony na podstawie jego unikalnego identyfikato
                  'optimizedAdminLoading' => false,
                  'enableBatchEdit' => false,
                  'allowMultipleAssignments' => false,
+              )),
+              2 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Table::__set_state(array(
+                 'name' => 'Layers',
+                 'title' => 'Layers',
+                 'tooltip' => 'Warstwy elementów w paczce. Kolejne wiersze są traktowane jak kolejne warstwy paczki.',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'cols' => 1,
+                 'colsFixed' => true,
+                 'rows' => NULL,
+                 'rowsFixed' => false,
+                 'data' => '',
+                 'columnConfigActivated' => true,
+                 'columnConfig' => 
+                array (
+                  0 => 
+                  array (
+                    'key' => 'Elementy',
+                    'label' => 'Elementy',
+                  ),
+                ),
+                 'height' => '',
+                 'width' => '100%;',
+              )),
+              3 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Block::__set_state(array(
+                 'name' => 'Fillment',
+                 'title' => 'Fillment',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'lazyLoading' => false,
+                 'disallowAddRemove' => false,
+                 'disallowReorder' => false,
+                 'collapsible' => false,
+                 'collapsed' => false,
+                 'maxItems' => NULL,
+                 'styleElement' => '',
+                 'children' => 
+                array (
+                  0 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'name' => 'Material',
+                     'title' => 'Material',
+                     'tooltip' => 'Materiał wypełenienia, np. styropian 15 mm',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'defaultValue' => NULL,
+                     'columnLength' => 190,
+                     'regex' => '',
+                     'regexFlags' => 
+                    array (
+                    ),
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'width' => '',
+                     'defaultValueGenerator' => '',
+                  )),
+                  1 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Table::__set_state(array(
+                     'name' => 'Elements',
+                     'title' => 'Elements',
+                     'tooltip' => 'Formatki wypełnienia dla wybranego materiału',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'cols' => 3,
+                     'colsFixed' => true,
+                     'rows' => NULL,
+                     'rowsFixed' => false,
+                     'data' => '',
+                     'columnConfigActivated' => true,
+                     'columnConfig' => 
+                    array (
+                      0 => 
+                      array (
+                        'key' => 'Length',
+                        'label' => 'Length',
+                      ),
+                      1 => 
+                      array (
+                        'key' => 'Width',
+                        'label' => 'Width',
+                      ),
+                      2 => 
+                      array (
+                        'key' => 'Count',
+                        'label' => 'Count',
+                      ),
+                    ),
+                     'height' => '',
+                     'width' => 320,
+                  )),
+                ),
+                 'layout' => NULL,
+                 'referencedFields' => 
+                array (
+                ),
+                 'fieldDefinitionsCache' => NULL,
               )),
             ),
              'locked' => false,

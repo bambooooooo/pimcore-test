@@ -1,0 +1,482 @@
+pimcore:
+    objects:
+        custom_layouts:
+            definitions:
+                PackageFactoryDefault:
+                    id: PackageFactoryDefault
+                    name: PackageFactoryDefault
+                    description: ''
+                    creationDate: 1757321673
+                    modificationDate: 1758017112
+                    userOwner: 2
+                    classId: Package
+                    layoutDefinitions:
+                        name: pimcore_root
+                        type: null
+                        region: null
+                        title: null
+                        width: 0
+                        height: 0
+                        collapsible: false
+                        collapsed: false
+                        bodyStyle: null
+                        datatype: layout
+                        children:
+                            -
+                                name: Layout
+                                type: null
+                                region: null
+                                title: null
+                                width: 0
+                                height: 0
+                                collapsible: false
+                                collapsed: false
+                                bodyStyle: null
+                                datatype: layout
+                                children:
+                                    -
+                                        name: Elements
+                                        type: null
+                                        region: null
+                                        title: Elements
+                                        width: ''
+                                        height: ''
+                                        collapsible: false
+                                        collapsed: false
+                                        bodyStyle: ''
+                                        datatype: layout
+                                        children:
+                                            -
+                                                name: Layout
+                                                title: Layout
+                                                tooltip: 'Ułożenie elementów w paczce - dokumentacja zdjęciowa. Kolejne zdjęcia traktowane są jak kolejne warstwy, tj. Zdjęcie 1 - warstwa 1, zdjęcie 2 - warstwa 2 itd.'
+                                                mandatory: false
+                                                noteditable: false
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: imageGallery
+                                                relationType: false
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                uploadPath: /PACZKI-DOKUMENTACJA
+                                                ratioX: null
+                                                ratioY: null
+                                                predefinedDataTemplates: ''
+                                                height: ''
+                                                width: ''
+                                                datatype: data
+                                            -
+                                                name: Elements
+                                                title: Elements
+                                                tooltip: 'Rysunki techniczne elementów'
+                                                mandatory: false
+                                                noteditable: false
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: advancedManyToManyRelation
+                                                relationType: true
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                classes:
+                                                    -
+                                                        classes: Package
+                                                    -
+                                                        classes: Element
+                                                displayMode: null
+                                                pathFormatterClass: ''
+                                                maxItems: null
+                                                assetInlineDownloadAllowed: false
+                                                assetUploadPath: /ELEMENTY
+                                                allowToClearRelation: true
+                                                objectsAllowed: false
+                                                assetsAllowed: true
+                                                assetTypes:
+                                                    -
+                                                        assetTypes: document
+                                                documentsAllowed: false
+                                                documentTypes: {  }
+                                                enableTextSelection: false
+                                                width: ''
+                                                height: null
+                                                columns:
+                                                    -
+                                                        type: number
+                                                        position: 1
+                                                        key: Quantity
+                                                        label: Quantity
+                                                        value: '1'
+                                                columnKeys:
+                                                    - Quantity
+                                                phpdocType: '\Pimcore\Model\DataObject\Data\ElementMetadata[]'
+                                                optimizedAdminLoading: false
+                                                enableBatchEdit: false
+                                                allowMultipleAssignments: false
+                                                datatype: data
+                                            -
+                                                name: Layers
+                                                title: Layers
+                                                tooltip: 'Warstwy elementów w paczce. Kolejne wiersze są traktowane jak kolejne warstwy paczki.'
+                                                mandatory: false
+                                                noteditable: false
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: table
+                                                relationType: false
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                cols: 1
+                                                colsFixed: true
+                                                rows: null
+                                                rowsFixed: false
+                                                data: ''
+                                                columnConfigActivated: true
+                                                columnConfig:
+                                                    -
+                                                        key: Elementy
+                                                        label: Elementy
+                                                height: ''
+                                                width: 100%;
+                                                datatype: data
+                                            -
+                                                name: Fillment
+                                                title: Fillment
+                                                tooltip: ''
+                                                mandatory: false
+                                                noteditable: false
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: block
+                                                relationType: false
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                lazyLoading: false
+                                                disallowAddRemove: false
+                                                disallowReorder: false
+                                                collapsible: false
+                                                collapsed: false
+                                                maxItems: null
+                                                styleElement: ''
+                                                children:
+                                                    -
+                                                        name: Material
+                                                        title: Material
+                                                        tooltip: 'Materiał wypełenienia, np. styropian 15 mm'
+                                                        mandatory: false
+                                                        noteditable: false
+                                                        index: false
+                                                        locked: false
+                                                        style: ''
+                                                        permissions: null
+                                                        fieldtype: input
+                                                        relationType: false
+                                                        invisible: false
+                                                        visibleGridView: false
+                                                        visibleSearch: false
+                                                        defaultValue: null
+                                                        columnLength: 190
+                                                        regex: ''
+                                                        regexFlags: {  }
+                                                        unique: false
+                                                        showCharCount: false
+                                                        width: ''
+                                                        defaultValueGenerator: ''
+                                                        datatype: data
+                                                    -
+                                                        name: Elements
+                                                        title: Elements
+                                                        tooltip: 'Formatki wypełnienia dla wybranego materiału'
+                                                        mandatory: false
+                                                        noteditable: false
+                                                        index: false
+                                                        locked: false
+                                                        style: ''
+                                                        permissions: null
+                                                        fieldtype: table
+                                                        relationType: false
+                                                        invisible: false
+                                                        visibleGridView: false
+                                                        visibleSearch: false
+                                                        cols: 3
+                                                        colsFixed: true
+                                                        rows: null
+                                                        rowsFixed: false
+                                                        data: ''
+                                                        columnConfigActivated: true
+                                                        columnConfig:
+                                                            -
+                                                                key: Length
+                                                                label: Length
+                                                            -
+                                                                key: Width
+                                                                label: Width
+                                                            -
+                                                                key: Count
+                                                                label: Count
+                                                        height: ''
+                                                        width: 320
+                                                        datatype: data
+                                                layout: null
+                                                datatype: data
+                                        locked: false
+                                        fieldtype: panel
+                                        layout: null
+                                        border: false
+                                        icon: /UI/2-puzzle.svg
+                                        labelWidth: 100
+                                        labelAlign: left
+                                    -
+                                        name: Model
+                                        type: null
+                                        region: null
+                                        title: Model
+                                        width: ''
+                                        height: ''
+                                        collapsible: false
+                                        collapsed: false
+                                        bodyStyle: ''
+                                        datatype: layout
+                                        children:
+                                            -
+                                                name: Model
+                                                title: Model
+                                                tooltip: "Model\n\nProjekt bazowy, na podstawie którego powstała dana paczka."
+                                                mandatory: true
+                                                noteditable: false
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: input
+                                                relationType: false
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                defaultValue: null
+                                                columnLength: 190
+                                                regex: ''
+                                                regexFlags: {  }
+                                                unique: false
+                                                showCharCount: false
+                                                width: ''
+                                                defaultValueGenerator: ''
+                                                datatype: data
+                                            -
+                                                name: Fefco
+                                                title: Fefco
+                                                tooltip: 'Rodzaj opakowania FEFCO'
+                                                mandatory: true
+                                                noteditable: false
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: select
+                                                relationType: false
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                options: {  }
+                                                defaultValue: ''
+                                                columnLength: 190
+                                                dynamicOptions: false
+                                                defaultValueGenerator: ''
+                                                width: ''
+                                                optionsProviderType: configure
+                                                optionsProviderClass: ''
+                                                optionsProviderData: ''
+                                                datatype: data
+                                            -
+                                                name: Width
+                                                title: Width
+                                                tooltip: 'Szerokość wewnętrzna paczki'
+                                                mandatory: true
+                                                noteditable: false
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: quantityValue
+                                                relationType: false
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                unitWidth: ''
+                                                defaultUnit: mm
+                                                validUnits:
+                                                    - mm
+                                                    - cm
+                                                    - m
+                                                    - cal
+                                                unique: false
+                                                autoConvert: false
+                                                defaultValueGenerator: ''
+                                                width: ''
+                                                defaultValue: null
+                                                integer: false
+                                                unsigned: true
+                                                minValue: null
+                                                maxValue: null
+                                                decimalSize: null
+                                                decimalPrecision: null
+                                                datatype: data
+                                            -
+                                                name: Height
+                                                title: Height
+                                                tooltip: 'Wysokość wewnętrzna paczki'
+                                                mandatory: true
+                                                noteditable: false
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: quantityValue
+                                                relationType: false
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                unitWidth: ''
+                                                defaultUnit: mm
+                                                validUnits:
+                                                    - mm
+                                                    - cm
+                                                    - m
+                                                    - cal
+                                                unique: false
+                                                autoConvert: false
+                                                defaultValueGenerator: ''
+                                                width: ''
+                                                defaultValue: null
+                                                integer: false
+                                                unsigned: true
+                                                minValue: null
+                                                maxValue: null
+                                                decimalSize: null
+                                                decimalPrecision: null
+                                                datatype: data
+                                            -
+                                                name: Depth
+                                                title: Depth
+                                                tooltip: 'Długość wewnętrzna paczki'
+                                                mandatory: true
+                                                noteditable: false
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: quantityValue
+                                                relationType: false
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                unitWidth: ''
+                                                defaultUnit: mm
+                                                validUnits:
+                                                    - mm
+                                                    - cm
+                                                    - m
+                                                    - cal
+                                                unique: false
+                                                autoConvert: false
+                                                defaultValueGenerator: ''
+                                                width: ''
+                                                defaultValue: null
+                                                integer: false
+                                                unsigned: true
+                                                minValue: null
+                                                maxValue: null
+                                                decimalSize: null
+                                                decimalPrecision: null
+                                                datatype: data
+                                            -
+                                                name: Volume
+                                                title: Volume
+                                                tooltip: 'Objętość gabarytowa'
+                                                mandatory: false
+                                                noteditable: true
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: quantityValue
+                                                relationType: false
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                unitWidth: ''
+                                                defaultUnit: m3
+                                                validUnits:
+                                                    - m3
+                                                unique: false
+                                                autoConvert: false
+                                                defaultValueGenerator: ''
+                                                width: ''
+                                                defaultValue: null
+                                                integer: false
+                                                unsigned: true
+                                                minValue: null
+                                                maxValue: null
+                                                decimalSize: null
+                                                decimalPrecision: null
+                                                datatype: data
+                                            -
+                                                name: Mass
+                                                title: Mass
+                                                tooltip: 'Masa brutto paczki'
+                                                mandatory: true
+                                                noteditable: false
+                                                index: false
+                                                locked: false
+                                                style: ''
+                                                permissions: null
+                                                fieldtype: quantityValue
+                                                relationType: false
+                                                invisible: false
+                                                visibleGridView: false
+                                                visibleSearch: false
+                                                unitWidth: ''
+                                                defaultUnit: kg
+                                                validUnits:
+                                                    - kg
+                                                unique: false
+                                                autoConvert: false
+                                                defaultValueGenerator: ''
+                                                width: ''
+                                                defaultValue: null
+                                                integer: false
+                                                unsigned: false
+                                                minValue: null
+                                                maxValue: null
+                                                decimalSize: null
+                                                decimalPrecision: null
+                                                datatype: data
+                                        locked: false
+                                        fieldtype: panel
+                                        layout: null
+                                        border: false
+                                        icon: /bundles/pimcoreadmin/img/flat-color-icons/ruler.svg
+                                        labelWidth: 100
+                                        labelAlign: left
+                                locked: false
+                                fieldtype: tabpanel
+                                border: false
+                                tabPosition: top
+                        locked: false
+                        fieldtype: panel
+                        layout: null
+                        border: false
+                        icon: null
+                        labelWidth: 100
+                        labelAlign: left
+                    default: 0

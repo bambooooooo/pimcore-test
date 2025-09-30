@@ -26,8 +26,6 @@ class PackagePublisher
             if($package->getObjectType() == 'SKU')
             {
                 $this->updateDefaultBarcode($package);
-                $this->updateReferencedProducts($package);
-
                 $this->sendToErp($package);
             }
         });
@@ -55,33 +53,6 @@ class PackagePublisher
 
         $package->setVolume(new QuantityValue($v, $m3));
         $package->save();
-    }
-
-    function updateReferencedProducts(Package $package) : void
-    {
-        $refs = $package->getDependencies()->getRequiredBy();
-        $changed = [];
-        foreach($refs as $ref)
-        {
-            if($ref['type'] == 'object')
-            {
-                $obj = DataObject::getById($ref['id']);
-                if($obj instanceof Product)
-                {
-                    $basePrice = 0.0;
-                    foreach($obj->getPackages() as $lip)
-                    {
-                        /** @var Product $prod */
-                        $prod = $lip->getElement();
-                        $basePrice += $prod->getBasePrice()->getValue() * $lip->getQuantity();
-                    }
-
-                    $bp = new QuantityValue($basePrice, Unit::getById("PLN"));
-                    $obj->setBasePrice($bp);
-                    $obj->save();
-                }
-            }
-        }
     }
 
     function sendToErp(Package $package) : void

@@ -1,6 +1,6 @@
 pimcore:
     general:
-        domain: ''
+        domain: "%env(APP_DOMAIN)%"
         redirect_to_maindomain: false
         valid_languages:
             - en
@@ -68,6 +68,25 @@ pimcore:
                 de: ''
                 fr: ''
                 pl: ''
+                es: ''
+                cs: ''
+                da: ''
+                nl: ''
+                lv: ''
+                ro: ''
+                sk: ''
+                hu: ''
+                fi: ''
+                it: ''
+                el: ''
+                sv: ''
+                sl: ''
+                bg: ''
+                uk: ''
+                ru: ''
+                tr: ''
+                zh: ''
+                ja: ''
     objects:
         versions:
             days: null

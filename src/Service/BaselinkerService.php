@@ -14,7 +14,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class BaselinkerService
 {
-    public function __construct(private readonly HttpClientInterface $httpClient, private readonly string $appdomain)
+    public function __construct(private readonly HttpClientInterface $httpClient)
     {
 
     }
@@ -39,6 +39,28 @@ class BaselinkerService
         }
 
         return true;
+    }
+
+    public function get(Baselinker $baselinker, string $method, array $payload = [])
+    {
+        $response = $this->httpClient->request("POST", "https://api.baselinker.com/connector.php", [
+            'headers' => [
+                'X-BLToken' => $baselinker->getApiKey()
+            ],
+            'body' => [
+                'method' => $method,
+                'parameters' => json_encode($payload)
+            ]
+        ]);
+
+        $data = $response->toArray();
+
+        if($data['status'] != 'SUCCESS')
+        {
+            throw new \Exception($data['error_code'] . ": " . $data['error_message']);
+        }
+
+        return $data;
     }
 
     public function updateInventory(BaselinkerCatalog $catalog): void
@@ -266,14 +288,26 @@ class BaselinkerService
 
             if($obj instanceof Product)
             {
-                foreach($obj->getParameters()->getGroups() as $group)
+                foreach($obj->getParametersAllegro()->getGroups() as $group)
                 {
                     foreach($group->getKeys() as $key)
                     {
-                        if(!is_iterable($key->getValue()))
-                        {
-                            $textFields["features"][$key->getConfiguration()->getTitle()] = $key->getValue();
+                        $cfg = $key->getConfiguration();
+
+                        $value = ($cfg->getType() == 'select') ? explode("_", $key->getValue())[0] : $key->getValue();
+
+                        if ($cfg->getType() === 'select') {
+                            $definition = json_decode($cfg->getDefinition(), true); // contains options array
+
+                            foreach ($definition['options'] as $option) {
+                                if ($option['value'] == $key->getValue()) {
+                                    $value = $option['key']; // this is the "display name"
+                                    break;
+                                }
+                            }
                         }
+
+                        $textFields["features"][$key->getConfiguration()->getTitle()] = $value;
                     }
                 }
             }
@@ -281,6 +315,26 @@ class BaselinkerService
             foreach($catalog->getLanguages() as $locale)
             {
                 $textFields["name|" . $locale] = $obj->getName($locale);
+
+                if($obj->getDesc1($locale))
+                {
+                    $textFields['description_extra1|' . $locale] = $obj->getDesc1($locale);
+                }
+
+                if($obj->getDesc2($locale))
+                {
+                    $textFields['description_extra2|' . $locale] = $obj->getDesc2($locale);
+                }
+
+                if($obj->getDesc3($locale))
+                {
+                    $textFields['description_extra3|' . $locale] = $obj->getDesc3($locale);
+                }
+
+                if($obj->getDesc4($locale))
+                {
+                    $textFields['description_extra4|' . $locale] = $obj->getDesc4($locale);
+                }
             }
 
             $data["text_fields"] = $textFields;
@@ -396,7 +450,7 @@ class BaselinkerService
 
         foreach ($thumbs as $thumb)
         {
-            $imurl = $this->appdomain . $image->getThumbnail($thumb);
+            $imurl = $image->getThumbnail($thumb)->getFrontendPath();
             $im = file_get_contents($imurl);
 
             $size = round(strlen($im) / (1024 * 1024), 2);

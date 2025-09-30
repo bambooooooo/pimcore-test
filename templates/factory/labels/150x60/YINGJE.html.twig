@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <title>Custom DPI PDF</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .content {
+            width: 568px; /* 150 mm at 300 DPI */
+            height: 228px; /* 60 mm at 300 DPI */
+            position: relative;
+            padding: 6px;
+            box-sizing: border-box;
+        }
+
+        .head-info
+        {
+            width: 100%;
+            border-collapse:collapse;
+        }
+
+        .head-info tr td
+        {
+            border: 1px solid #000;
+            border-collapse: collapse;
+        }
+
+        .addr
+        {
+            font-size: 11px;
+            text-align: center;
+        }
+
+        .addr-header
+        {
+            text-align: center;
+        }
+
+        .header-row
+        {
+            font-size: 9px;
+        }
+
+    </style>
+</head>
+<body>
+
+{% if product.Packages %}
+    {% for li in product.Packages %}
+        <div class="content" style="background: #fff; color: #000">
+            <div style="width: 100%">
+                <table class="head-info">
+                    <tbody>
+                    <tr>
+                        <td rowspan="5" style="width: 25%">
+                            <div class="addr-header">
+                                <strong>Producent</strong>
+                            </div>
+                            <div class="addr">
+                                Grzegorz Mularczyk</br>
+                                "MEGSTYL"</br>
+                                Żłobnica, ul. Milenijna 10</br>
+                                97-410 Kleszczów</br>
+                                email: bok@megstyl.pl
+                            </div>
+                        </td>
+                        <td class="header-row">
+                            <strong>
+                                {{ li.object.key }}
+                            </strong>
+                        </td>
+                        <td rowspan="5">
+                            <img src="{{ product.Image|raw }}" style="display:block; height: 85px; margin:auto"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="header-row">Product code: {{ product.key }}</td>
+                    </tr>
+                    <tr>
+                        <td class="header-row">
+                            Factory code:
+                            {% if product.MPN %}
+                                {{ product.MPN }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="header-row">Batch no</td>
+                    </tr>
+                    <tr>
+                        <td class="header-row">
+                            Data:
+                            {{ "now"|date("Y.m.d") }}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div style="width: 100%; font-size: 9px; margin-top:4px;">
+                <table class="head-info">
+                    <tr>
+                        <td>
+                            Nazwa produktu / Product name: {{ product.Name("pl") }}
+                        </td>
+                        <td rowspan="7" style="text-align: center; padding: 0 20px;">
+                            {% if li.object.Barcode %}
+                                <div style="display: flex; justify-content: center; align-items: center;">
+                                    {{ code_128(li.object.Barcode) }}
+                                </div>
+
+                                {{ li.object.Barcode }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Długość / Length: {{ li.object.Depth }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Szerokość / Width: {{ li.object.Width }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Wysokość / Height: {{ li.object.Height }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Objętość / Volume: {{ li.object.Volume.value|round(4) }} m3
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Weight / Waga: {{ li.object.Mass }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Made in China / Wyprodukowano w Chinach
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+    {% endfor %}
+{% endif %}
+</body>
+</html>
