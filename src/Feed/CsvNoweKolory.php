@@ -57,7 +57,7 @@ class CsvNoweKolory extends CsvFeedWriter
                 return null;
             }
 
-            $imgCount = 32;
+            $imgCount = 33;
             $images = [];
 
             $images[] = $item->getImage()->getFrontendPath();
