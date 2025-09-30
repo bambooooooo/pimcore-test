@@ -51,8 +51,8 @@ jobs:
                       docker compose exec php bin/console pimcore:deployment:classes-rebuild -c --ignore-maintenance-mode
                       docker compose exec php bin/console pimcore:deployment:classes-rebuild -d -n --ignore-maintenance-mode
                       docker compose exec php bin/console pimcore:deployment:post-update --ignore-maintenance-mode
-                      docker compose exec php bin/console stocks:install
-                      docker compose exec php bin/console cache:clear
+                      docker compose exec php bin/console stocks:install --ignore-maintenance-mode
+                      docker compose exec php bin/console cache:clear --ignore-maintenance-mode
                       docker compose stop supervisord
                       docker compose rm -f supervisord
                       docker compose up supervisord -d
