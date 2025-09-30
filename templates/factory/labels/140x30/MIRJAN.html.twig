@@ -1,0 +1,215 @@
+<html>
+<head>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            font-size: 11px;
+        }
+        .page {
+            width: 530px;
+            height: 114px;
+            position: relative;
+            /*border: 1px solid #000;*/
+        }
+
+        .head-info
+        {
+            width: 100%;
+            height: 100%;
+            border-collapse:collapse;
+        }
+
+        .head-info tr td
+        {
+            /*border: 1px solid #000;*/
+            border-collapse: collapse;
+            padding: 4px;
+        }
+
+        .addr
+        {
+            text-align: center;
+        }
+
+        .addr-header
+        {
+            text-align: center;
+        }
+
+        .header-row
+        {
+            font-size: 9px;
+        }
+
+        .address
+        {
+            writing-mode: sideways-lr;
+            text-orientation: mixed;
+            text-align: center;
+            font-size: 9px;
+            padding: 6px;
+        }
+
+        .v
+        {
+            writing-mode: vertical-rl;
+            text-orientation: sideways;
+            transform: rotate(-180deg);
+        }
+
+        .no-break
+        {
+            word-break: keep-all;
+        }
+
+        .error
+        {
+            font-size: 12px;
+            color: #fa0000;
+            font-weight: bold;
+            padding: 6px;
+            background-color: #ffe750;
+        }
+
+    </style>
+</head>
+<body>
+
+{% set step = min(copies, step) %}
+{% set steps = (copies / step)|round(0, 'ceil') %}
+
+{% for i in range(1, steps) %}
+    <div class="page">
+        <div style="width: 100%;">
+            <table class="head-info">
+                <tbody>
+                <tr>
+                    <td style="width: 70px" rowspan="3">
+                        <div class="address v">
+                            <div class="addr-header">
+                                {{ "Manufacturer"|trans }}
+                            </div>
+                            <div class="addr">
+                                MIRJAN 24 SP. Z O.O.<br/>
+                                Łęka Mroczeńska 102<br/>
+                                63-604 Baranów<br/>
+                                NIP: PL5252575205<br/>
+                                e-mail: biuro@mirjan24.pl
+                            </div>
+                        </div>
+                    </td>
+                    <td rowspan="3" style="font-size: 11px;">
+                        <div class="v">
+                            {% if order %}
+                                {{ "Serie"|trans }}:
+                                {% if order.parent is pimcore_data_object_class("Order") %}
+                                    {{ order.parent.key }}
+                                {% else %}
+                                    {{ order.key }}
+                                {% endif %}
+
+                                ({{ order.id }})
+                            {% endif %}
+                        </div>
+                    </td>
+                    <td colspan="6" style="">
+                        <div style="font-size: 16px; font-weight: bold; word-break: keep-all; margin-top: 2px;">
+                            {{ package.key }}
+                        </div>
+                    </td>
+                    <td rowspan="3" style="height: 100%; padding-right: 8px; position: relative;">
+                        <div style="width: 256px; height: 100px; padding-left: 8px; padding-right: 8px;">
+                            {% if package.Codes.IndexMirjan24.Code is defined %}
+                                {{ code_128(package.Codes.IndexMirjan24.Code, "C128", 80, 2) }}
+                                <div style="text-align: center; font-size: 16px; word-break: keep-all; margin-top: 6px;">
+                                    {{ package.Codes.IndexMirjan24.Code }}
+                                </div>
+                            {% else %}
+                                <div class="error">
+                                    {{ "Missing barcode" }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                    </td>
+                    <td rowspan="3">
+                        <div class="v">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="6" style="font-size: 12px">
+                        {% if product.Codes.IndexMirjan24.Code is defined %}
+                            {{ product.Codes.IndexMirjan24.Code }}
+                        {% else %}
+                            <div class="error">
+                                {{ "Missing product IndexMirjan24.Code" }}
+                            </div>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr style="font-size: 9px;">
+                    <td style="text-align: center">
+                        <div>
+                            <img src="/bundles/pimcoreadmin/img/flat-color-icons/right.svg" height="16">
+                        </div>
+                        <div>
+                            {% if package.Depth %}
+                                {{ (package.Depth.Value / 10)|round }}<br/>
+                                cm
+                            {% endif %}
+                        </div>
+                    </td>
+                    <td style="text-align: center">
+                        <div>
+                            <img src="/bundles/pimcoreadmin/img/flat-color-icons/right_up.svg" height="16">
+                        </div>
+                        <div>
+                            {% if package.Width %}
+                                {{ (package.Width.Value / 10)|round }}<br/>
+                                cm
+                            {% endif %}
+                        </div>
+                    </td>
+                    <td style="text-align: center">
+                        <div>
+                            <img src="/bundles/pimcoreadmin/img/flat-color-icons/up.svg" height="16">
+                        </div>
+                        <div>
+                            {% if package.Height %}
+                                {{ (package.Height.Value / 10)|round }}<br/>
+                                cm
+                            {% endif %}
+                        </div>
+                    </td>
+                    <td style="text-align: center">
+                        <div>
+                            <img src="/UI/mass.svg" height="16">
+                        </div>
+                        <div>
+                            {% if package.Mass %}
+                                {{ package.Mass.Value }}<br/>
+                                kg
+                            {% else %}
+                                <div class="error">
+                                    {{ "No mass"|trans }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </td>
+                    <td style="text-align: center">
+                        <svg fill="#000000" width="32px" height="32px" viewBox="0 0 24 24" id="up-double-arrow" data-name="Flat Line" xmlns="http://www.w3.org/2000/svg" class="icon flat-line"><polyline id="primary" points="20 7 17 4 14 7" style="fill: none; stroke: rgb(0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></polyline><path id="primary-2" data-name="primary" d="M10,7,7,4,4,7" style="fill: none; stroke: rgb(0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><path id="primary-3" data-name="primary" d="M17,20V4M7,20V4" style="fill: none; stroke: rgb(0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path></svg>
+                    </td>
+                    <td style="text-align: center">
+                        <img src="/UI/glass.svg" height="32px"/>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endfor %}
+</body>
+</html>
