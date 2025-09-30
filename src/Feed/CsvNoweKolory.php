@@ -60,6 +60,8 @@ class CsvNoweKolory extends CsvFeedWriter
             $imgCount = 32;
             $images = [];
 
+            $images[] = $item->getImage()->getFrontendPath();
+
             foreach($item->getImages() as $image)
             {
                 if(count($images) >= $imgCount)
@@ -112,8 +114,7 @@ class CsvNoweKolory extends CsvFeedWriter
                 $this->csvEscapeCell($item?->getDesc1()),
                 $this->csvEscapeCell($item?->getDesc2()),
                 $this->csvEscapeCell($item?->getDesc3()),
-                $this->csvEscapeCell($item?->getDesc4()),
-                $item->getImage()
+                $this->csvEscapeCell($item?->getDesc4())
             ],
                 $images,
             [
