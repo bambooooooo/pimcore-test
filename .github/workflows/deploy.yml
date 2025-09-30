@@ -42,8 +42,8 @@ jobs:
                       echo "SGT_PORT=${{ secrets.SGT_PORT }}" >> .env
                       echo "ALLEGRO_CLIENT_ID=${{ secrets.ALLEGRO_CLIENT_ID }}" >> .env
                       echo "ALLEGRO_CLIENT_SECRET=${{ secrets.ALLEGRO_CLIENT_SECRET }}" >> .env
-                      echo "SGT_HOST=${{ secrets.ALLEGRO_CS_ID }}" >> .env
-                      echo "SGT_PORT=${{ secrets.SYSTEM_CS_ID }}" >> .env
+                      echo "ALLEGRO_CS_ID=${{ secrets.ALLEGRO_CS_ID }}" >> .env
+                      echo "SYSTEM_CS_ID=${{ secrets.SYSTEM_CS_ID }}" >> .env
 
                       docker compose -f dokcer-compose.yaml -f docker-compose.prod.yaml up -d
                       docker compose exec php composer install --no-dev --optimize-autoloader
