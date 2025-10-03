@@ -111,6 +111,11 @@ services:
             $clientId: '%env(ALLEGRO_CLIENT_ID)%'
             $clientSecret: '%env(ALLEGRO_CLIENT_SECRET)%'
 
+    App\Service\PrestashopService:
+        arguments:
+            $domain: '%env(PS_DOMAIN)%'
+            $apikey: '%env(PS_APIKEY)%'
+
     # publishing
     App\Publishing\:
         resource: '../src/Publishing'

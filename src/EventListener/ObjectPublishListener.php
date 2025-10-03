@@ -70,7 +70,7 @@ class ObjectPublishListener
         {
             $this->pricingPublisher->publish($obj);
         }
-        else if($obj instanceof Group and $obj->isPublished())
+        else if($obj instanceof Group)
         {
             $this->groupPublisher->publish($obj);
         }
