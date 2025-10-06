@@ -53,12 +53,12 @@ class PrestashopService
         ]);
     }
 
-    public function post(string $resource, SimpleXMLElement $xml): SimpleXMLElement
+    public function post(string $resource, SimpleXMLElement $xml, $params = []): SimpleXMLElement
     {
         $data = $xml->asXML();
         $data = preg_replace("([\r]|[\n]|[\t])", "", $data);
 
-        $res = $this->httpClient->request("POST", $this->getUrl($resource), [
+        $res = $this->httpClient->request("POST", $this->getUrl($resource, $params), [
             'auth_basic' => [$this->apikey, ''],
             'headers' => [
                 'Host' => explode(":", $this->domain)[0],

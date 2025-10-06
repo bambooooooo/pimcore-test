@@ -50,6 +50,11 @@
  * - Documents [manyToManyRelation]
  * - Instruction [manyToOneRelation]
  * - InstructionUS [manyToOneRelation]
+ * - ps_megstyl_pl [checkbox]
+ * - ps_megstyl_pl_id [numeric]
+ * - ps_megstyl_pl_version [input]
+ * - Prestashop [advancedManyToManyObjectRelation]
+ * - sgt [checkbox]
  * - BaselinkerCatalog [advancedManyToManyObjectRelation]
  * - Image [image]
  * - ObjectType [select]
@@ -65,7 +70,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Produkt',
    'description' => 'Towar, który można sprzedać',
    'creationDate' => NULL,
-   'modificationDate' => 1758861721,
+   'modificationDate' => 1759476185,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -2502,67 +2507,359 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                      'children' => 
                     array (
                       0 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
-                         'name' => 'BaselinkerCatalog',
-                         'title' => 'Baselinker Catalog',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
+                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Accordion::__set_state(array(
+                         'name' => 'Channels',
+                         'type' => NULL,
+                         'region' => NULL,
+                         'title' => '',
+                         'width' => '',
+                         'height' => '',
+                         'collapsible' => false,
+                         'collapsed' => false,
+                         'bodyStyle' => '',
+                         'datatype' => 'layout',
+                         'children' => 
+                        array (
+                          0 => 
+                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                             'name' => 'Prestashop',
+                             'type' => NULL,
+                             'region' => NULL,
+                             'title' => 'Prestashop 8',
+                             'width' => '',
+                             'height' => '',
+                             'collapsible' => true,
+                             'collapsed' => true,
+                             'bodyStyle' => '',
+                             'datatype' => 'layout',
+                             'children' => 
+                            array (
+                              0 => 
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                                 'name' => 'ps_megstyl_pl',
+                                 'title' => 'megstyl.pl',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'float:left; margin-right: 16px;',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'defaultValue' => 0,
+                                 'defaultValueGenerator' => '',
+                              )),
+                              1 => 
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                                 'name' => 'ps_megstyl_pl_id',
+                                 'title' => 'Id',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'float:left; margin-right: 16px;',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'defaultValue' => NULL,
+                                 'integer' => false,
+                                 'unsigned' => false,
+                                 'minValue' => NULL,
+                                 'maxValue' => NULL,
+                                 'unique' => false,
+                                 'decimalSize' => NULL,
+                                 'decimalPrecision' => NULL,
+                                 'width' => 220,
+                                 'defaultValueGenerator' => '',
+                              )),
+                              2 => 
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                 'name' => 'ps_megstyl_pl_version',
+                                 'title' => 'version',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'defaultValue' => NULL,
+                                 'columnLength' => 190,
+                                 'regex' => '',
+                                 'regexFlags' => 
+                                array (
+                                ),
+                                 'unique' => false,
+                                 'showCharCount' => false,
+                                 'width' => 300,
+                                 'defaultValueGenerator' => '',
+                              )),
+                              3 => 
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
+                                 'name' => 'Prestashop',
+                                 'title' => 'Prestahop',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => true,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'classes' => 
+                                array (
+                                ),
+                                 'displayMode' => NULL,
+                                 'pathFormatterClass' => '',
+                                 'maxItems' => NULL,
+                                 'visibleFields' => 'key',
+                                 'allowToCreateNewObject' => false,
+                                 'allowToClearRelation' => true,
+                                 'optimizedAdminLoading' => false,
+                                 'enableTextSelection' => false,
+                                 'visibleFieldDefinitions' => 
+                                array (
+                                ),
+                                 'width' => '',
+                                 'height' => '',
+                                 'allowedClassId' => 'Prestashop',
+                                 'columns' => 
+                                array (
+                                  0 => 
+                                  array (
+                                    'type' => 'number',
+                                    'position' => 1,
+                                    'key' => 'ProductId',
+                                    'label' => 'Product Id',
+                                  ),
+                                  1 => 
+                                  array (
+                                    'type' => 'text',
+                                    'position' => 2,
+                                    'key' => 'Version',
+                                    'label' => 'Version',
+                                  ),
+                                ),
+                                 'columnKeys' => 
+                                array (
+                                  0 => 'ProductId',
+                                  1 => 'Version',
+                                ),
+                                 'enableBatchEdit' => false,
+                                 'allowMultipleAssignments' => false,
+                              )),
+                            ),
+                             'locked' => false,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'fieldtype' => 'panel',
+                             'layout' => NULL,
+                             'border' => false,
+                             'icon' => '/LOGO/prestashop.png',
+                             'labelWidth' => 90,
+                             'labelAlign' => 'left',
+                          )),
+                          1 => 
+                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                             'name' => 'Subiekt GT',
+                             'type' => NULL,
+                             'region' => NULL,
+                             'title' => 'Subiekt GT',
+                             'width' => '',
+                             'height' => '',
+                             'collapsible' => true,
+                             'collapsed' => true,
+                             'bodyStyle' => '',
+                             'datatype' => 'layout',
+                             'children' => 
+                            array (
+                              0 => 
+                              \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
+                                 'name' => 'Layout',
+                                 'type' => NULL,
+                                 'region' => NULL,
+                                 'title' => '',
+                                 'width' => '',
+                                 'height' => '',
+                                 'collapsible' => false,
+                                 'collapsed' => false,
+                                 'bodyStyle' => '',
+                                 'datatype' => 'layout',
+                                 'children' => 
+                                array (
+                                ),
+                                 'locked' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'fieldtype' => 'text',
+                                 'html' => '<div class="alert alert-warning">
+Not used in common version. Shown as a placeholder
+</div>',
+                                 'renderingClass' => '',
+                                 'renderingData' => '',
+                                 'border' => false,
+                              )),
+                              1 => 
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                                 'name' => 'sgt',
+                                 'title' => 'Subiekt GT',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'defaultValue' => NULL,
+                                 'defaultValueGenerator' => '',
+                              )),
+                            ),
+                             'locked' => false,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'fieldtype' => 'panel',
+                             'layout' => NULL,
+                             'border' => false,
+                             'icon' => '/LOGO/sgt.png',
+                             'labelWidth' => 100,
+                             'labelAlign' => 'left',
+                          )),
+                          2 => 
+                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                             'name' => 'Baselinker',
+                             'type' => NULL,
+                             'region' => NULL,
+                             'title' => 'Baselinker',
+                             'width' => '',
+                             'height' => '',
+                             'collapsible' => true,
+                             'collapsed' => true,
+                             'bodyStyle' => '',
+                             'datatype' => 'layout',
+                             'children' => 
+                            array (
+                              0 => 
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
+                                 'name' => 'BaselinkerCatalog',
+                                 'title' => 'Baselinker Catalog',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => true,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'classes' => 
+                                array (
+                                ),
+                                 'displayMode' => NULL,
+                                 'pathFormatterClass' => '',
+                                 'maxItems' => NULL,
+                                 'visibleFields' => 'key,CatalogId,Name',
+                                 'allowToCreateNewObject' => false,
+                                 'allowToClearRelation' => true,
+                                 'optimizedAdminLoading' => false,
+                                 'enableTextSelection' => false,
+                                 'visibleFieldDefinitions' => 
+                                array (
+                                ),
+                                 'width' => '',
+                                 'height' => '',
+                                 'allowedClassId' => 'BaselinkerCatalog',
+                                 'columns' => 
+                                array (
+                                  0 => 
+                                  array (
+                                    'type' => 'number',
+                                    'position' => 1,
+                                    'key' => 'ProductId',
+                                    'label' => 'Product Id',
+                                    'id' => 'extModel9950-1',
+                                  ),
+                                  1 => 
+                                  array (
+                                    'type' => 'text',
+                                    'position' => 2,
+                                    'key' => 'Version',
+                                    'label' => 'Version',
+                                    'id' => 'extModel9950-2',
+                                  ),
+                                ),
+                                 'columnKeys' => 
+                                array (
+                                  0 => 'ProductId',
+                                  1 => 'Version',
+                                ),
+                                 'enableBatchEdit' => false,
+                                 'allowMultipleAssignments' => false,
+                              )),
+                            ),
+                             'locked' => false,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'fieldtype' => 'panel',
+                             'layout' => NULL,
+                             'border' => false,
+                             'icon' => '/LOGO/base.png',
+                             'labelWidth' => 100,
+                             'labelAlign' => 'left',
+                          )),
+                        ),
                          'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => true,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'classes' => 
-                        array (
-                        ),
-                         'displayMode' => NULL,
-                         'pathFormatterClass' => '',
-                         'maxItems' => NULL,
-                         'visibleFields' => 'key,CatalogId,Name',
-                         'allowToCreateNewObject' => false,
-                         'allowToClearRelation' => true,
-                         'optimizedAdminLoading' => false,
-                         'enableTextSelection' => false,
-                         'visibleFieldDefinitions' => 
-                        array (
-                        ),
-                         'width' => '',
-                         'height' => '',
-                         'allowedClassId' => 'BaselinkerCatalog',
-                         'columns' => 
-                        array (
-                          0 => 
-                          array (
-                            'type' => 'number',
-                            'position' => 1,
-                            'key' => 'ProductId',
-                            'label' => 'Product Id',
-                            'id' => 'extModel9950-1',
-                          ),
-                          1 => 
-                          array (
-                            'type' => 'text',
-                            'position' => 2,
-                            'key' => 'Version',
-                            'label' => 'Version',
-                            'id' => 'extModel9950-2',
-                          ),
-                        ),
-                         'columnKeys' => 
-                        array (
-                          0 => 'ProductId',
-                          1 => 'Version',
-                        ),
-                         'enableBatchEdit' => false,
-                         'allowMultipleAssignments' => false,
+                         'fieldtype' => 'accordion',
+                         'border' => false,
                       )),
                     ),
                      'locked' => false,

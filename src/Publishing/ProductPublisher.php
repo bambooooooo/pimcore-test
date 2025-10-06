@@ -4,6 +4,7 @@ namespace App\Publishing;
 
 use App\Message\BlkIndex;
 use App\Message\ErpIndex;
+use App\Message\PsMessage;
 use App\Service\OfferService;
 use App\Service\PricingService;
 use InvalidArgumentException;
@@ -46,6 +47,7 @@ class ProductPublisher
                 $this->updateOffers($product);
                 $this->sendToErp($product);
                 $this->bus->dispatch(new BlkIndex($product->getId()));
+                $this->bus->dispatch(new PsMessage($product->getId()));
             }
         });
     }
