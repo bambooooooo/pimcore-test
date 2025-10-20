@@ -121,9 +121,12 @@ services:
         resource: '../src/Publishing'
         public: true
 
-    App\EventListener\ObjectPublishListener:
+    App\EventListener\ObjectListener:
         tags:
-            - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: onPublish }
+            - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: preUpdate }
+            - { name: kernel.event_listener, event: pimcore.dataobject.postUpdate, method: postUpdate }
+            - { name: kernel.event_listener, event: pimcore.dataobject.postAdd, method: postAdd }
+            - { name: kernel.event_listener, event: pimcore.dataobject.preDelete, method: preDelete }
 
     # front auth
     factory.security.user_provider:

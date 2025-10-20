@@ -7,10 +7,10 @@ use App\Publishing\BaselinkerPublisher;
 use App\Publishing\EanPoolPublisher;
 use App\Publishing\OfferPublisher;
 use App\Publishing\OrderPublisher;
-use App\Publishing\PackagePublisher;
+use App\Publishing\PackageEventListener;
 use App\Publishing\PricingPublisher;
-use App\Publishing\ProductPublisher;
-use App\Publishing\ProductSetPublisher;
+use App\Publishing\ProductEventListener;
+use App\Publishing\ProductSetEventListener;
 use App\Publishing\GroupPublisher;
 use App\Publishing\UserPublisher;
 use Pimcore\Event\Model\ElementEventInterface;
@@ -25,13 +25,14 @@ use Pimcore\Model\DataObject\Pricing;
 use Pimcore\Model\DataObject\Product;
 use Pimcore\Model\DataObject\ProductSet;
 use Pimcore\Model\DataObject\User;
+use Pimcore\Model\DataObject\Service;
 
-class ObjectPublishListener
+class ObjectListener
 {
     public function __construct(
-        private readonly ProductPublisher           $productPublisher,
-        private readonly ProductSetPublisher        $productSetPublisher,
-        private readonly PackagePublisher           $packagePublisher,
+        private readonly ProductEventListener       $productEventListener,
+        private readonly ProductSetEventListener    $productSetEventListener,
+        private readonly PackageEventListener       $packageEventListener,
         private readonly EanPoolPublisher           $eanPoolPublisher,
         private readonly PricingPublisher           $pricingPublisher,
         private readonly GroupPublisher             $groupPublisher,
@@ -41,30 +42,53 @@ class ObjectPublishListener
         private readonly BaselinkerCatalogPublisher $baselinkerCatalogPublisher,
         private readonly UserPublisher              $userPublisher,
     ) {}
-    public function onPublish(ElementEventInterface $event): void
-    {
-        $obj = $event->getElement();
 
-        if($event->hasArgument('saveVersionOnly'))
-        {
+    public function preUpdate(ElementEventInterface $event): void
+    {
+        if($event->hasArgument('skip') || $event->hasArgument('isAutoSave') || $event->hasArgument('saveVersionOnly')) {
             return;
         }
 
-        if($obj instanceof Product and $obj->isPublished())
+        $obj = $event->getElement();
+
+        if($obj instanceof Product)
         {
-            $this->productPublisher->publish($obj);
+            Service::useInheritedValues(true, function() use ($obj) {
+                $this->productEventListener->preUpdate($obj);
+            });
         }
-        if($obj instanceof ProductSet and $obj->isPublished())
+        else if($obj instanceof ProductSet)
         {
-            $this->productSetPublisher->publish($obj);
+            $this->productSetEventListener->preUpdate($obj);
+        }
+        else if($obj instanceof Package)
+        {
+            $this->packageEventListener->preUpdate($obj);
+        }
+    }
+    public function postUpdate(ElementEventInterface $event): void
+    {
+        if($event->hasArgument('skip') || $event->hasArgument('isAutoSave') || $event->hasArgument('saveVersionOnly')) {
+            return;
+        }
+
+        $obj = $event->getElement();
+
+        if($obj instanceof Product)
+        {
+            $this->productEventListener->postUpdate($obj);
+        }
+        if($obj instanceof ProductSet)
+        {
+            $this->productSetEventListener->postSave($obj);
         }
         else if ($obj instanceof EanPool and $obj->isPublished())
         {
             $this->eanPoolPublisher->publish($obj);
         }
-        else if($obj instanceof Package and $obj->isPublished())
+        else if($obj instanceof Package)
         {
-            $this->packagePublisher->publish($obj);
+            $this->packageEventListener->postUpdate($obj);
         }
         else if($obj instanceof Pricing and $obj->isPublished())
         {
@@ -93,6 +117,31 @@ class ObjectPublishListener
         else if($obj instanceof User and $obj->isPublished())
         {
             $this->userPublisher->publish($obj);
+        }
+    }
+
+    public function postAdd(ElementEventInterface $event): void
+    {
+        if($event->hasArgument('skip'))
+        {
+            return;
+        }
+
+        $obj = $event->getElement();
+
+        if($obj instanceof Product)
+        {
+            $this->productEventListener->postAdd($obj);
+        }
+    }
+
+    public function preDelete(ElementEventInterface $event): void
+    {
+        $obj = $event->getElement();
+
+        if($obj instanceof Product)
+        {
+            $this->productEventListener->preDelete($obj);
         }
     }
 }

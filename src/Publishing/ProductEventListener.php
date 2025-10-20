@@ -8,7 +8,6 @@ use App\Message\PsMessage;
 use App\Service\OfferService;
 use App\Service\PricingService;
 use InvalidArgumentException;
-use Pimcore\Logger;
 use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\Data\ObjectMetadata;
 use Pimcore\Model\DataObject\Data\QuantityValue;
@@ -18,7 +17,7 @@ use Pimcore\Model\DataObject\ProductSet;
 use Pimcore\Model\DataObject\QuantityValue\Unit;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-class ProductPublisher
+class ProductEventListener
 {
     public function __construct(private readonly PricingService $pricingService,
                                 private readonly MessageBusInterface $bus,
@@ -27,9 +26,12 @@ class ProductPublisher
 
     }
 
-    public function publish(Product $product): void
+    public function preUpdate(Product $product): void
     {
-        Logger::info("Publishing product {$product->getId()}");
+        $this->tryUpdateTotalMassAndVolume($product);
+        $this->tryUpdateSerieSize($product);
+        $this->tryUpdatePricing($product);
+        $this->tryUpdateOffers($product);
 
         DataObject\Service::useInheritedValues(true, function() use ($product) {
 
@@ -38,8 +40,29 @@ class ProductPublisher
             $this->assertPackageCodeIfProductMirjanCode($product);
             $this->assertPackageCodeIfProductAgataCode($product);
             $this->assertGroupsArePublished($product);
+        if($product->isPublished())
+        {
+            try
+            {
+                DataObject\Service::useInheritedValues(true, function() use ($product) {
+                    $this->assertNamePL($product);
+                    $this->assertPackageQuantityAndPublished($product);
+                    $this->assertPackageCodeIfProductMirjanCode($product);
+                    $this->assertPackageCodeIfProductAgataCode($product);
+                    $this->assertGroupsArePublished($product);
+                });
+            }
+            {
+                $product->setPublished(false);
+                $product->save(["skip" => "validation errors"]);
+                throw $e;
+            }
+        }
+    }
 
-            $this->updatePackagesMassAndVolumeAndSerieSize($product);
+    public function postUpdate(Product $product): void
+    {
+        DataObject\Service::useInheritedValues(true, function() use ($product) {
 
             if($product->getObjectType() == 'ACTUAL')
             {
@@ -48,9 +71,24 @@ class ProductPublisher
                 $this->sendToErp($product);
                 $this->bus->dispatch(new BlkIndex($product->getId()));
                 $this->bus->dispatch(new PsMessage($product->getId()));
+
+                if($product->isPublished())
+                {
+                    $this->bus->dispatch(new ErpIndex($product->getId()));
+                    $this->bus->dispatch(new BlkIndex($product->getId()));
+                }
             }
         });
     }
+
+    public function postAdd(Product $product)
+    {
+    }
+
+    public function preDelete(Product $product): void
+    {
+    }
+
 
     private function assertPackageCodeIfProductAgataCode(Product $product): void
     {
@@ -93,25 +131,11 @@ class ProductPublisher
                 assert($lip->getElement()->isPublished(), "Product package [$code] must be published");
                 assert($lip->getQuantity() > 0, "Product package [$code] must be greater than 0");
             }
+
+            assert($product->getPackagesMass()->getValue() > 0, "Product packages total mass must be greater than 0");
+            assert($product->getPackageCount() > 0, "Product packages total count must be greater than 0");
+            assert($product->getPackagesVolume()->getValue() > 0, "Product packages volume must be greater than 0");
         }
-    }
-
-    function gcd(int $a, int $b): int {
-        return $b === 0 ? $a : $this->gcd($b, $a % $b);
-    }
-
-    function lcm(int $a, int $b): int {
-        return ($a * $b) / $this->gcd($a, $b);
-    }
-
-    function lcmArray(array $numbers): int {
-        if (empty($numbers)) {
-            throw new InvalidArgumentException("Input array cannot be empty.");
-        }
-
-        return array_reduce($numbers, function($carry, $item) {
-            return $this->lcm($carry, $item);
-        }, 1);
     }
 
     function updateProductSets(Product $product): void
@@ -139,63 +163,94 @@ class ProductPublisher
         }
     }
 
-    function updatePackagesMassAndVolumeAndSerieSize(Product $product) : void
+    function tryUpdateSerieSize(Product $product): void
     {
-        $mass = 0;
-        $volume = 0;
-        $count = 0;
-
-        $counts = [];
-
-        foreach ($product->getPackages() as $li)
+        try
         {
-            $count += $li->getQuantity();
-            $mass += $li->getElement()->getMass()->getValue() * $li->getQuantity();
+            if(!$product->getPackages())
+                return;
 
-            if($li->getElement()->getCarriers())
+            $counts = [];
+
+            foreach ($product->getPackages() as $li)
             {
-                foreach ($li->getElement()->getCarriers() as $lic)
+                if($li->getElement()->getCarriers())
                 {
-                    if($lic->getQuantity())
+                    foreach ($li->getElement()->getCarriers() as $lic)
                     {
-                        $counts[] = $lic->getQuantity();
-                    }
-                    else
-                    {
-                        $counts[] = 0;
+                        if($lic->getQuantity())
+                        {
+                            $counts[] = $lic->getQuantity();
+                        }
+                        else
+                        {
+                            $counts[] = 0;
+                        }
                     }
                 }
             }
 
-            $v = $li->getQuantity()
-                * $li->getElement()->getWidth()->getValue()
-                * $li->getElement()->getHeight()->getValue()
-                * $li->getElement()->getDepth()->getValue();
-
-            $v = ((float)$v) / (1000000000.0);
-            $volume += $v;
+            if(count($counts) > 0 && !array_any($counts, function($c){ return $c == 0; }))
+            {
+                $lcm = $this->lcmArray($counts);
+                $product->setSerieSize($lcm);
+            }
         }
-
-        if(count($counts) > 0 && !array_any($counts, function($c){ return $c == 0; }))
+        catch(\Throwable $e)
         {
-            $lcm = $this->lcmArray($counts);
-            $product->setSerieSize($lcm);
+
         }
-
-        $kg = Unit::getByAbbreviation("kg");
-        $m3 = Unit::getByAbbreviation("m3");
-
-        $product->setPackagesMass(new QuantityValue($mass, $kg));
-        $product->setPackagesVolume(new QuantityValue($volume, $m3));
-        $product->setPackageCount($count);
-
-        $product->save();
     }
 
-    function updatePricing(Product $product) : void
+    function tryUpdateTotalMassAndVolume(Product $product) : void
     {
-        $pricings = new Pricing\Listing();
-        $pricings->setCondition("`published` = 1");
+        try
+        {
+            $mass = 0;
+            $volume = 0;
+            $count = 0;
+
+            foreach ($product->getPackages() as $li)
+            {
+                $count += $li->getQuantity();
+                $mass += $li->getElement()->getMass()->getValue() * $li->getQuantity();
+
+                $v = $li->getQuantity()
+                    * $li->getElement()->getWidth()->getValue()
+                    * $li->getElement()->getHeight()->getValue()
+                    * $li->getElement()->getDepth()->getValue();
+
+                $v = ((float)$v) / (1000000000.0);
+                $volume += $v;
+            }
+
+
+            $kg = Unit::getByAbbreviation("kg");
+            $m3 = Unit::getByAbbreviation("m3");
+
+            $product->setPackagesMass(new QuantityValue($mass, $kg));
+            $product->setPackagesVolume(new QuantityValue($volume, $m3));
+            $product->setPackageCount($count);
+
+            $product->save(["skip" => "package data update"]);
+        }
+        catch(\Throwable $e)
+        {
+            $product->setPackagesMass(null);
+            $product->setPackagesVolume(null);
+            $product->setPackageCount(null);
+            $product->setSerieSize(null);
+
+            $product->save(["skip" => "unsufficient packages data"]);
+        }
+    }
+
+    function tryUpdatePricing(Product $product) : void
+    {
+        try
+        {
+            $pricings = new Pricing\Listing();
+            $pricings->setCondition("`published` = 1");
 
         $productPrices = [];
 
@@ -209,13 +264,28 @@ class ProductPublisher
             }
         }
 
-        $product->setPricing($productPrices);
-        $product->save();
+            $product->setPricing($productPrices);
+            $product->save(["skip" => "pricing data update"]);
+        }
+        catch(\Throwable $e)
+        {
+            $product->setPricing(null);
+            $product->save(["skip" => "pricing data - insufficient data"]);
+        }
     }
 
-    function updateOffers(Product $product) : void
+    function tryUpdateOffers(Product $product) : void
     {
-        $product->setPrice($this->offerService->getObjectPrices($product));
+        try
+        {
+            $product->setPrice($this->offerService->getObjectPrices($product));
+            $product->save(["skip" => "offers data update"]);
+        }
+        catch(\Throwable $e)
+        {
+            $product->setPrice(null);
+            $product->save(["skip" => "offers data - insufficient data"]);
+        }
     }
 
     function getPricing(Product $product, Pricing $pricing)
@@ -246,5 +316,23 @@ class ProductPublisher
         {
             assert($group->isPublished(), "Product's group [" . $group->getKey() . "] must be published");
         }
+    }
+
+    function gcd(int $a, int $b): int {
+        return $b === 0 ? $a : $this->gcd($b, $a % $b);
+    }
+
+    function lcm(int $a, int $b): int {
+        return ($a * $b) / $this->gcd($a, $b);
+    }
+
+    function lcmArray(array $numbers): int {
+        if (empty($numbers)) {
+            throw new InvalidArgumentException("Input array cannot be empty.");
+        }
+
+        return array_reduce($numbers, function($carry, $item) {
+            return $this->lcm($carry, $item);
+        }, 1);
     }
 }
