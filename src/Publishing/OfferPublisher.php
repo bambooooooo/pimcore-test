@@ -24,10 +24,13 @@ class OfferPublisher
             $this->baselinkerService->updatePriceGroup($offer);
         }
 
-        $this->subiektGTService->request("POST", "prices", [
-            'Code' => "" . $offer->getId(),
-            'Name' => $offer->getKey(),
-            'Brutto' => $offer->getBrutto() ?? false,
-        ]);
+        if("TEMP-PROD-FIX" == "off")
+        {
+            $this->subiektGTService->request("POST", "prices", [
+                'Code' => "" . $offer->getId(),
+                'Name' => $offer->getKey(),
+                'Brutto' => $offer->getBrutto() ?? false,
+            ]);
+        }
     }
 }
