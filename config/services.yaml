@@ -153,6 +153,7 @@ services:
     App\EventListener\AssetsListener:
         tags:
             - { name: kernel.event_listener, event: pimcore.asset.postAdd, method: postAddEvents }
+            - { name: kernel.event_listener, event: pimcore.asset.postUpdate, method: postUpdateEvents }
 
     # Example custom templating helper
     # App\Templating\Helper\Example:

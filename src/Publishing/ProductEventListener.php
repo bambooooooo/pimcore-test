@@ -33,13 +33,6 @@ class ProductEventListener
         $this->tryUpdatePricing($product);
         $this->tryUpdateOffers($product);
 
-        DataObject\Service::useInheritedValues(true, function() use ($product) {
-
-            $this->assertNamePL($product);
-            $this->assertPackageQuantityAndPublished($product);
-            $this->assertPackageCodeIfProductMirjanCode($product);
-            $this->assertPackageCodeIfProductAgataCode($product);
-            $this->assertGroupsArePublished($product);
         if($product->isPublished())
         {
             try
@@ -49,9 +42,11 @@ class ProductEventListener
                     $this->assertPackageQuantityAndPublished($product);
                     $this->assertPackageCodeIfProductMirjanCode($product);
                     $this->assertPackageCodeIfProductAgataCode($product);
+                    $this->assertPrestashopGroupIsPublished($product);
                     $this->assertGroupsArePublished($product);
                 });
             }
+            catch(\Throwable $e)
             {
                 $product->setPublished(false);
                 $product->save(["skip" => "validation errors"]);
@@ -66,10 +61,6 @@ class ProductEventListener
 
             if($product->getObjectType() == 'ACTUAL')
             {
-                $this->updatePricing($product);
-                $this->updateOffers($product);
-                $this->sendToErp($product);
-                $this->bus->dispatch(new BlkIndex($product->getId()));
                 $this->bus->dispatch(new PsMessage($product->getId()));
 
                 if($product->isPublished())
@@ -83,12 +74,27 @@ class ProductEventListener
 
     public function postAdd(Product $product)
     {
+        $product->setPs_megstyl_pl(false);
+        $product->save(['skip' => 'fix megstyl.pl checkbox']);
     }
 
     public function preDelete(Product $product): void
     {
+        if($product->getPs_megstyl_pl_id())
+        {
+            $this->bus->dispatch(new PsMessage($product->getPs_megstyl_pl_id(), "delete"));
+        }
     }
 
+    private function assertPrestashopGroupIsPublished(Product $product): void
+    {
+        if(!$product->getPs_megstyl_pl())
+            return;
+
+        assert($product->getPs_megstyl_pl_parent(), "Product has no prestashop group");
+        assert($product->getPs_megstyl_pl_parent()->getPs_megstyl_pl(), 'Product prestashop group has no prestashop integration selected');
+        assert($product->getPs_megstyl_pl_parent()->getPs_megstyl_pl_id(), "Product prestashop group has no prestashop id");
+    }
 
     private function assertPackageCodeIfProductAgataCode(Product $product): void
     {
@@ -252,17 +258,17 @@ class ProductEventListener
             $pricings = new Pricing\Listing();
             $pricings->setCondition("`published` = 1");
 
-        $productPrices = [];
+            $productPrices = [];
 
-        foreach ($pricings as $pricing)
-        {
-            $res = $this->getPricing($product, $pricing);
-
-            if($res)
+            foreach ($pricings as $pricing)
             {
-                $productPrices[] = $res;
+                $res = $this->getPricing($product, $pricing);
+
+                if($res)
+                {
+                    $productPrices[] = $res;
+                }
             }
-        }
 
             $product->setPricing($productPrices);
             $product->save(["skip" => "pricing data update"]);
@@ -299,11 +305,6 @@ class ProductEventListener
 
             return $item;
         }
-    }
-
-    function sendToErp(Product $product) : void
-    {
-        $this->bus->dispatch(new ErpIndex($product->getId()));
     }
 
     private function assertGroupsArePublished(Product $product)

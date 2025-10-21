@@ -13,13 +13,15 @@ class PrestashopService
 
     }
 
-    public function get(string $resource, string $schema='default'): SimpleXMLElement
+    public function get(string $resource, string $schema='default', $query=[]): SimpleXMLElement
     {
         $data = [];
         if($schema == 'blank' || $schema == 'synopsis')
         {
             $data['schema'] = $schema;
         }
+
+        $data = array_merge($data, $query);
 
         $data = $this->httpClient->request("GET", $this->getUrl($resource, $data), [
             'auth_basic' => [$this->apikey, ''],
@@ -42,15 +44,17 @@ class PrestashopService
         ])->getStatusCode();
     }
 
-    public function delete(string $resource): void
+    public function delete(string $resource): int
     {
-        $res = $this->httpClient->request("DELETE", $this->getUrl($resource), [
+        $res = $this->httpClient->request("DELETE", $this->getUrl($resource, ['id_shop_group' => 1]), [
             'auth_basic' => [$this->apikey, ''],
             'headers' => [
                 'Host' => explode(":", $this->domain)[0],
                 'Content-Type' => 'application/xml'
             ]
         ]);
+
+        return $res->getStatusCode();
     }
 
     public function post(string $resource, SimpleXMLElement $xml, $params = []): SimpleXMLElement
@@ -65,9 +69,9 @@ class PrestashopService
                 'Content-Type' => 'application/xml'
             ],
             'body' => $data
-        ])->getContent();
+        ]);
 
-        return new SimpleXMLElement($res);
+        return new SimpleXMLElement($res->getContent());
     }
 
     public function patch(string $resource, SimpleXMLElement $xml): SimpleXMLElement
@@ -114,7 +118,7 @@ class PrestashopService
         return null;
     }
 
-    public function uploadImage(string $resource, string $filepath, string $method = "POST"): void
+    public function upload(string $resource, string $filepath, string $method = "POST", string $filename = "image"): void
     {
         $res = $this->httpClient->request("POST", $this->getUrl($resource), [
             'auth_basic' => [$this->apikey, ''],
@@ -123,22 +127,26 @@ class PrestashopService
             ],
             'body' => [
                 'ps_method' => $method,
-                'image' => fopen($filepath, 'r'),
+                $filename => fopen($filepath, 'r'),
             ]
         ]);
     }
 
-    private function getUrl($resource, $params = [])
+    public function uploadFile(string $resource, string $filepath, string $method = "POST", string $filename = "file"): SimpleXMLElement
     {
-        $url = "https://" . rtrim($this->domain, "/") . "/api/" . rtrim(ltrim($resource, '/'), '/');
+        $res = $this->httpClient->request("POST", $this->getUrl($resource), [
+            'auth_basic' => [$this->apikey, ''],
+            'headers' => [
+                'Host' => explode(":", $this->domain)[0]
+            ],
+            'body' => [
+                'ps_method' => $method,
+                $filename => fopen($filepath, 'r'),
+            ]
+        ]);
 
-        if($params) {
-            $url .= "?" . http_build_query($params);
-        }
-
-        return $url;
+        return new SimpleXMLElement($res->getContent());
     }
-
     public function getLinkRewrite(string $name): string
     {
         // Map Polish characters (and some common diacritics)
@@ -162,5 +170,15 @@ class PrestashopService
         $name = trim($name, '-');
 
         return $name ?: 'n-a'; // Fallback if empty
+    }
+    private function getUrl($resource, $params = [])
+    {
+        $url = "https://" . rtrim($this->domain, "/") . "/api/" . rtrim(ltrim($resource, '/'), '/');
+
+        if($params) {
+            $url .= "?" . http_build_query($params);
+        }
+
+        return $url;
     }
 }

@@ -4,13 +4,23 @@ namespace App\Message;
 
 class PsMessage
 {
-    public function __construct(private int $objectId)
+    public function __construct(private int $id, private string $mode = "update", private int $userId = 0)
     {
 
     }
 
-    public function getObjectId(): int
+    public function getId(): int
     {
-        return $this->objectId;
+        return $this->id;
+    }
+
+    public function getMode(): string
+    {
+        return $this->mode;
+    }
+
+    public function getUserId(): int
+    {
+        return $this->userId;
     }
 }

@@ -4,6 +4,7 @@ namespace App\Publishing;
 
 use App\Message\BlkIndex;
 use App\Message\ErpIndex;
+use App\Message\PsMessage;
 use App\Service\OfferService;
 use App\Service\PricingService;
 use Pimcore\Model\DataObject;
@@ -49,10 +50,9 @@ class ProductSetEventListener
                 $this->bus->dispatch(new ErpIndex($set->getId()));
             }
 
-            ApplicationLogger::getInstance()->info("Publishing ProductSet {$set->getId()}");
+            $this->bus->dispatch(new PsMessage($set->getId()));
         });
     }
-
     function assertProdutsAreAssignedAndPublished(ProductSet $set) : void
     {
         assert($set->getSet() and count($set->getSet()) > 0, "ProductSet has no items");
@@ -123,19 +123,14 @@ class ProductSetEventListener
                     $massItem = $lip->getElement()->getMass()->getValue() * (float)$lip->getQuantity() * (float)$li->getQuantity();
                     $packageId = $lip->getElement()->getId();
 
-                assert($massItem > 0, "Package(Id=$packageId] mass must be greater than 0");
+                    assert($massItem > 0, "Package(Id=$packageId] mass must be greater than 0");
 
-                $mass += $massItem;
+                    $mass += $massItem;
+                }
             }
-        }
 
-        $kg = Unit::getByAbbreviation("kg");
-        $productSet->setPackagesMass(new QuantityValue($mass, $kg));
-    }
-
-    function gcd(int $a, int $b): int {
-        return $b === 0 ? $a : $this->gcd($b, $a % $b);
-    }
+            $kg = Unit::getByAbbreviation("kg");
+            $productSet->setPackagesMass(new QuantityValue($mass, $kg));
 
             $productSet->save(["skip" => "packages mass"]);
         }
@@ -144,10 +139,6 @@ class ProductSetEventListener
             $productSet->setPackagesMass(null);
             $productSet->save(["skip" => "packages mass - insufficient data"]);
         }
-
-        return array_reduce($numbers, function($carry, $item) {
-            return $this->lcm($carry, $item);
-        }, 1);
     }
 
     private function tryUpdatePackagesVolume(ProductSet $productSet) : void
@@ -163,15 +154,15 @@ class ProductSetEventListener
                         * $lip->getElement()->getHeight()->getValue()
                         * $lip->getElement()->getDepth()->getValue();
 
-                $v = ((float)$v) / (1000000000.0);
+                    $v = ((float)$v) / (1000000000.0);
 
-                $packageId = $lip->getElement()->getId();
+                    $packageId = $lip->getElement()->getId();
 
-                assert($v > 0, "Package(Id=$packageId] volume must be greater than 0");
+                    assert($v > 0, "Package(Id=$packageId] volume must be greater than 0");
 
-                $volume += $v;
+                    $volume += $v;
+                }
             }
-        }
 
             $m3 = Unit::getByAbbreviation("m3");
             $productSet->setPackagesVolume(new QuantityValue($volume, $m3));
@@ -233,21 +224,21 @@ class ProductSetEventListener
             $pricingList = new Pricing\Listing();
             $pricingList->setCondition("`published` = 1");
 
-        $productPrices = [];
+            $productPrices = [];
 
-        foreach ($pricingList as $pricing)
-        {
-            $price = $this->pricingService->getPricing($set, $pricing);
-
-            if($price)
+            foreach ($pricingList as $pricing)
             {
-                $item = new ObjectMetadata('Pricing', ['Price', 'Currency'], $pricing);
-                $item->setPrice($price);
-                $item->setCurrency($pricing->getCurrency());
+                $price = $this->pricingService->getPricing($set, $pricing);
 
-                $productPrices[] = $item;
+                if($price)
+                {
+                    $item = new ObjectMetadata('Pricing', ['Price', 'Currency'], $pricing);
+                    $item->setPrice($price);
+                    $item->setCurrency($pricing->getCurrency());
+
+                    $productPrices[] = $item;
+                }
             }
-        }
 
             $set->setPricing($productPrices);
             $set->save(["skip" => "pricings"]);

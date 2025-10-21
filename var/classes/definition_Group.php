@@ -15,9 +15,9 @@
  * - Sets [reverseObjectRelation]
  * - Users [reverseObjectRelation]
  * - Keys [multiselect]
- * - ps_megstyl_pl [checkbox]
+ * - ps_megstyl_pl [booleanSelect]
+ * - ps_megstyl_pl_parent [manyToOneRelation]
  * - ps_megstyl_pl_id [numeric]
- * - ps_megstyl_pl_version [input]
  * - sgt [checkbox]
  */
 
@@ -28,7 +28,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Grupa',
    'description' => 'Zbiór produktów, zestawów produktów, użytkowników',
    'creationDate' => NULL,
-   'modificationDate' => 1759412148,
+   'modificationDate' => 1760612258,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -464,15 +464,15 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
                          'name' => 'ps_megstyl_pl',
-                         'title' => 'megstyl.pl',
+                         'title' => 'Publish on megstyl.pl',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
                          'locked' => false,
-                         'style' => 'float:left; margin-right: 16px;',
+                         'style' => '',
                          'permissions' => NULL,
                          'fieldtype' => '',
                          'relationType' => false,
@@ -482,10 +482,72 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'defaultValue' => 0,
-                         'defaultValueGenerator' => '',
+                         'yesLabel' => 'Yes',
+                         'noLabel' => 'No',
+                         'emptyLabel' => '',
+                         'options' => 
+                        array (
+                          0 => 
+                          array (
+                            'key' => '',
+                            'value' => 0,
+                          ),
+                          1 => 
+                          array (
+                            'key' => 'Yes',
+                            'value' => 1,
+                          ),
+                          2 => 
+                          array (
+                            'key' => 'No',
+                            'value' => -1,
+                          ),
+                        ),
+                         'width' => '',
                       )),
                       1 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+                         'name' => 'ps_megstyl_pl_parent',
+                         'title' => 'Parent group',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => true,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'classes' => 
+                        array (
+                          0 => 
+                          array (
+                            'classes' => 'Group',
+                          ),
+                        ),
+                         'displayMode' => 'grid',
+                         'pathFormatterClass' => '',
+                         'assetInlineDownloadAllowed' => false,
+                         'assetUploadPath' => '',
+                         'allowToClearRelation' => true,
+                         'objectsAllowed' => true,
+                         'assetsAllowed' => false,
+                         'assetTypes' => 
+                        array (
+                        ),
+                         'documentsAllowed' => false,
+                         'documentTypes' => 
+                        array (
+                        ),
+                         'width' => '',
+                      )),
+                      2 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'name' => 'ps_megstyl_pl_id',
                          'title' => 'Id',
@@ -494,7 +556,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'noteditable' => true,
                          'index' => false,
                          'locked' => false,
-                         'style' => 'float:left; margin-right: 16px;',
+                         'style' => '',
                          'permissions' => NULL,
                          'fieldtype' => '',
                          'relationType' => false,
@@ -513,36 +575,6 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
                          'width' => 220,
-                         'defaultValueGenerator' => '',
-                      )),
-                      2 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'name' => 'ps_megstyl_pl_version',
-                         'title' => 'version',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => true,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'columnLength' => 190,
-                         'regex' => '',
-                         'regexFlags' => 
-                        array (
-                        ),
-                         'unique' => false,
-                         'showCharCount' => false,
-                         'width' => 300,
                          'defaultValueGenerator' => '',
                       )),
                     ),
