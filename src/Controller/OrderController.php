@@ -37,8 +37,10 @@ class OrderController extends FrontendController
                 fprintf($handle, "[~(Z)~]\r\n");
                 $dateAdd = date("Y-m-d");
                 $dateDeadline = date("Y-m-d", strtotime($dateAdd . "+ 14 days"));
+                $description = "";
+                $externalNo = $obj->getId();
 
-                fprintf($handle, ";{$dateAdd};{$orderCode};;;{$dateDeadline};0;;1;+\r\n\r\n");
+                fprintf($handle, ";{$dateAdd};{$orderCode};{$description};{$externalNo};{$dateDeadline};0;;1;+\r\n\r\n");
                 fprintf($handle, "[~(X)~]\r\n");
 
                 foreach ($obj->getProducts() as $lip)
