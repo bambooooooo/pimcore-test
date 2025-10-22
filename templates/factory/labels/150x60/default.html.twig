@@ -140,7 +140,6 @@
                             {{ product.Name }}
                         </div>
                         <div style="font-size: 11px; padding-top: 4px;">
-                            {{ "Compatible with: "|trans }}
                             {% set comp = [] %}
                             {% for req in package.getDependencies().getFilterRequiredByPath() %}
                                 {% if req.type == 'object' %}
@@ -154,13 +153,16 @@
                                     {% endif %}
                                 {% endif %}
                             {% endfor %}
-                            {% for item in comp %}
-                                {% if loop.last %}
-                                    {{ item }}
-                                {% else %}
-                                    {{ item }},
-                                {% endif %}
-                            {% endfor %}
+                            {% if comp|length %}
+                                {{ "Compatible with: "|trans }}
+                                {% for item in comp %}
+                                    {% if loop.last %}
+                                        {{ item }}
+                                    {% else %}
+                                        {{ item }},
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
                         </div>
                     </td>
                 </tr>
