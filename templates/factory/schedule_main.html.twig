@@ -237,8 +237,12 @@
                 {% for order in orders %}
 
                     {% set orderSize = 0 %}
+                    {% set serieIds = [] %}
 
                     {% for serie in order.children %}
+
+                        {% set serieIds = serieIds|merge([serie.id]) %}
+
                         {% if app.user.theme_schedule_show_completed_item %}
                             {% set orderSize = orderSize + serie.products|length %}
 
@@ -645,6 +649,150 @@
                     status = status.filter(item => item !== id);
                     localStorage.setItem("status", JSON.stringify(status));
                 }
+            });
+
+            $(".serie-cutting-btn").click(function() {
+                var r = $(this);
+                var id = r.attr("data-id");
+                let isArray = id.includes('-');
+
+                $("#serie-cutting-icon-" + id).toggle();
+                $("#serie-cutting-spinner-" + id).toggle();
+
+                let url = "http://10.10.1.1:5071/orders/cutting-plans/" + id;
+
+                if(isArray){
+                    url = "http://10.10.1.1:5071/orders/batch/cutting-plans?id=" + id.replace('-', ',');
+                }
+
+                $.ajax({
+                    url: url,
+                    type: "GET",
+                    crossDomain: true,
+                    headers: {
+                        "Access-Control-Allow-Origin":"*"
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        var output = "Rozkroje\r\n";
+                        output += "==========================\r\n";
+
+                        let no = 1;
+
+                        for (var key in data) {
+                            output += no + ". " + data[key].rozkroj + " - " + data[key].material_kod + " - arkusze: " + data[key].arkusze + "\r\n";
+                            no++;
+                        }
+
+                        alert(output);
+                    },
+                    complete: function() {
+                        $("#serie-cutting-icon-" + id).toggle();
+                        $("#serie-cutting-spinner-" + id).toggle();
+                    },
+                    error: function(data) {
+                        alert("error");
+                        console.log(data);
+                    }
+                });
+            });
+
+            $(".serie-borders-btn").click(function() {
+                var r = $(this);
+                var id = r.attr("data-id");
+                let isArray = id.includes('-');
+
+                $("#serie-borders-icon-" + id).toggle();
+                $("#serie-borders-spinner-" + id).toggle();
+
+                let url = "http://10.10.1.1:5071/orders/borders/" + id;
+
+                if(isArray){
+                    url = "http://10.10.1.1:5071/orders/batch/borders?id=" + id.replace('-', ',');
+                }
+
+                $.ajax({
+                    url: url,
+                    type: "GET",
+                    crossDomain: true,
+                    headers: {
+                        "Access-Control-Allow-Origin":"*"
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        var output = "Obrzeża\r\n";
+                        output += "==========================\r\n";
+
+                        let no = 1;
+
+                        for (var key in data) {
+                            output += no + ". " + data[key].kod + " - " + data[key].nazwa + ": " + Math.round(data[key].ilosc * 1.1, 2) + " m\r\n";
+                            no++;
+                        }
+
+                        alert(output);
+                    },
+                    complete: function(){
+                        $("#serie-borders-icon-" + id).toggle();
+                        $("#serie-borders-spinner-" + id).toggle();
+                    },
+                    error: function(data) {
+                        alert("error");
+                        console.log(data);
+                    }
+                });
+            });
+
+            $(".serie-supplies-btn").click(function() {
+                var r = $(this);
+                let id = r.attr("data-id");
+                let isArray = id.includes('-');
+
+                $("#serie-supplies-icon-" + id).toggle();
+                $("#serie-supplies-spinner-" + id).toggle();
+
+                let url = "http://10.10.1.1:5071/orders/supplies/" + id;
+
+                if(isArray){
+                    url = "http://10.10.1.1:5071/orders/batch/supplies?id=" + id.replace('-', ',');
+                }
+
+                $.ajax({
+                    url: url,
+                    type: "GET",
+                    crossDomain: true,
+                    headers: {
+                        "Access-Control-Allow-Origin":"*"
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        var output = "Dostawy komponentów\r\n";
+                        output += "==========================\r\n";
+
+                        let no = 1;
+                        for (const [key, items] of Object.entries(data)) {
+                            output += "--------" + key + "--------" + "\r\n";
+
+                            for(var obj of items)
+                            {
+                                output += no + ". " + obj.komponent_kod + ": " + obj.ilosc + " szt.\r\n";
+                                no++;
+                            }
+
+                        }
+
+                        alert(output);
+                    },
+                    complete: function()
+                    {
+                        $("#serie-supplies-icon-" + id).toggle();
+                        $("#serie-supplies-spinner-" + id).toggle();
+                    },
+                    error: function(data) {
+                        alert("error");
+                        console.log(data);
+                    }
+                });
             });
         });
     </script>
