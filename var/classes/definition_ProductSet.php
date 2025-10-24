@@ -28,6 +28,10 @@
  * - BasePrice [quantityValue]
  * - Price [advancedManyToManyObjectRelation]
  * - Pricing [advancedManyToManyObjectRelation]
+ * - ps_megstyl_pl [booleanSelect]
+ * - ps_megstyl_pl_parent [manyToOneRelation]
+ * - ps_megstyl_pl_id [numeric]
+ * - sgt [checkbox]
  * - BaselinkerCatalog [advancedManyToManyObjectRelation]
  * - Image [image]
  * - EAN [input]
@@ -53,13 +57,13 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'useTraits' => '\\App\\Traits\\StockTrait',
    'listingUseTraits' => '',
    'encryption' => false,
-   'encryptedTables' => 
+   'encryptedTables' =>
   array (
   ),
    'allowInherit' => true,
    'allowVariants' => false,
    'showVariants' => false,
-   'layoutDefinitions' => 
+   'layoutDefinitions' =>
   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
      'name' => 'pimcore_root',
      'type' => NULL,
@@ -71,9 +75,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
      'collapsed' => false,
      'bodyStyle' => NULL,
      'datatype' => 'layout',
-     'children' => 
+     'children' =>
     array (
-      0 => 
+      0 =>
       \Pimcore\Model\DataObject\ClassDefinition\Layout\Region::__set_state(array(
          'name' => 'Layout',
          'type' => NULL,
@@ -85,9 +89,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'collapsed' => false,
          'bodyStyle' => '',
          'datatype' => 'layout',
-         'children' => 
+         'children' =>
         array (
-          0 => 
+          0 =>
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Layout',
              'type' => NULL,
@@ -99,9 +103,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'collapsed' => false,
              'bodyStyle' => '',
              'datatype' => 'layout',
-             'children' => 
+             'children' =>
             array (
-              0 => 
+              0 =>
               \Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
                  'name' => 'Layout',
                  'type' => NULL,
@@ -113,9 +117,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'collapsed' => false,
                  'bodyStyle' => '',
                  'datatype' => 'layout',
-                 'children' => 
+                 'children' =>
                 array (
-                  0 => 
+                  0 =>
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'System data',
                      'type' => NULL,
@@ -127,9 +131,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'collapsed' => false,
                      'bodyStyle' => '',
                      'datatype' => 'layout',
-                     'children' => 
+                     'children' =>
                     array (
-                      0 => 
+                      0 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
                          'name' => 'localizedfields',
                          'title' => '',
@@ -145,12 +149,12 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'invisible' => false,
                          'visibleGridView' => true,
                          'visibleSearch' => true,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
-                         'children' => 
+                         'children' =>
                         array (
-                          0 => 
+                          0 =>
                           \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'name' => 'Name',
                              'title' => 'Name',
@@ -168,13 +172,13 @@ Nazwa zestawu produtków',
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
-                             'blockedVarsForExport' => 
+                             'blockedVarsForExport' =>
                             array (
                             ),
                              'defaultValue' => NULL,
                              'columnLength' => 75,
                              'regex' => '',
-                             'regexFlags' => 
+                             'regexFlags' =>
                             array (
                             ),
                              'unique' => false,
@@ -190,9 +194,9 @@ Nazwa zestawu produtków',
                          'provideSplitView' => false,
                          'tabPosition' => 'top',
                          'hideLabelsWhenTabsReached' => NULL,
-                         'referencedFields' => 
+                         'referencedFields' =>
                         array (
-                          0 => 
+                          0 =>
                           \Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
                              'name' => 'localizedfields',
                              'title' => '',
@@ -208,12 +212,12 @@ Nazwa zestawu produtków',
                              'invisible' => false,
                              'visibleGridView' => true,
                              'visibleSearch' => true,
-                             'blockedVarsForExport' => 
+                             'blockedVarsForExport' =>
                             array (
                             ),
-                             'children' => 
+                             'children' =>
                             array (
-                              0 => 
+                              0 =>
                               \Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                                  'name' => 'Desc1',
                                  'title' => 'Desc1',
@@ -229,7 +233,7 @@ Nazwa zestawu produtków',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' => 
+                                 'blockedVarsForExport' =>
                                 array (
                                 ),
                                  'toolbarConfig' => '{
@@ -247,7 +251,7 @@ Nazwa zestawu produtków',
                                  'height' => '',
                                  'width' => '',
                               )),
-                              1 => 
+                              1 =>
                               \Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                                  'name' => 'Desc2',
                                  'title' => 'Desc2',
@@ -263,7 +267,7 @@ Nazwa zestawu produtków',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' => 
+                                 'blockedVarsForExport' =>
                                 array (
                                 ),
                                  'toolbarConfig' => '{
@@ -281,7 +285,7 @@ Nazwa zestawu produtków',
                                  'height' => '',
                                  'width' => '',
                               )),
-                              2 => 
+                              2 =>
                               \Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                                  'name' => 'Desc3',
                                  'title' => 'Desc3',
@@ -297,7 +301,7 @@ Nazwa zestawu produtków',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' => 
+                                 'blockedVarsForExport' =>
                                 array (
                                 ),
                                  'toolbarConfig' => '{
@@ -315,7 +319,7 @@ Nazwa zestawu produtków',
                                  'height' => '',
                                  'width' => '',
                               )),
-                              3 => 
+                              3 =>
                               \Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                                  'name' => 'Desc4',
                                  'title' => 'Desc4',
@@ -331,7 +335,7 @@ Nazwa zestawu produtków',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' => 
+                                 'blockedVarsForExport' =>
                                 array (
                                 ),
                                  'toolbarConfig' => '{
@@ -357,7 +361,7 @@ Nazwa zestawu produtków',
                              'provideSplitView' => false,
                              'tabPosition' => 'top',
                              'hideLabelsWhenTabsReached' => NULL,
-                             'referencedFields' => 
+                             'referencedFields' =>
                             array (
                             ),
                              'permissionView' => NULL,
@@ -377,7 +381,7 @@ Nazwa zestawu produtków',
                          'height' => '',
                          'fieldDefinitionsCache' => NULL,
                       )),
-                      1 => 
+                      1 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
                          'name' => 'Set',
                          'title' => 'Skład zestawu',
@@ -395,12 +399,12 @@ Skład zestawu - produkty w określonych ilościach',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
-                         'classes' => 
+                         'classes' =>
                         array (
-                          0 => 
+                          0 =>
                           array (
                             'classes' => 'Product',
                           ),
@@ -413,15 +417,15 @@ Skład zestawu - produkty w określonych ilościach',
                          'allowToClearRelation' => true,
                          'optimizedAdminLoading' => false,
                          'enableTextSelection' => false,
-                         'visibleFieldDefinitions' => 
+                         'visibleFieldDefinitions' =>
                         array (
                         ),
                          'width' => '',
                          'height' => '',
                          'allowedClassId' => 'Product',
-                         'columns' => 
+                         'columns' =>
                         array (
-                          0 => 
+                          0 =>
                           array (
                             'type' => 'number',
                             'position' => 1,
@@ -429,7 +433,7 @@ Skład zestawu - produkty w określonych ilościach',
                             'label' => 'Ilość',
                           ),
                         ),
-                         'columnKeys' => 
+                         'columnKeys' =>
                         array (
                           0 => 'Quantity',
                         ),
@@ -438,7 +442,7 @@ Skład zestawu - produkty w określonych ilościach',
                       )),
                     ),
                      'locked' => false,
-                     'blockedVarsForExport' => 
+                     'blockedVarsForExport' =>
                     array (
                     ),
                      'fieldtype' => 'panel',
@@ -448,7 +452,7 @@ Skład zestawu - produkty w określonych ilościach',
                      'labelWidth' => 100,
                      'labelAlign' => 'left',
                   )),
-                  1 => 
+                  1 =>
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Packing',
                      'type' => NULL,
@@ -460,9 +464,9 @@ Skład zestawu - produkty w określonych ilościach',
                      'collapsed' => false,
                      'bodyStyle' => '',
                      'datatype' => 'layout',
-                     'children' => 
+                     'children' =>
                     array (
-                      0 => 
+                      0 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                          'name' => 'Mass',
                          'title' => 'Mass',
@@ -480,12 +484,12 @@ Skład zestawu - produkty w określonych ilościach',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'unitWidth' => '',
                          'defaultUnit' => 'kg',
-                         'validUnits' => 
+                         'validUnits' =>
                         array (
                           0 => 'kg',
                         ),
@@ -501,7 +505,7 @@ Skład zestawu - produkty w określonych ilościach',
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
                       )),
-                      1 => 
+                      1 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                          'name' => 'PackagesMass',
                          'title' => 'Packages Mass',
@@ -519,12 +523,12 @@ Skład zestawu - produkty w określonych ilościach',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'unitWidth' => '',
                          'defaultUnit' => 'kg',
-                         'validUnits' => 
+                         'validUnits' =>
                         array (
                           0 => 'kg',
                         ),
@@ -540,7 +544,7 @@ Skład zestawu - produkty w określonych ilościach',
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
                       )),
-                      2 => 
+                      2 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                          'name' => 'PackagesVolume',
                          'title' => 'Packages Volume',
@@ -558,12 +562,12 @@ Skład zestawu - produkty w określonych ilościach',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'unitWidth' => '',
                          'defaultUnit' => 'm3',
-                         'validUnits' => 
+                         'validUnits' =>
                         array (
                           0 => 'm3',
                         ),
@@ -579,7 +583,7 @@ Skład zestawu - produkty w określonych ilościach',
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
                       )),
-                      3 => 
+                      3 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'name' => 'PackageCount',
                          'title' => 'Package Count',
@@ -595,7 +599,7 @@ Skład zestawu - produkty w określonych ilościach',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'defaultValue' => NULL,
@@ -609,7 +613,7 @@ Skład zestawu - produkty w określonych ilościach',
                          'width' => '',
                          'defaultValueGenerator' => '',
                       )),
-                      4 => 
+                      4 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'name' => 'SerieSize',
                          'title' => 'Serie Size',
@@ -625,7 +629,7 @@ Skład zestawu - produkty w określonych ilościach',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'defaultValue' => NULL,
@@ -639,7 +643,7 @@ Skład zestawu - produkty w określonych ilościach',
                          'width' => '',
                          'defaultValueGenerator' => '',
                       )),
-                      5 => 
+                      5 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyRelation::__set_state(array(
                          'name' => 'LoadCarriers',
                          'title' => 'Load Carriers',
@@ -659,12 +663,12 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
-                         'classes' => 
+                         'classes' =>
                         array (
-                          0 => 
+                          0 =>
                           array (
                             'classes' => 'LoadCarrier',
                           ),
@@ -677,11 +681,11 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                          'allowToClearRelation' => true,
                          'objectsAllowed' => true,
                          'assetsAllowed' => false,
-                         'assetTypes' => 
+                         'assetTypes' =>
                         array (
                         ),
                          'documentsAllowed' => false,
-                         'documentTypes' => 
+                         'documentTypes' =>
                         array (
                         ),
                          'enableTextSelection' => false,
@@ -690,7 +694,7 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                       )),
                     ),
                      'locked' => false,
-                     'blockedVarsForExport' => 
+                     'blockedVarsForExport' =>
                     array (
                     ),
                      'fieldtype' => 'panel',
@@ -700,7 +704,7 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                      'labelWidth' => 100,
                      'labelAlign' => 'left',
                   )),
-                  2 => 
+                  2 =>
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Media',
                      'type' => NULL,
@@ -712,9 +716,9 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                      'collapsed' => false,
                      'bodyStyle' => '',
                      'datatype' => 'layout',
-                     'children' => 
+                     'children' =>
                     array (
-                      0 => 
+                      0 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\ImageGallery::__set_state(array(
                          'name' => 'Images',
                          'title' => 'Images',
@@ -732,7 +736,7 @@ Dodatkowe zdjęcia zestawu. Nie należy tu duplikować zdjęć produktów skład
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'uploadPath' => '/PRODUKT-ZDJĘCIA',
@@ -742,7 +746,7 @@ Dodatkowe zdjęcia zestawu. Nie należy tu duplikować zdjęć produktów skład
                          'height' => 240,
                          'width' => 240,
                       )),
-                      1 => 
+                      1 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Video::__set_state(array(
                          'name' => 'Video',
                          'title' => 'Video',
@@ -758,15 +762,15 @@ Dodatkowe zdjęcia zestawu. Nie należy tu duplikować zdjęć produktów skład
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'uploadPath' => '',
-                         'allowedTypes' => 
+                         'allowedTypes' =>
                         array (
                           0 => 'youtube',
                         ),
-                         'supportedTypes' => 
+                         'supportedTypes' =>
                         array (
                           0 => 'asset',
                           1 => 'youtube',
@@ -778,7 +782,7 @@ Dodatkowe zdjęcia zestawu. Nie należy tu duplikować zdjęć produktów skład
                       )),
                     ),
                      'locked' => false,
-                     'blockedVarsForExport' => 
+                     'blockedVarsForExport' =>
                     array (
                     ),
                      'fieldtype' => 'panel',
@@ -788,7 +792,7 @@ Dodatkowe zdjęcia zestawu. Nie należy tu duplikować zdjęć produktów skład
                      'labelWidth' => 100,
                      'labelAlign' => 'left',
                   )),
-                  3 => 
+                  3 =>
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Quality',
                      'type' => NULL,
@@ -800,9 +804,9 @@ Dodatkowe zdjęcia zestawu. Nie należy tu duplikować zdjęć produktów skład
                      'collapsed' => false,
                      'bodyStyle' => '',
                      'datatype' => 'layout',
-                     'children' => 
+                     'children' =>
                     array (
-                      0 => 
+                      0 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
                          'name' => 'localizedfields',
                          'title' => '',
@@ -818,12 +822,12 @@ Dodatkowe zdjęcia zestawu. Nie należy tu duplikować zdjęć produktów skład
                          'invisible' => false,
                          'visibleGridView' => true,
                          'visibleSearch' => true,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
-                         'children' => 
+                         'children' =>
                         array (
-                          0 => 
+                          0 =>
                           \Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                              'name' => 'Desc1',
                              'title' => 'Desc1',
@@ -839,7 +843,7 @@ Dodatkowe zdjęcia zestawu. Nie należy tu duplikować zdjęć produktów skład
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
-                             'blockedVarsForExport' => 
+                             'blockedVarsForExport' =>
                             array (
                             ),
                              'toolbarConfig' => '{
@@ -857,7 +861,7 @@ Dodatkowe zdjęcia zestawu. Nie należy tu duplikować zdjęć produktów skład
                              'height' => '',
                              'width' => '',
                           )),
-                          1 => 
+                          1 =>
                           \Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                              'name' => 'Desc2',
                              'title' => 'Desc2',
@@ -873,7 +877,7 @@ Dodatkowe zdjęcia zestawu. Nie należy tu duplikować zdjęć produktów skład
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
-                             'blockedVarsForExport' => 
+                             'blockedVarsForExport' =>
                             array (
                             ),
                              'toolbarConfig' => '{
@@ -891,7 +895,7 @@ Dodatkowe zdjęcia zestawu. Nie należy tu duplikować zdjęć produktów skład
                              'height' => '',
                              'width' => '',
                           )),
-                          2 => 
+                          2 =>
                           \Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                              'name' => 'Desc3',
                              'title' => 'Desc3',
@@ -907,7 +911,7 @@ Dodatkowe zdjęcia zestawu. Nie należy tu duplikować zdjęć produktów skład
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
-                             'blockedVarsForExport' => 
+                             'blockedVarsForExport' =>
                             array (
                             ),
                              'toolbarConfig' => '{
@@ -925,7 +929,7 @@ Dodatkowe zdjęcia zestawu. Nie należy tu duplikować zdjęć produktów skład
                              'height' => '',
                              'width' => '',
                           )),
-                          3 => 
+                          3 =>
                           \Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                              'name' => 'Desc4',
                              'title' => 'Desc4',
@@ -941,7 +945,7 @@ Dodatkowe zdjęcia zestawu. Nie należy tu duplikować zdjęć produktów skład
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
-                             'blockedVarsForExport' => 
+                             'blockedVarsForExport' =>
                             array (
                             ),
                              'toolbarConfig' => '{
@@ -967,7 +971,7 @@ Dodatkowe zdjęcia zestawu. Nie należy tu duplikować zdjęć produktów skład
                          'provideSplitView' => false,
                          'tabPosition' => 'top',
                          'hideLabelsWhenTabsReached' => NULL,
-                         'referencedFields' => 
+                         'referencedFields' =>
                         array (
                         ),
                          'permissionView' => NULL,
@@ -980,7 +984,7 @@ Dodatkowe zdjęcia zestawu. Nie należy tu duplikować zdjęć produktów skład
                       )),
                     ),
                      'locked' => false,
-                     'blockedVarsForExport' => 
+                     'blockedVarsForExport' =>
                     array (
                     ),
                      'fieldtype' => 'panel',
@@ -990,7 +994,7 @@ Dodatkowe zdjęcia zestawu. Nie należy tu duplikować zdjęć produktów skład
                      'labelWidth' => 100,
                      'labelAlign' => 'left',
                   )),
-                  4 => 
+                  4 =>
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Parameters',
                      'type' => NULL,
@@ -1002,9 +1006,9 @@ Dodatkowe zdjęcia zestawu. Nie należy tu duplikować zdjęć produktów skład
                      'collapsed' => false,
                      'bodyStyle' => '',
                      'datatype' => 'layout',
-                     'children' => 
+                     'children' =>
                     array (
-                      0 => 
+                      0 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
                          'name' => 'Serie',
                          'title' => 'Serie',
@@ -1020,12 +1024,12 @@ Dodatkowe zdjęcia zestawu. Nie należy tu duplikować zdjęć produktów skład
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
-                         'classes' => 
+                         'classes' =>
                         array (
-                          0 => 
+                          0 =>
                           array (
                             'classes' => 'Group',
                           ),
@@ -1037,16 +1041,16 @@ Dodatkowe zdjęcia zestawu. Nie należy tu duplikować zdjęć produktów skład
                          'allowToClearRelation' => true,
                          'objectsAllowed' => true,
                          'assetsAllowed' => false,
-                         'assetTypes' => 
+                         'assetTypes' =>
                         array (
                         ),
                          'documentsAllowed' => false,
-                         'documentTypes' => 
+                         'documentTypes' =>
                         array (
                         ),
                          'width' => '',
                       )),
-                      1 => 
+                      1 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
                          'name' => 'Groups',
                          'title' => 'Grupy',
@@ -1064,12 +1068,12 @@ Grupy (kolekcje, kategorie, oferty) do których należy zestaw)',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
-                         'classes' => 
+                         'classes' =>
                         array (
-                          0 => 
+                          0 =>
                           array (
                             'classes' => 'Group',
                           ),
@@ -1082,13 +1086,13 @@ Grupy (kolekcje, kategorie, oferty) do których należy zestaw)',
                          'allowToClearRelation' => true,
                          'optimizedAdminLoading' => false,
                          'enableTextSelection' => false,
-                         'visibleFieldDefinitions' => 
+                         'visibleFieldDefinitions' =>
                         array (
                         ),
                          'width' => '',
                          'height' => '',
                       )),
-                      2 => 
+                      2 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
                          'name' => 'Layout',
                          'type' => NULL,
@@ -1100,9 +1104,9 @@ Grupy (kolekcje, kategorie, oferty) do których należy zestaw)',
                          'collapsed' => false,
                          'bodyStyle' => '',
                          'datatype' => 'layout',
-                         'children' => 
+                         'children' =>
                         array (
-                          0 => 
+                          0 =>
                           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                              'name' => 'Layout',
                              'type' => NULL,
@@ -1114,9 +1118,9 @@ Grupy (kolekcje, kategorie, oferty) do których należy zestaw)',
                              'collapsed' => false,
                              'bodyStyle' => '',
                              'datatype' => 'layout',
-                             'children' => 
+                             'children' =>
                             array (
-                              0 => 
+                              0 =>
                               \Pimcore\Model\DataObject\ClassDefinition\Data\Classificationstore::__set_state(array(
                                  'name' => 'Parameters',
                                  'title' => 'Parametry',
@@ -1134,10 +1138,10 @@ Kolekcje i grupy parametrów dotyczące całego zestawu. Nie wprowadzamy tutaj p
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' => 
+                                 'blockedVarsForExport' =>
                                 array (
                                 ),
-                                 'children' => 
+                                 'children' =>
                                 array (
                                 ),
                                  'labelWidth' => 200,
@@ -1145,14 +1149,14 @@ Kolekcje i grupy parametrów dotyczące całego zestawu. Nie wprowadzamy tutaj p
                                  'storeId' => 27,
                                  'hideEmptyData' => false,
                                  'disallowAddRemove' => false,
-                                 'referencedFields' => 
+                                 'referencedFields' =>
                                 array (
                                 ),
                                  'fieldDefinitionsCache' => NULL,
-                                 'allowedGroupIds' => 
+                                 'allowedGroupIds' =>
                                 array (
                                 ),
-                                 'activeGroupDefinitions' => 
+                                 'activeGroupDefinitions' =>
                                 array (
                                 ),
                                  'maxItems' => NULL,
@@ -1161,7 +1165,7 @@ Kolekcje i grupy parametrów dotyczące całego zestawu. Nie wprowadzamy tutaj p
                               )),
                             ),
                              'locked' => false,
-                             'blockedVarsForExport' => 
+                             'blockedVarsForExport' =>
                             array (
                             ),
                              'fieldtype' => 'panel',
@@ -1171,7 +1175,7 @@ Kolekcje i grupy parametrów dotyczące całego zestawu. Nie wprowadzamy tutaj p
                              'labelWidth' => 100,
                              'labelAlign' => 'left',
                           )),
-                          1 => 
+                          1 =>
                           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                              'name' => 'Layout',
                              'type' => NULL,
@@ -1183,9 +1187,9 @@ Kolekcje i grupy parametrów dotyczące całego zestawu. Nie wprowadzamy tutaj p
                              'collapsed' => false,
                              'bodyStyle' => '',
                              'datatype' => 'layout',
-                             'children' => 
+                             'children' =>
                             array (
-                              0 => 
+                              0 =>
                               \Pimcore\Model\DataObject\ClassDefinition\Data\Classificationstore::__set_state(array(
                                  'name' => 'ParametersAllegro',
                                  'title' => 'Parameters Allegro',
@@ -1201,10 +1205,10 @@ Kolekcje i grupy parametrów dotyczące całego zestawu. Nie wprowadzamy tutaj p
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' => 
+                                 'blockedVarsForExport' =>
                                 array (
                                 ),
-                                 'children' => 
+                                 'children' =>
                                 array (
                                 ),
                                  'labelWidth' => 0,
@@ -1212,14 +1216,14 @@ Kolekcje i grupy parametrów dotyczące całego zestawu. Nie wprowadzamy tutaj p
                                  'storeId' => 32,
                                  'hideEmptyData' => false,
                                  'disallowAddRemove' => false,
-                                 'referencedFields' => 
+                                 'referencedFields' =>
                                 array (
                                 ),
                                  'fieldDefinitionsCache' => NULL,
-                                 'allowedGroupIds' => 
+                                 'allowedGroupIds' =>
                                 array (
                                 ),
-                                 'activeGroupDefinitions' => 
+                                 'activeGroupDefinitions' =>
                                 array (
                                 ),
                                  'maxItems' => 1,
@@ -1228,7 +1232,7 @@ Kolekcje i grupy parametrów dotyczące całego zestawu. Nie wprowadzamy tutaj p
                               )),
                             ),
                              'locked' => false,
-                             'blockedVarsForExport' => 
+                             'blockedVarsForExport' =>
                             array (
                             ),
                              'fieldtype' => 'panel',
@@ -1238,7 +1242,7 @@ Kolekcje i grupy parametrów dotyczące całego zestawu. Nie wprowadzamy tutaj p
                              'labelWidth' => 100,
                              'labelAlign' => 'left',
                           )),
-                          2 => 
+                          2 =>
                           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                              'name' => 'Google',
                              'type' => NULL,
@@ -1250,9 +1254,9 @@ Kolekcje i grupy parametrów dotyczące całego zestawu. Nie wprowadzamy tutaj p
                              'collapsed' => false,
                              'bodyStyle' => '',
                              'datatype' => 'layout',
-                             'children' => 
+                             'children' =>
                             array (
-                              0 => 
+                              0 =>
                               \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                                  'name' => 'GoogleCategory',
                                  'title' => 'Google Category',
@@ -1268,7 +1272,7 @@ Kolekcje i grupy parametrów dotyczące całego zestawu. Nie wprowadzamy tutaj p
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' => 
+                                 'blockedVarsForExport' =>
                                 array (
                                 ),
                                  'defaultValue' => '',
@@ -1282,7 +1286,7 @@ Kolekcje i grupy parametrów dotyczące całego zestawu. Nie wprowadzamy tutaj p
                               )),
                             ),
                              'locked' => false,
-                             'blockedVarsForExport' => 
+                             'blockedVarsForExport' =>
                             array (
                             ),
                              'fieldtype' => 'panel',
@@ -1294,7 +1298,7 @@ Kolekcje i grupy parametrów dotyczące całego zestawu. Nie wprowadzamy tutaj p
                           )),
                         ),
                          'locked' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'fieldtype' => 'tabpanel',
@@ -1303,7 +1307,7 @@ Kolekcje i grupy parametrów dotyczące całego zestawu. Nie wprowadzamy tutaj p
                       )),
                     ),
                      'locked' => false,
-                     'blockedVarsForExport' => 
+                     'blockedVarsForExport' =>
                     array (
                     ),
                      'fieldtype' => 'panel',
@@ -1313,7 +1317,7 @@ Kolekcje i grupy parametrów dotyczące całego zestawu. Nie wprowadzamy tutaj p
                      'labelWidth' => 100,
                      'labelAlign' => 'left',
                   )),
-                  5 => 
+                  5 =>
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Prices',
                      'type' => NULL,
@@ -1325,9 +1329,9 @@ Kolekcje i grupy parametrów dotyczące całego zestawu. Nie wprowadzamy tutaj p
                      'collapsed' => false,
                      'bodyStyle' => '',
                      'datatype' => 'layout',
-                     'children' => 
+                     'children' =>
                     array (
-                      0 => 
+                      0 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                          'name' => 'BasePrice',
                          'title' => 'Cena bazowa',
@@ -1345,12 +1349,12 @@ Suma cen bazowych produktów',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'unitWidth' => '',
                          'defaultUnit' => 'PLN',
-                         'validUnits' => 
+                         'validUnits' =>
                         array (
                           0 => 'PLN',
                         ),
@@ -1366,7 +1370,7 @@ Suma cen bazowych produktów',
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
                       )),
-                      1 => 
+                      1 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
                          'name' => 'Price',
                          'title' => 'Price',
@@ -1382,10 +1386,10 @@ Suma cen bazowych produktów',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
-                         'classes' => 
+                         'classes' =>
                         array (
                         ),
                          'displayMode' => NULL,
@@ -1396,15 +1400,15 @@ Suma cen bazowych produktów',
                          'allowToClearRelation' => false,
                          'optimizedAdminLoading' => false,
                          'enableTextSelection' => false,
-                         'visibleFieldDefinitions' => 
+                         'visibleFieldDefinitions' =>
                         array (
                         ),
                          'width' => '',
                          'height' => '',
                          'allowedClassId' => 'Offer',
-                         'columns' => 
+                         'columns' =>
                         array (
-                          0 => 
+                          0 =>
                           array (
                             'type' => 'number',
                             'position' => 1,
@@ -1413,7 +1417,7 @@ Suma cen bazowych produktów',
                             'value' => '',
                             'width' => NULL,
                           ),
-                          1 => 
+                          1 =>
                           array (
                             'type' => 'text',
                             'position' => 2,
@@ -1422,7 +1426,7 @@ Suma cen bazowych produktów',
                             'value' => '',
                             'width' => NULL,
                           ),
-                          2 => 
+                          2 =>
                           array (
                             'type' => 'bool',
                             'position' => 3,
@@ -1430,7 +1434,7 @@ Suma cen bazowych produktów',
                             'label' => 'Is Fixed?',
                           ),
                         ),
-                         'columnKeys' => 
+                         'columnKeys' =>
                         array (
                           0 => 'Price',
                           1 => 'Currency',
@@ -1439,7 +1443,7 @@ Suma cen bazowych produktów',
                          'enableBatchEdit' => false,
                          'allowMultipleAssignments' => false,
                       )),
-                      2 => 
+                      2 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
                          'name' => 'Pricing',
                          'title' => 'Pricing',
@@ -1455,10 +1459,10 @@ Suma cen bazowych produktów',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
-                         'classes' => 
+                         'classes' =>
                         array (
                         ),
                          'displayMode' => NULL,
@@ -1469,15 +1473,15 @@ Suma cen bazowych produktów',
                          'allowToClearRelation' => true,
                          'optimizedAdminLoading' => false,
                          'enableTextSelection' => false,
-                         'visibleFieldDefinitions' => 
+                         'visibleFieldDefinitions' =>
                         array (
                         ),
                          'width' => '',
                          'height' => '',
                          'allowedClassId' => 'Pricing',
-                         'columns' => 
+                         'columns' =>
                         array (
-                          0 => 
+                          0 =>
                           array (
                             'type' => 'number',
                             'position' => 1,
@@ -1486,7 +1490,7 @@ Suma cen bazowych produktów',
                             'width' => NULL,
                             'value' => '',
                           ),
-                          1 => 
+                          1 =>
                           array (
                             'type' => 'text',
                             'position' => 2,
@@ -1494,7 +1498,7 @@ Suma cen bazowych produktów',
                             'label' => 'Currency',
                           ),
                         ),
-                         'columnKeys' => 
+                         'columnKeys' =>
                         array (
                           0 => 'Price',
                           1 => 'Currency',
@@ -1504,7 +1508,7 @@ Suma cen bazowych produktów',
                       )),
                     ),
                      'locked' => false,
-                     'blockedVarsForExport' => 
+                     'blockedVarsForExport' =>
                     array (
                     ),
                      'fieldtype' => 'panel',
@@ -1514,7 +1518,7 @@ Suma cen bazowych produktów',
                      'labelWidth' => 200,
                      'labelAlign' => 'left',
                   )),
-                  6 => 
+                  6 =>
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Integrations',
                      'type' => NULL,
@@ -1526,72 +1530,337 @@ Suma cen bazowych produktów',
                      'collapsed' => false,
                      'bodyStyle' => '',
                      'datatype' => 'layout',
-                     'children' => 
+                     'children' =>
                     array (
-                      0 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
-                         'name' => 'BaselinkerCatalog',
-                         'title' => 'Baselinker Catalog',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => true,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'classes' => 
-                        array (
-                        ),
-                         'displayMode' => NULL,
-                         'pathFormatterClass' => '',
-                         'maxItems' => NULL,
-                         'visibleFields' => 'key,CatalogId,Name',
-                         'allowToCreateNewObject' => false,
-                         'allowToClearRelation' => true,
-                         'optimizedAdminLoading' => false,
-                         'enableTextSelection' => false,
-                         'visibleFieldDefinitions' => 
-                        array (
-                        ),
+                      0 =>
+                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Accordion::__set_state(array(
+                         'name' => 'Channels',
+                         'type' => NULL,
+                         'region' => NULL,
+                         'title' => '',
                          'width' => '',
                          'height' => '',
-                         'allowedClassId' => 'BaselinkerCatalog',
-                         'columns' => 
+                         'collapsible' => false,
+                         'collapsed' => false,
+                         'bodyStyle' => '',
+                         'datatype' => 'layout',
+                         'children' =>
                         array (
-                          0 => 
-                          array (
-                            'type' => 'number',
-                            'position' => 1,
-                            'key' => 'ProductId',
-                            'label' => 'Product Id',
-                          ),
-                          1 => 
-                          array (
-                            'type' => 'text',
-                            'position' => 2,
-                            'key' => 'Version',
-                            'label' => 'Version',
-                          ),
+                          0 =>
+                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                             'name' => 'Prestashop',
+                             'type' => NULL,
+                             'region' => NULL,
+                             'title' => 'Prestashop 8',
+                             'width' => '',
+                             'height' => '',
+                             'collapsible' => true,
+                             'collapsed' => true,
+                             'bodyStyle' => '',
+                             'datatype' => 'layout',
+                             'children' =>
+                            array (
+                              0 =>
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                                 'name' => 'ps_megstyl_pl',
+                                 'title' => 'Publish on megstyl.pl',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' =>
+                                array (
+                                ),
+                                 'yesLabel' => 'Yes',
+                                 'noLabel' => 'No',
+                                 'emptyLabel' => '',
+                                 'options' =>
+                                array (
+                                  0 =>
+                                  array (
+                                    'key' => '',
+                                    'value' => 0,
+                                  ),
+                                  1 =>
+                                  array (
+                                    'key' => 'Yes',
+                                    'value' => 1,
+                                  ),
+                                  2 =>
+                                  array (
+                                    'key' => 'No',
+                                    'value' => -1,
+                                  ),
+                                ),
+                                 'width' => '',
+                              )),
+                              1 =>
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+                                 'name' => 'ps_megstyl_pl_parent',
+                                 'title' => 'Parent group',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => true,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' =>
+                                array (
+                                ),
+                                 'classes' =>
+                                array (
+                                  0 =>
+                                  array (
+                                    'classes' => 'Group',
+                                  ),
+                                ),
+                                 'displayMode' => 'grid',
+                                 'pathFormatterClass' => '',
+                                 'assetInlineDownloadAllowed' => false,
+                                 'assetUploadPath' => '',
+                                 'allowToClearRelation' => true,
+                                 'objectsAllowed' => true,
+                                 'assetsAllowed' => false,
+                                 'assetTypes' =>
+                                array (
+                                ),
+                                 'documentsAllowed' => false,
+                                 'documentTypes' =>
+                                array (
+                                ),
+                                 'width' => '',
+                              )),
+                              2 =>
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                                 'name' => 'ps_megstyl_pl_id',
+                                 'title' => 'Id',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' =>
+                                array (
+                                ),
+                                 'defaultValue' => NULL,
+                                 'integer' => false,
+                                 'unsigned' => false,
+                                 'minValue' => NULL,
+                                 'maxValue' => NULL,
+                                 'unique' => false,
+                                 'decimalSize' => NULL,
+                                 'decimalPrecision' => NULL,
+                                 'width' => 220,
+                                 'defaultValueGenerator' => '',
+                              )),
+                            ),
+                             'locked' => false,
+                             'blockedVarsForExport' =>
+                            array (
+                            ),
+                             'fieldtype' => 'panel',
+                             'layout' => NULL,
+                             'border' => false,
+                             'icon' => '/LOGO/prestashop.png',
+                             'labelWidth' => 180,
+                             'labelAlign' => 'left',
+                          )),
+                          1 =>
+                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                             'name' => 'Subiekt GT',
+                             'type' => NULL,
+                             'region' => NULL,
+                             'title' => 'Subiekt GT',
+                             'width' => '',
+                             'height' => '',
+                             'collapsible' => true,
+                             'collapsed' => true,
+                             'bodyStyle' => '',
+                             'datatype' => 'layout',
+                             'children' =>
+                            array (
+                              0 =>
+                              \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
+                                 'name' => 'Layout',
+                                 'type' => NULL,
+                                 'region' => NULL,
+                                 'title' => '',
+                                 'width' => '',
+                                 'height' => '',
+                                 'collapsible' => false,
+                                 'collapsed' => false,
+                                 'bodyStyle' => '',
+                                 'datatype' => 'layout',
+                                 'children' =>
+                                array (
+                                ),
+                                 'locked' => false,
+                                 'blockedVarsForExport' =>
+                                array (
+                                ),
+                                 'fieldtype' => 'text',
+                                 'html' => '<div class="alert alert-warning">
+Not used in common version. Shown as a placeholder
+</div>',
+                                 'renderingClass' => '',
+                                 'renderingData' => '',
+                                 'border' => false,
+                              )),
+                              1 =>
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                                 'name' => 'sgt',
+                                 'title' => 'Subiekt GT',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' =>
+                                array (
+                                ),
+                                 'defaultValue' => NULL,
+                                 'defaultValueGenerator' => '',
+                              )),
+                            ),
+                             'locked' => false,
+                             'blockedVarsForExport' =>
+                            array (
+                            ),
+                             'fieldtype' => 'panel',
+                             'layout' => NULL,
+                             'border' => false,
+                             'icon' => '/LOGO/sgt.png',
+                             'labelWidth' => 100,
+                             'labelAlign' => 'left',
+                          )),
+                          2 =>
+                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                             'name' => 'Baselinker',
+                             'type' => NULL,
+                             'region' => NULL,
+                             'title' => 'Baselinker',
+                             'width' => '',
+                             'height' => '',
+                             'collapsible' => true,
+                             'collapsed' => true,
+                             'bodyStyle' => '',
+                             'datatype' => 'layout',
+                             'children' =>
+                            array (
+                              0 =>
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
+                                 'name' => 'BaselinkerCatalog',
+                                 'title' => 'Baselinker Catalog',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => true,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' =>
+                                array (
+                                ),
+                                 'classes' =>
+                                array (
+                                ),
+                                 'displayMode' => NULL,
+                                 'pathFormatterClass' => '',
+                                 'maxItems' => NULL,
+                                 'visibleFields' => 'key,CatalogId,Name',
+                                 'allowToCreateNewObject' => false,
+                                 'allowToClearRelation' => true,
+                                 'optimizedAdminLoading' => false,
+                                 'enableTextSelection' => false,
+                                 'visibleFieldDefinitions' =>
+                                array (
+                                ),
+                                 'width' => '',
+                                 'height' => '',
+                                 'allowedClassId' => 'BaselinkerCatalog',
+                                 'columns' =>
+                                array (
+                                  0 =>
+                                  array (
+                                    'type' => 'number',
+                                    'position' => 1,
+                                    'key' => 'ProductId',
+                                    'label' => 'Product Id',
+                                    'id' => 'extModel9950-1',
+                                  ),
+                                  1 =>
+                                  array (
+                                    'type' => 'text',
+                                    'position' => 2,
+                                    'key' => 'Version',
+                                    'label' => 'Version',
+                                    'id' => 'extModel9950-2',
+                                  ),
+                                ),
+                                 'columnKeys' =>
+                                array (
+                                  0 => 'ProductId',
+                                  1 => 'Version',
+                                ),
+                                 'enableBatchEdit' => false,
+                                 'allowMultipleAssignments' => false,
+                              )),
+                            ),
+                             'locked' => false,
+                             'blockedVarsForExport' =>
+                            array (
+                            ),
+                             'fieldtype' => 'panel',
+                             'layout' => NULL,
+                             'border' => false,
+                             'icon' => '/LOGO/base.png',
+                             'labelWidth' => 100,
+                             'labelAlign' => 'left',
+                          )),
                         ),
-                         'columnKeys' => 
+                         'locked' => false,
+                         'blockedVarsForExport' =>
                         array (
-                          0 => 'ProductId',
-                          1 => 'Version',
                         ),
-                         'enableBatchEdit' => false,
-                         'allowMultipleAssignments' => false,
+                         'fieldtype' => 'accordion',
+                         'border' => false,
                       )),
                     ),
                      'locked' => false,
-                     'blockedVarsForExport' => 
+                     'blockedVarsForExport' =>
                     array (
                     ),
                      'fieldtype' => 'panel',
@@ -1603,7 +1872,7 @@ Suma cen bazowych produktów',
                   )),
                 ),
                  'locked' => false,
-                 'blockedVarsForExport' => 
+                 'blockedVarsForExport' =>
                 array (
                 ),
                  'fieldtype' => 'tabpanel',
@@ -1612,7 +1881,7 @@ Suma cen bazowych produktów',
               )),
             ),
              'locked' => false,
-             'blockedVarsForExport' => 
+             'blockedVarsForExport' =>
             array (
             ),
              'fieldtype' => 'panel',
@@ -1622,7 +1891,7 @@ Suma cen bazowych produktów',
              'labelWidth' => 100,
              'labelAlign' => 'left',
           )),
-          1 => 
+          1 =>
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Layout',
              'type' => NULL,
@@ -1634,9 +1903,9 @@ Suma cen bazowych produktów',
              'collapsed' => false,
              'bodyStyle' => '',
              'datatype' => 'layout',
-             'children' => 
+             'children' =>
             array (
-              0 => 
+              0 =>
               \Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
                  'name' => 'Layout',
                  'type' => NULL,
@@ -1648,9 +1917,9 @@ Suma cen bazowych produktów',
                  'collapsed' => false,
                  'bodyStyle' => '',
                  'datatype' => 'layout',
-                 'children' => 
+                 'children' =>
                 array (
-                  0 => 
+                  0 =>
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Layout',
                      'type' => NULL,
@@ -1662,9 +1931,9 @@ Suma cen bazowych produktów',
                      'collapsed' => false,
                      'bodyStyle' => '',
                      'datatype' => 'layout',
-                     'children' => 
+                     'children' =>
                     array (
-                      0 => 
+                      0 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                          'name' => 'Image',
                          'title' => 'Image',
@@ -1682,14 +1951,14 @@ Miniturka zestawu - często na przeźroczystym tle',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'uploadPath' => '',
                          'width' => 400,
                          'height' => 400,
                       )),
-                      1 => 
+                      1 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'name' => 'EAN',
                          'title' => 'EAN',
@@ -1707,13 +1976,13 @@ Globalny identyfikator (GTIN) dla całego zestawu (z konkretnymi ilościami prod
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'defaultValue' => NULL,
                          'columnLength' => 190,
                          'regex' => '',
-                         'regexFlags' => 
+                         'regexFlags' =>
                         array (
                         ),
                          'unique' => true,
@@ -1723,7 +1992,7 @@ Globalny identyfikator (GTIN) dla całego zestawu (z konkretnymi ilościami prod
                       )),
                     ),
                      'locked' => false,
-                     'blockedVarsForExport' => 
+                     'blockedVarsForExport' =>
                     array (
                     ),
                      'fieldtype' => 'panel',
@@ -1733,7 +2002,7 @@ Globalny identyfikator (GTIN) dla całego zestawu (z konkretnymi ilościami prod
                      'labelWidth' => 100,
                      'labelAlign' => 'top',
                   )),
-                  1 => 
+                  1 =>
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Layout',
                      'type' => NULL,
@@ -1745,9 +2014,9 @@ Globalny identyfikator (GTIN) dla całego zestawu (z konkretnymi ilościami prod
                      'collapsed' => false,
                      'bodyStyle' => '',
                      'datatype' => 'layout',
-                     'children' => 
+                     'children' =>
                     array (
-                      0 => 
+                      0 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\ImageGallery::__set_state(array(
                          'name' => 'ImagesModel',
                          'title' => 'Images of model (2000 x 2000)',
@@ -1765,7 +2034,7 @@ Przykładowo: rysunek z wymiarami',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'uploadPath' => '',
@@ -1775,7 +2044,7 @@ Przykładowo: rysunek z wymiarami',
                          'height' => 380,
                          'width' => 380,
                       )),
-                      1 => 
+                      1 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'name' => 'CN',
                          'title' => 'CN Code',
@@ -1795,13 +2064,13 @@ Kod CN zawiera automatycznie kod HS.',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'defaultValue' => NULL,
                          'columnLength' => 190,
                          'regex' => '^\\d{4}(\\s?\\d{2}(\\s?\\d{2})?)?$',
-                         'regexFlags' => 
+                         'regexFlags' =>
                         array (
                         ),
                          'unique' => false,
@@ -1809,7 +2078,7 @@ Kod CN zawiera automatycznie kod HS.',
                          'width' => '',
                          'defaultValueGenerator' => '',
                       )),
-                      2 => 
+                      2 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'name' => 'GPC',
                          'title' => 'GPC',
@@ -1827,13 +2096,13 @@ Ośmiocyfrowy numer "Brick" klasyfikacji produktowej GS1 GPC. Wyszukiwarka kodó
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'defaultValue' => NULL,
                          'columnLength' => 190,
                          'regex' => '^\\d{8}$',
-                         'regexFlags' => 
+                         'regexFlags' =>
                         array (
                         ),
                          'unique' => false,
@@ -1841,7 +2110,7 @@ Ośmiocyfrowy numer "Brick" klasyfikacji produktowej GS1 GPC. Wyszukiwarka kodó
                          'width' => '',
                          'defaultValueGenerator' => '',
                       )),
-                      3 => 
+                      3 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'name' => 'PKWIU',
                          'title' => 'Kod PKWiU',
@@ -1861,13 +2130,13 @@ https://poradnikprzedsiebiorcy.pl/-nowa-pkwiu-2025-juz-ogloszona
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' => 
+                         'blockedVarsForExport' =>
                         array (
                         ),
                          'defaultValue' => NULL,
                          'columnLength' => 190,
                          'regex' => '^(\\d{2})(\\.\\d{2}){0,3}$',
-                         'regexFlags' => 
+                         'regexFlags' =>
                         array (
                         ),
                          'unique' => false,
@@ -1877,7 +2146,7 @@ https://poradnikprzedsiebiorcy.pl/-nowa-pkwiu-2025-juz-ogloszona
                       )),
                     ),
                      'locked' => false,
-                     'blockedVarsForExport' => 
+                     'blockedVarsForExport' =>
                     array (
                     ),
                      'fieldtype' => 'panel',
@@ -1889,7 +2158,7 @@ https://poradnikprzedsiebiorcy.pl/-nowa-pkwiu-2025-juz-ogloszona
                   )),
                 ),
                  'locked' => false,
-                 'blockedVarsForExport' => 
+                 'blockedVarsForExport' =>
                 array (
                 ),
                  'fieldtype' => 'tabpanel',
@@ -1898,7 +2167,7 @@ https://poradnikprzedsiebiorcy.pl/-nowa-pkwiu-2025-juz-ogloszona
               )),
             ),
              'locked' => false,
-             'blockedVarsForExport' => 
+             'blockedVarsForExport' =>
             array (
             ),
              'fieldtype' => 'panel',
@@ -1910,7 +2179,7 @@ https://poradnikprzedsiebiorcy.pl/-nowa-pkwiu-2025-juz-ogloszona
           )),
         ),
          'locked' => false,
-         'blockedVarsForExport' => 
+         'blockedVarsForExport' =>
         array (
         ),
          'fieldtype' => 'region',
@@ -1918,7 +2187,7 @@ https://poradnikprzedsiebiorcy.pl/-nowa-pkwiu-2025-juz-ogloszona
       )),
     ),
      'locked' => false,
-     'blockedVarsForExport' => 
+     'blockedVarsForExport' =>
     array (
     ),
      'fieldtype' => 'panel',
@@ -1933,13 +2202,13 @@ https://poradnikprzedsiebiorcy.pl/-nowa-pkwiu-2025-juz-ogloszona
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',
    'previewGeneratorReference' => '',
-   'compositeIndices' => 
+   'compositeIndices' =>
   array (
   ),
    'showFieldLookup' => false,
-   'propertyVisibility' => 
+   'propertyVisibility' =>
   array (
-    'grid' => 
+    'grid' =>
     array (
       'id' => true,
       'key' => false,
@@ -1948,7 +2217,7 @@ https://poradnikprzedsiebiorcy.pl/-nowa-pkwiu-2025-juz-ogloszona
       'modificationDate' => true,
       'creationDate' => true,
     ),
-    'search' => 
+    'search' =>
     array (
       'id' => true,
       'key' => false,
@@ -1959,16 +2228,16 @@ https://poradnikprzedsiebiorcy.pl/-nowa-pkwiu-2025-juz-ogloszona
     ),
   ),
    'enableGridLocking' => false,
-   'deletedDataComponents' => 
+   'deletedDataComponents' =>
   array (
   ),
-   'blockedVarsForExport' => 
+   'blockedVarsForExport' =>
   array (
   ),
-   'fieldDefinitionsCache' => 
+   'fieldDefinitionsCache' =>
   array (
   ),
-   'activeDispatchingEvents' => 
+   'activeDispatchingEvents' =>
   array (
   ),
 ));

@@ -29,7 +29,19 @@ framework:
 
             feed: 'amqp://rabbitmq:5672/%2f/feed'
 
+            ps:
+                dsn: 'amqp://rabbitmq:5672/%2f/ps'
+                failure_transport: ps_errors
+                retry_strategy:
+                    max_retries: 3
+                    delay: 15000
+                    max_delay: 0
+                    multiplier: 10
+
+            ps_errors: 'amqp://rabbitmq:5672/%2f/ps_errors'
+
         routing:
             'App\Message\ErpIndex': sgt
             'App\Message\BlkIndex': blk
             'App\Message\FeedMessage': feed
+            'App\Message\PsMessage': ps

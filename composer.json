@@ -32,7 +32,9 @@
     "symfony/dotenv": "^6.2",
     "symfony/flex": "^2.5",
     "symfony/http-client": "^7.2",
-    "symfony/runtime": "^6.2","ext-dom": "*"
+    "symfony/runtime": "^6.2",
+    "ext-dom": "*",
+    "ext-simplexml": "*"
   },
   "require-dev": {
     "codeception/codeception": "^5.0.3",
