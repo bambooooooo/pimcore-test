@@ -21,9 +21,10 @@
  * - Height [quantityValue]
  * - Depth [quantityValue]
  * - Mass [quantityValue]
- * - CN [select]
- * - GPC [select]
  * - COO [country]
+ * - CN [input]
+ * - GPC [input]
+ * - PKWIU [input]
  * - Manufacturer [manyToOneRelation]
  * - Suppliers [manyToManyRelation]
  * - Serie [manyToOneRelation]
@@ -65,7 +66,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Produkt',
    'description' => 'Towar, który można sprzedać',
    'creationDate' => NULL,
-   'modificationDate' => 1758861721,
+   'modificationDate' => 1761285879,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -765,112 +766,6 @@ Waga netto produktu - bez opakowania',
                          'decimalPrecision' => NULL,
                       )),
                       6 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                         'name' => 'CN',
-                         'title' => 'CN Code',
-                         'tooltip' => 'CN
-
-Klasyfikacja CN produktu. Można skorzystać z wyszukiwarki ext-isztar4.mf.gov.pl',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => true,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'options' => 
-                        array (
-                          0 => 
-                          array (
-                            'key' => '9403 60 90 (Meble drewniane...)',
-                            'value' => '9403 60 90',
-                          ),
-                        ),
-                         'defaultValue' => '',
-                         'columnLength' => 190,
-                         'dynamicOptions' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => 300,
-                         'optionsProviderType' => 'configure',
-                         'optionsProviderClass' => '',
-                         'optionsProviderData' => '',
-                      )),
-                      7 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                         'name' => 'GPC',
-                         'title' => 'GPC',
-                         'tooltip' => 'GPC
-
-Ośmiocyfrowy numer "Brick" klasyfikacji produktowej GS1 GPC. Wyszukiwarka kodów znajduje się pod adresem: https://www.gs1.org/services/gpc-browser ',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => true,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'options' => 
-                        array (
-                          0 => 
-                          array (
-                            'key' => 'Zestawy łazienkowe',
-                            'value' => '10003814',
-                          ),
-                          1 => 
-                          array (
-                            'key' => 'Biurka',
-                            'value' => '10002205',
-                          ),
-                          2 => 
-                          array (
-                            'key' => 'Komody',
-                            'value' => '10002117',
-                          ),
-                          3 => 
-                          array (
-                            'key' => 'Ławy',
-                            'value' => '10005199',
-                          ),
-                          4 => 
-                          array (
-                            'key' => 'LEDy (zestawy oświetlenia)',
-                            'value' => '10008292',
-                          ),
-                          5 => 
-                          array (
-                            'key' => 'Regały (duże, salonowe)',
-                            'value' => '10002184',
-                          ),
-                          6 => 
-                          array (
-                            'key' => 'RTV',
-                            'value' => '10002186',
-                          ),
-                        ),
-                         'defaultValue' => '',
-                         'columnLength' => 190,
-                         'dynamicOptions' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => '',
-                         'optionsProviderType' => 'configure',
-                         'optionsProviderClass' => '',
-                         'optionsProviderData' => '',
-                      )),
-                      8 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Country::__set_state(array(
                          'name' => 'COO',
                          'title' => 'Country Of Origin',
@@ -899,7 +794,107 @@ Ośmiocyfrowy numer "Brick" klasyfikacji produktowej GS1 GPC. Wyszukiwarka kodó
                          'optionsProviderData' => NULL,
                          'restrictTo' => 'CN,PL',
                       )),
+                      7 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                         'name' => 'CN',
+                         'title' => 'CN Code',
+                         'tooltip' => 'CN
+
+Kod taryfy celnej produktu. Można skorzystać z wyszukiwarki ext-isztar4.mf.gov.pl
+
+Kod CN zawiera automatycznie kod HS.',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'columnLength' => 190,
+                         'regex' => '^\\d{4}(\\s?\\d{2}(\\s?\\d{2})?)?$',
+                         'regexFlags' => 
+                        array (
+                        ),
+                         'unique' => false,
+                         'showCharCount' => false,
+                         'width' => '',
+                         'defaultValueGenerator' => '',
+                      )),
+                      8 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                         'name' => 'GPC',
+                         'title' => 'GPC',
+                         'tooltip' => 'GPC
+
+Ośmiocyfrowy numer "Brick" klasyfikacji produktowej GS1 GPC. Wyszukiwarka kodów znajduje się pod adresem: https://www.gs1.org/services/gpc-browser ',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'columnLength' => 190,
+                         'regex' => '^\\d{8}$',
+                         'regexFlags' => 
+                        array (
+                        ),
+                         'unique' => false,
+                         'showCharCount' => false,
+                         'width' => '',
+                         'defaultValueGenerator' => '',
+                      )),
                       9 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                         'name' => 'PKWIU',
+                         'title' => 'Kod PKWiU',
+                         'tooltip' => 'Polska Klasyfikacja Wyrobów i Usług (2015)
+Uwaga!
+Od stycznia 2026 będzie aktualizacja kodów
+https://poradnikprzedsiebiorcy.pl/-nowa-pkwiu-2025-juz-ogloszona
+',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'columnLength' => 190,
+                         'regex' => '^(\\d{2})(\\.\\d{2}){0,3}$',
+                         'regexFlags' => 
+                        array (
+                        ),
+                         'unique' => false,
+                         'showCharCount' => false,
+                         'width' => '',
+                         'defaultValueGenerator' => '',
+                      )),
+                      10 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
                          'name' => 'Manufacturer',
                          'title' => 'Manufacturer',
@@ -943,7 +938,7 @@ Producent',
                         ),
                          'width' => '',
                       )),
-                      10 => 
+                      11 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyRelation::__set_state(array(
                          'name' => 'Suppliers',
                          'title' => 'Suppliers',
