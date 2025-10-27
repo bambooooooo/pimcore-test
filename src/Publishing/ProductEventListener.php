@@ -29,6 +29,7 @@ class ProductEventListener
     public function preUpdate(Product $product): void
     {
         $this->tryUpdateTotalMassAndVolume($product);
+        $this->tryUpdateBruttoDimensions($product);
         $this->tryUpdateSerieSize($product);
         $this->tryUpdatePricing($product);
         $this->tryUpdateOffers($product);
@@ -317,6 +318,57 @@ class ProductEventListener
         {
             assert($group->isPublished(), "Product's group [" . $group->getKey() . "] must be published");
         }
+    }
+
+    private function tryUpdateBruttoDimensions(Product $product)
+    {
+        DataObject\Service::useInheritedValues(true, function() use ($product) {
+            try {
+                $widthBrutto = 0;
+                $heightBrutto = 0;
+                $depthBrutto = 0;
+
+                $mm = Unit::getByAbbreviation("mm");
+
+                foreach ($product->getPackages() as $lip) {
+                    /** @var DataObject\Package $package */
+                    $package = $lip->getElement();
+
+                    $widthBrutto += $package->getWidth()->getValue() * $lip->getQuantity();
+
+                    if ($package->getHeight()->getValue() > $heightBrutto) {
+                        $heightBrutto = $package->getHeight()->getValue();
+                    }
+
+                    if ($package->getDepth()->getValue() > $depthBrutto) {
+                        $depthBrutto = $package->getDepth()->getValue();
+                    }
+                }
+
+                $changed = false;
+
+                if ($widthBrutto != $product->getWidthBruttoOBI()?->getValue()) {
+                    $product->setWidthBruttoOBI(new QuantityValue($widthBrutto, $mm));
+                    $changed = true;
+                }
+
+                if ($heightBrutto != $product->getHeightBruttoOBI()?->getValue()) {
+                    $product->setHeightBruttoOBI(new QuantityValue($heightBrutto, $mm));
+                    $changed = true;
+                }
+
+                if ($depthBrutto != $product->getLengthBruttoOBI()?->getValue()) {
+                    $product->setLengthBruttoOBI(new QuantityValue($depthBrutto, $mm));
+                    $changed = true;
+                }
+
+                if ($changed) {
+                    $product->save(["skip" => "brutto dimensions update (obi)"]);
+                }
+            } catch (\Throwable $e) {
+                //
+            }
+        });
     }
 
     function gcd(int $a, int $b): int {
