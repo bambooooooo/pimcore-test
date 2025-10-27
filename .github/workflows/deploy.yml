@@ -44,6 +44,8 @@ jobs:
                       echo "ALLEGRO_CLIENT_SECRET=${{ secrets.ALLEGRO_CLIENT_SECRET }}" >> .env
                       echo "ALLEGRO_CS_ID=${{ secrets.ALLEGRO_CS_ID }}" >> .env
                       echo "SYSTEM_CS_ID=${{ secrets.SYSTEM_CS_ID }}" >> .env
+                      echo "PS_APIKEY=${{ secrets.PS_APIKEY }}" >> .env
+                      echo "PS_DOMAIN=${{ secrets.PS_DOMAIN }}" >> .env
 
                       docker compose -f dokcer-compose.yaml -f docker-compose.prod.yaml up -d
                       docker compose exec php composer install --no-dev --optimize-autoloader
