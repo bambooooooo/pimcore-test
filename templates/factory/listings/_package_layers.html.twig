@@ -13,7 +13,11 @@
                 {% for row in package.Layers %}
                     <tr>
                         <td>{{ loop.index }}</td>
-                        <td>{{ row['Elementy'] }}</td>
+                        {% if not row['Elementy'] %}
+                            <td style="background-color: #fa1212; color: #fff">pusta warstwa</td>
+                        {% else %}
+                            <td>{{ row['Elementy'] }}</td>
+                        {% endif %}
                     </tr>
                 {% endfor %}
                 </tbody>

@@ -149,6 +149,9 @@ services:
     App\Twig\SelectedLanguagesExtension:
         tags: ['twig.extension']
 
+    App\Twig\IsNumericExtension:
+        tags: ['twig.extension']
+
     # assets
     App\EventListener\AssetsListener:
         tags:
