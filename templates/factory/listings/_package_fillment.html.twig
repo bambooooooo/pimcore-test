@@ -18,20 +18,26 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {% set total_cnt = 0 %}
-                    {% for row in fillment['Elements'].data %}
+                        {% set valid_rows = true %}
+                        {% set total_cnt = 0 %}
+                        {% for row in fillment['Elements'].data %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td>{{ row[0]|number_format(0, ',', ' ') }}</td>
+                                <td>{{ row[1]|number_format(0, ',', ' ') }}</td>
+                                {% if row[2] is numeric %}
+                                    <td>{{ row[2] }}</td>
+                                    {% set total_cnt = total_cnt + row[2] %}
+                                {% else %}
+                                    <td style="background-color: #fa1212; color: #fff">-</td>
+                                    {% set valid_rows = false %}
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
                         <tr>
-                            <td>{{ loop.index }}</td>
-                            <td>{{ row[0]|number_format(0, ',', ' ') }}</td>
-                            <td>{{ row[1]|number_format(0, ',', ' ') }}</td>
-                            <td>{{ row[2] }}</td>
-                            {% set total_cnt = total_cnt + row[2] %}
+                            <td colspan="3" style="text-align: right">{{ "Total" }}</td>
+                            <td {% if not valid_rows %}style="background-color: #fa1212; color: #fff"{% endif %}>{{ total_cnt }}</td>
                         </tr>
-                    {% endfor %}
-                    <tr>
-                        <td colspan="3" style="text-align: right">{{ "Total" }}</td>
-                        <td>{{ total_cnt }}</td>
-                    </tr>
                     </tbody>
                 </table>
             {% endfor %}
