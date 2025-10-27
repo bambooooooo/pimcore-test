@@ -26,6 +26,22 @@ class PackageEventListener
     public function postUpdate(Package $package): void
     {
         DataObject\Service::useInheritedValues(true, function() use ($package) {
+
+            if($package->isPublished())
+            {
+                try
+                {
+                    $this->assertFillmentHasIntegers($package);
+                    $this->assertLayersAreFilled($package);
+                }
+                catch(\Throwable $e)
+                {
+                    $package->setPublished(false);
+                    $package->save(["skip" => "fillment parsing error"]);
+                    throw $e;
+                }
+            }
+
             if($package->isPublished() && $package->getObjectType() == 'SKU')
             {
                 $this->sendToErp($package);
@@ -36,6 +52,23 @@ class PackageEventListener
     public function postAdd(Package $package): void
     {
         $this->updateDefaultBarcode($package);
+    }
+
+    private function assertFillmentHasIntegers(Package $package): void
+    {
+        foreach ($package->getFillment() as $fillmentGroup)
+        {
+            $gname = $fillmentGroup['Material']->getData();
+            $pos = 1;
+            foreach ($fillmentGroup['Elements']->getData() as $row)
+            {
+                assert(intval($row[0]) > 0, "Fillment [" . $gname . ":" . $pos . "] length has to be greater than 0 integer");
+                assert(intval($row[1]) > 0, "Fillment [" . $gname . ":" . $pos . "] width has to be greater than 0 integer");
+                assert(intval($row[2]) > 0, "Fillment [" . $gname . ":" . $pos . "] quantity has to be greater than 0 integer");
+
+                $pos++;
+            }
+        }
     }
 
     function updateDefaultBarcode(Package $package) : void
@@ -70,5 +103,13 @@ class PackageEventListener
     function sendToErp(Package $package) : void
     {
         $this->bus->dispatch(new ErpIndex($package->getId()));
+    }
+
+    private function assertLayersAreFilled(Package $package)
+    {
+        foreach($package->getLayers() as $layer)
+        {
+            assert($layer['Elementy'], "Package layer items must be filled");
+        }
     }
 }
