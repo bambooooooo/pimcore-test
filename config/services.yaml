@@ -111,14 +111,22 @@ services:
             $clientId: '%env(ALLEGRO_CLIENT_ID)%'
             $clientSecret: '%env(ALLEGRO_CLIENT_SECRET)%'
 
+    App\Service\PrestashopService:
+        arguments:
+            $domain: '%env(PS_DOMAIN)%'
+            $apikey: '%env(PS_APIKEY)%'
+
     # publishing
     App\Publishing\:
         resource: '../src/Publishing'
         public: true
 
-    App\EventListener\ObjectPublishListener:
+    App\EventListener\ObjectListener:
         tags:
-            - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: onPublish }
+            - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: preUpdate }
+            - { name: kernel.event_listener, event: pimcore.dataobject.postUpdate, method: postUpdate }
+            - { name: kernel.event_listener, event: pimcore.dataobject.postAdd, method: postAdd }
+            - { name: kernel.event_listener, event: pimcore.dataobject.preDelete, method: preDelete }
 
     # front auth
     factory.security.user_provider:
@@ -141,10 +149,14 @@ services:
     App\Twig\SelectedLanguagesExtension:
         tags: ['twig.extension']
 
+    App\Twig\IsNumericExtension:
+        tags: ['twig.extension']
+
     # assets
     App\EventListener\AssetsListener:
         tags:
             - { name: kernel.event_listener, event: pimcore.asset.postAdd, method: postAddEvents }
+            - { name: kernel.event_listener, event: pimcore.asset.postUpdate, method: postUpdateEvents }
 
     # Example custom templating helper
     # App\Templating\Helper\Example:
