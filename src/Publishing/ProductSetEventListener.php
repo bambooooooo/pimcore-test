@@ -35,6 +35,8 @@ class ProductSetEventListener
             $this->tryUpdateBasePrice($set);
             $this->tryUpdatePricings($set);
             $this->tryUpdateOffers($set);
+            $this->tryUpdateBruttoDimensions($set);
+            $this->tryUpdateNettoDimensions($set);
         });
     }
 
@@ -289,6 +291,63 @@ class ProductSetEventListener
         }
     }
 
+    private function tryUpdateBruttoDimensions(ProductSet $set)
+    {
+        DataObject\Service::useInheritedValues(true, function() use ($set) {
+            try {
+                $widthBrutto = 0;
+                $heightBrutto = 0;
+                $depthBrutto = 0;
+
+                $mm = Unit::getByAbbreviation("mm");
+
+                foreach($set->getSet() as $lis)
+                {
+                    /** @var DataObject\Product $product */
+                    $product = $lis->getElement();
+
+                    foreach ($product->getPackages() as $lip) {
+                        /** @var DataObject\Package $package */
+                        $package = $lip->getElement();
+
+                        $widthBrutto += $package->getWidth()->getValue() * $lip->getQuantity() * $lis->getQuantity();
+
+                        if ($package->getHeight()->getValue() > $heightBrutto) {
+                            $heightBrutto = $package->getHeight()->getValue();
+                        }
+
+                        if ($package->getDepth()->getValue() > $depthBrutto) {
+                            $depthBrutto = $package->getDepth()->getValue();
+                        }
+                    }
+                }
+
+                $changed = false;
+
+                if ($widthBrutto != $set->getWidthBruttoOBI()?->getValue()) {
+                    $set->setWidthBruttoOBI(new QuantityValue($widthBrutto, $mm));
+                    $changed = true;
+                }
+
+                if ($heightBrutto != $set->getHeightBruttoOBI()?->getValue()) {
+                    $set->setHeightBruttoOBI(new QuantityValue($heightBrutto, $mm));
+                    $changed = true;
+                }
+
+                if ($depthBrutto != $set->getLengthBruttoOBI()?->getValue()) {
+                    $set->setLengthBruttoOBI(new QuantityValue($depthBrutto, $mm));
+                    $changed = true;
+                }
+
+                if ($changed) {
+                    $set->save(["skip" => "brutto dimensions update (obi)"]);
+                }
+            } catch (\Throwable $e) {
+                //
+            }
+        });
+    }
+
     function gcd(int $a, int $b): int {
         return $b === 0 ? $a : $this->gcd($b, $a % $b);
     }
@@ -305,5 +364,59 @@ class ProductSetEventListener
         return array_reduce($numbers, function($carry, $item) {
             return $this->lcm($carry, $item);
         }, 1);
+    }
+
+    private function tryUpdateNettoDimensions(ProductSet $set)
+    {
+        try
+        {
+            $widthNetto = 0;
+            $heightNetto = 0;
+            $depthNetto = 0;
+
+            $mm = Unit::getByAbbreviation("mm");
+
+            foreach ($set->getSet() as $li)
+            {
+                /** @var DataObject\Product $product */
+                $product = $li->getElement();
+
+                $widthNetto = max($widthNetto, $product->getWidth()->getValue());
+                $heightNetto = $heightNetto + $product->getHeight()->getValue() * $li->getQuantity();
+                $depthNetto = max($depthNetto, $product->getDepth()->getValue());
+            }
+
+            if($widthNetto * $heightNetto * $depthNetto == 0)
+                return;
+
+            $changed = false;
+
+            if($widthNetto != $set->getWidthNettoOBI()?->getValue())
+            {
+                $set->setWidthNettoOBI(new QuantityValue($widthNetto, $mm));
+                $changed = true;
+            }
+
+            if($heightNetto != $set->getHeightNettoOBI()?->getValue())
+            {
+                $set->setHeightNettoOBI(new QuantityValue($heightNetto, $mm));
+                $changed = true;
+            }
+
+            if($depthNetto != $set->getLengthNettoOBI()?->getValue())
+            {
+                $set->setLengthNettoOBI(new QuantityValue($depthNetto, $mm));
+                $changed = true;
+            }
+
+            if($changed)
+            {
+                $set->save(["skip" => "netto dimensions update (obi)"]);
+            }
+        }
+        catch (\Throwable $exception)
+        {
+            //
+        }
     }
 }
