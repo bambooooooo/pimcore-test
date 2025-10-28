@@ -11,6 +11,9 @@
  * -- Desc2 [wysiwyg]
  * -- Desc3 [wysiwyg]
  * -- Desc4 [wysiwyg]
+ * - Width [quantityValue]
+ * - Height [quantityValue]
+ * - Depth [quantityValue]
  * - Set [advancedManyToManyObjectRelation]
  * - Mass [quantityValue]
  * - PackagesMass [quantityValue]
@@ -54,7 +57,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1761552864,
+   'modificationDate' => 1761638975,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -388,6 +391,132 @@ Nazwa zestawu produtków',
                          'fieldDefinitionsCache' => NULL,
                       )),
                       1 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                         'name' => 'Width',
+                         'title' => 'Width',
+                         'tooltip' => 'Szerokość
+
+Szerokość zestawu',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'unitWidth' => '',
+                         'defaultUnit' => 'mm',
+                         'validUnits' => 
+                        array (
+                          0 => 'mm',
+                          1 => 'cm',
+                          2 => 'm',
+                          3 => 'cal',
+                        ),
+                         'unique' => false,
+                         'autoConvert' => false,
+                         'defaultValueGenerator' => '',
+                         'width' => '',
+                         'defaultValue' => NULL,
+                         'integer' => false,
+                         'unsigned' => true,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'decimalSize' => NULL,
+                         'decimalPrecision' => NULL,
+                      )),
+                      2 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                         'name' => 'Height',
+                         'title' => 'Height',
+                         'tooltip' => 'Wysokość
+
+Wysokość zestawu',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'unitWidth' => '',
+                         'defaultUnit' => 'mm',
+                         'validUnits' => 
+                        array (
+                          0 => 'mm',
+                          1 => 'cm',
+                          2 => 'm',
+                          3 => 'cal',
+                        ),
+                         'unique' => false,
+                         'autoConvert' => false,
+                         'defaultValueGenerator' => '',
+                         'width' => '',
+                         'defaultValue' => NULL,
+                         'integer' => false,
+                         'unsigned' => true,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'decimalSize' => NULL,
+                         'decimalPrecision' => NULL,
+                      )),
+                      3 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                         'name' => 'Depth',
+                         'title' => 'Depth',
+                         'tooltip' => 'Głębokość
+
+Głębokość zestawu',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'unitWidth' => '',
+                         'defaultUnit' => 'mm',
+                         'validUnits' => 
+                        array (
+                          0 => 'mm',
+                          1 => 'cm',
+                          2 => 'm',
+                          3 => 'cal',
+                        ),
+                         'unique' => false,
+                         'autoConvert' => false,
+                         'defaultValueGenerator' => '',
+                         'width' => '',
+                         'defaultValue' => NULL,
+                         'integer' => false,
+                         'unsigned' => true,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'decimalSize' => NULL,
+                         'decimalPrecision' => NULL,
+                      )),
+                      4 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
                          'name' => 'Set',
                          'title' => 'Skład zestawu',
@@ -418,7 +547,7 @@ Skład zestawu - produkty w określonych ilościach',
                          'displayMode' => NULL,
                          'pathFormatterClass' => '',
                          'maxItems' => NULL,
-                         'visibleFields' => 'key,Width',
+                         'visibleFields' => 'key,Width,Height,Depth',
                          'allowToCreateNewObject' => false,
                          'allowToClearRelation' => true,
                          'optimizedAdminLoading' => false,
