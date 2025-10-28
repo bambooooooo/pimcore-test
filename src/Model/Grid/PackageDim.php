@@ -19,7 +19,7 @@ class PackageDim extends AbstractOperator
         $data = json_decode($config->additionalData);
 
         $this->n = intval($data->n) ?? null;
-        $this->d = intval($data->d) ?? null;
+        $this->d = $data->d ?? null;
     }
 
     public function getLabeledValue(array|ElementInterface $element): ResultContainer|\stdClass|null
@@ -28,16 +28,23 @@ class PackageDim extends AbstractOperator
 
         $ret->setLabel("Dim");
 
+        dump($this->n);
+        dump($this->d);
+
         if(!$this->n || !$this->d)
             return $ret;
 
         $dimension = $this->d;
         $method = "get{$dimension}";
 
+        dump("asdas");
+
         if(!method_exists(Package::class, $method))
         {
             return $ret;
         }
+
+        dump("dddd");
 
         if($element instanceof Product)
         {
