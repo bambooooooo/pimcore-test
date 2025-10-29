@@ -731,11 +731,7 @@
                 $("#serie-sheets-icon-" + id).toggle();
                 $("#serie-sheets-spinner-" + id).toggle();
 
-                let url = optimikServerUrl + "/orders/sheets/" + id;
-
-                if(isArray){
-                    url = optimikServerUrl + "/orders/batch/sheets?id=" + id.replace('-', ',');
-                }
+                let url = optimikServerUrl + "/orders/batch/sheets?id=" + id.replace('-', ',');
 
                 $.ajax({
                     url: url,
