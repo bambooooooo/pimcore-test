@@ -11,3 +11,43 @@
         ****
     {% endif %}
 {% endif %}
+
+<div class="m-1 d-none">
+    <button class="btn btn-outline-secondary serie-cutting-btn"
+            type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Rozkroje"
+            data-id="{{ serieIds|join('-') }}">
+        <img src="/UI/loading.gif" height="20" width="20" id="serie-cutting-spinner-{{ serieIds|join('-') }}" style="display: none">
+        <img src="/bundles/pimcoreadmin/img/flat-color-icons/template.svg" id="serie-cutting-icon-{{ serieIds|join('-') }}" height="20" width="20">
+        Rozkroje
+    </button>
+</div>
+<div class="m-1 d-none">
+    <button class="btn btn-outline-secondary serie-borders-btn"
+            type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Materiały"
+            data-id="{{ serieIds|join('-') }}">
+        <img src="/UI/loading.gif" height="20" width="20" id="serie-borders-spinner-{{ serieIds|join('-') }}" style="display: none">
+        <img src="/bundles/pimcoreadmin/img/flat-color-icons/survey.svg" id="serie-borders-icon-{{ serieIds|join('-') }}" height="20" width="20">
+        Obrzeża
+    </button>
+</div>
+<div class="m-1 d-none">
+    <button class="btn btn-outline-secondary serie-supplies-btn"
+            type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Rozkroje"
+            data-id="{{ serieIds|join('-') }}">
+        <img src="/UI/loading.gif" height="20" width="20" id="serie-supplies-spinner-{{ serieIds|join('-') }}" style="display: none">
+    <img src="/bundles/pimcoreadmin/img/flat-color-icons/workflow.svg" id="serie-supplies-icon-{{ serieIds|join('-') }}" height="20" width="20">
+        Dostawy
+    </button>
+</div>
+
+{% if app.user.schedule_order_sheets %}
+<div class="m-1">
+    <button class="btn btn-outline-secondary serie-sheets-btn"
+            type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Arkusze"
+            data-id="{{ serieIds|join('-') }}">
+        <img src="/UI/loading.gif" height="20" width="20" id="serie-sheets-spinner-{{ serieIds|join('-') }}" style="display: none">
+        <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMi4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iRWJlbmVfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHdpZHRoPSIyNHB4IiBoZWlnaHQ9IjI0cHgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMjQgMjQiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPHBhdGggZmlsbD0ibm9uZSIgZD0iTTAsMGgyNHYyNEgwVjB6Ii8+DQo8cmVjdCB4PSI0IiB5PSIxOCIgZmlsbD0iIzg5QkJGOCIgd2lkdGg9IjE2IiBoZWlnaHQ9IjMiLz4NCjxyZWN0IHg9IjQiIHk9IjMiIGZpbGw9IiM4OUJCRjgiIHdpZHRoPSIxNiIgaGVpZ2h0PSIzIi8+DQo8Zz4NCgk8cmVjdCB4PSI0IiB5PSI5IiBmaWxsPSIjRkZGRkZGIiB3aWR0aD0iMTYiIGhlaWdodD0iNiIvPg0KCTxwYXRoIGZpbGw9IiM1QjlDRjUiIGQ9Ik0yMiw4SDJ2OGgyMFY4TDIyLDh6Ii8+DQo8L2c+DQo8L3N2Zz4NCg==" id="serie-sheets-icon-{{ serieIds|join('-') }}" height="20" width="20">
+        Arkusze
+    </button>
+</div>
+{% endif %}
