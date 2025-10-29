@@ -59,6 +59,7 @@ services:
             PIMCORE_INSTALL_MYSQL_PORT: 3306
             PIMCORE_INSTALL_MYSQL_HOST_SOCKET: db
             PIMCORE_INSTALL_MYSQL_DATABASE: pimcore
+            DOCTRINE_DEPRECATIONS: ignore
         depends_on:
             db:
                 condition: service_healthy

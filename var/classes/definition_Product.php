@@ -21,9 +21,10 @@
  * - Height [quantityValue]
  * - Depth [quantityValue]
  * - Mass [quantityValue]
- * - CN [select]
- * - GPC [select]
  * - COO [country]
+ * - CN [input]
+ * - GPC [input]
+ * - PKWIU [input]
  * - Manufacturer [manyToOneRelation]
  * - Suppliers [manyToManyRelation]
  * - Serie [manyToOneRelation]
@@ -43,6 +44,9 @@
  * - PackagesVolume [quantityValue]
  * - SerieSize [numeric]
  * - LoadCarriers [manyToManyRelation]
+ * - WidthBruttoOBI [quantityValue]
+ * - HeightBruttoOBI [quantityValue]
+ * - LengthBruttoOBI [quantityValue]
  * - Quality [numeric]
  * - Description [fieldcollections]
  * - Barcode [input]
@@ -50,6 +54,10 @@
  * - Documents [manyToManyRelation]
  * - Instruction [manyToOneRelation]
  * - InstructionUS [manyToOneRelation]
+ * - ps_megstyl_pl [booleanSelect]
+ * - ps_megstyl_pl_parent [manyToOneRelation]
+ * - ps_megstyl_pl_id [numeric]
+ * - sgt [checkbox]
  * - BaselinkerCatalog [advancedManyToManyObjectRelation]
  * - Image [image]
  * - ObjectType [select]
@@ -65,7 +73,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Produkt',
    'description' => 'Towar, który można sprzedać',
    'creationDate' => NULL,
-   'modificationDate' => 1758861721,
+   'modificationDate' => 1761552861,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -765,112 +773,6 @@ Waga netto produktu - bez opakowania',
                          'decimalPrecision' => NULL,
                       )),
                       6 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                         'name' => 'CN',
-                         'title' => 'CN Code',
-                         'tooltip' => 'CN
-
-Klasyfikacja CN produktu. Można skorzystać z wyszukiwarki ext-isztar4.mf.gov.pl',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => true,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'options' => 
-                        array (
-                          0 => 
-                          array (
-                            'key' => '9403 60 90 (Meble drewniane...)',
-                            'value' => '9403 60 90',
-                          ),
-                        ),
-                         'defaultValue' => '',
-                         'columnLength' => 190,
-                         'dynamicOptions' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => 300,
-                         'optionsProviderType' => 'configure',
-                         'optionsProviderClass' => '',
-                         'optionsProviderData' => '',
-                      )),
-                      7 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                         'name' => 'GPC',
-                         'title' => 'GPC',
-                         'tooltip' => 'GPC
-
-Ośmiocyfrowy numer "Brick" klasyfikacji produktowej GS1 GPC. Wyszukiwarka kodów znajduje się pod adresem: https://www.gs1.org/services/gpc-browser ',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => true,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'options' => 
-                        array (
-                          0 => 
-                          array (
-                            'key' => 'Zestawy łazienkowe',
-                            'value' => '10003814',
-                          ),
-                          1 => 
-                          array (
-                            'key' => 'Biurka',
-                            'value' => '10002205',
-                          ),
-                          2 => 
-                          array (
-                            'key' => 'Komody',
-                            'value' => '10002117',
-                          ),
-                          3 => 
-                          array (
-                            'key' => 'Ławy',
-                            'value' => '10005199',
-                          ),
-                          4 => 
-                          array (
-                            'key' => 'LEDy (zestawy oświetlenia)',
-                            'value' => '10008292',
-                          ),
-                          5 => 
-                          array (
-                            'key' => 'Regały (duże, salonowe)',
-                            'value' => '10002184',
-                          ),
-                          6 => 
-                          array (
-                            'key' => 'RTV',
-                            'value' => '10002186',
-                          ),
-                        ),
-                         'defaultValue' => '',
-                         'columnLength' => 190,
-                         'dynamicOptions' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => '',
-                         'optionsProviderType' => 'configure',
-                         'optionsProviderClass' => '',
-                         'optionsProviderData' => '',
-                      )),
-                      8 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Country::__set_state(array(
                          'name' => 'COO',
                          'title' => 'Country Of Origin',
@@ -899,7 +801,107 @@ Ośmiocyfrowy numer "Brick" klasyfikacji produktowej GS1 GPC. Wyszukiwarka kodó
                          'optionsProviderData' => NULL,
                          'restrictTo' => 'CN,PL',
                       )),
+                      7 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                         'name' => 'CN',
+                         'title' => 'CN Code',
+                         'tooltip' => 'CN
+
+Kod taryfy celnej produktu. Można skorzystać z wyszukiwarki ext-isztar4.mf.gov.pl
+
+Kod CN zawiera automatycznie kod HS.',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'columnLength' => 190,
+                         'regex' => '^\\d{4}(\\s?\\d{2}(\\s?\\d{2})?)?$',
+                         'regexFlags' => 
+                        array (
+                        ),
+                         'unique' => false,
+                         'showCharCount' => false,
+                         'width' => '',
+                         'defaultValueGenerator' => '',
+                      )),
+                      8 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                         'name' => 'GPC',
+                         'title' => 'GPC',
+                         'tooltip' => 'GPC
+
+Ośmiocyfrowy numer "Brick" klasyfikacji produktowej GS1 GPC. Wyszukiwarka kodów znajduje się pod adresem: https://www.gs1.org/services/gpc-browser ',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'columnLength' => 190,
+                         'regex' => '^\\d{8}$',
+                         'regexFlags' => 
+                        array (
+                        ),
+                         'unique' => false,
+                         'showCharCount' => false,
+                         'width' => '',
+                         'defaultValueGenerator' => '',
+                      )),
                       9 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                         'name' => 'PKWIU',
+                         'title' => 'Kod PKWiU',
+                         'tooltip' => 'Polska Klasyfikacja Wyrobów i Usług (2015)
+Uwaga!
+Od stycznia 2026 będzie aktualizacja kodów
+https://poradnikprzedsiebiorcy.pl/-nowa-pkwiu-2025-juz-ogloszona
+',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'columnLength' => 190,
+                         'regex' => '^(\\d{2})(\\.\\d{2}){0,3}$',
+                         'regexFlags' => 
+                        array (
+                        ),
+                         'unique' => false,
+                         'showCharCount' => false,
+                         'width' => '',
+                         'defaultValueGenerator' => '',
+                      )),
+                      10 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
                          'name' => 'Manufacturer',
                          'title' => 'Manufacturer',
@@ -943,7 +945,7 @@ Producent',
                         ),
                          'width' => '',
                       )),
-                      10 => 
+                      11 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyRelation::__set_state(array(
                          'name' => 'Suppliers',
                          'title' => 'Suppliers',
@@ -1962,6 +1964,174 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                          'width' => '',
                          'height' => '',
                       )),
+                      6 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                         'name' => 'WidthBruttoOBI',
+                         'title' => 'Width Brutto OBI',
+                         'tooltip' => 'Szerokość Brutto OBI - Suma szerokości paczek',
+                         'mandatory' => false,
+                         'noteditable' => true,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'unitWidth' => '',
+                         'defaultUnit' => 'mm',
+                         'validUnits' => 
+                        array (
+                          0 => 'h',
+                          1 => 'K',
+                          2 => 'kg',
+                          3 => 'y',
+                          4 => 'lm',
+                          5 => 'm2',
+                          6 => 'm3',
+                          7 => 'mm',
+                          8 => 'N',
+                          9 => 'W',
+                          10 => 'PLN',
+                          11 => 'st_C',
+                          12 => 'g',
+                          13 => 't',
+                          14 => 'cm',
+                          15 => 'cal',
+                          16 => 'm',
+                          17 => 'USD',
+                          18 => 'EUR',
+                          19 => 'GBP',
+                        ),
+                         'unique' => false,
+                         'autoConvert' => false,
+                         'defaultValueGenerator' => '',
+                         'width' => '',
+                         'defaultValue' => NULL,
+                         'integer' => true,
+                         'unsigned' => true,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'decimalSize' => NULL,
+                         'decimalPrecision' => NULL,
+                      )),
+                      7 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                         'name' => 'HeightBruttoOBI',
+                         'title' => 'Height Brutto O B I',
+                         'tooltip' => 'Wysokość Brutto OBI - Najwyższa z paczek',
+                         'mandatory' => false,
+                         'noteditable' => true,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'unitWidth' => '',
+                         'defaultUnit' => 'mm',
+                         'validUnits' => 
+                        array (
+                          0 => 'h',
+                          1 => 'K',
+                          2 => 'kg',
+                          3 => 'y',
+                          4 => 'lm',
+                          5 => 'm2',
+                          6 => 'm3',
+                          7 => 'mm',
+                          8 => 'N',
+                          9 => 'W',
+                          10 => 'PLN',
+                          11 => 'st_C',
+                          12 => 'g',
+                          13 => 't',
+                          14 => 'cm',
+                          15 => 'cal',
+                          16 => 'm',
+                          17 => 'USD',
+                          18 => 'EUR',
+                          19 => 'GBP',
+                        ),
+                         'unique' => false,
+                         'autoConvert' => false,
+                         'defaultValueGenerator' => '',
+                         'width' => '',
+                         'defaultValue' => NULL,
+                         'integer' => true,
+                         'unsigned' => true,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'decimalSize' => NULL,
+                         'decimalPrecision' => NULL,
+                      )),
+                      8 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                         'name' => 'LengthBruttoOBI',
+                         'title' => 'Length Brutto O B I',
+                         'tooltip' => 'Długość Brutto OBI - Najdłuższa z paczek',
+                         'mandatory' => false,
+                         'noteditable' => true,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'unitWidth' => '',
+                         'defaultUnit' => 'mm',
+                         'validUnits' => 
+                        array (
+                          0 => 'h',
+                          1 => 'K',
+                          2 => 'kg',
+                          3 => 'y',
+                          4 => 'lm',
+                          5 => 'm2',
+                          6 => 'm3',
+                          7 => 'mm',
+                          8 => 'N',
+                          9 => 'W',
+                          10 => 'PLN',
+                          11 => 'st_C',
+                          12 => 'g',
+                          13 => 't',
+                          14 => 'cm',
+                          15 => 'cal',
+                          16 => 'm',
+                          17 => 'USD',
+                          18 => 'EUR',
+                          19 => 'GBP',
+                        ),
+                         'unique' => false,
+                         'autoConvert' => false,
+                         'defaultValueGenerator' => '',
+                         'width' => '',
+                         'defaultValue' => NULL,
+                         'integer' => true,
+                         'unsigned' => true,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'decimalSize' => NULL,
+                         'decimalPrecision' => NULL,
+                      )),
                     ),
                      'locked' => false,
                      'blockedVarsForExport' => 
@@ -2502,67 +2672,330 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                      'children' => 
                     array (
                       0 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
-                         'name' => 'BaselinkerCatalog',
-                         'title' => 'Baselinker Catalog',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
+                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Accordion::__set_state(array(
+                         'name' => 'Channels',
+                         'type' => NULL,
+                         'region' => NULL,
+                         'title' => '',
+                         'width' => '',
+                         'height' => '',
+                         'collapsible' => false,
+                         'collapsed' => false,
+                         'bodyStyle' => '',
+                         'datatype' => 'layout',
+                         'children' => 
+                        array (
+                          0 => 
+                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                             'name' => 'Prestashop',
+                             'type' => NULL,
+                             'region' => NULL,
+                             'title' => 'Prestashop 8',
+                             'width' => '',
+                             'height' => '',
+                             'collapsible' => true,
+                             'collapsed' => true,
+                             'bodyStyle' => '',
+                             'datatype' => 'layout',
+                             'children' => 
+                            array (
+                              0 => 
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                                 'name' => 'ps_megstyl_pl',
+                                 'title' => 'Publish on megstyl.pl',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'yesLabel' => 'Yes',
+                                 'noLabel' => 'No',
+                                 'emptyLabel' => '',
+                                 'options' => 
+                                array (
+                                  0 => 
+                                  array (
+                                    'key' => '',
+                                    'value' => 0,
+                                  ),
+                                  1 => 
+                                  array (
+                                    'key' => 'Yes',
+                                    'value' => 1,
+                                  ),
+                                  2 => 
+                                  array (
+                                    'key' => 'No',
+                                    'value' => -1,
+                                  ),
+                                ),
+                                 'width' => '',
+                              )),
+                              1 => 
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+                                 'name' => 'ps_megstyl_pl_parent',
+                                 'title' => 'Parent group',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => true,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'classes' => 
+                                array (
+                                  0 => 
+                                  array (
+                                    'classes' => 'Group',
+                                  ),
+                                ),
+                                 'displayMode' => 'grid',
+                                 'pathFormatterClass' => '',
+                                 'assetInlineDownloadAllowed' => false,
+                                 'assetUploadPath' => '',
+                                 'allowToClearRelation' => true,
+                                 'objectsAllowed' => true,
+                                 'assetsAllowed' => false,
+                                 'assetTypes' => 
+                                array (
+                                ),
+                                 'documentsAllowed' => false,
+                                 'documentTypes' => 
+                                array (
+                                ),
+                                 'width' => '',
+                              )),
+                              2 => 
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                                 'name' => 'ps_megstyl_pl_id',
+                                 'title' => 'Id',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'defaultValue' => NULL,
+                                 'integer' => false,
+                                 'unsigned' => false,
+                                 'minValue' => NULL,
+                                 'maxValue' => NULL,
+                                 'unique' => false,
+                                 'decimalSize' => NULL,
+                                 'decimalPrecision' => NULL,
+                                 'width' => 220,
+                                 'defaultValueGenerator' => '',
+                              )),
+                            ),
+                             'locked' => false,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'fieldtype' => 'panel',
+                             'layout' => NULL,
+                             'border' => false,
+                             'icon' => '/LOGO/prestashop.png',
+                             'labelWidth' => 90,
+                             'labelAlign' => 'left',
+                          )),
+                          1 => 
+                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                             'name' => 'Subiekt GT',
+                             'type' => NULL,
+                             'region' => NULL,
+                             'title' => 'Subiekt GT',
+                             'width' => '',
+                             'height' => '',
+                             'collapsible' => true,
+                             'collapsed' => true,
+                             'bodyStyle' => '',
+                             'datatype' => 'layout',
+                             'children' => 
+                            array (
+                              0 => 
+                              \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
+                                 'name' => 'Layout',
+                                 'type' => NULL,
+                                 'region' => NULL,
+                                 'title' => '',
+                                 'width' => '',
+                                 'height' => '',
+                                 'collapsible' => false,
+                                 'collapsed' => false,
+                                 'bodyStyle' => '',
+                                 'datatype' => 'layout',
+                                 'children' => 
+                                array (
+                                ),
+                                 'locked' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'fieldtype' => 'text',
+                                 'html' => '<div class="alert alert-warning">
+Not used in common version. Shown as a placeholder
+</div>',
+                                 'renderingClass' => '',
+                                 'renderingData' => '',
+                                 'border' => false,
+                              )),
+                              1 => 
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                                 'name' => 'sgt',
+                                 'title' => 'Subiekt GT',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'defaultValue' => NULL,
+                                 'defaultValueGenerator' => '',
+                              )),
+                            ),
+                             'locked' => false,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'fieldtype' => 'panel',
+                             'layout' => NULL,
+                             'border' => false,
+                             'icon' => '/LOGO/sgt.png',
+                             'labelWidth' => 100,
+                             'labelAlign' => 'left',
+                          )),
+                          2 => 
+                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                             'name' => 'Baselinker',
+                             'type' => NULL,
+                             'region' => NULL,
+                             'title' => 'Baselinker',
+                             'width' => '',
+                             'height' => '',
+                             'collapsible' => true,
+                             'collapsed' => true,
+                             'bodyStyle' => '',
+                             'datatype' => 'layout',
+                             'children' => 
+                            array (
+                              0 => 
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
+                                 'name' => 'BaselinkerCatalog',
+                                 'title' => 'Baselinker Catalog',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => true,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'classes' => 
+                                array (
+                                ),
+                                 'displayMode' => NULL,
+                                 'pathFormatterClass' => '',
+                                 'maxItems' => NULL,
+                                 'visibleFields' => 'key,CatalogId,Name',
+                                 'allowToCreateNewObject' => false,
+                                 'allowToClearRelation' => true,
+                                 'optimizedAdminLoading' => false,
+                                 'enableTextSelection' => false,
+                                 'visibleFieldDefinitions' => 
+                                array (
+                                ),
+                                 'width' => '',
+                                 'height' => '',
+                                 'allowedClassId' => 'BaselinkerCatalog',
+                                 'columns' => 
+                                array (
+                                  0 => 
+                                  array (
+                                    'type' => 'number',
+                                    'position' => 1,
+                                    'key' => 'ProductId',
+                                    'label' => 'Product Id',
+                                    'id' => 'extModel9950-1',
+                                  ),
+                                  1 => 
+                                  array (
+                                    'type' => 'text',
+                                    'position' => 2,
+                                    'key' => 'Version',
+                                    'label' => 'Version',
+                                    'id' => 'extModel9950-2',
+                                  ),
+                                ),
+                                 'columnKeys' => 
+                                array (
+                                  0 => 'ProductId',
+                                  1 => 'Version',
+                                ),
+                                 'enableBatchEdit' => false,
+                                 'allowMultipleAssignments' => false,
+                              )),
+                            ),
+                             'locked' => false,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'fieldtype' => 'panel',
+                             'layout' => NULL,
+                             'border' => false,
+                             'icon' => '/LOGO/base.png',
+                             'labelWidth' => 100,
+                             'labelAlign' => 'left',
+                          )),
+                        ),
                          'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => true,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'classes' => 
-                        array (
-                        ),
-                         'displayMode' => NULL,
-                         'pathFormatterClass' => '',
-                         'maxItems' => NULL,
-                         'visibleFields' => 'key,CatalogId,Name',
-                         'allowToCreateNewObject' => false,
-                         'allowToClearRelation' => true,
-                         'optimizedAdminLoading' => false,
-                         'enableTextSelection' => false,
-                         'visibleFieldDefinitions' => 
-                        array (
-                        ),
-                         'width' => '',
-                         'height' => '',
-                         'allowedClassId' => 'BaselinkerCatalog',
-                         'columns' => 
-                        array (
-                          0 => 
-                          array (
-                            'type' => 'number',
-                            'position' => 1,
-                            'key' => 'ProductId',
-                            'label' => 'Product Id',
-                            'id' => 'extModel9950-1',
-                          ),
-                          1 => 
-                          array (
-                            'type' => 'text',
-                            'position' => 2,
-                            'key' => 'Version',
-                            'label' => 'Version',
-                            'id' => 'extModel9950-2',
-                          ),
-                        ),
-                         'columnKeys' => 
-                        array (
-                          0 => 'ProductId',
-                          1 => 'Version',
-                        ),
-                         'enableBatchEdit' => false,
-                         'allowMultipleAssignments' => false,
+                         'fieldtype' => 'accordion',
+                         'border' => false,
                       )),
                     ),
                      'locked' => false,
@@ -2931,6 +3364,174 @@ Przykładowo: rysunek z wymiarami',
    'enableGridLocking' => false,
    'deletedDataComponents' => 
   array (
+    0 => 
+    \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+       'name' => 'WidthNettoOBI',
+       'title' => 'Width Netto OBI',
+       'tooltip' => 'Szerokość Netto OBI - Najszersza z paczek (jeśli ułożymy je w stos)',
+       'mandatory' => false,
+       'noteditable' => true,
+       'index' => false,
+       'locked' => false,
+       'style' => '',
+       'permissions' => NULL,
+       'fieldtype' => '',
+       'relationType' => false,
+       'invisible' => false,
+       'visibleGridView' => false,
+       'visibleSearch' => false,
+       'blockedVarsForExport' => 
+      array (
+      ),
+       'unitWidth' => '',
+       'defaultUnit' => 'mm',
+       'validUnits' => 
+      array (
+        0 => 'h',
+        1 => 'K',
+        2 => 'kg',
+        3 => 'y',
+        4 => 'lm',
+        5 => 'm2',
+        6 => 'm3',
+        7 => 'mm',
+        8 => 'N',
+        9 => 'W',
+        10 => 'PLN',
+        11 => 'st_C',
+        12 => 'g',
+        13 => 't',
+        14 => 'cm',
+        15 => 'cal',
+        16 => 'm',
+        17 => 'USD',
+        18 => 'EUR',
+        19 => 'GBP',
+      ),
+       'unique' => false,
+       'autoConvert' => false,
+       'defaultValueGenerator' => '',
+       'width' => '',
+       'defaultValue' => NULL,
+       'integer' => true,
+       'unsigned' => true,
+       'minValue' => NULL,
+       'maxValue' => NULL,
+       'decimalSize' => NULL,
+       'decimalPrecision' => NULL,
+    )),
+    1 => 
+    \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+       'name' => 'HeightNettoOBI',
+       'title' => 'Height Netto OBI',
+       'tooltip' => 'Wysokość Netto OBI - Suma wysokości paczek (jeśli ułożymy je w stos)',
+       'mandatory' => false,
+       'noteditable' => true,
+       'index' => false,
+       'locked' => false,
+       'style' => '',
+       'permissions' => NULL,
+       'fieldtype' => '',
+       'relationType' => false,
+       'invisible' => false,
+       'visibleGridView' => false,
+       'visibleSearch' => false,
+       'blockedVarsForExport' => 
+      array (
+      ),
+       'unitWidth' => '',
+       'defaultUnit' => 'mm',
+       'validUnits' => 
+      array (
+        0 => 'h',
+        1 => 'K',
+        2 => 'kg',
+        3 => 'y',
+        4 => 'lm',
+        5 => 'm2',
+        6 => 'm3',
+        7 => 'mm',
+        8 => 'N',
+        9 => 'W',
+        10 => 'PLN',
+        11 => 'st_C',
+        12 => 'g',
+        13 => 't',
+        14 => 'cm',
+        15 => 'cal',
+        16 => 'm',
+        17 => 'USD',
+        18 => 'EUR',
+        19 => 'GBP',
+      ),
+       'unique' => false,
+       'autoConvert' => false,
+       'defaultValueGenerator' => '',
+       'width' => '',
+       'defaultValue' => NULL,
+       'integer' => true,
+       'unsigned' => true,
+       'minValue' => NULL,
+       'maxValue' => NULL,
+       'decimalSize' => NULL,
+       'decimalPrecision' => NULL,
+    )),
+    2 => 
+    \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+       'name' => 'LengthNettoOBI',
+       'title' => 'Length Netto OBI',
+       'tooltip' => 'Długość Netto OBI - Najdłuższa z paczek (jeśli ułożymy je w stos)',
+       'mandatory' => false,
+       'noteditable' => true,
+       'index' => false,
+       'locked' => false,
+       'style' => '',
+       'permissions' => NULL,
+       'fieldtype' => '',
+       'relationType' => false,
+       'invisible' => false,
+       'visibleGridView' => false,
+       'visibleSearch' => false,
+       'blockedVarsForExport' => 
+      array (
+      ),
+       'unitWidth' => '',
+       'defaultUnit' => 'mm',
+       'validUnits' => 
+      array (
+        0 => 'h',
+        1 => 'K',
+        2 => 'kg',
+        3 => 'y',
+        4 => 'lm',
+        5 => 'm2',
+        6 => 'm3',
+        7 => 'mm',
+        8 => 'N',
+        9 => 'W',
+        10 => 'PLN',
+        11 => 'st_C',
+        12 => 'g',
+        13 => 't',
+        14 => 'cm',
+        15 => 'cal',
+        16 => 'm',
+        17 => 'USD',
+        18 => 'EUR',
+        19 => 'GBP',
+      ),
+       'unique' => false,
+       'autoConvert' => false,
+       'defaultValueGenerator' => '',
+       'width' => '',
+       'defaultValue' => NULL,
+       'integer' => true,
+       'unsigned' => true,
+       'minValue' => NULL,
+       'maxValue' => NULL,
+       'decimalSize' => NULL,
+       'decimalPrecision' => NULL,
+    )),
   ),
    'blockedVarsForExport' => 
   array (

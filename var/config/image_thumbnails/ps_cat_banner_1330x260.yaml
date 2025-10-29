@@ -1,0 +1,33 @@
+pimcore:
+    assets:
+        image:
+            thumbnails:
+                definitions:
+                    ps_cat_banner_1330x260:
+                        items:
+                            -
+                                method: scaleByWidth
+                                arguments:
+                                    width: 1330
+                                    forceResize: true
+                            -
+                                method: cover
+                                arguments:
+                                    width: 1330
+                                    height: 260
+                                    positioning: center
+                                    forceResize: false
+                        medias: {  }
+                        name: ps_cat_banner_1330x260
+                        description: ''
+                        group: ''
+                        format: SOURCE
+                        quality: 85
+                        highResolution: null
+                        preserveColor: false
+                        preserveMetaData: false
+                        rasterizeSVG: false
+                        downloadable: false
+                        modificationDate: 1759467900
+                        creationDate: 1759465789
+                        preserveAnimation: false
