@@ -88,14 +88,14 @@
         <table class="head-info">
             <tbody>
                 <tr>
-                    <td rowspan="6" style="width: 5px;">
+                    <td rowspan="4" style="width: 5px;">
                         <div class="v">
                             <div style="font-size: 8px;">
                                 {{ package.key }}
                             </div>
                         </div>
                     </td>
-                    <td style="width: 70px" rowspan="6">
+                    <td style="width: 70px" rowspan="4">
                         <div class="address v">
                             <div class="addr-header">
                                 <strong>
@@ -128,13 +128,13 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
-                        Długość: {{ (package.Depth.Value / 10)|round }} cm
+                    <td rowspan="1">
+                        {{ (package.Depth.Value / 10)|round }} x {{ (package.Width.Value / 10)|round }} x {{ (package.Height.Value / 10)|round }}
                     </td>
-                    <td rowspan="3" style="font-size: 22px; text-align: center">
+                    <td rowspan="1" style="font-size: 22px; text-align: center">
                         1/1
                     </td>
-                    <td rowspan="4">
+                    <td rowspan="2">
                         <div style="position: relative; display: flex; align-items: center; justify-content: space-around;">
                             {{ code_128(package.codes.IndexAgata.Barcode, "C128", 40) }}
                         </div>
@@ -145,19 +145,10 @@
                 </tr>
                 <tr>
                     <td>
-                        Szerokość: {{ (package.Width.Value / 10)|round }} cm
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Wysokość: {{ (package.Height.Value / 10)|round }} cm
-                    </td>
-                </tr>
-                <tr>
-                    <td>
                         Waga: {{ package.Mass.Value }} kg
                     </td>
                     <td style="text-align: center">
+                        SN:
                         {% if order.parent is pimcore_data_object_class("Order") %}
                             {{ order.parent.key }}
                         {% else %}
