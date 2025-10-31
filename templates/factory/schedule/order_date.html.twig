@@ -17,12 +17,14 @@
     </div>
 {% endif %}
 
-{% if app.user.schedule_show_all_suppliers %}
-    <div>
-        {% for supplier in suppliers %}
-            <div>{{ supplier.key }}</div>
-        {% endfor %}
-    </div>
+{% if type != "pdf" %}
+    {% if app.user.schedule_show_all_suppliers %}
+        <div>
+            {% for supplier in suppliers %}
+                <div>{{ supplier.key }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
 {% endif %}
 
 

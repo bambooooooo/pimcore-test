@@ -14,36 +14,39 @@
                name="serie-checkbox-{{ serie.id }}">
     {% endif %}
 </div>
-{% if app.user.schedule_print_control_card %}
-    <div class="btn-group ms-2">
-        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="/bundles/pimcoreadmin/img/flat-white-icons/support.svg" height="16"/>
+
+{% if type != "pdf" %}
+    {% if app.user.schedule_print_control_card %}
+        <div class="btn-group ms-2">
+            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="/bundles/pimcoreadmin/img/flat-white-icons/support.svg" height="16"/>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{{ path("factory_elements", {id: serie.id}) }}">Drukuj karty kontrolne (test)</a></li>
+            </ul>
+        </div>
+    {% endif %}
+
+    {# Buttons not used in this version #}
+    <div class="m-1 d-none">
+        <button class="btn btn-outline-secondary serie-cutting-btn"
+                type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Rozkroje" data-id="{{ serie.id }}">
+            <img src="/bundles/pimcoreadmin/img/flat-color-icons/template.svg" height="20" width="20">
+            Rozkroje
         </button>
-        <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="{{ path("factory_elements", {id: serie.id}) }}">Drukuj karty kontrolne (test)</a></li>
-        </ul>
+    </div>
+    <div class="m-1 d-none">
+        <button class="btn btn-outline-secondary serie-borders-btn"
+                type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Materiały" data-id="{{ serie.id }}">
+            <img src="/bundles/pimcoreadmin/img/flat-color-icons/survey.svg" height="20" width="20">
+            Obrzeża
+        </button>
+    </div>
+    <div class="m-1 d-none">
+        <button class="btn btn-outline-secondary serie-supplies-btn"
+                type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Rozkroje" data-id="{{ serie.id }}">
+            <img src="/bundles/pimcoreadmin/img/flat-color-icons/workflow.svg" height="20" width="20">
+            Dostawy
+        </button>
     </div>
 {% endif %}
-
-{# Buttons not used in this version #}
-<div class="m-1 d-none">
-    <button class="btn btn-outline-secondary serie-cutting-btn"
-            type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Rozkroje" data-id="{{ serie.id }}">
-        <img src="/bundles/pimcoreadmin/img/flat-color-icons/template.svg" height="20" width="20">
-        Rozkroje
-    </button>
-</div>
-<div class="m-1 d-none">
-    <button class="btn btn-outline-secondary serie-borders-btn"
-            type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Materiały" data-id="{{ serie.id }}">
-        <img src="/bundles/pimcoreadmin/img/flat-color-icons/survey.svg" height="20" width="20">
-        Obrzeża
-    </button>
-</div>
-<div class="m-1 d-none">
-    <button class="btn btn-outline-secondary serie-supplies-btn"
-            type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Rozkroje" data-id="{{ serie.id }}">
-        <img src="/bundles/pimcoreadmin/img/flat-color-icons/workflow.svg" height="20" width="20">
-        Dostawy
-    </button>
-</div>

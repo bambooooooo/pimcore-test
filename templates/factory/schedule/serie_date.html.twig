@@ -23,13 +23,15 @@
 </div>
 {% endif %}
 
-{% if serie.Attachments and app.user.schedule_show_serie_attachments %}
-    <div>
-        {% for att in serie.Attachments %}
-            <a href="{{ att }}" target="_blank">
-                <img src="/bundles/pimcoreadmin/img/flat-color-icons/file-types.svg" height="18">
-                {{ att.filename }}
-            </a><br/>
-        {% endfor %}
-    </div>
+{% if type != "pdf" %}
+    {% if serie.Attachments and app.user.schedule_show_serie_attachments %}
+        <div>
+            {% for att in serie.Attachments %}
+                <a href="{{ att }}" target="_blank">
+                    <img src="/bundles/pimcoreadmin/img/flat-color-icons/file-types.svg" height="18">
+                    {{ att.filename }}
+                </a><br/>
+            {% endfor %}
+        </div>
+    {% endif %}
 {% endif %}
