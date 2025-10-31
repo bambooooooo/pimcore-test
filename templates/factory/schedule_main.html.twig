@@ -410,6 +410,7 @@
         {% endif %}
     {% endfor %}
 {% endfor %}
+{% if type != "pdf" %}
     <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content">
@@ -424,6 +425,7 @@
             </div>
         </div>
     </div>
+{% endif %}
 
     <script type="text/javascript">
 
