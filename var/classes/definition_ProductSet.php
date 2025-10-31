@@ -57,7 +57,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1761638975,
+   'modificationDate' => 1761897514,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -2540,7 +2540,7 @@ Kod CN zawiera automatycznie kod HS.',
                         ),
                          'defaultValue' => NULL,
                          'columnLength' => 190,
-                         'regex' => '^\\d{4}(\\s?\\d{2}(\\s?\\d{2})?)?$',
+                         'regex' => '',
                          'regexFlags' => 
                         array (
                         ),
@@ -2572,7 +2572,7 @@ Ośmiocyfrowy numer "Brick" klasyfikacji produktowej GS1 GPC. Wyszukiwarka kodó
                         ),
                          'defaultValue' => NULL,
                          'columnLength' => 190,
-                         'regex' => '^\\d{8}$',
+                         'regex' => '',
                          'regexFlags' => 
                         array (
                         ),
@@ -2606,7 +2606,7 @@ https://poradnikprzedsiebiorcy.pl/-nowa-pkwiu-2025-juz-ogloszona
                         ),
                          'defaultValue' => NULL,
                          'columnLength' => 190,
-                         'regex' => '^(\\d{2})(\\.\\d{2}){0,3}$',
+                         'regex' => '',
                          'regexFlags' => 
                         array (
                         ),
