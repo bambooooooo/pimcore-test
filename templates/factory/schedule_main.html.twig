@@ -670,12 +670,76 @@
 
             var modal = new bootstrap.Modal("#infoModal");
 
-            var optimikServerUrl = "http://10.10.1.1:5071";
+            $(".serie-sheets-btn").click(function() {
+                var r = $(this);
+                var id = r.attr("data-id");
+                let isArray = id.includes('-');
+
+                $("#serie-sheets-icon-" + id).toggle();
+                $("#serie-sheets-spinner-" + id).toggle();
+
+                let url = "/orders/sheets?id=" + id.replace('-', ',');
+
+                $.ajax({
+                    url: url,
+                    type: "GET",
+                    success: function(data) {
+                        console.log(data);
+                        var output = "<table class=\"table\">" +
+                            "<thead>" +
+                            "<tr>" +
+                            "<td></td>" +
+                            "<td>l.p</td>" +
+                            "<td>material</td>" +
+                            "<td>arkusze</td>" +
+                            "<td>długość</td>" +
+                            "<td>szerokość</td>" +
+                            "<td>rozkroje</td>" +
+                            "</tr>" +
+                            "</thead>" +
+                            "<tbody>";
+
+                        let no = 1;
+
+                        var material = "";
+
+                        for (var key in data) {
+                            output += "<tr>" +
+                                "<td><input type=\"checkbox\" style=\"width: 25px; height: 25px\"></td>" +
+                                "<td>" + no + "</td>" +
+                                "<td>" + data[key].material_kod + "</td>" +
+                                "<td>" + data[key].ilosc + "</td>" +
+                                "<td>" + data[key].dlugosc + "</td>" +
+                                "<td>" + data[key].szerokosc + "</td>" +
+                                "<td>" + data[key].rozkroj + "</td>" +
+                                "</tr>";
+                            no++;
+                        }
+
+                        $("#title").html("Arkusze");
+                        $("#info").html(output);
+                        modal.show();
+                    },
+                    complete: function() {
+                        $("#serie-sheets-icon-" + id).toggle();
+                        $("#serie-sheets-spinner-" + id).toggle();
+                    },
+                    error: function(data) {
+                        alert("error: " + data.responseText);
+                        console.log(data);
+                    }
+                });
+            });
+
+            // DIRTY DEV
+            // use in local only
+            // DO NOT USE IN PRODUCTION
+            var optimikServerUrl = "http://10.10.1.1:5999";
 
             {% if app.environment == 'prod' %}
-                optimikServerUrl = "https://10.10.5.6:5999";
+            optimikServerUrl = "https://10.10.5.6:5999";
             {% endif %}
-            
+
             $(".serie-cutting-btn").click(function() {
                 var r = $(this);
                 var id = r.attr("data-id");
@@ -717,71 +781,6 @@
                     complete: function() {
                         $("#serie-cutting-icon-" + id).toggle();
                         $("#serie-cutting-spinner-" + id).toggle();
-                    },
-                    error: function(data) {
-                        alert("error");
-                        console.log(data);
-                    }
-                });
-            });
-
-            $(".serie-sheets-btn").click(function() {
-                var r = $(this);
-                var id = r.attr("data-id");
-                let isArray = id.includes('-');
-
-                $("#serie-sheets-icon-" + id).toggle();
-                $("#serie-sheets-spinner-" + id).toggle();
-
-                let url = optimikServerUrl + "/orders/batch/sheets?id=" + id.replace('-', ',');
-
-                $.ajax({
-                    url: url,
-                    type: "GET",
-                    crossDomain: true,
-                    headers: {
-                        "Access-Control-Allow-Origin":"*"
-                    },
-                    success: function(data) {
-                        console.log(data);
-                        var output = "<table class=\"table\">" +
-                            "<thead>" +
-                            "<tr>" +
-                            "<td></td>" +
-                            "<td>l.p</td>" +
-                            "<td>material</td>" +
-                            "<td>arkusze</td>" +
-                            "<td>długość</td>" +
-                            "<td>szerokość</td>" +
-                            "<td>rozkroje</td>" +
-                            "</tr>" +
-                            "</thead>" +
-                            "<tbody>";
-
-                        let no = 1;
-
-                        var material = "";
-
-                        for (var key in data) {
-                            output += "<tr>" +
-                                "<td><input type=\"checkbox\" style=\"width: 25px; height: 25px\"></td>" +
-                                "<td>" + no + "</td>" +
-                                "<td>" + data[key].material_kod + "</td>" +
-                                "<td>" + data[key].ilosc + "</td>" +
-                                "<td>" + data[key].dlugosc + "</td>" +
-                                "<td>" + data[key].szerokosc + "</td>" +
-                                "<td>" + data[key].rozkroj + "</td>" +
-                                "</tr>";
-                            no++;
-                        }
-
-                        $("#title").html("Arkusze");
-                        $("#info").html(output);
-                        modal.show();
-                    },
-                    complete: function() {
-                        $("#serie-sheets-icon-" + id).toggle();
-                        $("#serie-sheets-spinner-" + id).toggle();
                     },
                     error: function(data) {
                         alert("error");

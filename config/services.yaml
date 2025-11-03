@@ -93,6 +93,10 @@ services:
             $host: '%env(SGT_HOST)%'
             $port: '%env(SGT_PORT)%'
 
+    App\Service\OptimikService:
+        arguments:
+            $url: '%env(OPT_URL)%'
+
     App\Service\BrokerService:
         arguments:
             $host: '%env(MQ_HOST)%'

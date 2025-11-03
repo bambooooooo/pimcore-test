@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\OptimikService;
 use Pimcore\Controller\FrontendController;
 use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\Product;
@@ -15,7 +16,7 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/orders')]
 class OrderController extends FrontendController
 {
-    public function __construct()
+    public function __construct(private readonly OptimikService $optimik)
     {
 
     }
@@ -59,5 +60,18 @@ class OrderController extends FrontendController
         }
 
         return new Response("Object type is not supported", Response::HTTP_BAD_REQUEST);
+    }
+
+    #[Route('/sheets', name: '_sheets')]
+    public function optimikGetBulkSheetsAction(Request $request): Response
+    {
+        $ids = $request->query->get('id');
+
+        if(!$ids)
+            return new Response("Empty id list", Response::HTTP_BAD_REQUEST);
+
+        $data = $this->optimik->getBulkSheets($ids);
+
+        return new JsonResponse($data);
     }
 }
