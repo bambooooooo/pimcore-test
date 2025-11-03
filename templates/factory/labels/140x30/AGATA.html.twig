@@ -81,6 +81,33 @@
 </head>
 <body>
 
+{% set packageCode = null %}
+{% set packageBarcode = null %}
+
+{% if package.Codes.IndexAgata.Codes %}
+    {% for lic in package.Codes.IndexAgata.Codes %}
+        {% if lic.element.id == product.id %}
+            {% set packageCode = lic.data.Code %}
+            {% set packageBarcode = lic.data.Barcode %}
+        {% endif %}
+    {% endfor %}
+{% elseif package.Codes.IndexAgata.Code %}
+    {% set packageCode = package.Codes.IndexAgata.Code %}
+    {% set packageBarcode = package.Codes.IndexAgata.Barcode %}
+{% endif %}
+
+{% set packagecount = 0 %}
+{% set packageno = 0 %}
+
+{% if product and product.Packages %}
+    {% for lip in product.Packages %}
+        {% set packagecount = packagecount + lip.data.Quantity %}
+        {% if package.id == lip.element.id %}
+            {% set packageno = loop.index %}
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
 {% set step = min(copies, step) %}
 {% set steps = (copies / step)|round(0, 'ceil') %}
 {% for i in range(1, steps) %}
@@ -97,11 +124,6 @@
                     </td>
                     <td style="width: 70px" rowspan="4">
                         <div class="address v">
-                            <div class="addr-header">
-                                <strong>
-                                    {{ "Manufacturer"|trans }}
-                                </strong>
-                            </div>
                             <div class="addr">
                                 Grzegorz Mularczyk</br>
                                 "MEGSTYL"</br>
@@ -113,41 +135,71 @@
                     </td>
                     <td colspan="2">
                         <div style="font-size: 9px; text-align: center;">
-                            {{ product.Codes.IndexAgata.Code }}
+                            {% if product.Codes.IndexAgata.Code %}
+                                {{ product.Codes.IndexAgata.Code }}
+                            {% else %}
+                                <div class="error">
+                                    No Agata product code found.
+                                </div>
+                            {% endif %}
                         </div>
                     </td>
                     <td>
                         <div style="font-size: 9px; text-align: center;">
-                            {{ package.Codes.IndexAgata.Code }}
+                            {% if packageCode %}
+                                {{ packageCode }}
+                            {% else %}
+                                <div class="error">
+                                    No Agata package code found.
+                                </div>
+                            {% endif %}
                         </div>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3" style="font-size: 9px; text-align: center">
-                        {{ product.Codes.IndexAgata.Name }}
+                        {% if product.Codes.IndexAgata.Name %}
+                            {{ product.Codes.IndexAgata.Name }}
+                        {% else %}
+                            <div class="error">
+                                No Agata product name found.
+                            </div>
+                        {% endif %}
                     </td>
                 </tr>
                 <tr>
                     <td rowspan="1">
-                        {{ (package.Depth.Value / 10)|round }} x {{ (package.Width.Value / 10)|round }} x {{ (package.Height.Value / 10)|round }}
+                        {{ (package.Depth.Value / 10)|round }} cm x {{ (package.Width.Value / 10)|round }} cm x {{ (package.Height.Value / 10)|round }} cm
                     </td>
                     <td rowspan="1" style="font-size: 22px; text-align: center">
-                        1/1
+                        {{ packageno }}/{{ packagecount }}
                     </td>
                     <td rowspan="2">
                         <div style="position: relative; display: flex; align-items: center; justify-content: space-around;">
-                            {{ code_128(package.codes.IndexAgata.Barcode, "C128", 40) }}
+                            {% if packageBarcode %}
+                                {{ code_128(packageBarcode, "EAN13", 40) }}
+                            {% else %}
+                                <div class="error">
+                                    No package barcode found.
+                                </div>
+                            {% endif %}
                         </div>
                         <div style="margin-top: 5px; text-align: center">
-                            {{ package.codes.IndexAgata.Barcode }}
+                            {% if packageBarcode %}
+                                {{ packageBarcode }}
+                            {% else %}
+                                <div class="error">
+                                    No package barcode found.
+                                </div>
+                            {% endif %}
                         </div>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        Waga: {{ package.Mass.Value }} kg
+                        {{ package.Mass.Value }} kg
                     </td>
-                    <td style="text-align: center">
+                    <td style="text-align: center; font-weight: bold">
                         SN:
                         {% if order.parent is pimcore_data_object_class("Order") %}
                             {{ order.parent.key }}

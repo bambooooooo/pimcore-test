@@ -81,6 +81,33 @@
 </head>
 <body>
 
+{% set packagecount = 0 %}
+{% set packageno = 0 %}
+
+{% if product and product.Packages %}
+    {% for lip in product.Packages %}
+        {% set packagecount = packagecount + lip.data.Quantity %}
+        {% if package.id == lip.element.id %}
+            {% set packageno = loop.index %}
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+{% set packageCode = null %}
+{% set packageBarcode = null %}
+
+{% if package.Codes.IndexAgata.Codes %}
+    {% for lic in package.Codes.IndexAgata.Codes %}
+        {% if lic.element.id == product.id %}
+            {% set packageCode = lic.data.Code %}
+            {% set packageBarcode = lic.data.Barcode %}
+        {% endif %}
+    {% endfor %}
+{% elseif package.Codes.IndexAgata.Code %}
+    {% set packageCode = package.Codes.IndexAgata.Code %}
+    {% set packageBarcode = package.Codes.IndexAgata.Barcode %}
+{% endif %}
+
 {% set step = min(copies, step) %}
 {% set steps = (copies / step)|round(0, 'ceil') %}
 {% for i in range(1, steps) %}
@@ -89,7 +116,6 @@
             <tbody>
             <tr style="text-align: center">
                 <td colspan="2">
-                    PRODUCENT<br/>
                     Grzegorz Mularczyk</br>
                     "MEGSTYL"</br>
                     Żłobnica, ul. Milenijna 10</br>
@@ -108,7 +134,7 @@
                     <div style="font-weight: bold; font-size: 14px;">
                         {{ package.key }}
                     </div>
-                    <div style="font-size: 11px;">
+                    <div style="font-size: 11px; font-weight: bold;">
                         SN: {{ order.id }}
                     </div>
                 </td>
@@ -128,7 +154,13 @@
                 </td>
                 <td>
                     <div style="font-size: 9px; text-align: center;">
-                        {{ package.Codes.IndexAgata.Code }}
+                        {% if packageCode %}
+                            {{ packageCode }}
+                        {% else %}
+                            <div class="error">
+                                No Agata package code found.
+                            </div>
+                        {% endif %}
                     </div>
                 </td>
             </tr>
@@ -138,36 +170,27 @@
                 </td>
             </tr>
             <tr>
-                <td>
-                    Długość: {{ (package.Depth.Value / 10)|round }} cm
+                <td rowspan="1">
+                    {{ (package.Width.Value / 10)|round }} cm x {{ (package.Height.Value / 10)|round }} cm x {{ (package.Depth.Value / 10)|round }} cm
                 </td>
-                <td rowspan="3" style="font-size: 22px; text-align: center">
-                    1/1
+                <td rowspan="1" style="font-size: 22px; text-align: center">
+                    {{ packageno }}/{{ packagecount }}
                 </td>
-                <td rowspan="4">
+                <td rowspan="2">
                     <div style="position: relative; display: flex; align-items: center; justify-content: space-around;">
-                        {{ code_128(package.codes.IndexAgata.Barcode, "C128", 80) }}
+                        {{ code_128(packageBarcode, "EAN13", 80) }}
                     </div>
                     <div style="margin-top: 5px; text-align: center">
-                        {{ package.codes.IndexAgata.Barcode }}
+                        {{ packageBarcode }}
                     </div>
                 </td>
             </tr>
             <tr>
                 <td>
-                    Szerokość: {{ (package.Width.Value / 10)|round }} cm
+                    {{ package.Mass.Value }} kg
                 </td>
-            </tr>
-            <tr>
-                <td>
-                    Wysokość: {{ (package.Height.Value / 10)|round }} cm
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Waga: {{ package.Mass.Value }} kg
-                </td>
-                <td style="text-align: center">
+                <td style="text-align: center; font-weight: bold;">
+                    SN:
                     {% if order.parent is pimcore_data_object_class("Order") %}
                         {{ order.parent.key }}
                     {% else %}

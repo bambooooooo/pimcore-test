@@ -5,6 +5,7 @@
  * - Code [input]
  * - Barcode [input]
  * - Name [input]
+ * - Codes [advancedManyToManyObjectRelation]
  */
 
 return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
@@ -46,8 +47,8 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
           \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'name' => 'Code',
              'title' => 'Code (Index)',
-             'tooltip' => '',
-             'mandatory' => true,
+             'tooltip' => 'Kod w sytemie Agata',
+             'mandatory' => false,
              'noteditable' => false,
              'index' => false,
              'locked' => false,
@@ -76,7 +77,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
           \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'name' => 'Barcode',
              'title' => 'Barcode',
-             'tooltip' => '',
+             'tooltip' => 'Kod kreskowy w systemie Agata',
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
@@ -106,7 +107,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
           \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'name' => 'Name',
              'title' => 'Name',
-             'tooltip' => '',
+             'tooltip' => 'Nazwa w systemie Agata',
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
@@ -131,6 +132,69 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'showCharCount' => false,
              'width' => '',
              'defaultValueGenerator' => '',
+          )),
+          3 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
+             'name' => 'Codes',
+             'title' => 'Codes',
+             'tooltip' => 'Dla paczek - kody w systemie Agata zależne od produktu.
+
+Ta sama paczka może być sprzedawana (wydawana z magazynu) pod różnymi kodami SKU. Paczka z kominkiem 32" może być traktowana zarówno jako produkt pełnowartościowy (1-paczkowy) oraz jako paczka nr 3 w komodzie wybranej kolekcji. Z tego powodu należy rozróżnić dodatkowe SKU oraz kody kreskowe w ramach tej samej paczki, która w ERP widnieje jako ten sam indeks.',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => true,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'classes' => 
+            array (
+            ),
+             'displayMode' => NULL,
+             'pathFormatterClass' => '',
+             'maxItems' => NULL,
+             'visibleFields' => 'key,id',
+             'allowToCreateNewObject' => false,
+             'allowToClearRelation' => true,
+             'optimizedAdminLoading' => false,
+             'enableTextSelection' => false,
+             'visibleFieldDefinitions' => 
+            array (
+            ),
+             'width' => '',
+             'height' => '',
+             'allowedClassId' => 'Product',
+             'columns' => 
+            array (
+              0 => 
+              array (
+                'type' => 'text',
+                'position' => 1,
+                'key' => 'Code',
+                'label' => 'Kod systemowy paczki',
+              ),
+              1 => 
+              array (
+                'type' => 'text',
+                'position' => 2,
+                'key' => 'Barcode',
+                'label' => 'Kod kreskowy paczki',
+              ),
+            ),
+             'columnKeys' => 
+            array (
+              0 => 'Code',
+              1 => 'Barcode',
+            ),
+             'enableBatchEdit' => false,
+             'allowMultipleAssignments' => false,
           )),
         ),
          'locked' => false,
