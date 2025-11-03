@@ -97,11 +97,21 @@
                     {% endif %}
                 </ul>
             </div>
-            <div class="ml-auto">
-
+            <div class="ml-auto me-3">
+                <span type="button" class="btn btn-outline-light" id="font-decrease">
+                    <span style="font-size: 9px">
+                        A-
+                    </span>
+                </span>
+                <span type="button" class="btn btn-outline-light" id="font-increase">
+                    <span style="font-size: 18px">
+                        A+
+                    </span>
+                </span>
             </div>
 
             <div class="me-3">
+
                 {% if app.user %}
                     <a class="nav-link" href="{{ path("factory_account") }}">
                         {{ app.user.email }}
@@ -142,9 +152,27 @@
 </footer>
 <script type="text/javascript">
 $("document").ready(function() {
+
    $(".layer-selector").click(function() {
        $(this).toggleClass("active");
    });
+
+   var textFontSize = parseInt(localStorage.getItem("textFontSize")) ?? 12;
+
+   $(".schedule tbody td").attr("style", "font-size:" + textFontSize + "px");
+
+   $("#font-increase").click(function() {
+        textFontSize += 1;
+        localStorage.setItem("textFontSize", textFontSize);
+       $(".schedule tbody td").attr("style", "font-size:" + textFontSize + "px");
+   });
+
+   $("#font-decrease").click(function() {
+       textFontSize -= 1;
+       localStorage.setItem("textFontSize", textFontSize);
+       $(".schedule tbody td").attr("style", "font-size:" + textFontSize + "px");
+   });
+
 });
 </script>
 </body>
