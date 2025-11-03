@@ -157,7 +157,12 @@ $("document").ready(function() {
        $(this).toggleClass("active");
    });
 
-   var textFontSize = parseInt(localStorage.getItem("textFontSize")) ?? 12;
+   var textFontSize = 12;
+
+   if(Number.isInteger(parseInt(localStorage.getItem("textFontSize"))))
+   {
+      textFontSize = parseInt(localStorage.getItem("textFontSize"));
+   }
 
    $(".schedule tbody td").attr("style", "font-size:" + textFontSize + "px");
 
