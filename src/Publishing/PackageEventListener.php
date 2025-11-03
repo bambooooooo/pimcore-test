@@ -18,6 +18,10 @@ class PackageEventListener
 
     public function preUpdate(Package $package): void
     {
+        DataObject\Service::useInheritedValues(false, function() use ($package) {
+            $this->updateDefaultBarcode($package);
+        });
+
         DataObject\Service::useInheritedValues(true, function() use ($package) {
             $this->tryUpdateVolume($package);
         });
@@ -73,9 +77,12 @@ class PackageEventListener
 
     function updateDefaultBarcode(Package $package) : void
     {
-        $barcode = "11" . str_pad($package->getId(), 18, "0", STR_PAD_LEFT);
-        $package->setBarcode($barcode);
-        $package->save(["skip" => "update default barcode"]);
+        if(!$package->getBarcode() && $package->getObjectType() == 'SKU')
+        {
+            $barcode = "11" . str_pad($package->getId(), 18, "0", STR_PAD_LEFT);
+            $package->setBarcode($barcode);
+            $package->save(["skip" => "update default barcode"]);
+        }
     }
 
     function tryUpdateVolume(Package $package) : void
