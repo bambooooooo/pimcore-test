@@ -678,7 +678,7 @@
                 $("#serie-sheets-icon-" + id).toggle();
                 $("#serie-sheets-spinner-" + id).toggle();
 
-                let url = "/orders/sheets?id=" + id.replace('-', ',');
+                let url = "/orders/sheets?id=" + id.replaceAll('-', ',');
 
                 $.ajax({
                     url: url,
@@ -751,7 +751,7 @@
                 let url = optimikServerUrl + "/orders/cutting-plans/" + id;
 
                 if(isArray){
-                    url = optimikServerUrl + "/orders/batch/cutting-plans?id=" + id.replace('-', ',');
+                    url = optimikServerUrl + "/orders/batch/cutting-plans?id=" + id.replaceAll('-', ',');
                 }
 
                 $.ajax({
@@ -800,7 +800,7 @@
                 let url = optimikServerUrl + "/orders/borders/" + id;
 
                 if(isArray){
-                    url = optimikServerUrl + "/orders/batch/borders?id=" + id.replace('-', ',');
+                    url = optimikServerUrl + "/orders/batch/borders?id=" + id.replaceAll('-', ',');
                 }
 
                 $.ajax({
@@ -846,7 +846,7 @@
                 let url = optimikServerUrl + "/orders/supplies/" + id;
 
                 if(isArray){
-                    url = optimikServerUrl + "/orders/batch/supplies?id=" + id.replace('-', ',');
+                    url = optimikServerUrl + "/orders/batch/supplies?id=" + id.replaceAll('-', ',');
                 }
 
                 $.ajax({
