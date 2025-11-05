@@ -19,4 +19,9 @@ class OptimikService
     {
         return $this->httpClient->request('GET', '/orders/sheets?id=' . $ids)->toArray();
     }
+
+    public function getUsedSheets(int $l, int $w, string $m)
+    {
+        return $this->httpClient->request('GET', '/orders/search-sheet?length=' . $l . '&width=' . $w . '&material=' . $m)->toArray();
+    }
 }

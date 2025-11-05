@@ -1,0 +1,105 @@
+{% extends 'factory/layouts/default.html.twig' %}
+
+{% block content %}
+
+    <style>
+        .list-item
+        {
+            padding: 2px 0px 4px 12px;
+            border-bottom: 1px solid lightgray;
+            color: #000;
+            text-decoration: none;
+            font-weight: 600;
+            line-height: 50px;
+        }
+
+        .list-item:first-child
+        {
+            border-top: 1px solid lightgray;
+        }
+
+        .list-item:hover
+        {
+            background-color: lightgray;
+            cursor: pointer;
+        }
+
+        .stock-indicator
+        {
+            position: relative;
+            height: 24px;
+            top: -2px;
+        }
+    </style>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mt-5">
+                <form method="GET">
+                    <h2 style="text-align: center">Szukaj arkuszy...</h2>
+
+                    <div class="input-group input-group-lg mt-2">
+                        <span class="input-group-text" id="inputGroup-sizing-lg">Długość</span>
+                        <input type="number" name="length" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg"
+                               value="{% if app.request.query.has('length') %}{{ app.request.query.get('length') }}{% endif %}">
+                        <span class="input-group-text">mm</span>
+                    </div>
+
+                    <div class="input-group input-group-lg mt-2">
+                        <span class="input-group-text" id="inputGroup-sizing-lg">Szerokość</span>
+                        <input type="number" name="width" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg"
+                               value="{% if app.request.query.has('width') %}{{ app.request.query.get('width') }}{% endif %}">
+                        <span class="input-group-text">mm</span>
+                    </div>
+
+                    <div class="input-group input-group-lg mt-2">
+                        <span class="input-group-text" id="inputGroup-sizing-lg">Materiał</span>
+                        <input type="text" name="material" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg"
+                               value="{% if app.request.query.has('material') %}{{ app.request.query.get('material') }}{% endif %}" required="true">
+                    </div>
+
+                    <div class="d-grid gap-2 mt-3">
+                        <button type="submit" class="btn btn-primary">Szukaj</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-2">
+        <div class="row">
+            {% if not sheets %}
+                {% if sheets is iterable %}
+                    <div class="col-12">
+                        Nie znaleziono rozkrojów dla tego arkusza.
+                    </div>
+                {% endif %}
+            {% else %}
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>Materiał</td>
+                            <td>Rozkrój</td>
+                            <td>Ilość arkuszy</td>
+                            <td>Zlecenie</td>
+                            <td>Data rozkroju</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for sheet in sheets %}
+                            <tr>
+                                <td>{{sheet.material}}</td>
+                                <td>#{{sheet.plan}}</td>
+                                <td>{{sheet.count}}</td>
+                                <td>{{ sheet.serie }}</td>
+                                <td>{{ sheet.date|date("d.m.Y") }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

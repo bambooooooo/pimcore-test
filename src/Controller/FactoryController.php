@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\OptimikService;
 use Carbon\Carbon;
 use App\Model\DataObject\User;
 use Pimcore\Controller\FrontendController;
@@ -19,7 +20,7 @@ use Twig\Environment;
 #[Route('/factory/{_locale}', name: 'factory_', defaults: ['_locale' => 'pl', 'locale' => 'pl'])]
 class FactoryController extends FrontendController
 {
-    public function __construct(private Environment $twig)
+    public function __construct(private Environment $twig, private readonly OptimikService $optimikService)
     {
 
     }
@@ -132,6 +133,23 @@ class FactoryController extends FrontendController
             'objects' => $objects,
             'assets' => $assets,
         ]);
+    }
+
+    #[Route('/search-sheet', name: "search_sheet")]
+    public function searchSheetInPlanAction(Request $request): Response
+    {
+        $length = $request->query->get('length');
+        $width = $request->query->get('width');
+        $material = $request->query->get('material');
+
+        $sheets = null;
+
+        if($length && $width && $material)
+        {
+            $sheets = $this->optimikService->getUsedSheets($length, $width, $material);
+        }
+
+        return $this->render("factory/search_sheet.html.twig", ["sheets" => $sheets]);
     }
 
     #[Route('/{id}/datasheet', name: 'datasheet')]
