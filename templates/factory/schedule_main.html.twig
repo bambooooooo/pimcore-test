@@ -284,6 +284,8 @@
                                 {% endfor %}
                             {% endif %}
 
+                            {% set firstitem = true %}
+
                             {% for item in serie.products %}
 
                                 {% set bgStyle = "" %}
@@ -331,6 +333,7 @@
 
                                     {% if orderCodePrinted == false %}
                                         {% set orderCodePrinted = true %}
+                                        {% set firstitem = false %}
                                             <tr>
                                                 <td rowspan="{{ orderSize }}">
                                                     {{ loop.parent.loop.parent.loop.index }}
@@ -356,10 +359,12 @@
                                                 </td>
                                             </tr>
 
-                                        {% elseif loop.index == 1 %}
+                                        {% elseif firstitem %}
+                                            {% set firstitem = false %}
                                             <tr>
                                                 {% if orderCodePrinted == false %}
                                                     <td rowspan="{{ orderSize }}">{{ loop.parent.loop.parent.loop.index }}</td>
+
                                                     <td rowspan="{{ orderSize }}">
                                                         {{ include('factory/schedule/order.html.twig', {order: order}) }}
                                                     </td>
@@ -368,6 +373,8 @@
                                                 <td rowspan="{{ serieSize }}">
                                                     {{ include('factory/schedule/user.html.twig', {user: serie.user}) }}
                                                 </td>
+
+
                                                 <td class="{{ bgStyle }}">1</td>
                                                 <td class="{{ bgStyle }}">
                                                     {{ include('factory/schedule/product.html.twig', {p: item, s:serie}) }}
