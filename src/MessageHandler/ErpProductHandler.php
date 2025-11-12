@@ -14,6 +14,10 @@ use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 #[AsMessageHandler]
 class ErpProductHandler
 {
+    private string $AGATA_PACKAGE_BARCODE_INDEX = "twi_20";
+    private string $AGATA_PACKAGE_CODE_INDEX = "twi_2";
+    private string $AGATA_PRODUCT_CODE_INDEX = "twi_3";
+
     public function __construct(private SubiektGTService $subiektGTService, private LoggerInterface $logger)
     {
 
@@ -86,6 +90,13 @@ class ErpProductHandler
             ];
         }
 
+        $extras = [];
+
+        if($product->getCodes()?->getIndexAgata()?->getCode())
+        {
+            $extras[$this->AGATA_PRODUCT_CODE_INDEX] = $product->getCodes()->getIndexAgata()->getCode();
+        }
+
         return array_merge(
             $this->exportErpObjectCommonData($product),
             $this->exportProductOrProductSetData($product),
@@ -96,6 +107,7 @@ class ErpProductHandler
                 "Length" => $product->getDepth()->getValue(),
                 "Volume" => ((float)($product->getWidth()->getValue() * $product->getHeight()->getValue() * $product->getDepth()->getValue())) / 1000000000,
                 "Packages" => $packages,
+                "Extras" => $extras,
             ]
         );
     }
@@ -119,7 +131,6 @@ class ErpProductHandler
 
         $imageBase64 = base64_encode(file_get_contents($tempFile));
         unlink($tempFile);
-
         return [
             "NamePl" => $obj->getName("pl"),
             "NameEn" => $obj->getName("en") ?? "",
@@ -134,7 +145,19 @@ class ErpProductHandler
         $name = $package->getKey();
         $name = substr($name, 0, min(strlen($name), 50));
 
-        return array_merge($this->exportErpObjectCommonData($package), [
+        $extras = [];
+
+        if($package->getCodes()?->getIndexAgata()?->getCode())
+        {
+            $extras[$this->AGATA_PACKAGE_CODE_INDEX] = $package->getCodes()->getIndexAgata()->getCode(); // Kod paczki
+        }
+
+        if($package->getCodes()?->getIndexAgata()?->getBarcode())
+        {
+            $extras[$this->AGATA_PACKAGE_BARCODE_INDEX] = $package->getCodes()->getIndexAgata()->getBarcode();
+        }
+
+        $data = [
             "Description" => $name,
             "Barcode" => $package->getBarcode() . "",
             "Length" => $package->getDepth()->getValue(),
@@ -142,7 +165,16 @@ class ErpProductHandler
             "Height" => $package->getHeight()->getValue(),
             "Volume" => $package->getVolume()->getValue(),
             "Mass" => $package->getMass()->getValue(),
-        ]);
+        ];
+
+        if($extras)
+        {
+            $data = array_merge($data, [
+                "Extras" => $extras
+            ]);
+        }
+
+        return array_merge($this->exportErpObjectCommonData($package), $data);
     }
 
     private function getPrices(Product|ProductSet $p): array
