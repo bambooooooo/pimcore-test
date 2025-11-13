@@ -348,7 +348,7 @@ class ObjectController extends FrontendController
 
         $productSheet = $spreadsheet->getActiveSheet();
 
-        $sheet->setTitle($offer->getKey() . " - Products");
+        $sheet->setTitle($this->translator->trans("Products"));
         $sheet->setCellValue('A1', '#');
         $sheet->setCellValue('B1', $this->translator->trans('Image'));
         $sheet->setCellValue('C1', $this->translator->trans('Sku'));
@@ -361,7 +361,7 @@ class ObjectController extends FrontendController
 
         $ws = new Worksheet($sheet->getParent());
         $sheetSets = $spreadsheet->addSheet($ws);
-        $sheetSets->setTitle($offer->getKey() . " - Sets");
+        $sheetSets->setTitle($this->translator->trans("Sets"));
         $sheetSets->setCellValue('B1', $this->translator->trans('Image'));
         $sheetSets->setCellValue('C1', $this->translator->trans('Sku'));
         $sheetSets->setCellValue('D1', $this->translator->trans('Ean'));
