@@ -47,6 +47,10 @@
  * - WidthBruttoOBI [quantityValue]
  * - HeightBruttoOBI [quantityValue]
  * - LengthBruttoOBI [quantityValue]
+ * - SkipperCNC [manyToManyRelation]
+ * - SkipperCNC2 [manyToManyRelation]
+ * - MasterCNC [manyToManyRelation]
+ * - MasterCNC2 [manyToManyRelation]
  * - Quality [numeric]
  * - Description [fieldcollections]
  * - Barcode [input]
@@ -73,7 +77,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Produkt',
    'description' => 'Towar, który można sprzedać',
    'creationDate' => NULL,
-   'modificationDate' => 1761897524,
+   'modificationDate' => 1763025948,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -2146,6 +2150,344 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                   )),
                   6 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                     'name' => 'Factory',
+                     'type' => NULL,
+                     'region' => NULL,
+                     'title' => 'Factory',
+                     'width' => '',
+                     'height' => '',
+                     'collapsible' => false,
+                     'collapsed' => false,
+                     'bodyStyle' => '',
+                     'datatype' => 'layout',
+                     'children' => 
+                    array (
+                      0 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
+                         'name' => 'Layout',
+                         'type' => NULL,
+                         'region' => NULL,
+                         'title' => '',
+                         'width' => '',
+                         'height' => '',
+                         'collapsible' => false,
+                         'collapsed' => false,
+                         'bodyStyle' => '',
+                         'datatype' => 'layout',
+                         'children' => 
+                        array (
+                        ),
+                         'locked' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'fieldtype' => 'text',
+                         'html' => '<h2>Programy CNC</h2>',
+                         'renderingClass' => '',
+                         'renderingData' => '',
+                         'border' => false,
+                      )),
+                      1 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
+                         'name' => 'Programy CNC',
+                         'type' => NULL,
+                         'region' => NULL,
+                         'title' => '',
+                         'width' => '',
+                         'height' => '',
+                         'collapsible' => false,
+                         'collapsed' => false,
+                         'bodyStyle' => '',
+                         'datatype' => 'layout',
+                         'children' => 
+                        array (
+                          0 => 
+                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                             'name' => 'Skipper100',
+                             'type' => NULL,
+                             'region' => NULL,
+                             'title' => 'BIESSE Skipper 100',
+                             'width' => '',
+                             'height' => '',
+                             'collapsible' => false,
+                             'collapsed' => false,
+                             'bodyStyle' => '',
+                             'datatype' => 'layout',
+                             'children' => 
+                            array (
+                              0 => 
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyRelation::__set_state(array(
+                                 'name' => 'SkipperCNC',
+                                 'title' => 'Skipper - programy CNC',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => true,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'classes' => 
+                                array (
+                                  0 => 
+                                  array (
+                                    'classes' => '',
+                                  ),
+                                ),
+                                 'displayMode' => NULL,
+                                 'pathFormatterClass' => '',
+                                 'maxItems' => NULL,
+                                 'assetInlineDownloadAllowed' => true,
+                                 'assetUploadPath' => '/CNC/BIESSE-SKIPPER-100/X1',
+                                 'allowToClearRelation' => true,
+                                 'objectsAllowed' => false,
+                                 'assetsAllowed' => true,
+                                 'assetTypes' => 
+                                array (
+                                  0 => 
+                                  array (
+                                    'assetTypes' => '',
+                                  ),
+                                ),
+                                 'documentsAllowed' => false,
+                                 'documentTypes' => 
+                                array (
+                                  0 => 
+                                  array (
+                                    'documentTypes' => '',
+                                  ),
+                                ),
+                                 'enableTextSelection' => false,
+                                 'width' => '',
+                                 'height' => '',
+                              )),
+                              1 => 
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyRelation::__set_state(array(
+                                 'name' => 'SkipperCNC2',
+                                 'title' => 'Skipper - programy CNC podwójne',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => true,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'classes' => 
+                                array (
+                                  0 => 
+                                  array (
+                                    'classes' => '',
+                                  ),
+                                ),
+                                 'displayMode' => NULL,
+                                 'pathFormatterClass' => '',
+                                 'maxItems' => NULL,
+                                 'assetInlineDownloadAllowed' => true,
+                                 'assetUploadPath' => '/CNC/BIESSE-SKIPPER-100/X2',
+                                 'allowToClearRelation' => true,
+                                 'objectsAllowed' => false,
+                                 'assetsAllowed' => true,
+                                 'assetTypes' => 
+                                array (
+                                  0 => 
+                                  array (
+                                    'assetTypes' => '',
+                                  ),
+                                ),
+                                 'documentsAllowed' => false,
+                                 'documentTypes' => 
+                                array (
+                                  0 => 
+                                  array (
+                                    'documentTypes' => '',
+                                  ),
+                                ),
+                                 'enableTextSelection' => false,
+                                 'width' => '',
+                                 'height' => '',
+                              )),
+                            ),
+                             'locked' => false,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'fieldtype' => 'panel',
+                             'layout' => NULL,
+                             'border' => false,
+                             'icon' => '/LOGO/biesse.jpg',
+                             'labelWidth' => 100,
+                             'labelAlign' => 'left',
+                          )),
+                          1 => 
+                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                             'name' => 'Master',
+                             'type' => NULL,
+                             'region' => NULL,
+                             'title' => 'Lazzoni Master',
+                             'width' => '',
+                             'height' => '',
+                             'collapsible' => false,
+                             'collapsed' => false,
+                             'bodyStyle' => '',
+                             'datatype' => 'layout',
+                             'children' => 
+                            array (
+                              0 => 
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyRelation::__set_state(array(
+                                 'name' => 'MasterCNC',
+                                 'title' => 'Master - programy CNC',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => true,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'classes' => 
+                                array (
+                                  0 => 
+                                  array (
+                                    'classes' => '',
+                                  ),
+                                ),
+                                 'displayMode' => NULL,
+                                 'pathFormatterClass' => '',
+                                 'maxItems' => NULL,
+                                 'assetInlineDownloadAllowed' => true,
+                                 'assetUploadPath' => '/CNC/LAZZONI-MASTER/X1',
+                                 'allowToClearRelation' => true,
+                                 'objectsAllowed' => false,
+                                 'assetsAllowed' => true,
+                                 'assetTypes' => 
+                                array (
+                                  0 => 
+                                  array (
+                                    'assetTypes' => '',
+                                  ),
+                                ),
+                                 'documentsAllowed' => false,
+                                 'documentTypes' => 
+                                array (
+                                  0 => 
+                                  array (
+                                    'documentTypes' => '',
+                                  ),
+                                ),
+                                 'enableTextSelection' => false,
+                                 'width' => '',
+                                 'height' => '',
+                              )),
+                              1 => 
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyRelation::__set_state(array(
+                                 'name' => 'MasterCNC2',
+                                 'title' => 'Master - programy CNC podwójne',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => true,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'classes' => 
+                                array (
+                                  0 => 
+                                  array (
+                                    'classes' => '',
+                                  ),
+                                ),
+                                 'displayMode' => NULL,
+                                 'pathFormatterClass' => '',
+                                 'maxItems' => NULL,
+                                 'assetInlineDownloadAllowed' => true,
+                                 'assetUploadPath' => '/CNC/LAZZONI-MASTER/X2',
+                                 'allowToClearRelation' => true,
+                                 'objectsAllowed' => false,
+                                 'assetsAllowed' => true,
+                                 'assetTypes' => 
+                                array (
+                                  0 => 
+                                  array (
+                                    'assetTypes' => '',
+                                  ),
+                                ),
+                                 'documentsAllowed' => false,
+                                 'documentTypes' => 
+                                array (
+                                  0 => 
+                                  array (
+                                    'documentTypes' => '',
+                                  ),
+                                ),
+                                 'enableTextSelection' => false,
+                                 'width' => '',
+                                 'height' => '',
+                              )),
+                            ),
+                             'locked' => false,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'fieldtype' => 'panel',
+                             'layout' => NULL,
+                             'border' => false,
+                             'icon' => '/LOGO/lazzoni.jpg',
+                             'labelWidth' => 100,
+                             'labelAlign' => 'left',
+                          )),
+                        ),
+                         'locked' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'fieldtype' => 'tabpanel',
+                         'border' => false,
+                         'tabPosition' => 'top',
+                      )),
+                    ),
+                     'locked' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'fieldtype' => 'panel',
+                     'layout' => NULL,
+                     'border' => false,
+                     'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/factory.svg',
+                     'labelWidth' => 100,
+                     'labelAlign' => 'left',
+                  )),
+                  7 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Quality',
                      'type' => NULL,
                      'region' => NULL,
@@ -2417,7 +2759,7 @@ Stopień uzupełnienia danych produktu',
                      'labelWidth' => 100,
                      'labelAlign' => 'left',
                   )),
-                  7 => 
+                  8 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Codes',
                      'type' => NULL,
@@ -2502,7 +2844,7 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                      'labelWidth' => 100,
                      'labelAlign' => 'left',
                   )),
-                  8 => 
+                  9 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Documents',
                      'type' => NULL,
@@ -2657,7 +2999,7 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                      'labelWidth' => 100,
                      'labelAlign' => 'left',
                   )),
-                  9 => 
+                  10 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Integrations',
                      'type' => NULL,

@@ -62,8 +62,13 @@
         font-weight: bold;
     }
 
+    .listing a
+    {
+        text-decoration: none;
+    }
+
 </style>
-<div class="container-fluid">
+<div class="container-fluid listing">
     <div class="row">
         <div class="col-md-{% if app.user.explorer_show_info %}8{% else %}12{% endif %}">
             <div class="row">

@@ -72,3 +72,23 @@
         {% endfor %}
     {% endfor %}
 {% endif %}
+
+{% if obj is pimcore_data_object_class("Product") and app.user.product_show_cnc_skipper %}
+    {% for el in obj.SkipperCNC %}
+        {{ include('factory/listings/_grid_cnc.html.twig', {el: el, machine: 'Skipper'}) }}
+    {% endfor %}
+
+    {% for el in obj.SkipperCNC2 %}
+        {{ include('factory/listings/_grid_cnc.html.twig', {el: el, machine: 'Skipper', x2: true}) }}
+    {% endfor %}
+{% endif %}
+
+{% if obj is pimcore_data_object_class("Product") and app.user.product_show_cnc_master %}
+    {% for el in obj.MasterCNC %}
+        {{ include('factory/listings/_grid_cnc.html.twig', {el: el, machine: 'Master', color: "#c99a16"}) }}
+    {% endfor %}
+
+    {% for el in obj.MasterCNC2 %}
+        {{ include('factory/listings/_grid_cnc.html.twig', {el: el, machine: 'Master', color: "#c99a16", x2: true}) }}
+    {% endfor %}
+{% endif %}

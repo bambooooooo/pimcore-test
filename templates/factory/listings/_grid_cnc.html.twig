@@ -1,0 +1,28 @@
+<div class="col">
+    <a href="{{ el }}" class="text-center">
+        <div class="card h-100 p-1">
+            <div class="card-body">
+                <img src="/UI/cnc.jpg" class="img-fluid"/>
+                <h5 class="card-title">
+                    {{ el.key }}
+                </h5>
+                <div class="card-text">
+                    <span class="badge" style="background-color: {% if color is defined%}{{ color }}{% else %}#198754{% endif %}">{{ machine }}</span>
+                    {% if x2 is defined %}
+                        <span class="badge text-bg-primary">x2</span>
+                    {% endif %}
+                </div>
+                <div class="card-text">
+                    <small class="text-body-secondary" style="font-size: 11px;">
+                        {{ el.modificationDate|date("H:i d.m.Y") }}
+                    </small>
+                </div>
+                <div class="card-text">
+                    <small class="text-body-secondary" style="font-size: 11px; font-family: monospace, monospace;">
+                        {{ el.customSettings.checksum|slice(-8) }}
+                    </small>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
