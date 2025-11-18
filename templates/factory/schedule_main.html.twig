@@ -697,6 +697,7 @@
                             "<tr>" +
                             "<td></td>" +
                             "<td>l.p</td>" +
+                            "<td></td>" +
                             "<td>material</td>" +
                             "<td>arkusze</td>" +
                             "<td>długość</td>" +
@@ -710,10 +711,27 @@
 
                         var material = "";
 
+                        var countNew = 0;
+                        var countOffcut = 0;
+
                         for (var key in data) {
+
+                            let newIcon = '';
+                            if(!data[key].nowy)
+                            {
+                                newIcon = '<img src="/bundles/pimcoreadmin/img/flat-color-icons/scissors.svg" height="20"/>';
+                                countOffcut += data[key].ilosc;
+                            }
+                            else
+                            {
+                                newIcon = '<img src="data:image\/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMi4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iRWJlbmVfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHdpZHRoPSIyNHB4IiBoZWlnaHQ9IjI0cHgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMjQgMjQiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPHBhdGggZmlsbD0ibm9uZSIgZD0iTTAsMGgyNHYyNEgwVjB6Ii8+DQo8cmVjdCB4PSI0IiB5PSIxOCIgZmlsbD0iIzg5QkJGOCIgd2lkdGg9IjE2IiBoZWlnaHQ9IjMiLz4NCjxyZWN0IHg9IjQiIHk9IjMiIGZpbGw9IiM4OUJCRjgiIHdpZHRoPSIxNiIgaGVpZ2h0PSIzIi8+DQo8Zz4NCgk8cmVjdCB4PSI0IiB5PSI5IiBmaWxsPSIjRkZGRkZGIiB3aWR0aD0iMTYiIGhlaWdodD0iNiIvPg0KCTxwYXRoIGZpbGw9IiM1QjlDRjUiIGQ9Ik0yMiw4SDJ2OGgyMFY4TDIyLDh6Ii8+DQo8L2c+DQo8L3N2Zz4NCg==" height="20"/>';
+                                countNew += data[key].ilosc;
+                            }
+
                             output += "<tr>" +
                                 "<td><input type=\"checkbox\" style=\"width: 25px; height: 25px\"></td>" +
                                 "<td>" + no + "</td>" +
+                                "<td>" + newIcon + "</td>" +
                                 "<td>" + data[key].material_kod + "</td>" +
                                 "<td>" + data[key].ilosc + "</td>" +
                                 "<td>" + data[key].dlugosc + "</td>" +
@@ -722,6 +740,28 @@
                                 "</tr>";
                             no++;
                         }
+
+                        output += "<tr>" +
+                            "<td></td>" +
+                            "<td></td>" +
+                            "<td></td>" +
+                            "<td>Łącznie pełnych arkuszy</td>" +
+                            "<td><strong>" + countNew + "</strong></td>" +
+                            "<td></td>" +
+                            "<td></td>" +
+                            "<td></td>" +
+                        "</tr>";
+
+                        output += "<tr>" +
+                            "<td></td>" +
+                            "<td></td>" +
+                            "<td></td>" +
+                            "<td>Łącznie odpadów użytkowych</td>" +
+                            "<td><strong>" + countOffcut + "</strong></td>" +
+                            "<td></td>" +
+                            "<td></td>" +
+                            "<td></td>" +
+                        "</tr>";
 
                         $("#title").html("Arkusze");
                         $("#info").html(output);
