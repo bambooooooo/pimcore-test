@@ -191,7 +191,7 @@ class BaselinkerService
                     /** @var Product $el */
                     $el = $lip->getElement();
                     $lastImages[] = $this->getBaselinkerBase64Image($el->getImage());
-                    if($el->getImagesModel())
+                    if($el->getImagesModel() && $el->getImagesModel()->current())
                     {
                         $lastImages[] = $this->getBaselinkerBase64Image($el->getImagesModel()->current()->getImage());
                     }
