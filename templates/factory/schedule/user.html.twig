@@ -3,6 +3,11 @@
         <a href="{{ path('factory_tree', {'id': serie.id}) }}" {% if not serie.published and type != "pdf" %}style="text-decoration: line-through"{% endif %}>
             {{ user.key }}
         </a>
+        <div>
+            {% if serie.ExternalNumber %}
+                {{ serie.ExternalNumber }}
+            {% endif %}
+        </div>
     {% else %}
         ****
     {% endif %}
