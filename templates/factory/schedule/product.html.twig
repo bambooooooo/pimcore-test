@@ -1,4 +1,9 @@
 {% if app.user.schedule_product_link %}
+    {% if app.user.schedule_product_path %}
+        <div style="font-size: 10px;">
+            {{ p.element.path }}
+        </div>
+    {% endif %}
     <a href="{{ path("factory_tree", {id:p.element.id})}}" {% if not p.element.published and type != "pdf" %}style="text-decoration: line-through"{% endif %}>
         {{ p.element.key }}
     </a>

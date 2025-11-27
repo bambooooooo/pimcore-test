@@ -36,6 +36,7 @@
  * - schedule_show_only_user_related_products [checkbox]
  * - schedule_show_item_checkbox [checkbox]
  * - schedule_product_link [checkbox]
+ * - schedule_product_path [checkbox]
  * - schedule_order_sheets [checkbox]
  * - schedule_mark_line_item_done [checkbox]
  * - schedule_change_date [checkbox]
@@ -72,7 +73,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Użytkownik',
    'description' => 'Podmiot w systemie',
    'creationDate' => NULL,
-   'modificationDate' => 1763022052,
+   'modificationDate' => 1764236784,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -975,6 +976,28 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'defaultValueGenerator' => '',
                       )),
                       16 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                         'name' => 'schedule_product_path',
+                         'title' => 'Schedule _product _path',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'defaultValueGenerator' => '',
+                      )),
+                      17 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'schedule_order_sheets',
                          'title' => 'Schedule _order _sheets',
