@@ -70,7 +70,9 @@ class OrderController extends FrontendController
         if(!$ids)
             return new Response("Empty id list", Response::HTTP_BAD_REQUEST);
 
-        $data = $this->optimik->getBulkSheets($ids);
+        $product = $request->query->get('searchProduct');
+
+        $data = $this->optimik->getBulkSheets($ids, $product);
 
         return new JsonResponse($data);
     }
