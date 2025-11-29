@@ -685,7 +685,12 @@
                 $("#serie-sheets-icon-" + id).toggle();
                 $("#serie-sheets-spinner-" + id).toggle();
 
+                var searchProduct = r.attr('data-product') || null;
+
                 let url = "/orders/sheets?id=" + id.replaceAll('-', ',');
+
+                if(searchProduct)
+                    url += "&searchProduct=" + searchProduct;
 
                 $.ajax({
                     url: url,
@@ -763,7 +768,9 @@
                             "<td></td>" +
                         "</tr>";
 
-                        $("#title").html("Arkusze");
+                        var modalTitle = r.attr("data-label");
+
+                        $("#title").html("Arkusze " + modalTitle);
                         $("#info").html(output);
                         modal.show();
                     },

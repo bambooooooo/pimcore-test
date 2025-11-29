@@ -15,9 +15,15 @@ class OptimikService
         );
     }
 
-    public function getBulkSheets(string $ids)
+    public function getBulkSheets(string $ids, string $product = null)
     {
-        return $this->httpClient->request('GET', '/orders/sheets?id=' . $ids)->toArray();
+        $url = '/orders/sheets?id=' . $ids;
+
+        if($product){
+            $url .= '&searchProduct=' . $product;
+        }
+
+        return $this->httpClient->request('GET', $url)->toArray();
     }
 
     public function getUsedSheets(int $l, int $w, string $m)
