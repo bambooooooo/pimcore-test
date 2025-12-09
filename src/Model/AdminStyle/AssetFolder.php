@@ -29,7 +29,7 @@ class AssetFolder extends AdminStyle
 
             foreach($this->element->getProperties() as $property)
             {
-                if($property->getType() == 'object' && method_exists($property->getData(), 'getImage'))
+                if($property->getData() && $property->getType() == 'object' && method_exists($property->getData(), 'getImage'))
                 {
                     /** @var \Pimcore\Model\DataObject\Product $p */
                     $p = $property->getData();
