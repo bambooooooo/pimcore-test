@@ -83,5 +83,9 @@ class AdminStyleListener
         {
             $event->setAdminStyle(new \App\Model\AdminStyle\Document($element));
         }
+        else if ($element instanceof Asset\Folder)
+        {
+            $event->setAdminStyle(new \App\Model\AdminStyle\AssetFolder($element));
+        }
     }
 }
