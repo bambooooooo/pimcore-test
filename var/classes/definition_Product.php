@@ -68,6 +68,7 @@
  * - Ean [input]
  * - MPN [input]
  * - ImagesModel [imageGallery]
+ * - Status [select]
  */
 
 return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
@@ -77,7 +78,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Produkt',
    'description' => 'Towar, który można sprzedać',
    'creationDate' => NULL,
-   'modificationDate' => 1763025948,
+   'modificationDate' => 1765539123,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -2236,10 +2237,6 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                                 ),
                                  'classes' => 
                                 array (
-                                  0 => 
-                                  array (
-                                    'classes' => '',
-                                  ),
                                 ),
                                  'displayMode' => NULL,
                                  'pathFormatterClass' => '',
@@ -2251,18 +2248,10 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                                  'assetsAllowed' => true,
                                  'assetTypes' => 
                                 array (
-                                  0 => 
-                                  array (
-                                    'assetTypes' => '',
-                                  ),
                                 ),
                                  'documentsAllowed' => false,
                                  'documentTypes' => 
                                 array (
-                                  0 => 
-                                  array (
-                                    'documentTypes' => '',
-                                  ),
                                 ),
                                  'enableTextSelection' => false,
                                  'width' => '',
@@ -2289,10 +2278,6 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                                 ),
                                  'classes' => 
                                 array (
-                                  0 => 
-                                  array (
-                                    'classes' => '',
-                                  ),
                                 ),
                                  'displayMode' => NULL,
                                  'pathFormatterClass' => '',
@@ -2304,18 +2289,10 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                                  'assetsAllowed' => true,
                                  'assetTypes' => 
                                 array (
-                                  0 => 
-                                  array (
-                                    'assetTypes' => '',
-                                  ),
                                 ),
                                  'documentsAllowed' => false,
                                  'documentTypes' => 
                                 array (
-                                  0 => 
-                                  array (
-                                    'documentTypes' => '',
-                                  ),
                                 ),
                                  'enableTextSelection' => false,
                                  'width' => '',
@@ -2368,10 +2345,6 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                                 ),
                                  'classes' => 
                                 array (
-                                  0 => 
-                                  array (
-                                    'classes' => '',
-                                  ),
                                 ),
                                  'displayMode' => NULL,
                                  'pathFormatterClass' => '',
@@ -2383,18 +2356,10 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                                  'assetsAllowed' => true,
                                  'assetTypes' => 
                                 array (
-                                  0 => 
-                                  array (
-                                    'assetTypes' => '',
-                                  ),
                                 ),
                                  'documentsAllowed' => false,
                                  'documentTypes' => 
                                 array (
-                                  0 => 
-                                  array (
-                                    'documentTypes' => '',
-                                  ),
                                 ),
                                  'enableTextSelection' => false,
                                  'width' => '',
@@ -2421,10 +2386,6 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                                 ),
                                  'classes' => 
                                 array (
-                                  0 => 
-                                  array (
-                                    'classes' => '',
-                                  ),
                                 ),
                                  'displayMode' => NULL,
                                  'pathFormatterClass' => '',
@@ -2436,18 +2397,10 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                                  'assetsAllowed' => true,
                                  'assetTypes' => 
                                 array (
-                                  0 => 
-                                  array (
-                                    'assetTypes' => '',
-                                  ),
                                 ),
                                  'documentsAllowed' => false,
                                  'documentTypes' => 
                                 array (
-                                  0 => 
-                                  array (
-                                    'documentTypes' => '',
-                                  ),
                                 ),
                                  'enableTextSelection' => false,
                                  'width' => '',
@@ -3652,6 +3605,83 @@ Przykładowo: rysunek z wymiarami',
              'icon' => '',
              'labelWidth' => 120,
              'labelAlign' => 'top',
+          )),
+          2 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+             'name' => 'Layout',
+             'type' => NULL,
+             'region' => 'south',
+             'title' => '',
+             'width' => '',
+             'height' => '',
+             'collapsible' => false,
+             'collapsed' => false,
+             'bodyStyle' => '',
+             'datatype' => 'layout',
+             'children' => 
+            array (
+              0 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                 'name' => 'Status',
+                 'title' => 'Status',
+                 'tooltip' => '',
+                 'mandatory' => true,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'options' => 
+                array (
+                  0 => 
+                  array (
+                    'key' => 'Draft',
+                    'value' => 'Draft',
+                  ),
+                  1 => 
+                  array (
+                    'key' => 'Active (sellable)',
+                    'value' => 'Active',
+                  ),
+                  2 => 
+                  array (
+                    'key' => 'Sale',
+                    'value' => 'Sale',
+                  ),
+                  3 => 
+                  array (
+                    'key' => 'End of Life (not sellable)',
+                    'value' => 'EoF',
+                  ),
+                ),
+                 'defaultValue' => 'Draft',
+                 'columnLength' => 190,
+                 'dynamicOptions' => false,
+                 'defaultValueGenerator' => '',
+                 'width' => '',
+                 'optionsProviderType' => 'configure',
+                 'optionsProviderClass' => '',
+                 'optionsProviderData' => '',
+              )),
+            ),
+             'locked' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'fieldtype' => 'panel',
+             'layout' => '',
+             'border' => true,
+             'icon' => '',
+             'labelWidth' => 100,
+             'labelAlign' => 'left',
           )),
         ),
          'locked' => false,

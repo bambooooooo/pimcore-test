@@ -48,6 +48,7 @@
  * - CN [input]
  * - GPC [input]
  * - PKWIU [input]
+ * - Status [select]
  */
 
 return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
@@ -57,7 +58,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1761897514,
+   'modificationDate' => 1765539118,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -2644,6 +2645,83 @@ https://poradnikprzedsiebiorcy.pl/-nowa-pkwiu-2025-juz-ogloszona
              'fieldtype' => 'panel',
              'layout' => NULL,
              'border' => false,
+             'icon' => '',
+             'labelWidth' => 100,
+             'labelAlign' => 'left',
+          )),
+          2 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+             'name' => 'Layout',
+             'type' => NULL,
+             'region' => 'south',
+             'title' => '',
+             'width' => '',
+             'height' => '',
+             'collapsible' => false,
+             'collapsed' => false,
+             'bodyStyle' => '',
+             'datatype' => 'layout',
+             'children' => 
+            array (
+              0 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                 'name' => 'Status',
+                 'title' => 'Status',
+                 'tooltip' => '',
+                 'mandatory' => true,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'options' => 
+                array (
+                  0 => 
+                  array (
+                    'key' => 'Draft',
+                    'value' => 'Draft',
+                  ),
+                  1 => 
+                  array (
+                    'key' => 'Active (sellable)',
+                    'value' => 'Active',
+                  ),
+                  2 => 
+                  array (
+                    'key' => 'Sale',
+                    'value' => 'Sale',
+                  ),
+                  3 => 
+                  array (
+                    'key' => 'End of Life (not sellable)',
+                    'value' => 'EoF',
+                  ),
+                ),
+                 'defaultValue' => 'Draft',
+                 'columnLength' => 190,
+                 'dynamicOptions' => false,
+                 'defaultValueGenerator' => '',
+                 'width' => '',
+                 'optionsProviderType' => 'configure',
+                 'optionsProviderClass' => '',
+                 'optionsProviderData' => '',
+              )),
+            ),
+             'locked' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'fieldtype' => 'panel',
+             'layout' => '',
+             'border' => true,
              'icon' => '',
              'labelWidth' => 100,
              'labelAlign' => 'left',
