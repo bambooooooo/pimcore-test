@@ -29,6 +29,7 @@
  * - LengthNettoOBI [quantityValue]
  * - Images [imageGallery]
  * - Video [video]
+ * - Quality [calculatedValue]
  * - Serie [manyToOneRelation]
  * - Groups [manyToManyObjectRelation]
  * - Parameters [classificationstore]
@@ -58,7 +59,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1765539118,
+   'modificationDate' => 1765791445,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -1279,6 +1280,34 @@ Dodatkowe zdjęcia zestawu. Nie należy tu duplikować zdjęć produktów skład
                      'children' => 
                     array (
                       0 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
+                         'name' => 'Quality',
+                         'title' => 'Quality',
+                         'tooltip' => 'Jakość danych
+
+Stopień uzupełnienia danych produktu',
+                         'mandatory' => false,
+                         'noteditable' => true,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => true,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'elementType' => 'input',
+                         'calculatorType' => 'class',
+                         'calculatorExpression' => 'calcExprTest',
+                         'calculatorClass' => 'App\\Model\\Quality\\QualityRate',
+                         'columnLength' => 190,
+                         'width' => '',
+                      )),
+                      1 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
                          'name' => 'localizedfields',
                          'title' => '',
@@ -2672,7 +2701,7 @@ https://poradnikprzedsiebiorcy.pl/-nowa-pkwiu-2025-juz-ogloszona
                  'noteditable' => false,
                  'index' => false,
                  'locked' => false,
-                 'style' => '',
+                 'style' => 'width: 400px; float: left;',
                  'permissions' => NULL,
                  'fieldtype' => '',
                  'relationType' => false,
@@ -2723,7 +2752,7 @@ https://poradnikprzedsiebiorcy.pl/-nowa-pkwiu-2025-juz-ogloszona
              'layout' => '',
              'border' => true,
              'icon' => '',
-             'labelWidth' => 100,
+             'labelWidth' => 180,
              'labelAlign' => 'left',
           )),
         ),
