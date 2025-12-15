@@ -250,6 +250,30 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
 
     if(e.detail.object.data.general.className === "Product" || e.detail.object.data.general.className === "ProductSet")
     {
+        if((e.detail.object.data.general.className == "Product" && e.detail.object.data.data.ObjectType == 'ACTUAL')
+            || (e.detail.object.data.general.className == "ProductSet" && e.detail.object.data.data.Set.length > 0)) {
+
+            var q = intval(e.detail.object.data.data.Quality) || 0;
+            var c = "#c33535"; // red (0-50%)
+
+            if(q > 90){
+                c = "#35c335";
+            } else if (q > 50)
+            {
+                c = "#c3bc35"
+            }
+
+            e.detail.object.toolbar.add({
+                xtype: 'label',
+                html: '<div style="border: 1px solid #212121; border-radius: 10px; height: 20px; width: 80px">' +
+                    '<div style="width: ' + q + '%; height: 100%; background: ' + c + '; color: #fafafa; text-align: center; padding-left: 4px; border-radius: 10px;">' +
+                        q + '%' +
+                    '</div>' +
+                '</div>',
+                tooltip: 'Poziom jakości: ' + q + "%"
+            });
+        }
+
         e.detail.object.toolbar.add({
             icon: '/bundles/pimcoreadmin/img/flat-white-icons/download-cloud.svg',
             scale: 'medium',

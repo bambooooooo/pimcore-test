@@ -51,7 +51,7 @@
  * - SkipperCNC2 [manyToManyRelation]
  * - MasterCNC [manyToManyRelation]
  * - MasterCNC2 [manyToManyRelation]
- * - Quality [numeric]
+ * - Quality [calculatedValue]
  * - Description [fieldcollections]
  * - Barcode [input]
  * - Codes [objectbricks]
@@ -64,11 +64,11 @@
  * - sgt [checkbox]
  * - BaselinkerCatalog [advancedManyToManyObjectRelation]
  * - Image [image]
- * - ObjectType [select]
  * - Ean [input]
  * - MPN [input]
  * - ImagesModel [imageGallery]
  * - Status [select]
+ * - ObjectType [select]
  */
 
 return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
@@ -78,7 +78,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Produkt',
    'description' => 'Towar, który można sprzedać',
    'creationDate' => NULL,
-   'modificationDate' => 1765539123,
+   'modificationDate' => 1765790723,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -2454,7 +2454,7 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                      'children' => 
                     array (
                       0 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
                          'name' => 'Quality',
                          'title' => 'Quality',
                          'tooltip' => 'Jakość danych
@@ -2474,16 +2474,12 @@ Stopień uzupełnienia danych produktu',
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'defaultValue' => NULL,
-                         'integer' => false,
-                         'unsigned' => false,
-                         'minValue' => NULL,
-                         'maxValue' => NULL,
-                         'unique' => false,
-                         'decimalSize' => NULL,
-                         'decimalPrecision' => NULL,
+                         'elementType' => 'input',
+                         'calculatorType' => 'class',
+                         'calculatorExpression' => 'calcExprTest',
+                         'calculatorClass' => 'App\\Model\\Quality\\QualityRate',
+                         'columnLength' => 190,
                          'width' => '',
-                         'defaultValueGenerator' => '',
                       )),
                       1 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections::__set_state(array(
@@ -3393,67 +3389,6 @@ Główne zdjęcie produktu, najczęściej z przeźroczystym tłem',
                          'height' => 400,
                       )),
                       1 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                         'name' => 'ObjectType',
-                         'title' => 'Product type',
-                         'tooltip' => 'Typ produktu
-
-Wyróżnia się następujące typy produktu:
-
-- VIRTUAL - Obiekt wirtualny, który nie może być sprzedany (brakuje mu ukonkretnień), natomiast pomaga w grupowaniu produktów i ułatwia uzupełnianie danych dzięki dziedziczeniu
-
-- MODEL - Obiekt abstrakcyjny, który stanowi Produkt w rozumieniu wariantowości. Zawiera wspólne cechy produktów końcowych, które można opublikować końcowemu klientowi
-
-- SKU - realizacja produktu, którą można składować w magazynie, jednak nie jest przeznaczona do bezpośredniej sprzedaży, ponieważ nie stanowi produktu pełnowartościowego, którym zainteresowany jest klient
-
-- ACTUAL - Konkretna realizacja produktu. Można go sprzedać lub kupić, nie zawiera danych abstrakcyjnych.',
-                         'mandatory' => true,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'options' => 
-                        array (
-                          0 => 
-                          array (
-                            'key' => 'ACTUAL',
-                            'value' => 'ACTUAL',
-                          ),
-                          1 => 
-                          array (
-                            'key' => 'VIRTUAL',
-                            'value' => 'VIRTUAL',
-                          ),
-                          2 => 
-                          array (
-                            'key' => 'MODEL',
-                            'value' => 'MODEL',
-                          ),
-                          3 => 
-                          array (
-                            'key' => 'SKU',
-                            'value' => 'SKU',
-                          ),
-                        ),
-                         'defaultValue' => 'ACTUAL',
-                         'columnLength' => 190,
-                         'dynamicOptions' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => 400,
-                         'optionsProviderType' => 'configure',
-                         'optionsProviderClass' => '',
-                         'optionsProviderData' => '',
-                      )),
-                      2 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'name' => 'Ean',
                          'title' => 'Ean',
@@ -3487,7 +3422,7 @@ Kod mozna przypisać za pomocą przycisku w górnym menu.',
                          'width' => 400,
                          'defaultValueGenerator' => '',
                       )),
-                      3 => 
+                      2 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'name' => 'MPN',
                          'title' => 'MPN',
@@ -3629,7 +3564,7 @@ Przykładowo: rysunek z wymiarami',
                  'noteditable' => false,
                  'index' => false,
                  'locked' => false,
-                 'style' => '',
+                 'style' => 'width: 400px; float: left;',
                  'permissions' => NULL,
                  'fieldtype' => '',
                  'relationType' => false,
@@ -3671,6 +3606,67 @@ Przykładowo: rysunek z wymiarami',
                  'optionsProviderClass' => '',
                  'optionsProviderData' => '',
               )),
+              1 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                 'name' => 'ObjectType',
+                 'title' => 'Product type',
+                 'tooltip' => 'Typ produktu
+
+Wyróżnia się następujące typy produktu:
+
+- VIRTUAL - Obiekt wirtualny, który nie może być sprzedany (brakuje mu ukonkretnień), natomiast pomaga w grupowaniu produktów i ułatwia uzupełnianie danych dzięki dziedziczeniu
+
+- MODEL - Obiekt abstrakcyjny, który stanowi Produkt w rozumieniu wariantowości. Zawiera wspólne cechy produktów końcowych, które można opublikować końcowemu klientowi
+
+- SKU - realizacja produktu, którą można składować w magazynie, jednak nie jest przeznaczona do bezpośredniej sprzedaży, ponieważ nie stanowi produktu pełnowartościowego, którym zainteresowany jest klient
+
+- ACTUAL - Konkretna realizacja produktu. Można go sprzedać lub kupić, nie zawiera danych abstrakcyjnych.',
+                 'mandatory' => true,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => 'width: 400px; float: right;',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'options' => 
+                array (
+                  0 => 
+                  array (
+                    'key' => 'ACTUAL',
+                    'value' => 'ACTUAL',
+                  ),
+                  1 => 
+                  array (
+                    'key' => 'VIRTUAL',
+                    'value' => 'VIRTUAL',
+                  ),
+                  2 => 
+                  array (
+                    'key' => 'MODEL',
+                    'value' => 'MODEL',
+                  ),
+                  3 => 
+                  array (
+                    'key' => 'SKU',
+                    'value' => 'SKU',
+                  ),
+                ),
+                 'defaultValue' => 'ACTUAL',
+                 'columnLength' => 190,
+                 'dynamicOptions' => false,
+                 'defaultValueGenerator' => '',
+                 'width' => 400,
+                 'optionsProviderType' => 'configure',
+                 'optionsProviderClass' => '',
+                 'optionsProviderData' => '',
+              )),
             ),
              'locked' => false,
              'blockedVarsForExport' => 
@@ -3680,7 +3676,7 @@ Przykładowo: rysunek z wymiarami',
              'layout' => '',
              'border' => true,
              'icon' => '',
-             'labelWidth' => 100,
+             'labelWidth' => 180,
              'labelAlign' => 'left',
           )),
         ),
