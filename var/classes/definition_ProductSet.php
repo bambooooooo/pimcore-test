@@ -59,7 +59,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1765791445,
+   'modificationDate' => 1765799336,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -1770,7 +1770,7 @@ Kolekcje i grupy parametrów dotyczące całego zestawu. Nie wprowadzamy tutaj p
                                  'permissions' => NULL,
                                  'fieldtype' => '',
                                  'relationType' => false,
-                                 'invisible' => false,
+                                 'invisible' => true,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
                                  'blockedVarsForExport' => 
