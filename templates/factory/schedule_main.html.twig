@@ -205,7 +205,7 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="dropdown-item" href="{{ path("factory_schedule", {y: cY, m: cM, type: 'vendor'}) }}" target="_blank">
+                                                <a class="dropdown-item" href="{{ path("factory_schedule", {y: cY, m: cM, type: 'vendor', group: 'SupplyDate'}) }}" target="_blank">
                                                     {{"Print PDF (fon suppliers)"|trans}}
                                                 </a>
                                             </li>
@@ -223,13 +223,13 @@
                     {% endif %}
                 </tr>
                 <tr class="head-col-name">
-                    <td>{{ "No"|trans }}</td>
+                    <td>{{ "#No"|trans }}</td>
                     <td>{{ "Vendor"|trans }}</td>
                     <td>{{ "Receiver"|trans }}</td>
                     <td>#</td>
                     <td>{{ "Product"|trans }}</td>
                     <td>{{ "Quantity"|trans }}</td>
-                    <td>{{ "Supplies"|trans }}</td>
+                    <td>{{ "Production"|trans }}</td>
                     <td>{{ "Shipment"|trans }}</td>
                 </tr>
                 </thead>
@@ -445,13 +445,14 @@
                 return date.toUTCString();
             }
 
-            function changeDate(id, newDate) {
+            function changeDate(id, newDate, kind) {
                 $.ajax({
                     url: '/factory/pl/order/move',
                     type: 'POST',
                     data: {
                         id: id,
-                        newDate: newDate.toUTCString()
+                        newDate: newDate.toUTCString(),
+                        kind: kind
                     },
                     success: function (data) {
                         console.log(data);
@@ -459,7 +460,8 @@
                     },
                     error: function (data) {
                         console.log('error');
-                        console.log(data)
+                        console.log(data);
+                        alert("Error: " + data.responseText);
                     }
                 })
             }
@@ -492,6 +494,7 @@
 
                     var h = $(this);
                     var id = h.attr('data-id');
+                    var kind = h.attr('data-kind') ?? "deadline";
 
                     var parts = date.split(".");
 
@@ -503,7 +506,7 @@
 
                     console.log("#" + id + " => " + newDate);
 
-                    changeDate(id, newDate);
+                    changeDate(id, newDate, kind);
                 }
             });
 
@@ -615,6 +618,14 @@
 
                 $("#add-date-" + id + "-form").toggle();
                 $("#add-date-" + id + "-placeholder").toggle();
+            });
+
+            $(".add-date-supply-toggle").click(function () {
+                var h = $(this);
+                var id = h.attr('data-id');
+
+                $("#add-date-supply-" + id + "-form").toggle();
+                $("#add-date-supply-" + id + "-placeholder").toggle();
             });
 
             $(".package").click(function () {

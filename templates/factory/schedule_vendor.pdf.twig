@@ -126,11 +126,20 @@
                                                     {% endfor %}
                                                 </td>
                                                 <td colspan="2" class="text-center">
-                                                    Data dostawy:
-                                                    {% if order.Date == null %}
-                                                        Brak daty [xx]
+                                                    {% if group == 'SupplyDate' %}
+                                                        Data dostawy:
+                                                        {% if order.SupplyDate == null %}
+                                                            Brak daty [xx]
+                                                        {% else %}
+                                                            {{ order.SupplyDate|date("d.m") }}
+                                                        {% endif %}
                                                     {% else %}
-                                                        {{ order.Date|date("d.m") }}
+                                                        Data dostawy:
+                                                        {% if order.Date == null %}
+                                                            Brak daty [xx]
+                                                        {% else %}
+                                                            {{ order.Date|date("d.m") }}
+                                                        {% endif %}
                                                     {% endif %}
                                                 </td>
                                             </tr>
