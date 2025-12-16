@@ -123,7 +123,7 @@
     {% endfor %}
 {% endif %}
 
-{% if app.user.schedule_order_sheets %}
+{% if app.user.schedule_order_sheets and type != 'pdf' %}
     <button class="btn btn-outline-secondary serie-sheets-btn"
             type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Arkusze"
             data-id="{{ serie.id }}" data-product="{{ p.element.key }}" data-label="{{ order.key }}-{{ serie.id }}-{{ p.element.key }}">

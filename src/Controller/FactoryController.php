@@ -318,6 +318,12 @@ class FactoryController extends FrontendController
             return new Response("Schedule root /ZLECENIA/PRODUKCJA not found", Response::HTTP_NOT_FOUND);
         }
 
+        $group = $request->get("group") ?? "Date";
+        if($group != "Date" && $group != "SupplyDate")
+        {
+           $group = "Date";
+        }
+
         $rootId = $root->getId();
 
         if($request->query->get('y') && $request->query->get('m'))
@@ -371,6 +377,7 @@ class FactoryController extends FrontendController
             $html = $this->renderView('factory/schedule.pdf.twig', [
                 'queue' => $queue,
                 'type' => $type,
+                'group' => $group,
             ]);
 
             $adapter = \Pimcore\Bundle\WebToPrintBundle\Processor::getInstance();
@@ -396,6 +403,7 @@ class FactoryController extends FrontendController
             $html = $this->renderView('factory/schedule_vendor.pdf.twig', [
                 'queue' => $queue,
                 'type' => $type,
+                'group' => $group,
             ]);
 
             $adapter = \Pimcore\Bundle\WebToPrintBundle\Processor::getInstance();
@@ -566,16 +574,51 @@ class FactoryController extends FrontendController
         $id = $request->get('id');
         $newDate = $request->get('newDate');
         $date = Carbon::parse($newDate);
+        $kind = $request->get('kind');
 
         $o = DataObject\Order::getById($id);
+
+        if($kind != 'deadline' && $kind != 'supply')
+        {
+            return new Response("Unknown type of date", Response::HTTP_BAD_REQUEST);
+        }
 
         if(!$o)
         {
             return new Response("Order not found", Response::HTTP_NOT_FOUND);
         }
 
-        $o->setDate($date);
-        $o->save();
+        if($kind == 'deadline')
+        {
+            if($o->getSupplyDate() && $o->getSupplyDate() > $date)
+            {
+                return new Response("Production deadline can not be earlier than supply date", Response::HTTP_BAD_REQUEST);
+            }
+
+            if($o->getParent() && $o->getParent() instanceof DataObject\Order)
+            {
+                /** @var DataObject\Order $parent */
+                $parent = $o->getParent();
+
+                if($parent->getDate() && $parent->getDate() > $date)
+                {
+                    return new Response("Order shipment can not be earlier than production date", Response::HTTP_BAD_REQUEST);
+                }
+            }
+
+            $o->setDate($date);
+            $o->save();
+        }
+        elseif($kind == 'supply')
+        {
+            if($o->getDate() && $o->getDate() < $date)
+            {
+                return new Response("Supply date can not be later than production deadline", Response::HTTP_BAD_REQUEST);
+            }
+
+            $o->setSupplyDate($date);
+            $o->save();
+        }
 
         return new Response("Changed", Response::HTTP_OK);
     }

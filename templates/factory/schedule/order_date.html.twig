@@ -1,30 +1,62 @@
-{% if app.user.schedule_show_supply_date %}
+<div>
+    {% if app.user.schedule_show_supply_date %}
+        {% if type != 'pdf' %}
+            <img src="/bundles/pimcoreadmin/img/flat-color-icons/multiple_inputs.svg" height="20" style="position: relative; top: -3px;">
+        {% endif %}
+        {{ "Supplies"|trans }}:
+        {% if order.supplydate == null %}
+            {{ "Missing Date"|trans }}
+        {% else %}
+            {{ order.supplydate|date("d.m") }}
+        {% endif %}
+
+        {% if app.user.schedule_change_date and type != 'pdf' %}
+            <div id="add-date-supply-{{ order.id }}-form" style="display: none">
+                <input class="datepicker" style="width: 85px;" value="{{ order.supplydate|date("d.m.Y") }}" data-kind="supply" data-id="{{ order.id }}"/>
+            </div>
+            <div id="add-date-supply-{{ order.id }}-toggle" data-id="{{ order.id }}" class="add-date-supply-toggle btn btn-outline-primary btn-sm ms-1">
+                <img src="/bundles/pimcoreadmin/img/flat-color-icons/edit.svg" height="18"/>
+            </div>
+        {% endif %}
+
+    {% endif %}
+</div>
+
+<div>
+{% if app.user.schedule_show_production_date %}
+    {% if type != 'pdf' %}
+        <img src="/bundles/pimcoreadmin/img/flat-color-icons/factory.svg" height="20" style="position: relative; top: -3px;">
+    {% endif %}
+    {{ "Production"|trans }}:
     {% if order.date == null %}
         {{ "Missing Date"|trans }}
     {% else %}
         {{ order.date|date("d.m") }}
     {% endif %}
-{% else %}
-    ****
-{% endif %}
 
-{% if app.user.schedule_change_date and type != 'pdf' %}
-    <div id="add-date-{{ order.id }}-form" style="display: none">
-        <input class="datepicker" style="width: 85px;" value="{{ order.date|date("d.m.Y") }}" data-id="{{ order.id }}"/>
-    </div>
-    <div id="add-date-{{ order.id }}-toggle" data-id="{{ order.id }}" class="add-date-toggle btn btn-outline-primary btn-sm ms-1">
-        <img src="/bundles/pimcoreadmin/img/flat-color-icons/edit.svg" height="18"/>
-    </div>
-{% endif %}
-
-{% if type != "pdf" %}
-    {% if app.user.schedule_show_all_suppliers %}
-        <div>
-            {% for supplier in suppliers %}
-                <div>{{ supplier.key }}</div>
-            {% endfor %}
+    {% if app.user.schedule_change_date and type != 'pdf' %}
+        <div id="add-date-{{ order.id }}-form" style="display: none">
+            <input class="datepicker" style="width: 85px;" value="{{ order.date|date("d.m.Y") }}" data-id="{{ order.id }}"/>
+        </div>
+        <div id="add-date-{{ order.id }}-toggle" data-id="{{ order.id }}" class="add-date-toggle btn btn-outline-primary btn-sm ms-1">
+            <img src="/bundles/pimcoreadmin/img/flat-color-icons/edit.svg" height="18"/>
         </div>
     {% endif %}
+
+    {% if type != "pdf" %}
+        {% if app.user.schedule_show_all_suppliers %}
+            <div>
+                {% for supplier in suppliers %}
+                    <div>{{ supplier.key }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endif %}
+
+    {% else %}
+        ****
 {% endif %}
+
+</div>
 
 

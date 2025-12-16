@@ -6,8 +6,9 @@
  * Dokument dotyczący kontrahenta, zbioru produktów oraz konkretnej daty
  *
  * Fields Summary:
- * - Date [datetime]
+ * - SupplyDate [datetime]
  * - Done [checkbox]
+ * - Date [datetime]
  * - User [manyToOneRelation]
  * - ExternalNumber [input]
  * - Number [input]
@@ -24,7 +25,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => 'Dokument dotyczący kontrahenta, zbioru produktów oraz konkretnej daty',
    'creationDate' => NULL,
-   'modificationDate' => 1758864011,
+   'modificationDate' => 1765874160,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -83,10 +84,10 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
             array (
               0 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Datetime::__set_state(array(
-                 'name' => 'Date',
-                 'title' => 'Date',
+                 'name' => 'SupplyDate',
+                 'title' => 'Supply Date',
                  'tooltip' => '',
-                 'mandatory' => true,
+                 'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
                  'locked' => false,
@@ -102,7 +103,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 ),
                  'defaultValue' => NULL,
                  'useCurrentDate' => false,
-                 'respectTimezone' => false,
+                 'respectTimezone' => true,
                  'columnType' => 'datetime',
                  'defaultValueGenerator' => '',
               )),
@@ -129,6 +130,31 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'defaultValueGenerator' => '',
               )),
               2 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Datetime::__set_state(array(
+                 'name' => 'Date',
+                 'title' => 'Deadline',
+                 'tooltip' => '',
+                 'mandatory' => true,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => 'float: right;',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'defaultValue' => NULL,
+                 'useCurrentDate' => false,
+                 'respectTimezone' => false,
+                 'columnType' => 'datetime',
+                 'defaultValueGenerator' => '',
+              )),
+              3 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
                  'name' => 'User',
                  'title' => 'User',
@@ -170,7 +196,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 ),
                  'width' => '',
               )),
-              3 => 
+              4 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'ExternalNumber',
                  'title' => 'External Number',
@@ -200,7 +226,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'width' => '',
                  'defaultValueGenerator' => '',
               )),
-              4 => 
+              5 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'Number',
                  'title' => 'Number',
@@ -230,7 +256,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'width' => '',
                  'defaultValueGenerator' => '',
               )),
-              5 => 
+              6 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
                  'name' => 'Carrier',
                  'title' => 'Carrier',
@@ -272,7 +298,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 ),
                  'width' => '',
               )),
-              6 => 
+              7 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
                  'name' => 'Products',
                  'title' => 'Products',
