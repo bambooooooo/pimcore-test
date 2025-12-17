@@ -75,11 +75,13 @@ class AllegroUpdateCategoryCommand extends AbstractCommand
         {
             $kname = $parameter['name'] . " - " . $parameter['id'];
             $k = Classificationstore\KeyConfig::getByName($kname, $cStore->getId());
-            if ($k) {
-                continue;
+            if (!$k)
+            {
+                $k = new Classificationstore\KeyConfig();
             }
 
-            $k = new Classificationstore\KeyConfig();
+            $kChanged = false;
+
             $k->setStoreId($cStore->getId());
             $k->setName($kname);
             $k->setTitle($parameter['name']);
@@ -139,13 +141,35 @@ class AllegroUpdateCategoryCommand extends AbstractCommand
             }
 
             $def->setName($kname);
+
             $def->setTitle($parameter['name']);
             $def->setMandatory($parameter['required']);
 
-            $k->setType($def->getFieldType());
-            $k->setDefinition(json_encode($def));
+            if($parameter['unit'])
+            {
+                if($k->getDescription() ?? "" != $parameter['unit'])
+                {
+                    $k->setDescription($parameter['unit']);
+                    $kChanged = true;
+                }
+            }
+            else
+            {
+                if($k->getDescription() && $k->getDescription() != "")
+                {
+                    $k->setDescription("");
+                    $kChanged = true;
+                }
+            }
 
-            $k->save();
+            $defJson = json_encode($def);
+
+            if($k->getDefinition() != $defJson || $kChanged)
+            {
+                $k->setDefinition($defJson);
+                $k->setType($def->getFieldType());
+                $k->save();
+            }
 
             $r = KeyGroupRelation::getByGroupAndKeyId($cGroup->getId(), $k->getId());
 
