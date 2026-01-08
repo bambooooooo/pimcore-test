@@ -388,6 +388,98 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
     {
         const prods = e.detail.object.data.data.Products.length + e.detail.object.data.data.Sets.length;
 
+        var offers = Ext.create('Ext.data.Store', {
+            fields: ['id', 'name'],
+            autoLoad: false,
+            proxy: {
+                type: 'ajax',
+                url: '/offers',
+                reader: {
+                    type: 'json',
+                    rootProperty: 'data',
+                }
+            }
+        })
+
+        var combo = Ext.create('Ext.form.ComboBox', {
+            xtype: 'combo',
+            fieldLabel: 'Select price level',
+            store: offers,
+            displayField: 'name',
+            valueField: 'id',
+        });
+
+        var btnPdf = Ext.create('Ext.Button', {
+            xtype: 'button',
+            text: 'Generuj plik PDF',
+            icon: '/bundles/pimcoreadmin/img/flat-white-icons/download-cloud.svg',
+            handler: function(){
+                if(!combo.value)
+                {
+                    alert("Please specify offer first");
+                    return;
+                }
+
+                const path = "/factory/en/" + e.detail.object.id + "/datasheet?show_prices=" + combo.value;
+                window.open(path);
+            }
+        });
+
+        var btnXlsx = Ext.create('Ext.Button', {
+            xtype: 'button',
+            text: 'Generuj plik XLSX',
+            icon: '/bundles/pimcoreadmin/img/flat-white-icons/download-cloud.svg',
+            handler: function(){
+                if(!combo.value)
+                {
+                    alert("Please specify offer first");
+                    return;
+                }
+
+                const path = "/factory/en/" + e.detail.object.id + "/datasheet?show_prices=" + combo.value + "&type=xlsx";
+                window.open(path);
+            }
+        });
+
+        var panel = Ext.create('Ext.form.Panel', {
+            layout: {
+                type: 'vbox',
+                align: 'stretch',
+            },
+            bodyPadding: 16,
+            items: [
+                combo,
+                {
+                    xtype: 'splitter'
+                },
+                Ext.create('Ext.form.Panel', {
+                    layout: {
+                        type: 'hbox',
+                        align: 'right',
+                        buttonAlign: 'right'
+                    },
+                    items:
+                    [
+                        btnPdf,
+                        { xtype: 'splitter'},
+                        btnXlsx
+                    ]
+                })
+            ]
+        })
+
+        var win = Ext.create('Ext.window.Window', {
+            title: 'Generowanie cennika dla grupy',
+            items: [
+                panel,
+            ],
+            closeAction: 'hide',
+            width: 600,
+            layout: 'fit',
+            closeable: true,
+            modal: true
+        })
+
         e.detail.object.toolbar.add({
             icon: '/bundles/pimcoreadmin/img/flat-white-icons/download-cloud.svg',
             scale: 'medium',
@@ -419,6 +511,15 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
                     handler: function () {
                         const path = "/factory/en/" + e.detail.object.id + "/datasheet";
                         window.open(path);
+                    }
+                },
+                {
+                    text: t('Pricelist'),
+                    tooltip: t('Download pricelist in PDF'),
+                    icon: '/bundles/pimcoreadmin/img/flat-white-icons/percent.svg',
+                    scale: 'medium',
+                    handler: function () {
+                        win.show();
                     }
                 }
             ]

@@ -90,7 +90,9 @@
         </div>
         <div style="float:left; width: 30%">
             <div style="text-align: center; padding: 18px 10px; position: relative">
-                <img src="{{ s.Image.thumbnail("200x200") }}" width="200"/>
+                {% if s.Image %}
+                    <img src="{{ s.Image.thumbnail("200x200") }}" width="200"/>
+                {% endif %}
             </div>
         </div>
         <div style="clear: both"></div>
