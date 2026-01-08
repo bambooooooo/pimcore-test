@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Service\DeepLService;
+use Carbon\Carbon;
 use DeepL\DeepLException;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
@@ -44,6 +45,8 @@ class ObjectController extends FrontendController
     #[Route("/export/images/{id}", name: "export_images")]
     public function exportImagesAction(Request $request): Response
     {
+        DataObject::setHideUnpublished(false);
+
         $id = $request->get("id");
         $mode = $request->get("mode") ?? "object";
         $obj = DataObject::getById($id);
@@ -142,6 +145,174 @@ class ObjectController extends FrontendController
         }
 
         return $response;
+    }
+
+    #[Route('/object/{id}/datasheet', name: 'datasheet_new')]
+    public function datasheetAction(Request $request): Response
+    {
+        DataObject::setHideUnpublished(false);
+        $obj = DataObject::getById($request->get('id'));
+        if(!$obj)
+            return new Response("Not found", Response::HTTP_NOT_FOUND);
+
+        $params = [
+            'paperWidth' => '210mm',
+            'paperHeight' => '297mm',
+            'marginTop' => 0,
+            'marginBottom' => 0,
+            'marginLeft' => 0,
+            'marginRight' => 0,
+            "displayHeaderFooter" => true,
+            'metadata' => [
+                'Title' => $obj->getKey(),
+                'Author' => 'pim'
+            ]
+        ];
+
+        $adapter = \Pimcore\Bundle\WebToPrintBundle\Processor::getInstance();
+
+        $html = "";
+
+        if($obj instanceof DataObject\Product)
+        {
+            $html = $this->renderView('factory/pdf/datasheet_product.html.twig', ['obj' => $obj]);
+        }
+        elseif ($obj instanceof DataObject\Group)
+        {
+            $productListing = new DataObject\Product\Listing();
+            $productListing->setCondition("Groups like '%," . $obj->getId() . ",%' AND `ObjectType`='ACTUAL' ");
+            $prods = $productListing->load();
+
+            usort($prods, function (DataObject\Product $a, DataObject\Product $b) {
+
+                if($a->getGroup() == null || $b->getGroup() == null)
+                    return 0;
+
+                $comp = strcmp($a->getGroup()->getKey(), $b->getGroup()->getKey());
+
+                if($comp === 0)
+                {
+                    return strcmp($a->getKey(), $b->getKey());
+                }
+
+                return $comp;
+            });
+
+            $setListing = new DataObject\ProductSet\Listing();
+            $setListing->setCondition("Groups like '%," . $obj->getId() . ",%' ");
+            $sets = $setListing->load();
+
+            usort($sets, function ($a, $b) {
+                return $a->getBasePrice()->getValue() > $b->getBasePrice()->getValue();
+            });
+
+            $common = [];
+
+            foreach ($prods as $prod)
+            {
+                $common[] = $prod;
+            }
+
+            foreach($sets as $set)
+            {
+                foreach($set->getSet() as $lip)
+                {
+                    $product = $lip->getElement();
+                    if($product)
+                    {
+                        $common[] = $product;
+                    }
+                }
+            }
+
+            $common = array_unique($common);
+
+            usort($common, function (DataObject\Product $a, DataObject\Product $b) {
+
+                if($a->getGroup() == null || $b->getGroup() == null)
+                    return 0;
+
+                $comp = strcmp($a->getGroup()->getKey(), $b->getGroup()->getKey());
+
+                if($comp === 0)
+                {
+                    return strcmp($a->getKey(), $b->getKey());
+                }
+
+                return $comp;
+            });
+
+            if($request->get("type") == 'xlsx')
+            {
+                $offer = DataObject\Offer::getById($request->get("show_prices"));
+
+                if(!$offer)
+                {
+                    return new Response("No Offer found", Response::HTTP_BAD_REQUEST);
+                }
+
+                $data = $prods;
+                return $this->getSheetPricesXlsx($data, $offer, $obj->getName() ?? $obj->getKey());
+            }
+
+            $html = $this->renderView('factory/pdf/datasheet_group.html.twig', [
+                'group' => $obj,
+                'prods' => $prods,
+                'sets' => $sets,
+                'common' => $common,
+                'sets_row_cnt' => $request->query->get("sets") ?? 5,
+                'products_row_cnt' => $request->query->get("products") ?? 5,
+                'new_after_date' => (new Carbon("now"))->subDays((int)$request->query->get("new") ?? 1),
+                'prices' => $request->get("show_prices"),
+            ]);
+        }
+        elseif($obj instanceof DataObject\Offer)
+        {
+            $prods = [];
+            $sets = [];
+            $common = [];
+
+            foreach ($obj->getDependencies()->getRequiredBy() as $dependency)
+            {
+                $item = DataObject::getById($dependency['id']);
+                if($item instanceof DataObject\Product)
+                {
+                    $prods[] = $item;
+                    $common[] = $item;
+                }
+                elseif($item instanceof DataObject\ProductSet)
+                {
+                    $sets[] = $item;
+
+                    foreach($item->getSet() as $lip)
+                    {
+                        $product = $lip->getElement();
+                        if($product)
+                        {
+                            $common[] = $product;
+                        }
+                    }
+                }
+            }
+
+            $common = array_unique($common);
+
+            $html = $this->renderView('factory/pdf/datasheet_group.html.twig', [
+                'group' => $obj,
+                'prods' => $prods,
+                'sets' => $sets,
+                'common' => $common,
+                'sets_row_cnt' => $request->query->get("sets") ?? 5,
+                'products_row_cnt' => $request->query->get("products") ?? 5,
+                'new_after_date' => (new Carbon("now"))->subDays((int)$request->query->get("new") ?? 1),
+                'prices' => $request->get("show_prices"),
+            ]);
+        }
+
+        $pdf = $adapter->getPdfFromString($html, $params);
+
+//        return new Response($html, 200);
+        return new Response($pdf, Response::HTTP_OK, ['Content-Type' => 'application/pdf']);
     }
 
     private function getProductImages(Product $obj): array
@@ -722,6 +893,134 @@ class ObjectController extends FrontendController
         $data = $item->isHit() ? $item->get() : "";
 
         return new Response($data, Response::HTTP_OK);
+    }
+
+    #[Route("/offers", name: "get_offers")]
+    public function getOffersHead(): JsonResponse
+    {
+        $offers = new Offer\Listing();
+        $offers->setUnpublished(false);
+        $ret = [
+            'data' => []
+        ];
+        foreach($offers as $offer)
+        {
+            $ret['data'][] = [
+                'id' => $offer->getId(),
+                'name' => $offer->getKey(),
+            ];
+        }
+
+        return new JsonResponse($ret, Response::HTTP_OK);
+    }
+
+    private function getSheetPricesXlsx(array $items, Dataobject\Offer $offer, string $filename = null): Response
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setTitle($this->translator->trans('Price list'));
+
+        $sheet->setCellValue("A1", "#");
+        $sheet->setCellValue("B1", $this->translator->trans("Image"));
+        $sheet->setCellValue("C1", $this->translator->trans("Product"));
+        $sheet->setCellValue("D1", $this->translator->trans("Name"));
+        $sheet->setCellValue("E1", $this->translator->trans("Description"));
+        $sheet->setCellValue("F1", $this->translator->trans("Net price"));
+
+        $i = 2;
+
+        /** @var Product|ProductSet $obj */
+        foreach ($items as $obj)
+        {
+            $price = null;
+            foreach ($obj->getPrice() as $price)
+            {
+                if($price->getElement()->getId() == $offer->getId())
+                {
+                    $price = round(floatval($price->getPrice()), 2);
+                    break;
+                }
+            }
+
+            if(!$price)
+                continue;
+
+            $sheet->setCellValue('F' . $i, $price);
+
+            $sheet->setCellValue('A' . $i, $i - 1);
+
+            if(!$obj->getSummary() || (substr_count($obj->getSummary(), "</p>") < 5))
+            {
+                $sheet->getRowDimension($i)->setRowHeight(64);
+            }
+
+            if ($obj->getImage()) {
+
+                $image = $obj->getImage()->getThumbnail("200x200");
+
+                $stream = $image->getStream();
+
+                $tempFile = tempnam(sys_get_temp_dir(), 'pim_image_');
+                file_put_contents($tempFile, stream_get_contents($stream));
+
+                if (file_exists($tempFile)) {
+                    $drawing = new Drawing();
+                    $drawing->setPath($tempFile);
+                    $drawing->setHeight(80); // Set image height (adjust as needed)
+                    $drawing->setCoordinates('B' . $i); // Place image in column D
+                    $drawing->setWorksheet($sheet);
+                }
+            }
+
+            $sheet->setCellValue('C' . $i, $obj->getKey());
+            $sheet->setCellValue('D' . $i, $obj->getName());
+
+            if($obj->getSummary())
+            {
+                $summary = new \PhpOffice\PhpSpreadsheet\Helper\Html();
+                $html = $summary->toRichTextObject($obj->getSummary());
+                $sheet->setCellValue('E' . $i, $html);
+            }
+
+            $i++;
+        }
+
+        for ($j=0; $j<6; $j++)
+        {
+            if($j == 1)
+            {
+                $sheet->getColumnDimension(chr(833 + $j))->setWidth(12);
+            }
+            else
+            {
+                $sheet->getColumnDimension(chr(833 + $j))->setAutoSize(true);
+            }
+        }
+
+        $sheet->getStyle("B1:B" . $sheet->getHighestRow())->getAlignment()->setWrapText(true);
+        $sheet->getStyle("E1:E" . $sheet->getHighestRow())->getAlignment()->setWrapText(true);
+
+        $writer = new Xlsx($spreadsheet);
+
+        if(!$filename)
+        {
+            $fileName = $offer->getKey() . '.xlsx';
+        }
+        else
+        {
+            $fileName = $filename . '.xlsx';
+        }
+
+        $response = new Response();
+        $response->headers->set('Content-Type', 'application/vnd.ms-excel');
+        $response->headers->set('Content-Disposition', 'attachment;filename="' . $fileName . '"');
+
+        ob_start();
+        $writer->save('php://output');
+        $response->setContent(ob_get_clean());
+
+        return $response;
+
     }
 
     private function removeLastWord(string $input): string

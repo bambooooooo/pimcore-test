@@ -5,22 +5,28 @@ namespace App\Controller;
 use App\Service\OptimikService;
 use Carbon\Carbon;
 use App\Model\DataObject\User;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Pimcore\Controller\FrontendController;
 use Pimcore\Model\DataObject;
 use Pimcore\Model\Asset;
 use Pimcore\Model\DataObject\Package;
+use Pimcore\Model\DataObject\Product;
+use Pimcore\Model\DataObject\ProductSet;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
 #[Route('/factory/{_locale}', name: 'factory_', defaults: ['_locale' => 'pl', 'locale' => 'pl'])]
 class FactoryController extends FrontendController
 {
-    public function __construct(private Environment $twig, private readonly OptimikService $optimikService)
+    public function __construct(private Environment $twig, private readonly OptimikService $optimikService, private readonly TranslatorInterface $t)
     {
 
     }
@@ -155,6 +161,7 @@ class FactoryController extends FrontendController
     #[Route('/{id}/datasheet', name: 'datasheet')]
     public function datasheetAction(Request $request): Response
     {
+        DataObject::setHideUnpublished(false);
         $obj = DataObject::getById($request->get('id'));
         if(!$obj)
             return new Response("Not found", Response::HTTP_NOT_FOUND);
@@ -184,7 +191,7 @@ class FactoryController extends FrontendController
         elseif ($obj instanceof DataObject\Group)
         {
             $productListing = new DataObject\Product\Listing();
-            $productListing->setCondition("Groups like '%," . $obj->getId() . ",%' AND `ObjectType`='ACTUAL' AND `published` = 1 ");
+            $productListing->setCondition("Groups like '%," . $obj->getId() . ",%' AND `ObjectType`='ACTUAL' ");
             $prods = $productListing->load();
 
             usort($prods, function (DataObject\Product $a, DataObject\Product $b) {
@@ -203,7 +210,7 @@ class FactoryController extends FrontendController
             });
 
             $setListing = new DataObject\ProductSet\Listing();
-            $setListing->setCondition("Groups like '%," . $obj->getId() . ",%' AND `published` = 1 ");
+            $setListing->setCondition("Groups like '%," . $obj->getId() . ",%' ");
             $sets = $setListing->load();
 
             usort($sets, function ($a, $b) {
@@ -245,6 +252,19 @@ class FactoryController extends FrontendController
 
                 return $comp;
             });
+
+            if($request->get("type") == 'xlsx')
+            {
+                $offer = DataObject\Offer::getById($request->get("show_prices"));
+
+                if(!$offer)
+                {
+                    return new Response("No Offer found", Response::HTTP_BAD_REQUEST);
+                }
+
+                $data = $prods;
+                return $this->getSheetPricesXlsx($data, $offer, $obj->getName() ?? $obj->getKey());
+            }
 
             $html = $this->renderView('factory/pdf/datasheet_group.html.twig', [
                 'group' => $obj,
@@ -517,7 +537,6 @@ class FactoryController extends FrontendController
         return new Response($pdf, Response::HTTP_OK, ['Content-Type' => 'application/pdf']);
     }
 
-
     #[Route('/labels/elements/{id}', name: 'labels_elements')]
     public function elementLabelsAction(Request $request): Response
     {
@@ -762,5 +781,114 @@ class FactoryController extends FrontendController
     public function logoutAction()
     {
         return $this->redirectToroute('factory_login');
+    }
+
+    private function getSheetPricesXlsx(array $items, Dataobject\Offer $offer, string $filename = null): Response
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setTitle($this->t->trans('Price list'));
+
+        $sheet->setCellValue("A1", "#");
+        $sheet->setCellValue("B1", $this->t->trans("Image"));
+        $sheet->setCellValue("C1", $this->t->trans("Product"));
+        $sheet->setCellValue("D1", $this->t->trans("Name"));
+        $sheet->setCellValue("E1", $this->t->trans("Description"));
+        $sheet->setCellValue("F1", $this->t->trans("Net price"));
+
+        $i = 2;
+
+        /** @var Product|ProductSet $obj */
+        foreach ($items as $obj)
+        {
+            $price = null;
+            foreach ($obj->getPrice() as $price)
+            {
+                if($price->getElement()->getId() == $offer->getId())
+                {
+                    $price = round(floatval($price->getPrice()), 2);
+                    break;
+                }
+            }
+
+            if(!$price)
+                continue;
+
+            $sheet->setCellValue('F' . $i, $price);
+
+            $sheet->setCellValue('A' . $i, $i - 1);
+
+            if(!$obj->getSummary() || (substr_count($obj->getSummary(), "</p>") < 5))
+            {
+                $sheet->getRowDimension($i)->setRowHeight(64);
+            }
+
+            if ($obj->getImage()) {
+
+                $image = $obj->getImage()->getThumbnail("200x200");
+
+                $stream = $image->getStream();
+
+                $tempFile = tempnam(sys_get_temp_dir(), 'pim_image_');
+                file_put_contents($tempFile, stream_get_contents($stream));
+
+                if (file_exists($tempFile)) {
+                    $drawing = new Drawing();
+                    $drawing->setPath($tempFile);
+                    $drawing->setHeight(80); // Set image height (adjust as needed)
+                    $drawing->setCoordinates('B' . $i); // Place image in column D
+                    $drawing->setWorksheet($sheet);
+                }
+            }
+
+            $sheet->setCellValue('C' . $i, $obj->getKey());
+            $sheet->setCellValue('D' . $i, $obj->getName());
+
+            if($obj->getSummary())
+            {
+                $summary = new \PhpOffice\PhpSpreadsheet\Helper\Html();
+                $html = $summary->toRichTextObject($obj->getSummary());
+                $sheet->setCellValue('E' . $i, $html);
+            }
+
+            $i++;
+        }
+
+        for ($j=0; $j<6; $j++)
+        {
+            if($j == 1)
+            {
+                $sheet->getColumnDimension(chr(833 + $j))->setWidth(12);
+            }
+            else
+            {
+                $sheet->getColumnDimension(chr(833 + $j))->setAutoSize(true);
+            }
+        }
+
+        $sheet->getStyle("B1:B" . $sheet->getHighestRow())->getAlignment()->setWrapText(true);
+        $sheet->getStyle("E1:E" . $sheet->getHighestRow())->getAlignment()->setWrapText(true);
+
+        $writer = new Xlsx($spreadsheet);
+
+        if(!$filename)
+        {
+            $fileName = $offer->getKey() . '.xlsx';
+        }
+        else
+        {
+            $fileName = $filename . '.xlsx';
+        }
+
+        $response = new Response();
+        $response->headers->set('Content-Type', 'application/vnd.ms-excel');
+        $response->headers->set('Content-Disposition', 'attachment;filename="' . $fileName . '"');
+
+        ob_start();
+        $writer->save('php://output');
+        $response->setContent(ob_get_clean());
+
+        return $response;
+
     }
 }
