@@ -35,6 +35,7 @@
  * - schedule_show_serie_carrier [checkbox]
  * - schedule_show_serie_attachments [checkbox]
  * - schedule_item_show_status [checkbox]
+ * - schedule_item_show_id [checkbox]
  * - schedule_show_cartoon [checkbox]
  * - schedule_show_only_user_related_products [checkbox]
  * - schedule_show_item_checkbox [checkbox]
@@ -76,7 +77,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Użytkownik',
    'description' => 'Podmiot w systemie',
    'creationDate' => NULL,
-   'modificationDate' => 1765874280,
+   'modificationDate' => 1767952891,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -974,6 +975,28 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                       )),
                       13 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                         'name' => 'schedule_item_show_id',
+                         'title' => 'Schedule _item _show _id',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'defaultValueGenerator' => '',
+                      )),
+                      14 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'schedule_show_cartoon',
                          'title' => 'Schedule _show _cartoon',
                          'tooltip' => '',
@@ -994,7 +1017,7 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      14 => 
+                      15 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'schedule_show_only_user_related_products',
                          'title' => 'Schedule _show _only _user _related _products',
@@ -1016,7 +1039,7 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      15 => 
+                      16 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'schedule_show_item_checkbox',
                          'title' => 'Schedule _show _item _checkbox',
@@ -1038,7 +1061,7 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'defaultValue' => 1,
                          'defaultValueGenerator' => '',
                       )),
-                      16 => 
+                      17 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'schedule_product_link',
                          'title' => 'Schedule _product _link',
@@ -1060,7 +1083,7 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      17 => 
+                      18 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'schedule_product_path',
                          'title' => 'Schedule _product _path',
@@ -1082,7 +1105,7 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      18 => 
+                      19 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'schedule_order_sheets',
                          'title' => 'Schedule _order _sheets',

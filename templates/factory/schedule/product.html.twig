@@ -4,10 +4,20 @@
             {{ p.element.path }}
         </div>
     {% endif %}
-    <a href="{{ path("factory_tree", {id:p.element.id})}}" {% if not p.element.published and type != "pdf" %}style="text-decoration: line-through"{% endif %}>
+    <a href="{{ path("factory_tree", {id:p.element.id})}}" style="text-decoration: none; {% if not p.element.published and type != "pdf" %}text-decoration-line: line-through{% endif %}">
+        {% if app.user.schedule_item_show_id %}
+            <span class="badge text-bg-info rounded-pill">
+                {{ p.element.id }}
+            </span>
+        {% endif %}
         {{ p.element.key }}
     </a>
 {% else %}
+    {% if app.user.schedule_item_show_id %}
+        <span class="badge text-bg-info rounded-pill">
+                {{ p.element.id }}
+            </span>
+    {% endif %}
     {{ p.element.key }}
 {% endif %}
 

@@ -6,10 +6,11 @@
                 <thead>
                     <tr>
                         <th class="text-center">#</th>
-                        <th>Zdjęcie</th>
-                        <th>Kod</th>
-                        <th>Nazwa</th>
-                        <th>Ilość</th>
+                        <th>{{"Image"|trans}}</th>
+                        <th>{{ "Id"|trans }}</th>
+                        <th>{{ "Kod"|trans }}</th>
+                        <th>{{ "Nazwa"|trans }}</th>
+                        <th>{{ "Ilość"|trans }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -24,6 +25,11 @@
                             {% if li.object.Image %}
                                 {{ li.object.Image.thumbnail("50x50").html|raw }}
                             {% endif %}
+                        </td>
+                        <td>
+                            <a href="{{ path("factory_tree", {id: li.object.id}) }}">
+                                {{ li.object.id }}
+                            </a>
                         </td>
                         <td>
                             <a href="{{ path("factory_tree", {id: li.object.id}) }}">
