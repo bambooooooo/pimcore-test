@@ -423,7 +423,7 @@
                             </span>
                         </div>
                         <div class="col-4">
-                            <a href="{{ path('datasheet_new', {id: group.id, type: 'xlsx', show_prices: prices}) }}" style="text-decoration: none; color: #000">
+                            <a href="{{ path('datasheet_new', {id: group.id, type: 'xlsx', _locale: app.locale, show_prices: prices}) }}" style="text-decoration: none; color: #000">
                                 <img src="/bundles/pimcoreadmin/img/flat-color-icons/download-cloud.svg" width="26"/>
                                 <span class="ms-1">
                                     {{ "Pobierz"|trans }}

@@ -147,7 +147,7 @@ class ObjectController extends FrontendController
         return $response;
     }
 
-    #[Route('/object/{id}/datasheet', name: 'datasheet_new')]
+    #[Route('/object/{_locale}/{id}/datasheet', name: 'datasheet_new', defaults: ['_locale' => 'pl', 'locale' => 'pl'])]
     public function datasheetAction(Request $request): Response
     {
         DataObject::setHideUnpublished(false);
