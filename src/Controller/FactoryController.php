@@ -320,9 +320,13 @@ class FactoryController extends FrontendController
             ]);
         }
 
+        if($request->get("type") == 'html')
+        {
+            return new Response($html, Response::HTTP_OK);
+        }
+
         $pdf = $adapter->getPdfFromString($html, $params);
 
-//        return new Response($html, 200);
         return new Response($pdf, Response::HTTP_OK, ['Content-Type' => 'application/pdf']);
     }
 
