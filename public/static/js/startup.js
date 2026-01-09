@@ -420,7 +420,7 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
                     return;
                 }
 
-                const path = "/factory/en/" + e.detail.object.id + "/datasheet?show_prices=" + combo.value;
+                const path = "/factory/" + pimcore.settings.language + "/" + e.detail.object.id + "/datasheet?show_prices=" + combo.value;
                 window.open(path);
             }
         });
@@ -436,7 +436,7 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
                     return;
                 }
 
-                const path = "/factory/en/" + e.detail.object.id + "/datasheet?show_prices=" + combo.value + "&type=xlsx";
+                const path = "/factory/" + pimcore.settings.language + "/" + e.detail.object.id + "/datasheet?show_prices=" + combo.value + "&type=xlsx";
                 window.open(path);
             }
         });
