@@ -89,7 +89,7 @@ class XmlFeedDefault extends XmlFeedWriter
             {
                 $prod->appendChild($doc->createElement('width', $item->getWidth()->getValue() / 10));
                 $prod->appendChild($doc->createElement('height', $item->getHeight()->getValue() / 10));
-                $prod->appendChild($doc->createElement('depth', $item->getHeight()->getValue() / 10));
+                $prod->appendChild($doc->createElement('depth', $item->getDepth()->getValue() / 10));
             }
 
             $prod->appendChild($doc->createElement('weight', (string)$item->getMass()->getValue()));
