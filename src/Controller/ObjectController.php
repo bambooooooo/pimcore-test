@@ -90,12 +90,30 @@ class ObjectController extends FrontendController
 
             foreach ($obj->getProducts() as $product)
             {
-                $productImages[$obj->getId()] = $this->getProductImages($product);
+                if($product->getObjectType() != 'ACTUAL')
+                {
+                    continue;
+                }
+
+                $itemImages = $this->getProductImages($product);
+                if(count($itemImages) <= 0)
+                {
+                    continue;
+                }
+
+                $k = $this->sanitizeToFilename($product->getKey()) . " - " . $product->getId();
+                $productImages[$k] = $itemImages;
             }
 
             foreach ($obj->getSets() as $set)
             {
-                $productImages[$set->getId()] = $this->getProductSetImages($set);
+                $itemImages = $this->getProductSetImages($set);
+
+                if(count($itemImages) <= 0)
+                    continue;
+
+                $k = $this->sanitizeToFilename($set->getKey()) . " - " . $set->getId();
+                $productImages[$k] = $itemImages;
             }
         }
         else
@@ -1033,5 +1051,11 @@ class ObjectController extends FrontendController
             return '';
         }
         return substr($input, 0, $lastSpacePos);
+    }
+
+    private function sanitizeToFilename(string $input): string
+    {
+        $forbidden = ["<", ">", ":", "\"", "\/", "\\", "|", "?", "*"];
+        return str_replace($forbidden, "_", $input);
     }
 }
