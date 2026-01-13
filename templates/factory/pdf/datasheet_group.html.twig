@@ -183,7 +183,7 @@
     </div>
 {% endif %}
 
-{% if "summary"=="summary" and (not prices) %}
+{% if "summary"=="off" and (not prices) %}
     <div class="page" style="overflow: hidden">
         <div style="background-image: url('{{ group.Image.thumbnail("a4_center") }}'); width: 100%; height: 100%; background-position: center; background-size: cover"></div>
         <div style="position: absolute; width: 15.5cm; right: 32px; bottom: 108px; background: none; color: #fafafa; font-weight: bolder">
@@ -266,25 +266,6 @@
                             {{ include('factory/pdf/parts/_item_header.html.twig', {item: s}) }}
                             {{ include('factory/pdf/parts/_packages.html.twig', {item: s}) }}
                             {{ include('factory/pdf/parts/_set_elements.html.twig', {item: s}) }}
-                        </div>
-                    </div>
-                </section>
-            </article>
-            <div class="pb"></div>
-        {% endif %}
-    {% endfor %}
-{% endif %}
-
-{% if "item" == "item" and (not prices)  and prods|length > 0 %}
-    {% for s in prods %}
-        {% if s.ObjectType == 'ACTUAL' %}
-            <article>
-                <section id="{{ s.id }}">
-                    <div class="page">
-                        <div class="page-content">
-                            {{ include('factory/pdf/parts/_item_header.html.twig', {item: s}) }}
-                            {{ include('factory/pdf/parts/_packages.html.twig', {item: s}) }}
-                            {{ include('factory/pdf/parts/_product_parameters.html.twig', {item: s}) }}
                         </div>
                     </div>
                 </section>
@@ -377,22 +358,20 @@
     {% endfor %}
 {% endif %}
 
-{% if "related_item" == "related_item" and (not prices) and common|length > 0 %}
+{% if "item" == "item" and (not prices) and common|length > 0 %}
     {% for s in common %}
-        {% if s.published %}
-            <article>
-                <section id="{{ s.id }}">
-                    <div class="page">
-                        <div class="page-content">
-                            {{ include('factory/pdf/parts/_item_header.html.twig', {item: s}) }}
-                            {{ include('factory/pdf/parts/_packages.html.twig', {item: s}) }}
-                            {{ include('factory/pdf/parts/_product_parameters.html.twig', {item: s}) }}
-                        </div>
+        <article>
+            <section id="{{ s.id }}">
+                <div class="page">
+                    <div class="page-content">
+                        {{ include('factory/pdf/parts/_item_header.html.twig', {item: s}) }}
+                        {{ include('factory/pdf/parts/_packages.html.twig', {item: s}) }}
+                        {{ include('factory/pdf/parts/_product_parameters.html.twig', {item: s}) }}
                     </div>
-                </section>
-            </article>
-            <div class="pb"></div>
-        {% endif %}
+                </div>
+            </section>
+        </article>
+        <div class="pb"></div>
     {% endfor %}
 {% endif %}
 
