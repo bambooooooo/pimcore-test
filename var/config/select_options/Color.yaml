@@ -245,6 +245,10 @@ pimcore:
                             label: 'dab rustykalny'
                             name: ''
                         -
+                            value: 'dab tajga'
+                            label: 'dab tajga'
+                            name: ''
+                        -
                             value: 'dab sloneczny'
                             label: 'dab sloneczny'
                             name: ''
@@ -519,8 +523,4 @@ pimcore:
                         -
                             value: 'butelkowa zielen'
                             label: 'butelkowa zielen'
-                            name: ''
-                        -
-                            value: Colors
-                            label: Colors
                             name: ''
