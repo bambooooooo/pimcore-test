@@ -270,8 +270,38 @@ class ObjectController extends FrontendController
                 }
 
                 $data = $prods;
-                return $this->getSheetPricesXlsx($data, $offer, $obj->getName() ?? $obj->getKey());
+                $fname = strtoupper(implode('-', [
+                    $obj->getName() ?? $obj->getKey(),
+                    $this->translator->trans("Pricelist"),
+                    $offer->getName() ?? $offer->getKey(),
+                    date("d-m-Y")
+                ])) . ".xlsx";
+
+                return $this->getSheetPricesXlsx($data, $offer, $fname);
             }
+
+            $offer = DataObject\Offer::getById($request->get("show_prices"));
+
+            if($offer)
+            {
+                $fname = strtoupper(implode('-', [
+                    $obj->getName() ?? $obj->getKey(),
+                    $this->translator->trans("Pricelist"),
+                    $offer->getName() ?? $offer->getKey(),
+                    date("d-m-Y"),
+                ])) . ".pdf";
+            }
+            else
+            {
+                $fname = implode('-', [
+                    $obj->getName() ?? $obj->getKey(),
+                    $this->translator->trans("Datasheet"),
+                    date("d-m-Y"),
+                    ".pdf"
+                ]);
+            }
+
+            $params['metadata']['Title'] = $fname;
 
             $html = $this->renderView('factory/pdf/datasheet_group.html.twig', [
                 'group' => $obj,
