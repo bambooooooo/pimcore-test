@@ -396,23 +396,6 @@
                     <hr/>
                     <div class="row">
                         <div class="col-8">
-                            <img src="/bundles/pimcoreadmin/img/flat-color-icons/excel.svg" width="32"/>
-                            <span class="ms-3">
-                                {{ "Price list .xlsx"|trans }}
-                            </span>
-                        </div>
-                        <div class="col-4">
-                            <a href="{{ path('datasheet_new', {id: group.id, type: 'xlsx', _locale: app.locale, show_prices: prices}) }}" style="text-decoration: none; color: #000">
-                                <img src="/bundles/pimcoreadmin/img/flat-color-icons/download-cloud.svg" width="26"/>
-                                <span class="ms-1">
-                                    {{ "Pobierz"|trans }}
-                                </span>
-                            </a>
-                        </div>
-                    </div>
-                    <hr/>
-                    <div class="row">
-                        <div class="col-8">
                             <img src="/bundles/pimcoreadmin/img/flat-color-icons/gallery.svg" width="32"/>
                             <span class="ms-3">
                                 {{ "All photos"|trans }}
@@ -422,7 +405,7 @@
                             <a href="{{ path('export_images', {id: group.id}) }}" style="text-decoration: none; color: #000">
                                 <img src="/bundles/pimcoreadmin/img/flat-color-icons/download-cloud.svg" width="26"/>
                                 <span class="ms-1">
-                                    {{ "Pobierz"|trans }}
+                                    {{ "Download"|trans }}
                                 </span>
                             </a>
                         </div>

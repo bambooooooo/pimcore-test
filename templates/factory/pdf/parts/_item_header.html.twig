@@ -3,7 +3,7 @@
         <div style="float:left; width: 70%">
             <div style="position:relative">
                 <div style="font-weight: bold; font-size: 32px; line-height: 32px">
-                    {{ s.Name }}
+                    {{ s.Name ?? s.key }}
                 </div>
                 <div style="line-height: 26px; font-size: 14px; ">
                     <div style="text-decoration: italic">
@@ -19,7 +19,12 @@
                     {% endif %}
                     {% if s is pimcore_data_object_class("Product") %}
                         <div>
-                            {{ "Dimensions"|trans }}: {{ s.Width }} x {{ s.Height }} x {{ s.Depth }}
+                            {{ "Dimensions"|trans }}:
+                            {% if s.Width and s.Width.Value and s.Height and s.Height.Value and s.Depth and s.Depth.Value %}
+                                {{ s.Width }} x {{ s.Height }} x {{ s.Depth }}
+                            {% else %}
+                                {{ "n/a"|trans }}
+                            {% endif %}
                         </div>
                     {% endif %}
                     <div>

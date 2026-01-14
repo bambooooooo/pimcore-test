@@ -14,11 +14,17 @@
         </div>
         <div style="font-size: 9px; break-inside: avoid">
             <div style="margin-bottom: 4px;">
-                {{ item.Name|replace({'MEGSTYL': ''}) }}
+                {% if item.Name %}
+                    {{ item.Name|replace({'MEGSTYL': ''}) }}
+                {% else %}
+                    {{ item.key }}
+                {% endif %}
             </div>
             {% if s is pimcore_data_object_class("Product") %}
                 <div>
-                    {{ item.Width.Value }} x {{ item.Height.Value }} x {{ item.Depth.Value }}
+                    {% if item.Width and item.Width.Value and item.Height and item.Height.Value and item.Depth and item.Depth.Value %}
+                        {{ item.Width.Value }} x {{ item.Height.Value }} x {{ item.Depth.Value }}
+                    {% endif %}
                 </div>
             {% endif %}
             {% if prices %}
