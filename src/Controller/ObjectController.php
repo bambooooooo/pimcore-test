@@ -173,6 +173,8 @@ class ObjectController extends FrontendController
         if(!$obj)
             return new Response("Not found", Response::HTTP_NOT_FOUND);
 
+        $orderBy = $request->get('orderby') ?? 'sku';
+
         $params = [
             'paperWidth' => '210mm',
             'paperHeight' => '297mm',
@@ -201,19 +203,14 @@ class ObjectController extends FrontendController
             $productListing->setCondition("Groups like '%," . $obj->getId() . ",%' AND `ObjectType`='ACTUAL' ");
             $prods = $productListing->load();
 
-            usort($prods, function (DataObject\Product $a, DataObject\Product $b) {
+            usort($prods, function (DataObject\Product $a, DataObject\Product $b) use ($orderBy) {
 
-                if($a->getGroup() == null || $b->getGroup() == null)
-                    return 0;
-
-                $comp = strcmp($a->getGroup()->getKey(), $b->getGroup()->getKey());
-
-                if($comp === 0)
+                if($orderBy == 'name')
                 {
-                    return strcmp($a->getKey(), $b->getKey());
+                    return strcmp($a->getName() ?? $a->getKey(), $b->getName() ?? $b->getKey());
                 }
 
-                return $comp;
+                return strcmp($a->getKey(), $b->getKey());
             });
 
             $setListing = new DataObject\ProductSet\Listing();
@@ -245,19 +242,26 @@ class ObjectController extends FrontendController
 
             $common = array_unique($common);
 
-            usort($common, function (DataObject\Product $a, DataObject\Product $b) {
+            usort($common, function (DataObject\Product $a, DataObject\Product $b) use ($orderBy) {
 
-                if($a->getGroup() == null || $b->getGroup() == null)
-                    return 0;
-
-                $comp = strcmp($a->getGroup()->getKey(), $b->getGroup()->getKey());
-
-                if($comp === 0)
+                if($orderBy == 'group-name')
                 {
-                    return strcmp($a->getKey(), $b->getKey());
+                    if($a->getGroup() != null && $b->getGroup() != null)
+                    {
+                        $comp = strcmp($a->getGroup()->getName() ??  $a->getGroup()->getKey(), $b->getGroup()->getName() ?? $b->getGroup()->getKey());
+
+                        if($comp === 0)
+                        {
+                            return strcmp($a->getName() ?? $a->getKey(), $b->getName() ?? $b->getKey());
+                        }
+                    }
+                }
+                else if ($orderBy == 'name')
+                {
+                    return strcmp($a->getName() ?? $a->getKey(), $b->getName() ?? $b->getKey());
                 }
 
-                return $comp;
+                return strcmp($a->getKey(), $b->getKey());
             });
 
             if($request->get("type") == 'xlsx')
