@@ -174,6 +174,7 @@ class ObjectController extends FrontendController
             return new Response("Not found", Response::HTTP_NOT_FOUND);
 
         $orderBy = $request->get('orderby') ?? 'sku';
+        $preview = $request->get("preview") ?? false;
 
         $params = [
             'paperWidth' => '210mm',
@@ -192,6 +193,7 @@ class ObjectController extends FrontendController
         $adapter = \Pimcore\Bundle\WebToPrintBundle\Processor::getInstance();
 
         $html = "";
+        $fname = $obj->getName() ?? $obj->getKey() . ".pdf";
 
         if($obj instanceof DataObject\Product)
         {
@@ -363,8 +365,12 @@ class ObjectController extends FrontendController
 
         $pdf = $adapter->getPdfFromString($html, $params);
 
-//        return new Response($html, 200);
-        return new Response($pdf, Response::HTTP_OK, ['Content-Type' => 'application/pdf']);
+        if($preview)
+        {
+            return new Response($html, 200);
+        }
+
+        return new Response($pdf, Response::HTTP_OK, ['Content-Type' => 'application/pdf', 'Content-Disposition' => 'inline; filename=' . $fname]);
     }
 
     private function getProductImages(Product $obj): array
