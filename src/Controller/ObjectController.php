@@ -208,6 +208,19 @@ class ObjectController extends FrontendController
                 'prices' => $request->get("show_prices"),
             ]);
         }
+        elseif ($obj instanceof DataObject\ProductSet)
+        {
+            $html = $this->renderView('factory/pdf/datasheet_group.html.twig', [
+                'group' => $obj,
+                'prods' => [],
+                'sets' => [$obj],
+                'common' => [],
+                'sets_row_cnt' => $request->query->get("sets") ?? 5,
+                'products_row_cnt' => $request->query->get("products") ?? 5,
+                'new_after_date' => (new Carbon("now"))->subDays((int)$request->query->get("new") ?? 1),
+                'prices' => $request->get("show_prices"),
+            ]);
+        }
         elseif ($obj instanceof DataObject\Group)
         {
             $productListing = new DataObject\Product\Listing();
