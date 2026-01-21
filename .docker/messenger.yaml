@@ -40,8 +40,12 @@ framework:
 
             ps_errors: 'amqp://rabbitmq:5672/%2f/ps_errors'
 
+            viz:
+                dsn: 'amqp://rabbitmq:5672/%2f/viz'
+
         routing:
             'App\Message\ErpIndex': sgt
             'App\Message\BlkIndex': blk
             'App\Message\FeedMessage': feed
             'App\Message\PsMessage': ps
+            'App\Message\VizAssignMessage': viz

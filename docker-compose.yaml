@@ -66,6 +66,7 @@ services:
         volumes:
             - .:/var/www/html
             - ./.docker/messenger.yaml:/var/www/html/config/packages/messenger.yaml:ro
+            - /mnt/projects/RENDERS:/var/www/html/renders:ro
 
     supervisord:
         user: '1000:1000' # set to your uid:gid
@@ -81,6 +82,7 @@ services:
             - .:/var/www/html
             - ./.docker/messenger.yaml:/var/www/html/config/packages/messenger.yaml:ro
             - ./.docker/supervisord.conf:/etc/supervisor/conf.d/pimcore.conf:ro
+            - /mnt/projects/RENDERS:/var/www/html/renders:ro
 
     docs:
         image: squidfunk/mkdocs-material
