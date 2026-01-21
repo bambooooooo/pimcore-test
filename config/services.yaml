@@ -67,6 +67,10 @@ services:
             $systemCsId: '%env(SYSTEM_CS_ID)%'
             $allegroCsId: '%env(ALLEGRO_CS_ID)%'
 
+    App\Command\UploadVizFromNasCommand:
+        arguments:
+            $viz_root_path: '%viz_root_path%'
+
     # admin styles
     App\EventListener\AdminStyleListener:
         tags:
@@ -82,6 +86,11 @@ services:
     App\MessageHandler\:
         resource: '../src/MessageHandler'
         public: true
+
+    App\MessageHandler\VizAssignHandler:
+        arguments:
+            $viz_set: '%viz_set%'
+            $viz_root_path: '%viz_root_path%'
 
     App\Service\GS1Service:
         arguments:
@@ -158,9 +167,12 @@ services:
 
     # assets
     App\EventListener\AssetsListener:
+        arguments:
+            $viz_root_path: '%viz_root_path%'
         tags:
             - { name: kernel.event_listener, event: pimcore.asset.postAdd, method: postAddEvents }
             - { name: kernel.event_listener, event: pimcore.asset.postUpdate, method: postUpdateEvents }
+
 
     # Example custom templating helper
     # App\Templating\Helper\Example:

@@ -5,6 +5,7 @@ namespace App\Publishing;
 use App\Message\BlkIndex;
 use App\Message\ErpIndex;
 use App\Message\PsMessage;
+use App\Message\VizAssignMessage;
 use App\Service\OfferService;
 use App\Service\PricingService;
 use Pimcore\Model\DataObject;
@@ -17,8 +18,8 @@ use Symfony\Component\Messenger\MessageBusInterface;
 
 class ProductSetEventListener
 {
-    public function __construct(private readonly PricingService    $pricingService,
-                                private readonly OfferService      $offerService,
+    public function __construct(private readonly PricingService      $pricingService,
+                                private readonly OfferService        $offerService,
                                 private readonly MessageBusInterface $bus)
     {
 
@@ -418,5 +419,10 @@ class ProductSetEventListener
         {
             //
         }
+    }
+
+    public function postAdd(ProductSet $obj)
+    {
+        $this->bus->dispatch(new VizAssignMessage($obj->getId(), "ProductSet"));
     }
 }

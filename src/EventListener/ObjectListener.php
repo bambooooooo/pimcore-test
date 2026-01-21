@@ -132,6 +132,11 @@ class ObjectListener
         if($obj instanceof Product)
         {
             $this->productEventListener->postAdd($obj);
+            return;
+        }
+        if($obj instanceof ProductSet)
+        {
+            $this->productSetEventListener->postAdd($obj);
         }
     }
 
