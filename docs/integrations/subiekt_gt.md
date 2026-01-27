@@ -4,7 +4,7 @@
 
 Synchronizacja jednostronna (Pimcore -> Subiekt) obejmuje:
 
-- produkty (tylko typu ``ACTUAL``)
+- produkty (typu ``ACTUAL`` oraz ``SKU``)
 - zestawy
 - paczki (tylko typu ``SKU``)
 - kontrahentów (tylko z numerem NIP i przypisaną ofertą)
