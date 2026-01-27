@@ -996,6 +996,12 @@ document.addEventListener(pimcore.events.pimcoreReady, (e) => {
     })
 
     const openDocs = function(){
+        if(pimcore.settings.environment == 'prod')
+        {
+            window.open(document.location.origin.replace("https://pim.", "https://docs."), "_blank");
+            return;
+        }
+
         window.open(document.location.origin +  ":8005", "_blank");
     }
 
