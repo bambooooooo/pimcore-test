@@ -67,6 +67,7 @@
  * - Ean [input]
  * - MPN [input]
  * - ImagesModel [imageGallery]
+ * - Model3DStep [manyToOneRelation]
  * - Status [select]
  * - ObjectType [select]
  */
@@ -78,7 +79,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Produkt',
    'description' => 'Towar, który można sprzedać',
    'creationDate' => NULL,
-   'modificationDate' => 1765799328,
+   'modificationDate' => 1769679052,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -3508,6 +3509,44 @@ Przykładowo: rysunek z wymiarami',
                          'height' => 380,
                          'width' => 380,
                       )),
+                      1 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+                         'name' => 'Model3DStep',
+                         'title' => 'Model 3D .step',
+                         'tooltip' => 'Model 3D z rozszerzeniem .step',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => true,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'classes' => 
+                        array (
+                        ),
+                         'displayMode' => 'grid',
+                         'pathFormatterClass' => '',
+                         'assetInlineDownloadAllowed' => false,
+                         'assetUploadPath' => '/MODELE',
+                         'allowToClearRelation' => true,
+                         'objectsAllowed' => false,
+                         'assetsAllowed' => true,
+                         'assetTypes' => 
+                        array (
+                        ),
+                         'documentsAllowed' => false,
+                         'documentTypes' => 
+                        array (
+                        ),
+                         'width' => 250,
+                      )),
                     ),
                      'locked' => false,
                      'blockedVarsForExport' => 
@@ -3517,8 +3556,8 @@ Przykładowo: rysunek z wymiarami',
                      'layout' => NULL,
                      'border' => false,
                      'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/ruler.svg',
-                     'labelWidth' => 100,
-                     'labelAlign' => 'left',
+                     'labelWidth' => 50,
+                     'labelAlign' => 'top',
                   )),
                 ),
                  'locked' => false,
