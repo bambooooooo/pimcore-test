@@ -68,6 +68,17 @@
                         </div>
                     {% endif %}
 
+                    {% if s is pimcore_data_object_class("Product") and s.Model3DStep %}
+                        <div>
+                            <a href="{{ s.Model3DStep }}">
+                                <div class="download-button">
+                                    <img class="download-button-icon" src="{{ asset('/bundles/pimcoreadmin/img/flat-white-icons/download.svg') }}"/>
+                                    {{ "Download model 3D (.step)"|trans }}
+                                </div>
+                            </a>
+                        </div>
+                    {% endif %}
+
                     {% if prices %}
                         <table class="set-table" style="margin-top: 12px;">
                             <thead>
