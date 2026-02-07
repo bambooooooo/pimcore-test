@@ -88,7 +88,12 @@ class ObjectController extends FrontendController
                 $productImages[$obj->getKey()][] = $obj->getImage();
             }
 
-            foreach ($obj->getProducts() as $product)
+            $productListing = new DataObject\Product\Listing();
+            $productListing->setCondition("Groups like '%," . $obj->getId() . ",%' AND `ObjectType`='ACTUAL' ");
+
+            $prods = $productListing->load();
+
+            foreach ($prods as $product)
             {
                 if($product->getObjectType() != 'ACTUAL')
                 {
@@ -105,7 +110,11 @@ class ObjectController extends FrontendController
                 $productImages[$k] = $itemImages;
             }
 
-            foreach ($obj->getSets() as $set)
+            $setListing = new DataObject\ProductSet\Listing();
+            $setListing->setCondition("Groups like '%," . $obj->getId() . ",%' ");
+            $sets = $setListing->load();
+
+            foreach ($sets as $set)
             {
                 $itemImages = $this->getProductSetImages($set);
 
@@ -225,6 +234,7 @@ class ObjectController extends FrontendController
         {
             $productListing = new DataObject\Product\Listing();
             $productListing->setCondition("Groups like '%," . $obj->getId() . ",%' AND `ObjectType`='ACTUAL' ");
+
             $prods = $productListing->load();
 
             usort($prods, function (DataObject\Product $a, DataObject\Product $b) use ($orderBy) {
