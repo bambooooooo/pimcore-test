@@ -17,9 +17,22 @@ class ProductSet extends AdminStyle
 
         DataObject\Service::useInheritedValues(true, function() use ($element)
         {
-            if(!$element->getSet() or (count($element->getSet()) == 1 and $element->getSet()[0]->getData()['Quantity'] < 2))
+            if(!$element->getSet())
             {
                 $this->elementIcon = '/UI/4-squares.svg';
+            }
+            else
+            {
+                foreach($element->getSet() as $lip)
+                {
+                    /** @var DataObject\Product $p */
+                    $p = $lip->getObject();
+                    if($p->getObjectType() != 'ACTUAL')
+                    {
+                        $this->elementIcon = '/UI/4-squares.svg';
+                        break;
+                    }
+                }
             }
         });
     }

@@ -566,6 +566,16 @@ class PsHandler
                 return $parent;
             }
 
+            foreach($parent->getSet() as $lip)
+            {
+                /** @var Product $p */
+                $p = $lip->getObject();
+                if($p->getObjectType() != 'ACTUAL')
+                {
+                    return $parent;
+                }
+            }
+
             return $this->getFirstVirtualSet($parent);
         }
 
