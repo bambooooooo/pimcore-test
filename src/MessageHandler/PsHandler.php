@@ -522,8 +522,6 @@ class PsHandler
             return [];
         }
 
-        $children = [];
-
         if ($obj instanceof Product) {
             $children = $this->getNestedActualProductChildren($superParent);
         } else {
@@ -559,17 +557,19 @@ class PsHandler
 
     private function getFirstVirtualSet(ProductSet $set): ProductSet|null
     {
+        DataObject::setHideUnpublished(false);
+
         $parent = $set->getParent();
 
         if ($parent instanceof ProductSet) {
-            if (!$parent->getSet()) {
+            if (!$parent->getSet() || count($parent->getSet()) == 0) {
                 return $parent;
             }
 
             foreach($parent->getSet() as $lip)
             {
                 /** @var Product $p */
-                $p = $lip->getObject();
+                $p = $lip->getElement();
                 if($p->getObjectType() != 'ACTUAL')
                 {
                     return $parent;
