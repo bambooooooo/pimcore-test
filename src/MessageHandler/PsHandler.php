@@ -448,7 +448,7 @@ class PsHandler
         $this->logger->info("Updating images...");
 
         foreach ($images as $im) {
-            $image = $im->getThumbnail("webp_1600");
+            $image = $im->getThumbnail("webp_1400");
             $stream = $image->getStream();
 
             $tempFile = tempnam(sys_get_temp_dir(), 'pim_image_') . ".webp";
