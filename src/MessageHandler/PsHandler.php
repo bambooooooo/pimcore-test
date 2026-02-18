@@ -449,7 +449,7 @@ class PsHandler
 
         foreach ($images as $im) {
 
-            $thumbFormat = ["webp_1400", "webp_1300", "webp_1200"];
+            $thumbFormat = ["webp_1400", "webp_1300", "webp_1200", "webp_1100"];
 
             foreach ($thumbFormat as $format) {
                 $image = $im->getThumbnail("$format");
@@ -460,7 +460,7 @@ class PsHandler
 
                 $size = filesize($tempFile) / 1048576;
 
-                if($size <= 2)
+                if($size < 1.95)
                 {
                     $this->logger->info("[$format] Upload " . $image->getFrontendPath() . " => " . $tempFile . " (". number_format($size, 1) . "M)");
                     $this->ps->upload("images/products/" . $product->getPs_megstyl_pl_id() . "/", $tempFile);
