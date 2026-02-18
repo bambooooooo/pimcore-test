@@ -1,0 +1,26 @@
+pimcore:
+    assets:
+        image:
+            thumbnails:
+                definitions:
+                    webp_1300:
+                        items:
+                            -
+                                method: scaleByHeight
+                                arguments:
+                                    height: 1300
+                                    forceResize: true
+                        medias: {  }
+                        name: webp_1300
+                        description: ''
+                        group: ''
+                        format: SOURCE
+                        quality: 85
+                        highResolution: null
+                        preserveColor: false
+                        preserveMetaData: false
+                        rasterizeSVG: false
+                        downloadable: false
+                        modificationDate: 1771397534
+                        creationDate: 1771397518
+                        preserveAnimation: false

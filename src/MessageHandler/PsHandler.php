@@ -448,15 +448,30 @@ class PsHandler
         $this->logger->info("Updating images...");
 
         foreach ($images as $im) {
-            $image = $im->getThumbnail("webp_1400");
-            $stream = $image->getStream();
 
-            $tempFile = tempnam(sys_get_temp_dir(), 'pim_image_') . ".webp";
-            $this->logger->info($image->getFrontendPath() . " => " . $tempFile);
+            $thumbFormat = ["webp_1400", "webp_1300", "webp_1200"];
 
-            file_put_contents($tempFile, stream_get_contents($stream));
+            foreach ($thumbFormat as $format) {
+                $image = $im->getThumbnail("$format");
+                $stream = $image->getStream();
 
-            $this->ps->upload("images/products/" . $product->getPs_megstyl_pl_id() . "/", $tempFile, "POST");
+                $tempFile = tempnam(sys_get_temp_dir(), 'pim_image_') . ".webp";
+                file_put_contents($tempFile, stream_get_contents($stream));
+
+                $size = filesize($tempFile) / 1048576;
+
+                if($size <= 2)
+                {
+                    $this->logger->info("[$format] Upload " . $image->getFrontendPath() . " => " . $tempFile . " (". number_format($size, 1) . "M)");
+                    $this->ps->upload("images/products/" . $product->getPs_megstyl_pl_id() . "/", $tempFile);
+
+                    break;
+                }
+                else
+                {
+                    $this->logger->warning("[$format] Reducing " . $tempFile . " (". number_format($size, 1) . "M)");
+                }
+            }
         }
 
         $this->logger->info("Done.");
