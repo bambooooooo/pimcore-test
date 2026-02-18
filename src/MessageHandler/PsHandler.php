@@ -489,7 +489,6 @@ class PsHandler
         $siblings = $this->getNestedSiblings($obj);
         if (count($siblings) < 2) {
             $this->logger->info("No siblings found for this product");
-            return;
         }
 
         foreach ($siblings as $psProductId) {
