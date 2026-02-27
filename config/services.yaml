@@ -126,8 +126,10 @@ services:
 
     App\Service\PrestashopService:
         arguments:
+            $host: '%env(PS_HOST)%'
             $domain: '%env(PS_DOMAIN)%'
             $apikey: '%env(PS_APIKEY)%'
+            $useSSL: '%env(bool:PS_USE_SSL)%'
 
     # publishing
     App\Publishing\:

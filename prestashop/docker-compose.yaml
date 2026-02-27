@@ -16,8 +16,6 @@ services:
             POST_SCRIPTS_ON_RESTART: true
         ports:
             - "7777:80"
-        expose:
-            - 80
         volumes:
             - ./prestashop/post-scripts:/tmp/post-scripts
 

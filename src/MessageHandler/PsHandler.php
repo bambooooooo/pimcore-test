@@ -9,7 +9,6 @@ use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\Group;
 use Pimcore\Model\DataObject\Product;
 use Pimcore\Model\DataObject\ProductSet;
-use Pimcore\Model\Notification\Service\NotificationService;
 use Pimcore\Model\Version;
 use Psr\Log\LoggerInterface;
 use SimpleXMLElement;
@@ -21,7 +20,9 @@ use Throwable;
 #[AsMessageHandler]
 class PsHandler
 {
-    public function __construct(private readonly PrestashopService $ps, private readonly LockFactory $lockFactory, private readonly LoggerInterface $logger, private readonly NotificationService $notificationService)
+    public function __construct(private readonly PrestashopService $ps,
+                                private readonly LockFactory $lockFactory,
+                                private readonly LoggerInterface $logger)
     {
         Version::disable();
     }
@@ -329,10 +330,7 @@ class PsHandler
         $prod->addChild("minimal_quantity", 0);
         $prod->addChild("low_stock_threshold", 0);
         $prod->addChild("low_stock_alert", 0);
-        $prod->addChild("price", $obj->getBasePrice()->getValue() * 1.784 * 1.23);
-        $prod->addChild("wholesale_price", 100.0);
         $prod->addChild("unity");
-        $prod->addChild("unit_price", 100.0);
         $prod->addChild("unit_price_ratio");
         $prod->addChild('additional_shipping_cost');
         $prod->addChild('customizable');
@@ -354,6 +352,7 @@ class PsHandler
         $prod->addChild('meta_keywords');
         $prod->addChild('meta_title');
         $prod->addChild('link_rewrite');
+        $this->setPrices($prod, $obj);
         $name = $prod->addChild("name");
         $pl = $name->addChild("language", $obj->getName("pl"));
         $pl->addAttribute("id", 1);
@@ -698,10 +697,8 @@ class PsHandler
         $prod->addChild("quantity_discount", 0);
         $prod->addChild("ean13", $obj->getEan());
         $prod->addChild("mpn", $obj->getId());
-        $prod->addChild("price", $obj->getBasePrice()->getValue() * 1.784 * 1.23);
         $prod->addChild("unity", 1);
-        $prod->addChild("wholesale_price", $obj->getBasePrice()->getValue() * 1.784 * 1.23);
-        $prod->addChild("unit_price", $obj->getBasePrice()->getValue() * 1.784 * 1.23);
+        $this->setPrices($prod, $obj);
         $name = $prod->addChild("name");
         $pl = $name->addChild("language", $obj->getName("pl"));
         $pl->addAttribute("id", 1);
@@ -767,5 +764,17 @@ class PsHandler
     private function updateProductSetInPrestashop(ProductSet $set)
     {
         $this->updateProductInPrestashop($set);
+    }
+
+    /**
+     * @param SimpleXMLElement|null $prod
+     * @param ProductSet|Product $obj
+     * @return void
+     */
+    private function setPrices(?SimpleXMLElement $prod, ProductSet|Product $obj): void
+    {
+        $prod->addChild("price", $obj->getBasePrice()->getValue() * 1.784);
+        $prod->addChild("wholesale_price", $obj->getBasePrice()->getValue() * 1.784);
+        $prod->addChild("unit_price", $obj->getBasePrice()->getValue() * 1.784);
     }
 }
