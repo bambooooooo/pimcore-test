@@ -26,8 +26,10 @@ class OptimikService
         }
 
         return $this->cache->get('optimik_' . md5($url), function (ItemInterface $item) use ($url){
-            $item->expiresAfter(60 * 60 * 24);
-            return $this->httpClient->request('GET', $url)->toArray();
+            $data = $this->httpClient->request('GET', $url)->toArray();
+            $ttl = count($data) ? 60 * 60 * 24 : 60;
+            $item->expiresAfter($ttl);
+            return $data;
         });
     }
 
