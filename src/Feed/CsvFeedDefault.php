@@ -158,6 +158,11 @@ class CsvFeedDefault extends CsvFeedWriter
             $fields[] = 'MEGSTYL';
             $fields[] = ($item instanceof Product && $item->getInstruction()) ? $item->getInstruction()->getFrontendPath() : "";
 
+            $fields[] = $this->csvEscapeCell($item->getDesc1("pl"));
+            $fields[] = $this->csvEscapeCell($item->getDesc2("pl"));
+            $fields[] = $this->csvEscapeCell($item->getDesc3("pl"));
+            $fields[] = $this->csvEscapeCell($item->getDesc4("pl"));
+
             return join(';', $fields) . PHP_EOL;
         });
     }
@@ -200,11 +205,25 @@ class CsvFeedDefault extends CsvFeedWriter
         }
 
         $cols = array_merge($cols, [
+            'manufacturer',
             'manual',
-            'manufacturer'
+            'description1pl',
+            'description2pl',
+            'description3pl',
+            'description4pl'
         ]);
 
         fwrite($stream, "\xEF\xBB\xBF");
         fwrite($stream, join($separator, $cols) . PHP_EOL);
+    }
+
+    function csvEscapeCell(string|null $html): string
+    {
+        if(!$html)
+            return "";
+
+        $escaped = str_replace('"', '""', $html);
+
+        return '"' . $escaped . '"';
     }
 }
