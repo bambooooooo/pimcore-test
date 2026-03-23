@@ -4,7 +4,7 @@ pimcore:
             definitions:
                 ChipboardBorderThickness:
                     id: ChipboardBorderThickness
-                    group: ''
+                    group: Chipboard
                     useTraits: ''
                     implementsInterfaces: ''
                     selectOptions:

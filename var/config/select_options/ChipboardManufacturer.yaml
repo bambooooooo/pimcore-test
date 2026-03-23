@@ -2,25 +2,25 @@ pimcore:
     objects:
         select_options:
             definitions:
-                ChipboardBorderFinish:
-                    id: ChipboardBorderFinish
+                ChipboardManufacturer:
+                    id: ChipboardManufacturer
                     group: Chipboard
                     useTraits: ''
                     implementsInterfaces: ''
                     selectOptions:
                         -
-                            value: PCV
-                            label: PCV
+                            value: KRONOSPAN
+                            label: KRONOSPAN
                             name: ''
                         -
-                            value: ABS
-                            label: ABS
+                            value: 'SWISS KRONO'
+                            label: 'SWISS KRONO'
                             name: ''
                         -
-                            value: Papier
-                            label: Papier
+                            value: WOODECO
+                            label: WOODECO
                             name: ''
                         -
-                            value: Brak
-                            label: Brak
+                            value: YLDIZ
+                            label: YLDIZ
                             name: ''
