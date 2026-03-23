@@ -19,7 +19,7 @@ class XmlFeedBasic extends XmlFeedWriter
         foreach ($refs as $ref) {
             if($ref['type'] == 'object') {
                 $obj = DataObject::getById($ref['id']);
-                if($obj instanceof Product || $obj instanceof ProductSet) {
+                if(($obj instanceof Product || $obj instanceof ProductSet) && (in_array($obj->getStatus(), ['Active', 'Sale']))) {
                     $price = 0.0;
 
                     foreach($obj->getPrice() as $lip)
