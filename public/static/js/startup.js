@@ -571,7 +571,7 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
 
         var btnPdf = Ext.create('Ext.Button', {
             xtype: 'button',
-            text: 'Generuj plik PDF',
+            text: 'Cennik PDF',
             icon: '/bundles/pimcoreadmin/img/flat-white-icons/download-cloud.svg',
             handler: function(){
                 if(!combo.value)
@@ -580,14 +580,32 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
                     return;
                 }
 
-                const path = "/object/" + pimcore.settings.language + "/" + e.detail.object.id + "/datasheet?show_prices=" + combo.value;
+                const path = "/object/" + pimcore.settings.language + "/" + e.detail.object.id + "/datasheet?unpublished=1&show_prices=" + combo.value;
                 window.open(path);
+            }
+        });
+
+        var btnPdfExtended = Ext.create('Ext.Button', {
+            xtype: 'button',
+            text: 'Specyfikacja PDF',
+            icon: '/bundles/pimcoreadmin/img/flat-white-icons/download-cloud.svg',
+            handler: function(){
+                if(!combo.value)
+                {
+                    const path = "/object/" + pimcore.settings.language + "/" + e.detail.object.id + "/datasheet?mode=detailed";
+                    window.open(path);
+                }
+                else
+                {
+                    const path = "/object/" + pimcore.settings.language + "/" + e.detail.object.id + "/datasheet?mode=detailed&show_prices=" + combo.value;
+                    window.open(path);
+                }
             }
         });
 
         var btnXlsx = Ext.create('Ext.Button', {
             xtype: 'button',
-            text: 'Generuj plik XLSX',
+            text: 'Cennik XLSX',
             icon: '/bundles/pimcoreadmin/img/flat-white-icons/download-cloud.svg',
             handler: function(){
                 if(!combo.value)
@@ -622,7 +640,9 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
                     [
                         btnPdf,
                         { xtype: 'splitter'},
-                        btnXlsx
+                        btnXlsx,
+                        { xtype: 'splitter'},
+                        btnPdfExtended
                     ]
                 })
             ]
@@ -664,16 +684,6 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
                     }
                 },
                 {
-                    text: t('Bulk datasheet'),
-                    tooltip: t('Download Bulk datasheet'),
-                    icon: '/bundles/pimcoreadmin/img/flat-white-icons/download-cloud.svg',
-                    scale: 'medium',
-                    handler: function () {
-                        const path = "/factory/en/" + e.detail.object.id + "/datasheet";
-                        window.open(path);
-                    }
-                },
-                {
                     text: t('Pricelist'),
                     tooltip: t('Download pricelist in PDF'),
                     icon: '/bundles/pimcoreadmin/img/flat-white-icons/percent.svg',
@@ -704,16 +714,6 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
             tooltip: 'Download',
             menu: [
                 {
-                    text: t('Price list (preview)'),
-                    tooltip: t('Preview price list'),
-                    icon: '/bundles/pimcoreadmin/img/flat-white-icons/download-cloud.svg',
-                    scale: 'medium',
-                    handler: function () {
-                        const path = "/prices/" + e.detail.object.id;
-                        window.open(path);
-                    }
-                },
-                {
                     text: t('Price list (xlsx)'),
                     tooltip: t('Download XLSX price list'),
                     icon: '/bundles/pimcoreadmin/img/flat-white-icons/download-cloud.svg',
@@ -724,12 +724,22 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
                     }
                 },
                 {
-                    text: t('Datasheet (PDF)'),
-                    tooltip: t('Download PDF datasheets'),
+                    text: t('Price list (PDF)'),
+                    tooltip: t('Download PDF price list'),
                     icon: '/bundles/pimcoreadmin/img/flat-white-icons/download-cloud.svg',
                     scale: 'medium',
                     handler: function () {
-                        const path = "/factory/" + pimcore.settings.language + "/" + e.detail.object.id + "/datasheet?show_prices=" + e.detail.object.id;
+                        const path = "/object/" + pimcore.settings.language + "/" + e.detail.object.id + "/datasheet?mode=detailed&show_prices=" + e.detail.object.id;
+                        window.open(path);
+                    }
+                },
+                {
+                    text: t('Price list + datasheet (PDF)'),
+                    tooltip: t('Download PDF prices list with datasheets'),
+                    icon: '/bundles/pimcoreadmin/img/flat-white-icons/download-cloud.svg',
+                    scale: 'medium',
+                    handler: function () {
+                        const path = "/object/" + pimcore.settings.language + "/" + e.detail.object.id + "/datasheet?mode=detailed";
                         window.open(path);
                     }
                 }

@@ -124,75 +124,11 @@
 </head>
 <body>
 
-{% if "cover" == "cover" and not (group is pimcore_data_object_class('Product') or group is pimcore_data_object_class('ProductSet')) %}
-    <div class="page" style="height: 100%; overflow: hidden; box-sizing: border-box;">
-        <div style="height:50%; width:100%; padding: 25px 36px 32px 32px; box-sizing: border-box; position: relative">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-6">
-                        <img src="{{ asset('var/assets/LOGO/megstyl.svg') }}" width="227">
-                    </div>
-                    <div class="col-6" style="text-align: end; font-size: 13px">
-                        <div style="margin-top: 14px">
-                            <strong>{{ "Date"|trans }}</strong>: {{ "now"|date("d.m.Y") }}
-                        </div>
-                    </div>
-                </div>
-                <div class="row" style="margin-top: 150px">
-                    <div class="col-xs-12">
-                        <div style="float: left">
-                            <div style="font-size: 80px;  line-height: 72px">
-                                {{ group.Name ?? group.key }}
-                            </div>
-                            <div style="text-align: end; font-size: 18px; position: relative; right: 6px">
-                                {% if prices %}
-                                    {{ "Price list" | trans }}
-                                {% else %}
-                                    {{ "Dataheets" | trans }}
-                                {% endif %}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div style="position: absolute; right: 0; top: 0; height: 92%; width: 23px; background-color: #e42a46; border-radius: 0 0 0 10px"></div>
-            <div style="position: absolute; bottom: 10px; right: 26px; width: 100%">
-                <div style="position: relative;">
-                    <div style="float: right; text-align: left; font-size: 12px">
-                        <div>
-                            <strong>
-                                Designed by
-                            </strong>
-                        </div>
-                        <div>
-                            <span>
-                                Megstyl in Poland
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div style="height: 50%; width: 100%; position: relative">
-            {% if group.Image %}
-                <img src="{{ group.Image }}" style="width: 100%; height: 100%">
-            {% else %}
-                {{ include('factory/parts/image_placeholder.html.twig') }}
-            {% endif %}
-        </div>
-    </div>
+{% if not (group is pimcore_data_object_class('Product') or group is pimcore_data_object_class('ProductSet')) %}
+    {{ include('factory/pdf/parts/_cover.html.twig', {group: group}) }}
 {% endif %}
 
-{% if "summary"=="off" and (not prices) %}
-    <div class="page" style="overflow: hidden">
-        <div style="background-image: url('{{ group.Image.thumbnail("a4_center") }}'); width: 100%; height: 100%; background-position: center; background-size: cover"></div>
-        <div style="position: absolute; width: 15.5cm; right: 32px; bottom: 108px; background: none; color: #fafafa; font-weight: bolder">
-            {{ group.description|raw }}
-        </div>
-    </div>
-{% endif %}
-
-{% if "products"=="products" and (not prices) and (prods|length + common|length) > 0 and not (group is pimcore_data_object_class('Product') or group is pimcore_data_object_class('ProductSet')) %}
+{% if mode == 'detailed' and ((prods|length + common|length) > 0 and not (group is pimcore_data_object_class('Product') or group is pimcore_data_object_class('ProductSet'))) %}
     <div class="page">
         <div class="page-content">
             <h1>
@@ -202,6 +138,7 @@
                 <tbody>
                 {% set c = 0 %}
                 {% for s in common %}
+                    {% if s.published %}
                         {% if c == 0 %}
                             <tr>
                         {% endif %}
@@ -212,6 +149,7 @@
                             </tr>
                         {% endif %}
                         {% set c = (c + 1) % (products_row_cnt) %}
+                    {% endif %}
                 {% endfor %}
                 </tbody>
             </table>
@@ -221,7 +159,7 @@
     <div class="pb"></div>
 {% endif %}
 
-{% if "sets" == "sets" and (not prices) and sets|length > 0 and not (group is pimcore_data_object_class('Product') or group is pimcore_data_object_class('ProductSet')) %}
+{% if mode == 'detailed' and sets|length > 0 and not (group is pimcore_data_object_class('Product') or group is pimcore_data_object_class('ProductSet')) %}
     <div class="page">
         <div class="page-content">
             <table class="table">
@@ -236,8 +174,8 @@
                 </thead>
                 <tbody>
                     {% set c = 0 %}
-
                     {% for s in sets %}
+                        {% if s.published %}
                             {% if c == 0 %}
                                 <tr>
                             {% endif %}
@@ -248,6 +186,7 @@
                                 </tr>
                             {% endif %}
                             {% set c = (c + 1) % (sets_row_cnt) %}
+                        {% endif %}
                     {% endfor %}
                 </tbody>
             </table>
@@ -256,7 +195,7 @@
     <div class="pb"></div>
 {% endif %}
 
-{% if "set" == "set" and (not prices) and sets|length > 0 and not (group is pimcore_data_object_class('Product')) %}
+{% if mode == 'detailed' and sets|length > 0 and not (group is pimcore_data_object_class('Product')) %}
     {% for s in sets %}
         {% if s.published %}
             <article>
@@ -275,7 +214,7 @@
     {% endfor %}
 {% endif %}
 
-{% if "item" == "item" and prices and prods|length > 0 and not (group is pimcore_data_object_class('Product')) %}
+{% if mode != 'detailed' and prices and prods|length > 0 and not (group is pimcore_data_object_class('Product')) %}
     {% set pageIdx = 2 %}
     {% for s in prods %}
         {% set pr = null %}
@@ -288,7 +227,7 @@
             {% endif %}
         {% endfor %}
 
-        {% if s.ObjectType == 'ACTUAL' and pr %}
+        {% if s.ObjectType == 'ACTUAL' or s.ObjectType == 'SKU' and pr %}
             <article>
                 <section id="{{ s.id }}">
                     <div class="page" style="height: 100%; position: relative; padding-top: 0px; box-sizing: border-box;">
@@ -358,79 +297,27 @@
     {% endfor %}
 {% endif %}
 
-{% if "item" == "item" and (not prices) and common|length > 0 %}
+{% if mode == 'detailed' and common|length > 0 %}
     {% for s in common %}
-        <article>
-            <section id="{{ s.id }}">
-                <div class="page">
-                    <div class="page-content">
-                        {{ include('factory/pdf/parts/_item_header.html.twig', {item: s}) }}
-                        {{ include('factory/pdf/parts/_packages.html.twig', {item: s}) }}
-                        {{ include('factory/pdf/parts/_product_parameters.html.twig', {item: s}) }}
+        {% if s.published %}
+            <article>
+                <section id="{{ s.id }}">
+                    <div class="page">
+                        <div class="page-content">
+                            {{ include('factory/pdf/parts/_item_header.html.twig', {item: s}) }}
+                            {{ include('factory/pdf/parts/_packages.html.twig', {item: s}) }}
+                            {{ include('factory/pdf/parts/_product_parameters.html.twig', {item: s}) }}
+                        </div>
                     </div>
-                </div>
-            </section>
-        </article>
-        <div class="pb"></div>
+                </section>
+            </article>
+            <div class="pb"></div>
+        {% endif %}
     {% endfor %}
 {% endif %}
 
-{% if "backcover" == "backcover" and prices and not (group is pimcore_data_object_class('Product')) %}
-    <div class="page" style="height: 100%; overflow: hidden">
-        <div style="height:50%; width:100%; padding: 32px; position: relative">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-6">
-                        <img src="{{ asset('var/assets/LOGO/megstyl.svg') }}" width="174">
-                    </div>
-                    <div class="col-6" style="text-align: end">
-
-                    </div>
-                </div>
-            </div>
-            <div style="position: absolute; bottom: 16px; left: 0; padding: 32px; width: 72%">
-                <h3>
-                    {{ "Attachments"|trans }}
-                </h3>
-                <div class="container-fluid">
-                    <hr/>
-                    <div class="row">
-                        <div class="col-8">
-                            <img src="/bundles/pimcoreadmin/img/flat-color-icons/gallery.svg" width="32"/>
-                            <span class="ms-3">
-                                {{ "All photos"|trans }}
-                            </span>
-                        </div>
-                        <div class="col-4">
-                            <a href="{{ path('export_images', {id: group.id}) }}" style="text-decoration: none; color: #000">
-                                <img src="/bundles/pimcoreadmin/img/flat-color-icons/download-cloud.svg" width="26"/>
-                                <span class="ms-1">
-                                    {{ "Download"|trans }}
-                                </span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div style="height: 50%; width: 100%; background: #000; position: relative">
-            <div style="position: absolute; left:32; bottom: 32; color: #fff;">
-                MEGSTYL<br/>
-                ul. Milenijna 10<br/>
-                97-410 Żłobnica<br/>
-                megstylpolska@gmail.com<br/>
-                {{ "Poland"|trans }}
-            </div>
-            <div style="position: absolute; right: 48; bottom: 20; color: #fff; text-align: right;">
-                <div>
-                    <div style="letter-spacing: 4px; font-size: 26px;">
-                        www.megstyl.pl
-                    </div>
-                </div>
-            </div>
-            <div style="position: absolute; right: 0; top: 0; height: 90%; width: 18px; background-color: #e42a46; border-radius: 0 0 0 20px"></div>
-        </div>
-    </div>
+{% if not (group is pimcore_data_object_class('Product')) %}
+    {{ include('factory/pdf/parts/_backcover.html.twig', {group: group}) }}
 {% endif %}
 
 </body>

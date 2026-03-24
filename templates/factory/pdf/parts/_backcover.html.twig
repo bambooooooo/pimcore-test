@@ -1,0 +1,55 @@
+<div class="page" style="height: 100%; overflow: hidden">
+    <div style="height:50%; width:100%; padding: 32px; position: relative">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-6">
+                    <img src="{{ asset('var/assets/LOGO/megstyl.svg') }}" width="174">
+                </div>
+                <div class="col-6" style="text-align: end">
+
+                </div>
+            </div>
+        </div>
+        <div style="position: absolute; bottom: 16px; left: 0; padding: 32px; width: 72%">
+            <h3>
+                {{ "Attachments"|trans }}
+            </h3>
+            <div class="container-fluid">
+                <hr/>
+                <div class="row">
+                    <div class="col-8">
+                        <img src="/bundles/pimcoreadmin/img/flat-color-icons/gallery.svg" width="32"/>
+                        <span class="ms-3">
+                                {{ "All photos"|trans }}
+                            </span>
+                    </div>
+                    <div class="col-4">
+                        <a href="{{ path('export_images', {id: group.id}) }}" style="text-decoration: none; color: #000">
+                            <img src="/bundles/pimcoreadmin/img/flat-color-icons/download-cloud.svg" width="26"/>
+                            <span class="ms-1">
+                                    {{ "Download"|trans }}
+                                </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="height: 50%; width: 100%; background: #000; position: relative">
+        <div style="position: absolute; left:32; bottom: 32; color: #fff;">
+            MEGSTYL<br/>
+            ul. Milenijna 10<br/>
+            97-410 Żłobnica<br/>
+            megstylpolska@gmail.com<br/>
+            {{ "Poland"|trans }}
+        </div>
+        <div style="position: absolute; right: 48; bottom: 20; color: #fff; text-align: right;">
+            <div>
+                <div style="letter-spacing: 4px; font-size: 26px;">
+                    www.megstyl.pl
+                </div>
+            </div>
+        </div>
+        <div style="position: absolute; right: 0; top: 0; height: 90%; width: 18px; background-color: #e42a46; border-radius: 0 0 0 20px"></div>
+    </div>
+</div>

@@ -1,5 +1,16 @@
 <a href="#{{ item.id }}" style="text-decoration: none; color: black; break-inside: avoid">
     <div style="text-align: center; padding: 12px 10px; break-inside: avoid; position: relative;" id="{{ item.id }}-gallery">
+
+        {% if item.Status == "Sale" %}
+            <div class="" style="position: absolute; left: 50%; transform: translate(-20px, -5px); width: 75px; height: 75px; overflow: hidden;">
+                <span style="color: #fff; text-transform: uppercase; text-align: center; background: linear-gradient(#a6202b 0%, #5e0707 100%);
+                    width: 100px; font-size: 10px; font-weight: 700; line-height: 20px; display: block; position: absolute; top: 16px;
+                    right: -28px; transform: rotate(45deg); box-shadow: 0 3px 10px -5px #000; letter-spacing: 6px;">
+                    SALE
+                </span>
+            </div>
+        {% endif %}
+
         <img src="{{ item.Image.thumbnail("200x200") }}" width="100"/>
 
         <div style="font-size: 10px; margin-top: 6px; margin-bottom: 4px;">

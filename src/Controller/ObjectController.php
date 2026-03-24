@@ -177,63 +177,55 @@ class ObjectController extends FrontendController
     #[Route('/object/{_locale}/{id}/datasheet', name: 'datasheet_new', defaults: ['_locale' => 'pl', 'locale' => 'pl'])]
     public function datasheetAction(Request $request): Response
     {
-        DataObject::setHideUnpublished(false);
-        $obj = DataObject::getById($request->get('id'));
-        if(!$obj)
-            return new Response("Not found", Response::HTTP_NOT_FOUND);
-
+        $unpublished = $request->get("unpublished") ?? false;
         $orderBy = $request->get('orderby') ?? 'sku';
+        $type = $request->get("type") ?? "html";
         $preview = $request->get("preview") ?? false;
+        $prices = $request->get("show_prices");
+        $mode = $request->get("mode") ?? "basic"; // basic | detailed
 
         $params = [
-            'paperWidth' => '210mm',
-            'paperHeight' => '297mm',
-            'marginTop' => 0,
-            'marginBottom' => 0,
-            'marginLeft' => 0,
-            'marginRight' => 0,
-            "displayHeaderFooter" => true,
-            'metadata' => [
-                'Title' => $obj->getKey(),
-                'Author' => 'pim'
-            ]
+            'sets_row_cnt' => $request->query->get("sets") ?? 5,
+            'products_row_cnt' => $request->query->get("products") ?? 5,
+            'prices' => $prices,
+            "new_after_date" => (int)$request->query->get("new") ?? 1,
+            "mode" => $mode,
         ];
 
-        $adapter = \Pimcore\Bundle\WebToPrintBundle\Processor::getInstance();
+        if($unpublished)
+        {
+            DataObject::setHideUnpublished(false);
+        }
+
+        $obj = DataObject::getById($request->get('id'));
+        if(!$obj)
+            return new Response("DataObject not found", Response::HTTP_NOT_FOUND);
 
         $html = "";
         $fname = $obj->getName() ?? $obj->getKey() . ".pdf";
 
         if($obj instanceof DataObject\Product)
         {
-            $html = $this->renderView('factory/pdf/datasheet_group.html.twig', [
+            $html = $this->renderView('factory/pdf/datasheet_group.html.twig', array_merge($params, [
                 'group' => $obj,
                 'prods' => [],
                 'sets' => [],
                 'common' => [$obj],
-                'sets_row_cnt' => $request->query->get("sets") ?? 5,
-                'products_row_cnt' => $request->query->get("products") ?? 5,
-                'new_after_date' => (new Carbon("now"))->subDays((int)$request->query->get("new") ?? 1),
-                'prices' => $request->get("show_prices"),
-            ]);
+            ]));
         }
         elseif ($obj instanceof DataObject\ProductSet)
         {
-            $html = $this->renderView('factory/pdf/datasheet_group.html.twig', [
+            $html = $this->renderView('factory/pdf/datasheet_group.html.twig', array_merge($params, [
                 'group' => $obj,
                 'prods' => [],
                 'sets' => [$obj],
                 'common' => [],
-                'sets_row_cnt' => $request->query->get("sets") ?? 5,
-                'products_row_cnt' => $request->query->get("products") ?? 5,
-                'new_after_date' => (new Carbon("now"))->subDays((int)$request->query->get("new") ?? 1),
-                'prices' => $request->get("show_prices"),
-            ]);
+            ]));
         }
         elseif ($obj instanceof DataObject\Group)
         {
             $productListing = new DataObject\Product\Listing();
-            $productListing->setCondition("Groups like '%," . $obj->getId() . ",%' AND `ObjectType`='ACTUAL' ");
+            $productListing->setCondition("Groups like '%," . $obj->getId() . ",%' AND `ObjectType` IN ('ACTUAL', 'SKU') AND `Status` IN ('Active', 'Sale')");
 
             $prods = $productListing->load();
 
@@ -248,7 +240,7 @@ class ObjectController extends FrontendController
             });
 
             $setListing = new DataObject\ProductSet\Listing();
-            $setListing->setCondition("Groups like '%," . $obj->getId() . ",%' ");
+            $setListing->setCondition("Groups like '%," . $obj->getId() . ",%' AND `Status` IN ('Active', 'Sale')");
             $sets = $setListing->load();
 
             usort($sets, function ($a, $b) {
@@ -267,7 +259,7 @@ class ObjectController extends FrontendController
                 foreach($set->getSet() as $lip)
                 {
                     $product = $lip->getElement();
-                    if($product)
+                    if($product && in_array($product->getStatus(), ['Active', 'Sale']) && in_array($product->getObjectType(), ['ACTUAL', 'SKU']))
                     {
                         $common[] = $product;
                     }
@@ -298,7 +290,7 @@ class ObjectController extends FrontendController
                 return strcmp($a->getKey(), $b->getKey());
             });
 
-            if($request->get("type") == 'xlsx')
+            if($type == 'xlsx')
             {
                 $offer = DataObject\Offer::getById($request->get("show_prices"));
 
@@ -318,7 +310,7 @@ class ObjectController extends FrontendController
                 return $this->getSheetPricesXlsx($data, $offer, $fname);
             }
 
-            $offer = DataObject\Offer::getById($request->get("show_prices"));
+            $offer = $prices ? DataObject\Offer::getById($prices) : null;
 
             if($offer)
             {
@@ -341,16 +333,12 @@ class ObjectController extends FrontendController
 
             $params['metadata']['Title'] = $fname;
 
-            $html = $this->renderView('factory/pdf/datasheet_group.html.twig', [
+            $html = $this->renderView('factory/pdf/datasheet_group.html.twig', array_merge($params, [
                 'group' => $obj,
                 'prods' => $prods,
                 'sets' => $sets,
                 'common' => $common,
-                'sets_row_cnt' => $request->query->get("sets") ?? 5,
-                'products_row_cnt' => $request->query->get("products") ?? 5,
-                'new_after_date' => (new Carbon("now"))->subDays((int)$request->query->get("new") ?? 1),
-                'prices' => $request->get("show_prices"),
-            ]);
+            ]));
         }
         elseif($obj instanceof DataObject\Offer)
         {
@@ -361,19 +349,24 @@ class ObjectController extends FrontendController
             foreach ($obj->getDependencies()->getRequiredBy() as $dependency)
             {
                 $item = DataObject::getById($dependency['id']);
-                if($item instanceof DataObject\Product)
+                if($item instanceof DataObject\Product && in_array($item->getStatus(), ['Active', 'Sale']) && in_array($item->getObjectType(), ['ACTUAL', 'SKU']))
                 {
                     $prods[] = $item;
                     $common[] = $item;
                 }
                 elseif($item instanceof DataObject\ProductSet)
                 {
+                    if(!in_array($item->getStatus(), ['Active', 'Sale']))
+                    {
+                        continue;
+                    }
+
                     $sets[] = $item;
 
                     foreach($item->getSet() as $lip)
                     {
                         $product = $lip->getElement();
-                        if($product)
+                        if($product && in_array($item->getStatus(), ['Active', 'Sale']) && in_array($item->getObjectType(), ['ACTUAL', 'SKU']))
                         {
                             $common[] = $product;
                         }
@@ -383,24 +376,36 @@ class ObjectController extends FrontendController
 
             $common = array_unique($common);
 
-            $html = $this->renderView('factory/pdf/datasheet_group.html.twig', [
+            $html = $this->renderView('factory/pdf/datasheet_group.html.twig', array_merge($params, [
                 'group' => $obj,
                 'prods' => $prods,
                 'sets' => $sets,
-                'common' => $common,
-                'sets_row_cnt' => $request->query->get("sets") ?? 5,
-                'products_row_cnt' => $request->query->get("products") ?? 5,
-                'new_after_date' => (new Carbon("now"))->subDays((int)$request->query->get("new") ?? 1),
-                'prices' => $request->get("show_prices"),
-            ]);
+                'common' => $common
+            ]));
         }
-
-        $pdf = $adapter->getPdfFromString($html, $params);
 
         if($preview)
         {
             return new Response($html, 200);
         }
+
+        $params = [
+            'paperWidth' => '210mm',
+            'paperHeight' => '297mm',
+            'marginTop' => 0,
+            'marginBottom' => 0,
+            'marginLeft' => 0,
+            'marginRight' => 0,
+            "displayHeaderFooter" => true,
+            'metadata' => [
+                'Title' => $obj->getKey(),
+                'Author' => 'pim'
+            ]
+        ];
+
+        $adapter = \Pimcore\Bundle\WebToPrintBundle\Processor::getInstance();
+
+        $pdf = $adapter->getPdfFromString($html, $params);
 
         return new Response($pdf, Response::HTTP_OK, ['Content-Type' => 'application/pdf', 'Content-Disposition' => 'inline; filename=' . $fname]);
     }
