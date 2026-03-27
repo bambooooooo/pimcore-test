@@ -561,6 +561,11 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
             }
         })
 
+        var unpublished = Ext.create('Ext.form.Checkbox', {
+            name: 'unpublished',
+            fieldLabel: 'Show unpublished',
+        });
+
         var combo = Ext.create('Ext.form.ComboBox', {
             xtype: 'combo',
             fieldLabel: 'Select price level',
@@ -580,7 +585,8 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
                     return;
                 }
 
-                const path = "/object/" + pimcore.settings.language + "/" + e.detail.object.id + "/datasheet?unpublished=1&show_prices=" + combo.value;
+                const path = "/object/" + pimcore.settings.language + "/" + e.detail.object.id + "/datasheet?" +
+                    "unpublished=" + unpublished.value + "&show_prices=" + combo.value;
                 window.open(path);
             }
         });
@@ -592,12 +598,14 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
             handler: function(){
                 if(!combo.value)
                 {
-                    const path = "/object/" + pimcore.settings.language + "/" + e.detail.object.id + "/datasheet?mode=detailed";
+                    const path = "/object/" + pimcore.settings.language + "/" + e.detail.object.id + "/datasheet?" +
+                        "unpublished=" + unpublished.value + "&mode=detailed";
                     window.open(path);
                 }
                 else
                 {
-                    const path = "/object/" + pimcore.settings.language + "/" + e.detail.object.id + "/datasheet?mode=detailed&show_prices=" + combo.value;
+                    const path = "/object/" + pimcore.settings.language + "/" + e.detail.object.id + "/datasheet?" +
+                        "unpublished=" + unpublished.value + "&mode=detailed&show_prices=" + combo.value;
                     window.open(path);
                 }
             }
@@ -614,7 +622,9 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
                     return;
                 }
 
-                const path = "/object/" + pimcore.settings.language + "/" + e.detail.object.id + "/datasheet?show_prices=" + combo.value + "&type=xlsx";
+                const path = "/object/" + pimcore.settings.language + "/" + e.detail.object.id + "/datasheet?" +
+                    "unpublished=" + unpublished.value + "&show_prices=" + combo.value + "&type=xlsx";
+                
                 window.open(path);
             }
         });
@@ -626,6 +636,7 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
             },
             bodyPadding: 16,
             items: [
+                unpublished,
                 combo,
                 {
                     xtype: 'splitter'
