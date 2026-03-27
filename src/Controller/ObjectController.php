@@ -177,10 +177,10 @@ class ObjectController extends FrontendController
     #[Route('/object/{_locale}/{id}/datasheet', name: 'datasheet_new', defaults: ['_locale' => 'pl', 'locale' => 'pl'])]
     public function datasheetAction(Request $request): Response
     {
-        $unpublished = $request->get("unpublished") ?? false;
+        $unpublished = filter_var($request->get("unpublished") ?? false, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
         $orderBy = $request->get('orderby') ?? 'sku';
         $type = $request->get("type") ?? "html";
-        $preview = $request->get("preview") ?? false;
+        $preview = filter_var($request->get("preview") ?? false, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);;
         $prices = $request->get("show_prices");
         $mode = $request->get("mode") ?? "basic"; // basic | detailed
 
@@ -225,7 +225,7 @@ class ObjectController extends FrontendController
         elseif ($obj instanceof DataObject\Group)
         {
             $productListing = new DataObject\Product\Listing();
-            $productListing->setCondition("Groups like '%," . $obj->getId() . ",%' AND `ObjectType` IN ('ACTUAL', 'SKU') AND `Status` IN ('Active', 'Sale')");
+            $productListing->setCondition("Groups like '%," . $obj->getId() . ",%' AND `ObjectType` IN ('ACTUAL', 'SKU') AND `Status` IN ('Active','Sale','Draft')");
 
             $prods = $productListing->load();
 
@@ -240,7 +240,7 @@ class ObjectController extends FrontendController
             });
 
             $setListing = new DataObject\ProductSet\Listing();
-            $setListing->setCondition("Groups like '%," . $obj->getId() . ",%' AND `Status` IN ('Active', 'Sale')");
+            $setListing->setCondition("Groups like '%," . $obj->getId() . ",%' AND `Status` IN ('Active', 'Sale', 'Draft')");
             $sets = $setListing->load();
 
             usort($sets, function ($a, $b) {
@@ -259,7 +259,7 @@ class ObjectController extends FrontendController
                 foreach($set->getSet() as $lip)
                 {
                     $product = $lip->getElement();
-                    if($product && in_array($product->getStatus(), ['Active', 'Sale']) && in_array($product->getObjectType(), ['ACTUAL', 'SKU']))
+                    if($product && in_array($product->getStatus(), ['Active', 'Sale', 'Draft']) && in_array($product->getObjectType(), ['ACTUAL', 'SKU']))
                     {
                         $common[] = $product;
                     }
