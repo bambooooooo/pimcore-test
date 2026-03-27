@@ -1,0 +1,215 @@
+<html>
+<head>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            font-size: 9px;
+        }
+
+        .page {
+            width: 568px;
+            height: 227px;
+            position: relative;
+        }
+
+        .address
+        {
+            writing-mode: sideways-lr;
+            text-orientation: mixed;
+            text-align: center;
+            font-size: 9px;
+            padding: 6px;
+        }
+
+        .error
+        {
+            font-size: 12px;
+            color: #fa0000;
+            font-weight: bold;
+            padding: 6px;
+            background-color: #ffe750;
+        }
+
+        .field
+        {
+            padding: 4px 6px;
+            font-size: 9px;
+            border: 1px solid #000;
+            width: 100%;
+            box-sizing: border-box;
+            min-height: 20px;
+        }
+
+        .field-label
+        {
+            font-size: 10px;
+            padding: 4px 0 4px 8px;
+        }
+
+        .tbl
+        {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .tbl tr td
+        {
+            margin: 0;
+            border-collapse:collapse;
+            vertical-align:top;
+        }
+
+        .text-small
+        {
+            font-size: 6px;
+        }
+
+    </style>
+</head>
+<body>
+
+{% set step = min(copies, step) %}
+{% set steps = (copies / step)|round(0, 'ceil') %}
+
+{% set packagecount = 0 %}
+{% set packageno = 0 %}
+
+{% if product and product.Packages %}
+    {% for lip in product.Packages %}
+        {% set packagecount = packagecount + lip.data.Quantity %}
+        {% if package.id == lip.element.id %}
+            {% set packageno = loop.index %}
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+{% for i in range(1, steps) %}
+<div class="page">
+    <div style="width: 100%; height: 100%; box-sizing: border-box; padding: 11px 22px;">
+        <table class="tbl">
+            <tr>
+                <td style="position: relative; width: 30%">
+                    <img src="{{ asset('var/assets/LOGO/bogart_bb.jpg') }}" alt="bogart_logo" width="95" />
+                    <div class="field" style="width:90%; height: 85px; text-align: center; margin-top: 4px; padding: 0;">
+                        <img src="{{ product.Image.getThumbnail("200x200") }}" style="height: 100%; display: block; margin: auto;" />
+                    </div>
+                </td>
+                <td style="position: relative; width: 30%">
+                    <div class="text-small" style="line-height: 8px;">
+                        Bogart Group Łukasz Grata<br/>
+                        37-125 Czarna 825<br/>
+                        support@bogart.eu<br/>
+                    </div>
+                    <div class="field-label" style="padding-left: 0; margin-top: 20px;">
+                        paczka:
+                    </div>
+                    <div>
+                        <span style="color: #3ab54a; font-size: 42px;">
+                            {{ packageno }}/{{ packagecount }}
+                        </span>
+                        <img src="{{ asset('var/assets/UI/arrowup.png') }}" style="height: 42px; margin-left: 32px;">
+                    </div>
+                </td>
+                <td rowspan="3" style="position: relative; width: 30%; padding-left: 4px;">
+                    <div class="text-small">
+                        {% if order and order.date %}
+                            data produkcji: {{ order.date|date("d.m.Y") }}
+                        {% else %}
+                            data produkcji: {{ "now"|date("d.m.Y") }}
+                        {% endif %}
+                    </div>
+                    <div style="width: 100%; padding-top: 8px;">
+                        <div style="width: 55%; float: left">
+                            <div class="field-label">
+                                partia:
+                            </div>
+                            <div class="field" style="text-align: center;">
+                                {% if order %}
+                                    {{ order.key }} ({{ order.id }})
+                                {% else %}
+                                    {{ package.id }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div style="width: 40%; float: right">
+                            <div class="field-label">
+                                waga:
+                            </div>
+                            <div class="field" style="text-align: center;">
+                                {% if package.Mass.value %}
+                                    {{ package.Mass }}
+                                {% else %}
+                                    Brak wagi
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div style="clear: both"></div>
+                    </div>
+                    <div>
+                        <div class="field-label">
+                            wymiary:
+                        </div>
+                        <div class="field" style="text-align: center;">
+                            {% if package.Depth.value and package.Width.value and package.Height.value %}
+                                {{ package.Depth }} / {{ package.Width }} / {{ package.Height }}
+                            {% else %}
+                                Brak wymiarów paczki
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div>
+                        <div class="field" style="height: 100px; margin-top: 12px; text-align: center;">
+                            {% if product.EAN %}
+                                {% set bc = 'MG' ~ product.EAN|slice(-6) ~ "0" ~ packageno ~ "0" ~ packagecount %}
+                                <div style="display: flex; align-items: center; justify-content: center;">
+                                    {{ code_128(bc, "C128", 80) }}
+                                </div>
+                                {{ bc }}
+                            {% else %}
+                                Brak kodu EAN - Brak kodu magazynowego
+                            {% endif %}
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div class="field-label" style="padding-top: 2pxs">
+                        nazwa:
+                    </div>
+                    <div class="field">
+                        {% if product.Name("pl") %}
+                            {{ package.Name("pl") }}
+                        {% else %}
+                            Brak nazwy produktu
+                        {% endif %}
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="field-label">
+                        front:
+                    </div>
+                    <div class="field">
+                        {{ product.Parameters.items[1924][15519]['default'][0] ?? "" }}
+                    </div>
+                </td>
+                <td>
+                    <div class="field-label">
+                        korpus:
+                    </div>
+                    <div class="field">
+                        {{ product.Parameters.items[label_bogart_body_group][label_bogart_body_key]['default'][0] ?? "" }}
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+{% endfor %}

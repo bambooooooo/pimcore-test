@@ -310,6 +310,7 @@ class FactoryController extends FrontendController
         $step = $request->query->get('step') ?? 1;
         $repeat = $request->query->get('repeat') ?? 1;
         $compatibility = $request->query->get('compatibility') ?? "model";
+        $preview = $request->query->get('preview') ?? false;
 
         $copies = $request->query->get('copies') ?? 1;
 
@@ -368,6 +369,11 @@ class FactoryController extends FrontendController
             'repeat' => $repeat,
             'compatibility' => $compatibility
         ]);
+
+        if($preview)
+        {
+            return new Response($html, Response::HTTP_OK);
+        }
 
         $adapter = \Pimcore\Bundle\WebToPrintBundle\Processor::getInstance();
         $pdf = $adapter->getPdfFromString($html, $pdfPageParams);
