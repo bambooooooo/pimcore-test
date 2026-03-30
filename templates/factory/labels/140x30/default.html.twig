@@ -147,7 +147,7 @@
                     <div style="font-size: 7px; padding-top: 4px;">
                         EAN/SKU:
                         {% if product.EAN %}
-                             <strong>{{ product.EAN }}</strong>
+                             <strong>{{ product.EAN }}</strong> / {{ product.id }}
                         {% else %}
                             <strong>{{ product.id }}</strong>
                         {% endif %}

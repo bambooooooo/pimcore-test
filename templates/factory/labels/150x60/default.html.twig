@@ -130,6 +130,14 @@
                         <div style="font-size: 24px; font-weight: bold; word-break: keep-all; margin-top: 6px;">
                             {{ package.key }}
                         </div>
+                        <div style="font-size: 11px; padding-top: 4px;">
+                            EAN/SKU:
+                            {% if product.EAN %}
+                                <strong>{{ product.EAN }}</strong> / {{ product.id }}
+                            {% else %}
+                                <strong>{{ product.id }}</strong>
+                            {% endif %}
+                        </div>
                     </td>
                     {% if package.barcode %}
                         <td rowspan="4">

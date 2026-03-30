@@ -67,7 +67,9 @@
             </div>
             <div>
                 {% if product.EAN %}
-                    {{ product.EAN }}
+                    {{ product.EAN }} / {{ product.id }}
+                {% else %}
+                    {{ product.id }}
                 {% endif %}
             </div>
             {% if order %}
