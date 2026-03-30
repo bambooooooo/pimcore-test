@@ -77,6 +77,18 @@
 </head>
 <body>
 
+{% set packagecount = 0 %}
+{% set packageno = 0 %}
+
+{% if product and product.Packages %}
+    {% for lip in product.Packages %}
+        {% set packagecount = packagecount + lip.data.Quantity %}
+        {% if package.id == lip.element.id %}
+            {% set packageno = loop.index %}
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
 {% set step = min(copies, step) %}
 {% set steps = (copies / step)|round(0, 'ceil') %}
 
@@ -135,7 +147,7 @@
                     {% endif %}
                 </tr>
                 <tr>
-                    <td colspan="6">
+                    <td colspan="5">
                         <div>
                             {{ product.Name }}
                         </div>
@@ -164,6 +176,9 @@
                                 {% endfor %}
                             {% endif %}
                         </div>
+                    </td>
+                    <td style="text-align: center; font-size: 28px;">
+                        {{ packageno }}/{{ packagecount }}
                     </td>
                 </tr>
                 <tr>

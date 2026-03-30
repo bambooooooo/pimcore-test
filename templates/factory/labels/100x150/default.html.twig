@@ -65,6 +65,11 @@
                     {% endfor %}
                 {% endif %}
             </div>
+            <div>
+                {% if product.EAN %}
+                    {{ product.EAN }}
+                {% endif %}
+            </div>
             {% if order %}
                 <div style="font-size: 16px">
                     {{ order.key }}
