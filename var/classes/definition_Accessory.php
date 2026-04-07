@@ -6,12 +6,12 @@
  *
  * Fields Summary:
  * - Name [input]
- * - Supplier [manyToOneRelation]
  * - SupplierSku [input]
- * - Manufacturer [manyToOneRelation]
- * - MPN [input]
+ * - Supplier [manyToOneRelation]
  * - Description [textarea]
  * - Files [manyToManyRelation]
+ * - MPN [input]
+ * - Manufacturer [manyToOneRelation]
  * - Image [image]
  * - Photo [image]
  */
@@ -23,7 +23,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1774857086,
+   'modificationDate' => 1775573959,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -81,6 +81,62 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'children' => 
             array (
               0 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                 'name' => 'Layout',
+                 'type' => NULL,
+                 'region' => NULL,
+                 'title' => '',
+                 'width' => '',
+                 'height' => '',
+                 'collapsible' => false,
+                 'collapsed' => false,
+                 'bodyStyle' => '',
+                 'datatype' => 'layout',
+                 'children' => 
+                array (
+                  0 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'name' => 'Name',
+                     'title' => 'Name',
+                     'tooltip' => '',
+                     'mandatory' => true,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'defaultValue' => NULL,
+                     'columnLength' => 190,
+                     'regex' => '',
+                     'regexFlags' => 
+                    array (
+                    ),
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'width' => 400,
+                     'defaultValueGenerator' => '',
+                  )),
+                ),
+                 'locked' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'fieldtype' => 'panel',
+                 'layout' => NULL,
+                 'border' => false,
+                 'icon' => '',
+                 'labelWidth' => 100,
+                 'labelAlign' => 'left',
+              )),
+              1 => 
               \Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
                  'name' => 'Layout',
                  'type' => NULL,
@@ -110,8 +166,8 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                     array (
                       0 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'name' => 'Name',
-                         'title' => 'Name',
+                         'name' => 'SupplierSku',
+                         'title' => 'Supplier Sku',
                          'tooltip' => '',
                          'mandatory' => true,
                          'noteditable' => false,
@@ -181,108 +237,6 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'width' => 400,
                       )),
                       2 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'name' => 'SupplierSku',
-                         'title' => 'Supplier Sku',
-                         'tooltip' => '',
-                         'mandatory' => true,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'columnLength' => 190,
-                         'regex' => '',
-                         'regexFlags' => 
-                        array (
-                        ),
-                         'unique' => false,
-                         'showCharCount' => false,
-                         'width' => 400,
-                         'defaultValueGenerator' => '',
-                      )),
-                      3 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-                         'name' => 'Manufacturer',
-                         'title' => 'Manufacturer',
-                         'tooltip' => '',
-                         'mandatory' => true,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => true,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'classes' => 
-                        array (
-                          0 => 
-                          array (
-                            'classes' => 'User',
-                          ),
-                        ),
-                         'displayMode' => 'grid',
-                         'pathFormatterClass' => '',
-                         'assetInlineDownloadAllowed' => false,
-                         'assetUploadPath' => '',
-                         'allowToClearRelation' => true,
-                         'objectsAllowed' => true,
-                         'assetsAllowed' => false,
-                         'assetTypes' => 
-                        array (
-                        ),
-                         'documentsAllowed' => false,
-                         'documentTypes' => 
-                        array (
-                        ),
-                         'width' => 400,
-                      )),
-                      4 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'name' => 'MPN',
-                         'title' => 'MPN',
-                         'tooltip' => '',
-                         'mandatory' => true,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'columnLength' => 190,
-                         'regex' => '',
-                         'regexFlags' => 
-                        array (
-                        ),
-                         'unique' => false,
-                         'showCharCount' => false,
-                         'width' => 400,
-                         'defaultValueGenerator' => '',
-                      )),
-                      5 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                          'name' => 'Description',
                          'title' => 'Description',
@@ -307,7 +261,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'height' => '',
                          'width' => 400,
                       )),
-                      6 => 
+                      3 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyRelation::__set_state(array(
                          'name' => 'Files',
                          'title' => 'Files',
@@ -369,6 +323,104 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'layout' => '',
                      'border' => false,
                      'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/tools.svg',
+                     'labelWidth' => 220,
+                     'labelAlign' => 'left',
+                  )),
+                  1 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                     'name' => 'Layout',
+                     'type' => NULL,
+                     'region' => NULL,
+                     'title' => 'Manufacturer',
+                     'width' => '',
+                     'height' => '',
+                     'collapsible' => false,
+                     'collapsed' => false,
+                     'bodyStyle' => '',
+                     'datatype' => 'layout',
+                     'children' => 
+                    array (
+                      0 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                         'name' => 'MPN',
+                         'title' => 'MPN',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'columnLength' => 190,
+                         'regex' => '',
+                         'regexFlags' => 
+                        array (
+                        ),
+                         'unique' => false,
+                         'showCharCount' => false,
+                         'width' => 400,
+                         'defaultValueGenerator' => '',
+                      )),
+                      1 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+                         'name' => 'Manufacturer',
+                         'title' => 'Manufacturer',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => true,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'classes' => 
+                        array (
+                          0 => 
+                          array (
+                            'classes' => 'User',
+                          ),
+                        ),
+                         'displayMode' => 'grid',
+                         'pathFormatterClass' => '',
+                         'assetInlineDownloadAllowed' => false,
+                         'assetUploadPath' => '',
+                         'allowToClearRelation' => true,
+                         'objectsAllowed' => true,
+                         'assetsAllowed' => false,
+                         'assetTypes' => 
+                        array (
+                        ),
+                         'documentsAllowed' => false,
+                         'documentTypes' => 
+                        array (
+                        ),
+                         'width' => 400,
+                      )),
+                    ),
+                     'locked' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'fieldtype' => 'panel',
+                     'layout' => NULL,
+                     'border' => false,
+                     'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/factory.svg',
                      'labelWidth' => 220,
                      'labelAlign' => 'left',
                   )),
