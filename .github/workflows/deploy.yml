@@ -49,6 +49,10 @@ jobs:
                       echo "PS_USE_SSL=${{ secrets.PS_USE_SSL }}" >> .env
                       echo "PS_APIKEY=${{ secrets.PS_APIKEY }}" >> .env
                       echo "OPT_URL=${{ secrets.OPT_URL }}" >> .env
+                      echo "LABEL_BOGART_FRONT_GROUP=${{ secrets.LABEL_BOGART_FRONT_GROUP }}" >> .env
+                      echo "LABEL_BOGART_FRONT_KEY=${{ secrets.LABEL_BOGART_FRONT_KEY }}" >> .env
+                      echo "LABEL_BOGART_BODY_GROUP=${{ secrets.LABEL_BOGART_BODY_GROUP }}" >> .env
+                      echo "LABEL_BOGART_BODY_KEY=${{ secrets.LABEL_BOGART_BODY_KEY }}" >> .env
 
                       docker compose -f dokcer-compose.yaml -f docker-compose.prod.yaml up -d
                       docker compose exec php composer install --no-dev --optimize-autoloader
