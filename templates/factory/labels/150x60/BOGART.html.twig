@@ -95,7 +95,7 @@
             <tr>
                 <td style="position: relative; width: 30%">
                     <img src="{{ asset('var/assets/LOGO/bogart_bb.jpg') }}" alt="bogart_logo" width="95" />
-                    <div class="field" style="width:90%; height: 85px; text-align: center; margin-top: 4px; padding: 0;">
+                    <div class="field" style="width:90%; height: 85px; text-align: center; margin-top: 4px; padding: 2px; box-sizing: border-box;">
                         <img src="{{ product.Image.getThumbnail("200x200") }}" style="height: 100%; display: block; margin: auto;" />
                     </div>
                 </td>
@@ -130,7 +130,7 @@
                             </div>
                             <div class="field" style="text-align: center;">
                                 {% if order %}
-                                    {{ order.key }} ({{ order.id }})
+                                    #{{ order.id }}
                                 {% else %}
                                     {{ package.id }}
                                 {% endif %}
@@ -156,7 +156,7 @@
                         </div>
                         <div class="field" style="text-align: center;">
                             {% if package.Depth.value and package.Width.value and package.Height.value %}
-                                {{ package.Depth }} / {{ package.Width }} / {{ package.Height }}
+                                {{ (package.Depth.value / 10)|round }} cm / {{ (package.Width.value / 10)|round }} cm / {{ (package.Height.value / 10)|round }} cm
                             {% else %}
                                 Brak wymiarów paczki
                             {% endif %}
@@ -184,7 +184,7 @@
                     </div>
                     <div class="field">
                         {% if product.Name("pl") %}
-                            {{ package.Name("pl") }}
+                            {{ product.Name("pl") }}
                         {% else %}
                             Brak nazwy produktu
                         {% endif %}
@@ -197,7 +197,13 @@
                         front:
                     </div>
                     <div class="field">
-                        {{ product.Parameters.items[1924][15519]['default'][0] ?? "" }}
+                        {% if product.Parameters.items[label_bogart_front_group][label_bogart_front_key]['default'] %}
+                            {% if product.Parameters.items[label_bogart_front_group][label_bogart_front_key]['default'] is iterable %}
+                                {{ product.Parameters.items[label_bogart_front_group][label_bogart_front_key]['default']|join(', ') }}
+                            {% else %}
+                                {{ product.Parameters.items[label_bogart_front_group][label_bogart_front_key]['default'] ?? "" }}
+                            {% endif %}
+                        {% endif %}
                     </div>
                 </td>
                 <td>
@@ -205,7 +211,13 @@
                         korpus:
                     </div>
                     <div class="field">
-                        {{ product.Parameters.items[label_bogart_body_group][label_bogart_body_key]['default'][0] ?? "" }}
+                        {% if product.Parameters.items[label_bogart_body_group][label_bogart_body_key]['default'] %}
+                            {% if product.Parameters.items[label_bogart_body_group][label_bogart_body_key]['default'] is iterable %}
+                                {{ product.Parameters.items[label_bogart_body_group][label_bogart_body_key]['default']|join(', ') }}
+                            {% else %}
+                                {{ product.Parameters.items[label_bogart_body_group][label_bogart_body_key]['default'] ?? "" }}
+                            {% endif %}
+                        {% endif %}
                     </div>
                 </td>
             </tr>

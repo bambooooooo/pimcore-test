@@ -4,3 +4,7 @@ twig:
         label_bogart_front_key: '%env(LABEL_BOGART_FRONT_KEY)%'
         label_bogart_body_group: '%env(LABEL_BOGART_BODY_GROUP)%'
         label_bogart_body_key: '%env(LABEL_BOGART_BODY_KEY)%'
+    number_format:
+        decimals: 2
+        decimal_point: ' '
+        thousands_separator: '.'
