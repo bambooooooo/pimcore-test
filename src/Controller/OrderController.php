@@ -24,6 +24,7 @@ class OrderController extends FrontendController
     #[Route('/optimik/{id}', name: '_optimik')]
     public function optimikAction(Request $request): Response
     {
+        DataObject::setHideUnpublished(false);
         $id = (int)$request->get('id');
 
         $obj = Dataobject::getByID($id);
