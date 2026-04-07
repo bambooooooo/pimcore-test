@@ -2,6 +2,7 @@
 
 namespace App\EventListener;
 
+use App\Publishing\AccessoryEventListener;
 use App\Publishing\BaselinkerCatalogPublisher;
 use App\Publishing\BaselinkerPublisher;
 use App\Publishing\EanPoolPublisher;
@@ -14,6 +15,7 @@ use App\Publishing\ProductSetEventListener;
 use App\Publishing\GroupPublisher;
 use App\Publishing\UserPublisher;
 use Pimcore\Event\Model\ElementEventInterface;
+use Pimcore\Model\DataObject\Accessory;
 use Pimcore\Model\DataObject\Baselinker;
 use Pimcore\Model\DataObject\BaselinkerCatalog;
 use Pimcore\Model\DataObject\EanPool;
@@ -41,7 +43,18 @@ class ObjectListener
         private readonly BaselinkerPublisher        $baselinkerPublisher,
         private readonly BaselinkerCatalogPublisher $baselinkerCatalogPublisher,
         private readonly UserPublisher              $userPublisher,
+        private readonly AccessoryEventListener     $accessoryEventListener,
     ) {}
+
+    public function preAdd(ElementEventInterface $event): void
+    {
+        $obj = $event->getElement();
+
+        if($obj instanceof Accessory)
+        {
+            $this->accessoryEventListener->preAdd($obj);
+        }
+    }
 
     public function preUpdate(ElementEventInterface $event): void
     {

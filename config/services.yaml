@@ -142,6 +142,7 @@ services:
             - { name: kernel.event_listener, event: pimcore.dataobject.postUpdate, method: postUpdate }
             - { name: kernel.event_listener, event: pimcore.dataobject.postAdd, method: postAdd }
             - { name: kernel.event_listener, event: pimcore.dataobject.preDelete, method: preDelete }
+            - { name: kernel.event_listener, event: pimcore.dataobject.preAdd, method: preAdd }
 
     # front auth
     factory.security.user_provider:
