@@ -23,7 +23,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1775573959,
+   'modificationDate' => 1775641105,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -282,10 +282,6 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         ),
                          'classes' => 
                         array (
-                          0 => 
-                          array (
-                            'classes' => '',
-                          ),
                         ),
                          'displayMode' => NULL,
                          'pathFormatterClass' => '',
@@ -297,18 +293,10 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'assetsAllowed' => true,
                          'assetTypes' => 
                         array (
-                          0 => 
-                          array (
-                            'assetTypes' => '',
-                          ),
                         ),
                          'documentsAllowed' => false,
                          'documentTypes' => 
                         array (
-                          0 => 
-                          array (
-                            'documentTypes' => '',
-                          ),
                         ),
                          'enableTextSelection' => false,
                          'width' => '',
@@ -478,7 +466,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'blockedVarsForExport' => 
                 array (
                 ),
-                 'uploadPath' => '',
+                 'uploadPath' => '/AKCESORIA MEBLOWE/SYMBOLE',
                  'width' => 350,
                  'height' => 350,
               )),
@@ -501,7 +489,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'blockedVarsForExport' => 
                 array (
                 ),
-                 'uploadPath' => '/AKCESORIA MEBLOWE',
+                 'uploadPath' => '/AKCESORIA MEBLOWE/FOTO',
                  'width' => 350,
                  'height' => 350,
               )),

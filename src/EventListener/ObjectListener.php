@@ -78,6 +78,10 @@ class ObjectListener
         {
             $this->packageEventListener->preUpdate($obj);
         }
+        else if($obj instanceof Accessory)
+        {
+            $this->accessoryEventListener->preUpdate($obj);
+        }
     }
     public function postUpdate(ElementEventInterface $event): void
     {
