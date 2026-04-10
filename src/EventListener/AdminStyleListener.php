@@ -22,7 +22,10 @@ class AdminStyleListener
             array_merge(
                 $event->getPaths(),
                 [
-                    '/static/js/startup.js'
+                    '/static/js/startup.js',
+                    '/static/js/braceExpansion.js',
+                    '/static/js/addChildren.js',
+                    '/static/js/gridXlsxImagesExport.js',
                 ]
             )
         );
