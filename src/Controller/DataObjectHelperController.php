@@ -73,45 +73,55 @@ class DataObjectHelperController extends UserAwareController
                 $value = $cell->getValue();
 
                 if(is_string($value)) {
-                    if (preg_match('/!\[.*?\]\((.*?)\)/', $value, $matches)) {
+                    if (preg_match_all('/!\[[^\]]*]\(([^)]+)\)/', $value, $matches)) {
+                        $i = 0;
 
-                        $columnWithImages[$cell->getColumn()] = true;
+                        $columnWithImages[$cell->getColumn()] = max($columnWithImages[$cell->getColumn()] ?? 1, count($matches[1]));
 
-                        $imagePath = $matches[1];
-                        $im = Asset::getByPath($imagePath);
+                        foreach ($matches[1] as $match) {
 
-                        if($im) {
-                            $image = $im->getThumbnail($THUMBNAIL_NAME);
+                            $im = Asset::getByPath($match);
 
-                            $stream = $image->getStream();
+                            if($im) {
+                                $image = $im->getThumbnail($THUMBNAIL_NAME);
 
-                            $tempFile = tempnam(sys_get_temp_dir(), 'pim_image_');
-                            file_put_contents($tempFile, stream_get_contents($stream));
+                                $stream = $image->getStream();
 
-                            if (file_exists($tempFile)) {
-                                $cell->setValue(null);
+                                $tempFile = tempnam(sys_get_temp_dir(), 'pim_image_');
+                                file_put_contents($tempFile, stream_get_contents($stream));
 
-                                $drawing = new Drawing();
-                                $drawing->setPath($tempFile);
-                                $drawing->setHeight($IMAGE_SIZE); // Set image height (adjust as needed)
-                                $drawing->setCoordinates($cell->getCoordinate()); // Place image in column D
-                                $drawing->setWorksheet($ws);
+                                if (file_exists($tempFile)) {
+                                    $cell->setValue(null);
 
-                                $ws->getRowDimension($row->getRowIndex())->setRowHeight($ROW_HEIGHT);
+                                    $drawing = new Drawing();
+                                    $drawing->setPath($tempFile);
+                                    $drawing->setHeight($IMAGE_SIZE); // Set image height (adjust as needed)
+                                    $drawing->setCoordinates($cell->getCoordinate()); // Place image in column D
+                                    $drawing->setOffsetX($IMAGE_SIZE * $i);
+                                    $drawing->setWorksheet($ws);
+
+                                    $ws->getRowDimension($row->getRowIndex())->setRowHeight($ROW_HEIGHT);
+                                }
                             }
+
+                            $i++;
                         }
                     }
                     else
                     {
+                        if($value == "[]")
+                        {
+                            $cell->setValue(null);
+                        }
                         $columnWithImages[$cell->getColumn()] = false;
                     }
                 }
             }
         }
 
-        foreach($columnWithImages as $column => $isImage) {
-            if($isImage) {
-                $ws->getColumnDimension($column)->setWidth($CELL_WIDTH);
+        foreach($columnWithImages as $column => $imageCount) {
+            if($imageCount) {
+                $ws->getColumnDimension($column)->setWidth($CELL_WIDTH * $imageCount);
             }else{
                 $ws->getColumnDimension($column)->setAutoSize(true);
             }

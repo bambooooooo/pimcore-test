@@ -13,7 +13,9 @@ document.addEventListener(pimcore.events.pimcoreReady, (e) => {
                 iconCls: 'pimcore_icon_export',
                 handler: function () {
                     var exportType = pimcore.object.gridexport.csv;
-                    this.exportPrepareCustom([], exportType);
+                    this.exportPrepareCustom({
+                        enableInheritance: true
+                    }, exportType);
                 }.bind(this)
             });
 
