@@ -151,6 +151,9 @@
             {% elseif obj is pimcore_data_object_class("Order") %}
                 {{ include("factory/listings/info_order.html.twig", {obj: obj}) }}
 
+            {% elseif obj is pimcore_data_object_class("Accessory") %}
+                {{ include("factory/listings/info_accessory.html.twig", {obj: obj}) }}
+
             {% else %}
                 <div class="col text-center">
                     <h2>{{ obj.key }}</h2>

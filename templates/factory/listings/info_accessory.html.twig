@@ -1,0 +1,37 @@
+<div class="container-fluid">
+    <div class="row text-center">
+        {% if obj.Image %}
+            <div class="col-12 text-center">
+                <a href="{{ obj.Image }}">
+                    <img src="{{ obj.Image.thumbnail("200x200") }}" class="img-fluid"/>
+                </a>
+            </div>
+        {% endif %}
+        <div class="col-12 text-center">
+            <h1>
+                {{ obj.key }}
+                <a target="_blank" href="/admin/login/deeplink?object_{{ obj.id }}_object">
+                    <img height="40" src="/bundles/pimcoreadmin/img/flat-color-icons/input.svg"/>
+                </a>
+            </h1>
+        </div>
+        <div class="col-12 text-center">
+            <div>
+                {{ obj.Name ?? "" }}
+            </div>
+            <div>
+                {{ obj.MPN ?? "" }}
+            </div>
+            <div style="font-size: 11px;">
+                {{ obj.Description ?? "" }}
+            </div>
+        </div>
+        {% if obj.Photo %}
+            <div class="col-12 text-center">
+                <a href="{{ obj.Photo }}">
+                    <img src="{{ obj.Photo.thumbnail("200x200") }}" class="img-fluid"/>
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</div>
