@@ -49,6 +49,9 @@
  * - schedule_print_control_card [checkbox]
  * - explorer_show_info [checkbox]
  * - explorer_show_children [checkbox]
+ * - explorer_show_search [checkbox]
+ * - explorer_show_accessory_tab [checkbox]
+ * - explorer_show_only_user_related_accessory [checkbox]
  * - product_show_baseprice [checkbox]
  * - product_show_files [checkbox]
  * - product_show_datasheet [checkbox]
@@ -63,7 +66,6 @@
  * - nav_show_types [checkbox]
  * - nav_show_sets [checkbox]
  * - nav_show_packages [checkbox]
- * - explorer_show_search [checkbox]
  * - package_show_layers [checkbox]
  * - package_show_fillment [checkbox]
  * - package_show_layout [checkbox]
@@ -77,7 +79,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Użytkownik',
    'description' => 'Podmiot w systemie',
    'creationDate' => NULL,
-   'modificationDate' => 1767952891,
+   'modificationDate' => 1776930818,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -1335,6 +1337,72 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                       )),
                       2 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                         'name' => 'explorer_show_search',
+                         'title' => 'Explorer _show _search',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'defaultValueGenerator' => '',
+                      )),
+                      3 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                         'name' => 'explorer_show_accessory_tab',
+                         'title' => 'Explorer _show _accessory _tab',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'defaultValueGenerator' => '',
+                      )),
+                      4 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                         'name' => 'explorer_show_only_user_related_accessory',
+                         'title' => 'Explorer _show _only _user _related _accessory',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'defaultValueGenerator' => '',
+                      )),
+                      5 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'product_show_baseprice',
                          'title' => 'Product _show _baseprice',
                          'tooltip' => '',
@@ -1355,7 +1423,7 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      3 => 
+                      6 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'product_show_files',
                          'title' => 'Product _show _files',
@@ -1377,7 +1445,7 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      4 => 
+                      7 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'product_show_datasheet',
                          'title' => 'Product _show _datasheet',
@@ -1399,7 +1467,7 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      5 => 
+                      8 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'product_show_sets',
                          'title' => 'Product _show _sets',
@@ -1421,7 +1489,7 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      6 => 
+                      9 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'product_show_elements',
                          'title' => 'Product _show _elements',
@@ -1443,7 +1511,7 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      7 => 
+                      10 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'product_show_orders',
                          'title' => 'Product _show _orders',
@@ -1465,7 +1533,7 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      8 => 
+                      11 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'product_show_packages',
                          'title' => 'Product _show _packages',
@@ -1487,7 +1555,7 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      9 => 
+                      12 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'product_show_cnc_skipper',
                          'title' => 'Product _show _cnc _skipper',
@@ -1509,7 +1577,7 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      10 => 
+                      13 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'product_show_cnc_master',
                          'title' => 'Product _show _cnc _master',
@@ -1531,7 +1599,7 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      11 => 
+                      14 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'nav_show_collections',
                          'title' => 'Nav _show _collections',
@@ -1553,7 +1621,7 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      12 => 
+                      15 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'nav_show_products',
                          'title' => 'Nav _show _products',
@@ -1575,7 +1643,7 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      13 => 
+                      16 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'nav_show_types',
                          'title' => 'Nav _show _types',
@@ -1597,7 +1665,7 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      14 => 
+                      17 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'nav_show_sets',
                          'title' => 'Nav _show _sets',
@@ -1619,7 +1687,7 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      15 => 
+                      18 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'nav_show_packages',
                          'title' => 'Nav _show _packages',
@@ -1641,29 +1709,7 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      16 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'explorer_show_search',
-                         'title' => 'Explorer _show _search',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'defaultValueGenerator' => '',
-                      )),
-                      17 => 
+                      19 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'package_show_layers',
                          'title' => 'Package _show _layers',
@@ -1685,7 +1731,7 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      18 => 
+                      20 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'package_show_fillment',
                          'title' => 'Package _show _fillment',
@@ -1707,7 +1753,7 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'defaultValue' => NULL,
                          'defaultValueGenerator' => '',
                       )),
-                      19 => 
+                      21 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'package_show_layout',
                          'title' => 'Package _show _layout',
@@ -1863,7 +1909,7 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
     'grid' => 
     array (
       'id' => true,
-      'key' => false,
+      'key' => true,
       'path' => false,
       'published' => true,
       'modificationDate' => false,
@@ -1872,7 +1918,7 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
     'search' => 
     array (
       'id' => true,
-      'key' => false,
+      'key' => true,
       'path' => false,
       'published' => true,
       'modificationDate' => false,
