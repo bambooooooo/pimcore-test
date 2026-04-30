@@ -169,6 +169,10 @@ pimcore:
                             label: 'dab dziki'
                             name: ''
                         -
+                            value: 'dąb dunin'
+                            label: 'dąb dunin'
+                            name: ''
+                        -
                             value: 'dab evoke coast'
                             label: 'dab evoke coast'
                             name: ''
