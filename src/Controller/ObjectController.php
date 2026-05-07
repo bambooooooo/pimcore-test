@@ -1028,11 +1028,11 @@ class ObjectController extends FrontendController
         foreach ($items as $obj)
         {
             $price = null;
-            foreach ($obj->getPrice() as $price)
+            foreach ($obj->getPrice() as $pr)
             {
-                if($price->getElement()->getId() == $offer->getId())
+                if($pr->getElement()->getId() == $offer->getId())
                 {
-                    $price = round(floatval($price->getPrice()), 2);
+                    $price = round(floatval($pr->getPrice()), 2);
                     break;
                 }
             }
