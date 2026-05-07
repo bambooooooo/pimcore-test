@@ -227,7 +227,7 @@
             {% endif %}
         {% endfor %}
 
-        {% if s.ObjectType == 'ACTUAL' or s.ObjectType == 'SKU' and pr %}
+        {% if (s.ObjectType == 'ACTUAL' or s.ObjectType == 'SKU') and pr %}
             <article>
                 <section id="{{ s.id }}">
                     <div class="page" style="height: 100%; position: relative; padding-top: 0px; box-sizing: border-box;">
