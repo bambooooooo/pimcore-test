@@ -107,7 +107,7 @@
                 <td style="position: relative; width: 30%">
                     <img src="{{ asset('var/assets/LOGO/stilla.svg') }}" alt="bogart_logo" width="95" />
                     <div class="field" style="width:90%; height: 85px; text-align: center; margin-top: 4px; padding: 2px; box-sizing: border-box;">
-                        {% if product.Drawing and 1==2 %}
+                        {% if product.Drawing %}
                             <img src="{{ product.Drawing.getThumbnail("200x200") }}" style="height: 100%; display: block; margin: auto;" />
                         {% else %}
                             <div style="font-weight: bold; font-size: 24px; color: #fd0102">
