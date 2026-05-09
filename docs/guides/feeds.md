@@ -84,3 +84,8 @@ Format: ```xml```
 | ``parameters`` > ``allegro`` > ``parameters`` > ``value`` | Wartość parametru allegro                             | |
 | ``parameters`` > ``allegro`` > ``parameters`` > ``label`` | Opis wartości parametru allegro                       | |
 
+## XmlFeedSysParameters
+
+Format: ```xml```
+
+Feed zawierający wszystkie parametry produktu z domyślnego (systemowego) classification store.

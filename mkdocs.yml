@@ -5,14 +5,15 @@ nav:
     - Wprowadzenie: index.md
     - Instrukcja użytkownika:
         - Zarządzanie produktami (PIM): guides/pim.md
+        - Zarządzanie jakością danych (DQM): guides/dqm.md
         - Zarządzanie zasobami cyfrowymi (DAM): guides/dam.md
         - Feedy produktowe: guides/feeds.md
         - Proces produkcyjny: guides/man.md
         - Skróty klawiszowe: guides/shortcuts.md
         - Dodatki (różne): guides/addons.md
         - Zgłaszanie błędów: guides/errors.md
-    - Architektura systemu:
-        - Hosting: architecture/hosting.md
+    - Wydruki dla klientów:
+        - Cenniki i dane techniczne: cxp/datasheets.md
     - Integracje:
         - SubiektGT: integrations/subiekt_gt.md
         - Baselinker: integrations/baselinker.md
@@ -22,8 +23,13 @@ nav:
         - DeepL: integrations/deepl.md
         - Google: integrations/google.md
         - Optimik 3: integrations/optimik3.md
+        - Chat GPT: integratioons/chatgpt.md
         - Feedy: integrations/feeds.md
         - Stany magazynowe: integrations/stocks.md
+        - Zdjęcia produktów: integrations/nas.md
+    - Konfiguracja systemu:
+        - Hosting: architecture/hosting.md
+        - Backup: architecture/backup.md
     - Dokumentacja techniczna:
         - Definicje klas: techdocs/class_definitions.md
         - Development: techdocs/development.md

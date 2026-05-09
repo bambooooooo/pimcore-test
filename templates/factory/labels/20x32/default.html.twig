@@ -45,7 +45,10 @@
                 <div style="font-size: 6px; margin-top: 4px; margin-bottom: 4px;">
                     {{ product.key }}
                     <span style="font-size: 5px; font-style: italic">
-                    #{{ product.id }}
+                        #{{ product.id }}
+                        {% if product.EAN %}
+                            {{ product.EAN }}
+                        {% endif %}
                 </span>
                 </div>
             {% endif %}

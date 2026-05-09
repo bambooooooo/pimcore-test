@@ -2,13 +2,13 @@
 
 namespace App\Service;
 
-use Psr\Log\LoggerInterface;
 use SimpleXMLElement;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class PrestashopService
 {
-    public function __construct(private readonly string $domain, private readonly string $apikey, private readonly HttpClientInterface $httpClient)
+    public function __construct(private readonly string $host, private readonly string $domain, private readonly string $apikey, private readonly bool $useSSL, private readonly HttpClientInterface $httpClient)
     {
 
     }
@@ -26,7 +26,7 @@ class PrestashopService
         $data = $this->httpClient->request("GET", $this->getUrl($resource, $data), [
             'auth_basic' => [$this->apikey, ''],
             'headers' => [
-                'Host' => explode(":", $this->domain)[0],
+                'Host' => $this->domain,
                 'Content-Type' => 'application/xml'
             ]
         ])->getContent();
@@ -39,7 +39,7 @@ class PrestashopService
         return $this->httpClient->request("HEAD", $this->getUrl($resource), [
             'auth_basic' => [$this->apikey, ''],
             'headers' => [
-                'Host' => explode(":", $this->domain)[0]
+                'Host' => $this->domain
             ]
         ])->getStatusCode();
     }
@@ -49,7 +49,7 @@ class PrestashopService
         $res = $this->httpClient->request("DELETE", $this->getUrl($resource, ['id_shop_group' => 1]), [
             'auth_basic' => [$this->apikey, ''],
             'headers' => [
-                'Host' => explode(":", $this->domain)[0],
+                'Host' => $this->domain,
                 'Content-Type' => 'application/xml'
             ]
         ]);
@@ -65,7 +65,7 @@ class PrestashopService
         $res = $this->httpClient->request("POST", $this->getUrl($resource, $params), [
             'auth_basic' => [$this->apikey, ''],
             'headers' => [
-                'Host' => explode(":", $this->domain)[0],
+                'Host' => $this->domain,
                 'Content-Type' => 'application/xml'
             ],
             'body' => $data
@@ -82,7 +82,7 @@ class PrestashopService
         $res = $this->httpClient->request("PATCH", $this->getUrl($resource), [
             'auth_basic' => [$this->apikey, ''],
             'headers' => [
-                'Host' => explode(":", $this->domain)[0],
+                'Host' => $this->domain,
                 'Content-Type' => 'application/xml'
             ],
             'body' => $data
@@ -100,7 +100,7 @@ class PrestashopService
             $res = $this->httpClient->request("PUT", $this->getUrl($resource), [
                 'auth_basic' => [$this->apikey, ''],
                 'headers' => [
-                    'Host' => explode(":", $this->domain)[0],
+                    'Host' => $this->domain,
                     'Content-Type' => 'application/xml'
                 ],
                 'body' => $data
@@ -118,12 +118,12 @@ class PrestashopService
         return null;
     }
 
-    public function upload(string $resource, string $filepath, string $method = "POST", string $filename = "image"): void
+    public function upload(string $resource, string $filepath, string $method = "POST", string $filename = "image"): ResponseInterface
     {
-        $res = $this->httpClient->request("POST", $this->getUrl($resource), [
+        return $this->httpClient->request("POST", $this->getUrl($resource), [
             'auth_basic' => [$this->apikey, ''],
             'headers' => [
-                'Host' => explode(":", $this->domain)[0]
+                'Host' => $this->domain
             ],
             'body' => [
                 'ps_method' => $method,
@@ -137,7 +137,7 @@ class PrestashopService
         $res = $this->httpClient->request("POST", $this->getUrl($resource), [
             'auth_basic' => [$this->apikey, ''],
             'headers' => [
-                'Host' => explode(":", $this->domain)[0]
+                'Host' => $this->domain
             ],
             'body' => [
                 'ps_method' => $method,
@@ -173,7 +173,8 @@ class PrestashopService
     }
     private function getUrl($resource, $params = [])
     {
-        $url = "https://" . rtrim($this->domain, "/") . "/api/" . rtrim(ltrim($resource, '/'), '/');
+        $url = $this->useSSL ? "https://" : "http://";
+        $url = $url . $this->host . "/api/" . rtrim(ltrim($resource, '/'), '/');
 
         if($params) {
             $url .= "?" . http_build_query($params);

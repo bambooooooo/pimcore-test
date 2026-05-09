@@ -4,95 +4,30 @@ pimcore:
         redirect_to_maindomain: false
         valid_languages:
             - en
-            - de
-            - fr
             - pl
-            - es
-            - cs
-            - da
-            - nl
-            - lv
-            - ro
-            - sk
-            - hu
-            - fi
-            - it
-            - el
-            - sv
-            - sl
-            - bg
-            - uk
-            - ru
-            - tr
-            - zh
-            - ja
         fallback_languages:
             en: pl
-            de: en
-            fr: en
             pl: ''
-            es: ''
-            cs: ''
-            da: ''
-            nl: ''
-            lv: ''
-            ro: ''
-            sk: ''
-            hu: ''
-            fi: ''
-            it: ''
-            el: ''
-            sv: ''
-            sl: ''
-            bg: ''
-            uk: ''
-            ru: ''
-            tr: ''
-            zh: ''
-            ja: ''
         required_languages:
             - en
-            - de
-            - fr
             - pl
         default_language: pl
         debug_admin_translations: false
     documents:
         versions:
             days: null
-            steps: null
+            steps: 8
         error_pages:
             default: ''
             localized:
                 en: ''
-                de: ''
-                fr: ''
                 pl: ''
-                es: ''
-                cs: ''
-                da: ''
-                nl: ''
-                lv: ''
-                ro: ''
-                sk: ''
-                hu: ''
-                fi: ''
-                it: ''
-                el: ''
-                sv: ''
-                sl: ''
-                bg: ''
-                uk: ''
-                ru: ''
-                tr: ''
-                zh: ''
-                ja: ''
     objects:
         versions:
             days: null
-            steps: null
+            steps: 64
     assets:
         versions:
             days: null
-            steps: null
+            steps: 8
     email: {  }

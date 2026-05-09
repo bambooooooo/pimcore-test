@@ -20,6 +20,7 @@ class PackageEventListener
     {
         DataObject\Service::useInheritedValues(false, function() use ($package) {
             $this->updateDefaultBarcode($package);
+            $this->updateOuterDimensions($package);
         });
 
         DataObject\Service::useInheritedValues(true, function() use ($package) {
@@ -117,6 +118,47 @@ class PackageEventListener
         foreach($package->getLayers() as $layer)
         {
             assert($layer['Elementy'], "Package layer items must be filled");
+        }
+    }
+
+    private function updateOuterDimensions(Package $package)
+    {
+        $isFefco300 = DataObject\Service::useInheritedValues(true, function() use ($package) {
+            return $package->getFefco() && $package->getFefco() == '300';
+        });
+
+        if(!$isFefco300)
+            return;
+
+        $outerWidth = $package->getWidthOuter()?->getValue() ?? 0;
+        $outerHeight = $package->getHeightOuter()?->getValue() ?? 0;
+        $outerDepth = $package->getDepthOuter()?->getValue() ?? 0;
+
+        $mm = Unit::getById("mm");
+
+        $changed = false;
+
+        if($package->getWidth() && $package->getWidth()->getValue() && $package->getWidth()->getValue() + 30 != $outerWidth)
+        {
+            $package->setWidthOuter(new QuantityValue($package->getWidth()->getValue() + 30, $mm));
+            $changed = true;
+        }
+
+        if($package->getHeight() && $package->getHeight()->getValue() && $package->getHeight()->getValue() + 20 != $outerHeight)
+        {
+            $package->setHeightOuter(new QuantityValue($package->getHeight()->getValue() + 20, $mm));
+            $changed = true;
+        }
+
+        if($package->getDepth() && $package->getDepth()->getValue() && $package->getDepth()->getValue() + 35 != $outerDepth)
+        {
+            $package->setDepthOuter(new QuantityValue($package->getDepth()->getValue() + 35, $mm));
+            $changed = true;
+        }
+
+        if($changed)
+        {
+            $package->save(["skip" => "update outer dimensions"]);
         }
     }
 }

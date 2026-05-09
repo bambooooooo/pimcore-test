@@ -88,6 +88,13 @@
                             </a>
                         </li>
                     {% endif %}
+                    {% if app.user.explorer_show_accessory_tab %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path("factory_tree", {id: pimcore_object_by_path('/AKCESORIA MEBLOWE').id}) }}">
+                                {{ "Accessory"|trans }}
+                            </a>
+                        </li>
+                    {% endif %}
                     {% if app.user.explorer_show_search %}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path("factory_search") }}">

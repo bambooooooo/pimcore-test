@@ -18,7 +18,7 @@ class CsvFeedBasic extends CsvFeedWriter
         foreach ($refs as $ref) {
             if($ref['type'] == 'object') {
                 $obj = DataObject::getById($ref['id']);
-                if($obj instanceof Product || $obj instanceof ProductSet) {
+                if(($obj instanceof Product || $obj instanceof ProductSet) && (in_array($obj->getStatus(), ['Active', 'Sale']))) {
                     $data[] = $obj;
                 }
             }

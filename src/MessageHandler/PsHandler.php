@@ -9,7 +9,6 @@ use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\Group;
 use Pimcore\Model\DataObject\Product;
 use Pimcore\Model\DataObject\ProductSet;
-use Pimcore\Model\Notification\Service\NotificationService;
 use Pimcore\Model\Version;
 use Psr\Log\LoggerInterface;
 use SimpleXMLElement;
@@ -21,7 +20,9 @@ use Throwable;
 #[AsMessageHandler]
 class PsHandler
 {
-    public function __construct(private readonly PrestashopService $ps, private readonly LockFactory $lockFactory, private readonly LoggerInterface $logger, private readonly NotificationService $notificationService)
+    public function __construct(private readonly PrestashopService $ps,
+                                private readonly LockFactory $lockFactory,
+                                private readonly LoggerInterface $logger)
     {
         Version::disable();
     }
@@ -329,10 +330,7 @@ class PsHandler
         $prod->addChild("minimal_quantity", 0);
         $prod->addChild("low_stock_threshold", 0);
         $prod->addChild("low_stock_alert", 0);
-        $prod->addChild("price", $obj->getBasePrice()->getValue() * 1.784 * 1.23);
-        $prod->addChild("wholesale_price", 100.0);
         $prod->addChild("unity");
-        $prod->addChild("unit_price", 100.0);
         $prod->addChild("unit_price_ratio");
         $prod->addChild('additional_shipping_cost');
         $prod->addChild('customizable');
@@ -354,6 +352,7 @@ class PsHandler
         $prod->addChild('meta_keywords');
         $prod->addChild('meta_title');
         $prod->addChild('link_rewrite');
+        $this->setPrices($prod, $obj);
         $name = $prod->addChild("name");
         $pl = $name->addChild("language", $obj->getName("pl"));
         $pl->addAttribute("id", 1);
@@ -448,15 +447,30 @@ class PsHandler
         $this->logger->info("Updating images...");
 
         foreach ($images as $im) {
-            $image = $im->getThumbnail("webp_1600");
-            $stream = $image->getStream();
 
-            $tempFile = tempnam(sys_get_temp_dir(), 'pim_image_') . ".webp";
-            $this->logger->info($image->getFrontendPath() . " => " . $tempFile);
+            $thumbFormat = ["webp_1400", "webp_1300", "webp_1200", "webp_1100"];
 
-            file_put_contents($tempFile, stream_get_contents($stream));
+            foreach ($thumbFormat as $format) {
+                $image = $im->getThumbnail("$format");
+                $stream = $image->getStream();
 
-            $this->ps->upload("images/products/" . $product->getPs_megstyl_pl_id() . "/", $tempFile, "POST");
+                $tempFile = tempnam(sys_get_temp_dir(), 'pim_image_') . ".webp";
+                file_put_contents($tempFile, stream_get_contents($stream));
+
+                $size = filesize($tempFile) / 1048576;
+
+                if($size < 1.95)
+                {
+                    $this->logger->info("[$format] Upload " . $image->getFrontendPath() . " => " . $tempFile . " (". number_format($size, 1) . "M)");
+                    $this->ps->upload("images/products/" . $product->getPs_megstyl_pl_id() . "/", $tempFile);
+
+                    break;
+                }
+                else
+                {
+                    $this->logger->warning("[$format] Reducing " . $tempFile . " (". number_format($size, 1) . "M)");
+                }
+            }
         }
 
         $this->logger->info("Done.");
@@ -474,7 +488,6 @@ class PsHandler
         $siblings = $this->getNestedSiblings($obj);
         if (count($siblings) < 2) {
             $this->logger->info("No siblings found for this product");
-            return;
         }
 
         foreach ($siblings as $psProductId) {
@@ -522,8 +535,6 @@ class PsHandler
             return [];
         }
 
-        $children = [];
-
         if ($obj instanceof Product) {
             $children = $this->getNestedActualProductChildren($superParent);
         } else {
@@ -559,11 +570,23 @@ class PsHandler
 
     private function getFirstVirtualSet(ProductSet $set): ProductSet|null
     {
+        DataObject::setHideUnpublished(false);
+
         $parent = $set->getParent();
 
         if ($parent instanceof ProductSet) {
-            if (!$parent->getSet()) {
+            if (!$parent->getSet() || count($parent->getSet()) == 0) {
                 return $parent;
+            }
+
+            foreach($parent->getSet() as $lip)
+            {
+                /** @var Product $p */
+                $p = $lip->getElement();
+                if($p->getObjectType() != 'ACTUAL')
+                {
+                    return $parent;
+                }
             }
 
             return $this->getFirstVirtualSet($parent);
@@ -674,10 +697,8 @@ class PsHandler
         $prod->addChild("quantity_discount", 0);
         $prod->addChild("ean13", $obj->getEan());
         $prod->addChild("mpn", $obj->getId());
-        $prod->addChild("price", $obj->getBasePrice()->getValue() * 1.784 * 1.23);
         $prod->addChild("unity", 1);
-        $prod->addChild("wholesale_price", $obj->getBasePrice()->getValue() * 1.784 * 1.23);
-        $prod->addChild("unit_price", $obj->getBasePrice()->getValue() * 1.784 * 1.23);
+        $this->setPrices($prod, $obj);
         $name = $prod->addChild("name");
         $pl = $name->addChild("language", $obj->getName("pl"));
         $pl->addAttribute("id", 1);
@@ -743,5 +764,17 @@ class PsHandler
     private function updateProductSetInPrestashop(ProductSet $set)
     {
         $this->updateProductInPrestashop($set);
+    }
+
+    /**
+     * @param SimpleXMLElement|null $prod
+     * @param ProductSet|Product $obj
+     * @return void
+     */
+    private function setPrices(?SimpleXMLElement $prod, ProductSet|Product $obj): void
+    {
+        $prod->addChild("price", $obj->getBasePrice()->getValue() * 1.784);
+        $prod->addChild("wholesale_price", $obj->getBasePrice()->getValue() * 1.784);
+        $prod->addChild("unit_price", $obj->getBasePrice()->getValue() * 1.784);
     }
 }

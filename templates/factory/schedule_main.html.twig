@@ -716,6 +716,7 @@
                             "<td></td>" +
                             "<td>material</td>" +
                             "<td>arkusze</td>" +
+                            "<td>typ</td>" +
                             "<td>długość</td>" +
                             "<td>szerokość</td>" +
                             "<td>rozkroje</td>" +
@@ -730,6 +731,9 @@
                         var countNew = 0;
                         var countOffcut = 0;
 
+                        let countKwNew = 0;
+                        let countKwOffcut = 0;
+
                         for (var key in data) {
 
                             let newIcon = '';
@@ -737,11 +741,28 @@
                             {
                                 newIcon = '<img src="/bundles/pimcoreadmin/img/flat-color-icons/scissors.svg" height="20"/>';
                                 countOffcut += data[key].ilosc;
+
+                                if(data[key].kw)
+                                {
+                                    countKwOffcut += data[key].ilosc;
+                                }
                             }
                             else
                             {
                                 newIcon = '<img src="data:image\/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMi4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iRWJlbmVfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHdpZHRoPSIyNHB4IiBoZWlnaHQ9IjI0cHgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMjQgMjQiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPHBhdGggZmlsbD0ibm9uZSIgZD0iTTAsMGgyNHYyNEgwVjB6Ii8+DQo8cmVjdCB4PSI0IiB5PSIxOCIgZmlsbD0iIzg5QkJGOCIgd2lkdGg9IjE2IiBoZWlnaHQ9IjMiLz4NCjxyZWN0IHg9IjQiIHk9IjMiIGZpbGw9IiM4OUJCRjgiIHdpZHRoPSIxNiIgaGVpZ2h0PSIzIi8+DQo8Zz4NCgk8cmVjdCB4PSI0IiB5PSI5IiBmaWxsPSIjRkZGRkZGIiB3aWR0aD0iMTYiIGhlaWdodD0iNiIvPg0KCTxwYXRoIGZpbGw9IiM1QjlDRjUiIGQ9Ik0yMiw4SDJ2OGgyMFY4TDIyLDh6Ii8+DQo8L2c+DQo8L3N2Zz4NCg==" height="20"/>';
                                 countNew += data[key].ilosc;
+
+                                if(data[key].kw)
+                                {
+                                    countKwNew += data[key].ilosc;
+                                }
+                            }
+
+                            let typeIcon = '<img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMi4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iRWJlbmVfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHdpZHRoPSIyNHB4IiBoZWlnaHQ9IjI0cHgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMjQgMjQiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPHBhdGggZmlsbD0iI0EzQTVBNyIgZD0iTTEyLDEySDNWNWMwLTEuMSwwLjktMiwyLTJoN1YxMnoiLz4NCjxwYXRoIGZpbGw9IiM4NTg3ODkiIGQ9Ik0yMSwxMmgtOVYzaDdjMS4xLDAsMiwwLjksMiwyVjEyeiIvPg0KPHBhdGggZmlsbD0iIzg1ODc4OSIgZD0iTTEyLDIxSDVjLTEuMSwwLTItMC45LTItMnYtN2g5VjIxeiIvPg0KPHBhdGggZmlsbD0iIzI4QTA1MCIgZD0iTTE5LDIxaC03di05aDl2N0MyMSwyMC4xLDIwLjEsMjEsMTksMjF6Ii8+DQo8cG9seWxpbmUgZmlsbD0iI0ZGRkZGRiIgcG9pbnRzPSIxMCw4IDUsOCA1LDcgMTAsNyAxMCw4ICIvPg0KPHBvbHlsaW5lIGZpbGw9IiNGRkZGRkYiIHBvaW50cz0iMTksMTggMTQsMTggMTQsMTcgMTksMTcgMTksMTggIi8+DQo8cG9seWxpbmUgZmlsbD0iI0ZGRkZGRiIgcG9pbnRzPSIxOSwxNiAxNCwxNiAxNCwxNSAxOSwxNSAxOSwxNiAiLz4NCjxwb2x5bGluZSBmaWxsPSIjRkZGRkZGIiBwb2ludHM9IjE5LDggMTcsOCAxNywxMCAxNiwxMCAxNiw4IDE0LDggMTQsNyAxNiw3IDE2LDUgMTcsNSAxNyw3IDE5LDcgMTksOCAiLz4NCjxwb2x5Z29uIGZpbGw9IiNGRkZGRkYiIHBvaW50cz0iOS42LDE3LjkgOC45LDE4LjYgNy41LDE3LjIgNi4xLDE4LjYgNS40LDE3LjkgNi44LDE2LjUgNS40LDE1LjEgNi4xLDE0LjQgNy41LDE1LjggOC45LDE0LjQgDQoJOS42LDE1LjEgOC4yLDE2LjUgIi8+DQo8L3N2Zz4NCg==" height="20"/>';
+
+                            if(data[key].kw)
+                            {
+                                typeIcon = '<img src="/bundles/pimcoreadmin/img/flat-color-icons/document.svg" height="20"/>';
                             }
 
                             output += "<tr>" +
@@ -750,6 +771,7 @@
                                 "<td>" + newIcon + "</td>" +
                                 "<td>" + data[key].material_kod + "</td>" +
                                 "<td>" + data[key].ilosc + "</td>" +
+                                "<td>" + typeIcon + "</td>" +
                                 "<td>" + data[key].dlugosc + "</td>" +
                                 "<td>" + data[key].szerokosc + "</td>" +
                                 "<td>" + data[key].rozkroj + "</td>" +
@@ -763,6 +785,10 @@
                             "<td></td>" +
                             "<td>Łącznie pełnych arkuszy</td>" +
                             "<td><strong>" + countNew + "</strong></td>" +
+                            "<td>" +
+                                '<img src="/bundles/pimcoreadmin/img/flat-color-icons/document.svg" height="20"/>' +
+                                 countKwNew
+                            "</td>" +
                             "<td></td>" +
                             "<td></td>" +
                             "<td></td>" +
@@ -774,6 +800,10 @@
                             "<td></td>" +
                             "<td>Łącznie odpadów użytkowych</td>" +
                             "<td><strong>" + countOffcut + "</strong></td>" +
+                            "<td>" +
+                                '<img src="/bundles/pimcoreadmin/img/flat-color-icons/document.svg" height="20"/>' +
+                                countKwOffcut
+                            "</td>" +
                             "<td></td>" +
                             "<td></td>" +
                             "<td></td>" +

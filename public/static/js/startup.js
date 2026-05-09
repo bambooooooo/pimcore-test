@@ -9,6 +9,7 @@ Date.prototype.ddmmyyyy = function() {
     ].join('.');
 }
 
+
 document.addEventListener(pimcore.events.postOpenAsset, function(e) {
 
     if(e.detail.asset.data.mimetype === 'application/pdf')
@@ -401,6 +402,11 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
             }
         })
 
+        var unpublished = Ext.create('Ext.form.Checkbox', {
+            name: 'unpublished',
+            fieldLabel: 'Show unpublished',
+        });
+
         var combo = Ext.create('Ext.form.ComboBox', {
             xtype: 'combo',
             fieldLabel: 'Select price level',
@@ -411,7 +417,7 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
 
         var btnPdf = Ext.create('Ext.Button', {
             xtype: 'button',
-            text: 'Generuj plik PDF',
+            text: 'Cennik PDF',
             icon: '/bundles/pimcoreadmin/img/flat-white-icons/download-cloud.svg',
             handler: function(){
                 if(!combo.value)
@@ -420,14 +426,35 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
                     return;
                 }
 
-                const path = "/object/" + pimcore.settings.language + "/" + e.detail.object.id + "/datasheet?show_prices=" + combo.value;
+                const path = "/object/" + pimcore.settings.language + "/" + e.detail.object.id + "/datasheet?" +
+                    "unpublished=" + unpublished.value + "&show_prices=" + combo.value;
                 window.open(path);
+            }
+        });
+
+        var btnPdfExtended = Ext.create('Ext.Button', {
+            xtype: 'button',
+            text: 'Specyfikacja PDF',
+            icon: '/bundles/pimcoreadmin/img/flat-white-icons/download-cloud.svg',
+            handler: function(){
+                if(!combo.value)
+                {
+                    const path = "/object/" + pimcore.settings.language + "/" + e.detail.object.id + "/datasheet?" +
+                        "unpublished=" + unpublished.value + "&mode=detailed";
+                    window.open(path);
+                }
+                else
+                {
+                    const path = "/object/" + pimcore.settings.language + "/" + e.detail.object.id + "/datasheet?" +
+                        "unpublished=" + unpublished.value + "&mode=detailed&show_prices=" + combo.value;
+                    window.open(path);
+                }
             }
         });
 
         var btnXlsx = Ext.create('Ext.Button', {
             xtype: 'button',
-            text: 'Generuj plik XLSX',
+            text: 'Cennik XLSX',
             icon: '/bundles/pimcoreadmin/img/flat-white-icons/download-cloud.svg',
             handler: function(){
                 if(!combo.value)
@@ -436,7 +463,9 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
                     return;
                 }
 
-                const path = "/object/" + pimcore.settings.language + "/" + e.detail.object.id + "/datasheet?show_prices=" + combo.value + "&type=xlsx";
+                const path = "/object/" + pimcore.settings.language + "/" + e.detail.object.id + "/datasheet?" +
+                    "unpublished=" + unpublished.value + "&show_prices=" + combo.value + "&type=xlsx";
+                
                 window.open(path);
             }
         });
@@ -448,6 +477,7 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
             },
             bodyPadding: 16,
             items: [
+                unpublished,
                 combo,
                 {
                     xtype: 'splitter'
@@ -462,7 +492,9 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
                     [
                         btnPdf,
                         { xtype: 'splitter'},
-                        btnXlsx
+                        btnXlsx,
+                        { xtype: 'splitter'},
+                        btnPdfExtended
                     ]
                 })
             ]
@@ -504,16 +536,6 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
                     }
                 },
                 {
-                    text: t('Bulk datasheet'),
-                    tooltip: t('Download Bulk datasheet'),
-                    icon: '/bundles/pimcoreadmin/img/flat-white-icons/download-cloud.svg',
-                    scale: 'medium',
-                    handler: function () {
-                        const path = "/factory/en/" + e.detail.object.id + "/datasheet";
-                        window.open(path);
-                    }
-                },
-                {
                     text: t('Pricelist'),
                     tooltip: t('Download pricelist in PDF'),
                     icon: '/bundles/pimcoreadmin/img/flat-white-icons/percent.svg',
@@ -544,16 +566,6 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
             tooltip: 'Download',
             menu: [
                 {
-                    text: t('Price list (preview)'),
-                    tooltip: t('Preview price list'),
-                    icon: '/bundles/pimcoreadmin/img/flat-white-icons/download-cloud.svg',
-                    scale: 'medium',
-                    handler: function () {
-                        const path = "/prices/" + e.detail.object.id;
-                        window.open(path);
-                    }
-                },
-                {
                     text: t('Price list (xlsx)'),
                     tooltip: t('Download XLSX price list'),
                     icon: '/bundles/pimcoreadmin/img/flat-white-icons/download-cloud.svg',
@@ -564,12 +576,22 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
                     }
                 },
                 {
-                    text: t('Datasheet (PDF)'),
-                    tooltip: t('Download PDF datasheets'),
+                    text: t('Price list (PDF)'),
+                    tooltip: t('Download PDF price list'),
                     icon: '/bundles/pimcoreadmin/img/flat-white-icons/download-cloud.svg',
                     scale: 'medium',
                     handler: function () {
-                        const path = "/factory/" + pimcore.settings.language + "/" + e.detail.object.id + "/datasheet?show_prices=" + e.detail.object.id;
+                        const path = "/object/" + pimcore.settings.language + "/" + e.detail.object.id + "/datasheet?mode=detailed&show_prices=" + e.detail.object.id;
+                        window.open(path);
+                    }
+                },
+                {
+                    text: t('Price list + datasheet (PDF)'),
+                    tooltip: t('Download PDF prices list with datasheets'),
+                    icon: '/bundles/pimcoreadmin/img/flat-white-icons/download-cloud.svg',
+                    scale: 'medium',
+                    handler: function () {
+                        const path = "/object/" + pimcore.settings.language + "/" + e.detail.object.id + "/datasheet?mode=detailed";
                         window.open(path);
                     }
                 }
@@ -685,66 +707,17 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
     }
 })
 
+
+
 document.addEventListener(pimcore.events.pimcoreReady, (e) => {
-    const ADD_SIBLING_KEY = 'm';
-
-    const openNewObject = function(){
-
-        let tabPanel = Ext.getCmp("pimcore_panel_tabs");
-        let activeTab = tabPanel.getActiveTab();
-
-        if(!activeTab)
-        {
-            Ext.MessageBox.show({
-                title: t("Error"),
-                msg: t("Open object first that need to have sibling first."),
-                buttons: Ext.Msg.OK,
-            });
-
-            return;
-        }
-
-        let parentId = activeTab.object.data.general.parentId;
-
-        if(parentId == null)
-        {
-            Ext.MessageBox.show({
-                title: t("Error"),
-                msg: t("Object has no parent"),
-                buttons: Ext.Msg.OK,
-            });
-
-            return;
-        }
-
-        Ext.MessageBox.prompt(t("Enter sibling key"), t("Enter sibling key"), function(btn, text){
-            if(btn === 'ok'){
-                var options = {
-                    url: Routing.generate('pimcore_admin_dataobject_dataobject_add'),
-                    elementType: "object",
-                    sourceTree: null,
-                    parentId: parentId,
-                    className: activeTab.object.data.general.className,
-                    classId: activeTab.object.data.general.classId,
-                    key: pimcore.helpers.getValidFilename(text, "object")
-                };
-
-                pimcore.elementservice.addObject(options);
-            }
-        })
-    }
-
-    new Ext.util.KeyMap({
-        target: document,
-        key: ADD_SIBLING_KEY,
-        fn: openNewObject,
-        ctrl: true,
-        alt: false,
-        shift: false,
-        stopEvent: true
-    })
 
     const openDocs = function(){
+        if(pimcore.settings.environment == 'prod')
+        {
+            window.open(document.location.origin.replace("https://pim.", "https://docs."), "_blank");
+            return;
+        }
+
         window.open(document.location.origin +  ":8005", "_blank");
     }
 

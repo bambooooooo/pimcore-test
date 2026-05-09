@@ -1,0 +1,56 @@
+<div class="page" style="height: 100%; overflow: hidden; box-sizing: border-box;">
+    <div style="height:50%; width:100%; padding: 25px 36px 32px 32px; box-sizing: border-box; position: relative">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-6">
+                    <img src="{{ asset('var/assets/LOGO/megstyl.svg') }}" width="227">
+                </div>
+                <div class="col-6" style="text-align: end; font-size: 13px">
+                    <div style="margin-top: 14px">
+                        <strong>{{ "Date"|trans }}</strong>: {{ "now"|date("d.m.Y") }}
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 150px">
+                <div class="col-xs-12">
+                    <div style="float: left">
+                        <div style="font-size: 80px;  line-height: 72px">
+                            {{ group.Name ?? group.key }}
+                        </div>
+                        <div style="text-align: end; font-size: 18px; position: relative; right: 6px">
+                            {% if prices %}
+                                {{ "Price list" | trans }}
+                            {% else %}
+                                {{ "Dataheets" | trans }}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="position: absolute; right: 0; top: 0; height: 92%; width: 23px; background-color: #e42a46; border-radius: 0 0 0 10px"></div>
+        <div style="position: absolute; bottom: 10px; right: 26px; width: 100%">
+            <div style="position: relative;">
+                <div style="float: right; text-align: left; font-size: 12px">
+                    <div>
+                        <strong>
+                            Designed by
+                        </strong>
+                    </div>
+                    <div>
+                            <span>
+                                Megstyl in Poland
+                            </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="height: 50%; width: 100%; position: relative">
+        {% if group.Image %}
+            <img src="{{ group.Image }}" style="width: 100%; height: 100%">
+        {% else %}
+            {{ include('factory/parts/image_placeholder.html.twig') }}
+        {% endif %}
+    </div>
+</div>

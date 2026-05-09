@@ -65,6 +65,13 @@
                     {% endfor %}
                 {% endif %}
             </div>
+            <div>
+                {% if product.EAN %}
+                    {{ product.EAN }} / {{ product.id }}
+                {% else %}
+                    {{ product.id }}
+                {% endif %}
+            </div>
             {% if order %}
                 <div style="font-size: 16px">
                     {{ order.key }}

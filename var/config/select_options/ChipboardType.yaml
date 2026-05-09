@@ -4,7 +4,7 @@ pimcore:
             definitions:
                 ChipboardType:
                     id: ChipboardType
-                    group: ''
+                    group: Chipboard
                     useTraits: ''
                     implementsInterfaces: ''
                     selectOptions:

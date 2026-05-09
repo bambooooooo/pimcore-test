@@ -1,5 +1,6 @@
 <section>
     <h1>{{ "Parameters"|trans }}</h1>
+    {% if s.Parameters and s.Parameters.groups|length %}
     <div style="column-count: 3">
 
         {% for group in s.Parameters.groups %}
@@ -57,4 +58,9 @@
         {% endfor %}
 
     </div>
+    {% else %}
+        <div style="width: 100%; height: 350px">
+            {{ include('factory/parts/textarea_placeholder.html.twig') }}
+        </div>
+    {% endif %}
 </section>

@@ -25,7 +25,7 @@ class XmlFeedDefault extends XmlFeedWriter
         foreach ($refs as $ref) {
             if($ref['type'] == 'object') {
                 $obj = DataObject::getById($ref['id']);
-                if($obj instanceof Product || $obj instanceof ProductSet) {
+                if(($obj instanceof Product || $obj instanceof ProductSet) && (in_array($obj->getStatus(), ['Active', 'Sale']))) {
 
                     $price = 0.0;
                     $endPrice = 0.0;
@@ -89,7 +89,7 @@ class XmlFeedDefault extends XmlFeedWriter
             {
                 $prod->appendChild($doc->createElement('width', $item->getWidth()->getValue() / 10));
                 $prod->appendChild($doc->createElement('height', $item->getHeight()->getValue() / 10));
-                $prod->appendChild($doc->createElement('depth', $item->getHeight()->getValue() / 10));
+                $prod->appendChild($doc->createElement('depth', $item->getDepth()->getValue() / 10));
             }
 
             $prod->appendChild($doc->createElement('weight', (string)$item->getMass()->getValue()));

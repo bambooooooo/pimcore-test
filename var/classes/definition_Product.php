@@ -47,12 +47,14 @@
  * - WidthBruttoOBI [quantityValue]
  * - HeightBruttoOBI [quantityValue]
  * - LengthBruttoOBI [quantityValue]
+ * - PackingDetails [imageGallery]
  * - SkipperCNC [manyToManyRelation]
  * - SkipperCNC2 [manyToManyRelation]
  * - MasterCNC [manyToManyRelation]
  * - MasterCNC2 [manyToManyRelation]
  * - Quality [calculatedValue]
  * - Description [fieldcollections]
+ * - Drawing [image]
  * - Barcode [input]
  * - Codes [objectbricks]
  * - Documents [manyToManyRelation]
@@ -63,10 +65,12 @@
  * - ps_megstyl_pl_id [numeric]
  * - sgt [checkbox]
  * - BaselinkerCatalog [advancedManyToManyObjectRelation]
+ * - OBI [select]
  * - Image [image]
  * - Ean [input]
  * - MPN [input]
  * - ImagesModel [imageGallery]
+ * - Model3DStep [manyToOneRelation]
  * - Status [select]
  * - ObjectType [select]
  */
@@ -78,7 +82,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Produkt',
    'description' => 'Towar, który można sprzedać',
    'creationDate' => NULL,
-   'modificationDate' => 1765799328,
+   'modificationDate' => 1778234780,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -1159,7 +1163,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                 ),
                                  'labelWidth' => 200,
                                  'localized' => false,
-                                 'storeId' => 1,
+                                 'storeId' => 27,
                                  'hideEmptyData' => false,
                                  'disallowAddRemove' => false,
                                  'referencedFields' => 
@@ -1982,7 +1986,7 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                          'permissions' => NULL,
                          'fieldtype' => '',
                          'relationType' => false,
-                         'invisible' => false,
+                         'invisible' => true,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
                          'blockedVarsForExport' => 
@@ -2038,7 +2042,7 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                          'permissions' => NULL,
                          'fieldtype' => '',
                          'relationType' => false,
-                         'invisible' => false,
+                         'invisible' => true,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
                          'blockedVarsForExport' => 
@@ -2094,7 +2098,7 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                          'permissions' => NULL,
                          'fieldtype' => '',
                          'relationType' => false,
-                         'invisible' => false,
+                         'invisible' => true,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
                          'blockedVarsForExport' => 
@@ -2136,6 +2140,32 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                          'maxValue' => NULL,
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
+                      )),
+                      9 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\ImageGallery::__set_state(array(
+                         'name' => 'PackingDetails',
+                         'title' => 'Packing Details',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'uploadPath' => '/PACZKI-STANDARDY',
+                         'ratioX' => NULL,
+                         'ratioY' => NULL,
+                         'predefinedDataTemplates' => '',
+                         'height' => 250,
+                         'width' => 250,
                       )),
                     ),
                      'locked' => false,
@@ -2723,6 +2753,29 @@ Stopień uzupełnienia danych produktu',
                      'children' => 
                     array (
                       0 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                         'name' => 'Drawing',
+                         'title' => 'Label Drawing',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'uploadPath' => '/PRODUKTY-RYSUNKI',
+                         'width' => 300,
+                         'height' => 300,
+                      )),
+                      1 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'name' => 'Barcode',
                          'title' => 'Barcode',
@@ -2754,7 +2807,7 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                          'width' => '',
                          'defaultValueGenerator' => '',
                       )),
-                      1 => 
+                      2 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Objectbricks::__set_state(array(
                          'name' => 'Codes',
                          'title' => 'Additional codes',
@@ -3280,6 +3333,78 @@ Not used in common version. Shown as a placeholder
                              'labelWidth' => 100,
                              'labelAlign' => 'left',
                           )),
+                          3 => 
+                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                             'name' => 'OBI',
+                             'type' => NULL,
+                             'region' => NULL,
+                             'title' => 'OBI',
+                             'width' => '',
+                             'height' => '',
+                             'collapsible' => false,
+                             'collapsed' => false,
+                             'bodyStyle' => '',
+                             'datatype' => 'layout',
+                             'children' => 
+                            array (
+                              0 => 
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                                 'name' => 'OBI',
+                                 'title' => 'OBI',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'options' => 
+                                array (
+                                  0 => 
+                                  array (
+                                    'key' => 'Yes',
+                                    'value' => 'YES',
+                                  ),
+                                  1 => 
+                                  array (
+                                    'key' => 'No',
+                                    'value' => 'NO',
+                                  ),
+                                  2 => 
+                                  array (
+                                    'key' => 'Retired',
+                                    'value' => 'RETIRED',
+                                  ),
+                                ),
+                                 'defaultValue' => 'NO',
+                                 'columnLength' => 190,
+                                 'dynamicOptions' => false,
+                                 'defaultValueGenerator' => '',
+                                 'width' => '',
+                                 'optionsProviderType' => 'configure',
+                                 'optionsProviderClass' => '',
+                                 'optionsProviderData' => '',
+                              )),
+                            ),
+                             'locked' => false,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'fieldtype' => 'panel',
+                             'layout' => NULL,
+                             'border' => false,
+                             'icon' => '/LOGO/obi.jpg',
+                             'labelWidth' => 100,
+                             'labelAlign' => 'left',
+                          )),
                         ),
                          'locked' => false,
                          'blockedVarsForExport' => 
@@ -3379,8 +3504,8 @@ Główne zdjęcie produktu, najczęściej z przeźroczystym tłem',
                          'fieldtype' => '',
                          'relationType' => false,
                          'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
+                         'visibleGridView' => true,
+                         'visibleSearch' => true,
                          'blockedVarsForExport' => 
                         array (
                         ),
@@ -3407,7 +3532,7 @@ Kod mozna przypisać za pomocą przycisku w górnym menu.',
                          'relationType' => false,
                          'invisible' => false,
                          'visibleGridView' => false,
-                         'visibleSearch' => false,
+                         'visibleSearch' => true,
                          'blockedVarsForExport' => 
                         array (
                         ),
@@ -3508,6 +3633,44 @@ Przykładowo: rysunek z wymiarami',
                          'height' => 380,
                          'width' => 380,
                       )),
+                      1 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+                         'name' => 'Model3DStep',
+                         'title' => 'Model 3D .step',
+                         'tooltip' => 'Model 3D z rozszerzeniem .step',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => true,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'classes' => 
+                        array (
+                        ),
+                         'displayMode' => 'grid',
+                         'pathFormatterClass' => '',
+                         'assetInlineDownloadAllowed' => false,
+                         'assetUploadPath' => '/MODELE',
+                         'allowToClearRelation' => true,
+                         'objectsAllowed' => false,
+                         'assetsAllowed' => true,
+                         'assetTypes' => 
+                        array (
+                        ),
+                         'documentsAllowed' => false,
+                         'documentTypes' => 
+                        array (
+                        ),
+                         'width' => 250,
+                      )),
                     ),
                      'locked' => false,
                      'blockedVarsForExport' => 
@@ -3517,8 +3680,8 @@ Przykładowo: rysunek z wymiarami',
                      'layout' => NULL,
                      'border' => false,
                      'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/ruler.svg',
-                     'labelWidth' => 100,
-                     'labelAlign' => 'left',
+                     'labelWidth' => 50,
+                     'labelAlign' => 'top',
                   )),
                 ),
                  'locked' => false,

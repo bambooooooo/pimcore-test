@@ -53,6 +53,12 @@
                 </div>
             {% endif %}
 
+            {% if product and product.EAN %}
+                <div>
+                    {{ product.EAN }}
+                </div>
+            {% endif %}
+
         </div>
     </div>
 

@@ -1,0 +1,26 @@
+pimcore:
+    objects:
+        select_options:
+            definitions:
+                ChipboardManufacturer:
+                    id: ChipboardManufacturer
+                    group: Chipboard
+                    useTraits: ''
+                    implementsInterfaces: ''
+                    selectOptions:
+                        -
+                            value: KRONOSPAN
+                            label: KRONOSPAN
+                            name: ''
+                        -
+                            value: 'SWISS KRONO'
+                            label: 'SWISS KRONO'
+                            name: ''
+                        -
+                            value: WOODECO
+                            label: WOODECO
+                            name: ''
+                        -
+                            value: YLDIZ
+                            label: YLDIZ
+                            name: ''

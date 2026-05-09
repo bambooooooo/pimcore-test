@@ -169,6 +169,10 @@ pimcore:
                             label: 'dab dziki'
                             name: ''
                         -
+                            value: 'dąb dunin'
+                            label: 'dąb dunin'
+                            name: ''
+                        -
                             value: 'dab evoke coast'
                             label: 'dab evoke coast'
                             name: ''
@@ -243,6 +247,10 @@ pimcore:
                         -
                             value: 'dab rustykalny'
                             label: 'dab rustykalny'
+                            name: ''
+                        -
+                            value: 'dab tajga'
+                            label: 'dab tajga'
                             name: ''
                         -
                             value: 'dab sloneczny'
@@ -519,8 +527,4 @@ pimcore:
                         -
                             value: 'butelkowa zielen'
                             label: 'butelkowa zielen'
-                            name: ''
-                        -
-                            value: Colors
-                            label: Colors
                             name: ''
