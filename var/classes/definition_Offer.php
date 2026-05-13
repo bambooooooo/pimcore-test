@@ -18,6 +18,8 @@
  * - Description [fieldcollections]
  * - Baselinker [manyToOneRelation]
  * - BaselinkerPriceGroupId [numeric]
+ * - ps_megstyl_pl [booleanSelect]
+ * - ps_megstyl_pl_id [numeric]
  * - Feed [block]
  * -- Schema [select]
  * -- ReferenceOffer [manyToOneRelation]
@@ -33,7 +35,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
 
 Ofertę stanowi lista Wycen w ustalonej kolejności. Cena produktu w ofercie to pierwsza z Wycen, dla której zostaną spełnione ograniczenia.',
    'creationDate' => NULL,
-   'modificationDate' => 1758864162,
+   'modificationDate' => 1778577991,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -518,6 +520,104 @@ Przykładowo:
                  'defaultValueGenerator' => '',
               )),
               2 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                 'name' => 'Prestashop',
+                 'type' => NULL,
+                 'region' => NULL,
+                 'title' => 'Prestashop 8',
+                 'width' => '',
+                 'height' => '',
+                 'collapsible' => false,
+                 'collapsed' => false,
+                 'bodyStyle' => '',
+                 'datatype' => 'layout',
+                 'children' => 
+                array (
+                  0 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                     'name' => 'ps_megstyl_pl',
+                     'title' => 'Publish on megstyl.pl',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'yesLabel' => 'Yes',
+                     'noLabel' => 'No',
+                     'emptyLabel' => '',
+                     'options' => 
+                    array (
+                      0 => 
+                      array (
+                        'key' => '',
+                        'value' => 0,
+                      ),
+                      1 => 
+                      array (
+                        'key' => 'Yes',
+                        'value' => 1,
+                      ),
+                      2 => 
+                      array (
+                        'key' => 'No',
+                        'value' => -1,
+                      ),
+                    ),
+                     'width' => '',
+                  )),
+                  1 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                     'name' => 'ps_megstyl_pl_id',
+                     'title' => 'Id',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'defaultValue' => NULL,
+                     'integer' => false,
+                     'unsigned' => false,
+                     'minValue' => NULL,
+                     'maxValue' => NULL,
+                     'unique' => false,
+                     'decimalSize' => NULL,
+                     'decimalPrecision' => NULL,
+                     'width' => 220,
+                     'defaultValueGenerator' => '',
+                  )),
+                ),
+                 'locked' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'fieldtype' => 'panel',
+                 'layout' => NULL,
+                 'border' => false,
+                 'icon' => '/LOGO/prestashop.png',
+                 'labelWidth' => 90,
+                 'labelAlign' => 'left',
+              )),
+              3 => 
               \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                  'name' => 'Layout',
                  'type' => NULL,
@@ -544,7 +644,7 @@ Feedy produktowe są generowane cyklicznie co kilka godzin
                  'renderingData' => '',
                  'border' => false,
               )),
-              3 => 
+              4 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Block::__set_state(array(
                  'name' => 'Feed',
                  'title' => 'Feed',
