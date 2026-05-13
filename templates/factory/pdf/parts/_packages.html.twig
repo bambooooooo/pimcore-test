@@ -29,9 +29,33 @@
                             <td>{{ lip.element.key }}</td>
                             <td>{{ lip.element.Barcode }}</td>
                             <td>{{ lip.data.Quantity }}</td>
-                            <td>{{ (lip.element.Depth.Value / 10)|round }} cm</td>
-                            <td>{{ (lip.element.Width.Value / 10)|round }} cm</td>
-                            <td>{{ (lip.element.Height.Value / 10)|round }} cm</td>
+                            <td>
+                                {% if lip.element.DepthOuter and lip.element.DepthOuter.Value %}
+                                    {{ (lip.element.DepthOuter.Value / 10)|round }} cm
+                                {% elseif lip.element.Depth and lip.element.Depth.Value %}
+                                    {{ (lip.element.Depth.Value / 10)|round }} cm
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if lip.element.WidthOuter and lip.element.WidthOuter.Value %}
+                                    {{ (lip.element.WidthOuter.Value / 10)|round }} cm
+                                {% elseif lip.element.Width and lip.element.Width.Value %}
+                                    {{ (lip.element.Width.Value / 10)|round }} cm
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if lip.element.HeightOuter and lip.element.HeightOuter.Value %}
+                                    {{ (lip.element.HeightOuter.Value / 10)|round }} cm
+                                {% elseif lip.element.Height and lip.element.Height.Value %}
+                                    {{ (lip.element.Height.Value / 10)|round }} cm
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
                             <td>{{ lip.element.Volume }}</td>
                             <td>{{ lip.element.Mass }}</td>
                             <td>
@@ -74,9 +98,9 @@
                                 <td>{{ lip.element.key }}</td>
                                 <td>{{ lip.element.Barcode }}</td>
                                 <td>{{ prod.data.Quantity * lip.data.Quantity }}</td>
-                                <td>{{ (lip.element.Depth.Value / 10)|round }} cm</td>
-                                <td>{{ (lip.element.Width.Value / 10)|round }} cm</td>
-                                <td>{{ (lip.element.Height.Value / 10)|round }} cm</td>
+                                <td>{{ (lip.element.DepthOuter.Value / 10)|round }} cm</td>
+                                <td>{{ (lip.element.WidthOuter.Value / 10)|round }} cm</td>
+                                <td>{{ (lip.element.HeightOuter.Value / 10)|round }} cm</td>
                                 <td>{{ lip.element.Volume }}</td>
                                 <td>{{ lip.element.Mass }}</td>
                                 <td>
