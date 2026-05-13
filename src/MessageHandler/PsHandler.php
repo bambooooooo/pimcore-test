@@ -7,6 +7,7 @@ use App\Service\PrestashopService;
 use Exception;
 use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\Group;
+use Pimcore\Model\DataObject\Offer;
 use Pimcore\Model\DataObject\Product;
 use Pimcore\Model\DataObject\ProductSet;
 use Pimcore\Model\Version;
@@ -396,6 +397,7 @@ class PsHandler
         $this->updateImages($obj, clearFirst: false);
         $this->updateSiblings($obj);
         $this->updateFiles($obj, clearFirst: false);
+        $this->updatePrices($obj);
     }
 
     /**
@@ -670,6 +672,7 @@ class PsHandler
         $this->updateSiblings($obj);
         $this->updateImages($obj);
         $this->updateFiles($obj);
+        $this->updatePrices($obj);
     }
 
     private function updateFields(Product|ProductSet $obj)
@@ -776,5 +779,87 @@ class PsHandler
         $prod->addChild("price", $obj->getBasePrice()->getValue() * 1.784);
         $prod->addChild("wholesale_price", $obj->getBasePrice()->getValue() * 1.784);
         $prod->addChild("unit_price", $obj->getBasePrice()->getValue() * 1.784);
+    }
+
+    private function updatePrices(Product|ProductSet $obj): void
+    {
+        $psOffers = new Offer\Listing();
+        $psOffers->setCondition("ps_megstyl_pl = 1");
+        $psOffers->setUnpublished(true);
+        $psOffers->load();
+
+        $offersInProduct = [];
+
+        foreach ($obj->getPrice() as $pr)
+        {
+            /** @var Offer $offer */
+            $offer = $pr->getElement();
+
+            if(!$offer->getPs_megstyl_pl())
+            {
+                continue;
+            }
+
+            $offersInProduct[] = $offer->getId();
+
+            $gid = (int)$this->ps->get("waynet_group_prices?" .
+                'filter[id_product]=' . $obj->getPs_megstyl_pl_id() .
+                '&filter[id_product_attribute]=0' .
+                '&filter[id_group]=' . $offer->getps_megstyl_pl_id() .
+                '&filter[id_shop]=1' .
+                '&filter[id_shop_group]=0'
+            )->waynet_megstyl_pgp_prices->waynet_megstyl_pgp_price['id'];
+
+            if($gid)
+            {
+                $price = $this->ps->get("waynet_group_prices/" . $gid);
+                $price->waynet_megstyl_pgp_price->price = $pr->getPrice();
+
+                $this->ps->put("waynet_group_prices/" . $gid, $price);
+            }
+            else
+            {
+                $xml = new SimpleXMLElement("<prestashop xmlns:xlink=\"http://www.w3.org/1999/xlink\"></prestashop>");
+                $g = $xml->addChild("waynet_megstyl_pgp_price");
+                $g->addChild("id_product", $obj->getPs_megstyl_pl_id());
+                $g->addChild("id_product_attribute", 0);
+                $g->addChild("id_group", $offer->getPs_megstyl_pl_id());
+                $g->addChild("id_shop", 1);
+                $g->addChild("id_shop_group", 0);
+                $g->addChild("price", $pr->getPrice());
+
+                $this->ps->post("waynet_group_prices", $xml);
+            }
+        }
+
+        foreach ($psOffers as $o)
+        {
+            $gid = (int)$this->ps->get("waynet_group_visibility?" .
+                'filter[id_product]=' . $obj->getPs_megstyl_pl_id() .
+                '&filter[id_group]=' . $o->getps_megstyl_pl_id() .
+                '&filter[id_shop]=1' .
+                '&filter[id_shop_group]=0'
+            )->waynet_megstyl_pgp_visibilitys->waynet_megstyl_pgp_visibility['id'];
+
+            if($gid)
+            {
+                $v = $this->ps->get("waynet_group_visibility/" . $gid);
+                $v->waynet_megstyl_pgp_visibility->visible = in_array($o->getId(), $offersInProduct) ? 1 : 0;
+
+                $this->ps->put("waynet_group_visibility/" . $gid, $v);
+            }
+            else
+            {
+                $xml = new SimpleXMLElement("<prestashop xmlns:xlink=\"http://www.w3.org/1999/xlink\"></prestashop>");
+                $g = $xml->addChild("waynet_group_visibility");
+                $g->addChild("id_product", $obj->getPs_megstyl_pl_id());
+                $g->addChild("id_group", $o->getPs_megstyl_pl_id());
+                $g->addChild("id_shop", 1);
+                $g->addChild("id_shop_group", 0);
+                $g->addChild("visible", in_array($o->getId(), $offersInProduct) ? 1 : 0);
+
+                $this->ps->post("waynet_group_visibility", $xml);
+            }
+        }
     }
 }
