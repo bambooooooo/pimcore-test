@@ -16,14 +16,17 @@ use SimpleXMLElement;
 use Symfony\Component\Lock\Key;
 use Symfony\Component\Lock\LockFactory;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
+use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Contracts\Cache\ItemInterface;
 use Throwable;
 
 #[AsMessageHandler]
 class PsHandler
 {
     public function __construct(private readonly PrestashopService $ps,
-                                private readonly LockFactory $lockFactory,
-                                private readonly LoggerInterface $logger)
+                                private readonly LockFactory       $lockFactory,
+                                private readonly LoggerInterface   $logger,
+                                private readonly CacheInterface $cache)
     {
         Version::disable();
     }
@@ -31,7 +34,7 @@ class PsHandler
     public function __invoke(PsMessage $message): void
     {
         if ($message->getMode() == "delete") {
-            $this->logger->warning("Delete from prestashop #" . $message->getId() . " after object removal");
+            $this->logger->info("Delete from prestashop #" . $message->getId() . " after object removal");
             $this->ps->delete("products" . "/" . $message->getId());
             return;
         }
@@ -46,11 +49,11 @@ class PsHandler
         $lock = $this->lockFactory->createLock($key);
 
         try {
-            $this->logger->info("Trying to lock " . $message->getId() . "...");
+            $this->logger->debug("Trying to lock " . $message->getId() . "...");
             $lock->acquire(true);
-            $this->logger->info("Lock acquired.");
+            $this->logger->debug("Lock acquired.");
 
-            echo '#' . $obj->getId() . "\t" . $obj->getKey() . PHP_EOL;
+            $this->logger->notice(" #{$obj->getId()} {$obj->getKey()}...");
 
             if ($obj instanceof Group) {
                 $this->updateGroup($obj);
@@ -63,6 +66,8 @@ class PsHandler
             if ($obj instanceof ProductSet) {
                 $this->updateProductSet($obj);
             }
+
+            $this->logger->notice("#{$obj->getId()} Done.");
         } catch (Throwable $exception) {
             $this->logger->error($exception->getMessage());
             $this->logger->error($exception->getTraceAsString());
@@ -387,6 +392,17 @@ class PsHandler
 
         if ($obj instanceof ProductSet && "set_items" == "disabled_feature") {
             $this->GetSetItems($associations, $obj);
+        }
+
+        $attrs = $this->getMappedAllegroParameters($obj);
+        if($attrs && count($attrs) > 0) {
+            $product_features = $associations->addChild("product_features");
+
+            foreach ($attrs as $id => $valueId) {
+                $product_feature = $product_features->addChild("product_feature");
+                $product_feature->addChild("id", $id);
+                $product_feature->addChild("id_feature_value", $valueId);
+            }
         }
 
         $res = $this->ps->post("products", $xml, ["id_shop_group" => 1]);
@@ -730,6 +746,17 @@ class PsHandler
             $this->GetSetItems($associations, $obj);
         }
 
+        $attrs = $this->getMappedAllegroParameters($obj);
+        if($attrs && count($attrs) > 0) {
+            $product_features = $associations->addChild("product_features");
+
+            foreach ($attrs as $id => $valueId) {
+                $product_feature = $product_features->addChild("product_feature");
+                $product_feature->addChild("id", $id);
+                $product_feature->addChild("id_feature_value", $valueId);
+            }
+        }
+
         $res = $this->ps->patch("products/" . $obj->getPs_megstyl_pl_id(), $xml);
     }
 
@@ -776,9 +803,9 @@ class PsHandler
      */
     private function setPrices(?SimpleXMLElement $prod, ProductSet|Product $obj): void
     {
-        $prod->addChild("price", $obj->getBasePrice()->getValue() * 1.784);
-        $prod->addChild("wholesale_price", $obj->getBasePrice()->getValue() * 1.784);
-        $prod->addChild("unit_price", $obj->getBasePrice()->getValue() * 1.784);
+        $prod->addChild("price", $obj->getBasePrice()->getValue() * 2.14);
+        $prod->addChild("wholesale_price", 0);
+        $prod->addChild("unit_price", 0);
     }
 
     private function updatePrices(Product|ProductSet $obj): void
@@ -861,5 +888,105 @@ class PsHandler
                 $this->ps->post("waynet_group_visibility", $xml);
             }
         }
+    }
+
+    private function getMappedAllegroParameters(ProductSet|Product $obj): array
+    {
+        $ret = [];
+
+        foreach($obj->getParametersAllegro()->getGroups() as $group)
+        {
+            foreach($group->getKeys() as $key)
+            {
+                $cfg = $key->getConfiguration();
+
+                if(!$key->getValue())
+                    continue;
+
+                $value = ($cfg->getType() == 'select') ? explode("_", $key->getValue())[0] : $key->getValue();
+
+                if ($cfg->getType() === 'select') {
+
+                    $definition = json_decode($cfg->getDefinition(), true); // contains options array
+
+                    foreach ($definition['options'] as $option) {
+                        if ($option['value'] == $key->getValue()) {
+                            $value = $option['key']; // this is the "display name"
+                            break;
+                        }
+                    }
+                }
+
+                $fid = $this->getPsFeatureId($key->getConfiguration()->getTitle());
+                $vid = $this->getPsFeatureValueId($fid, $value);
+
+                $ret[$fid] = $vid;
+            }
+        }
+
+        return $ret;
+    }
+
+    private function getPsFeatureId(string $featureName): int
+    {
+        return $this->cache->get("ps_feature_id_" . $featureName, function(ItemInterface $item) use ($featureName) {
+
+            $id = (int)$this->ps->get("product_features?filter[name]=" . str_replace(" ", "%20", $featureName))->product_features->product_feature['id'];
+
+            $item->expiresAfter(60 * 60 * 24);
+
+            if($id)
+            {
+                return $id;
+            }
+
+            return $this->addFeature($featureName);
+        });
+    }
+
+    private function addFeature(string $featureName): int
+    {
+        $xml = new SimpleXMLElement("<prestashop xmlns:xlink=\"http://www.w3.org/1999/xlink\"></prestashop>");
+        $g = $xml->addChild("product_feature");
+        $name = $g->addChild("name");
+        $pl = $name->addChild("language", $featureName);
+        $pl->addAttribute("id", 1);
+        $en = $name->addChild("language", $featureName);
+        $en->addAttribute("id", 2);
+
+        $res = $this->ps->post('product_features', $xml);
+
+        return (int)$res->product_feature->id;
+    }
+
+    private function getPsFeatureValueId(int $featureId, string $featureValue): int
+    {
+        return $this->cache->get("ps_feature_value_id_" . $featureId . "_" . $featureValue, function(ItemInterface $item) use ($featureValue, $featureId){
+            $id = (int)$this->ps->get("product_feature_values?filter[id_feature]=" . $featureId . "&filter[value]=" . str_replace(" ", "%20", $featureValue))
+                ->product_feature_values->product_feature_value['id'];
+
+            $item->expiresAfter(60 * 60 * 24);
+
+            if($id)
+            {
+                return $id;
+            }
+
+            return $this->addFeatureValue($featureId, $featureValue);
+        });
+    }
+
+    private function addFeatureValue(int $featureId, string $featureValue): int
+    {
+        $xml = new SimpleXMLElement("<prestashop xmlns:xlink=\"http://www.w3.org/1999/xlink\"></prestashop>");
+        $f = $xml->addChild("product_feature_value");
+        $f->addChild("id_feature", $featureId);
+        $v = $f->addChild("value");
+        $pl = $v->addChild("language", $featureValue);
+        $pl->addAttribute("id", 1);
+        $en = $v->addChild("language", $featureValue);
+        $en->addAttribute("id", 2);
+
+        return (int)$this->ps->post('product_feature_values', $xml)->product_feature_value->id;
     }
 }
