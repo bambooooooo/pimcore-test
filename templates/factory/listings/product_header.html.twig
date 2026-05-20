@@ -13,3 +13,7 @@
         {{ include("factory/listings/_package_layout.html.twig", {package: package.object}) }}
     {% endfor %}
 {% endif %}
+
+{% if app.user.product_show_accessorysets %}
+    {{ include("factory/listings/_product_accessory_sets.html.twig", {obj: obj}) }}
+{% endif %}
