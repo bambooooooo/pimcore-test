@@ -48,6 +48,12 @@
  * - HeightBruttoOBI [quantityValue]
  * - LengthBruttoOBI [quantityValue]
  * - PackingDetails [imageGallery]
+ * - AccessorySets [block]
+ * -- Content [select]
+ * -- Length [quantityValue]
+ * -- Width [quantityValue]
+ * -- Height [quantityValue]
+ * -- Set [advancedManyToManyObjectRelation]
  * - SkipperCNC [manyToManyRelation]
  * - SkipperCNC2 [manyToManyRelation]
  * - MasterCNC [manyToManyRelation]
@@ -82,7 +88,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Produkt',
    'description' => 'Towar, który można sprzedać',
    'creationDate' => NULL,
-   'modificationDate' => 1778234780,
+   'modificationDate' => 1779268224,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -2167,6 +2173,261 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                          'height' => 250,
                          'width' => 250,
                       )),
+                      10 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Block::__set_state(array(
+                         'name' => 'AccessorySets',
+                         'title' => 'Accessory Sets',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'lazyLoading' => false,
+                         'disallowAddRemove' => false,
+                         'disallowReorder' => false,
+                         'collapsible' => false,
+                         'collapsed' => false,
+                         'maxItems' => NULL,
+                         'styleElement' => '',
+                         'children' => 
+                        array (
+                          0 => 
+                          \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                             'name' => 'Content',
+                             'title' => 'Content',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'fieldtype' => '',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'options' => 
+                            array (
+                              0 => 
+                              array (
+                                'key' => 'ACCESSORIES',
+                                'value' => 'ACCESSORIES',
+                              ),
+                              1 => 
+                              array (
+                                'key' => 'LEGS',
+                                'value' => 'LEGS',
+                              ),
+                              2 => 
+                              array (
+                                'key' => 'DRAWERS',
+                                'value' => 'DRAWERS',
+                              ),
+                              3 => 
+                              array (
+                                'key' => 'LEGFRAMES',
+                                'value' => 'LEGFRAMES',
+                              ),
+                              4 => 
+                              array (
+                                'key' => 'CABLES',
+                                'value' => 'CABLES',
+                              ),
+                            ),
+                             'defaultValue' => '',
+                             'columnLength' => 190,
+                             'dynamicOptions' => false,
+                             'defaultValueGenerator' => '',
+                             'width' => '',
+                             'optionsProviderType' => 'configure',
+                             'optionsProviderClass' => '',
+                             'optionsProviderData' => '',
+                          )),
+                          1 => 
+                          \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                             'name' => 'Length',
+                             'title' => 'Cartoon Length',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'fieldtype' => '',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'unitWidth' => '',
+                             'defaultUnit' => 'mm',
+                             'validUnits' => 
+                            array (
+                              0 => 'mm',
+                            ),
+                             'unique' => false,
+                             'autoConvert' => false,
+                             'defaultValueGenerator' => '',
+                             'width' => '',
+                             'defaultValue' => NULL,
+                             'integer' => false,
+                             'unsigned' => false,
+                             'minValue' => NULL,
+                             'maxValue' => NULL,
+                             'decimalSize' => NULL,
+                             'decimalPrecision' => NULL,
+                          )),
+                          2 => 
+                          \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                             'name' => 'Width',
+                             'title' => 'Cartoon Width',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'fieldtype' => '',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'unitWidth' => '',
+                             'defaultUnit' => 'mm',
+                             'validUnits' => 
+                            array (
+                              0 => 'mm',
+                            ),
+                             'unique' => false,
+                             'autoConvert' => false,
+                             'defaultValueGenerator' => '',
+                             'width' => '',
+                             'defaultValue' => NULL,
+                             'integer' => false,
+                             'unsigned' => false,
+                             'minValue' => NULL,
+                             'maxValue' => NULL,
+                             'decimalSize' => NULL,
+                             'decimalPrecision' => NULL,
+                          )),
+                          3 => 
+                          \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                             'name' => 'Height',
+                             'title' => 'Cartoon Height',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'fieldtype' => '',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'unitWidth' => '',
+                             'defaultUnit' => 'mm',
+                             'validUnits' => 
+                            array (
+                              0 => 'mm',
+                            ),
+                             'unique' => false,
+                             'autoConvert' => false,
+                             'defaultValueGenerator' => '',
+                             'width' => '',
+                             'defaultValue' => NULL,
+                             'integer' => false,
+                             'unsigned' => false,
+                             'minValue' => NULL,
+                             'maxValue' => NULL,
+                             'decimalSize' => NULL,
+                             'decimalPrecision' => NULL,
+                          )),
+                          4 => 
+                          \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
+                             'name' => 'Set',
+                             'title' => 'Set',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'fieldtype' => '',
+                             'relationType' => true,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'classes' => 
+                            array (
+                            ),
+                             'displayMode' => NULL,
+                             'pathFormatterClass' => '',
+                             'maxItems' => NULL,
+                             'visibleFields' => 'Image,id,key,Photo',
+                             'allowToCreateNewObject' => false,
+                             'allowToClearRelation' => true,
+                             'optimizedAdminLoading' => false,
+                             'enableTextSelection' => false,
+                             'visibleFieldDefinitions' => 
+                            array (
+                            ),
+                             'width' => '',
+                             'height' => '',
+                             'allowedClassId' => 'Accessory',
+                             'columns' => 
+                            array (
+                              0 => 
+                              array (
+                                'type' => 'number',
+                                'position' => 1,
+                                'key' => 'Quantity',
+                                'label' => 'Quantity',
+                              ),
+                            ),
+                             'columnKeys' => 
+                            array (
+                              0 => 'Quantity',
+                            ),
+                             'enableBatchEdit' => false,
+                             'allowMultipleAssignments' => false,
+                          )),
+                        ),
+                         'layout' => NULL,
+                         'referencedFields' => 
+                        array (
+                        ),
+                         'fieldDefinitionsCache' => NULL,
+                      )),
                     ),
                      'locked' => false,
                      'blockedVarsForExport' => 
@@ -3895,6 +4156,261 @@ Wyróżnia się następujące typy produktu:
    'enableGridLocking' => false,
    'deletedDataComponents' => 
   array (
+    0 => 
+    \Pimcore\Model\DataObject\ClassDefinition\Data\Block::__set_state(array(
+       'name' => 'AccessorySetsBlock',
+       'title' => 'Accessory Sets (Block)',
+       'tooltip' => '',
+       'mandatory' => false,
+       'noteditable' => false,
+       'index' => false,
+       'locked' => false,
+       'style' => '',
+       'permissions' => NULL,
+       'fieldtype' => '',
+       'relationType' => false,
+       'invisible' => false,
+       'visibleGridView' => false,
+       'visibleSearch' => false,
+       'blockedVarsForExport' => 
+      array (
+      ),
+       'lazyLoading' => false,
+       'disallowAddRemove' => false,
+       'disallowReorder' => false,
+       'collapsible' => false,
+       'collapsed' => false,
+       'maxItems' => NULL,
+       'styleElement' => '',
+       'children' => 
+      array (
+        0 => 
+        \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+           'name' => 'Content',
+           'title' => 'Content',
+           'tooltip' => '',
+           'mandatory' => false,
+           'noteditable' => false,
+           'index' => false,
+           'locked' => false,
+           'style' => '',
+           'permissions' => NULL,
+           'fieldtype' => '',
+           'relationType' => false,
+           'invisible' => false,
+           'visibleGridView' => false,
+           'visibleSearch' => false,
+           'blockedVarsForExport' => 
+          array (
+          ),
+           'options' => 
+          array (
+            0 => 
+            array (
+              'key' => 'ACCESSORIES',
+              'value' => 'ACCESSORIES',
+            ),
+            1 => 
+            array (
+              'key' => 'LEGS',
+              'value' => 'LEGS',
+            ),
+            2 => 
+            array (
+              'key' => 'DRAWERS',
+              'value' => 'DRAWERS',
+            ),
+            3 => 
+            array (
+              'key' => 'LEGFRAMES',
+              'value' => 'LEGFRAMES',
+            ),
+            4 => 
+            array (
+              'key' => 'CABLES',
+              'value' => 'CABLES',
+            ),
+          ),
+           'defaultValue' => '',
+           'columnLength' => 190,
+           'dynamicOptions' => false,
+           'defaultValueGenerator' => '',
+           'width' => '',
+           'optionsProviderType' => 'configure',
+           'optionsProviderClass' => '',
+           'optionsProviderData' => '',
+        )),
+        1 => 
+        \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+           'name' => 'Length',
+           'title' => 'Cartoon Length',
+           'tooltip' => '',
+           'mandatory' => false,
+           'noteditable' => false,
+           'index' => false,
+           'locked' => false,
+           'style' => '',
+           'permissions' => NULL,
+           'fieldtype' => '',
+           'relationType' => false,
+           'invisible' => false,
+           'visibleGridView' => false,
+           'visibleSearch' => false,
+           'blockedVarsForExport' => 
+          array (
+          ),
+           'unitWidth' => '',
+           'defaultUnit' => 'mm',
+           'validUnits' => 
+          array (
+            0 => 'mm',
+          ),
+           'unique' => false,
+           'autoConvert' => false,
+           'defaultValueGenerator' => '',
+           'width' => '',
+           'defaultValue' => NULL,
+           'integer' => false,
+           'unsigned' => false,
+           'minValue' => NULL,
+           'maxValue' => NULL,
+           'decimalSize' => NULL,
+           'decimalPrecision' => NULL,
+        )),
+        2 => 
+        \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+           'name' => 'Width',
+           'title' => 'Cartoon Width',
+           'tooltip' => '',
+           'mandatory' => false,
+           'noteditable' => false,
+           'index' => false,
+           'locked' => false,
+           'style' => '',
+           'permissions' => NULL,
+           'fieldtype' => '',
+           'relationType' => false,
+           'invisible' => false,
+           'visibleGridView' => false,
+           'visibleSearch' => false,
+           'blockedVarsForExport' => 
+          array (
+          ),
+           'unitWidth' => '',
+           'defaultUnit' => 'mm',
+           'validUnits' => 
+          array (
+            0 => 'mm',
+          ),
+           'unique' => false,
+           'autoConvert' => false,
+           'defaultValueGenerator' => '',
+           'width' => '',
+           'defaultValue' => NULL,
+           'integer' => false,
+           'unsigned' => false,
+           'minValue' => NULL,
+           'maxValue' => NULL,
+           'decimalSize' => NULL,
+           'decimalPrecision' => NULL,
+        )),
+        3 => 
+        \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+           'name' => 'Height',
+           'title' => 'Cartoon Height',
+           'tooltip' => '',
+           'mandatory' => false,
+           'noteditable' => false,
+           'index' => false,
+           'locked' => false,
+           'style' => '',
+           'permissions' => NULL,
+           'fieldtype' => '',
+           'relationType' => false,
+           'invisible' => false,
+           'visibleGridView' => false,
+           'visibleSearch' => false,
+           'blockedVarsForExport' => 
+          array (
+          ),
+           'unitWidth' => '',
+           'defaultUnit' => 'mm',
+           'validUnits' => 
+          array (
+            0 => 'mm',
+          ),
+           'unique' => false,
+           'autoConvert' => false,
+           'defaultValueGenerator' => '',
+           'width' => '',
+           'defaultValue' => NULL,
+           'integer' => false,
+           'unsigned' => false,
+           'minValue' => NULL,
+           'maxValue' => NULL,
+           'decimalSize' => NULL,
+           'decimalPrecision' => NULL,
+        )),
+        4 => 
+        \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
+           'name' => 'Set',
+           'title' => 'Set',
+           'tooltip' => '',
+           'mandatory' => false,
+           'noteditable' => false,
+           'index' => false,
+           'locked' => false,
+           'style' => '',
+           'permissions' => NULL,
+           'fieldtype' => '',
+           'relationType' => true,
+           'invisible' => false,
+           'visibleGridView' => false,
+           'visibleSearch' => false,
+           'blockedVarsForExport' => 
+          array (
+          ),
+           'classes' => 
+          array (
+          ),
+           'displayMode' => NULL,
+           'pathFormatterClass' => '',
+           'maxItems' => NULL,
+           'visibleFields' => 'Image,id,key,Photo',
+           'allowToCreateNewObject' => false,
+           'allowToClearRelation' => true,
+           'optimizedAdminLoading' => false,
+           'enableTextSelection' => false,
+           'visibleFieldDefinitions' => 
+          array (
+          ),
+           'width' => '',
+           'height' => '',
+           'allowedClassId' => 'Accessory',
+           'columns' => 
+          array (
+            0 => 
+            array (
+              'type' => 'number',
+              'position' => 1,
+              'key' => 'Quantity',
+              'label' => 'Quantity',
+            ),
+          ),
+           'columnKeys' => 
+          array (
+            0 => 'Quantity',
+          ),
+           'enableBatchEdit' => false,
+           'allowMultipleAssignments' => false,
+        )),
+      ),
+       'layout' => NULL,
+       'referencedFields' => 
+      array (
+      ),
+       'fieldDefinitionsCache' => NULL,
+    )),
   ),
    'blockedVarsForExport' => 
   array (

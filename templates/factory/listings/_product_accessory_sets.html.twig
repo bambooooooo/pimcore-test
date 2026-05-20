@@ -1,0 +1,101 @@
+<h2>
+    {{ "Accessories"|trans }}
+</h2>
+{% set gCount = obj.AccessorySets|length %}
+{% for g in obj.AccessorySets %}
+
+    {% set showGroup = not app.user.explorer_show_only_user_related_accessory %}
+
+    {% set toShowInGroup = 0 %}
+
+    {% if not showGroup %}
+        {% for li in g.Set.data %}
+            {% if li.object.Supplier and li.object.Supplier.id == app.user.id %}
+                {% set toShowInGroup = toShowInGroup + 1 %}
+            {% endif %}
+        {% endfor %}
+
+        {% if toShowInGroup > 0 %}
+            {% set showGroup = true %}
+        {% endif %}
+    {% endif %}
+
+    {% if showGroup %}
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="">
+                        <table class="package-data">
+                            <thead>
+                            <tr>
+                                <td colspan="3">
+                                    <div>
+                                        {{ g.Content.data ?? "" }}
+                                    </div>
+                                    <div style="font-size: 21px; font-weight: normal">
+                                        {% if g.Length.data and g.Width.data and g.Height.data %}
+                                            {{ g.Length.data }} x {{ g.Width.data }} x {{ g.Height.data }}
+                                        {% endif %}
+                                    </div>
+                                </td>
+                                <td>
+                                    <span style="font-size:32px;">
+                                        {{ loop.index }} / {{ gCount }}
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#</td>
+                                <td>{{ "thumbnail"|trans }}</td>
+                                <td>{{ "code"|trans }}</td>
+                                <td>{{ "quantity"|trans }}</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for li in g.Set.data %}
+                                {% if (not app.user.explorer_show_only_user_related_accessory) or
+                                    (app.user.explorer_show_only_user_related_accessory and
+                                    li.object.Supplier and li.object.Supplier.id == app.user.id ) %}
+                                    <tr>
+                                    <td>{{ loop.index }}</td>
+                                    <td>
+                                        {% if li.object.Image %}
+                                            <a href="{{ li.object.Image.getThumbnail("w_800") }}" target="_blank">
+                                                <img src="{{ li.object.Image.getThumbnail("100x100") }}" style="width:80px">
+                                            </a>
+                                        {% else %}
+                                            <img src="/bundles/pimcoreadmin/img/flat-color-icons/unknown.svg" style="width:80px">
+                                        {% endif %}
+                                        {% if li.object.Photo %}
+                                            <a href="{{ li.object.Photo.getThumbnail("w_800") }}" target="_blank">
+                                                <img src="{{ li.object.Photo.getThumbnail("100x100") }}" style="width:80px">
+                                            </a>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <div>{{ li.object.key }}</div>
+                                        {% if li.object.Name %}
+                                            <div style="font-size: 22px; font-weight: normal;">
+                                                {{ li.object.Name }}
+                                            </div>
+                                        {% endif %}
+                                        {% if li.object.MPN %}
+                                            <div style="font-size: 18px; font-style: italic; font-weight: normal; letter-spacing: 1px;">
+                                                {{ li.object.MPN }}
+                                            </div>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {{ li.data.Quantity ?? "-" }}
+                                    </td>
+                                </tr>
+                                {% endif %}
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endfor %}
