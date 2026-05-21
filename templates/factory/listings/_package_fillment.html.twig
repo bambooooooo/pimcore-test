@@ -1,14 +1,25 @@
 {% if app.user.package_show_fillment %}
     {% if package.Fillment %}
+        {% set total_fillment = 0.0 %}
+        {% set valid_sum = true %}
         <div class="col-12 mb-2">
             <h2>{{ "Fillment"|trans }}</h2>
             {% for fillment in package.Fillment %}
                 <table class="package-data">
                     <thead>
                     <tr>
-                        <td colspan="4">
+                        <td colspan="3">
                             {{ fillment['Material'].data }}
                         </td>
+                        {% if fillment['Thickness'].data and fillment['Thickness'].data.value %}
+                            <td>
+                                {{ fillment['Thickness'].data }}
+                            </td>
+                        {% else %}
+                            <td style="background-color: #fa1212; color: #fff">
+                                -
+                            </td>
+                        {% endif %}
                     </tr>
                     <tr>
                         <td>{{ "#No"|trans }}</td>
@@ -25,22 +36,36 @@
                                 <td>{{ loop.index }}</td>
                                 <td>{{ row[0]|number_format(0, ',', ' ') }}</td>
                                 <td>{{ row[1]|number_format(0, ',', ' ') }}</td>
-                                {% if row[2] is numeric %}
+                                {% if row[0] is numeric and row[1] is numeric and row[2] is numeric %}
                                     <td>{{ row[2] }}</td>
                                     {% set total_cnt = total_cnt + row[2] %}
+                                    {% if fillment['Thickness'].data and fillment['Thickness'].data.value %}
+                                        {% set total_fillment = total_fillment + (row[0] / 1000) * (row[1] / 1000) * row[2] * (fillment['Thickness'].data.value / 1000) %}
+                                    {% else %}
+                                        {% set valid_sum = false %}
+                                    {% endif %}
                                 {% else %}
                                     <td style="background-color: #fa1212; color: #fff">-</td>
                                     {% set valid_rows = false %}
+                                    {% set valid_sum = false %}
                                 {% endif %}
                             </tr>
                         {% endfor %}
                         <tr>
-                            <td colspan="3" style="text-align: right">{{ "Total" }}</td>
+                            <td colspan="3" style="text-align: right">{{ "Total"|trans }}</td>
                             <td {% if not valid_rows %}style="background-color: #fa1212; color: #fff"{% endif %}>{{ total_cnt }}</td>
                         </tr>
                     </tbody>
                 </table>
             {% endfor %}
+            <div class="col-12 text-end">
+                {% if valid_sum %}
+                    Total volume in {{ package.Fillment|length }} groups:
+                    {{ total_fillment|round(4) }} m<sup>3</sup>
+                {% else %}
+                    {{ "Can not sum fillment volumes"|trans }}
+                {% endif %}
+            </div>
         </div>
     {% else %}
         <div class="alert alert-danger" role="alert">
