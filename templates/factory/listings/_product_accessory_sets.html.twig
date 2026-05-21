@@ -1,7 +1,9 @@
-<h2>
-    {{ "Accessories"|trans }}
-</h2>
 {% set gCount = obj.AccessorySets|length %}
+{% if gCount %}
+    <h2>
+        {{ "Accessories"|trans }}
+    </h2>
+{% endif %}
 {% for g in obj.AccessorySets %}
 
     {% set showGroup = not app.user.explorer_show_only_user_related_accessory %}
