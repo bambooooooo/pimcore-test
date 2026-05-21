@@ -30,6 +30,7 @@
  * - Layers [table]
  * - Fillment [block]
  * -- Material [input]
+ * -- Thickness [quantityValue]
  * -- Elements [table]
  * - Carriers [advancedManyToManyObjectRelation]
  */
@@ -41,7 +42,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Opakowanie',
    'description' => 'Opakowanie zawierające elementy produktu',
    'creationDate' => NULL,
-   'modificationDate' => 1774958364,
+   'modificationDate' => 1779354350,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -1190,7 +1191,7 @@ Domyślny kod kreskowy paczki tworzony na podstawie jego unikalnego identyfikato
                      'name' => 'Material',
                      'title' => 'Material',
                      'tooltip' => 'Materiał wypełenienia, np. styropian 15 mm',
-                     'mandatory' => false,
+                     'mandatory' => true,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
@@ -1216,11 +1217,48 @@ Domyślny kod kreskowy paczki tworzony na podstawie jego unikalnego identyfikato
                      'defaultValueGenerator' => '',
                   )),
                   1 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                     'name' => 'Thickness',
+                     'title' => 'Thickness',
+                     'tooltip' => '',
+                     'mandatory' => true,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'unitWidth' => '',
+                     'defaultUnit' => 'mm',
+                     'validUnits' => 
+                    array (
+                      0 => 'mm',
+                    ),
+                     'unique' => false,
+                     'autoConvert' => false,
+                     'defaultValueGenerator' => '',
+                     'width' => '',
+                     'defaultValue' => NULL,
+                     'integer' => false,
+                     'unsigned' => true,
+                     'minValue' => NULL,
+                     'maxValue' => NULL,
+                     'decimalSize' => NULL,
+                     'decimalPrecision' => NULL,
+                  )),
+                  2 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Data\Table::__set_state(array(
                      'name' => 'Elements',
                      'title' => 'Elements',
                      'tooltip' => 'Formatki wypełnienia dla wybranego materiału',
-                     'mandatory' => false,
+                     'mandatory' => true,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
