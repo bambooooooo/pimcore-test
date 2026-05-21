@@ -4,6 +4,9 @@ namespace App\Controller;
 
 use Pimcore\Controller\FrontendController;
 use Pimcore\Model\DataObject;
+use Pimcore\Model\DataObject\Accessory;
+use Pimcore\Model\DataObject\Data\BlockElement;
+use Pimcore\Model\DataObject\Data\ObjectMetadata;
 use Pimcore\Model\DataObject\Product;
 use Pimcore\Model\DataObject\ProductSet;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -11,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/products')]
+#[Route('/products', name: 'products')]
 class ProductController extends FrontendController
 {
     public function __construct()
@@ -19,7 +22,7 @@ class ProductController extends FrontendController
 
     }
 
-    #[Route('/baselinker/{id}', name: 'home')]
+    #[Route('/baselinker/{id}', name: '_baselinkerid')]
     public function defaultAction(Request $request): Response
     {
         $id = (int)$request->get('id');
@@ -50,5 +53,58 @@ class ProductController extends FrontendController
         }
 
         return new Response("Object type is not supported", Response::HTTP_BAD_REQUEST);
+    }
+
+    #[Route('/accessory/{id}', name: '_update_accessory', methods: ['POST'])]
+    public function updateProductAccessoryAction(Request $request): Response
+    {
+        DataObject::setHideUnpublished(false);
+        $id = (int)$request->get('id');
+        $items = json_decode($request->getContent(), true)['items'];
+
+        if(!Product::getByID($id))
+        {
+            return new Response("Product not found", Response::HTTP_NOT_FOUND);
+        }
+
+        $product = Product::getByID($id);
+        $relations = [];
+
+        foreach($items as $item)
+        {
+            $id = $item['id'];
+            $count = $item['count'];
+
+            if(!Accessory::getByID($id))
+            {
+                return new Response("Accessory with id={$id} not found", Response::HTTP_NOT_FOUND);
+            }
+
+            $supplierId = Accessory::getByID($id)->getSupplier()?->getId() ?? 0;
+
+            $relation = new ObjectMetadata('AccessorySets', ['Quantity'], DataObject::getById($id));
+            $relation->setQuantity((int)$count);
+            $relations[$supplierId][] = $relation;
+        }
+
+        $accSets = [];
+
+        foreach($relations as $supplierId => $supplierRelations)
+        {
+            $data = [
+                "Content" => new BlockElement('Content', 'select', null),
+                "Length" => new BlockElement('Length', 'quantityvalue', new DataObject\Data\QuantityValue(null, DataObject\QuantityValue\Unit::getById('mm'))),
+                "Width" => new BlockElement('Width', 'quantityvalue', new DataObject\Data\QuantityValue(null, DataObject\QuantityValue\Unit::getById('mm'))),
+                "Height" => new BlockElement('Height', 'quantityvalue', new DataObject\Data\QuantityValue(null, DataObject\QuantityValue\Unit::getById('mm'))),
+                "Set" => new BlockElement('Set', 'advancedManyToManyRelation', $supplierRelations),
+            ];
+
+            $accSets[] = $data;
+        }
+
+        $product->setAccessorySets($accSets);
+        $product->save(["skip" => "Update accessory list"]);
+
+        return new Response("Ok", Response::HTTP_OK);
     }
 }
