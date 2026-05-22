@@ -1,4 +1,4 @@
-{% if obj.Packages and app.user.package_show_layers or app.user.package_show_layout or app.user.package_show_fillment %}
+{% if obj.Packages and (app.user.package_show_layers or app.user.package_show_layout or app.user.package_show_fillment) %}
     {% for package in obj.Packages %}
         <div class="col-12" style="margin-bottom: 24px">
             <div style="font-size: 48px; font-weight: bold;">
@@ -8,10 +8,51 @@
                 {{ package.object.key }}
             </div>
         </div>
-        {{ include("factory/listings/_package_layers.html.twig", {package: package.object}) }}
-        {{ include("factory/listings/_package_fillment.html.twig", {package: package.object}) }}
-        {{ include("factory/listings/_package_layout.html.twig", {package: package.object}) }}
+        {% if app.user.package_show_layers %}
+            {{ include("factory/listings/_package_layers.html.twig", {package: package.object}) }}
+        {% endif %}
+        {% if app.user.package_show_fillment %}
+            {{ include("factory/listings/_package_fillment.html.twig", {package: package.object}) }}
+        {% endif %}
+        {% if app.user.package_show_layout %}
+            {{ include("factory/listings/_package_layout.html.twig", {package: package.object}) }}
+        {% endif %}
     {% endfor %}
+{% endif %}
+
+{% if app.user.package_show_fillment %}
+<div class="col-12">
+    {% set valid_sum = true %}
+    {% set total_fillment = 0.0 %}
+    {% for lip in obj.Packages %}
+        {% set package = lip.object %}
+        {% if package.Fillment %}
+            {% for fillment in package.Fillment %}
+                {% for row in fillment['Elements'].data %}
+                    {% if row[0] is numeric and row[1] is numeric and row[2] is numeric %}
+                        {% if fillment['Thickness'].data and fillment['Thickness'].data.value %}
+                            {% set total_fillment = total_fillment + (row[0] / 1000) * (row[1] / 1000) * row[2] * (fillment['Thickness'].data.value / 1000) %}
+                        {% else %}
+                            {% set valid_sum = false %}
+                        {% endif %}
+                    {% else %}
+                        {% set valid_sum = false %}
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+    <div class="col-12 text-end">
+        {% if valid_sum %}
+            Grand total of volume:
+            <span style="font-weight: bold">
+                {{ total_fillment|round(4) }} m<sup>3</sup>
+            </span>
+        {% else %}
+            {{ "Can not compute grand sum of fillment volumes"|trans }}
+        {% endif %}
+    </div>
+</div>
 {% endif %}
 
 {% if app.user.product_show_accessorysets %}
