@@ -700,14 +700,39 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
             text: t('Optimik 3 - zlecenie'),
             handler: function () {
                 const path = "/orders/optimik/" + e.detail.object.id;
-                window.open(path);
+		var err = "";
+
+		e.detail.object.data.data.Products.forEach(x => {
+			if(x.OptimikExportSerieSize && (x.Quantity / x.OptimikExportSerieSize) != Math.round(x.Quantity / x.OptimikExportSerieSize))
+			{
+				err += x.key + ": " + t("ordered quantity") + " " + x.Quantity + " " + t("is not multiplication of its serie size") + " " + x.OptimikExportSerieSize + "<br/>";
+			}
+		});
+
+		if(err != "")
+		{
+			Ext.Msg.show({
+				title: "Warning",
+				msg: err,
+				buttons: Ext.Msg.OKCANCEL,
+				icon: Ext.MessageBox.QUESTION,
+				fn: (e) => {
+					if(e == "ok")
+					{
+						window.open(path);
+					}
+				}
+			})
+		}
+		else
+		{
+			window.open(path);
+		}
             }
         });
 
     }
 })
-
-
 
 document.addEventListener(pimcore.events.pimcoreReady, (e) => {
 

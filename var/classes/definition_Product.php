@@ -72,6 +72,8 @@
  * - sgt [checkbox]
  * - BaselinkerCatalog [advancedManyToManyObjectRelation]
  * - OBI [select]
+ * - OptimikExportSku [input]
+ * - OptimikExportSerieSize [numeric]
  * - Image [image]
  * - Ean [input]
  * - MPN [input]
@@ -88,7 +90,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Produkt',
    'description' => 'Towar, który można sprzedać',
    'creationDate' => NULL,
-   'modificationDate' => 1779268224,
+   'modificationDate' => 1779433397,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -3633,16 +3635,19 @@ Not used in common version. Shown as a placeholder
                                   array (
                                     'key' => 'Yes',
                                     'value' => 'YES',
+                                    'id' => 'extModel19334-1',
                                   ),
                                   1 => 
                                   array (
                                     'key' => 'No',
                                     'value' => 'NO',
+                                    'id' => 'extModel19334-2',
                                   ),
                                   2 => 
                                   array (
                                     'key' => 'Retired',
                                     'value' => 'RETIRED',
+                                    'id' => 'extModel19334-3',
                                   ),
                                 ),
                                  'defaultValue' => 'NO',
@@ -3664,6 +3669,92 @@ Not used in common version. Shown as a placeholder
                              'border' => false,
                              'icon' => '/LOGO/obi.jpg',
                              'labelWidth' => 100,
+                             'labelAlign' => 'left',
+                          )),
+                          4 => 
+                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                             'name' => 'Optimik 3',
+                             'type' => NULL,
+                             'region' => NULL,
+                             'title' => 'Optimik 3',
+                             'width' => '',
+                             'height' => '',
+                             'collapsible' => false,
+                             'collapsed' => false,
+                             'bodyStyle' => '',
+                             'datatype' => 'layout',
+                             'children' => 
+                            array (
+                              0 => 
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                 'name' => 'OptimikExportSku',
+                                 'title' => 'Optimik Export Sku',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'defaultValue' => 'NO',
+                                 'columnLength' => 190,
+                                 'regex' => '',
+                                 'regexFlags' => 
+                                array (
+                                ),
+                                 'unique' => false,
+                                 'showCharCount' => false,
+                                 'width' => '',
+                                 'defaultValueGenerator' => '',
+                              )),
+                              1 => 
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                                 'name' => 'OptimikExportSerieSize',
+                                 'title' => 'Optimik Export Serie Size',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'defaultValue' => NULL,
+                                 'integer' => true,
+                                 'unsigned' => true,
+                                 'minValue' => NULL,
+                                 'maxValue' => NULL,
+                                 'unique' => false,
+                                 'decimalSize' => NULL,
+                                 'decimalPrecision' => NULL,
+                                 'width' => '',
+                                 'defaultValueGenerator' => '',
+                              )),
+                            ),
+                             'locked' => false,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'fieldtype' => 'panel',
+                             'layout' => NULL,
+                             'border' => false,
+                             'icon' => '/LOGO/optimik.jpeg',
+                             'labelWidth' => 200,
                              'labelAlign' => 'left',
                           )),
                         ),
@@ -4156,261 +4247,6 @@ Wyróżnia się następujące typy produktu:
    'enableGridLocking' => false,
    'deletedDataComponents' => 
   array (
-    0 => 
-    \Pimcore\Model\DataObject\ClassDefinition\Data\Block::__set_state(array(
-       'name' => 'AccessorySetsBlock',
-       'title' => 'Accessory Sets (Block)',
-       'tooltip' => '',
-       'mandatory' => false,
-       'noteditable' => false,
-       'index' => false,
-       'locked' => false,
-       'style' => '',
-       'permissions' => NULL,
-       'fieldtype' => '',
-       'relationType' => false,
-       'invisible' => false,
-       'visibleGridView' => false,
-       'visibleSearch' => false,
-       'blockedVarsForExport' => 
-      array (
-      ),
-       'lazyLoading' => false,
-       'disallowAddRemove' => false,
-       'disallowReorder' => false,
-       'collapsible' => false,
-       'collapsed' => false,
-       'maxItems' => NULL,
-       'styleElement' => '',
-       'children' => 
-      array (
-        0 => 
-        \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-           'name' => 'Content',
-           'title' => 'Content',
-           'tooltip' => '',
-           'mandatory' => false,
-           'noteditable' => false,
-           'index' => false,
-           'locked' => false,
-           'style' => '',
-           'permissions' => NULL,
-           'fieldtype' => '',
-           'relationType' => false,
-           'invisible' => false,
-           'visibleGridView' => false,
-           'visibleSearch' => false,
-           'blockedVarsForExport' => 
-          array (
-          ),
-           'options' => 
-          array (
-            0 => 
-            array (
-              'key' => 'ACCESSORIES',
-              'value' => 'ACCESSORIES',
-            ),
-            1 => 
-            array (
-              'key' => 'LEGS',
-              'value' => 'LEGS',
-            ),
-            2 => 
-            array (
-              'key' => 'DRAWERS',
-              'value' => 'DRAWERS',
-            ),
-            3 => 
-            array (
-              'key' => 'LEGFRAMES',
-              'value' => 'LEGFRAMES',
-            ),
-            4 => 
-            array (
-              'key' => 'CABLES',
-              'value' => 'CABLES',
-            ),
-          ),
-           'defaultValue' => '',
-           'columnLength' => 190,
-           'dynamicOptions' => false,
-           'defaultValueGenerator' => '',
-           'width' => '',
-           'optionsProviderType' => 'configure',
-           'optionsProviderClass' => '',
-           'optionsProviderData' => '',
-        )),
-        1 => 
-        \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-           'name' => 'Length',
-           'title' => 'Cartoon Length',
-           'tooltip' => '',
-           'mandatory' => false,
-           'noteditable' => false,
-           'index' => false,
-           'locked' => false,
-           'style' => '',
-           'permissions' => NULL,
-           'fieldtype' => '',
-           'relationType' => false,
-           'invisible' => false,
-           'visibleGridView' => false,
-           'visibleSearch' => false,
-           'blockedVarsForExport' => 
-          array (
-          ),
-           'unitWidth' => '',
-           'defaultUnit' => 'mm',
-           'validUnits' => 
-          array (
-            0 => 'mm',
-          ),
-           'unique' => false,
-           'autoConvert' => false,
-           'defaultValueGenerator' => '',
-           'width' => '',
-           'defaultValue' => NULL,
-           'integer' => false,
-           'unsigned' => false,
-           'minValue' => NULL,
-           'maxValue' => NULL,
-           'decimalSize' => NULL,
-           'decimalPrecision' => NULL,
-        )),
-        2 => 
-        \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-           'name' => 'Width',
-           'title' => 'Cartoon Width',
-           'tooltip' => '',
-           'mandatory' => false,
-           'noteditable' => false,
-           'index' => false,
-           'locked' => false,
-           'style' => '',
-           'permissions' => NULL,
-           'fieldtype' => '',
-           'relationType' => false,
-           'invisible' => false,
-           'visibleGridView' => false,
-           'visibleSearch' => false,
-           'blockedVarsForExport' => 
-          array (
-          ),
-           'unitWidth' => '',
-           'defaultUnit' => 'mm',
-           'validUnits' => 
-          array (
-            0 => 'mm',
-          ),
-           'unique' => false,
-           'autoConvert' => false,
-           'defaultValueGenerator' => '',
-           'width' => '',
-           'defaultValue' => NULL,
-           'integer' => false,
-           'unsigned' => false,
-           'minValue' => NULL,
-           'maxValue' => NULL,
-           'decimalSize' => NULL,
-           'decimalPrecision' => NULL,
-        )),
-        3 => 
-        \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-           'name' => 'Height',
-           'title' => 'Cartoon Height',
-           'tooltip' => '',
-           'mandatory' => false,
-           'noteditable' => false,
-           'index' => false,
-           'locked' => false,
-           'style' => '',
-           'permissions' => NULL,
-           'fieldtype' => '',
-           'relationType' => false,
-           'invisible' => false,
-           'visibleGridView' => false,
-           'visibleSearch' => false,
-           'blockedVarsForExport' => 
-          array (
-          ),
-           'unitWidth' => '',
-           'defaultUnit' => 'mm',
-           'validUnits' => 
-          array (
-            0 => 'mm',
-          ),
-           'unique' => false,
-           'autoConvert' => false,
-           'defaultValueGenerator' => '',
-           'width' => '',
-           'defaultValue' => NULL,
-           'integer' => false,
-           'unsigned' => false,
-           'minValue' => NULL,
-           'maxValue' => NULL,
-           'decimalSize' => NULL,
-           'decimalPrecision' => NULL,
-        )),
-        4 => 
-        \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
-           'name' => 'Set',
-           'title' => 'Set',
-           'tooltip' => '',
-           'mandatory' => false,
-           'noteditable' => false,
-           'index' => false,
-           'locked' => false,
-           'style' => '',
-           'permissions' => NULL,
-           'fieldtype' => '',
-           'relationType' => true,
-           'invisible' => false,
-           'visibleGridView' => false,
-           'visibleSearch' => false,
-           'blockedVarsForExport' => 
-          array (
-          ),
-           'classes' => 
-          array (
-          ),
-           'displayMode' => NULL,
-           'pathFormatterClass' => '',
-           'maxItems' => NULL,
-           'visibleFields' => 'Image,id,key,Photo',
-           'allowToCreateNewObject' => false,
-           'allowToClearRelation' => true,
-           'optimizedAdminLoading' => false,
-           'enableTextSelection' => false,
-           'visibleFieldDefinitions' => 
-          array (
-          ),
-           'width' => '',
-           'height' => '',
-           'allowedClassId' => 'Accessory',
-           'columns' => 
-          array (
-            0 => 
-            array (
-              'type' => 'number',
-              'position' => 1,
-              'key' => 'Quantity',
-              'label' => 'Quantity',
-            ),
-          ),
-           'columnKeys' => 
-          array (
-            0 => 'Quantity',
-          ),
-           'enableBatchEdit' => false,
-           'allowMultipleAssignments' => false,
-        )),
-      ),
-       'layout' => NULL,
-       'referencedFields' => 
-      array (
-      ),
-       'fieldDefinitionsCache' => NULL,
-    )),
   ),
    'blockedVarsForExport' => 
   array (
