@@ -80,11 +80,14 @@ class ProductController extends FrontendController
                 return new Response("Accessory with id={$id} not found", Response::HTTP_NOT_FOUND);
             }
 
-            $supplierId = Accessory::getByID($id)->getSupplier()?->getId() ?? 0;
+	    $acc = Accessory::getById($id);
+
+	    $g = $acc->getSupplier()?->getId() ?? 0;
+	    $g = $g . "-" . $acc->getSetContent() ?? 0;
 
             $relation = new ObjectMetadata('AccessorySets', ['Quantity'], DataObject::getById($id));
             $relation->setQuantity((int)$count);
-            $relations[$supplierId][] = $relation;
+            $relations[$g][] = $relation;
         }
 
         $accSets = [];
