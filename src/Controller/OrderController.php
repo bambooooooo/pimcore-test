@@ -47,7 +47,16 @@ class OrderController extends FrontendController
 
                 foreach ($obj->getProducts() as $lip)
                 {
-                    $row = $lip->getElement()->getKey() . ";" . $lip->getQuantity();
+                    if($lip->getElement()->getOptimikExportSku() && $lip->getElement()->getOptimikExportSerieSize() 
+                        && $lip->getQuantity() / $lip->getElement()->getOptimikExportSerieSize() == round($lip->getQuantity() / $lip->getElement()->getOptimikExportSerieSize()))
+                    {
+                        $row = $lip->getElement()->getOptimikExportSku() . ";" . ($lip->getQuantity() / $lip->getElement()->getOptimikExportSerieSize());
+                    }
+                    else
+                    {
+                        $row = $lip->getElement()->getKey() . ";" . $lip->getQuantity();
+                    }
+
                     fprintf($handle, mb_convert_encoding($row, "UTF-8", "auto") . "\r\n");
                 }
 
