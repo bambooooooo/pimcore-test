@@ -696,43 +696,100 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
         e.detail.object.toolbar.add({
             icon: '/bundles/pimcoreadmin/img/flat-white-icons/download-cloud.svg',
             scale: 'medium',
-            tooltip: 'Optimik - zlecenie',
-            text: t('Optimik 3 - zlecenie'),
-            handler: function () {
-                const path = "/orders/optimik/" + e.detail.object.id;
-		var err = "";
+            tooltip: 'Optimik 3',
+            text: t('Optimik 3'),
+            handler: async function () {
 
-		e.detail.object.data.data.Products.forEach(x => {
-			if(x.OptimikExportSerieSize && (x.Quantity / x.OptimikExportSerieSize) != Math.round(x.Quantity / x.OptimikExportSerieSize))
-			{
-				err += x.key + ": " + t("ordered quantity") + " " + x.Quantity + " " + t("is not multiplication of its serie size") + " " + x.OptimikExportSerieSize + "<br/>";
+                const checkList = [
+                    checkPublished,
+                    checkQuantity
+                ];
+
+                const passed = await runChecks(checkList, e.detail.object.data.data);
+
+                if(!passed)
+                {
+                    pimcore.helpers.showNotification('Operation cancelled by user');
+                    return;
+                }
+
+                const path = "/orders/optimik/" + e.detail.object.id;
+                window.open(path);
 			}
 		});
 
-		if(err != "")
+    }
+})
+
+function confirmAsync(message)
 		{
+    return new Promise((resolve) => {
 			Ext.Msg.show({
 				title: "Warning",
-				msg: err,
+            msg: message,
 				buttons: Ext.Msg.OKCANCEL,
 				icon: Ext.MessageBox.QUESTION,
 				fn: (e) => {
-					if(e == "ok")
-					{
-						window.open(path);
+                resolve(e == "ok")
+            },
+        })
+    })
+}
+
+async function runChecks(checks, context)
+{
+    for(const check of checks)
+    {
+        const passed = await check(context);
+
+        if(!passed)
+        {
+            return false;
 					}
 				}
-			})
-		}
-		else
-		{
-			window.open(path);
-		}
+
+    return true;
+}
+
+async function checkPublished(order)
+{
+    var err = "";
+    order.Products.forEach(x => {
+        if(!x.published)
+        {
+            err += t("Product") + " " + x.key + " " + t('is unpublished') + "<br/>";
+        }
+    });
+
+    if(err == "")
+    {
+        return true;
+    }
+
+    err += "<br/>Do you want to proceed?";
+
+    return await confirmAsync(err);
+}
+
+async function checkQuantity(order)
+{
+    var err = "";
+    order.Products.forEach(x => {
+        if(x.OptimikExportSerieSize && (x.Quantity / x.OptimikExportSerieSize) != Math.round(x.Quantity / x.OptimikExportSerieSize))
+        {
+            err += x.key + ": " + t("ordered quantity") + " " + x.Quantity + " " + t("is not multiplication of its serie size") + " " + x.OptimikExportSerieSize + "<br/>";
             }
         });
 
+    if(err == "")
+    {
+        return true;
     }
-})
+
+    err += "<br/>Do you want to proceed?";
+
+    return await confirmAsync(err);
+}
 
 document.addEventListener(pimcore.events.pimcoreReady, (e) => {
 

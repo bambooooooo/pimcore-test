@@ -27,7 +27,7 @@ class OrderController extends FrontendController
         DataObject::setHideUnpublished(false);
         $id = (int)$request->get('id');
 
-        $obj = Dataobject::getByID($id);
+        $obj = Dataobject::getById($id);
         $orderCode = $obj->getKey();
 
         if($obj instanceof DataObject\Order)
