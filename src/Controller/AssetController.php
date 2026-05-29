@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use CzProject\PdfRotate\PdfRotate;
+use Imagick;
 use Pimcore\Controller\FrontendController;
 use Pimcore\Model\Asset;
 use Symfony\Component\HttpFoundation\Request;
@@ -45,6 +46,22 @@ class AssetController extends FrontendController
             return new Response("Ok.", Response::HTTP_OK);
         }
 
+	if($asset->getType() == 'image')
+	{
+		$im = Asset\Image::getById($id);
+		$path = tempnam(sys_get_temp_dir(), "im_");
+
+		$f = new Imagick($im->getFrontendPath());
+		$f->rotateImage("#FFFFFF", $degrees);
+		$f->writeImage($path);
+		$im->setData(file_get_contents($path));
+		$im->save();
+
+		$f->clear();
+		$f->destroy();
+
+		return new Response("Ok. image", Response::HTTP_OK);
+	}
         return new Response("Unsupported MIME type.", Response::HTTP_BAD_REQUEST);
     }
 }
