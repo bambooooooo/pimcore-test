@@ -12,11 +12,11 @@ Date.prototype.ddmmyyyy = function() {
 
 document.addEventListener(pimcore.events.postOpenAsset, function(e) {
 
-    if(e.detail.asset.data.mimetype === 'application/pdf')
+    if(e.detail.asset.data.mimetype === 'application/pdf' || e.detail.asset.type == 'image')
     {
         e.detail.asset.toolbar.add({
-            text: t('Rotate pages'),
-            tooltip: t('Rotate pages'),
+            text: t('Rotate'),
+            tooltip: t('Rotate'),
             icon: '/bundles/pimcoreadmin/img/flat-white-icons/rotate_camera.svg',
             scale: 'medium',
             menu: [
@@ -29,7 +29,6 @@ document.addEventListener(pimcore.events.postOpenAsset, function(e) {
                         Ext.Ajax.request({
                             url: "/assets/rotate/" + e.detail.asset.id + "/270",
                             success: function (data) {
-                                console.log(data.responseText);
                                 e.detail.asset.reload();
                             },
                             failure: function (error) {
@@ -402,10 +401,13 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
             }
         })
 
-        var unpublished = Ext.create('Ext.form.Checkbox', {
-            name: 'unpublished',
-            fieldLabel: 'Show unpublished',
-        });
+        var unpublished = Ext.create('Ext.form.Checkbox', {name: 'show_unpublished', fieldLabel: 'Show unpublished'});
+        var showGroupProducts = Ext.create('Ext.form.Checkbox', {name: 'show_products', fieldLabel: 'Show products', checked: true});
+        var showGroupSets = Ext.create('Ext.form.Checkbox', {name: 'show_sets', fieldLabel: 'Show sets', checked: true});
+        var showGroupRelatedProducts = Ext.create('Ext.form.Checkbox', {name: 'show_relatedproducts', fieldLabel: 'Show related products', checked: true});
+        var showProductTypeSku = Ext.create('Ext.form.Checkbox', {name: 'show_products_sku', fieldLabel: 'Show products with type SKU'});
+        var showPrices = Ext.create('Ext.form.Checkbox', {name: 'show_prices', fieldLabel: 'Show prices', checked: true});
+        var showAllProductsStatus = Ext.create('Ext.form.Checkbox', {name: 'show_all_statuses', fieldLabel: 'Show products in all statuses'})
 
         var combo = Ext.create('Ext.form.ComboBox', {
             xtype: 'combo',
@@ -414,6 +416,18 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
             displayField: 'name',
             valueField: 'id',
         });
+
+        function getBasePath()
+        {
+            return "/object/" + pimcore.settings.language + "/" + e.detail.object.id + "/datasheet?" +
+                    "show_unpublished=" + unpublished.value +
+                    "&show_products=" + showGroupProducts.value +
+                    "&show_sets=" + showGroupSets.value +
+                    "&show_related_products=" + showGroupRelatedProducts.value +
+                    "&show_products_type_sku=" + showProductTypeSku.value +
+                    "&show_prices=" + showPrices.value + 
+                    "&show_items_in_all_statuses=" + showAllProductsStatus.value;
+        }
 
         var btnPdf = Ext.create('Ext.Button', {
             xtype: 'button',
@@ -426,8 +440,7 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
                     return;
                 }
 
-                const path = "/object/" + pimcore.settings.language + "/" + e.detail.object.id + "/datasheet?" +
-                    "unpublished=" + unpublished.value + "&show_prices=" + combo.value;
+                const path = getBasePath() + "&price=" + combo.value;
                 window.open(path);
             }
         });
@@ -439,14 +452,12 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
             handler: function(){
                 if(!combo.value)
                 {
-                    const path = "/object/" + pimcore.settings.language + "/" + e.detail.object.id + "/datasheet?" +
-                        "unpublished=" + unpublished.value + "&mode=detailed";
+                    const path = getBasePath() + "&mode=detailed";
                     window.open(path);
                 }
                 else
                 {
-                    const path = "/object/" + pimcore.settings.language + "/" + e.detail.object.id + "/datasheet?" +
-                        "unpublished=" + unpublished.value + "&mode=detailed&show_prices=" + combo.value;
+                    const path = getBasePath() +  "&mode=detailed&price=" + combo.value;
                     window.open(path);
                 }
             }
@@ -463,8 +474,7 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
                     return;
                 }
 
-                const path = "/object/" + pimcore.settings.language + "/" + e.detail.object.id + "/datasheet?" +
-                    "unpublished=" + unpublished.value + "&show_prices=" + combo.value + "&type=xlsx";
+                const path = getBasePath() + "&price=" + combo.value + "&type=xlsx";
                 
                 window.open(path);
             }
@@ -475,9 +485,18 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
                 type: 'vbox',
                 align: 'stretch',
             },
+            defaults: {
+                labelWidth: 200
+            },
             bodyPadding: 16,
             items: [
                 unpublished,
+                showGroupProducts,
+                showGroupSets,
+                showGroupRelatedProducts,
+                showProductTypeSku,
+                showPrices,
+                showAllProductsStatus,
                 combo,
                 {
                     xtype: 'splitter'
@@ -696,43 +715,100 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
         e.detail.object.toolbar.add({
             icon: '/bundles/pimcoreadmin/img/flat-white-icons/download-cloud.svg',
             scale: 'medium',
-            tooltip: 'Optimik - zlecenie',
-            text: t('Optimik 3 - zlecenie'),
-            handler: function () {
-                const path = "/orders/optimik/" + e.detail.object.id;
-		var err = "";
+            tooltip: 'Optimik 3',
+            text: t('Optimik 3'),
+            handler: async function () {
 
-		e.detail.object.data.data.Products.forEach(x => {
-			if(x.OptimikExportSerieSize && (x.Quantity / x.OptimikExportSerieSize) != Math.round(x.Quantity / x.OptimikExportSerieSize))
-			{
-				err += x.key + ": " + t("ordered quantity") + " " + x.Quantity + " " + t("is not multiplication of its serie size") + " " + x.OptimikExportSerieSize + "<br/>";
+                const checkList = [
+                    checkPublished,
+                    checkQuantity
+                ];
+
+                const passed = await runChecks(checkList, e.detail.object.data.data);
+
+                if(!passed)
+                {
+                    pimcore.helpers.showNotification('Operation cancelled by user');
+                    return;
+                }
+
+                const path = "/orders/optimik/" + e.detail.object.id;
+                window.open(path);
 			}
 		});
 
-		if(err != "")
+    }
+})
+
+function confirmAsync(message)
 		{
+    return new Promise((resolve) => {
 			Ext.Msg.show({
 				title: "Warning",
-				msg: err,
+            msg: message,
 				buttons: Ext.Msg.OKCANCEL,
 				icon: Ext.MessageBox.QUESTION,
 				fn: (e) => {
-					if(e == "ok")
-					{
-						window.open(path);
+                resolve(e == "ok")
+            },
+        })
+    })
+}
+
+async function runChecks(checks, context)
+{
+    for(const check of checks)
+    {
+        const passed = await check(context);
+
+        if(!passed)
+        {
+            return false;
 					}
 				}
-			})
-		}
-		else
-		{
-			window.open(path);
-		}
+
+    return true;
+}
+
+async function checkPublished(order)
+{
+    var err = "";
+    order.Products.forEach(x => {
+        if(!x.published)
+        {
+            err += t("Product") + " " + x.key + " " + t('is unpublished') + "<br/>";
+        }
+    });
+
+    if(err == "")
+    {
+        return true;
+    }
+
+    err += "<br/>Do you want to proceed?";
+
+    return await confirmAsync(err);
+}
+
+async function checkQuantity(order)
+{
+    var err = "";
+    order.Products.forEach(x => {
+        if(x.OptimikExportSerieSize && (x.Quantity / x.OptimikExportSerieSize) != Math.round(x.Quantity / x.OptimikExportSerieSize))
+        {
+            err += x.key + ": " + t("ordered quantity") + " " + x.Quantity + " " + t("is not multiplication of its serie size") + " " + x.OptimikExportSerieSize + "<br/>";
             }
         });
 
+    if(err == "")
+    {
+        return true;
     }
-})
+
+    err += "<br/>Do you want to proceed?";
+
+    return await confirmAsync(err);
+}
 
 document.addEventListener(pimcore.events.pimcoreReady, (e) => {
 
