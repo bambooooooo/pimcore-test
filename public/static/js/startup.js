@@ -402,10 +402,13 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
             }
         })
 
-        var unpublished = Ext.create('Ext.form.Checkbox', {
-            name: 'unpublished',
-            fieldLabel: 'Show unpublished',
-        });
+        var unpublished = Ext.create('Ext.form.Checkbox', {name: 'show_unpublished', fieldLabel: 'Show unpublished'});
+        var showGroupProducts = Ext.create('Ext.form.Checkbox', {name: 'show_products', fieldLabel: 'Show products', checked: true});
+        var showGroupSets = Ext.create('Ext.form.Checkbox', {name: 'show_sets', fieldLabel: 'Show sets', checked: true});
+        var showGroupRelatedProducts = Ext.create('Ext.form.Checkbox', {name: 'show_relatedproducts', fieldLabel: 'Show related products', checked: true});
+        var showProductTypeSku = Ext.create('Ext.form.Checkbox', {name: 'show_products_sku', fieldLabel: 'Show products with type SKU'});
+        var showPrices = Ext.create('Ext.form.Checkbox', {name: 'show_prices', fieldLabel: 'Show prices', checked: true});
+        var showAllProductsStatus = Ext.create('Ext.form.Checkbox', {name: 'show_all_statuses', fieldLabel: 'Show products in all statuses'})
 
         var combo = Ext.create('Ext.form.ComboBox', {
             xtype: 'combo',
@@ -414,6 +417,18 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
             displayField: 'name',
             valueField: 'id',
         });
+
+        function getBasePath()
+        {
+            return "/object/" + pimcore.settings.language + "/" + e.detail.object.id + "/datasheet?" +
+                    "show_unpublished=" + unpublished.value +
+                    "&show_products=" + showGroupProducts.value +
+                    "&show_sets=" + showGroupSets.value +
+                    "&show_related_products=" + showGroupRelatedProducts.value +
+                    "&show_products_type_sku=" + showProductTypeSku.value +
+                    "&show_prices=" + showPrices.value + 
+                    "&show_items_in_all_statuses=" + showAllProductsStatus.value;
+        }
 
         var btnPdf = Ext.create('Ext.Button', {
             xtype: 'button',
@@ -426,8 +441,7 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
                     return;
                 }
 
-                const path = "/object/" + pimcore.settings.language + "/" + e.detail.object.id + "/datasheet?" +
-                    "unpublished=" + unpublished.value + "&show_prices=" + combo.value;
+                const path = getBasePath() + "&price=" + combo.value;
                 window.open(path);
             }
         });
@@ -439,14 +453,12 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
             handler: function(){
                 if(!combo.value)
                 {
-                    const path = "/object/" + pimcore.settings.language + "/" + e.detail.object.id + "/datasheet?" +
-                        "unpublished=" + unpublished.value + "&mode=detailed";
+                    const path = getBasePath() + "&mode=detailed";
                     window.open(path);
                 }
                 else
                 {
-                    const path = "/object/" + pimcore.settings.language + "/" + e.detail.object.id + "/datasheet?" +
-                        "unpublished=" + unpublished.value + "&mode=detailed&show_prices=" + combo.value;
+                    const path = getBasePath() +  "&mode=detailed&price=" + combo.value;
                     window.open(path);
                 }
             }
@@ -463,8 +475,7 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
                     return;
                 }
 
-                const path = "/object/" + pimcore.settings.language + "/" + e.detail.object.id + "/datasheet?" +
-                    "unpublished=" + unpublished.value + "&show_prices=" + combo.value + "&type=xlsx";
+                const path = getBasePath() + "&price=" + combo.value + "&type=xlsx";
                 
                 window.open(path);
             }
@@ -475,9 +486,18 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
                 type: 'vbox',
                 align: 'stretch',
             },
+            defaults: {
+                labelWidth: 200
+            },
             bodyPadding: 16,
             items: [
                 unpublished,
+                showGroupProducts,
+                showGroupSets,
+                showGroupRelatedProducts,
+                showProductTypeSku,
+                showPrices,
+                showAllProductsStatus,
                 combo,
                 {
                     xtype: 'splitter'
