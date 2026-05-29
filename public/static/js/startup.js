@@ -12,11 +12,11 @@ Date.prototype.ddmmyyyy = function() {
 
 document.addEventListener(pimcore.events.postOpenAsset, function(e) {
 
-    if(e.detail.asset.data.mimetype === 'application/pdf')
+    if(e.detail.asset.data.mimetype === 'application/pdf' || e.detail.asset.type == 'image')
     {
         e.detail.asset.toolbar.add({
-            text: t('Rotate pages'),
-            tooltip: t('Rotate pages'),
+            text: t('Rotate'),
+            tooltip: t('Rotate'),
             icon: '/bundles/pimcoreadmin/img/flat-white-icons/rotate_camera.svg',
             scale: 'medium',
             menu: [
@@ -29,7 +29,6 @@ document.addEventListener(pimcore.events.postOpenAsset, function(e) {
                         Ext.Ajax.request({
                             url: "/assets/rotate/" + e.detail.asset.id + "/270",
                             success: function (data) {
-                                console.log(data.responseText);
                                 e.detail.asset.reload();
                             },
                             failure: function (error) {
