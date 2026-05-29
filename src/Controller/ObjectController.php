@@ -177,25 +177,30 @@ class ObjectController extends FrontendController
     #[Route('/object/{_locale}/{id}/datasheet', name: 'datasheet_new', defaults: ['_locale' => 'pl', 'locale' => 'pl'])]
     public function datasheetAction(Request $request): Response
     {
-        $unpublished = filter_var($request->get("unpublished") ?? false, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
         $orderBy = $request->get('orderby') ?? 'sku';
         $type = $request->get("type") ?? "html";
         $preview = filter_var($request->get("preview") ?? false, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);;
-        $prices = $request->get("show_prices");
+        $price = $request->get("price");
         $mode = $request->get("mode") ?? "basic"; // basic | detailed
+
+        $showUnpublished = filter_var($request->get("show_unpublished") ?? false, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+        $showProducts = filter_var($request->get("show_products") ?? true, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+        $showSets = filter_var($request->get("show_sets") ?? true, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+        $showRelatedProducts = filter_var($request->get("show_related_products") ?? true, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+        $showProductsTypeSKU = filter_var($request->get("show_products_type_sku") ?? true, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+        $showPrices = filter_var($request->get("show_prices") ?? true, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+        $showItemsAllStatus = filter_var($request->get("show_items_in_all_statuses") ?? true, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
 
         $params = [
             'sets_row_cnt' => $request->query->get("sets") ?? 5,
             'products_row_cnt' => $request->query->get("products") ?? 5,
-            'prices' => $prices,
+            'price' => $price,
+            'show_prices' => $showPrices,
             "new_after_date" => (int)$request->query->get("new") ?? 1,
             "mode" => $mode,
         ];
 
-        if($unpublished)
-        {
-            DataObject::setHideUnpublished(false);
-        }
+        DataObject::setHideUnpublished(!$showUnpublished);
 
         $obj = DataObject::getById($request->get('id'));
         if(!$obj)
@@ -204,13 +209,18 @@ class ObjectController extends FrontendController
         $html = "";
         $fname = $obj->getName() ?? $obj->getKey() . ".pdf";
 
+        $productTypes = $showProductsTypeSKU ? "'ACTUAL', 'SKU'" : "'ACTUAL'";
+        $itemStatuses = $showItemsAllStatus ? "'Active','Sale','Draft'" : "'Active','Sale'";
+
+        $offer = DataObject\Offer::getById($price);
+
         if($obj instanceof DataObject\Product)
         {
             $html = $this->renderView('factory/pdf/datasheet_group.html.twig', array_merge($params, [
                 'group' => $obj,
-                'prods' => [],
+                'prods' => [$obj],
                 'sets' => [],
-                'common' => [$obj],
+                'common' => [],
             ]));
         }
         elseif ($obj instanceof DataObject\ProductSet)
@@ -225,8 +235,13 @@ class ObjectController extends FrontendController
         elseif ($obj instanceof DataObject\Group)
         {
             $productListing = new DataObject\Product\Listing();
-            $productListing->setCondition("Groups like '%," . $obj->getId() . ",%' AND `ObjectType` IN ('ACTUAL', 'SKU') AND `Status` IN ('Active','Sale','Draft')");
+            $cond = "Groups like '%," . $obj->getId() . ",%' AND `ObjectType` IN (" . $productTypes . ") AND `Status` IN (" . $itemStatuses . ")";
+            if($offer)
+            {
+                $cond .= " AND `Price` like '%," . $offer->getId() . ",%'";
+            }
 
+            $productListing->setCondition($cond);
             $prods = $productListing->load();
 
             usort($prods, function (DataObject\Product $a, DataObject\Product $b) use ($orderBy) {
@@ -240,7 +255,12 @@ class ObjectController extends FrontendController
             });
 
             $setListing = new DataObject\ProductSet\Listing();
-            $setListing->setCondition("Groups like '%," . $obj->getId() . ",%' AND `Status` IN ('Active', 'Sale', 'Draft')");
+            $cond = "Groups like '%," . $obj->getId() . ",%' AND `Status` IN (" . $itemStatuses . ")";
+            if($offer)
+            {
+                $cond .= " AND `Price` like '%," . $offer->getId() . ",%'";
+            }
+            $setListing->setCondition($cond);
             $sets = $setListing->load();
 
             usort($sets, function ($a, $b) {
@@ -249,19 +269,39 @@ class ObjectController extends FrontendController
 
             $common = [];
 
-            foreach ($prods as $prod)
-            {
-                $common[] = $prod;
-            }
-
             foreach($sets as $set)
             {
                 foreach($set->getSet() as $lip)
                 {
                     $product = $lip->getElement();
-                    if($product && in_array($product->getStatus(), ['Active', 'Sale', 'Draft']) && in_array($product->getObjectType(), ['ACTUAL', 'SKU']))
+                    if(!$showUnpublished && !$product->getPublished())
+                        continue;
+
+                    if($offer)
                     {
-                        $common[] = $product;
+                        $found = false;
+                        foreach ($product->getPrice() as $poff)
+                        {
+                            if($poff->getObject()->getId() == $offer->getId())
+                            {
+                                $found = true;
+                                break;
+                            }
+                        }
+
+                        if(!$found)
+                        {
+                            break;
+                        }
+                    }
+
+                    if(in_array($product->getStatus(), $showItemsAllStatus ? ['Active', 'Sale', 'Draft'] : ['Active', 'Sale'])
+                        && in_array($product->getObjectType(), $showProductsTypeSKU ? ['ACTUAL', 'SKU'] : ['ACTUAL']))
+                    {
+                        if(!in_array($product, $prods))
+                        {
+                            $common[] = $product;
+                        }
                     }
                 }
             }
@@ -292,14 +332,11 @@ class ObjectController extends FrontendController
 
             if($type == 'xlsx')
             {
-                $offer = DataObject\Offer::getById($request->get("show_prices"));
-
                 if(!$offer)
                 {
                     return new Response("No Offer found", Response::HTTP_BAD_REQUEST);
                 }
 
-                $data = $prods;
                 $fname = strtoupper(implode('-', [
                     $obj->getName() ?? $obj->getKey(),
                     $this->translator->trans("Pricelist"),
@@ -307,10 +344,13 @@ class ObjectController extends FrontendController
                     date("d-m-Y")
                 ])) . ".xlsx";
 
-                return $this->getSheetPricesXlsx($data, $offer, $fname);
+                return $this->getSheetPricesXlsx($showProducts ? $prods : null,
+                    $showSets ? $sets : null,
+                    $showRelatedProducts ? $common : null,
+                    $offer, $fname);
             }
 
-            $offer = $prices ? DataObject\Offer::getById($prices) : null;
+            $offer = $price ? DataObject\Offer::getById($price) : null;
 
             if($offer)
             {
@@ -335,9 +375,9 @@ class ObjectController extends FrontendController
 
             $html = $this->renderView('factory/pdf/datasheet_group.html.twig', array_merge($params, [
                 'group' => $obj,
-                'prods' => $prods,
-                'sets' => $sets,
-                'common' => $common,
+                'prods' => $showProducts ? $prods : [],
+                'sets' => $showSets ? $sets : [],
+                'common' => $showRelatedProducts ? $common : [],
             ]));
         }
         elseif($obj instanceof DataObject\Offer)
@@ -366,7 +406,7 @@ class ObjectController extends FrontendController
                     foreach($item->getSet() as $lip)
                     {
                         $product = $lip->getElement();
-                        if($product && in_array($item->getStatus(), ['Active', 'Sale']) && in_array($item->getObjectType(), ['ACTUAL', 'SKU']))
+                        if($product && in_array($product->getStatus(), ['Active', 'Sale']) && in_array($product->getObjectType(), ['ACTUAL', 'SKU']))
                         {
                             $common[] = $product;
                         }
@@ -998,6 +1038,10 @@ class ObjectController extends FrontendController
         $ret = [
             'data' => []
         ];
+        $ret['data'][] = [
+            'id' => -1,
+            'name' => '(null)'
+        ];
         foreach($offers as $offer)
         {
             $ret['data'][] = [
@@ -1009,11 +1053,11 @@ class ObjectController extends FrontendController
         return new JsonResponse($ret, Response::HTTP_OK);
     }
 
-    private function getSheetPricesXlsx(array $items, Dataobject\Offer $offer, string $filename = null): Response
+    private function getSheetPricesXlsx(array $items, array $sets, array $related, Dataobject\Offer $offer, string $filename = null, bool $showPrices = true): Response
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
-        $sheet->setTitle($this->translator->trans('Price list'));
+        $sheet->setTitle($this->translator->trans('Products'));
 
         $sheet->setCellValue("A1", "#");
         $sheet->setCellValue("B1", $this->translator->trans("Image"));
@@ -1115,7 +1159,6 @@ class ObjectController extends FrontendController
         $response->setContent(ob_get_clean());
 
         return $response;
-
     }
 
     private function removeLastWord(string $input): string

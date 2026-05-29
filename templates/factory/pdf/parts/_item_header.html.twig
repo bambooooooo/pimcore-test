@@ -37,11 +37,11 @@
                             {% endif %}
                         </div>
                     {% endif %}
-                    {% if prices %}
+                    {% if show_prices and price %}
                         {% set pr = null %}
-                        {% for price in s.Price %}
-                            {% if price.element.id == prices %}
-                                {% set pr = price %}
+                        {% for p in s.Price %}
+                            {% if p.element.id == price %}
+                                {% set pr = p %}
                             {% endif %}
                         {% endfor %}
 

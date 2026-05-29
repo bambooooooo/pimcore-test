@@ -17,9 +17,9 @@
             <strong>
                 {{ item.id }}
             </strong>
-            {% if s.EAN %}
+            {% if item.EAN %}
                 <div style="color: #7a7a7a">
-                    {{ s.EAN }}
+                    {{ item.EAN }}
                 </div>
             {% endif %}
         </div>
@@ -31,18 +31,18 @@
                     {{ item.key }}
                 {% endif %}
             </div>
-            {% if s is pimcore_data_object_class("Product") %}
+            {% if item is pimcore_data_object_class("Product") %}
                 <div>
                     {% if item.Width and item.Width.Value and item.Height and item.Height.Value and item.Depth and item.Depth.Value %}
                         {{ item.Width.Value }} x {{ item.Height.Value }} x {{ item.Depth.Value }}
                     {% endif %}
                 </div>
             {% endif %}
-            {% if prices %}
+            {% if price and show_prices %}
                 <div style="margin-top: 4px;">
-                {% for price in s.Price %}
-                    {% if price.element.id == prices %}
-                        {{ price.data.Price }} {{ price.data.Currency }}
+                {% for pr in item.Price %}
+                    {% if pr.element.id == price %}
+                        {{ pr.data.Price }} {{ pr.data.Currency }}
                     {% endif %}
                 {% endfor %}
                 </div>
