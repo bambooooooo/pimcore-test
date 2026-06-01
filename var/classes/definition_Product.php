@@ -90,7 +90,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Produkt',
    'description' => 'Towar, który można sprzedać',
    'creationDate' => NULL,
-   'modificationDate' => 1779433397,
+   'modificationDate' => 1780300616,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -2175,7 +2175,33 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                          'height' => 250,
                          'width' => 250,
                       )),
-                      10 => 
+                    ),
+                     'locked' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'fieldtype' => 'panel',
+                     'layout' => NULL,
+                     'border' => false,
+                     'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/deployment.svg',
+                     'labelWidth' => 100,
+                     'labelAlign' => 'left',
+                  )),
+                  6 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                     'name' => 'Layout',
+                     'type' => NULL,
+                     'region' => NULL,
+                     'title' => 'Accessories',
+                     'width' => '',
+                     'height' => '',
+                     'collapsible' => false,
+                     'collapsed' => false,
+                     'bodyStyle' => '',
+                     'datatype' => 'layout',
+                     'children' => 
+                    array (
+                      0 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Block::__set_state(array(
                          'name' => 'AccessorySets',
                          'title' => 'Accessory Sets',
@@ -2194,7 +2220,7 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'lazyLoading' => false,
+                         'lazyLoading' => true,
                          'disallowAddRemove' => false,
                          'disallowReorder' => false,
                          'collapsible' => false,
@@ -2438,11 +2464,11 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                      'fieldtype' => 'panel',
                      'layout' => NULL,
                      'border' => false,
-                     'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/deployment.svg',
+                     'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/puzzle.svg',
                      'labelWidth' => 100,
                      'labelAlign' => 'left',
                   )),
-                  6 => 
+                  7 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Factory',
                      'type' => NULL,
@@ -2732,7 +2758,7 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                      'labelWidth' => 100,
                      'labelAlign' => 'left',
                   )),
-                  7 => 
+                  8 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Quality',
                      'type' => NULL,
@@ -3001,7 +3027,7 @@ Stopień uzupełnienia danych produktu',
                      'labelWidth' => 100,
                      'labelAlign' => 'left',
                   )),
-                  8 => 
+                  9 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Codes',
                      'type' => NULL,
@@ -3109,7 +3135,7 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                      'labelWidth' => 100,
                      'labelAlign' => 'left',
                   )),
-                  9 => 
+                  10 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Documents',
                      'type' => NULL,
@@ -3264,7 +3290,7 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                      'labelWidth' => 100,
                      'labelAlign' => 'left',
                   )),
-                  10 => 
+                  11 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Integrations',
                      'type' => NULL,
