@@ -44,7 +44,7 @@
 {% if obj is pimcore_data_object_class("Product") and app.user.product_show_elements %}
     {% for lip in obj.Packages %}
         {% for el in lip.element.Elements %}
-            <a href="{{ el.element }}" class="list-item">
+            <a href="{{ el.element }}?v={{ el.element.customSettings.checksum }}" class="list-item">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-12">
