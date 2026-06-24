@@ -89,6 +89,10 @@ pimcore:
                             label: cappuccino
                             name: ''
                         -
+                            value: ceglany
+                            label: ceglany
+                            name: ''
+                        -
                             value: chrom
                             label: chrom
                             name: ''
@@ -283,6 +287,10 @@ pimcore:
                         -
                             value: 'drewno retro'
                             label: 'drewno retro'
+                            name: ''
+                        -
+                            value: eukaliptus
+                            label: eukaliptus
                             name: ''
                         -
                             value: fiolet
