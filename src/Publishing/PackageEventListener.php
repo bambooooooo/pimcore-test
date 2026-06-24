@@ -138,9 +138,9 @@ class PackageEventListener
 
         $changed = false;
 
-        if($package->getWidth() && $package->getWidth()->getValue() && $package->getWidth()->getValue() + 30 != $outerWidth)
+        if($package->getWidth() && $package->getWidth()->getValue() && $package->getWidth()->getValue() + 55 != $outerWidth)
         {
-            $package->setWidthOuter(new QuantityValue($package->getWidth()->getValue() + 30, $mm));
+            $package->setWidthOuter(new QuantityValue($package->getWidth()->getValue() + 55, $mm));
             $changed = true;
         }
 
@@ -150,9 +150,9 @@ class PackageEventListener
             $changed = true;
         }
 
-        if($package->getDepth() && $package->getDepth()->getValue() && $package->getDepth()->getValue() + 35 != $outerDepth)
+        if($package->getDepth() && $package->getDepth()->getValue() && $package->getDepth()->getValue() + 55 != $outerDepth)
         {
-            $package->setDepthOuter(new QuantityValue($package->getDepth()->getValue() + 35, $mm));
+            $package->setDepthOuter(new QuantityValue($package->getDepth()->getValue() + 55, $mm));
             $changed = true;
         }
 
