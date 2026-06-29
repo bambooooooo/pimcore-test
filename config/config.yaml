@@ -83,13 +83,13 @@ pimcore:
 #        proxy_port: ''
 #        proxy_user: ''
 #        proxy_pass: ''
-#    email:
-#        sender:
-#            name: 'Pimcore Demo'
-#            email: demo@pimcore.com
-#        return:
-#            name: ''
-#            email: ''
+    email:
+        sender:
+            name: 'Pimcore'
+            email: pim@megstyl.com
+        return:
+            name: ''
+            email: ''
 
 #    applicationlog:
 #        mail_notification:
@@ -130,9 +130,9 @@ framework:
 #        handler_id: null
 
 #### SYMFONY MAILER TRANSPORTS
-#    mailer:
-#        transports:
-#            main: smtp://user:pass@smtp.example.com:port
+    mailer:
+        transports:
+            main: '%env(MAILER_DSN)%'
 #            pimcore_newsletter: smtp://user:pass@smtp.example.com:port
 
 # pimcore_newsletter:
