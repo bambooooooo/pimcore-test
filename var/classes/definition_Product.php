@@ -81,6 +81,7 @@
  * - Model3DStep [manyToOneRelation]
  * - Status [select]
  * - ObjectType [select]
+ * - InStock [calculatedValue]
  */
 
 return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
@@ -90,7 +91,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Produkt',
    'description' => 'Towar, który można sprzedać',
    'creationDate' => NULL,
-   'modificationDate' => 1780300616,
+   'modificationDate' => 1782834498,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -3119,6 +3120,7 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                         array (
                           0 => 'IndexAgata',
                           1 => 'IndexMirjan24',
+                          2 => 'IndexVente',
                         ),
                          'maxItems' => NULL,
                          'border' => false,
@@ -4207,6 +4209,32 @@ Wyróżnia się następujące typy produktu:
                  'optionsProviderType' => 'configure',
                  'optionsProviderClass' => '',
                  'optionsProviderData' => '',
+              )),
+              2 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
+                 'name' => 'InStock',
+                 'title' => 'Stan magazynowy',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => true,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => 'float: right; margin-right: 24px;',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'elementType' => 'input',
+                 'calculatorType' => 'expression',
+                 'calculatorExpression' => 'object.getStock()',
+                 'calculatorClass' => '',
+                 'columnLength' => 190,
+                 'width' => '',
               )),
             ),
              'locked' => false,
