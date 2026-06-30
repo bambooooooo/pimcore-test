@@ -17,8 +17,8 @@ class ErpProductHandler
     private string $AGATA_PACKAGE_BARCODE_INDEX = "twi_20";
     private string $AGATA_PACKAGE_CODE_INDEX = "twi_2";
     private string $AGATA_PRODUCT_CODE_INDEX = "twi_3";
-    private string $VENTE_SKU = "twi_21";
-    private string $VENTE_NAME = "twi_22";
+    private string $VENTE_SKU = "twi_7";
+    private string $VENTE_NAME = "twi_8";
 
     public function __construct(private SubiektGTService $subiektGTService, private LoggerInterface $logger)
     {
