@@ -105,7 +105,11 @@
         <table class="tbl">
             <tr>
                 <td style="position: relative; width: 30%">
-                    <img src="{{ asset('var/assets/LOGO/stilla.svg') }}" alt="bogart_logo" width="95" />
+                    {% if product.key starts with 'ZOLIA' %}
+                        <img src="{{ asset('var/assets/LOGO/stilla.svg') }}" alt="bogart_logo" width="95" />
+                    {% else %}
+                        <img src="{{ asset('var/assets/LOGO/bogart_bb.jpg') }}" alt="bogart_logo" width="95" />
+                    {% endif %}
                     <div class="field" style="width:90%; height: 85px; text-align: center; margin-top: 4px; padding: 2px; box-sizing: border-box;">
                         {% if product.Drawing %}
                             <img src="{{ product.Drawing.getThumbnail("200x200") }}" style="height: 100%; display: block; margin: auto;" />
