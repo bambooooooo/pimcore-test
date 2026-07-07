@@ -33,11 +33,11 @@ class AccessoryController extends FrontendController
 
             if($items)
             {
-                $item->expiresAfter(30);
+                $item->expiresAfter(60 * 60 * 24 * 7); // 1w
                 return new Response($items[0]->getId(), Response::HTTP_OK);
             }
 
-            $item->expiresAfter(60 * 60 * 24 * 7);
+            $item->expiresAfter(30);
             return new Response("Not found", Response::HTTP_NOT_FOUND);
         });
     }
