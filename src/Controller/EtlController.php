@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use Pimcore\Controller\FrontendController;
 use Pimcore\Model\DataObject;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Pimcore\Model\DataObject\ClassDefinition;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -53,11 +53,13 @@ class EtlController extends FrontendController
         return $response;
     }
 
-    #[Route('/field/{id}/{expression}', name: '_somefield')]
-    public function getSomeField(Request $request): Response
+    #[Route('/field/{id}/{field}', name: '_field')]
+    public function getField(Request $request): Response
     {
+        DataObject::setHideUnpublished(false);
+
         $id = (int)$request->get('id');
-        $expression = $request->get('expression');
+        $field = ucfirst($request->get('field'));
 
         $obj = DataObject::getById($id);
         if(!$obj)
@@ -67,39 +69,134 @@ class EtlController extends FrontendController
 
         try
         {
-            if (preg_match('/^([a-zA-Z0-9_]+)\((.*)\)$/', $expression, $matches)) {
-                $method = $matches[1];
-                $argsRaw = trim($matches[2]);
+            $classId = $obj->getClassId();
+            $classDef = ClassDefinition::getById($classId);
+            $fieldDef = $classDef->getFieldDefinition($field);
+            $getter = 'get' . ucfirst($field);
 
-                $args = [];
-
-                if ($argsRaw !== '') {
-                    $args = array_map(
-                        static fn($arg) => trim($arg, " \t\n\r\0\x0B\"'"),
-                        explode(',', $argsRaw)
-                    );
-                }
-
-                if (!method_exists($obj, $method)) {
-                    throw new \Exception("Method {$method} does not exist");
-                }
-
-                $data = $obj->$method(...$args);
-            } else {
-                $getter = 'get' . ucfirst($expression);
-
-                if (!method_exists($obj, $getter)) {
-                    throw new \Exception("Getter {$getter} does not exist");
-                }
-
-                $data = $obj->$getter();
+            if (!method_exists($obj, $getter)) {
+                throw new \Exception("Getter {$getter} does not exist");
             }
 
-            return new Response($data ?? $expression, Response::HTTP_OK);
+            if($fieldDef instanceof DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation or
+                $fieldDef instanceof DataObject\ClassDefinition\Data\AdvancedManyToManyRelation or
+                $fieldDef instanceof DataObject\ClassDefinition\Data\ManyToManyObjectRelation)
+            {
+                throw new \Exception("Getter {$getter} has to few parameters (3 expected)");
+            }
+
+            $data = $obj->$getter();
+
+            return new Response($data, Response::HTTP_OK);
         }
         catch (\Exception $e)
         {
-            return new Response($e->getMessage(), Response::HTTP_OK);
+            return new Response("", Response::HTTP_OK);
+        }
+    }
+
+    #[Route('/field/{id}/{field}/{arg}', name: '_field_arg')]
+    public function getFieldArg(Request $request): Response
+    {
+        DataObject::setHideUnpublished(false);
+
+        $id = (int)$request->get('id');
+        $field = ucfirst($request->get('field'));
+        $arg = $request->get('arg');
+
+        $obj = DataObject::getById($id);
+        if(!$obj)
+        {
+            return new Response('Not found', 404);
+        }
+
+        try
+        {
+            $classId = $obj->getClassId();
+            $classDef = ClassDefinition::getById($classId);
+            $fieldDef = $classDef->getFieldDefinition($field);
+            $getter = 'get' . ucfirst($field);
+
+            if (!method_exists($obj, $getter)) {
+                throw new \Exception("Getter {$getter} does not exist");
+            }
+
+            if($fieldDef instanceof DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation or
+                $fieldDef instanceof DataObject\ClassDefinition\Data\AdvancedManyToManyRelation or
+                $fieldDef instanceof DataObject\ClassDefinition\Data\ManyToManyObjectRelation)
+            {
+                throw new \Exception("Getter {$getter} has to few parameters (3 expected)");
+            }
+
+            $data = $obj->$getter($arg);
+
+            return new Response($data, Response::HTTP_OK);
+        }
+        catch (\Exception $e)
+        {
+            return new Response("", Response::HTTP_OK);
+        }
+    }
+
+    #[Route('/field/{id}/{field}/{arg}/{arg1}', name: '_field_arg2')]
+    public function getRelationData(Request $request): Response
+    {
+        DataObject::setHideUnpublished(false);
+
+        $id = (int)$request->get('id');
+        $field = ucfirst($request->get('field'));
+        $nth = (int)$request->get('arg');
+        $arg1 = $request->get('arg1');
+
+        $obj = DataObject::getById($id);
+        if(!$obj)
+        {
+            return new Response('Not found', 404);
+        }
+
+        try
+        {
+            $classId = $obj->getClassId();
+            $classDef = ClassDefinition::getById($classId);
+            $fieldDef = $classDef->getFieldDefinition($field);
+            $getter = 'get' . ucfirst($field);
+
+            if (!method_exists($obj, $getter)) {
+                throw new \Exception("Getter {$getter} does not exist");
+            }
+
+            if(!($fieldDef instanceof DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation or
+                $fieldDef instanceof DataObject\ClassDefinition\Data\AdvancedManyToManyRelation or
+                $fieldDef instanceof DataObject\ClassDefinition\Data\ManyToManyObjectRelation))
+            {
+                throw new \Exception("Getter {$getter} has to many parameters");
+            }
+
+            $li = $obj->$getter()[$nth];
+
+            if(!$li)
+            {
+                return new Response('Not found', 404);
+            }
+
+            try
+            {
+                $innerGetter = 'get' . ucfirst($arg1);
+                $data = $li->$innerGetter();
+
+                return new Response($data, Response::HTTP_OK);
+            }
+            catch (\Exception $e)
+            {
+                $innerGetter = 'get' . ucfirst($arg1);
+
+                $data = $li->getElement()->$innerGetter();
+                return new Response($data, Response::HTTP_OK);
+            }
+        }
+        catch (\Exception $e)
+        {
+            return new Response("", Response::HTTP_OK);
         }
     }
 }
