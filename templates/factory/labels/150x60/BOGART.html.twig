@@ -204,10 +204,12 @@
                         nazwa:
                     </div>
                     <div class="field">
-                        {% if product.Name("pl") %}
-                            {{ product.Name("pl") }}
+                        {% if product.Codes and product.Codes.IndexBogart and product.Codes.IndexBogart.Name %}
+                            {{ product.Codes.IndexBogart.Name }}
                         {% else %}
-                            Brak nazwy produktu
+                            <div class="error">
+                                Brak nazwy produktu Bogart
+                            </div>
                         {% endif %}
                     </div>
                 </td>
