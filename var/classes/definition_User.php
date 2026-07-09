@@ -46,6 +46,7 @@
  * - schedule_change_date [checkbox]
  * - schedule_item_status_ready [checkbox]
  * - schedule_item_status_process [checkbox]
+ * - schedule_item_status_start [checkbox]
  * - schedule_print_control_card [checkbox]
  * - explorer_show_info [checkbox]
  * - explorer_show_children [checkbox]
@@ -80,7 +81,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Użytkownik',
    'description' => 'Podmiot w systemie',
    'creationDate' => NULL,
-   'modificationDate' => 1779267915,
+   'modificationDate' => 1783595323,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -1245,6 +1246,28 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                          'defaultValueGenerator' => '',
                       )),
                       4 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                         'name' => 'schedule_item_status_start',
+                         'title' => 'Schedule _item _status _start',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'defaultValueGenerator' => '',
+                      )),
+                      5 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'schedule_print_control_card',
                          'title' => 'Schedule _print _control _card',
