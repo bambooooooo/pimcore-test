@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Service\DeepLService;
-use Carbon\Carbon;
 use DeepL\DeepLException;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
@@ -17,6 +16,7 @@ use Pimcore\Model\DataObject\Offer;
 use Pimcore\Model\DataObject\Product;
 use Pimcore\Model\DataObject\ProductSet;
 use Psr\Cache\CacheItemPoolInterface;
+use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -1049,6 +1049,80 @@ class ObjectController extends FrontendController
                 'name' => $offer->getKey(),
             ];
         }
+
+        return new JsonResponse($ret, Response::HTTP_OK);
+    }
+
+    #[Route("/labelsize", name: "get_labelsize")]
+    public function getLabelSizeList()
+    {
+        $ret = [
+            'data' => []
+        ];
+
+        $dirs = (new Finder())
+                ->directories()
+                ->depth('== 0')
+                ->sortByName()
+                ->in($this->getParameter('kernel.project_dir') . '/templates/factory/labels');
+
+        foreach ($dirs as $dir) {
+            $ret['data'][] = [
+                'name' => $dir->getFilename()
+            ];
+        }
+
+        return new JsonResponse($ret, Response::HTTP_OK);
+    }
+
+    #[Route("/userlabel", name: "get_userlabel")]
+    public function getUserWithLabel()
+    {
+        DataObject::setHideUnpublished(false);
+        $ret = [
+            'data' => []
+        ];
+
+        $users = new DataObject\User\Listing();
+        $users->setCondition("`PackageTemplate` IS NOT NULL AND `PackageTemplate` <> ''");
+        $users->setOrderKey('key');
+        $users->setOrder('ASC');
+
+        foreach ($users as $user) {
+            $ret['data'][] = [
+                'id' => $user->getId(),
+                'name' => $user->getKey(),
+            ];
+        }
+
+        return new JsonResponse($ret, Response::HTTP_OK);
+    }
+
+    #[Route('/packageproducts/{id}', name: "get_packageproducts")]
+    public function getPackageProducts(Request $request): JsonResponse
+    {
+        DataObject::setHideUnpublished(false);
+        $packageId = (int)$request->get("id");
+
+        $ret = [
+            'data' => []
+        ];
+
+        $prods = new DataObject\Product\Listing();
+        $prods->setCondition("`Packages` LIKE '%,{$packageId},%'");
+
+        foreach ($prods as $prod) {
+            $ret['data'][] = [
+                'id' => $prod->getId(),
+                'name' => $prod->getKey() . " - " . $prod->getId(),
+                'packagesCount' => count($prod->getPackages() ?? []),
+            ];
+        }
+
+        usort($ret['data'], function ($a, $b) {
+            $cmp = $a['packagesCount'] <=> $b['packagesCount'];
+            return $cmp !== 0 ? $cmp : strcmp($a['name'], $b['name']);
+        });
 
         return new JsonResponse($ret, Response::HTTP_OK);
     }

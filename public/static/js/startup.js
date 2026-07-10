@@ -738,6 +738,155 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
 		});
 
     }
+
+    if(e.detail.object.data.general.className === "Package")
+    {
+        var labelTemplates = Ext.create('Ext.data.Store', {
+            fields: ['id', 'name'],
+            autoLoad: false,
+            proxy: {
+                type: 'ajax',
+                url: '/labelsize',
+                reader: {
+                    type: 'json',
+                    rootProperty: 'data',
+                }
+            }
+        })
+
+        var usersWithTemplate = Ext.create('Ext.data.Store', {
+            fields: ['id', 'name'],
+            autoLoad: false,
+            proxy: {
+                type: 'ajax',
+                url: '/userlabel',
+                reader: {
+                    type: 'json',
+                    rootProperty: 'data',
+                }
+            }
+        })
+
+        var packageProducts = Ext.create('Ext.data.Store', {
+            fields: ['id', 'name'],
+            autoLoad: true,
+            proxy: {
+                type: 'ajax',
+                url: '/packageproducts/' + e.detail.object.id,
+                reader: {
+                    type: 'json',
+                    rootProperty: 'data',
+                }
+            }
+        })
+
+        var packageTemplateCombo = Ext.create('Ext.form.ComboBox', {
+            xtype: 'combo',
+            fieldLabel: 'Template',
+            store: labelTemplates,
+            displayField: 'name',
+            valueField: 'name',
+        })
+
+        var userTemplateCombo = Ext.create('Ext.form.ComboBox', {
+            xtype: 'combo',
+            fieldLabel: 'User',
+            store: usersWithTemplate,
+            displayField: 'name',
+            valueField: 'id',
+        })
+
+        var productCombo = Ext.create('Ext.form.ComboBox', {
+            xtype: 'combo',
+            fieldLabel: 'Product',
+            store: packageProducts,
+            displayField: 'name',
+            valueField: 'id',
+        })
+
+        var btn = Ext.create('Ext.Button', {
+            xtype: 'button',
+            text: t('Show'),
+            icon: '/bundles/pimcoreadmin/img/flat-white-icons/seemode.svg',
+            handler: function () {
+
+                var productId = null;
+                var userId = null;
+                var size = null;
+
+                if(!packageTemplateCombo.value)
+                {
+                    alert("Select package template first")
+                    return;
+                }
+
+                size = packageTemplateCombo.value;
+
+                if(userTemplateCombo.value)
+                {
+                    userId = userTemplateCombo.value;
+                }
+
+                if(!productCombo.value)
+                {
+                    alert("Select product first");
+                    return;
+                }
+
+                productId = productCombo.value;
+
+                var url = "/factory/pl/labels/" + e.detail.object.id
+                    + "?product_id=" + productId
+                    + "&size=" + size
+                    + "&copies=1";
+
+                if(userId)
+                {
+                    url = url + "&customer_id=" + userId
+                }
+
+                window.open(url);
+            }
+        });
+
+        var panel = Ext.create('Ext.form.Panel', {
+            layout: {
+                type: 'vbox',
+                align: 'stretch',
+            },
+            defaults: {
+                labelWidth: 200
+            },
+            bodyPadding: 16,
+            items: [
+                productCombo,
+                packageTemplateCombo,
+                userTemplateCombo,
+                btn
+            ]
+        })
+
+        var packageWin = Ext.create('Ext.window.Window', {
+            title: t('Package label'),
+            items: [
+                panel,
+            ],
+            closeAction: 'hide',
+            width: 600,
+            layout: 'fit',
+            closeable: true,
+            modal: true
+        })
+
+        e.detail.object.toolbar.add({
+            icon: '/bundles/pimcoreadmin/img/flat-color-icons/print.svg',
+            scale: 'medium',
+            tooltip: 'Package label',
+            handler: function () {
+                packageWin.show();
+            }
+        })
+    }
 })
 
 function confirmAsync(message)
