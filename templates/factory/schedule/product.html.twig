@@ -1,27 +1,20 @@
-{% if app.user.schedule_product_link %}
-    {% if app.user.schedule_product_path %}
+{% if app.user.user.allowed("factory_show_product_link") %}
+    {% if "show_product_path" == "show_product_path" %}
         <div style="font-size: 10px;">
             {{ p.element.path }}
         </div>
     {% endif %}
     <a href="{{ path("factory_tree", {id:p.element.id})}}" style="text-decoration: none; {% if not p.element.published and type != "pdf" %}text-decoration-line: line-through{% endif %}">
-        {% if app.user.schedule_item_show_id %}
-            <span class="badge text-bg-info rounded-pill">
-                {{ p.element.id }}
-            </span>
-        {% endif %}
+        <span class="badge text-bg-info rounded-pill">
+            {{ p.element.id }}
+        </span>
         {{ p.element.key }}
     </a>
 {% else %}
-    {% if app.user.schedule_item_show_id %}
-        <span class="badge text-bg-info rounded-pill">
-                {{ p.element.id }}
-            </span>
-    {% endif %}
     {{ p.element.key }}
 {% endif %}
 
-{% if app.user.schedule_show_packages and type != 'pdf' %}
+{% if app.user.user.allowed('factory_show_packages') and type != 'pdf' %}
     {% for lip in p.element.packages %}
         <div class="btn-group ms-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ lip.element.key }}">
             <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -120,7 +113,7 @@
     {% endfor %}
 {% endif %}
 
-{% if app.user.schedule_show_cartoon and type != 'pdf' %}
+{% if app.user.user.allowed('factory_show_cartoon')and type != 'pdf' %}
     {% for lip in p.element.packages %}
         <button {% if lip.element.Model %}data-id="{{ order.key }}-{{ lip.element.Model }}"{% endif %} data-quantity="{{ p.data.Quantity }}" class="package btn btn-outline-secondary btn-sm" type="button" role="button" data-bs-toggle="button">
             {% if lip.element.Model %}
@@ -133,7 +126,7 @@
     {% endfor %}
 {% endif %}
 
-{% if app.user.schedule_order_sheets and type != 'pdf' %}
+{% if app.user.user.allowed("factory_show_sheets") and type != 'pdf' %}
     <button class="btn btn-outline-secondary serie-sheets-btn"
             type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Arkusze"
             data-id="{{ serie.id }}" data-product="{{ p.element.key }}" data-label="{{ order.key }}-{{ serie.id }}-{{ p.element.key }}">

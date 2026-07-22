@@ -4,29 +4,22 @@ namespace App\Controller;
 
 use App\Service\OptimikService;
 use Carbon\Carbon;
-use App\Model\DataObject\User;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-use Pimcore\Controller\FrontendController;
+use Pimcore\Bundle\WebToPrintBundle\Processor;
+use Pimcore\Controller\UserAwareController;
 use Pimcore\Model\DataObject;
 use Pimcore\Model\Asset;
 use Pimcore\Model\DataObject\Package;
-use Pimcore\Model\DataObject\Product;
-use Pimcore\Model\DataObject\ProductSet;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
 #[Route('/factory/{_locale}', name: 'factory_', defaults: ['_locale' => 'pl', 'locale' => 'pl'])]
-class FactoryController extends FrontendController
+class FactoryController extends UserAwareController
 {
-    public function __construct(private Environment $twig, private readonly OptimikService $optimikService, private readonly TranslatorInterface $t)
+    public function __construct(private Environment $twig, private readonly OptimikService $optimikService)
     {
 
     }
@@ -41,6 +34,7 @@ class FactoryController extends FrontendController
     public function treeAction(Request $request): Response
     {
         $grid = $request->cookies->getString('grid_style', 'list');
+        $hideParts = explode(',', $request->cookies->getString('hide_parts', ''));
 
         $newStyle = $request->get("style");
         if($newStyle == 'list')
@@ -52,6 +46,27 @@ class FactoryController extends FrontendController
             $grid = 'gallery';
         }
 
+        $hide = (string)$request->get("hide");
+        if($hide != '')
+        {
+            if(str_starts_with($hide, "-"))
+            {
+                $hide = ltrim($hide, '-');
+                if(in_array($hide, $hideParts))
+                {
+                    $hideParts = array_diff($hideParts, [$hide]);
+                }
+            }
+            else
+            {
+                $hide = ltrim($hide, '-');
+                if($hide != "" && !in_array($hide, $hideParts))
+                {
+                    $hideParts[] = $hide;
+                }
+            }
+        }
+
         DataObject::setHideUnpublished(false);
         $obj = DataObject::getById($request->get('id'));
         if(!$obj)
@@ -60,11 +75,13 @@ class FactoryController extends FrontendController
         $data = [
             'obj' => $obj,
             'style' => $grid,
-            'title' => $obj->getKey()
+            'title' => $obj->getKey(),
+            'hide' => $hideParts
         ];
 
         $response = $this->render("factory/tree.html.twig", $data);
         $response->headers->setCookie(new Cookie("grid_style", $grid, time() + (86400 * 30)));
+        $response->headers->setCookie(new Cookie("hide_parts", implode(",", $hideParts), time() + (86400 * 30)));
 
         return $response;
     }
@@ -167,6 +184,9 @@ class FactoryController extends FrontendController
     #[Route('/schedule', name: 'schedule')]
     public function scheduleAction(Request $request, UserInterface $user): Response
     {
+        $user = $this->getPimcoreUser();
+        DataObject::setHideUnpublished(!$user->isAllowed('factory_show_unpublished_orders'));
+
         $orders = new DataObject\Order\Listing();
 
         $root = DataObject::getByPath("/ZLECENIA/PRODUKCJA");
@@ -176,13 +196,13 @@ class FactoryController extends FrontendController
             return new Response("Schedule root /ZLECENIA/PRODUKCJA not found", Response::HTTP_NOT_FOUND);
         }
 
+        $rootId = $root->getId();
+
         $group = $request->get("group") ?? "Date";
         if($group != "Date" && $group != "SupplyDate")
         {
            $group = "Date";
         }
-
-        $rootId = $root->getId();
 
         if($request->query->get('y') && $request->query->get('m'))
         {
@@ -194,12 +214,6 @@ class FactoryController extends FrontendController
         else
         {
             $orders->setCondition("parentid = ?", [$rootId]);
-        }
-
-        $userData = DataObject\User::getById($user->getId());
-        if($userData->getSchedule_show_unpublished_orders())
-        {
-            DataObject::setHideUnpublished(false);
         }
 
         $orders->setOrderKey("Date");
@@ -238,7 +252,7 @@ class FactoryController extends FrontendController
                 'group' => $group,
             ]);
 
-            $adapter = \Pimcore\Bundle\WebToPrintBundle\Processor::getInstance();
+            $adapter = Processor::getInstance();
             $pdf = $adapter->getPdfFromString($html, $pdfPageParams);
 
             return new Response($pdf, Response::HTTP_OK, ['Content-Type' => 'application/pdf']);
@@ -264,7 +278,7 @@ class FactoryController extends FrontendController
                 'group' => $group,
             ]);
 
-            $adapter = \Pimcore\Bundle\WebToPrintBundle\Processor::getInstance();
+            $adapter = Processor::getInstance();
             $pdf = $adapter->getPdfFromString($html, $pdfPageParams);
 
             return new Response($pdf, Response::HTTP_OK, ['Content-Type' => 'application/pdf']);
@@ -275,30 +289,6 @@ class FactoryController extends FrontendController
             "title" => "Harmonogram produkcyjny",
             'type' => $type,
         ]);
-    }
-
-    #[Route('/account', name: 'account')]
-    public function accountAction(Request $request, UserInterface $user = null): Response
-    {
-        $changed = false;
-        $userData = User::getById($user->getId());
-
-        foreach($request->request->all() as $key => $value)
-        {
-            if(strpos($key, "theme_") === 0 && $userData->get($key) != ($value === "on"))
-            {
-                $userData->set($key, $value === "on");
-                $changed = true;
-            }
-        }
-
-        if($changed)
-        {
-            $userData->save();
-            $this->addFlash("success", "Saved");
-        }
-
-        return $this->render("factory/account.html.twig");
     }
 
     #[Route('/labels/{id}', name: 'labels')]
@@ -375,7 +365,7 @@ class FactoryController extends FrontendController
             return new Response($html, Response::HTTP_OK);
         }
 
-        $adapter = \Pimcore\Bundle\WebToPrintBundle\Processor::getInstance();
+        $adapter = Processor::getInstance();
         $pdf = $adapter->getPdfFromString($html, $pdfPageParams);
 
         return new Response($pdf, Response::HTTP_OK, ['Content-Type' => 'application/pdf']);
@@ -425,7 +415,7 @@ class FactoryController extends FrontendController
             'repeat' => $repeat,
         ]);
 
-        $adapter = \Pimcore\Bundle\WebToPrintBundle\Processor::getInstance();
+        $adapter = Processor::getInstance();
         $pdf = $adapter->getPdfFromString($html, $pdfPageParams);
 
         return new Response($pdf, Response::HTTP_OK, ['Content-Type' => 'application/pdf']);
@@ -487,10 +477,12 @@ class FactoryController extends FrontendController
     }
 
     #[Route('/order/item/done', name: 'item_done')]
-    public function orderItemDone(Request $request, UserInterface $user): Response
+    public function orderItemDone(Request $request): Response
     {
-        $userData = User::getById($user->getId());
-        if(!$userData->getSchedule_mark_line_item_done())
+        DataObject::setHideUnpublished(false);
+
+        $user = $this->getPimcoreUser();
+        if(!$user->isAllowed("factory_item_status_done"))
         {
             return new Response("User has no permissions", Response::HTTP_FORBIDDEN);
         }
@@ -529,6 +521,8 @@ class FactoryController extends FrontendController
     #[Route('/order/item/status', name: 'item_status')]
     public function orderItemStatusAction(Request $request, UserInterface $user): Response
     {
+        DataObject::setHideUnpublished(false);
+
         $orderId = (int)$request->get('orderid');
         $productId = (int)$request->get('productid');
         $newStatus = $request->get('status');
@@ -598,141 +592,5 @@ class FactoryController extends FrontendController
         $rows = ceil(count($imgs) / $cols);
 
         return $this->render("factory/listings/layout.html.twig", ['package' => $p, 'layers' => $imgs, 'rows' => $rows, 'cols' => $cols]);
-    }
-
-    #[Route('/login', name: 'login')]
-    public function loginAction(
-        Request $request,
-        AuthenticationUtils $authenticationUtils,
-        UserInterface $user = null
-    ): Response
-    {
-        if($user && $this->isGranted('ROLE_USER')) {
-            $u = User::getByEmail($user->getUserIdentifier())->current();
-            return $this->redirectToRoute('factory_home', ['_locale' => $u->getLang()]);
-        }
-
-        $error = $authenticationUtils->getLastAuthenticationError();
-        $lastUsername = $authenticationUtils->getLastUsername();
-
-        return $this->render('factory/login.html.twig', [
-            'last_username' => $lastUsername,
-            'error' => $error,
-        ]);
-    }
-
-    #[Route('/logout', name: 'logout')]
-    public function logoutAction()
-    {
-        return $this->redirectToroute('factory_login');
-    }
-
-    private function getSheetPricesXlsx(array $items, Dataobject\Offer $offer, string $filename = null): Response
-    {
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-        $sheet->setTitle($this->t->trans('Price list'));
-
-        $sheet->setCellValue("A1", "#");
-        $sheet->setCellValue("B1", $this->t->trans("Image"));
-        $sheet->setCellValue("C1", $this->t->trans("Product"));
-        $sheet->setCellValue("D1", $this->t->trans("Name"));
-        $sheet->setCellValue("E1", $this->t->trans("Description"));
-        $sheet->setCellValue("F1", $this->t->trans("Net price"));
-
-        $i = 2;
-
-        /** @var Product|ProductSet $obj */
-        foreach ($items as $obj)
-        {
-            $price = null;
-            foreach ($obj->getPrice() as $price)
-            {
-                if($price->getElement()->getId() == $offer->getId())
-                {
-                    $price = round(floatval($price->getPrice()), 2);
-                    break;
-                }
-            }
-
-            if(!$price)
-                continue;
-
-            $sheet->setCellValue('F' . $i, $price);
-
-            $sheet->setCellValue('A' . $i, $i - 1);
-
-            if(!$obj->getSummary() || (substr_count($obj->getSummary(), "</p>") < 5))
-            {
-                $sheet->getRowDimension($i)->setRowHeight(64);
-            }
-
-            if ($obj->getImage()) {
-
-                $image = $obj->getImage()->getThumbnail("200x200");
-
-                $stream = $image->getStream();
-
-                $tempFile = tempnam(sys_get_temp_dir(), 'pim_image_');
-                file_put_contents($tempFile, stream_get_contents($stream));
-
-                if (file_exists($tempFile)) {
-                    $drawing = new Drawing();
-                    $drawing->setPath($tempFile);
-                    $drawing->setHeight(80); // Set image height (adjust as needed)
-                    $drawing->setCoordinates('B' . $i); // Place image in column D
-                    $drawing->setWorksheet($sheet);
-                }
-            }
-
-            $sheet->setCellValue('C' . $i, $obj->getKey());
-            $sheet->setCellValue('D' . $i, $obj->getName());
-
-            if($obj->getSummary())
-            {
-                $summary = new \PhpOffice\PhpSpreadsheet\Helper\Html();
-                $html = $summary->toRichTextObject($obj->getSummary());
-                $sheet->setCellValue('E' . $i, $html);
-            }
-
-            $i++;
-        }
-
-        for ($j=0; $j<6; $j++)
-        {
-            if($j == 1)
-            {
-                $sheet->getColumnDimension(chr(833 + $j))->setWidth(12);
-            }
-            else
-            {
-                $sheet->getColumnDimension(chr(833 + $j))->setAutoSize(true);
-            }
-        }
-
-        $sheet->getStyle("B1:B" . $sheet->getHighestRow())->getAlignment()->setWrapText(true);
-        $sheet->getStyle("E1:E" . $sheet->getHighestRow())->getAlignment()->setWrapText(true);
-
-        $writer = new Xlsx($spreadsheet);
-
-        if(!$filename)
-        {
-            $fileName = $offer->getKey() . '.xlsx';
-        }
-        else
-        {
-            $fileName = $filename . '.xlsx';
-        }
-
-        $response = new Response();
-        $response->headers->set('Content-Type', 'application/vnd.ms-excel');
-        $response->headers->set('Content-Disposition', 'attachment;filename="' . $fileName . '"');
-
-        ob_start();
-        $writer->save('php://output');
-        $response->setContent(ob_get_clean());
-
-        return $response;
-
     }
 }

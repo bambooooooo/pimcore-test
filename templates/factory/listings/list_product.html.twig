@@ -6,10 +6,10 @@
 
         {% if item is pimcore_data_object_class("Package") %}
 
-        {% elseif item is pimcore_data_object_class("Order") and not app.user.product_show_orders %}
+        {% elseif item is pimcore_data_object_class("Order") %}
             {% set skip = true %}
 
-        {% elseif item is pimcore_data_object_class("ProductSet") and not app.user.product_show_sets %}
+        {% elseif item is pimcore_data_object_class("ProductSet") %}
             {% set skip = true %}
 
         {% endif %}
@@ -41,26 +41,28 @@
     {% endif %}
 {% endfor %}
 
-{% if obj is pimcore_data_object_class("Product") and app.user.product_show_elements %}
-    {% for lip in obj.Packages %}
-        {% for el in lip.element.Elements %}
-            <a href="{{ el.element }}?v={{ el.element.customSettings.checksum }}" class="list-item">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-12">
-                            <img src="{{ el.element.getImageThumbnail("200x200") }}" height="50"/>
-                            <span style="margin-left: 8px">
-                            {{ el.element.key }}
-                        </span>
+{% if obj is pimcore_data_object_class("Product") %}
+    {% if not ('elements' in hide) %}
+        {% for lip in obj.Packages %}
+            {% for el in lip.element.Elements %}
+                <a href="{{ el.element }}?v={{ el.element.customSettings.checksum }}" class="list-item">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-12">
+                                <img src="{{ el.element.getImageThumbnail("200x200") }}" height="50"/>
+                                <span style="margin-left: 8px">
+                                {{ el.element.key }}
+                            </span>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </a>
+                </a>
+            {% endfor %}
         {% endfor %}
-    {% endfor %}
+    {% endif %}
 {% endif %}
 
-{% if obj is pimcore_data_object_class("Product") and app.user.product_show_cnc_skipper %}
+{% if obj is pimcore_data_object_class("Product") %}
     {% for el in obj.SkipperCNC %}
         {{ include('factory/listings/_list_cnc.html.twig', {el: el, machine: 'Skipper'}) }}
     {% endfor %}
@@ -70,7 +72,7 @@
     {% endfor %}
 {% endif %}
 
-{% if obj is pimcore_data_object_class("Product") and app.user.product_show_cnc_master %}
+{% if obj is pimcore_data_object_class("Product") %}
     {% for el in obj.MasterCNC %}
         {{ include('factory/listings/_list_cnc.html.twig', {el: el, machine: 'Master', color: "#c99a16"}) }}
     {% endfor %}

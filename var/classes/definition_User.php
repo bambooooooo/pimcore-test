@@ -7,6 +7,7 @@
  * Podmiot w systemie
  *
  * Fields Summary:
+ * - User [user]
  * - Image [image]
  * - email [email]
  * - Name [input]
@@ -22,55 +23,6 @@
  * - PostalCode [input]
  * - Groups [manyToManyObjectRelation]
  * - PackageTemplate [input]
- * - permission_schedule [checkbox]
- * - theme_schedule_show_completed_item [checkbox]
- * - schedule_show_unpublished_orders [checkbox]
- * - schedule_show_receiver [checkbox]
- * - schedule_show_supplier [checkbox]
- * - schedule_show_packages [checkbox]
- * - schedule_show_send_date [checkbox]
- * - schedule_show_supply_date [checkbox]
- * - schedule_show_production_date [checkbox]
- * - schedule_show_all_suppliers [checkbox]
- * - schedule_show_serie_carrier [checkbox]
- * - schedule_show_serie_attachments [checkbox]
- * - schedule_item_show_status [checkbox]
- * - schedule_item_show_id [checkbox]
- * - schedule_show_cartoon [checkbox]
- * - schedule_show_only_user_related_products [checkbox]
- * - schedule_show_item_checkbox [checkbox]
- * - schedule_product_link [checkbox]
- * - schedule_product_path [checkbox]
- * - schedule_order_sheets [checkbox]
- * - schedule_mark_line_item_done [checkbox]
- * - schedule_change_date [checkbox]
- * - schedule_item_status_ready [checkbox]
- * - schedule_item_status_process [checkbox]
- * - schedule_item_status_start [checkbox]
- * - schedule_print_control_card [checkbox]
- * - explorer_show_info [checkbox]
- * - explorer_show_children [checkbox]
- * - explorer_show_search [checkbox]
- * - explorer_show_accessory_tab [checkbox]
- * - explorer_show_only_user_related_accessory [checkbox]
- * - product_show_baseprice [checkbox]
- * - product_show_files [checkbox]
- * - product_show_datasheet [checkbox]
- * - product_show_sets [checkbox]
- * - product_show_elements [checkbox]
- * - product_show_orders [checkbox]
- * - product_show_packages [checkbox]
- * - product_show_cnc_skipper [checkbox]
- * - product_show_cnc_master [checkbox]
- * - product_show_accessorysets [checkbox]
- * - nav_show_collections [checkbox]
- * - nav_show_products [checkbox]
- * - nav_show_types [checkbox]
- * - nav_show_sets [checkbox]
- * - nav_show_packages [checkbox]
- * - package_show_layers [checkbox]
- * - package_show_fillment [checkbox]
- * - package_show_layout [checkbox]
  * - Offers [manyToManyObjectRelation]
  */
 
@@ -81,7 +33,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Użytkownik',
    'description' => 'Podmiot w systemie',
    'creationDate' => NULL,
-   'modificationDate' => 1783595323,
+   'modificationDate' => 1784644299,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -139,6 +91,36 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'children' => 
             array (
               0 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\User::__set_state(array(
+                 'name' => 'User',
+                 'title' => 'User',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'options' => NULL,
+                 'defaultValue' => NULL,
+                 'columnLength' => 190,
+                 'dynamicOptions' => false,
+                 'defaultValueGenerator' => '',
+                 'width' => NULL,
+                 'optionsProviderType' => NULL,
+                 'optionsProviderClass' => NULL,
+                 'optionsProviderData' => NULL,
+                 'unique' => false,
+              )),
+              1 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                  'name' => 'Image',
                  'title' => 'Image',
@@ -161,7 +143,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'width' => 300,
                  'height' => 300,
               )),
-              1 => 
+              2 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Email::__set_state(array(
                  'name' => 'email',
                  'title' => 'Email',
@@ -191,7 +173,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'width' => '',
                  'defaultValueGenerator' => '',
               )),
-              2 => 
+              3 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'Name',
                  'title' => 'Name',
@@ -221,7 +203,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'width' => '',
                  'defaultValueGenerator' => '',
               )),
-              3 => 
+              4 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'VAT',
                  'title' => 'VAT Number',
@@ -251,7 +233,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'width' => '',
                  'defaultValueGenerator' => '',
               )),
-              4 => 
+              5 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Password::__set_state(array(
                  'name' => 'password',
                  'title' => 'Password',
@@ -276,7 +258,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'minimumLength' => NULL,
                  'width' => '',
               )),
-              5 => 
+              6 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Language::__set_state(array(
                  'name' => 'Lang',
                  'title' => 'Language',
@@ -306,7 +288,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'optionsProviderData' => NULL,
                  'onlySystemLanguages' => true,
               )),
-              6 => 
+              7 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Country::__set_state(array(
                  'name' => 'Country',
                  'title' => 'Country',
@@ -335,7 +317,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'optionsProviderData' => NULL,
                  'restrictTo' => '',
               )),
-              7 => 
+              8 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'email2',
                  'title' => 'Email2',
@@ -365,7 +347,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'width' => '',
                  'defaultValueGenerator' => '',
               )),
-              8 => 
+              9 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'phone',
                  'title' => 'Phone',
@@ -663,1185 +645,6 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                  'width' => '',
                  'defaultValueGenerator' => '',
               )),
-              1 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
-                 'name' => 'Layout',
-                 'type' => NULL,
-                 'region' => NULL,
-                 'title' => '',
-                 'width' => '',
-                 'height' => '',
-                 'collapsible' => false,
-                 'collapsed' => false,
-                 'bodyStyle' => '',
-                 'datatype' => 'layout',
-                 'children' => 
-                array (
-                  0 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-                     'name' => 'Schedule',
-                     'type' => NULL,
-                     'region' => NULL,
-                     'title' => 'Schedule',
-                     'width' => '',
-                     'height' => '',
-                     'collapsible' => false,
-                     'collapsed' => false,
-                     'bodyStyle' => '',
-                     'datatype' => 'layout',
-                     'children' => 
-                    array (
-                      0 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'permission_schedule',
-                         'title' => 'Permission _schedule',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'defaultValueGenerator' => '',
-                      )),
-                      1 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'theme_schedule_show_completed_item',
-                         'title' => 'Schedule _show _completed _item',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => 0,
-                         'defaultValueGenerator' => '',
-                      )),
-                      2 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'schedule_show_unpublished_orders',
-                         'title' => 'Schedule _show _unpublished _orders',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'defaultValueGenerator' => '',
-                      )),
-                      3 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'schedule_show_receiver',
-                         'title' => 'Schedule _show _receiver',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'defaultValueGenerator' => '',
-                      )),
-                      4 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'schedule_show_supplier',
-                         'title' => 'Schedule _show _supplier',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'defaultValueGenerator' => '',
-                      )),
-                      5 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'schedule_show_packages',
-                         'title' => 'Schedule _show _packages',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'defaultValueGenerator' => '',
-                      )),
-                      6 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'schedule_show_send_date',
-                         'title' => 'Schedule _show _send _date',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'defaultValueGenerator' => '',
-                      )),
-                      7 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'schedule_show_supply_date',
-                         'title' => 'Schedule _show _supply_date',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'defaultValueGenerator' => '',
-                      )),
-                      8 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'schedule_show_production_date',
-                         'title' => 'Schedule _show _production _date',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'defaultValueGenerator' => '',
-                      )),
-                      9 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'schedule_show_all_suppliers',
-                         'title' => 'Schedule _show _all _suppliers',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'defaultValueGenerator' => '',
-                      )),
-                      10 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'schedule_show_serie_carrier',
-                         'title' => 'Schedule _show _serie _carrier',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'defaultValueGenerator' => '',
-                      )),
-                      11 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'schedule_show_serie_attachments',
-                         'title' => 'Schedule _show _serie _attachments',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'defaultValueGenerator' => '',
-                      )),
-                      12 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'schedule_item_show_status',
-                         'title' => 'Schedule _item _show _status',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'defaultValueGenerator' => '',
-                      )),
-                      13 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'schedule_item_show_id',
-                         'title' => 'Schedule _item _show _id',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'defaultValueGenerator' => '',
-                      )),
-                      14 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'schedule_show_cartoon',
-                         'title' => 'Schedule _show _cartoon',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'defaultValueGenerator' => '',
-                      )),
-                      15 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'schedule_show_only_user_related_products',
-                         'title' => 'Schedule _show _only _user _related _products',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'defaultValueGenerator' => '',
-                      )),
-                      16 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'schedule_show_item_checkbox',
-                         'title' => 'Schedule _show _item _checkbox',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => 1,
-                         'defaultValueGenerator' => '',
-                      )),
-                      17 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'schedule_product_link',
-                         'title' => 'Schedule _product _link',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'defaultValueGenerator' => '',
-                      )),
-                      18 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'schedule_product_path',
-                         'title' => 'Schedule _product _path',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'defaultValueGenerator' => '',
-                      )),
-                      19 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'schedule_order_sheets',
-                         'title' => 'Schedule _order _sheets',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'defaultValueGenerator' => '',
-                      )),
-                    ),
-                     'locked' => false,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'fieldtype' => 'panel',
-                     'layout' => NULL,
-                     'border' => false,
-                     'icon' => '',
-                     'labelWidth' => 300,
-                     'labelAlign' => 'left',
-                  )),
-                  1 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-                     'name' => 'Schedule actions',
-                     'type' => NULL,
-                     'region' => NULL,
-                     'title' => 'Schedule actions',
-                     'width' => '',
-                     'height' => '',
-                     'collapsible' => false,
-                     'collapsed' => false,
-                     'bodyStyle' => '',
-                     'datatype' => 'layout',
-                     'children' => 
-                    array (
-                      0 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'schedule_mark_line_item_done',
-                         'title' => 'Schedule _mark _line _item _done',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => 0,
-                         'defaultValueGenerator' => '',
-                      )),
-                      1 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'schedule_change_date',
-                         'title' => 'Schedule _change _date',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'defaultValueGenerator' => '',
-                      )),
-                      2 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'schedule_item_status_ready',
-                         'title' => 'Schedule _item _status _ready',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'defaultValueGenerator' => '',
-                      )),
-                      3 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'schedule_item_status_process',
-                         'title' => 'Schedule _item _status _process',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'defaultValueGenerator' => '',
-                      )),
-                      4 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'schedule_item_status_start',
-                         'title' => 'Schedule _item _status _start',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'defaultValueGenerator' => '',
-                      )),
-                      5 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'schedule_print_control_card',
-                         'title' => 'Schedule _print _control _card',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'defaultValueGenerator' => '',
-                      )),
-                    ),
-                     'locked' => false,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'fieldtype' => 'panel',
-                     'layout' => NULL,
-                     'border' => false,
-                     'icon' => '',
-                     'labelWidth' => 300,
-                     'labelAlign' => 'left',
-                  )),
-                  2 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-                     'name' => 'Explorer',
-                     'type' => NULL,
-                     'region' => NULL,
-                     'title' => 'Explorer',
-                     'width' => '',
-                     'height' => '',
-                     'collapsible' => false,
-                     'collapsed' => false,
-                     'bodyStyle' => '',
-                     'datatype' => 'layout',
-                     'children' => 
-                    array (
-                      0 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'explorer_show_info',
-                         'title' => 'Explorer _show _info',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => 1,
-                         'defaultValueGenerator' => '',
-                      )),
-                      1 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'explorer_show_children',
-                         'title' => 'Explorer _show _children',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'defaultValueGenerator' => '',
-                      )),
-                      2 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'explorer_show_search',
-                         'title' => 'Explorer _show _search',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'defaultValueGenerator' => '',
-                      )),
-                      3 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'explorer_show_accessory_tab',
-                         'title' => 'Explorer _show _accessory _tab',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'defaultValueGenerator' => '',
-                      )),
-                      4 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'explorer_show_only_user_related_accessory',
-                         'title' => 'Explorer _show _only _user _related _accessory',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'defaultValueGenerator' => '',
-                      )),
-                      5 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'product_show_baseprice',
-                         'title' => 'Product _show _baseprice',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'defaultValueGenerator' => '',
-                      )),
-                      6 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'product_show_files',
-                         'title' => 'Product _show _files',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'defaultValueGenerator' => '',
-                      )),
-                      7 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'product_show_datasheet',
-                         'title' => 'Product _show _datasheet',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'defaultValueGenerator' => '',
-                      )),
-                      8 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'product_show_sets',
-                         'title' => 'Product _show _sets',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'defaultValueGenerator' => '',
-                      )),
-                      9 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'product_show_elements',
-                         'title' => 'Product _show _elements',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'defaultValueGenerator' => '',
-                      )),
-                      10 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'product_show_orders',
-                         'title' => 'Product _show _orders',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'defaultValueGenerator' => '',
-                      )),
-                      11 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'product_show_packages',
-                         'title' => 'Product _show _packages',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'defaultValueGenerator' => '',
-                      )),
-                      12 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'product_show_cnc_skipper',
-                         'title' => 'Product _show _cnc _skipper',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'defaultValueGenerator' => '',
-                      )),
-                      13 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'product_show_cnc_master',
-                         'title' => 'Product _show _cnc _master',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'defaultValueGenerator' => '',
-                      )),
-                      14 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'product_show_accessorysets',
-                         'title' => 'Product _show _accessory _sets',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'defaultValueGenerator' => '',
-                      )),
-                      15 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'nav_show_collections',
-                         'title' => 'Nav _show _collections',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'defaultValueGenerator' => '',
-                      )),
-                      16 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'nav_show_products',
-                         'title' => 'Nav _show _products',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'defaultValueGenerator' => '',
-                      )),
-                      17 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'nav_show_types',
-                         'title' => 'Nav _show _types',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'defaultValueGenerator' => '',
-                      )),
-                      18 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'nav_show_sets',
-                         'title' => 'Nav _show _sets',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'defaultValueGenerator' => '',
-                      )),
-                      19 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'nav_show_packages',
-                         'title' => 'Nav _show _packages',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'defaultValueGenerator' => '',
-                      )),
-                      20 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'package_show_layers',
-                         'title' => 'Package _show _layers',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'defaultValueGenerator' => '',
-                      )),
-                      21 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'package_show_fillment',
-                         'title' => 'Package _show _fillment',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'defaultValueGenerator' => '',
-                      )),
-                      22 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'name' => 'package_show_layout',
-                         'title' => 'Package _show _layout',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'defaultValueGenerator' => '',
-                      )),
-                    ),
-                     'locked' => false,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'fieldtype' => 'panel',
-                     'layout' => NULL,
-                     'border' => false,
-                     'icon' => '',
-                     'labelWidth' => 300,
-                     'labelAlign' => 'left',
-                  )),
-                ),
-                 'locked' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'fieldtype' => 'tabpanel',
-                 'border' => false,
-                 'tabPosition' => 'top',
-              )),
             ),
              'locked' => false,
              'blockedVarsForExport' => 
@@ -1974,6 +777,402 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
    'enableGridLocking' => false,
    'deletedDataComponents' => 
   array (
+    0 => 
+    \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+       'name' => 'schedule_mark_line_item_done',
+       'title' => 'Schedule _mark _line _item _done',
+       'tooltip' => '',
+       'mandatory' => false,
+       'noteditable' => false,
+       'index' => false,
+       'locked' => false,
+       'style' => '',
+       'permissions' => NULL,
+       'fieldtype' => '',
+       'relationType' => false,
+       'invisible' => false,
+       'visibleGridView' => false,
+       'visibleSearch' => false,
+       'blockedVarsForExport' => 
+      array (
+      ),
+       'defaultValue' => 0,
+       'defaultValueGenerator' => '',
+    )),
+    1 => 
+    \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+       'name' => 'schedule_change_date',
+       'title' => 'Schedule _change _date',
+       'tooltip' => '',
+       'mandatory' => false,
+       'noteditable' => false,
+       'index' => false,
+       'locked' => false,
+       'style' => '',
+       'permissions' => NULL,
+       'fieldtype' => '',
+       'relationType' => false,
+       'invisible' => false,
+       'visibleGridView' => false,
+       'visibleSearch' => false,
+       'blockedVarsForExport' => 
+      array (
+      ),
+       'defaultValue' => NULL,
+       'defaultValueGenerator' => '',
+    )),
+    2 => 
+    \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+       'name' => 'schedule_item_status_ready',
+       'title' => 'Schedule _item _status _ready',
+       'tooltip' => '',
+       'mandatory' => false,
+       'noteditable' => false,
+       'index' => false,
+       'locked' => false,
+       'style' => '',
+       'permissions' => NULL,
+       'fieldtype' => '',
+       'relationType' => false,
+       'invisible' => false,
+       'visibleGridView' => false,
+       'visibleSearch' => false,
+       'blockedVarsForExport' => 
+      array (
+      ),
+       'defaultValue' => NULL,
+       'defaultValueGenerator' => '',
+    )),
+    3 => 
+    \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+       'name' => 'schedule_item_status_process',
+       'title' => 'Schedule _item _status _process',
+       'tooltip' => '',
+       'mandatory' => false,
+       'noteditable' => false,
+       'index' => false,
+       'locked' => false,
+       'style' => '',
+       'permissions' => NULL,
+       'fieldtype' => '',
+       'relationType' => false,
+       'invisible' => false,
+       'visibleGridView' => false,
+       'visibleSearch' => false,
+       'blockedVarsForExport' => 
+      array (
+      ),
+       'defaultValue' => NULL,
+       'defaultValueGenerator' => '',
+    )),
+    4 => 
+    \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+       'name' => 'schedule_item_status_start',
+       'title' => 'Schedule _item _status _start',
+       'tooltip' => '',
+       'mandatory' => false,
+       'noteditable' => false,
+       'index' => false,
+       'locked' => false,
+       'style' => '',
+       'permissions' => NULL,
+       'fieldtype' => '',
+       'relationType' => false,
+       'invisible' => false,
+       'visibleGridView' => false,
+       'visibleSearch' => false,
+       'blockedVarsForExport' => 
+      array (
+      ),
+       'defaultValue' => NULL,
+       'defaultValueGenerator' => '',
+    )),
+    5 => 
+    \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+       'name' => 'schedule_print_control_card',
+       'title' => 'Schedule _print _control _card',
+       'tooltip' => '',
+       'mandatory' => false,
+       'noteditable' => false,
+       'index' => false,
+       'locked' => false,
+       'style' => '',
+       'permissions' => NULL,
+       'fieldtype' => '',
+       'relationType' => false,
+       'invisible' => false,
+       'visibleGridView' => false,
+       'visibleSearch' => false,
+       'blockedVarsForExport' => 
+      array (
+      ),
+       'defaultValue' => NULL,
+       'defaultValueGenerator' => '',
+    )),
+    6 => 
+    \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+       'name' => 'explorer_show_only_user_related_accessory',
+       'title' => 'Explorer _show _only _user _related _accessory',
+       'tooltip' => '',
+       'mandatory' => false,
+       'noteditable' => false,
+       'index' => false,
+       'locked' => false,
+       'style' => '',
+       'permissions' => NULL,
+       'fieldtype' => '',
+       'relationType' => false,
+       'invisible' => false,
+       'visibleGridView' => false,
+       'visibleSearch' => false,
+       'blockedVarsForExport' => 
+      array (
+      ),
+       'defaultValue' => NULL,
+       'defaultValueGenerator' => '',
+    )),
+    7 => 
+    \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+       'name' => 'product_show_baseprice',
+       'title' => 'Product _show _baseprice',
+       'tooltip' => '',
+       'mandatory' => false,
+       'noteditable' => false,
+       'index' => false,
+       'locked' => false,
+       'style' => '',
+       'permissions' => NULL,
+       'fieldtype' => '',
+       'relationType' => false,
+       'invisible' => false,
+       'visibleGridView' => false,
+       'visibleSearch' => false,
+       'blockedVarsForExport' => 
+      array (
+      ),
+       'defaultValue' => NULL,
+       'defaultValueGenerator' => '',
+    )),
+    8 => 
+    \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+       'name' => 'product_show_sets',
+       'title' => 'Product _show _sets',
+       'tooltip' => '',
+       'mandatory' => false,
+       'noteditable' => false,
+       'index' => false,
+       'locked' => false,
+       'style' => '',
+       'permissions' => NULL,
+       'fieldtype' => '',
+       'relationType' => false,
+       'invisible' => false,
+       'visibleGridView' => false,
+       'visibleSearch' => false,
+       'blockedVarsForExport' => 
+      array (
+      ),
+       'defaultValue' => NULL,
+       'defaultValueGenerator' => '',
+    )),
+    9 => 
+    \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+       'name' => 'product_show_elements',
+       'title' => 'Product _show _elements',
+       'tooltip' => '',
+       'mandatory' => false,
+       'noteditable' => false,
+       'index' => false,
+       'locked' => false,
+       'style' => '',
+       'permissions' => NULL,
+       'fieldtype' => '',
+       'relationType' => false,
+       'invisible' => false,
+       'visibleGridView' => false,
+       'visibleSearch' => false,
+       'blockedVarsForExport' => 
+      array (
+      ),
+       'defaultValue' => NULL,
+       'defaultValueGenerator' => '',
+    )),
+    10 => 
+    \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+       'name' => 'product_show_orders',
+       'title' => 'Product _show _orders',
+       'tooltip' => '',
+       'mandatory' => false,
+       'noteditable' => false,
+       'index' => false,
+       'locked' => false,
+       'style' => '',
+       'permissions' => NULL,
+       'fieldtype' => '',
+       'relationType' => false,
+       'invisible' => false,
+       'visibleGridView' => false,
+       'visibleSearch' => false,
+       'blockedVarsForExport' => 
+      array (
+      ),
+       'defaultValue' => NULL,
+       'defaultValueGenerator' => '',
+    )),
+    11 => 
+    \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+       'name' => 'product_show_packages',
+       'title' => 'Product _show _packages',
+       'tooltip' => '',
+       'mandatory' => false,
+       'noteditable' => false,
+       'index' => false,
+       'locked' => false,
+       'style' => '',
+       'permissions' => NULL,
+       'fieldtype' => '',
+       'relationType' => false,
+       'invisible' => false,
+       'visibleGridView' => false,
+       'visibleSearch' => false,
+       'blockedVarsForExport' => 
+      array (
+      ),
+       'defaultValue' => NULL,
+       'defaultValueGenerator' => '',
+    )),
+    12 => 
+    \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+       'name' => 'product_show_cnc_skipper',
+       'title' => 'Product _show _cnc _skipper',
+       'tooltip' => '',
+       'mandatory' => false,
+       'noteditable' => false,
+       'index' => false,
+       'locked' => false,
+       'style' => '',
+       'permissions' => NULL,
+       'fieldtype' => '',
+       'relationType' => false,
+       'invisible' => false,
+       'visibleGridView' => false,
+       'visibleSearch' => false,
+       'blockedVarsForExport' => 
+      array (
+      ),
+       'defaultValue' => NULL,
+       'defaultValueGenerator' => '',
+    )),
+    13 => 
+    \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+       'name' => 'product_show_cnc_master',
+       'title' => 'Product _show _cnc _master',
+       'tooltip' => '',
+       'mandatory' => false,
+       'noteditable' => false,
+       'index' => false,
+       'locked' => false,
+       'style' => '',
+       'permissions' => NULL,
+       'fieldtype' => '',
+       'relationType' => false,
+       'invisible' => false,
+       'visibleGridView' => false,
+       'visibleSearch' => false,
+       'blockedVarsForExport' => 
+      array (
+      ),
+       'defaultValue' => NULL,
+       'defaultValueGenerator' => '',
+    )),
+    14 => 
+    \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+       'name' => 'product_show_accessorysets',
+       'title' => 'Product _show _accessory _sets',
+       'tooltip' => '',
+       'mandatory' => false,
+       'noteditable' => false,
+       'index' => false,
+       'locked' => false,
+       'style' => '',
+       'permissions' => NULL,
+       'fieldtype' => '',
+       'relationType' => false,
+       'invisible' => false,
+       'visibleGridView' => false,
+       'visibleSearch' => false,
+       'blockedVarsForExport' => 
+      array (
+      ),
+       'defaultValue' => NULL,
+       'defaultValueGenerator' => '',
+    )),
+    15 => 
+    \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+       'name' => 'package_show_layers',
+       'title' => 'Package _show _layers',
+       'tooltip' => '',
+       'mandatory' => false,
+       'noteditable' => false,
+       'index' => false,
+       'locked' => false,
+       'style' => '',
+       'permissions' => NULL,
+       'fieldtype' => '',
+       'relationType' => false,
+       'invisible' => false,
+       'visibleGridView' => false,
+       'visibleSearch' => false,
+       'blockedVarsForExport' => 
+      array (
+      ),
+       'defaultValue' => NULL,
+       'defaultValueGenerator' => '',
+    )),
+    16 => 
+    \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+       'name' => 'package_show_fillment',
+       'title' => 'Package _show _fillment',
+       'tooltip' => '',
+       'mandatory' => false,
+       'noteditable' => false,
+       'index' => false,
+       'locked' => false,
+       'style' => '',
+       'permissions' => NULL,
+       'fieldtype' => '',
+       'relationType' => false,
+       'invisible' => false,
+       'visibleGridView' => false,
+       'visibleSearch' => false,
+       'blockedVarsForExport' => 
+      array (
+      ),
+       'defaultValue' => NULL,
+       'defaultValueGenerator' => '',
+    )),
+    17 => 
+    \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+       'name' => 'package_show_layout',
+       'title' => 'Package _show _layout',
+       'tooltip' => '',
+       'mandatory' => false,
+       'noteditable' => false,
+       'index' => false,
+       'locked' => false,
+       'style' => '',
+       'permissions' => NULL,
+       'fieldtype' => '',
+       'relationType' => false,
+       'invisible' => false,
+       'visibleGridView' => false,
+       'visibleSearch' => false,
+       'blockedVarsForExport' => 
+      array (
+      ),
+       'defaultValue' => NULL,
+       'defaultValueGenerator' => '',
+    )),
   ),
    'blockedVarsForExport' => 
   array (

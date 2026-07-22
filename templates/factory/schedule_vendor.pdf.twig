@@ -91,10 +91,9 @@
                                     {% set alldone = true %}
 
                                     {% for serie in order.children %}
-
-                                        {% if app.user.schedule_show_only_user_related_products %}
+                                        {% if (not app.user.user.admin) and app.user.user.allowed("factory_show_item_related_only") and member %}
                                             {% for li in serie.Products %}
-                                                {% set r = app.user.id in li.element.suppliers|map(x=>x.id) %}
+                                                {% set r = member.id in li.element.suppliers|map(x=>x.id) %}
                                                 {% if serie.Done != 1 and r %}
                                                     {% set alldone = false %}
                                                 {% endif %}
@@ -165,9 +164,10 @@
                                                 {% if serie.Done != 1 %}
 
                                                     {% for li in serie.products %}
-                                                        {% set r = app.user.id in li.element.suppliers|map(x=>x.id) %}
+                                                        {% set r = member and (member.id in li.element.suppliers|map(x=>x.id)) %}
 
-                                                        {% if (app.user.schedule_show_only_user_related_products and r) or (not app.user.schedule_show_only_user_related_products) %}
+                                                        {% if app.user.user.admin or ((not app.user.user.admin) and (not app.user.user.allowed("factory_show_item_related_only"))) or
+                                                            ((not app.user.user.admin) and app.user.user.allowed("factory_show_item_related_only") and r) %}
 
                                                             {% set idx = idx + 1 %}
                                                             <tr style="font-size: 8px;">
