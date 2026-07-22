@@ -37,11 +37,6 @@
                 </a>
             </h1>
         </div>
-        {% if app.user.product_show_baseprice %}
-            <div class="col-12 text-center">
-                tkw: {{ obj.BasePrice }}
-            </div>
-        {% endif %}
         <div class="col-12 text-center">
             <div>
                 {% if obj.Name is defined and obj.Name %}
@@ -117,62 +112,42 @@
         <div class="col-12">
             <div class="container-fluid">
                 <div class="row">
-                    {% if app.user.product_show_files %}
-                        {% if obj.Instruction %}
-                            <div class="col-12 mt-1">
-                                <a href="{{ obj.Instruction }}">
-                                    <div class="btn btn-outline-primary" style="width: 100%;">
-                                        <img height="40" src="/bundles/pimcoreadmin/img/flat-color-icons/file-types.svg" class="card-img-top" alt="...">
-                                        {{ "Assembly guide"|trans }}
-                                    </div>
-                                </a>
-                            </div>
-                        {% endif %}
-
-                        {% if obj.InstructionUS %}
-                            <div class="col-12 mt-1">
-                                <a href="{{ obj.InstructionUS }}">
-                                    <div class="btn btn-outline-primary" style="width: 100%;">
-                                        <img height="40" src="/bundles/pimcoreadmin/img/flat-color-icons/file-types.svg" class="card-img-top" alt="...">
-                                        {{ "Assembly guide (US)"|trans }}
-                                    </div>
-                                </a>
-                            </div>
-                        {% endif %}
-
-                        {% if obj.Documents %}
-                            {% for doc in obj.Documents %}
-                                <div class="col-12 mt-1">
-                                    <a href="{{ doc }}">
-                                        <div class="btn btn-outline-primary" style="width: 100%;">
-                                            <img height="40" src="/bundles/pimcoreadmin/img/flat-color-icons/file-types.svg" class="card-img-top" alt="...">
-                                            {{ doc.key }}
-                                        </div>
-                                    </a>
+                    {% if obj.Instruction %}
+                        <div class="col-12 mt-1">
+                            <a href="{{ obj.Instruction }}">
+                                <div class="btn btn-outline-primary" style="width: 100%;">
+                                    <img height="40" src="/bundles/pimcoreadmin/img/flat-color-icons/file-types.svg" class="card-img-top" alt="...">
+                                    {{ "Assembly guide"|trans }}
                                 </div>
-                            {% endfor %}
-                        {% endif %}
+                            </a>
+                        </div>
                     {% endif %}
 
-{#                    {% if app.user.product_show_datasheet %}#}
-{#                                                                                      #}
-{#                                                                                      #}
-{#                                                                                      #}
-{#              do not show product datasheet button when it is not completed           #}
-{#                                                                                      #}
-{#                                                                                      #}
-{#                                                                                      #}
-{#                        <div class="col-12 mt-1">#}
-{#                            <a href="{{ path("factory_datasheet", {id: obj.id}) }}">#}
-{#                                <div class="btn btn-outline-primary" style="width: 100%;">#}
-{#                                    <img height="40" src="/bundles/pimcoreadmin/img/flat-color-icons/pdf.svg" class="card-img-top" alt="...">#}
-{#                                    {{ "Datasheet"|trans }}#}
-{#                                </div>#}
-{#                            </a>#}
-{#                        </div>#}
-{#                    {% endif %}#}
+                    {% if obj.InstructionUS %}
+                        <div class="col-12 mt-1">
+                            <a href="{{ obj.InstructionUS }}">
+                                <div class="btn btn-outline-primary" style="width: 100%;">
+                                    <img height="40" src="/bundles/pimcoreadmin/img/flat-color-icons/file-types.svg" class="card-img-top" alt="...">
+                                    {{ "Assembly guide (US)"|trans }}
+                                </div>
+                            </a>
+                        </div>
+                    {% endif %}
 
-                    {% if obj.Packages and app.user.product_show_packages %}
+                    {% if obj.Documents %}
+                        {% for doc in obj.Documents %}
+                            <div class="col-12 mt-1">
+                                <a href="{{ doc }}">
+                                    <div class="btn btn-outline-primary" style="width: 100%;">
+                                        <img height="40" src="/bundles/pimcoreadmin/img/flat-color-icons/file-types.svg" class="card-img-top" alt="...">
+                                        {{ doc.key }}
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    {% if obj.Packages %}
                         {% for lip in obj.Packages %}
                             <div class="col-12 mt-1">
                                 <a href="{{ path("factory_tree", {id: lip.object.id}) }}">
@@ -189,6 +164,13 @@
                     {% endif %}
                 </div>
             </div>
+        </div>
+        <div class="col-12 text-end mt-2">
+            <a href="?hide={% if 'elements' in hide %}-{% endif %}elements">{% if 'elements' in hide %}Pokaż{% else %}Ukryj{% endif %} elementy</a><br/>
+            <a href="?hide={% if 'fillment' in hide %}-{% endif %}fillment">{% if 'fillment' in hide %}Pokaż{% else %}Ukryj{% endif %} wypełnienie paczki</a><br/>
+            <a href="?hide={% if 'layers' in hide %}-{% endif %}layers">{% if 'layers' in hide %}Pokaż{% else %}Ukryj{% endif %} warstwy</a><br/>
+            <a href="?hide={% if 'layout' in hide %}-{% endif %}layout">{% if 'layout' in hide %}Pokaż{% else %}Ukryj{% endif %} ułożenie w paczce</a><br/>
+            <a href="?hide={% if 'accessories' in hide %}-{% endif %}accessories">{% if 'accessories' in hide %}Pokaż{% else %}Ukryj{% endif %} akcesoria</a><br/>
         </div>
     </div>
 </div>

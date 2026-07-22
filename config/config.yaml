@@ -22,9 +22,9 @@ pimcore:
 #        zend_date: true
 
 #### CLASS OVERRIDES EXAMPLES
-    models:
-        class_overrides:
-            'Pimcore\Model\DataObject\User': 'App\Model\DataObject\User'
+#    models:
+#        class_overrides:
+#            'Pimcore\Model\DataObject\User': 'App\Model\DataObject\User'
 #            'Pimcore\Model\DataObject\News': 'App\Model\DataObject\News'
 #            'Pimcore\Model\DataObject\News\Listing': 'App\Model\DataObject\News\Listing'
 #            'Pimcore\Model\DataObject\Folder': 'App\Model\DataObject\Folder'
@@ -98,10 +98,6 @@ pimcore:
 #            mail_receiver: ''
 #        archive_treshold: '30'
 #        archive_alternative_database: ''
-
-    security:
-        password_hasher_factories:
-            App\Model\DataObject\User: factory.security.password_hasher_factory
 
     gotenberg:
         base_url: 'http://gotenberg:3000'

@@ -5,9 +5,6 @@ security:
         pimcore_admin:
             id: Pimcore\Security\User\UserProvider
 
-        factory_auth_provider:
-            id: factory.security.user_provider
-
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -20,25 +17,32 @@ security:
             http_basic: ~
 
         # Pimcore Admin Bundle firewall
-        pimcore_admin: '%pimcore_admin_bundle.firewall_settings%'
-
-        factory:
-            pattern: ^/factory
-            provider: factory_auth_provider
-
-            form_login:
-                login_path: factory_login
-                check_path: factory_login
-                always_use_default_target_path: true
-                default_target_path: factory_home
-
+        pimcore_admin:
+            pattern: '^/(admin|factory)'
+            user_checker: Pimcore\Security\User\UserChecker
+            login_throttling:
+                max_attempts: 3
+                interval: '5 minutes'
             logout:
-                path: factory_logout
-                target: factory_login
-
-            remember_me:
-                secret: '%kernel.secret%'
-                always_remember_me: true
+                path: pimcore_admin_logout
+                target: pimcore_admin_login
+            form_login:
+                success_handler: App\Security\LoginSuccessHandler
+                always_use_default_target_path: true
+                login_path: pimcore_admin_login
+                check_path: pimcore_admin_login_check
+                username_parameter: username
+                password_parameter: password
+            custom_authenticators:
+                - Pimcore\Bundle\AdminBundle\Security\Authenticator\AdminTokenAuthenticator
+            two_factor:
+                auth_form_path: /admin/login/2fa                   # Path or route name of the two-factor form
+                check_path: /admin/login/2fa-verify                # Path or route name of the two-factor code check
+                default_target_path: /admin            # Where to redirect by default after successful authentication
+                always_use_default_target_path: false  # If it should always redirect to default_target_path
+                auth_code_parameter_name: _auth_code   # Name of the parameter for the two-factor authentication code
+                trusted_parameter_name: _trusted       # Name of the parameter for the trusted device option
+                multi_factor: false                    # If ALL active two-factor methods need to be fulfilled (multi-factor authentication)
 
     access_control:
         # Pimcore admin ACl  // DO NOT CHANGE!
@@ -51,9 +55,9 @@ security:
         - { path: ^/admin, roles: ROLE_PIMCORE_USER }
         - { path: ^/asset/webdav, roles: ROLE_PIMCORE_USER }
         # Factory ACL
-        - { path: ^/factory/\w+/login, roles: PUBLIC_ACCESS }
-        - { path: ^/factory, roles: ROLE_USER }
+        - { path: ^/factory, roles: ROLE_PIMCORE_USER }
 
     role_hierarchy:
         # Pimcore admin  // DO NOT CHANGE!
         ROLE_PIMCORE_ADMIN: [ROLE_PIMCORE_USER]
+

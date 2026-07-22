@@ -3,7 +3,7 @@
 </div>
 
 {% if order.user %}
-    {% if app.user.schedule_show_supplier %}
+    {% if app.user.user.allowed('factory_show_suppliers') %}
         <div {% if not order.published and type != "pdf" %}style="text-decoration: line-through"{% endif %}>
             {{ order.user.key }}
         </div>
@@ -41,7 +41,7 @@
         </button>
     </div>
 
-    {% if app.user.schedule_order_sheets %}
+    {% if app.user.user.allowed("factory_show_sheets") %}
     <div class="m-1">
         <button class="btn btn-outline-secondary serie-sheets-btn"
                 type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Arkusze"

@@ -1,32 +1,30 @@
-{% if app.user.package_show_layers %}
 {% if package.Layers %}
-        <div class="col-12 mb-2">
-            <h2>{{ "Elements"|trans }}</h2>
-            <table class="package-data">
-                <thead>
+    <div class="col-12 mb-2">
+        <h2>{{ "Elements"|trans }}</h2>
+        <table class="package-data">
+            <thead>
+            <tr>
+                <td>{{ "Layer"|trans }}</td>
+                <td>{{ "Elements"|trans }}</td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for row in package.Layers %}
                 <tr>
-                    <td>{{ "Layer"|trans }}</td>
-                    <td>{{ "Elements"|trans }}</td>
+                    <td>{{ loop.index }}</td>
+                    {% if not row['Elementy'] %}
+                        <td style="background-color: #fa1212; color: #fff">pusta warstwa</td>
+                    {% else %}
+                        <td>{{ row['Elementy'] }}</td>
+                    {% endif %}
                 </tr>
-                </thead>
-                <tbody>
-                {% for row in package.Layers %}
-                    <tr>
-                        <td>{{ loop.index }}</td>
-                        {% if not row['Elementy'] %}
-                            <td style="background-color: #fa1212; color: #fff">pusta warstwa</td>
-                        {% else %}
-                            <td>{{ row['Elementy'] }}</td>
-                        {% endif %}
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    {% else %}
-        <div class="alert alert-danger" role="alert">
-            <img src="/bundles/pimcoreadmin/img/flat-color-icons/warning.svg" width="64"/>
-            {{"Warning! No elements found for"|trans}} <strong>{{ package.key }}</strong>.
-        </div>
-    {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <div class="alert alert-danger" role="alert">
+        <img src="/bundles/pimcoreadmin/img/flat-color-icons/warning.svg" width="64"/>
+        {{"Warning! No elements found for"|trans}} <strong>{{ package.key }}</strong>.
+    </div>
 {% endif %}

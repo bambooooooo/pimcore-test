@@ -144,16 +144,8 @@ services:
             - { name: kernel.event_listener, event: pimcore.dataobject.preDelete, method: preDelete }
             - { name: kernel.event_listener, event: pimcore.dataobject.preAdd, method: preAdd }
 
-    # front auth
-    factory.security.user_provider:
-        class: Pimcore\Security\User\ObjectUserProvider
-        arguments: ['App\Model\DataObject\User', "email"]
-
-    factory.security.password_hasher_factory:
-        class: Pimcore\Security\Hasher\Factory\UserAwarePasswordHasherFactory
-        arguments:
-            - Pimcore\Security\Hasher\PasswordFieldHasher
-            - [ 'password' ]
+    App\Security\:
+        resource: '../src/Security'
 
     # twig
     App\Twig\BarcodeExtension:
@@ -166,6 +158,12 @@ services:
         tags: ['twig.extension']
 
     App\Twig\IsNumericExtension:
+        tags: ['twig.extension']
+
+    App\Twig\MemberExtension:
+        tags: ['twig.extension']
+
+    App\Twig\PimcorePermissionExtension:
         tags: ['twig.extension']
 
     # assets

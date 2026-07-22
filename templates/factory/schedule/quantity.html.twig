@@ -1,5 +1,5 @@
 <div style="position: relative; z-index: 150;">
-    {% if type != 'pdf' and app.user.schedule_show_item_checkbox %}
+    {% if type != 'pdf' and "show_item_checkbox" == "off" %}
         <input type="checkbox" class="cb-status"
                id="{{ product.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}"
                name="{{ product.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}">
@@ -21,9 +21,8 @@
         </span>
 
         {% if type != 'pdf' %}
-
             {% if (item.data.Status is not defined) or (item.data.Status == '') %}
-                {% if app.user.schedule_item_status_start %}
+                {% if app.user.user.allowed("factory_item_status_start") %}
                     <button class="btn status-bg-Start item-status item-status-{{ product.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}"
                             data-id="{{ product.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}"
                             data-status="null" data-next="Start"
@@ -34,7 +33,7 @@
             {% endif %}
 
             {% if (item.data.Status is not defined) or (item.data.Status is defined and item.data.Status != "Process" and item.data.Status != "Ready") %}
-                {% if app.user.schedule_item_status_process %}
+                {% if app.user.user.allowed("factory_item_status_process") %}
                     <button class="btn status-bg-Process item-status item-status-{{ product.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}"
                             data-id="{{ product.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}"
                             data-status="null" data-next="Process"
@@ -45,7 +44,7 @@
             {% endif %}
 
             {% if (item.data.Status is not defined) or (item.data.Status != "Ready") %}
-                {% if app.user.schedule_item_status_ready %}
+                {% if app.user.user.allowed("factory_item_status_ready") %}
                     <button class="btn status-bg-Ready item-status item-status-{{ product.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}"
                             data-id="{{ product.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}"
                             data-status="Process" data-next="Ready"
@@ -55,7 +54,7 @@
                 {% endif %}
             {% endif %}
 
-            {% if app.user.schedule_mark_line_item_done %}
+            {% if app.user.user.allowed("factory_item_status_done") %}
                 <div class="mb-1">
                     <input type="number" style="width: 50px; display: none;" min="0" value="{{ item.data.Quantity }}" id="li-done-input-{{ product.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}"/>
                     <span class="btn btn-outline-success btn-sm li-done-toggle" data-id="{{ product.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}">

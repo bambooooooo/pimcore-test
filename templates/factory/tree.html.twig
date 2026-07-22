@@ -70,7 +70,7 @@
 </style>
 <div class="container-fluid listing">
     <div class="row">
-        <div class="col-md-{% if app.user.explorer_show_info %}8{% else %}12{% endif %}">
+        <div class="col-md-8">
             <div class="row">
                 {% if obj is pimcore_data_object_class("Product") %}
                     {{ include("factory/listings/product_header.html.twig", {obj: obj}) }}
@@ -80,11 +80,9 @@
             </div>
             {% if style == 'gallery' %}
                 <div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4 g-1">
-                    {% if app.user.explorer_show_children %}
-                        {% for c in obj.children %}
-                            {{ include('factory/listings/_grid_item.html.twig', {item: c}) }}
-                        {% endfor %}
-                    {% endif %}
+                    {% for c in obj.children %}
+                        {{ include('factory/listings/_grid_item.html.twig', {item: c}) }}
+                    {% endfor %}
 
                     {% if obj is pimcore_data_object_class("Group") %}
                         {% for c in obj.Products %}
@@ -105,11 +103,9 @@
                 </div>
             {% else %}
                 <div class="row">
-                    {% if app.user.explorer_show_children %}
-                        {% for c in obj.children %}
-                            {{ include('factory/listings/_list_item.html.twig', {item: c}) }}
-                        {% endfor %}
-                    {% endif %}
+                    {% for c in obj.children %}
+                        {{ include('factory/listings/_list_item.html.twig', {item: c}) }}
+                    {% endfor %}
 
                     {% if obj is pimcore_data_object_class("Group") %}
                         {% for c in obj.Products %}
@@ -134,8 +130,7 @@
                 {{ include("factory/listings/list_order.html.twig", {obj: obj}) }}
             {% endif %}
         </div>
-        {% if app.user.explorer_show_info %}
-            <div class="col-md-4" style="position: sticky; top: 4rem; height: calc(100vh - 4rem); overflow-y: auto;">
+        <div class="col-md-4" style="position: sticky; top: 4rem; height: calc(100vh - 4rem); overflow-y: auto;">
             {% if obj is pimcore_data_object_class("Product") %}
                 {{ include("factory/listings/info_product.html.twig", {obj: obj}) }}
 
@@ -160,7 +155,6 @@
                 </div>
             {% endif %}
         </div>
-        {% endif %}
     </div>
 </div>
 {% endblock %}
