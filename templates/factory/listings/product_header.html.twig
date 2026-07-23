@@ -1,4 +1,4 @@
-{% if obj.Packages and (app.user.package_show_layers or app.user.package_show_layout or app.user.package_show_fillment) %}
+{% if obj.Packages %}
     {% for package in obj.Packages %}
         <div class="col-12" style="margin-bottom: 24px">
             <div style="font-size: 48px; font-weight: bold;">
@@ -8,19 +8,19 @@
                 {{ package.object.key }}
             </div>
         </div>
-        {% if app.user.package_show_layers %}
+        {% if not ('layers' in hide) %}
             {{ include("factory/listings/_package_layers.html.twig", {package: package.object}) }}
         {% endif %}
-        {% if app.user.package_show_fillment %}
+        {% if not ('fillment' in hide) %}
             {{ include("factory/listings/_package_fillment.html.twig", {package: package.object}) }}
         {% endif %}
-        {% if app.user.package_show_layout %}
+        {% if not ('layout' in hide) %}
             {{ include("factory/listings/_package_layout.html.twig", {package: package.object}) }}
         {% endif %}
     {% endfor %}
 {% endif %}
 
-{% if app.user.package_show_fillment %}
+{% if not ('fillment' in hide) %}
 <div class="col-12">
     {% set valid_sum = true %}
     {% set total_fillment = 0.0 %}
@@ -44,10 +44,12 @@
     {% endfor %}
     <div class="col-12 text-end">
         {% if valid_sum %}
-            Grand total of volume:
-            <span style="font-weight: bold">
-                {{ total_fillment|round(4) }} m<sup>3</sup>
-            </span>
+            {% if total_fillment > 0 %}
+                Grand total of volume:
+                <span style="font-weight: bold">
+                    {{ total_fillment|round(4) }} m<sup>3</sup>
+                </span>
+            {% endif %}
         {% else %}
             {{ "Can not compute grand sum of fillment volumes"|trans }}
         {% endif %}
@@ -55,6 +57,6 @@
 </div>
 {% endif %}
 
-{% if app.user.product_show_accessorysets %}
+{% if not ('accessories' in hide) %}
     {{ include("factory/listings/_product_accessory_sets.html.twig", {obj: obj}) }}
 {% endif %}

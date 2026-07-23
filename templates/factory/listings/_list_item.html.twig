@@ -1,6 +1,3 @@
-{% if (item is not instanceof("\\Pimcore\\Model\\DataObject\\Accessory"))
-    or (not app.user.explorer_show_only_user_related_accessory)
-    or (item is instanceof("\\Pimcore\\Model\\DataObject\\Accessory") and item.Supplier and item.Supplier.id == app.user.id) %}
 <a href="{{ path("factory_tree", {id: item.id}) }}" class="list-item">
     <div class="container-fluid" style="{% if (not item is pimcore_asset and not item is instanceof("\\Pimcore\\Model\\DataObject\\Folder")) and not item.published %}opacity:0.3{% endif %}">
         <div class="row">
@@ -35,4 +32,3 @@
         </div>
     </div>
 </a>
-{% endif %}

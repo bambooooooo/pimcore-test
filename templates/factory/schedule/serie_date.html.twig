@@ -1,4 +1,4 @@
-{% if app.user.schedule_show_send_date %}
+{% if app.user.user.allowed("factory_show_serie_deadline") %}
     {% if serie.date == null %}
         {{ "Missing Date"|trans }}
     {% else %}
@@ -8,7 +8,7 @@
     ****
 {% endif %}
 
-{% if app.user.schedule_change_date and type != 'pdf' %}
+{% if app.user.user.allowed("factory_update_serie_deadline") and type != 'pdf' %}
     <div id="add-date-{{ serie.id }}-form" style="display: none">
         <input class="datepicker" style="width: 85px;" value="{{ serie.date|date("d.m.Y") }}" data-id="{{ serie.id }}"/>
     </div>
@@ -17,14 +17,12 @@
     </div>
 {% endif %}
 
-{% if app.user.schedule_show_serie_carrier and serie.Carrier %}
 <div>
-    {{ serie.Carrier.key }}
+    {{ serie.Carrier.key ?? "" }}
 </div>
-{% endif %}
 
 {% if type != "pdf" %}
-    {% if serie.Attachments and app.user.schedule_show_serie_attachments %}
+    {% if serie.Attachments and app.user.user.allowed("factory_show_serie_attachments") %}
         <div>
             {% for att in serie.Attachments %}
                 <a href="{{ att }}" target="_blank">

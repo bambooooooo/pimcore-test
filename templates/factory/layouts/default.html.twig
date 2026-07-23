@@ -45,63 +45,38 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
-                    {% if app.user.nav_show_collections %}
+                    {% if pimcore_object_by_path('/GRUPY/KOLEKCJE') is viewable %}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path("factory_tree", {id: pimcore_object_by_path('/GRUPY/KOLEKCJE').id}) }}">
                                 {{ "Collections"|trans }}
                             </a>
                         </li>
                     {% endif %}
-                    {% if app.user.nav_show_products %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path("factory_tree", {id: pimcore_object_by_path('/PRODUKTY').id}) }}">
-                                {{ "Products"|trans }}
-                            </a>
-                        </li>
+                    {% if pimcore_object_by_path('/PRODUKTY') is viewable %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path("factory_tree", {id: pimcore_object_by_path('/PRODUKTY').id}) }}">
+                            {{ "Products"|trans }}
+                        </a>
+                    </li>
                     {% endif %}
-                    {% if app.user.nav_show_types %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path("factory_tree", {id: pimcore_object_by_path('/GRUPY/TYP').id}) }}">
-                                {{ "Types"|trans }}
-                            </a>
-                        </li>
+                    {% if pimcore_object_by_path('/PACZKI') is viewable %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path("factory_tree", {id: pimcore_object_by_path('/PACZKI').id}) }}">
+                            {{ "Packages"|trans }}
+                        </a>
+                    </li>
                     {% endif %}
-                    {% if app.user.nav_show_sets %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path("factory_tree", {id: pimcore_object_by_path('/ZESTAWY').id}) }}">
-                                {{ "Sets"|trans }}
-                            </a>
-                        </li>
-                    {% endif %}
-                    {% if app.user.nav_show_packages %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path("factory_tree", {id: pimcore_object_by_path('/PACZKI').id}) }}">
-                                {{ "Packages"|trans }}
-                            </a>
-                        </li>
-                    {% endif %}
-                    {% if app.user.permission_schedule %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path("factory_schedule") }}">
-                                {{ "Schedule"|trans }}
-                                <img src="/bundles/pimcoreadmin/img/flat-white-icons/factory.svg" height="20" style="position: relative; top: -3px;" alt="Factory"/>
-                            </a>
-                        </li>
-                    {% endif %}
-                    {% if app.user.explorer_show_accessory_tab %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path("factory_tree", {id: pimcore_object_by_path('/AKCESORIA MEBLOWE').id}) }}">
-                                {{ "Accessory"|trans }}
-                            </a>
-                        </li>
-                    {% endif %}
-                    {% if app.user.explorer_show_search %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path("factory_search") }}">
-                                <img src="/bundles/pimcoreadmin/img/flat-color-icons/search.svg" height="18">
-                            </a>
-                        </li>
-                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path("factory_schedule") }}">
+                            {{ "Schedule"|trans }}
+                            <img src="/bundles/pimcoreadmin/img/flat-white-icons/factory.svg" height="20" style="position: relative; top: -3px;" alt="Factory"/>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path("factory_search") }}">
+                            <img src="/bundles/pimcoreadmin/img/flat-color-icons/search.svg" height="18">
+                        </a>
+                    </li>
                 </ul>
             </div>
             <div class="ml-auto me-3">
@@ -118,25 +93,17 @@
             </div>
 
             <div class="me-3">
-
-                {% if app.user %}
-                    <a class="nav-link" href="{{ path("factory_account") }}">
-                        {{ app.user.email }}
-                        <img src="/bundles/pimcoreadmin/img/flat-white-icons/person.svg">
-                    </a>
-                {% else %}
-                    <a class="nav-link" href="{{ path("factory_login") }}">
-                        <img src="/bundles/pimcoreadmin/img/flat-white-icons/person.svg">
-                    </a>
-                {% endif %}
+                <span class="nav-link">
+                    {{ app.user.user.email == "" ? app.user.user.name : app.user.user.email }}
+                    <img src="/bundles/pimcoreadmin/img/flat-white-icons/person.svg">
+                </span>
             </div>
-
-            {% if app.user %}
-                <a class="nav-link" href="{{ path("factory_logout") }}">
+            <form method="post" action="{{ path('pimcore_admin_logout') }}">
+                <input type="hidden" name="csrfToken" value="{{ pimcore_csrf.getCsrfToken(app.request.session) }}">
+                <button class="nav-link">
                     <img src="/bundles/pimcoreadmin/img/material-icons/outline-logout-24px.svg">
-                </a>
-            {% endif %}
-
+                </button>
+            </form>
         </div>
     </nav>
     <div style="width: 100%; background: #086513; color: #fafafa; border-bottom: 1px solid #282A35; text-align: center">

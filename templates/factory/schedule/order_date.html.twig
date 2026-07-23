@@ -1,5 +1,5 @@
 <div>
-    {% if app.user.schedule_show_supply_date %}
+    {% if app.user.user.allowed("factory_show_order_supply") %}
         {% if type != 'pdf' %}
             <img src="/bundles/pimcoreadmin/img/flat-color-icons/multiple_inputs.svg" height="20" style="position: relative; top: -3px;">
         {% endif %}
@@ -10,7 +10,7 @@
             {{ order.supplydate|date("d.m") }}
         {% endif %}
 
-        {% if app.user.schedule_change_date and type != 'pdf' %}
+        {% if app.user.user.allowed("factory_update_order_supply") and type != 'pdf' %}
             <div id="add-date-supply-{{ order.id }}-form" style="display: none">
                 <input class="datepicker" style="width: 85px;" value="{{ order.supplydate|date("d.m.Y") }}" data-kind="supply" data-id="{{ order.id }}"/>
             </div>
@@ -23,7 +23,7 @@
 </div>
 
 <div>
-{% if app.user.schedule_show_production_date %}
+{% if app.user.user.allowed("factory_show_order_production") %}
     {% if type != 'pdf' %}
         <img src="/bundles/pimcoreadmin/img/flat-color-icons/factory.svg" height="20" style="position: relative; top: -3px;">
     {% endif %}
@@ -34,23 +34,13 @@
         {{ order.date|date("d.m") }}
     {% endif %}
 
-    {% if app.user.schedule_change_date and type != 'pdf' %}
+    {% if app.user.user.allowed("factory_update_order_production") and type != 'pdf' %}
         <div id="add-date-{{ order.id }}-form" style="display: none">
             <input class="datepicker" style="width: 85px;" value="{{ order.date|date("d.m.Y") }}" data-id="{{ order.id }}"/>
         </div>
         <div id="add-date-{{ order.id }}-toggle" data-id="{{ order.id }}" class="add-date-toggle btn btn-outline-primary btn-sm ms-1">
             <img src="/bundles/pimcoreadmin/img/flat-color-icons/edit.svg" height="18"/>
         </div>
-    {% endif %}
-
-    {% if type != "pdf" %}
-        {% if app.user.schedule_show_all_suppliers %}
-            <div>
-                {% for supplier in suppliers %}
-                    <div>{{ supplier.key }}</div>
-                {% endfor %}
-            </div>
-        {% endif %}
     {% endif %}
 
     {% else %}

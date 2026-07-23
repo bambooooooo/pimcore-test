@@ -6,7 +6,7 @@
 {% endif %}
 {% for g in obj.AccessorySets %}
 
-    {% set showGroup = not app.user.explorer_show_only_user_related_accessory %}
+    {% set showGroup = true %}
 
     {% set toShowInGroup = 0 %}
 
@@ -55,9 +55,6 @@
                             </thead>
                             <tbody>
                             {% for li in g.Set.data %}
-                                {% if (not app.user.explorer_show_only_user_related_accessory) or
-                                    (app.user.explorer_show_only_user_related_accessory and
-                                    li.object.Supplier and li.object.Supplier.id == app.user.id ) %}
                                     <tr>
                                     <td>{{ loop.index }}</td>
                                     <td>
@@ -91,7 +88,6 @@
                                         {{ li.data.Quantity ?? "-" }}
                                     </td>
                                 </tr>
-                                {% endif %}
                             {% endfor %}
                             </tbody>
                         </table>
