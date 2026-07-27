@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Twig\Environment;
 
-#[Route('/factory/{_locale}', name: 'factory_', defaults: ['_locale' => 'pl', 'locale' => 'pl'])]
+#[Route('/factory/{_locale}', name: 'factory_', defaults: ['_locale' => 'pl'])]
 class FactoryController extends UserAwareController
 {
     public function __construct(private Environment $twig, private readonly OptimikService $optimikService)

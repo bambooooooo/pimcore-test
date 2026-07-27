@@ -20,10 +20,11 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
     public function onAuthenticationSuccess(Request $request, TokenInterface $token): RedirectResponse
     {
         $user = PimcoreUser::getByName($token->getUserIdentifier());
+        $request->setLocale($user->getLanguage());
 
         if((!$user->isAdmin()) && $user->isAllowed('factory'))
         {
-            return new RedirectResponse($this->router->generate('factory_home'));
+            return new RedirectResponse($this->router->generate('factory_home', ['_locale' => $user->getLanguage()]));
         }
 
         return new RedirectResponse($this->router->generate('pimcore_admin_index'));
