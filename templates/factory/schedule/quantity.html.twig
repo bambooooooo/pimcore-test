@@ -1,5 +1,5 @@
 <div style="position: relative; z-index: 150;">
-    {% if type != 'pdf' and "show_item_checkbox" == "off" %}
+    {% if type != 'pdf' %}
         <input type="checkbox" class="cb-status"
                id="{{ product.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}"
                name="{{ product.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}">
@@ -21,17 +21,6 @@
         </span>
 
         {% if type != 'pdf' %}
-            {% if (item.data.Status is not defined) or (item.data.Status == '') %}
-                {% if app.user.user.allowed("factory_item_status_start") %}
-                    <button class="btn status-bg-Start item-status item-status-{{ product.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}"
-                            data-id="{{ product.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}"
-                            data-status="null" data-next="Start"
-                            type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Wycięte - do klejenia">
-                        <img src="/bundles/pimcoreadmin/img/flat-white-icons/redo.svg" height="20" width="20">
-                    </button>
-                {% endif %}
-            {% endif %}
-
             {% if (item.data.Status is not defined) or (item.data.Status is defined and item.data.Status != "Process" and item.data.Status != "Ready") %}
                 {% if app.user.user.allowed("factory_item_status_process") %}
                     <button class="btn status-bg-Process item-status item-status-{{ product.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}"
