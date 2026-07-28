@@ -1,13 +1,16 @@
-{% if app.user.user.allowed("factory_show_product_link") %}
-    {% if "show_product_path" == "show_product_path" %}
+{% if "schedule_product_path" not in hide %}
         <div style="font-size: 10px;">
             {{ p.element.path }}
-        </div>
-    {% endif %}
+	</div>
+{% endif %}
+
+{% if app.user.user.allowed("factory_show_product_link") %}
     <a href="{{ path("factory_tree", {id:p.element.id})}}" style="text-decoration: none; {% if not p.element.published and type != "pdf" %}text-decoration-line: line-through{% endif %}">
-        <span class="badge text-bg-info rounded-pill">
-            {{ p.element.id }}
-        </span>
+        {% if "schedule_product_id" not in hide %}
+		<span class="badge text-bg-info rounded-pill">
+			{{ p.element.id }}
+		</span>
+	{% endif %}
         {{ p.element.key }}
     </a>
 {% else %}

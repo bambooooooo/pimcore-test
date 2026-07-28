@@ -184,6 +184,28 @@ class FactoryController extends UserAwareController
     #[Route('/schedule', name: 'schedule')]
     public function scheduleAction(Request $request, UserInterface $user): Response
     {
+        $hideParts = explode(',', $request->cookies->getString('hide_parts', ''));
+        $hide = (string)$request->get("hide");
+        if($hide != '')
+        {
+            if(str_starts_with($hide, "-"))
+            {
+                $hide = ltrim($hide, '-');
+                if(in_array($hide, $hideParts))
+                {
+                    $hideParts = array_diff($hideParts, [$hide]);
+                }
+            }
+            else
+            {
+                $hide = ltrim($hide, '-');
+                if($hide != "" && !in_array($hide, $hideParts))
+                {
+                    $hideParts[] = $hide;
+                }
+            }
+        }
+
         $user = $this->getPimcoreUser();
         DataObject::setHideUnpublished(!$user->isAllowed('factory_show_unpublished_orders'));
 
@@ -284,11 +306,15 @@ class FactoryController extends UserAwareController
             return new Response($pdf, Response::HTTP_OK, ['Content-Type' => 'application/pdf']);
         }
 
-        return $this->render("factory/schedule.html.twig", [
+       $response = $this->render("factory/schedule.html.twig", [
             "queue" => $queue,
             "title" => "Harmonogram produkcyjny",
             'type' => $type,
+	    "hide" => $hideParts
         ]);
+
+	$response->headers->setCookie(new Cookie("hide_parts", implode(",", $hideParts), time() + (86400 * 30)));
+	return $response;
     }
 
     #[Route('/labels/{id}', name: 'labels')]

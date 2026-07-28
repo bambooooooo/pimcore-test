@@ -393,6 +393,12 @@
             </div>
         </div>
     </div>
+	<div class="col-12">
+		<a class="me-4" href="?hide={% if 'schedule_product_path' in hide %}-{% endif %}schedule_product_path">{% if 'schedule_product_path' in hide %}Pokaż{% else %}Ukryj{% endif %} Ścieżkę produktu</a>
+		{% if app.user.user.allowed("factory_show_product_link") %}
+			<a class="me-4" href="?hide={% if 'schedule_product_id' in hide %}-{% endif %}schedule_product_id">{% if 'schedule_product_id' in hide %}Pokaż{% else %}Ukryj{% endif %} Id produktu</a>
+		{% endif %}
+	</div>
 {% endif %}
 
     <script type="text/javascript">
