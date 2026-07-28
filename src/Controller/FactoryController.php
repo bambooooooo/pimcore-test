@@ -280,6 +280,7 @@ class FactoryController extends UserAwareController
                 'queue' => $queue,
                 'type' => $type,
                 'group' => $group,
+                "hide" => $hideParts
             ]);
 
             $adapter = Processor::getInstance();
@@ -306,6 +307,7 @@ class FactoryController extends UserAwareController
                 'queue' => $queue,
                 'type' => $type,
                 'group' => $group,
+                "hide" => $hideParts
             ]);
 
             $adapter = Processor::getInstance();
