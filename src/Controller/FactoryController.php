@@ -8,6 +8,7 @@ use Pimcore\Bundle\WebToPrintBundle\Processor;
 use Pimcore\Controller\UserAwareController;
 use Pimcore\Model\DataObject;
 use Pimcore\Model\Asset;
+use Pimcore\Model\DataObject\Order;
 use Pimcore\Model\DataObject\Package;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
@@ -244,8 +245,15 @@ class FactoryController extends UserAwareController
 
         $queue = [];
 
+        $userShowDone = $user->isAllowed('factory_show_done');
+
         foreach ($orders as $order)
         {
+            if($order->getDone() && !$userShowDone)
+            {
+                continue;
+            }
+
             $y = $order->getDate()->year ?? 0;
             $m = $order->getDate()->month ?? 0;
             $queue[$y][$m][] = $order;
@@ -310,11 +318,11 @@ class FactoryController extends UserAwareController
             "queue" => $queue,
             "title" => "Harmonogram produkcyjny",
             'type' => $type,
-	    "hide" => $hideParts
+	        "hide" => $hideParts
         ]);
 
-	$response->headers->setCookie(new Cookie("hide_parts", implode(",", $hideParts), time() + (86400 * 30)));
-	return $response;
+        $response->headers->setCookie(new Cookie("hide_parts", implode(",", $hideParts), time() + (86400 * 30)));
+        return $response;
     }
 
     #[Route('/labels/{id}', name: 'labels')]
@@ -525,6 +533,7 @@ class FactoryController extends UserAwareController
         }
 
         $found = false;
+        $allDone = true;
 
         foreach ($o->getProducts() as $li)
         {
@@ -532,14 +541,42 @@ class FactoryController extends UserAwareController
             {
                 $found = true;
                 $li->setQuantityDone($done);
-                $o->save();
+                $li->setStatus("Done");
+            }
 
-                break;
+            if($li->getStatus() != "Done")
+            {
+                $allDone = false;
             }
         }
 
         if(!$found)
             return new Response("Product not found in order", Response::HTTP_NOT_FOUND);
+
+        if($allDone)
+        {
+            $o->setDone(true);
+
+            $serie = $o->getParent();
+            $allOrderDone = true;
+
+            /** @var Order $orderInSerie */
+            foreach($serie->getChildren() as $orderInSerie)
+            {
+                if($serie->getId() != $o->getId() && !$orderInSerie->getDone())
+                {
+                    $allOrderDone = false;
+                }
+            }
+
+            if($allOrderDone)
+            {
+                $serie->setDone(true);
+                $serie->save();
+            }
+        }
+
+        $o->save();
 
         return new Response("Ok", Response::HTTP_OK);
     }
