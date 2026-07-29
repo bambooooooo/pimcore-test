@@ -327,6 +327,32 @@ class FactoryController extends UserAwareController
         return $response;
     }
 
+    #[Route("/packagespec/{id}", name: "package_spec")]
+    public function seriePackagesSpecification(Request $request): Response
+    {
+        $id = (int)$request->get("id");
+
+        $user = $this->getPimcoreUser();
+        DataObject::setHideUnpublished(!$user->isAllowed('factory_show_unpublished_orders'));
+
+        $serie = Order::getById($id);
+        if(!$serie)
+        {
+            return new Response("Not found", Response::HTTP_NOT_FOUND);
+        }
+
+        $html = $this->renderView('factory/pdf/serie_packages.twig', ["serie" => $serie]);
+
+        if($request->get("preview"))
+        {
+            return new Response($html, Response::HTTP_OK);
+        }
+
+        $processor = Processor::getInstance();
+
+        return new Response($processor->getPdfFromString($html), Response::HTTP_OK, ['Content-Type' => 'application/pdf']);
+    }
+
     #[Route('/labels/{id}', name: 'labels')]
     public function labelsAction(Request $request): Response
     {

@@ -1,0 +1,198 @@
+<html>
+<head>
+    <title>Megstyl #{{ serie.id }}</title>
+    <style>
+        /* Forces a new page before elements with this class */
+        .page-break { page-break-before: always; }
+
+        /* Alternative controls */
+        .avoid-break { page-break-inside: avoid; } /* Prevents splitting */
+        .break-after { page-break-after: always; } /* Forces break after element */
+
+        html, body
+        {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            padding: 0;
+            margin: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            padding: 0;
+            margin: 0;
+            font-size: 9px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 3px;
+        }
+        th {
+            background-color: #eaeaea;
+        }
+
+        .pb
+        {
+            page-break-after: always;
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        @page :first {
+            margin: 0;
+        }
+
+        .page-content
+        {
+            padding: 10mm 10mm 0 10mm;
+            box-sizing: border-box;
+        }
+
+    </style>
+</head>
+<body>
+    {% set sor = app.user.user.allowed("factory_show_item_related_only") %}
+    <div class="page">
+        <div class="page-content">
+            <table>
+                <h1>Partia {{ serie.key }}</h1>
+                <div style="margin-bottom: 12px;">
+                    termin dostawy: {{ serie.supplyDate|date("d.m.Y") }}
+                </div>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Id</th>
+                        <th>Sku</th>
+                        <th>Nazwa</th>
+                        <th>Ilość</th>
+                        <th>Ilość paczek</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% set idx = 0 %}
+                {% set total_items = 0 %}
+                {% set total_packages = 0 %}
+
+                {% for order in serie.children() %}
+                    {% for li in order.Products %}
+                        {% if member.id in li.Element.suppliers|map(x=>x.id) %}
+                            {% set idx = idx + 1 %}
+                            <tr>
+                                <td>{{ idx }}</td>
+                                <td>{{ li.Element.id }}</td>
+                                <td>{{ li.Element.key }}</td>
+                                <td>{{ li.Element.Name("pl") }}</td>
+                                <td>{{ li.Data.Quantity }}</td>
+                                <td>{{ li.Data.Quantity * li.Element.PackageCount }}</td>
+                            </tr>
+                            {% set total_items = total_items + li.Data.Quantity %}
+                            {% set total_packages = total_packages + li.Data.Quantity * li.Element.PackageCount %}
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="4" style="text-align:right">
+                            Razem
+                        </td>
+                        <td>
+                            {{ total_items }}
+                        </td>
+                        <td>
+                            {{ total_packages }}
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+    {% for order in serie.children() %}
+        {% for li in order.Products %}
+            {% if member.id in li.Element.suppliers|map(x=>x.id) %}
+                {% set product = li.Element %}
+                <div class="page-break"></div>
+                <div class="page">
+                    <div class="page-content">
+                        <h1>{{ product.key }}</h1>
+                        <table>
+                            <tbody>
+                                {% for lip in product.Packages %}
+                                {% set p = lip.Element %}
+                                <tr>
+                                    <td style="background: #eaeaea">
+                                        <strong>
+                                            Paczka
+                                        </strong>
+                                    </td>
+                                    <td style="background: #eaeaea">
+                                        <strong>
+                                            {{ loop.index }} / {{ product.PackageCount }}
+                                        </strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Sku</td>
+                                    <td>{{ p.key }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Kod systemowy</td>
+                                    <td>{{ p.Barcode }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Wymiary wewnętrzne</td>
+                                    <td>{{ p.Depth }} x {{ p.Width }} x {{ p.Height }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Rodzaj FEFCO</td>
+                                    <td>FEFCO {{ p.FEFCO ?? "?" }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Wypełnienie</td>
+                                    <td style="padding: 0px">
+                                        {% if p.Fillment %}
+                                            <table>
+                                                <thead>
+                                                <tr>
+                                                    <td>Materiał</td>
+                                                    <td>Grubość [mm]</td>
+                                                    <td>Długość [mm]</td>
+                                                    <td>Szerokość [mm]</td>
+                                                    <td>Ilość</td>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% for lig in p.Fillment %}
+                                                    {% for lige in lig['Elements'].data %}
+                                                        <tr>
+                                                            <td>{{ lig['Material'].data }}</td>
+                                                            <td>{{ lig['Thickness'].data.value }}</td>
+                                                            <td>{{ lige[0] }}</td>
+                                                            <td>{{ lige[1] }}</td>
+                                                            <td>{{ lige[2] }}</td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+
+</body>
+</html>
+

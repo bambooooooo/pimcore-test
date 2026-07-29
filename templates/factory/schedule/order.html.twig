@@ -53,4 +53,12 @@
     </div>
     {% endif %}
 
+    {% if app.user.user.allowed("factory_show_packages_spec") %}
+        <div>
+            <a href="{{ path("factory_package_spec", {id: order.id}) }}">
+                Paczki + wypełnienia
+            </a>
+        </div>
+    {% endif %}
+
 {% endif %}
