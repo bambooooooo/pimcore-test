@@ -118,7 +118,7 @@
 
 {% if app.user.user.allowed('factory_show_cartoon')and type != 'pdf' %}
     {% for lip in p.element.packages %}
-        <button {% if lip.element.Model %}data-id="{{ order.key }}-{{ lip.element.Model }}"{% endif %} data-quantity="{{ p.data.Quantity }}" class="package btn btn-outline-secondary btn-sm" type="button" role="button" data-bs-toggle="button">
+        <button {% if lip.element.Model %}data-id="{{ order.key }}-{{ lip.element.Model }}"{% endif %} data-quantity="{{ p.data.Quantity }}" class="package btn btn-outline-secondary btn-default btn-sm" type="button" role="button" data-bs-toggle="button">
             {% if lip.element.Model %}
                {{ lip.element.Model }}
             {% else %}
@@ -130,7 +130,7 @@
 {% endif %}
 
 {% if app.user.user.allowed("factory_show_sheets") and type != 'pdf' %}
-    <button class="btn btn-outline-secondary serie-sheets-btn"
+    <button class="btn btn-outline-secondary btn-default serie-sheets-btn"
             type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Arkusze"
             data-id="{{ serie.id }}" data-product="{{ p.element.key }}" data-label="{{ order.key }}-{{ serie.id }}-{{ p.element.key }}">
         <img src="/UI/loading.gif" height="20" width="20" id="serie-sheets-spinner-{{ serie.id }}" style="display: none">

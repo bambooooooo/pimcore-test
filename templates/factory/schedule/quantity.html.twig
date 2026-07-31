@@ -24,7 +24,7 @@
 
             {% if (item.data.Status is not defined) or (item.data.Status == '') %}
                 {% if app.user.user.allowed("factory_item_status_start") %}
-                    <button class="btn status-bg-Start item-status item-status-{{ product.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}"
+                    <button class="btn status-bg-Start item-status item-status-{{ product.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }} m-1"
                             data-id="{{ product.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}"
                             data-status="null" data-next="Start"
                             type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Wycięte - do klejenia">
@@ -35,7 +35,7 @@
 
             {% if (item.data.Status is not defined) or (item.data.Status is defined and item.data.Status != "Process" and item.data.Status != "Ready") %}
                 {% if app.user.user.allowed("factory_item_status_process") %}
-                    <button class="btn status-bg-Process item-status item-status-{{ product.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}"
+                    <button class="btn status-bg-Process item-status item-status-{{ product.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }} m-1"
                             data-id="{{ product.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}"
                             data-status="null" data-next="Process"
                             type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Oklejone - do sprawdzenia">
@@ -46,7 +46,7 @@
 
             {% if (item.data.Status is not defined) or (item.data.Status != "Ready") %}
                 {% if app.user.user.allowed("factory_item_status_ready") %}
-                    <button class="btn status-bg-Ready item-status item-status-{{ product.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}"
+                    <button class="btn status-bg-Ready item-status item-status-{{ product.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }} m-1"
                             data-id="{{ product.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}"
                             data-status="Process" data-next="Ready"
                             type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Sprawdzone - do pakowania">
@@ -56,9 +56,9 @@
             {% endif %}
 
             {% if app.user.user.allowed("factory_item_status_done") %}
-                <div class="mb-1">
+                <div class="m-1">
                     <input type="number" style="width: 50px; display: none;" min="0" value="{{ item.data.Quantity }}" id="li-done-input-{{ product.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}"/>
-                    <span class="btn btn-outline-success btn-sm li-done-toggle" data-id="{{ product.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}">
+                    <span class="btn btn-outline-success btn-default btn-sm li-done-toggle" data-id="{{ product.id }}-{{ serie.id }}-{{ item.data.Quantity }}-{{ loop.index }}">
                         <img height="18" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMi4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iRWJlbmVfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHdpZHRoPSIyNHB4IiBoZWlnaHQ9IjI0cHgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMjQgMjQiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPGNpcmNsZSBmaWxsPSIjMjhBMDUwIiBjeD0iMTIiIGN5PSIxMiIgcj0iMTAiLz4NCjxwb2x5Z29uIGZpbGw9IiNGRkZGRkYiIHBvaW50cz0iMTYuNiw3LjYgMTAsMTQuMiA3LjQsMTEuNiA2LDEzIDEwLDE3IDE4LDkgIi8+DQo8L3N2Zz4NCg==" />
                     </span>
                 </div>

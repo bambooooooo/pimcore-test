@@ -251,7 +251,7 @@
                     <div class="page-content">
                         <div style="text-align: center; max-height: 665px; height:665px; position: relative;">
                             {% if s.Image %}
-                                <img src="{{ s.Image }}" style="display: block; margin:auto; max-width: 665px; max-height: 665px; margin: 0 auto; height: 665px; width: 665px">
+                                <img src="{{ s.Image }}" style="display: block; margin:auto; width: 100%; position: absolute; top: 50%; transform: translateY(-50%);">
                             {% else %}
                                 {{ include('factory/parts/image_placeholder.html.twig') }}
                             {% endif %}
