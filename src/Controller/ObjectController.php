@@ -212,7 +212,7 @@ class ObjectController extends FrontendController
         $productTypes = $showProductsTypeSKU ? "'ACTUAL', 'SKU'" : "'ACTUAL'";
         $itemStatuses = $showItemsAllStatus ? "'Active','Sale','Draft'" : "'Active','Sale'";
 
-        $offer = DataObject\Offer::getById($price);
+        $offer = ($price && is_numeric($price)) ? DataObject\Offer::getById($price) : null;
 
         if($obj instanceof DataObject\Product)
         {
