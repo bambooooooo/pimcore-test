@@ -49,3 +49,6 @@ nbproject
 /.docker/ssl/
 /cache/
 /.htaccess
+
+# bundles development
+bundles/
