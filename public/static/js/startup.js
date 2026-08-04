@@ -408,6 +408,7 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
         var showProductTypeSku = Ext.create('Ext.form.Checkbox', {name: 'show_products_sku', fieldLabel: 'Show products with type SKU'});
         var showPrices = Ext.create('Ext.form.Checkbox', {name: 'show_prices', fieldLabel: 'Show prices', checked: true});
         var showAllProductsStatus = Ext.create('Ext.form.Checkbox', {name: 'show_all_statuses', fieldLabel: 'Show products in all statuses'})
+        var showProductStocks = Ext.create('Ext.form.Checkbox', {name: 'show_products_stocks', fieldLabel: 'Show products stocks', checked: false});
 
         var combo = Ext.create('Ext.form.ComboBox', {
             xtype: 'combo',
@@ -426,7 +427,8 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
                     "&show_related_products=" + showGroupRelatedProducts.value +
                     "&show_products_type_sku=" + showProductTypeSku.value +
                     "&show_prices=" + showPrices.value + 
-                    "&show_items_in_all_statuses=" + showAllProductsStatus.value;
+                    "&show_items_in_all_statuses=" + showAllProductsStatus.value +
+                    "&show_product_stocks=" + showProductStocks.value;
         }
 
         var btnPdf = Ext.create('Ext.Button', {
@@ -497,6 +499,7 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
                 showProductTypeSku,
                 showPrices,
                 showAllProductsStatus,
+                showProductStocks,
                 combo,
                 {
                     xtype: 'splitter'
