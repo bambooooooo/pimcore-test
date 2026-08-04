@@ -249,9 +249,14 @@
             <section id="{{ s.id }}">
                 <div class="page" style="height: 100%; position: relative; padding-top: 0px; box-sizing: border-box;">
                     <div class="page-content">
-                        <div style="text-align: center; max-height: 665px; height:665px; position: relative;">
+                        <div style="text-align: center; height: 665px; height:665px; position: relative;">
                             {% if s.Image %}
-                                <img src="{{ s.Image }}" style="display: block; margin:auto; width: 100%; position: absolute; top: 50%; transform: translateY(-50%);">
+                                {% set aspect = s.Image.customSettings.imageWidth / s.Image.customSettings.imageHeight  %}
+                                {% if aspect > 1 %}
+                                    <img src="{{ s.Image }}" style="width: 100%; display: block; position: relative; top: 50%; transform: translateY(-50%);">
+                                {% else %}
+                                    <img src="{{ s.Image }}" style="height: 100%; display: block; position: relative; left: 50%; transform: translateX(-50%);">
+                                {% endif %}
                             {% else %}
                                 {{ include('factory/parts/image_placeholder.html.twig') }}
                             {% endif %}
@@ -262,6 +267,11 @@
                                     <span class="text-black">
                                         {{ "Sku"|trans }}: {{ s.key }}
                                     </span>
+                                    {% if show_product_stocks %}
+                                        <span class="text-red" style="margin-left: 8px;">
+                                            {{ s.InStock }} {{ "pcs in stock"|trans }}
+                                        </span>
+                                    {% endif %}
                                 </div>
                                 <div>
                                     <span class="text-black">

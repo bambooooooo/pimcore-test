@@ -182,6 +182,7 @@ class ObjectController extends FrontendController
         $preview = filter_var($request->get("preview") ?? false, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);;
         $price = $request->get("price");
         $mode = $request->get("mode") ?? "basic"; // basic | detailed
+        $showProductStocks = filter_var($request->get("show_product_stocks") ?? false, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
 
         $showUnpublished = filter_var($request->get("show_unpublished") ?? false, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
         $showProducts = filter_var($request->get("show_products") ?? true, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
@@ -196,6 +197,7 @@ class ObjectController extends FrontendController
             'products_row_cnt' => $request->query->get("products") ?? 5,
             'price' => $price,
             'show_prices' => $showPrices,
+            'show_product_stocks' => $showProductStocks,
             "new_after_date" => (int)$request->query->get("new") ?? 1,
             "mode" => $mode,
         ];

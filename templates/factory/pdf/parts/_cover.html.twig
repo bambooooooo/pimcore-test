@@ -50,9 +50,6 @@
             {% else %}
                 <img src="{{ image }}" style="height: 100%; display: block; position: relative; left: 50%; transform: translateX(-50%);">
             {% endif %}
-{#            <div style="width: 100%; height: 100%; background-image: url('{{ image }}');#}
-{#                background-position: center; background-size: cover; background-repeat: no-repeat; background-clip: padding-box"></div>#}
-
         {% else %}
             {{ include('factory/parts/image_placeholder.html.twig') }}
         {% endif %}
