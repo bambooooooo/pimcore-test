@@ -783,9 +783,22 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
             }
         })
 
-        var packageTemplateCombo = Ext.create('Ext.form.ComboBox', {
+        var orderStore = Ext.create('Ext.data.Store', {
+            fields: ['id', 'name'],
+            autoLoad: true,
+            proxy: {
+                type: 'ajax',
+                url: '/common-orders',
+                reader: {
+                    type: 'json',
+                    rootProperty: 'data',
+                }
+            }
+        })
+
+        var labelSize = Ext.create('Ext.form.ComboBox', {
             xtype: 'combo',
-            fieldLabel: 'Template',
+            fieldLabel: t('Template'),
             store: labelTemplates,
             displayField: 'name',
             valueField: 'name',
@@ -793,7 +806,7 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
 
         var userTemplateCombo = Ext.create('Ext.form.ComboBox', {
             xtype: 'combo',
-            fieldLabel: 'User',
+            fieldLabel: t('Recipient'),
             store: usersWithTemplate,
             displayField: 'name',
             valueField: 'id',
@@ -801,8 +814,16 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
 
         var productCombo = Ext.create('Ext.form.ComboBox', {
             xtype: 'combo',
-            fieldLabel: 'Product',
+            fieldLabel: t('Product'),
             store: packageProducts,
+            displayField: 'name',
+            valueField: 'id',
+        })
+
+        var commonOrderCombo = Ext.create('Ext.form.ComboBox', {
+            xtype: 'combo',
+            fieldLabel: t('Order'),
+            store: orderStore,
             displayField: 'name',
             valueField: 'id',
         })
@@ -817,13 +838,13 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
                 var userId = null;
                 var size = null;
 
-                if(!packageTemplateCombo.value)
+                if(!labelSize.value)
                 {
-                    alert("Select package template first")
+                    alert(t("Select package size first"))
                     return;
                 }
 
-                size = packageTemplateCombo.value;
+                size = labelSize.value;
 
                 if(userTemplateCombo.value)
                 {
@@ -832,7 +853,7 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
 
                 if(!productCombo.value)
                 {
-                    alert("Select product first");
+                    alert(t("Select product first"));
                     return;
                 }
 
@@ -846,6 +867,11 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
                 if(userId)
                 {
                     url = url + "&customer_id=" + userId
+                }
+
+                if(commonOrderCombo.value)
+                {
+                    url = url + "&serie_id=" + commonOrderCombo.value;
                 }
 
                 window.open(url);
@@ -863,8 +889,9 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
             bodyPadding: 16,
             items: [
                 productCombo,
-                packageTemplateCombo,
+                labelSize,
                 userTemplateCombo,
+                commonOrderCombo,
                 btn
             ]
         })
@@ -884,7 +911,7 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
         e.detail.object.toolbar.add({
             icon: '/bundles/pimcoreadmin/img/flat-color-icons/print.svg',
             scale: 'medium',
-            tooltip: 'Package label',
+            tooltip: t('Package label'),
             handler: function () {
                 packageWin.show();
             }

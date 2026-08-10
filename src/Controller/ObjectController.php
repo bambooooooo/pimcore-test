@@ -1129,6 +1129,36 @@ class ObjectController extends FrontendController
         return new JsonResponse($ret, Response::HTTP_OK);
     }
 
+    #[Route('/common-orders', name: "get_common_orders")]
+    public function getCommonOrders(Request $request): JsonResponse
+    {
+        DataObject::setHideUnpublished(false);
+
+        $root = DataObject::getByPath("/ZLECENIA/PRODUKCJA");
+        if(!$root)
+        {
+            return new JsonResponse([]);
+        }
+
+        foreach($root->getChildren() as $serie)
+        {
+            /** @var DataObject\Order $order */
+            foreach($serie->getChildren() as $order)
+            {
+                $ret['data'][] = [
+                    'id' => $order->getId(),
+                    'name' => $serie->getKey() . "-" . $order->getKey()
+                ];
+            }
+        }
+
+        usort($ret['data'], function ($a, $b) {
+            return strcmp($a['name'], $b['name']);
+        });
+
+        return new JsonResponse($ret, Response::HTTP_OK);
+    }
+
     private function getSheetPricesXlsx(array $items, array $sets, array $related, Dataobject\Offer $offer, string $filename = null, bool $showPrices = true): Response
     {
         $spreadsheet = new Spreadsheet();
