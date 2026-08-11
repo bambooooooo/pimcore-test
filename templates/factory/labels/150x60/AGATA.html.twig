@@ -96,14 +96,14 @@
 {% set packageCode = null %}
 {% set packageBarcode = null %}
 
-{% if package.Codes.IndexAgata.Codes %}
+{% if package.Codes.IndexAgata and package.Codes.IndexAgata.Codes %}
     {% for lic in package.Codes.IndexAgata.Codes %}
         {% if lic.element.id == product.id %}
             {% set packageCode = lic.data.Code %}
             {% set packageBarcode = lic.data.Barcode %}
         {% endif %}
     {% endfor %}
-{% elseif package.Codes.IndexAgata.Code %}
+{% elseif package.Codes.IndexAgata and package.Codes.IndexAgata.Code %}
     {% set packageCode = package.Codes.IndexAgata.Code %}
     {% set packageBarcode = package.Codes.IndexAgata.Barcode %}
 {% endif %}
@@ -124,10 +124,18 @@
                 </td>
                 <td>
                     <div style="position: relative; display: flex; align-items: center; justify-content: space-around; margin-bottom: 4px">
-                        {{ code_128(package.Barcode, "C128", 35) }}
+                        {% if package.Barcode %}
+                            {{ code_128(package.Barcode ?? "111111111111", "C128", 35) }}
+                        {% endif %}
                     </div>
                     <div>
-                        {{ package.Barcode }}
+                        {% if not package.Barcode %}
+                            <div class="error">
+                                Brak kodu kreskowego paczki
+                            </div>
+                        {% else %}
+                            {{ package.Barcode }}
+                        {% endif %}
                     </div>
                 </td>
                 <td>
@@ -135,7 +143,8 @@
                         {{ package.key }}
                     </div>
                     <div style="font-size: 11px; font-weight: bold;">
-                        SN: {{ order.id }}
+                        {% set oid = random(5000, 9999) %}
+                        SN: {{ order.id ?? oid }}
                     </div>
                 </td>
             </tr>
@@ -149,7 +158,13 @@
                 </td>
                 <td colspan="2">
                     <div style="font-size: 9px; text-align: center;">
-                        {{ product.Codes.IndexAgata.Code }}
+                        {% if not product.Codes.IndexAgata %}
+                            <div class="error">
+                                Brak indeksu produktu Agata
+                            </div>
+                        {% else %}
+                            {{ product.Codes.IndexAgata.Code }}
+                        {% endif %}
                     </div>
                 </td>
                 <td>
@@ -166,37 +181,67 @@
             </tr>
             <tr>
                 <td colspan="3" style="font-size: 9px; text-align: center">
-                    {{ product.Codes.IndexAgata.Name }}
+                    {% if not product.Codes.IndexAgata %}
+                        <div class="error">
+                            Brak nazwy produktu Agata
+                        </div>
+                    {% else %}
+                        {{ product.Codes.IndexAgata.Name }}
+                    {% endif %}
                 </td>
             </tr>
             <tr>
                 <td rowspan="1">
-                    {{ (package.Width.Value / 10)|round }} cm x {{ (package.Height.Value / 10)|round }} cm x {{ (package.Depth.Value / 10)|round }} cm
+                    {% if (package.Width.Value ?? 0) * (package.Height.Value ?? 0) * (package.Depth.Value ?? 0) == 0 %}
+                        <div class="error">
+                            Niepoprawne wymiary paczki
+                        </div>
+                    {% else %}
+                        {{ (package.Width.Value / 10)|round }} cm x {{ (package.Height.Value / 10)|round }} cm x {{ (package.Depth.Value / 10)|round }} cm
+                    {% endif %}
                 </td>
                 <td rowspan="1" style="font-size: 22px; text-align: center">
                     {{ packageno }}/{{ packagecount }}
                 </td>
                 <td rowspan="2">
                     <div style="position: relative; display: flex; align-items: center; justify-content: space-around;">
-                        {{ code_128(packageBarcode, "EAN13", 80) }}
+                        {% if packageBarcode %}
+                            {{ code_128(packageBarcode, "EAN13", 80) }}
+                        {% endif %}
                     </div>
                     <div style="margin-top: 5px; text-align: center">
-                        {{ packageBarcode }}
+                        {% if not packageBarcode %}
+                            <div class="error">
+                                Brak kodu kreskowego paczki Agata
+                            </div>
+                        {% else %}
+                            {{ packageBarcode ?? "" }}
+                        {% endif %}
                     </div>
                 </td>
             </tr>
             <tr>
                 <td>
-                    {{ package.Mass.Value }} kg
+                    {% if not package.Mass or not package.Mass.Value %}
+                        <div class="error">
+                            Niepoprawna waga paczki
+                        </div>
+                    {% else %}
+                        {{ package.Mass }}
+                    {% endif %}
                 </td>
                 <td style="text-align: center; font-weight: bold;">
                     SN:
-                    {% if order.parent is pimcore_data_object_class("Order") %}
-                        {{ order.parent.key }}
+                    {% if order %}
+                        {% if order.parent is pimcore_data_object_class("Order") %}
+                            {{ order.parent.key }}
+                        {% else %}
+                            {{ order.key }}
+                        {% endif %}
+                        ({{ order.id }})
                     {% else %}
-                        {{ order.key }}
+                        {{ oid }}
                     {% endif %}
-                    ({{ order.id }})
                 </td>
             </tr>
             </tbody>
