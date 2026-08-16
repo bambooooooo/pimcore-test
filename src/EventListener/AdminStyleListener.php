@@ -26,6 +26,7 @@ class AdminStyleListener
                     '/static/js/braceExpansion.js',
                     '/static/js/addChildren.js',
                     '/static/js/gridXlsxImagesExport.js',
+                    '/static/js/labels.js',
                 ]
             )
         );

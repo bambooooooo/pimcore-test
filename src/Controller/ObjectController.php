@@ -1100,7 +1100,7 @@ class ObjectController extends FrontendController
         return new JsonResponse($ret, Response::HTTP_OK);
     }
 
-    #[Route('/packageproducts/{id}', name: "get_packageproducts")]
+    #[Route('/packageproducts/{id}', name: "get_package_products")]
     public function getPackageProducts(Request $request): JsonResponse
     {
         DataObject::setHideUnpublished(false);
@@ -1124,6 +1124,65 @@ class ObjectController extends FrontendController
         usort($ret['data'], function ($a, $b) {
             $cmp = $a['packagesCount'] <=> $b['packagesCount'];
             return $cmp !== 0 ? $cmp : strcmp($a['name'], $b['name']);
+        });
+
+        return new JsonResponse($ret, Response::HTTP_OK);
+    }
+
+    #[Route('/productpackages/{id}', name: "get_product_packages")]
+    public function getProductPackages(Request $request): JsonResponse
+    {
+        DataObject::setHideUnpublished(false);
+
+        $productId = (int)$request->get("id");
+        $product = Product::getById($productId);
+
+        $ret = [
+            'data' => []
+        ];
+
+        if(!$product)
+        {
+            $ret['status'] = 'Product not found';
+            return new JsonResponse($ret, Response::HTTP_OK);
+        }
+
+        foreach ($product->getPackages() ?? [] as $lip)
+        {
+            $ret['data'][] = [
+                'id' => $lip->getElement()->getId(),
+                'name' => $lip->getElement()->getKey(),
+            ];
+        }
+
+        return new JsonResponse($ret, Response::HTTP_OK);
+    }
+
+    #[Route('/common-orders', name: "get_common_orders")]
+    public function getCommonOrders(Request $request): JsonResponse
+    {
+        DataObject::setHideUnpublished(false);
+
+        $root = DataObject::getByPath("/ZLECENIA/PRODUKCJA");
+        if(!$root)
+        {
+            return new JsonResponse([]);
+        }
+
+        foreach($root->getChildren() as $serie)
+        {
+            /** @var DataObject\Order $order */
+            foreach($serie->getChildren() as $order)
+            {
+                $ret['data'][] = [
+                    'id' => $order->getId(),
+                    'name' => $serie->getKey() . "-" . $order->getKey()
+                ];
+            }
+        }
+
+        usort($ret['data'], function ($a, $b) {
+            return strcmp($a['name'], $b['name']);
         });
 
         return new JsonResponse($ret, Response::HTTP_OK);
