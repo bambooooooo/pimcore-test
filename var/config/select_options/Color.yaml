@@ -133,6 +133,10 @@ pimcore:
                             label: 'dab artisan'
                             name: ''
                         -
+                            value: 'dąb baltic storm'
+                            label: 'dąb baltic storm'
+                            name: ''
+                        -
                             value: 'dab bialy'
                             label: 'dab bialy'
                             name: ''
