@@ -42,7 +42,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Opakowanie',
    'description' => 'Opakowanie zawierające elementy produktu',
    'creationDate' => NULL,
-   'modificationDate' => 1787118746,
+   'modificationDate' => 1787128275,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -1321,6 +1321,43 @@ Domyślny kod kreskowy paczki tworzony na podstawie jego unikalnego identyfikato
                 array (
                 ),
                  'fieldDefinitionsCache' => NULL,
+              )),
+              4 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
+                 'name' => 'Info',
+                 'type' => NULL,
+                 'region' => NULL,
+                 'title' => '',
+                 'width' => '',
+                 'height' => '',
+                 'collapsible' => false,
+                 'collapsed' => false,
+                 'bodyStyle' => '',
+                 'datatype' => 'layout',
+                 'children' => 
+                array (
+                ),
+                 'locked' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'fieldtype' => 'text',
+                 'html' => '<h2>Standardowe wypełnienie - plaster miodu</h2>
+
+<div class="alert alert-success">
+<h2>Burty - oczko 14 mm</h2>
+Grubości: 15 mm, 20 mm, 30 mm, 45 mm
+</div>
+
+<div class="alert alert-primary">
+<h2>Wartswy - oczko 22 mm</h2>
+Grubości: 10 mm, 16 mm, 18 mm, 42 mm
+</div>
+
+',
+                 'renderingClass' => '',
+                 'renderingData' => '',
+                 'border' => false,
               )),
             ),
              'locked' => false,
