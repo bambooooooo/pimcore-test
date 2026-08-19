@@ -29,7 +29,7 @@
  * - Elements [advancedManyToManyRelation]
  * - Layers [table]
  * - Fillment [block]
- * -- Material [input]
+ * -- Material [select]
  * -- Thickness [quantityValue]
  * -- Elements [table]
  * - Carriers [advancedManyToManyObjectRelation]
@@ -42,7 +42,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Opakowanie',
    'description' => 'Opakowanie zawierające elementy produktu',
    'creationDate' => NULL,
-   'modificationDate' => 1779354350,
+   'modificationDate' => 1787118746,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -1187,10 +1187,10 @@ Domyślny kod kreskowy paczki tworzony na podstawie jego unikalnego identyfikato
                  'children' => 
                 array (
                   0 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                      'name' => 'Material',
                      'title' => 'Material',
-                     'tooltip' => 'Materiał wypełenienia, np. styropian 15 mm',
+                     'tooltip' => 'Materiał wypełenienia, np. plaster miodu, styropian',
                      'mandatory' => true,
                      'noteditable' => false,
                      'index' => false,
@@ -1205,16 +1205,32 @@ Domyślny kod kreskowy paczki tworzony na podstawie jego unikalnego identyfikato
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'defaultValue' => NULL,
-                     'columnLength' => 190,
-                     'regex' => '',
-                     'regexFlags' => 
+                     'options' => 
                     array (
+                      0 => 
+                      array (
+                        'key' => 'Plaster miodu - oczko 14 mm',
+                        'value' => 'Plaster miodu - oczko 14 mm',
+                      ),
+                      1 => 
+                      array (
+                        'key' => 'Plaster miodu - oczko 22 mm',
+                        'value' => 'Plaster miodu - oczko 22 mm',
+                      ),
+                      2 => 
+                      array (
+                        'key' => 'Styropian',
+                        'value' => 'Styropian',
+                      ),
                     ),
-                     'unique' => false,
-                     'showCharCount' => false,
-                     'width' => '',
+                     'defaultValue' => '',
+                     'columnLength' => 190,
+                     'dynamicOptions' => false,
                      'defaultValueGenerator' => '',
+                     'width' => '',
+                     'optionsProviderType' => 'configure',
+                     'optionsProviderClass' => '',
+                     'optionsProviderData' => '',
                   )),
                   1 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
