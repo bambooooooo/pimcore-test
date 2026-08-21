@@ -6,9 +6,10 @@ use Pimcore\Db;
 
 trait StockTrait
 {
-    public function getStock(): int
+    public function getStock(): string
     {
-        return Db::get()->fetchOne('SELECT stock FROM stocks WHERE o_id = ?', [$this->getId()]) ?? 0;
+        $stock = Db::get()->fetchOne('SELECT stock FROM stocks WHERE o_id = ?', [$this->getId()]) ?? 0;
+        return $stock === false ? "0" : "$stock";
     }
 
     public function setStock(int $stock): self
