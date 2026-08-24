@@ -80,7 +80,7 @@
 
                 {% for order in serie.children() %}
                     {% for li in order.Products %}
-                        {% if member.id in li.Element.suppliers|map(x=>x.id) %}
+                        {% if app.user.user.admin or (member.id in li.Element.suppliers|map(x=>x.id)) %}
                             {% set idx = idx + 1 %}
                             <tr>
                                 <td>{{ idx }}</td>
@@ -115,7 +115,7 @@
 
     {% for order in serie.children() %}
         {% for li in order.Products %}
-            {% if member.id in li.Element.suppliers|map(x=>x.id) %}
+            {% if app.user.user.admin or (member.id in li.Element.suppliers|map(x=>x.id)) %}
                 {% set product = li.Element %}
                 <div class="page-break"></div>
                 <div class="page">
