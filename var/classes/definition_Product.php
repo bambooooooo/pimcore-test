@@ -91,7 +91,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Produkt',
    'description' => 'Towar, który można sprzedać',
    'creationDate' => NULL,
-   'modificationDate' => 1783591568,
+   'modificationDate' => 1787742911,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -214,7 +214,7 @@ Pełna nazwa produktu. Nazwa w językach obcych tłumaczona jest automatycznie w
                              'relationType' => false,
                              'invisible' => false,
                              'visibleGridView' => false,
-                             'visibleSearch' => false,
+                             'visibleSearch' => true,
                              'blockedVarsForExport' => 
                             array (
                             ),
@@ -3122,6 +3122,7 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                           1 => 'IndexMirjan24',
                           2 => 'IndexVente',
                           3 => 'IndexBogart',
+                          4 => 'IndexCama',
                         ),
                          'maxItems' => NULL,
                          'border' => false,
