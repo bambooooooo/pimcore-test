@@ -1,0 +1,55 @@
+<html>
+<head>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            font-size: 11px;
+        }
+
+        @page
+        {
+            size: 100mm 60mm;
+            margin: 2mm;
+        }
+
+        body
+        {
+            height: 100%;
+            width: 100%;
+        }
+
+    </style>
+</head>
+<body>
+<div style="width:100%; height:100%;">
+    <div style="border: 1px solid #000; width:100%; height:100%; padding: 10px; box-sizing: border-box; position: relative;">
+        <div style="text-align: center;">
+            <div style="height: 1.4rem">
+                {{ product.Name }}
+            </div>
+            <hr/>
+            <div>
+                {{ product.Width }} x {{ product.Height }} x {{ product.Depth }}
+            </div>
+            <hr/>
+            <div>
+                S/N: #{{ order.id ?? random(4000, 8000) }} (#{{ product.Id }})
+            </div>
+            <hr/>
+            <div>
+                Wyprodukowano w Polsce / Manufactured in Poland / Vyrobeno v Polsku / Vyrobené v Poľsku
+            </div>
+            <hr/>
+            <div>
+                "MEGSTYL"<br/>
+                Grzegorz Mularczyk<br/>
+                Żłobnica, ul. Milenijna 10<br/>
+                97-410 Kleszczów<br/>
+                email: bok@megstyl.pl
+            </div>
+        </div>
+    </div>
+</div>
+</body>
