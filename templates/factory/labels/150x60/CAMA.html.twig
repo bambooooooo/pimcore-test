@@ -129,7 +129,13 @@
                     <tr>
                         <td style="width: 70%; text-align: center" colspan="3">
                             <div style="font-size: 18px; font-weight: bold; text-transform: uppercase">
-                                {{ product.Codes.IndexCama.Name }}
+                                {% if product.Codes and product.Codes.IndexCama and product.Codes.IndexCama.Name  %}
+                                    {{ product.Codes.IndexCama.Name }}
+                                {% else %}
+                                    <div class="error">
+                                        Brak nazwy produktu Cama
+                                    </div>
+                                {% endif %}
                             </div>
                         </td>
                         <td style="text-align: center; width: 30%" rowspan="3">
@@ -142,16 +148,22 @@
                                 87-300 Brodnica<br/>
                                 gpsr@camameble.pl
                             </div>
-                            <div style="text-align: center; display: flex; justify-content: center;">
-                                {{ code_128(product.EAN, "EAN13", 60, 1) }}
-                            </div>
-                            <div>
-                                {{ product.EAN }}
-                            </div>
+                            {% if product.EAN %}
+                                <div style="text-align: center; display: flex; justify-content: center;">
+                                    {{ code_128(product.EAN, "EAN13", 60, 1) }}
+                                </div>
+                                <div>
+                                    {{ product.EAN }}
+                                </div>
+                            {% else %}
+                                <div class="error">
+                                    Brak kodu EAN
+                                </div>
+                            {% endif %}
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td style="width: 32%">
                             <div>
                                 <table class="details-table">
                                     <tbody>
@@ -159,38 +171,60 @@
                                             <td style="width: 100px;">indeks / sku</td>
                                             <td class="details-table-value">
                                                 <div style="font-weight: bold">
-                                                    {{ product.Codes.IndexCama.Code }}
+                                                    {% if product.Codes and product.Codes.IndexCama and product.Codes.IndexCama.Code %}
+                                                        {{ product.Codes.IndexCama.Code }}
+                                                    {% else %}
+                                                        <div class="error">
+                                                            Brak
+                                                        </div>
+                                                    {% endif %}
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>nr seryjny / s/n</td>
-                                            <td class="details-table-value">{{ order.id }}-{{ product.id }}</td>
+                                            <td class="details-table-value">
+                                                {% if order %}
+                                                    {{ order.id }}-{{ product.id }}
+                                                {% endif %}
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>długość / length</td>
                                             <td class="details-table-value">
-                                                {% if package.Depth %}
+                                                {% if package.Depth and package.Depth.Value %}
                                                     {{ (package.Depth.Value / 10)|round }}
                                                     cm
+                                                {% else %}
+                                                    <div class="erorr">
+                                                        Brak długości paczki
+                                                    </div>
                                                 {% endif %}
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>szerokość / width</td>
                                             <td class="details-table-value">
-                                                {% if package.Width %}
+                                                {% if package.Width and package.Width.Value %}
                                                     {{ (package.Width.Value / 10)|round }}
                                                     cm
+                                                {% else %}
+                                                    <div class="error">
+                                                        Brak szerokości paczki
+                                                    </div>
                                                 {% endif %}
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>wysokość / height</td>
                                             <td class="details-table-value">
-                                                {% if package.Height %}
+                                                {% if package.Height and package.Height.Value %}
                                                     {{ (package.Height.Value / 10)|round }}
                                                     cm
+                                                {% else %}
+                                                    <div class="error">
+                                                        Brak długości paczki
+                                                    </div>
                                                 {% endif %}
                                             </td>
                                         </tr>
@@ -199,8 +233,14 @@
                             </div>
 
                         </td>
-                        <td style="text-align: center;">
-                            <img src="{{ product.Drawing }}" style="width: 80px;"/>
+                        <td style="text-align: center; width: 20%">
+                            {% if product.Drawing %}
+                                <img src="{{ product.Drawing }}" style="width: 80px;"/>
+                            {% else %}
+                                <div class="error">
+                                    Brak miniaturki produktu
+                                </div>
+                            {% endif %}
                         </td>
                         <td>
                             <div style="text-align: center;">
@@ -221,7 +261,13 @@
                                         waga / weight:
                                     </div>
                                     <div class="bottom-field">
-                                        {{ package.mass }}
+                                        {% if package.mass %}
+                                            {{ package.mass }}
+                                        {% else %}
+                                            <div class="error">
+                                                Brak wagi paczki
+                                            </div>
+                                        {% endif %}
                                     </div>
                                 </div>
                                 <div style="width: 32%; float: left; margin-right: 3%">
@@ -229,7 +275,13 @@
                                         kubatura / volume:
                                     </div>
                                     <div class="bottom-field">
-                                        {{ package.volume }}
+                                        {% if package.volume %}
+                                            {{ package.volume }}
+                                        {% else %}
+                                            <div class="error">
+                                                Brak objętości paczki
+                                            </div>
+                                        {% endif %}
                                     </div>
                                 </div>
                                 <div style="width: 30%; float: left;">
@@ -237,7 +289,13 @@
                                         partia / serie:
                                     </div>
                                     <div class="bottom-field">
-                                        {{ order.parent.key }}
+                                        {% if order.parent %}
+                                            {{ order.parent.key }}
+                                        {% else %}
+                                            <div class="error">
+                                                Brak kodu partii
+                                            </div>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
