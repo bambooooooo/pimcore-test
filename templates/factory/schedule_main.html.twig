@@ -124,7 +124,9 @@
 
     .status-bg-Start a
     {
+	{% if type != 'pdf' %}
         color: #fff !important;
+	{% endif %}
     }
 
     .status-bg-Start:hover
