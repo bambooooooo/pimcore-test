@@ -11,6 +11,7 @@
  * - BasePrice [quantityValue]
  * - Model [input]
  * - Fefco [select]
+ * - Material [input]
  * - Depth [quantityValue]
  * - Height [quantityValue]
  * - Width [quantityValue]
@@ -42,7 +43,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Opakowanie',
    'description' => 'Opakowanie zawierające elementy produktu',
    'creationDate' => NULL,
-   'modificationDate' => 1787128275,
+   'modificationDate' => 1789375783,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -291,6 +292,36 @@ Projekt bazowy, na podstawie którego powstała dana paczka.',
                  'optionsProviderData' => '',
               )),
               2 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                 'name' => 'Material',
+                 'title' => 'Material',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'defaultValue' => NULL,
+                 'columnLength' => 190,
+                 'regex' => '',
+                 'regexFlags' => 
+                array (
+                ),
+                 'unique' => false,
+                 'showCharCount' => false,
+                 'width' => '',
+                 'defaultValueGenerator' => '',
+              )),
+              3 => 
               \Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
                  'name' => 'Layout',
                  'type' => NULL,
@@ -605,7 +636,7 @@ Projekt bazowy, na podstawie którego powstała dana paczka.',
                  'border' => false,
                  'tabPosition' => 'top',
               )),
-              3 => 
+              4 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                  'name' => 'Volume',
                  'title' => 'Volume',
@@ -642,7 +673,7 @@ Projekt bazowy, na podstawie którego powstała dana paczka.',
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
               )),
-              4 => 
+              5 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                  'name' => 'Mass',
                  'title' => 'Mass',
