@@ -59,10 +59,11 @@
     <div class="page">
         <div class="page-content">
             <table>
-                <h1>Partia {{ serie.key }}</h1>
-                <div style="margin-bottom: 12px;">
+                <div style="float:right; margin-bottom: 12px;">
                     termin dostawy: {{ serie.supplyDate|date("d.m.Y") }}
                 </div>
+                <h1>Partia {{ serie.key }}</h1>
+                <h2>Lista produktów</h2>
                 <thead>
                     <tr>
                         <th>#</th>
@@ -113,6 +114,65 @@
         </div>
     </div>
 
+    <div class="page-break"></div>
+
+    <div class="page">
+        <div class="page-content">
+            <table>
+                <h1>Partia {{ serie.key }}</h1>
+                <h2>Lista paczek</h2>
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Id</th>
+                    <th>Sku</th>
+                    <th>Materiał</th>
+                    <th>Rodzaj FEFCO</th>
+                    <th>Model</th>
+                    <th>Ilość</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% set idx = 0 %}
+                {% set total_items = 0 %}
+                {% set total_packages = 0 %}
+
+                {% for order in serie.children() %}
+                    {% for li in order.Products %}
+                        {% if app.user.user.admin or (member.id in li.Element.suppliers|map(x=>x.id)) %}
+                            {% for lip in li.Element.Packages %}
+                                {% set idx = idx + 1 %}
+                                <tr>
+                                    <td>{{ idx }}</td>
+                                    <td>{{ lip.Element.id }}</td>
+                                    <td>{{ lip.Element.key }}</td>
+                                    <td>{{ lip.Element.Material ?? "-" }}</td>
+                                    <td>{{ lip.Element.FEFCO ? "FEFCO " ~ lip.Element.FEFCO : "-" }}</td>
+                                    <td>{{ lip.Element.Model ?? "-" }}</td>
+                                    <td>{{ li.Data.Quantity * li.Element.PackageCount }}</td>
+                                </tr>
+                            {% endfor %}
+                            {% set total_items = total_items + li.Data.Quantity %}
+                            {% set total_packages = total_packages + li.Data.Quantity * li.Element.PackageCount %}
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="6" style="text-align:right">
+                        Razem
+                    </td>
+                    <td>
+                        {{ total_packages }}
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+
     {% for order in serie.children() %}
         {% for li in order.Products %}
             {% if app.user.user.admin or (member.id in li.Element.suppliers|map(x=>x.id)) %}
@@ -152,6 +212,14 @@
                                 <tr>
                                     <td>Rodzaj FEFCO</td>
                                     <td>FEFCO {{ p.FEFCO ?? "?" }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Materiał</td>
+                                    <td>{{ p.Material ?? "?" }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Ścieżka systemowa</td>
+                                    <td>{{ p.path }}{{ p.key }}</td>
                                 </tr>
                                 <tr>
                                     <td>Wypełnienie</td>
