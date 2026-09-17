@@ -32,6 +32,20 @@
  * - Parameters [classificationstore]
  * - ParametersAllegro [classificationstore]
  * - GoogleCategory [select]
+ * - base [quantityValue]
+ * - price_catalog_pln [quantityValue]
+ * - price_catalog_eur [quantityValue]
+ * - price_custom_cama [quantityValue]
+ * - price_custom_mirjan [quantityValue]
+ * - price_custom_agata [quantityValue]
+ * - price_custom_selsey [quantityValue]
+ * - price_custom_lectus [quantityValue]
+ * - price_custom_furnidea [quantityValue]
+ * - price_custom_bogart [quantityValue]
+ * - price_custom_arra [quantityValue]
+ * - price_custom_uptrend [quantityValue]
+ * - price_custom_lomado [quantityValue]
+ * - price_custom_vente [quantityValue]
  * - BasePrice [quantityValue]
  * - Price [advancedManyToManyObjectRelation]
  * - Pricing [advancedManyToManyObjectRelation]
@@ -91,7 +105,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Produkt',
    'description' => 'Towar, który można sprzedać',
    'creationDate' => NULL,
-   'modificationDate' => 1787742911,
+   'modificationDate' => 1789637764,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -1345,6 +1359,625 @@ Parametry produktu podzielone na kolekcje i grupy.',
                   )),
                   3 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                     'name' => 'Sell',
+                     'type' => NULL,
+                     'region' => NULL,
+                     'title' => 'Sell',
+                     'width' => '',
+                     'height' => '',
+                     'collapsible' => false,
+                     'collapsed' => false,
+                     'bodyStyle' => '',
+                     'datatype' => 'layout',
+                     'children' => 
+                    array (
+                      0 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                         'name' => 'base',
+                         'title' => 'Cena bazowa netto (TKW)',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'unitWidth' => '',
+                         'defaultUnit' => 'PLN',
+                         'validUnits' => 
+                        array (
+                          0 => 'PLN',
+                        ),
+                         'unique' => false,
+                         'autoConvert' => false,
+                         'defaultValueGenerator' => '',
+                         'width' => '',
+                         'defaultValue' => NULL,
+                         'integer' => false,
+                         'unsigned' => false,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'decimalSize' => NULL,
+                         'decimalPrecision' => NULL,
+                      )),
+                      1 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                         'name' => 'price_catalog_pln',
+                         'title' => 'Cena katalogowa PLN',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'unitWidth' => '',
+                         'defaultUnit' => 'PLN',
+                         'validUnits' => 
+                        array (
+                          0 => 'PLN',
+                        ),
+                         'unique' => false,
+                         'autoConvert' => false,
+                         'defaultValueGenerator' => '',
+                         'width' => '',
+                         'defaultValue' => NULL,
+                         'integer' => false,
+                         'unsigned' => true,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'decimalSize' => NULL,
+                         'decimalPrecision' => NULL,
+                      )),
+                      2 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                         'name' => 'price_catalog_eur',
+                         'title' => 'Cena katalogowa EUR',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'unitWidth' => '',
+                         'defaultUnit' => 'EUR',
+                         'validUnits' => 
+                        array (
+                          0 => 'EUR',
+                        ),
+                         'unique' => false,
+                         'autoConvert' => false,
+                         'defaultValueGenerator' => '',
+                         'width' => '',
+                         'defaultValue' => NULL,
+                         'integer' => false,
+                         'unsigned' => true,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'decimalSize' => NULL,
+                         'decimalPrecision' => NULL,
+                      )),
+                      3 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
+                         'name' => 'Layout',
+                         'type' => NULL,
+                         'region' => NULL,
+                         'title' => '',
+                         'width' => '',
+                         'height' => '',
+                         'collapsible' => false,
+                         'collapsed' => false,
+                         'bodyStyle' => '',
+                         'datatype' => 'layout',
+                         'children' => 
+                        array (
+                          0 => 
+                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                             'name' => 'PL custom',
+                             'type' => NULL,
+                             'region' => NULL,
+                             'title' => 'PLN',
+                             'width' => '',
+                             'height' => '',
+                             'collapsible' => false,
+                             'collapsed' => false,
+                             'bodyStyle' => '',
+                             'datatype' => 'layout',
+                             'children' => 
+                            array (
+                              0 => 
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                                 'name' => 'price_custom_cama',
+                                 'title' => 'Cama',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'unitWidth' => '',
+                                 'defaultUnit' => 'PLN',
+                                 'validUnits' => 
+                                array (
+                                  0 => 'PLN',
+                                ),
+                                 'unique' => false,
+                                 'autoConvert' => true,
+                                 'defaultValueGenerator' => '',
+                                 'width' => '',
+                                 'defaultValue' => NULL,
+                                 'integer' => false,
+                                 'unsigned' => true,
+                                 'minValue' => NULL,
+                                 'maxValue' => NULL,
+                                 'decimalSize' => NULL,
+                                 'decimalPrecision' => NULL,
+                              )),
+                              1 => 
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                                 'name' => 'price_custom_mirjan',
+                                 'title' => 'Mirjan',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'unitWidth' => '',
+                                 'defaultUnit' => 'PLN',
+                                 'validUnits' => 
+                                array (
+                                  0 => 'PLN',
+                                ),
+                                 'unique' => false,
+                                 'autoConvert' => true,
+                                 'defaultValueGenerator' => '',
+                                 'width' => '',
+                                 'defaultValue' => NULL,
+                                 'integer' => false,
+                                 'unsigned' => true,
+                                 'minValue' => NULL,
+                                 'maxValue' => NULL,
+                                 'decimalSize' => NULL,
+                                 'decimalPrecision' => NULL,
+                              )),
+                              2 => 
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                                 'name' => 'price_custom_agata',
+                                 'title' => 'Agata meble',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'unitWidth' => '',
+                                 'defaultUnit' => 'PLN',
+                                 'validUnits' => 
+                                array (
+                                  0 => 'PLN',
+                                ),
+                                 'unique' => false,
+                                 'autoConvert' => true,
+                                 'defaultValueGenerator' => '',
+                                 'width' => '',
+                                 'defaultValue' => NULL,
+                                 'integer' => false,
+                                 'unsigned' => true,
+                                 'minValue' => NULL,
+                                 'maxValue' => NULL,
+                                 'decimalSize' => NULL,
+                                 'decimalPrecision' => NULL,
+                              )),
+                              3 => 
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                                 'name' => 'price_custom_selsey',
+                                 'title' => 'Selsey',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'unitWidth' => '',
+                                 'defaultUnit' => 'PLN',
+                                 'validUnits' => 
+                                array (
+                                  0 => 'PLN',
+                                ),
+                                 'unique' => false,
+                                 'autoConvert' => true,
+                                 'defaultValueGenerator' => '',
+                                 'width' => '',
+                                 'defaultValue' => NULL,
+                                 'integer' => false,
+                                 'unsigned' => true,
+                                 'minValue' => NULL,
+                                 'maxValue' => NULL,
+                                 'decimalSize' => NULL,
+                                 'decimalPrecision' => NULL,
+                              )),
+                              4 => 
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                                 'name' => 'price_custom_lectus',
+                                 'title' => 'Lectus',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'unitWidth' => '',
+                                 'defaultUnit' => 'PLN',
+                                 'validUnits' => 
+                                array (
+                                  0 => 'PLN',
+                                ),
+                                 'unique' => false,
+                                 'autoConvert' => true,
+                                 'defaultValueGenerator' => '',
+                                 'width' => '',
+                                 'defaultValue' => NULL,
+                                 'integer' => false,
+                                 'unsigned' => true,
+                                 'minValue' => NULL,
+                                 'maxValue' => NULL,
+                                 'decimalSize' => NULL,
+                                 'decimalPrecision' => NULL,
+                              )),
+                              5 => 
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                                 'name' => 'price_custom_furnidea',
+                                 'title' => 'Furnidea',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'unitWidth' => '',
+                                 'defaultUnit' => 'PLN',
+                                 'validUnits' => 
+                                array (
+                                  0 => 'PLN',
+                                ),
+                                 'unique' => false,
+                                 'autoConvert' => true,
+                                 'defaultValueGenerator' => '',
+                                 'width' => '',
+                                 'defaultValue' => NULL,
+                                 'integer' => false,
+                                 'unsigned' => true,
+                                 'minValue' => NULL,
+                                 'maxValue' => NULL,
+                                 'decimalSize' => NULL,
+                                 'decimalPrecision' => NULL,
+                              )),
+                              6 => 
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                                 'name' => 'price_custom_bogart',
+                                 'title' => 'Bogart',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'unitWidth' => '',
+                                 'defaultUnit' => 'PLN',
+                                 'validUnits' => 
+                                array (
+                                  0 => 'PLN',
+                                ),
+                                 'unique' => false,
+                                 'autoConvert' => true,
+                                 'defaultValueGenerator' => '',
+                                 'width' => '',
+                                 'defaultValue' => NULL,
+                                 'integer' => false,
+                                 'unsigned' => true,
+                                 'minValue' => NULL,
+                                 'maxValue' => NULL,
+                                 'decimalSize' => NULL,
+                                 'decimalPrecision' => NULL,
+                              )),
+                              7 => 
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                                 'name' => 'price_custom_arra',
+                                 'title' => 'Arra',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'unitWidth' => '',
+                                 'defaultUnit' => 'PLN',
+                                 'validUnits' => 
+                                array (
+                                  0 => 'PLN',
+                                ),
+                                 'unique' => false,
+                                 'autoConvert' => true,
+                                 'defaultValueGenerator' => '',
+                                 'width' => '',
+                                 'defaultValue' => NULL,
+                                 'integer' => false,
+                                 'unsigned' => true,
+                                 'minValue' => NULL,
+                                 'maxValue' => NULL,
+                                 'decimalSize' => NULL,
+                                 'decimalPrecision' => NULL,
+                              )),
+                              8 => 
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                                 'name' => 'price_custom_uptrend',
+                                 'title' => 'Uptrend',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'unitWidth' => '',
+                                 'defaultUnit' => 'PLN',
+                                 'validUnits' => 
+                                array (
+                                  0 => 'PLN',
+                                ),
+                                 'unique' => false,
+                                 'autoConvert' => true,
+                                 'defaultValueGenerator' => '',
+                                 'width' => '',
+                                 'defaultValue' => NULL,
+                                 'integer' => false,
+                                 'unsigned' => true,
+                                 'minValue' => NULL,
+                                 'maxValue' => NULL,
+                                 'decimalSize' => NULL,
+                                 'decimalPrecision' => NULL,
+                              )),
+                            ),
+                             'locked' => false,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'fieldtype' => 'panel',
+                             'layout' => NULL,
+                             'border' => false,
+                             'icon' => '/bundles/pimcoreadmin/img/flags/countries/pl.svg',
+                             'labelWidth' => 180,
+                             'labelAlign' => 'left',
+                          )),
+                          1 => 
+                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                             'name' => 'EU custom',
+                             'type' => NULL,
+                             'region' => NULL,
+                             'title' => 'EUR',
+                             'width' => '',
+                             'height' => '',
+                             'collapsible' => false,
+                             'collapsed' => false,
+                             'bodyStyle' => '',
+                             'datatype' => 'layout',
+                             'children' => 
+                            array (
+                              0 => 
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                                 'name' => 'price_custom_lomado',
+                                 'title' => 'Lomado',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'unitWidth' => '',
+                                 'defaultUnit' => 'EUR',
+                                 'validUnits' => 
+                                array (
+                                  0 => 'EUR',
+                                ),
+                                 'unique' => false,
+                                 'autoConvert' => true,
+                                 'defaultValueGenerator' => '',
+                                 'width' => '',
+                                 'defaultValue' => NULL,
+                                 'integer' => false,
+                                 'unsigned' => true,
+                                 'minValue' => 0.0,
+                                 'maxValue' => NULL,
+                                 'decimalSize' => NULL,
+                                 'decimalPrecision' => NULL,
+                              )),
+                              1 => 
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                                 'name' => 'price_custom_vente',
+                                 'title' => 'Vente Unique',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'unitWidth' => '',
+                                 'defaultUnit' => 'EUR',
+                                 'validUnits' => 
+                                array (
+                                  0 => 'EUR',
+                                ),
+                                 'unique' => false,
+                                 'autoConvert' => true,
+                                 'defaultValueGenerator' => '',
+                                 'width' => '',
+                                 'defaultValue' => NULL,
+                                 'integer' => false,
+                                 'unsigned' => true,
+                                 'minValue' => 0.0,
+                                 'maxValue' => NULL,
+                                 'decimalSize' => NULL,
+                                 'decimalPrecision' => NULL,
+                              )),
+                            ),
+                             'locked' => false,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'fieldtype' => 'panel',
+                             'layout' => NULL,
+                             'border' => false,
+                             'icon' => '/UI/ue.png',
+                             'labelWidth' => 180,
+                             'labelAlign' => 'left',
+                          )),
+                        ),
+                         'locked' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'fieldtype' => 'tabpanel',
+                         'border' => false,
+                         'tabPosition' => 'top',
+                      )),
+                    ),
+                     'locked' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'fieldtype' => 'panel',
+                     'layout' => NULL,
+                     'border' => false,
+                     'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/sales_performance.svg',
+                     'labelWidth' => 240,
+                     'labelAlign' => 'left',
+                  )),
+                  4 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Prices',
                      'type' => NULL,
                      'region' => NULL,
@@ -1547,7 +2180,7 @@ Wycena produktu lub innej usługi związanej z produktem, np. transport',
                      'labelWidth' => 100,
                      'labelAlign' => 'left',
                   )),
-                  4 => 
+                  5 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Media',
                      'type' => NULL,
@@ -1725,7 +2358,7 @@ Wycena produktu lub innej usługi związanej z produktem, np. transport',
                      'labelWidth' => 100,
                      'labelAlign' => 'left',
                   )),
-                  5 => 
+                  6 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Packing',
                      'type' => NULL,
@@ -2188,7 +2821,7 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                      'labelWidth' => 100,
                      'labelAlign' => 'left',
                   )),
-                  6 => 
+                  7 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Layout',
                      'type' => NULL,
@@ -2469,7 +3102,7 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                      'labelWidth' => 100,
                      'labelAlign' => 'left',
                   )),
-                  7 => 
+                  8 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Factory',
                      'type' => NULL,
@@ -2759,7 +3392,7 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                      'labelWidth' => 100,
                      'labelAlign' => 'left',
                   )),
-                  8 => 
+                  9 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Quality',
                      'type' => NULL,
@@ -3028,7 +3661,7 @@ Stopień uzupełnienia danych produktu',
                      'labelWidth' => 100,
                      'labelAlign' => 'left',
                   )),
-                  9 => 
+                  10 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Codes',
                      'type' => NULL,
@@ -3139,7 +3772,7 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                      'labelWidth' => 100,
                      'labelAlign' => 'left',
                   )),
-                  10 => 
+                  11 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Documents',
                      'type' => NULL,
@@ -3294,7 +3927,7 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                      'labelWidth' => 100,
                      'labelAlign' => 'left',
                   )),
-                  11 => 
+                  12 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Integrations',
                      'type' => NULL,
