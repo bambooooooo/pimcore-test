@@ -131,6 +131,10 @@ services:
             $apikey: '%env(PS_APIKEY)%'
             $useSSL: '%env(bool:PS_USE_SSL)%'
 
+    App\OptionProvider\:
+        resource: '../src/OptionProvider'
+        public: true
+
     # publishing
     App\Publishing\:
         resource: '../src/Publishing'
