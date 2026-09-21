@@ -120,8 +120,8 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
   array (
     0 => 
     array (
-      'classname' => 'Pricing',
-      'fieldname' => 'Restrictions',
+      'classname' => 'Offer',
+      'fieldname' => 'Filters',
     ),
   ),
    'activeDispatchingEvents' => 

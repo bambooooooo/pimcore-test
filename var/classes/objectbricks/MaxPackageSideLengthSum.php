@@ -113,11 +113,6 @@ Paczka o wymiarach 2 000 mm x 450 mm x 120 mm ma sumę długości równą 2570 m
   ),
    'classDefinitions' => 
   array (
-    0 => 
-    array (
-      'classname' => 'Pricing',
-      'fieldname' => 'Restrictions',
-    ),
   ),
    'activeDispatchingEvents' => 
   array (
