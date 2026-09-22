@@ -242,8 +242,6 @@ class ProductEventListener
             $product->setPackagesMass(new QuantityValue($mass, $kg));
             $product->setPackagesVolume(new QuantityValue($volume, $m3));
             $product->setPackageCount($count);
-
-            $product->save(["skip" => "package data update"]);
         }
         catch(\Throwable $e)
         {
@@ -251,8 +249,6 @@ class ProductEventListener
             $product->setPackagesVolume(null);
             $product->setPackageCount(null);
             $product->setSerieSize(null);
-
-            $product->save(["skip" => "unsufficient packages data"]);
         }
     }
 
@@ -276,12 +272,10 @@ class ProductEventListener
             }
 
             $product->setPricing($productPrices);
-            $product->save(["skip" => "pricing data update"]);
         }
         catch(\Throwable $e)
         {
             $product->setPricing(null);
-            $product->save(["skip" => "pricing data - insufficient data"]);
         }
     }
 
@@ -290,12 +284,10 @@ class ProductEventListener
         try
         {
             $product->setPrice($this->offerService->getObjectPrices($product));
-            $product->save(["skip" => "offers data update"]);
         }
         catch(\Throwable $e)
         {
             $product->setPrice(null);
-            $product->save(["skip" => "offers data - insufficient data"]);
         }
     }
 
@@ -366,9 +358,6 @@ class ProductEventListener
                     $changed = true;
                 }
 
-                if ($changed) {
-                    $product->save(["skip" => "brutto dimensions update (obi)"]);
-                }
             } catch (\Throwable $e) {
                 //
             }
