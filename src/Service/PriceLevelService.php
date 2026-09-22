@@ -13,6 +13,25 @@ class PriceLevelService
 
     }
 
+    public function getPriceLevelValidDates(string $prefix = "date_price_")
+    {
+        $fields = ClassDefinition::getById("Product");
+
+        $ret = [];
+
+        foreach ($fields->getFieldDefinitions() as $field) {
+            if(str_starts_with($field->getName(), $prefix) && $field->getFieldType() == 'date')
+            {
+                $ret[] = [
+                    'key' => $field->getTitle(),
+                    'value' => $field->getName(),
+                ];
+            }
+        }
+
+        return $ret;
+    }
+
     /**
      * Returns price level list assigned to Product class
      *
