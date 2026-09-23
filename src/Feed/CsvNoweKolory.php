@@ -18,7 +18,7 @@ class CsvNoweKolory extends CsvFeedWriter
         foreach ($refs as $ref) {
             if($ref['type'] == 'object') {
                 $obj = DataObject::getById($ref['id']);
-                if(($obj instanceof Product || $obj instanceof ProductSet) && (in_array($obj->getStatus(), ['Active', 'Sale']))) {
+                if($obj instanceof Product || $obj instanceof ProductSet) {
                     $data[] = $obj;
                 }
             }

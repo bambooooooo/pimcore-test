@@ -19,45 +19,33 @@ class XmlFeedBasic extends XmlFeedWriter
         foreach ($refs as $ref) {
             if($ref['type'] == 'object') {
                 $obj = DataObject::getById($ref['id']);
-                if(($obj instanceof Product || $obj instanceof ProductSet) && (in_array($obj->getStatus(), ['Active', 'Sale']))) {
-                    $price = 0.0;
-
-                    foreach($obj->getPrice() as $lip)
-                    {
-                        if ($lip->getElement()->getId() == $offer->getId())
-                        {
-                            $price = (float)$lip->getPrice();
-                        }
-                    }
-
-                    if($price > 0)
-                    {
-                        $data[] = $obj;
-                    }
+                if($obj instanceof Product || $obj instanceof ProductSet) {
+                    $data[] = $obj;
                 }
             }
         }
 
-        parent::__construct($data, function (Product|ProductSet $obj) use ($offer)
-        {
-            $price = 0.0;
+        parent::__construct($data, function (Product|ProductSet $item) use ($offer) {
 
-            foreach($obj->getPrice() as $lip)
+            $priceGetter = 'get' . $offer->getPrice();
+
+            $price = (float)$item->{$priceGetter}()->getValue();
+            $price = $price * ((100 - $offer->getDrop() ?? 0.0) / 100);
+            $price = round($price, 2);
+
+            if($price == 0.0)
             {
-                if ($lip->getElement()->getId() == $offer->getId())
-                {
-                    $price = (float)$lip->getPrice();
-                }
+                return "";
             }
 
             $doc = new DOMDocument('1.0', 'utf-8');
             $doc->formatOutput = true;
 
             $prod = $doc->createElement('product');
-            $prod->setAttribute('id', $obj->getId());
-            $prod->appendChild($doc->createElement('sku', (string)$obj->getId()));
-            $prod->appendChild($doc->createElement('name', (string)$obj->getName("pl")));
-            $prod->appendChild($doc->createElement('instock', $obj->getStock()));
+            $prod->setAttribute('id', $item->getId());
+            $prod->appendChild($doc->createElement('sku', (string)$item->getId()));
+            $prod->appendChild($doc->createElement('name', (string)$item->getName("pl")));
+            $prod->appendChild($doc->createElement('instock', $item->getStock()));
             $prod->appendChild($doc->createElement('price', $price));
 
             return $doc->saveXML($prod);
