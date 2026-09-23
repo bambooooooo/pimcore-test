@@ -98,7 +98,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1790019835,
+   'modificationDate' => 1790182638,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -2530,7 +2530,7 @@ Kolekcje i grupy parametrów dotyczące całego zestawu. Nie wprowadzamy tutaj p
                       1 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                          'name' => 'price_new_catalog_pln',
-                         'title' => 'Cena katalogowa PLN',
+                         'title' => '(Nowa cena) Cena katalogowa PLN',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
@@ -2591,7 +2591,7 @@ Kolekcje i grupy parametrów dotyczące całego zestawu. Nie wprowadzamy tutaj p
                       3 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                          'name' => 'price_new_catalog_eur',
-                         'title' => 'Cena katalogowa EUR',
+                         'title' => '(Nowa cena) Cena katalogowa EUR',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
@@ -2680,7 +2680,7 @@ Kolekcje i grupy parametrów dotyczące całego zestawu. Nie wprowadzamy tutaj p
                               0 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                                  'name' => 'price_new_custom_cama',
-                                 'title' => 'Cama',
+                                 'title' => '(Nowa cena) Cama',
                                  'tooltip' => '',
                                  'mandatory' => false,
                                  'noteditable' => false,
@@ -2741,7 +2741,7 @@ Kolekcje i grupy parametrów dotyczące całego zestawu. Nie wprowadzamy tutaj p
                               2 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                                  'name' => 'price_new_custom_mirjan',
-                                 'title' => 'Mirjan',
+                                 'title' => '(Nowa cena) Mirjan',
                                  'tooltip' => '',
                                  'mandatory' => false,
                                  'noteditable' => false,
@@ -2802,7 +2802,7 @@ Kolekcje i grupy parametrów dotyczące całego zestawu. Nie wprowadzamy tutaj p
                               4 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                                  'name' => 'price_new_custom_agata',
-                                 'title' => 'Agata meble',
+                                 'title' => '(Nowa cena) Agata meble',
                                  'tooltip' => '',
                                  'mandatory' => false,
                                  'noteditable' => false,
@@ -2863,7 +2863,7 @@ Kolekcje i grupy parametrów dotyczące całego zestawu. Nie wprowadzamy tutaj p
                               6 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                                  'name' => 'price_new_custom_selsey',
-                                 'title' => 'Selsey',
+                                 'title' => '(Nowa cena) Selsey',
                                  'tooltip' => '',
                                  'mandatory' => false,
                                  'noteditable' => false,
@@ -2924,7 +2924,7 @@ Kolekcje i grupy parametrów dotyczące całego zestawu. Nie wprowadzamy tutaj p
                               8 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                                  'name' => 'price_new_custom_lectus',
-                                 'title' => 'Lectus',
+                                 'title' => '(Nowa cena) Lectus',
                                  'tooltip' => '',
                                  'mandatory' => false,
                                  'noteditable' => false,
@@ -2985,7 +2985,7 @@ Kolekcje i grupy parametrów dotyczące całego zestawu. Nie wprowadzamy tutaj p
                               10 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                                  'name' => 'price_new_custom_furnidea',
-                                 'title' => 'Furnidea',
+                                 'title' => '(Nowa cena) Furnidea',
                                  'tooltip' => '',
                                  'mandatory' => false,
                                  'noteditable' => false,
@@ -3046,7 +3046,7 @@ Kolekcje i grupy parametrów dotyczące całego zestawu. Nie wprowadzamy tutaj p
                               12 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                                  'name' => 'price_new_custom_bogart',
-                                 'title' => 'Bogart',
+                                 'title' => '(Nowa cena) Bogart',
                                  'tooltip' => '',
                                  'mandatory' => false,
                                  'noteditable' => false,
@@ -3107,7 +3107,7 @@ Kolekcje i grupy parametrów dotyczące całego zestawu. Nie wprowadzamy tutaj p
                               14 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                                  'name' => 'price_new_custom_uptrend',
-                                 'title' => 'Uptrend',
+                                 'title' => '(Nowa cena) Uptrend',
                                  'tooltip' => '',
                                  'mandatory' => false,
                                  'noteditable' => false,
@@ -3194,7 +3194,7 @@ Kolekcje i grupy parametrów dotyczące całego zestawu. Nie wprowadzamy tutaj p
                               0 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                                  'name' => 'price_new_custom_lomado',
-                                 'title' => 'Lomado',
+                                 'title' => '(Nowa cena) Lomado',
                                  'tooltip' => '',
                                  'mandatory' => false,
                                  'noteditable' => false,
@@ -3255,7 +3255,7 @@ Kolekcje i grupy parametrów dotyczące całego zestawu. Nie wprowadzamy tutaj p
                               2 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                                  'name' => 'price_new_custom_vente',
-                                 'title' => 'Vente Unique',
+                                 'title' => '(Nowa cena) Vente Unique',
                                  'tooltip' => '',
                                  'mandatory' => false,
                                  'noteditable' => false,

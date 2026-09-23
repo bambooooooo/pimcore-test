@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\OptionProvider\ProductPriceLevelProvider;
 use App\Service\DeepLService;
+use App\Service\PriceLevelService;
 use DeepL\DeepLException;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
@@ -32,7 +34,8 @@ class ObjectController extends FrontendController
 
     public function __construct(private TranslatorInterface $translator,
                                 private readonly DeepLService $deepLService,
-                                private readonly CacheItemPoolInterface $cache)
+                                private readonly CacheItemPoolInterface $cache,
+                                private readonly PriceLevelService $priceLevelService)
     {
 
     }
@@ -175,13 +178,17 @@ class ObjectController extends FrontendController
     }
 
     #[Route('/object/{_locale}/{id}/datasheet', name: 'datasheet_new', defaults: ['_locale' => 'pl', 'locale' => 'pl'])]
+    public function oldDataSheet(Request $request): Response
+    {
+        return $this->redirectToRoute('_price_list', $request->request->all());
+    }
+
+    #[Route('/object/{_locale}/{id}/price-list', name: '_price_list', defaults: ['_locale' => 'pl', 'locale' => 'pl'])]
     public function datasheetAction(Request $request): Response
     {
-        $orderBy = $request->get('orderby') ?? 'sku';
-        $type = $request->get("type") ?? "html";
+        $type = $request->get("type") ?? "pdf"; // pdf, pdf-spec, xlsx
         $preview = filter_var($request->get("preview") ?? false, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);;
-        $price = $request->get("price");
-        $mode = $request->get("mode") ?? "basic"; // basic | detailed
+        $priceLevel = $request->get("price_level");
         $showProductStocks = filter_var($request->get("show_product_stocks") ?? false, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
 
         $showUnpublished = filter_var($request->get("show_unpublished") ?? false, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
@@ -190,239 +197,62 @@ class ObjectController extends FrontendController
         $showRelatedProducts = filter_var($request->get("show_related_products") ?? true, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
         $showProductsTypeSKU = filter_var($request->get("show_products_type_sku") ?? true, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
         $showPrices = filter_var($request->get("show_prices") ?? true, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
-        $showItemsAllStatus = filter_var($request->get("show_items_in_all_statuses") ?? true, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+        $showSummaryGrid = filter_var($request->get("show_summary_grid") ?? false, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+
+        $productTypes = $showProductsTypeSKU ? "'ACTUAL', 'SKU'" : "'ACTUAL'";
+        $itemStatuses = "'Active','Sale'";
 
         $params = [
             'sets_row_cnt' => $request->query->get("sets") ?? 5,
             'products_row_cnt' => $request->query->get("products") ?? 5,
-            'price' => $price,
+            'price_level' => $priceLevel,
             'show_prices' => $showPrices,
             'show_product_stocks' => $showProductStocks,
             "new_after_date" => (int)$request->query->get("new") ?? 1,
-            "mode" => $mode,
+            'show_summary_grid' => $showSummaryGrid
         ];
 
         DataObject::setHideUnpublished(!$showUnpublished);
 
-        $obj = DataObject::getById($request->get('id'));
-        if(!$obj)
+        $group = DataObject\Group::getById($request->get('id'));
+        if(!$group)
             return new Response("DataObject not found", Response::HTTP_NOT_FOUND);
 
-        $html = "";
-        $fname = $obj->getName() ?? $obj->getKey() . ".pdf";
-
-        $productTypes = $showProductsTypeSKU ? "'ACTUAL', 'SKU'" : "'ACTUAL'";
-        $itemStatuses = $showItemsAllStatus ? "'Active','Sale','Draft'" : "'Active','Sale'";
-
-        $offer = ($price && is_numeric($price)) ? DataObject\Offer::getById($price) : null;
-
-        if($obj instanceof DataObject\Product)
+        if($showPrices && $priceLevel && !DataObject\ClassDefinition::getById('Product')->getFieldDefinition($priceLevel))
         {
-            $html = $this->renderView('factory/pdf/datasheet_group.html.twig', array_merge($params, [
-                'group' => $obj,
-                'prods' => [$obj],
-                'sets' => [],
-                'common' => [],
-            ]));
+            return new Response("Price level price not found", Response::HTTP_NOT_FOUND);
         }
-        elseif ($obj instanceof DataObject\ProductSet)
+
+        $products = $showProducts ? $this->getProductsForPriceList($group, $productTypes, $itemStatuses, $priceLevel) : [];
+        $sets = $showSets ? $this->getSetsForPriceList($group, $itemStatuses, $priceLevel) : [];
+        $related = $showRelatedProducts ? $this->getRelatedProductsForPriceList($sets, $products, $priceLevel, $showUnpublished, $showProductsTypeSKU) : [];
+
+        if(!$products && !$sets && !$related)
         {
-            $html = $this->renderView('factory/pdf/datasheet_group.html.twig', array_merge($params, [
-                'group' => $obj,
-                'prods' => [],
-                'sets' => [$obj],
-                'common' => [],
-            ]));
+            return new Response("No items found.", Response::HTTP_NOT_FOUND);
         }
-        elseif ($obj instanceof DataObject\Group)
+
+        if($type == 'xlsx')
         {
-            $productListing = new DataObject\Product\Listing();
-            $cond = "Groups like '%," . $obj->getId() . ",%' AND `ObjectType` IN (" . $productTypes . ") AND `Status` IN (" . $itemStatuses . ")";
-            if($offer)
-            {
-                $cond .= " AND `Price` like '%," . $offer->getId() . ",%'";
-            }
-
-            $productListing->setCondition($cond);
-            $prods = $productListing->load();
-
-            usort($prods, function (DataObject\Product $a, DataObject\Product $b) use ($orderBy) {
-
-                if($orderBy == 'name')
-                {
-                    return strcmp($a->getName() ?? $a->getKey(), $b->getName() ?? $b->getKey());
-                }
-
-                return strcmp($a->getKey(), $b->getKey());
-            });
-
-            $setListing = new DataObject\ProductSet\Listing();
-            $cond = "Groups like '%," . $obj->getId() . ",%' AND `Status` IN (" . $itemStatuses . ")";
-            if($offer)
-            {
-                $cond .= " AND `Price` like '%," . $offer->getId() . ",%'";
-            }
-            $setListing->setCondition($cond);
-            $sets = $setListing->load();
-
-            usort($sets, function ($a, $b) {
-                return $a->getBasePrice()->getValue() > $b->getBasePrice()->getValue();
-            });
-
-            $common = [];
-
-            foreach($sets as $set)
-            {
-                foreach($set->getSet() as $lip)
-                {
-                    $product = $lip->getElement();
-                    if(!$showUnpublished && !$product->getPublished())
-                        continue;
-
-                    if($offer)
-                    {
-                        $found = false;
-                        foreach ($product->getPrice() as $poff)
-                        {
-                            if($poff->getObject()->getId() == $offer->getId())
-                            {
-                                $found = true;
-                                break;
-                            }
-                        }
-
-                        if(!$found)
-                        {
-                            break;
-                        }
-                    }
-
-                    if(in_array($product->getStatus(), $showItemsAllStatus ? ['Active', 'Sale', 'Draft'] : ['Active', 'Sale'])
-                        && in_array($product->getObjectType(), $showProductsTypeSKU ? ['ACTUAL', 'SKU'] : ['ACTUAL']))
-                    {
-                        if(!in_array($product, $prods))
-                        {
-                            $common[] = $product;
-                        }
-                    }
-                }
-            }
-
-            $common = array_unique($common);
-
-            usort($common, function (DataObject\Product $a, DataObject\Product $b) use ($orderBy) {
-
-                if($orderBy == 'group-name')
-                {
-                    if($a->getGroup() != null && $b->getGroup() != null)
-                    {
-                        $comp = strcmp($a->getGroup()->getName() ??  $a->getGroup()->getKey(), $b->getGroup()->getName() ?? $b->getGroup()->getKey());
-
-                        if($comp === 0)
-                        {
-                            return strcmp($a->getName() ?? $a->getKey(), $b->getName() ?? $b->getKey());
-                        }
-                    }
-                }
-                else if ($orderBy == 'name')
-                {
-                    return strcmp($a->getName() ?? $a->getKey(), $b->getName() ?? $b->getKey());
-                }
-
-                return strcmp($a->getKey(), $b->getKey());
-            });
-
-            if($type == 'xlsx')
-            {
-                if(!$offer)
-                {
-                    return new Response("No Offer found", Response::HTTP_BAD_REQUEST);
-                }
-
-                $fname = strtoupper(implode('-', [
-                    $obj->getName() ?? $obj->getKey(),
-                    $this->translator->trans("Pricelist"),
-                    $offer->getName() ?? $offer->getKey(),
-                    date("d-m-Y")
-                ])) . ".xlsx";
-
-                return $this->getSheetPricesXlsx($showProducts ? $prods : null,
-                    $showSets ? $sets : null,
-                    $showRelatedProducts ? $common : null,
-                    $offer, $fname);
-            }
-
-            $offer = $price ? DataObject\Offer::getById($price) : null;
-
-            if($offer)
-            {
-                $fname = strtoupper(implode('-', [
-                    $obj->getName() ?? $obj->getKey(),
-                    $this->translator->trans("Pricelist"),
-                    $offer->getName() ?? $offer->getKey(),
-                    date("d-m-Y"),
-                ])) . ".pdf";
-            }
-            else
-            {
-                $fname = implode('-', [
-                    $obj->getName() ?? $obj->getKey(),
-                    $this->translator->trans("Datasheet"),
-                    date("d-m-Y"),
-                    ".pdf"
-                ]);
-            }
-
-            $params['metadata']['Title'] = $fname;
-
-            $html = $this->renderView('factory/pdf/datasheet_group.html.twig', array_merge($params, [
-                'group' => $obj,
-                'prods' => $showProducts ? $prods : [],
-                'sets' => $showSets ? $sets : [],
-                'common' => $showRelatedProducts ? $common : [],
-            ]));
+            return $this->getSheetPricesXlsx($group, $products, $sets, $related, $priceLevel);
         }
-        elseif($obj instanceof DataObject\Offer)
+
+        if($type == 'pdf-spec')
         {
-            $prods = [];
-            $sets = [];
-            $common = [];
-
-            foreach ($obj->getDependencies()->getRequiredBy() as $dependency)
-            {
-                $item = DataObject::getById($dependency['id']);
-                if($item instanceof DataObject\Product && in_array($item->getStatus(), ['Active', 'Sale']) && in_array($item->getObjectType(), ['ACTUAL', 'SKU']))
-                {
-                    $prods[] = $item;
-                    $common[] = $item;
-                }
-                elseif($item instanceof DataObject\ProductSet)
-                {
-                    if(!in_array($item->getStatus(), ['Active', 'Sale']))
-                    {
-                        continue;
-                    }
-
-                    $sets[] = $item;
-
-                    foreach($item->getSet() as $lip)
-                    {
-                        $product = $lip->getElement();
-                        if($product && in_array($product->getStatus(), ['Active', 'Sale']) && in_array($product->getObjectType(), ['ACTUAL', 'SKU']))
-                        {
-                            $common[] = $product;
-                        }
-                    }
-                }
-            }
-
-            $common = array_unique($common);
-
-            $html = $this->renderView('factory/pdf/datasheet_group.html.twig', array_merge($params, [
-                'group' => $obj,
-                'prods' => $prods,
+            $html = $this->renderView('factory/pdf/datasheet.html.twig', array_merge($params, [
+                'group' => $group,
+                'prods' => $products,
                 'sets' => $sets,
-                'common' => $common
+                'related' => $related,
+            ]));
+        }
+        else
+        {
+            $html = $this->renderView('factory/pdf/price_list.html.twig', array_merge($params, [
+                'group' => $group,
+                'prods' => $products,
+                'sets' => $sets,
+                'related' => $related,
             ]));
         }
 
@@ -431,6 +261,106 @@ class ObjectController extends FrontendController
             return new Response($html, 200);
         }
 
+        return $this->getPriceListPdf($group, $html);
+    }
+
+    private function getProductsForPriceList(Group $group, string $productTypes, string $itemStatuses, string $priceLevel = null, $orderBy = 'key'): array
+    {
+        $productListing = new DataObject\Product\Listing();
+        $cond = "Groups like '%," . $group->getId() . ",%' AND `ObjectType` IN (" . $productTypes . ") AND `Status` IN (" . $itemStatuses . ")";
+        if($priceLevel)
+        {
+            $cond .= " AND `{$priceLevel}__value` > 0";
+        }
+
+        $productListing->setCondition($cond);
+        $prods = $productListing->load();
+
+        usort($prods, function (DataObject\Product $a, DataObject\Product $b) use ($orderBy) {
+
+            if($orderBy == 'name')
+            {
+                return strcmp($a->getName() ?? $a->getKey(), $b->getName() ?? $b->getKey());
+            }
+
+            return strcmp($a->getKey(), $b->getKey());
+        });
+
+        return $prods;
+    }
+
+    private function getSetsForPriceList(Group $group, string $itemStatuses, string $priceLevel = null, $orderBy = 'key'): array
+    {
+        $setListing = new DataObject\ProductSet\Listing();
+        $cond = "Groups like '%," . $group->getId() . ",%' AND `Status` IN (" . $itemStatuses . ")";
+        if($priceLevel)
+        {
+            $cond .= " AND `{$priceLevel}__value` > 1 ";
+        }
+        $setListing->setCondition($cond);
+        $sets = $setListing->load();
+
+        usort($sets, function ($a, $b) use ($orderBy) {
+
+            if($orderBy == 'baseprice')
+            {
+                return $a->getBasePrice()->getValue() > $b->getBasePrice()->getValue();
+            }
+
+            return strcmp($a->getName() ?? $a->getKey(), $b->getName() ?? $b->getKey());
+        });
+
+        return $sets;
+    }
+
+    private function getRelatedProductsForPriceList($sets, $products, $priceLevel, $showUnpublished, $showProductsTypeSKU, $orderBy = 'key'): array
+    {
+        $related = [];
+
+        foreach($sets as $set)
+        {
+            foreach($set->getSet() as $lip)
+            {
+                $product = $lip->getElement();
+                if(!$showUnpublished && !$product->getPublished())
+                    continue;
+
+                if(in_array($product->getStatus(), ['Active', 'Sale'])
+                    && in_array($product->getObjectType(), $showProductsTypeSKU ? ['ACTUAL', 'SKU'] : ['ACTUAL']))
+                {
+                    if(!in_array($product, $products))
+                    {
+                        $related[] = $product;
+                    }
+                }
+            }
+        }
+
+        $related = array_unique($related);
+
+        usort($related, function (DataObject\Product $a, DataObject\Product $b) use ($orderBy) {
+
+            if($orderBy == 'group-name')
+            {
+                if($a->getGroup() != null && $b->getGroup() != null)
+                {
+                    $comp = strcmp($a->getGroup()->getName() ??  $a->getGroup()->getKey(), $b->getGroup()->getName() ?? $b->getGroup()->getKey());
+
+                    if($comp === 0)
+                    {
+                        return strcmp($a->getName() ?? $a->getKey(), $b->getName() ?? $b->getKey());
+                    }
+                }
+            }
+
+            return strcmp($a->getName() ?? $a->getKey(), $b->getName() ?? $b->getKey());
+        });
+
+        return $related;
+    }
+
+    private function getPriceListPdf(Group $group, string $html): Response
+    {
         $params = [
             'paperWidth' => '210mm',
             'paperHeight' => '297mm',
@@ -440,16 +370,21 @@ class ObjectController extends FrontendController
             'marginRight' => 0,
             "displayHeaderFooter" => true,
             'metadata' => [
-                'Title' => $obj->getKey(),
+                'Title' => $group->getKey(),
                 'Author' => 'pim'
             ]
         ];
+
+        $fileName = strtoupper(implode('-', [
+            $group->getName() ?? $group->getKey(),
+            date("d-m-Y"),
+        ])) . ".pdf";
 
         $adapter = \Pimcore\Bundle\WebToPrintBundle\Processor::getInstance();
 
         $pdf = $adapter->getPdfFromString($html, $params);
 
-        return new Response($pdf, Response::HTTP_OK, ['Content-Type' => 'application/pdf', 'Content-Disposition' => 'inline; filename=' . $fname]);
+        return new Response($pdf, Response::HTTP_OK, ['Content-Type' => 'application/pdf', 'Content-Disposition' => 'inline; filename=' . $fileName]);
     }
 
     private function getProductImages(Product $obj): array
@@ -578,293 +513,40 @@ class ObjectController extends FrontendController
         return new Response("Object type not supported", Response::HTTP_NOT_IMPLEMENTED);
     }
 
-    #[Route("/object/base-price", name: "add_baseprice")]
+    #[Route("/object/compute-catalog-price", name: "update_prices")]
     public function basePriceAction(Request $request): Response
     {
+        $BASE_PRICE_TO_CATALOG_PRICE_FACTOR = 3.0;
+        $PLN_TO_EUR_RATE_FACTOR = 0.97;
+
         DataObject::setHideUnpublished(false);
 
         $id = $request->get("id");
 
         $obj = DataObject::getById($id);
 
-        if($obj instanceof Product)
+        if(!$obj instanceof Product) {
+            return new Response("Object type not supported", Response::HTTP_NOT_IMPLEMENTED);
+        }
+
+        if($obj->getBase() && $obj->getBase()->getValue())
         {
-            $baseprice = 0.0;
-
-            if(!$obj->getPackages())
-            {
-                return new Response("No packages available.", Response::HTTP_NOT_FOUND);
-            }
-
-            foreach($obj->getPackages() as $lip)
-            {
-                if(!$lip->getElement()->getBasePrice())
-                {
-                    return new Response("No base price available for package [" . $lip->getElement()->getKey() . "]", Response::HTTP_NOT_FOUND);
-                }
-
-                if(!$lip->getQuantity())
-                {
-                    return new Response("No quantity for package [" . $lip->getElement()->getKey() . "]", Response::HTTP_NOT_FOUND);
-                }
-
-                $baseprice += $lip->getElement()->getBasePrice()->getValue() * $lip->getQuantity();
-            }
-
+            $basePrice = $obj->getBase()->getValue();
             $PLN = DataObject\QuantityValue\Unit::getById("PLN");
-            $bp  = new DataObject\Data\QuantityValue($baseprice, $PLN);
-            $obj->setBasePrice($bp);
-            $obj->save();
+            $EUR = DataObject\QuantityValue\Unit::getById("EUR");
+
+            $pricePLN = $this->priceLevelService->prettyRoundPrice($basePrice * $BASE_PRICE_TO_CATALOG_PRICE_FACTOR);
+            $priceEUR = $this->priceLevelService->prettyRoundPrice($basePrice * $BASE_PRICE_TO_CATALOG_PRICE_FACTOR / ($EUR->getFactor() * $PLN_TO_EUR_RATE_FACTOR));
+
+            $obj->setPrice_catalog_pln(new DataObject\Data\QuantityValue($pricePLN, $PLN));
+            $obj->setprice_catalog_eur(new DataObject\Data\QuantityValue($priceEUR, $EUR));
+
+            $obj->save(['versionNote' => 'Update catalog prices']);
 
             return new JsonResponse(["status" => "success"]);
         }
 
-        return new Response("Object type not supported", Response::HTTP_NOT_IMPLEMENTED);
-    }
-
-    #[Route("/prices/{id}", name: "prices")]
-    public function pricesAction(Request $request): Response
-    {
-        $id = $request->get("id");
-        $kind = $request->get("kind") ?? "preview";
-        $references = $request->get("references") ?? [];
-        $filename = $request->get("filename") ?? null;
-
-        $obj = DataObject\Offer::getById($id);
-
-        if($kind == "xlsx")
-        {
-            return $this->offerPriceListXlsx($obj, $references, $filename);
-        }
-
-        $data = [
-            'pricing' => $obj,
-            'references' => $references,
-            'show_indices' => $request->get("show_indices") ?? false
-        ];
-
-        return $this->render('admin/prices.html.twig', $data);
-    }
-
-    private function offerPriceListXlsx(Offer $offer, array $references = [], string $filename = null): Response
-    {
-        DataObject::setHideUnpublished(false);
-        $id = $offer->getId();
-
-        $spreadsheet = new SpreadSheet();
-        $sheet = $spreadsheet->getActiveSheet();
-
-        $productSheet = $spreadsheet->getActiveSheet();
-
-        $sheet->setTitle($this->translator->trans("Products"));
-        $sheet->setCellValue('A1', '#');
-        $sheet->setCellValue('B1', $this->translator->trans('Image'));
-        $sheet->setCellValue('C1', $this->translator->trans('Sku'));
-        $sheet->setCellValue('D1', $this->translator->trans('Ean'));
-        $sheet->setCellValue('E1', $this->translator->trans('Name'));
-        $sheet->setCellValue('F1', $this->translator->trans('Width'));
-        $sheet->setCellValue('G1', $this->translator->trans('Height'));
-        $sheet->setCellValue('H1', $this->translator->trans('Depth'));
-        $sheet->setCellValue('I1', $offer->getName());
-
-        $ws = new Worksheet($sheet->getParent());
-        $sheetSets = $spreadsheet->addSheet($ws);
-        $sheetSets->setTitle($this->translator->trans("Sets"));
-        $sheetSets->setCellValue('B1', $this->translator->trans('Image'));
-        $sheetSets->setCellValue('C1', $this->translator->trans('Sku'));
-        $sheetSets->setCellValue('D1', $this->translator->trans('Ean'));
-        $sheetSets->setCellValue('E1', $this->translator->trans('Name'));
-        $sheetSets->setCellValue('F1', $this->translator->trans('Width'));
-        $sheetSets->setCellValue('G1', $this->translator->trans('Height'));
-        $sheetSets->setCellValue('H1', $this->translator->trans('Depth'));
-        $sheetSets->setCellValue('I1', $offer->getName());
-
-        $i = 10;
-        foreach($references as $reference)
-        {
-            $refOffer = DataObject\Offer::getById($reference);
-            $sheet->setCellValue([$i, 1], $refOffer->getName());
-            $i++;
-        }
-
-        $sheet->getStyle('E')->getAlignment()->setWrapText(true);
-
-        $i = 2;
-
-        foreach ($offer->getDependencies()->getRequiredBy() as $req)
-        {
-            $obj = DataObject::getById($req['id']);
-
-            if(!$obj)
-                continue;
-
-            if(!($obj instanceof Product))
-                continue;
-
-            $sheet->getRowDimension($i)->setRowHeight(64);
-            $sheet->setCellValue('A' . $i, $i - 1);
-            $sheet->setCellValue('C' . $i, $obj->getId());
-            $sheet->setCellValueExplicit('D' . $i, $obj->getEan(), \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
-            $sheet->setCellValue('E' . $i, $obj->getName());
-
-            if($obj instanceof Product)
-            {
-                $sheet->setCellValue('F' . $i, $obj->getWidth());
-                $sheet->setCellValue('G' . $i, $obj->getHeight());
-                $sheet->setCellValue('H' . $i, $obj->getDepth());
-            }
-
-            foreach ($obj->getPrice() as $price)
-            {
-                if($price->getElement()->getId() == $offer->getId())
-                {
-                    $price = round(floatval($price->getPrice()), 2);
-                    $sheet->setCellValue('I' . $i, $price);
-                }
-            }
-
-            $j = 10;
-            foreach($references as $reference)
-            {
-                foreach ($obj->getPrice() as $price)
-                {
-                    if ($price->getElement()->getId() == $reference) {
-                        $price = round(floatval($price->getPrice()), 2);
-                        $sheet->setCellValue([$j, $i], $price);
-                    }
-                }
-
-                $j++;
-            }
-
-            if ($obj->getImage()) {
-
-                $image = $obj->getImage()->getThumbnail("200x200");
-
-                $stream = $image->getStream();
-
-                // Create temporary file
-                $tempFile = tempnam(sys_get_temp_dir(), 'pim_image_');
-                file_put_contents($tempFile, stream_get_contents($stream));
-
-                if (file_exists($tempFile)) {
-                    $drawing = new Drawing();
-                    $drawing->setPath($tempFile);
-                    $drawing->setHeight(80); // Set image height (adjust as needed)
-                    $drawing->setCoordinates('B' . $i); // Place image in column D
-                    $drawing->setWorksheet($sheet);
-                }
-            }
-
-            $i++;
-        }
-
-        $sheet = $ws;
-        $i = 2;
-        foreach ($offer->getDependencies()->getRequiredBy() as $req)
-        {
-            $obj = DataObject::getById($req['id']);
-
-            if(!$obj)
-                continue;
-
-            if(!($obj instanceof ProductSet))
-                continue;
-
-            $sheet->getRowDimension($i)->setRowHeight(64);
-            $sheet->setCellValue('A' . $i, $i - 1);
-            $sheet->setCellValue('C' . $i, $obj->getId());
-            $sheet->setCellValueExplicit('D' . $i, $obj->getEan(), \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
-            $sheet->setCellValue('E' . $i, $obj->getName());
-
-            if($obj instanceof Product)
-            {
-                $sheet->setCellValue('F' . $i, $obj->getWidth());
-                $sheet->setCellValue('G' . $i, $obj->getHeight());
-                $sheet->setCellValue('H' . $i, $obj->getDepth());
-            }
-
-            foreach ($obj->getPrice() as $price)
-            {
-                if($price->getElement()->getId() == $offer->getId())
-                {
-                    $price = round(floatval($price->getPrice()), 2);
-                    $sheet->setCellValue('I' . $i, $price);
-                }
-            }
-
-            $j = 10;
-            foreach($references as $reference)
-            {
-                foreach ($obj->getPrice() as $price)
-                {
-                    if ($price->getElement()->getId() == $reference) {
-                        $price = round(floatval($price->getPrice()), 2);
-                        $sheet->setCellValue([$j, $i], $price);
-                    }
-                }
-
-                $j++;
-            }
-
-            if ($obj->getImage()) {
-
-                $image = $obj->getImage()->getThumbnail("200x200");
-
-                $stream = $image->getStream();
-
-                // Create temporary file
-                $tempFile = tempnam(sys_get_temp_dir(), 'pim_image_');
-                file_put_contents($tempFile, stream_get_contents($stream));
-
-                if (file_exists($tempFile)) {
-                    $drawing = new Drawing();
-                    $drawing->setPath($tempFile);
-                    $drawing->setHeight(80); // Set image height (adjust as needed)
-                    $drawing->setCoordinates('B' . $i); // Place image in column D
-                    $drawing->setWorksheet($sheet);
-                }
-            }
-
-            $i++;
-        }
-
-        $columns = 9 + count($references);
-
-        for ($j=0; $j<$columns; $j++)
-        {
-            if($j == 1)
-            {
-                $productSheet->getColumnDimension(chr(833 + $j))->setWidth(12);
-                $sheetSets->getColumnDimension(chr(833 + $j))->setWidth(12);
-            }
-            else
-            {
-                $productSheet->getColumnDimension(chr(833 + $j))->setAutoSize(true);
-                $sheetSets->getColumnDimension(chr(833 + $j))->setAutoSize(true);
-            }
-        }
-
-        $writer = new Xlsx($spreadsheet);
-
-        if(!$filename)
-        {
-            $fileName = $offer->getKey() . '.xlsx';
-        }
-        else
-        {
-            $fileName = $filename . '.xlsx';
-        }
-
-        $response = new Response();
-        $response->headers->set('Content-Type', 'application/vnd.ms-excel');
-        $response->headers->set('Content-Disposition', 'attachment;filename="' . $fileName . '"');
-
-        ob_start();
-        $writer->save('php://output');
-        $response->setContent(ob_get_clean());
-
-        return $response;
+        return new JsonResponse(["status" => "success"]);
     }
 
     #[Route("/object/translate-name", name: "translate_name")]
@@ -1032,23 +714,22 @@ class ObjectController extends FrontendController
         return new Response($data, Response::HTTP_OK);
     }
 
-    #[Route("/offers", name: "get_offers")]
-    public function getOffersHead(): JsonResponse
+    #[Route("/price-levels", name: "_price_levels_head")]
+    public function getPriceLevelsHead(): JsonResponse
     {
-        $offers = new Offer\Listing();
-        $offers->setUnpublished(false);
         $ret = [
             'data' => []
         ];
         $ret['data'][] = [
-            'id' => -1,
-            'name' => '(null)'
+            'name' => null,
+            'title' => '(null)'
         ];
-        foreach($offers as $offer)
+
+        foreach($this->priceLevelService->getPriceLevels() as $name => $title)
         {
             $ret['data'][] = [
-                'id' => $offer->getId(),
-                'name' => $offer->getKey(),
+                'name' => $name,
+                'title' => $title
             ];
         }
 
@@ -1100,7 +781,7 @@ class ObjectController extends FrontendController
         return new JsonResponse($ret, Response::HTTP_OK);
     }
 
-    #[Route('/packageproducts/{id}', name: "get_package_products")]
+    #[Route('/packageproducts/{id}', name: "get_packageproducts")]
     public function getPackageProducts(Request $request): JsonResponse
     {
         DataObject::setHideUnpublished(false);
@@ -1129,66 +810,7 @@ class ObjectController extends FrontendController
         return new JsonResponse($ret, Response::HTTP_OK);
     }
 
-    #[Route('/productpackages/{id}', name: "get_product_packages")]
-    public function getProductPackages(Request $request): JsonResponse
-    {
-        DataObject::setHideUnpublished(false);
-
-        $productId = (int)$request->get("id");
-        $product = Product::getById($productId);
-
-        $ret = [
-            'data' => []
-        ];
-
-        if(!$product)
-        {
-            $ret['status'] = 'Product not found';
-            return new JsonResponse($ret, Response::HTTP_OK);
-        }
-
-        foreach ($product->getPackages() ?? [] as $lip)
-        {
-            $ret['data'][] = [
-                'id' => $lip->getElement()->getId(),
-                'name' => $lip->getElement()->getKey(),
-            ];
-        }
-
-        return new JsonResponse($ret, Response::HTTP_OK);
-    }
-
-    #[Route('/common-orders', name: "get_common_orders")]
-    public function getCommonOrders(Request $request): JsonResponse
-    {
-        DataObject::setHideUnpublished(false);
-
-        $root = DataObject::getByPath("/ZLECENIA/PRODUKCJA");
-        if(!$root)
-        {
-            return new JsonResponse([]);
-        }
-
-        foreach($root->getChildren() as $serie)
-        {
-            /** @var DataObject\Order $order */
-            foreach($serie->getChildren() as $order)
-            {
-                $ret['data'][] = [
-                    'id' => $order->getId(),
-                    'name' => $serie->getKey() . "-" . $order->getKey()
-                ];
-            }
-        }
-
-        usort($ret['data'], function ($a, $b) {
-            return strcmp($a['name'], $b['name']);
-        });
-
-        return new JsonResponse($ret, Response::HTTP_OK);
-    }
-
-    private function getSheetPricesXlsx(array $items, array $sets, array $related, Dataobject\Offer $offer, string $filename = null, bool $showPrices = true): Response
+    private function getSheetPricesXlsx(Group $group, array $items, array $sets, array $related, string $priceLevel): Response
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -1206,15 +828,8 @@ class ObjectController extends FrontendController
         /** @var Product|ProductSet $obj */
         foreach ($items as $obj)
         {
-            $price = null;
-            foreach ($obj->getPrice() as $pr)
-            {
-                if($pr->getElement()->getId() == $offer->getId())
-                {
-                    $price = round(floatval($pr->getPrice()), 2);
-                    break;
-                }
-            }
+            $getter = "get" . ucfirst($priceLevel) . "_";
+            $price = $obj->$getter();
 
             if(!$price)
                 continue;
@@ -1276,14 +891,10 @@ class ObjectController extends FrontendController
 
         $writer = new Xlsx($spreadsheet);
 
-        if(!$filename)
-        {
-            $fileName = $offer->getKey() . '.xlsx';
-        }
-        else
-        {
-            $fileName = $filename . '.xlsx';
-        }
+        $fileName = strtoupper(implode('-', [
+                $group->getName() ?? $group->getKey(),
+                date("d-m-Y")
+            ])) . ".xlsx";
 
         $response = new Response();
         $response->headers->set('Content-Type', 'application/vnd.ms-excel');

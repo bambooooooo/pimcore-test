@@ -1,0 +1,88 @@
+{% if sets|length %}
+    <div class="page">
+        <div class="page-content">
+            <table class="table">
+                <thead>
+                <tr>
+                    <td colspan="{{ sets_row_cnt }}" style="text-align: left">
+                        <h1>
+                            {{ "Sets"|trans }}
+                        </h1>
+                    </td>
+                </tr>
+                </thead>
+                <tbody>
+                {% set c = 0 %}
+                {% for s in sets %}
+                    {% if c == 0 %}
+                        <tr>
+                    {% endif %}
+                    <td>
+                        {{ include('factory/pdf/parts/_gallery_item.html.twig', {item: s, show_prices: show_prices}) }}
+                    </td>
+                    {% if c == sets_row_cnt - 1 %}
+                        </tr>
+                    {% endif %}
+                    {% set c = (c + 1) % (sets_row_cnt) %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="pb"></div>
+{% endif %}
+
+{% if prods|length %}
+<div class="page">
+    <div class="page-content">
+        <h1>
+            {{ "Products"|trans }}
+        </h1>
+        <table class="table">
+            <tbody>
+            {% set c = 0 %}
+            {% for s in prods %}
+                {% if c == 0 %}
+                    <tr>
+                {% endif %}
+                <td>
+                    {{ include('factory/pdf/parts/_gallery_item.html.twig', {item: s, show_prices: show_prices}) }}
+                </td>
+                {% if c == products_row_cnt - 1 %}
+                    </tr>
+                {% endif %}
+                {% set c = (c + 1) % (products_row_cnt) %}
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="pb"></div>
+{% endif %}
+
+{% if related|length %}
+    <div class="page">
+        <div class="page-content">
+            <h1>
+                {{ "Related Products"|trans }}
+            </h1>
+            <table class="table">
+                <tbody>
+                {% set c = 0 %}
+                {% for s in related %}
+                    {% if c == 0 %}
+                        <tr>
+                    {% endif %}
+                    <td>
+                        {{ include('factory/pdf/parts/_gallery_item.html.twig', {item: s, show_prices: show_prices}) }}
+                    </td>
+                    {% if c == products_row_cnt - 1 %}
+                        </tr>
+                    {% endif %}
+                    {% set c = (c + 1) % (products_row_cnt) %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="pb"></div>
+{% endif %}

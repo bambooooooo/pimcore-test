@@ -12,13 +12,13 @@ class CsvFeedBasic extends CsvFeedWriter
 {
     public function __construct(Offer $offer, Offer $referenceOffer = null)
     {
-        $refs = $offer->getDependencies()->getRequiredBy();
+        $refs = $offer->getDependencies()->getRequires();
         $data = [];
 
         foreach ($refs as $ref) {
             if($ref['type'] == 'object') {
                 $obj = DataObject::getById($ref['id']);
-                if(($obj instanceof Product || $obj instanceof ProductSet) && (in_array($obj->getStatus(), ['Active', 'Sale']))) {
+                if($obj instanceof Product || $obj instanceof ProductSet) {
                     $data[] = $obj;
                 }
             }
@@ -28,21 +28,16 @@ class CsvFeedBasic extends CsvFeedWriter
 
         parent::__construct($data, function (Product|ProductSet $item) use ($offer) {
 
-            $price = 0.0;
+            $priceGetter = 'get' . $offer->getPrice();
 
-            foreach($item->getPrice() as $lip)
-            {
-                if ($lip->getElement()->getId() == $offer->getId())
-                {
-                    $price = (float)$lip->getPrice();
-                }
-            }
+            $price = (float)$item->{$priceGetter}()->getValue();
+            $price = $price * ((100 - $offer->getDrop() ?? 0.0) / 100);
+            $price = round($price, 2);
 
             if($price == 0.0)
             {
                 return "";
             }
-
 
             $fields = [
                 $item->getId(),

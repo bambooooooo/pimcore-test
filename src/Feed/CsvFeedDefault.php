@@ -19,7 +19,7 @@ class CsvFeedDefault extends CsvFeedWriter
         foreach ($refs as $ref) {
             if($ref['type'] == 'object') {
                 $obj = DataObject::getById($ref['id']);
-                if(($obj instanceof Product || $obj instanceof ProductSet) && (in_array($obj->getStatus(), ['Active', 'Sale']))) {
+                if($obj instanceof Product || $obj instanceof ProductSet) {
                     $data[] = $obj;
                 }
             }
@@ -27,19 +27,13 @@ class CsvFeedDefault extends CsvFeedWriter
 
         echo 'Found: ' . count($data) . ' items. ' . PHP_EOL;
 
-        parent::__construct($data, function (Product|ProductSet $item) use ($offer, $referenceOffer) {
+        parent::__construct($data, function (Product|ProductSet $item) use ($offer) {
 
-            $price = 0.0;
-            $endPrice = 0.0;
+            $priceGetter = 'get' . $offer->getPrice();
 
-            foreach($item->getPrice() as $lip)
-            {
-                if($lip->getElement()->getId() == $offer->getId())
-                    $price = (float)$lip->getPrice();
-
-                if($lip->getElement()->getId() == $referenceOffer->getId())
-                    $endPrice = (float)$lip->getPrice();
-            }
+            $price = (float)$item->{$priceGetter}()->getValue();
+            $price = $price * ((100 - $offer->getDrop() ?? 0.0) / 100);
+            $price = round($price, 2);
 
             if($price == 0.0)
             {
@@ -66,7 +60,6 @@ class CsvFeedDefault extends CsvFeedWriter
                 $item->getName("pl"),
                 ($item instanceof Product) ? $item->getModel() : $item->getParent()->getKey(),
                 $price,
-                $endPrice,
                 $offer->getCurrency(),
                 ($item instanceof Product) ? round($item->getWidth()->getValue() / 10) : '',
                 ($item instanceof Product) ? round($item->getHeight()->getValue() / 10) : '',
@@ -178,7 +171,6 @@ class CsvFeedDefault extends CsvFeedWriter
             'name',
             'serie',
             'price',
-            'endprice',
             'currency',
             'width',
             'height',

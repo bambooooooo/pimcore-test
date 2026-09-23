@@ -1,65 +1,56 @@
 <section>
     {% if item.Status == "Sale" %}
         <div class="" style="position: absolute;right: 0;top: 0; z-index: 500; width: 200px;heig;height: 200px;overflow: hidden;">
-                <span style="color: #fff; text-transform: uppercase; text-align: center;
-                    background: linear-gradient(#a6202b 0%, #5e0707 100%); width: 260px; font-size: 32px; letter-spacing: 12px;
-                    font-weight: 700; line-height: 60px; display: block; position: absolute; top: 40px; right: -60px;
-                    transform: rotate(45deg); box-shadow: 0 3px 10px -5px #000;">
-                    SALE
-                </span>
+            <span style="color: #fff; text-transform: uppercase; text-align: center;
+                background: linear-gradient(#a6202b 0%, #5e0707 100%); width: 260px; font-size: 32px; letter-spacing: 12px;
+                font-weight: 700; line-height: 60px; display: block; position: absolute; top: 40px; right: -60px;
+                transform: rotate(45deg); box-shadow: 0 3px 10px -5px #000;">
+                SALE
+            </span>
         </div>
     {% endif %}
     <div style="width: 100%">
         <div style="float:left; width: 70%">
             <div style="position:relative">
                 <div style="font-weight: bold; font-size: 32px; line-height: 32px">
-                    {{ s.Name ?? s.key }}
+                    {{ item.Name ?? item.key }}
                 </div>
                 <div style="line-height: 26px; font-size: 14px; ">
                     <div style="text-decoration: italic">
                         {{ "Product identifier"|trans }}:
                         <a href="#{{ item.id }}-gallery" style="text-decoration: none; color: #000; font-weight: bold">
-                            {{ s.id }}
+                            {{ item.key }} ({{ item.id }})
                         </a>
                     </div>
-                    {% if s.EAN %}
+                    {% if item.EAN %}
                         <div>
-                            {{ "Ean"|trans }}: {{ s.EAN }}
+                            {{ "Ean"|trans }}: {{ item.EAN }}
                         </div>
                     {% endif %}
-                    {% if s is pimcore_data_object_class("Product") %}
+                    {% if item is pimcore_data_object_class("Product") %}
                         <div>
                             {{ "Dimensions"|trans }}:
-                            {% if s.Width and s.Width.Value and s.Height and s.Height.Value and s.Depth and s.Depth.Value %}
-                                {{ s.Width }} x {{ s.Height }} x {{ s.Depth }}
+                            {% if item.Width and item.Width.Value and item.Height and item.Height.Value and item.Depth and item.Depth.Value %}
+                                {{ item.Width }} x {{ item.Height }} x {{ item.Depth }}
                             {% else %}
                                 {{ "n/a"|trans }}
                             {% endif %}
                         </div>
                     {% endif %}
-                    {% if show_prices and price %}
-                        {% set pr = null %}
-                        {% for p in s.Price %}
-                            {% if p.element.id == price %}
-                                {% set pr = p %}
-                            {% endif %}
-                        {% endfor %}
-
-                        {% if pr %}
-                            <div>{{ "Net Price"|trans }}: {{ pr.data.Price }} {{ pr.data.Currency }}</div>
-                        {% endif %}
+                    {% if show_prices and price_level %}
+                        <div>{{ "Price"|trans }}: {{ item.(price_level ~ "_") }}</div>
                     {% endif %}
                     <div>
-                        <a href="{{ path('export_images', {id: s.id}) }}">
+                        <a href="{{ path('export_images', {id: item.id}) }}">
                             <div class="download-button">
                                 <img class="download-button-icon" src="{{ asset('/bundles/pimcoreadmin/img/flat-white-icons/download.svg') }}"/>
                                 {{ "Download images"|trans }}
                             </div>
                         </a>
                     </div>
-                    {% if s is pimcore_data_object_class("ProductSet") %}
+                    {% if item is pimcore_data_object_class("ProductSet") %}
                         <div>
-                            <a href="{{ path('export_images', {id: s.id, mode: 'dependencies'}) }}">
+                            <a href="{{ path('export_images', {id: item.id, mode: 'dependencies'}) }}">
                                 <div class="download-button">
                                     <img class="download-button-icon" src="{{ asset('/bundles/pimcoreadmin/img/flat-white-icons/download.svg') }}"/>
                                     {{ "Download images of elements"|trans }}
@@ -68,9 +59,9 @@
                         </div>
                     {% endif %}
 
-                    {% if s is pimcore_data_object_class("Product") and s.Instruction %}
+                    {% if item is pimcore_data_object_class("Product") and item.Instruction %}
                         <div>
-                            <a href="{{ s.Instruction }}">
+                            <a href="{{ item.Instruction }}">
                                 <div class="download-button">
                                     <img class="download-button-icon" src="{{ asset('/bundles/pimcoreadmin/img/flat-white-icons/download.svg') }}"/>
                                     {{ "Download user manual"|trans }}
@@ -79,9 +70,9 @@
                         </div>
                     {% endif %}
 
-                    {% if s is pimcore_data_object_class("Product") and s.InstructionUS %}
+                    {% if item is pimcore_data_object_class("Product") and item.InstructionUS %}
                         <div>
-                            <a href="{{ s.InstructionUS }}">
+                            <a href="{{ item.InstructionUS }}">
                                 <div class="download-button">
                                     <img class="download-button-icon" src="{{ asset('/bundles/pimcoreadmin/img/flat-white-icons/download.svg') }}"/>
                                     {{ "Download user manual US"|trans }}
@@ -90,9 +81,9 @@
                         </div>
                     {% endif %}
 
-                    {% if s is pimcore_data_object_class("Product") and s.Model3DStep %}
+                    {% if item is pimcore_data_object_class("Product") and item.Model3DStep %}
                         <div>
-                            <a href="{{ s.Model3DStep }}">
+                            <a href="{{ item.Model3DStep }}">
                                 <div class="download-button">
                                     <img class="download-button-icon" src="{{ asset('/bundles/pimcoreadmin/img/flat-white-icons/download.svg') }}"/>
                                     {{ "Download model 3D (.step)"|trans }}
@@ -105,8 +96,8 @@
         </div>
         <div style="float:left; width: 30%">
             <div style="text-align: center; padding: 18px 10px; position: relative">
-                {% if s.Image %}
-                    <img src="{{ s.Image.thumbnail("200x200") }}" width="200"/>
+                {% if item.Image %}
+                    <img src="{{ item.Image.thumbnail("200x200") }}" width="200"/>
                 {% endif %}
             </div>
         </div>

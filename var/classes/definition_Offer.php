@@ -8,21 +8,19 @@
  * Ofertę stanowi lista Wycen w ustalonej kolejności. Cena produktu w ofercie to pierwsza z Wycen, dla której zostaną spełnione ograniczenia.
  *
  * Fields Summary:
+ * - Price [select]
+ * - Drop [numeric]
+ * - Filters [objectbricks]
+ * - Brutto [checkbox]
  * - Pricings [manyToManyObjectRelation]
  * - Currency [select]
- * - Brutto [checkbox]
+ * - Products [manyToManyObjectRelation]
  * - Image [image]
  * - localizedfields [localizedfields]
  * -- Name [input]
  * -- Summary [wysiwyg]
- * - Description [fieldcollections]
- * - Baselinker [manyToOneRelation]
- * - BaselinkerPriceGroupId [numeric]
- * - ps_megstyl_pl [booleanSelect]
- * - ps_megstyl_pl_id [numeric]
  * - Feed [block]
  * -- Schema [select]
- * -- ReferenceOffer [manyToOneRelation]
  * -- File [manyToOneRelation]
  */
 
@@ -35,7 +33,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
 
 Ofertę stanowi lista Wycen w ustalonej kolejności. Cena produktu w ofercie to pierwsza z Wycen, dla której zostaną spełnione ograniczenia.',
    'creationDate' => NULL,
-   'modificationDate' => 1778577991,
+   'modificationDate' => 1790168717,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -93,26 +91,125 @@ Ofertę stanowi lista Wycen w ustalonej kolejności. Cena produktu w ofercie to 
              'children' => 
             array (
               0 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
-                 'name' => 'Pricings',
-                 'title' => 'Pricings',
-                 'tooltip' => 'Lista Wycen w odpowiedniej kolejności
-
-Przykładowo:
-1. Cena bazowa: 0 - 300 --> Cena bazowa * 1.5
-2. Cena bazowa: 300 - 500 --> Cena bazowa * 1.4
-3. Cena bazowa: 500 - 800 --> Cena bazowa * 1.35
-4. Cena bazowa: 800 - 1 100 --> Cena bazowa * 1.32
-5. (brak ograniczeń) --> Cena bazowa * 1.3',
-                 'mandatory' => true,
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                 'name' => 'Price',
+                 'title' => 'Price',
+                 'tooltip' => '',
+                 'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
                  'locked' => false,
                  'style' => '',
                  'permissions' => NULL,
                  'fieldtype' => '',
-                 'relationType' => true,
+                 'relationType' => false,
                  'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'defaultValue' => NULL,
+                 'columnLength' => 190,
+                 'dynamicOptions' => false,
+                 'defaultValueGenerator' => '',
+                 'width' => '',
+                 'optionsProviderType' => 'class',
+                 'optionsProviderClass' => 'App\\OptionProvider\\PriceLevelProvider',
+                 'optionsProviderData' => '',
+              )),
+              1 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                 'name' => 'Drop',
+                 'title' => 'Rabat',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'defaultValue' => NULL,
+                 'integer' => false,
+                 'unsigned' => false,
+                 'minValue' => 0.0,
+                 'maxValue' => 100.0,
+                 'unique' => false,
+                 'decimalSize' => NULL,
+                 'decimalPrecision' => NULL,
+                 'width' => '',
+                 'defaultValueGenerator' => '',
+              )),
+              2 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Objectbricks::__set_state(array(
+                 'name' => 'Filters',
+                 'title' => 'Filters',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'allowedTypes' => 
+                array (
+                  0 => 'SelectedGroups',
+                ),
+                 'maxItems' => NULL,
+                 'border' => false,
+              )),
+              3 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                 'name' => 'Brutto',
+                 'title' => 'Brutto',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => true,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => true,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'defaultValue' => NULL,
+                 'defaultValueGenerator' => '',
+              )),
+              4 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                 'name' => 'Pricings',
+                 'title' => 'Pricing (dump, BC only)',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => true,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => true,
+                 'invisible' => true,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
                  'blockedVarsForExport' => 
@@ -130,7 +227,7 @@ Przykładowo:
                  'maxItems' => NULL,
                  'visibleFields' => 'fullpath',
                  'allowToCreateNewObject' => false,
-                 'allowToClearRelation' => false,
+                 'allowToClearRelation' => true,
                  'optimizedAdminLoading' => false,
                  'enableTextSelection' => false,
                  'visibleFieldDefinitions' => 
@@ -139,20 +236,20 @@ Przykładowo:
                  'width' => '',
                  'height' => '',
               )),
-              1 => 
+              5 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                  'name' => 'Currency',
-                 'title' => 'Currency',
-                 'tooltip' => 'Waluta dla oferty',
-                 'mandatory' => true,
-                 'noteditable' => false,
+                 'title' => 'Currency (dump, BC only)',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => true,
                  'index' => false,
                  'locked' => false,
                  'style' => '',
                  'permissions' => NULL,
                  'fieldtype' => '',
                  'relationType' => false,
-                 'invisible' => false,
+                 'invisible' => true,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
                  'blockedVarsForExport' => 
@@ -181,7 +278,7 @@ Przykładowo:
                     'value' => 'GBP',
                   ),
                 ),
-                 'defaultValue' => 'PLN',
+                 'defaultValue' => '',
                  'columnLength' => 190,
                  'dynamicOptions' => false,
                  'defaultValueGenerator' => '',
@@ -189,28 +286,6 @@ Przykładowo:
                  'optionsProviderType' => 'configure',
                  'optionsProviderClass' => '',
                  'optionsProviderData' => '',
-              )),
-              2 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                 'name' => 'Brutto',
-                 'title' => 'Brutto',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'defaultValue' => NULL,
-                 'defaultValueGenerator' => '',
               )),
             ),
              'locked' => false,
@@ -225,6 +300,76 @@ Przykładowo:
              'labelAlign' => 'left',
           )),
           1 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+             'name' => 'Products',
+             'type' => NULL,
+             'region' => NULL,
+             'title' => 'Products',
+             'width' => '',
+             'height' => '',
+             'collapsible' => false,
+             'collapsed' => false,
+             'bodyStyle' => '',
+             'datatype' => 'layout',
+             'children' => 
+            array (
+              0 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                 'name' => 'Products',
+                 'title' => 'Products',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => true,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'classes' => 
+                array (
+                  0 => 
+                  array (
+                    'classes' => 'Product',
+                  ),
+                  1 => 
+                  array (
+                    'classes' => 'ProductSet',
+                  ),
+                ),
+                 'displayMode' => 'grid',
+                 'pathFormatterClass' => '',
+                 'maxItems' => NULL,
+                 'visibleFields' => 'id,key,Image',
+                 'allowToCreateNewObject' => false,
+                 'allowToClearRelation' => true,
+                 'optimizedAdminLoading' => false,
+                 'enableTextSelection' => false,
+                 'visibleFieldDefinitions' => 
+                array (
+                ),
+                 'width' => '',
+                 'height' => '',
+              )),
+            ),
+             'locked' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'fieldtype' => 'panel',
+             'layout' => NULL,
+             'border' => false,
+             'icon' => '/UI/square-red.svg',
+             'labelWidth' => 100,
+             'labelAlign' => 'left',
+          )),
+          2 => 
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Cover',
              'type' => NULL,
@@ -368,71 +513,6 @@ Przykładowo:
              'labelWidth' => 100,
              'labelAlign' => 'left',
           )),
-          2 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-             'name' => 'Description',
-             'type' => NULL,
-             'region' => NULL,
-             'title' => 'Description',
-             'width' => '',
-             'height' => '',
-             'collapsible' => false,
-             'collapsed' => false,
-             'bodyStyle' => '',
-             'datatype' => 'layout',
-             'children' => 
-            array (
-              0 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections::__set_state(array(
-                 'name' => 'Description',
-                 'title' => 'Description',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'allowedTypes' => 
-                array (
-                  0 => 'Image',
-                  1 => 'ImageText',
-                  2 => 'ImageWideo',
-                  3 => 'TextImage',
-                  4 => 'Text',
-                  5 => 'TextWideo',
-                  6 => 'WideoImage',
-                  7 => 'Wideo',
-                  8 => 'WideoText',
-                ),
-                 'lazyLoading' => true,
-                 'maxItems' => NULL,
-                 'disallowAddRemove' => false,
-                 'disallowReorder' => false,
-                 'collapsed' => false,
-                 'collapsible' => false,
-                 'border' => false,
-              )),
-            ),
-             'locked' => false,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'fieldtype' => 'panel',
-             'layout' => NULL,
-             'border' => false,
-             'icon' => 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDIyLjEuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkViZW5lXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHdpZHRoPSIyNHB4IiBoZWlnaHQ9IjI0cHgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMjQgMjQiIHhtbDpzcGFjZT0icHJlc2VydmUiPgo8cGF0aCBmaWxsPSIjNUI5Q0Y1IiBkPSJNMjEsNWMtMS4xLTAuMy0yLjMtMC41LTMuNS0wLjVjLTEuOSwwLTQuMSwwLjQtNS41LDEuNWMtMS40LTEuMS0zLjYtMS41LTUuNS0xLjVTMi41LDQuOSwxLDZ2MTQuNgoJYzAsMC4zLDAuMywwLjUsMC41LDAuNWMwLjEsMCwwLjEsMCwwLjMsMEMzLjEsMjAuNSw1LjEsMjAsNi41LDIwYzEuOSwwLDQuMSwwLjQsNS41LDEuNWMxLjQtMC45LDMuOC0xLjUsNS41LTEuNQoJYzEuNiwwLDMuNCwwLjMsNC44LDFjMC4xLDAuMSwwLjEsMC4xLDAuMywwLjFjMC4zLDAsMC41LTAuMywwLjUtMC41VjZDMjIuNCw1LjYsMjEuOCw1LjMsMjEsNSIvPgo8cGF0aCBmaWxsPSIjRkZGRkZGIiBkPSJNMjEsMTguNWMtMS4xLTAuNC0yLjMtMC41LTMuNS0wLjVjLTEuNywwLTQuMSwwLjYtNS41LDEuNVY4YzEuNC0wLjgsMy44LTEuNSw1LjUtMS41YzEuMiwwLDIuNCwwLjIsMy41LDAuNQoJVjE4LjV6Ii8+Cjwvc3ZnPgo=',
-             'labelWidth' => 100,
-             'labelAlign' => 'left',
-          )),
           3 => 
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Integrations',
@@ -448,176 +528,6 @@ Przykładowo:
              'children' => 
             array (
               0 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-                 'name' => 'Baselinker',
-                 'title' => 'Baselinker',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => true,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'classes' => 
-                array (
-                  0 => 
-                  array (
-                    'classes' => 'Baselinker',
-                  ),
-                ),
-                 'displayMode' => 'grid',
-                 'pathFormatterClass' => '',
-                 'assetInlineDownloadAllowed' => false,
-                 'assetUploadPath' => '',
-                 'allowToClearRelation' => true,
-                 'objectsAllowed' => true,
-                 'assetsAllowed' => false,
-                 'assetTypes' => 
-                array (
-                ),
-                 'documentsAllowed' => false,
-                 'documentTypes' => 
-                array (
-                ),
-                 'width' => '',
-              )),
-              1 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                 'name' => 'BaselinkerPriceGroupId',
-                 'title' => 'Baselinker Price Group Id',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => true,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'defaultValue' => NULL,
-                 'integer' => false,
-                 'unsigned' => false,
-                 'minValue' => NULL,
-                 'maxValue' => NULL,
-                 'unique' => false,
-                 'decimalSize' => NULL,
-                 'decimalPrecision' => NULL,
-                 'width' => '',
-                 'defaultValueGenerator' => '',
-              )),
-              2 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-                 'name' => 'Prestashop',
-                 'type' => NULL,
-                 'region' => NULL,
-                 'title' => 'Prestashop 8',
-                 'width' => '',
-                 'height' => '',
-                 'collapsible' => false,
-                 'collapsed' => false,
-                 'bodyStyle' => '',
-                 'datatype' => 'layout',
-                 'children' => 
-                array (
-                  0 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
-                     'name' => 'ps_megstyl_pl',
-                     'title' => 'Publish on megstyl.pl',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'yesLabel' => 'Yes',
-                     'noLabel' => 'No',
-                     'emptyLabel' => '',
-                     'options' => 
-                    array (
-                      0 => 
-                      array (
-                        'key' => '',
-                        'value' => 0,
-                      ),
-                      1 => 
-                      array (
-                        'key' => 'Yes',
-                        'value' => 1,
-                      ),
-                      2 => 
-                      array (
-                        'key' => 'No',
-                        'value' => -1,
-                      ),
-                    ),
-                     'width' => '',
-                  )),
-                  1 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                     'name' => 'ps_megstyl_pl_id',
-                     'title' => 'Id',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'defaultValue' => NULL,
-                     'integer' => false,
-                     'unsigned' => false,
-                     'minValue' => NULL,
-                     'maxValue' => NULL,
-                     'unique' => false,
-                     'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
-                     'width' => 220,
-                     'defaultValueGenerator' => '',
-                  )),
-                ),
-                 'locked' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'fieldtype' => 'panel',
-                 'layout' => NULL,
-                 'border' => false,
-                 'icon' => '/LOGO/prestashop.png',
-                 'labelWidth' => 90,
-                 'labelAlign' => 'left',
-              )),
-              3 => 
               \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                  'name' => 'Layout',
                  'type' => NULL,
@@ -644,7 +554,7 @@ Feedy produktowe są generowane cyklicznie co kilka godzin
                  'renderingData' => '',
                  'border' => false,
               )),
-              4 => 
+              1 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Block::__set_state(array(
                  'name' => 'Feed',
                  'title' => 'Feed',
@@ -701,48 +611,6 @@ Feedy produktowe są generowane cyklicznie co kilka godzin
                      'optionsProviderData' => '',
                   )),
                   1 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-                     'name' => 'ReferenceOffer',
-                     'title' => 'Reference Offer',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => true,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'classes' => 
-                    array (
-                      0 => 
-                      array (
-                        'classes' => 'Offer',
-                      ),
-                    ),
-                     'displayMode' => 'grid',
-                     'pathFormatterClass' => '',
-                     'assetInlineDownloadAllowed' => false,
-                     'assetUploadPath' => '',
-                     'allowToClearRelation' => true,
-                     'objectsAllowed' => true,
-                     'assetsAllowed' => false,
-                     'assetTypes' => 
-                    array (
-                    ),
-                     'documentsAllowed' => false,
-                     'documentTypes' => 
-                    array (
-                    ),
-                     'width' => '',
-                  )),
-                  2 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
                      'name' => 'File',
                      'title' => 'File',

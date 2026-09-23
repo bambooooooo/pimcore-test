@@ -24,40 +24,23 @@ class XmlFeedGrycpol extends XmlFeedWriter
         foreach ($refs as $ref) {
             if($ref['type'] == 'object') {
                 $obj = DataObject::getById($ref['id']);
-                if(($obj instanceof Product || $obj instanceof ProductSet) && (in_array($obj->getStatus(), ['Active', 'Sale']))) {
-
-                    $price = 0.0;
-                    $endPrice = 0.0;
-
-                    foreach($obj->getPrice() as $lip)
-                    {
-                        if($lip->getElement()->getId() == $offer->getId())
-                            $price = (float)$lip->getPrice();
-
-                        if($lip->getElement()->getId() == $referenceOffer->getId())
-                            $endPrice = (float)$lip->getPrice();
-                    }
-
-                    if($price * $endPrice > 0.0)
-                    {
-                        $data[] = $obj;
-                    }
+                if($obj instanceof Product || $obj instanceof ProductSet) {
+                    $data[] = $obj;
                 }
             }
         }
 
-        parent::__construct($data, function (Product|ProductSet $item) use ($offer, $referenceOffer) {
+        parent::__construct($data, function (Product|ProductSet $item) use ($offer) {
 
-            $price = 0.0;
-            $endPrice = 0.0;
+            $priceGetter = 'get' . $offer->getPrice();
 
-            foreach($item->getPrice() as $lip)
+            $price = (float)$item->{$priceGetter}()->getValue();
+            $price = $price * ((100 - $offer->getDrop() ?? 0.0) / 100);
+            $price = round($price, 2);
+
+            if($price == 0.0)
             {
-                if($lip->getElement()->getId() == $offer->getId())
-                    $price = (float)$lip->getPrice();
-
-                if($lip->getElement()->getId() == $referenceOffer->getId())
-                    $endPrice = (float)$lip->getPrice();
+                return "";
             }
 
             $doc = new DomDocument('1.0', 'utf-8');
@@ -69,9 +52,9 @@ class XmlFeedGrycpol extends XmlFeedWriter
             $prod->appendChild($doc->createElement('Nazwa', $item->getName("pl") ?? ""));
             $prod->appendChild($doc->createElement('Jednostka', "szt."));
             $prod->appendChild($doc->createElement('Gwarancja', "24 mies."));
-            $prod->appendChild($doc->createElement('CenaNetto', $price));
+            $prod->appendChild($doc->createElement('CenaNetto', $price / 1.23));
             $prod->appendChild($doc->createElement('StawkaVAT', 23));
-            $prod->appendChild($doc->createElement('CenaBrutto', $price * 1.23, ));
+            $prod->appendChild($doc->createElement('CenaBrutto', $price));
             $prod->appendChild($doc->createElement('Stan', $item->getStock()));
             $prod->appendChild($doc->createElement('TerminRealizacji', ($item->getStock() > 0 ? 'Do 3 dni' : 'Do 28 dni')));
             $prod->appendChild($doc->createElement('Kategoria', $item->getRealFullPath()));

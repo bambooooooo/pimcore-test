@@ -25,13 +25,13 @@ class XmlNoweKolory extends XmlFeedWriter
         foreach ($refs as $ref) {
             if($ref['type'] == 'object') {
                 $obj = DataObject::getById($ref['id']);
-                if(($obj instanceof Product || $obj instanceof ProductSet) && (in_array($obj->getStatus(), ['Active', 'Sale']))) {
+                if($obj instanceof Product || $obj instanceof ProductSet) {
                     $data[] = $obj;
                 }
             }
         }
 
-        parent::__construct($data, function(Product|ProductSet $item) use ($offer, $referenceOffer) {
+        parent::__construct($data, function (Product|ProductSet $item) use ($offer) {
 
             $priceBG = 0.0;
             $priceHU = 0.0;

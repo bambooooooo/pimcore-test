@@ -1,9 +1,9 @@
 <section>
     <h1>{{ "Parameters"|trans }}</h1>
-    {% if s.Parameters and s.Parameters.groups|length %}
+    {% if item.Parameters and item.Parameters.groups|length %}
     <div style="column-count: 3">
 
-        {% for group in s.Parameters.groups %}
+        {% for group in item.Parameters.groups %}
             <div class="mb-4">
                 <table class="packages-table">
                     <thead>

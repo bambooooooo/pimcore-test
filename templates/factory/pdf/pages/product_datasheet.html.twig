@@ -1,0 +1,12 @@
+<article>
+    <section id="{{ item.id }}">
+        <div class="page">
+            <div class="page-content">
+                {{ include('factory/pdf/parts/_item_header.html.twig', {item: item}) }}
+                {{ include('factory/pdf/parts/_packages.html.twig', {item: item}) }}
+                {{ include('factory/pdf/parts/_product_parameters.html.twig', {item: item}) }}
+            </div>
+        </div>
+    </section>
+</article>
+<div class="pb"></div>

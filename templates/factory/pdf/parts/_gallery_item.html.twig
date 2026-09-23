@@ -38,13 +38,9 @@
                     {% endif %}
                 </div>
             {% endif %}
-            {% if price and show_prices %}
+            {% if show_prices and price_level %}
                 <div style="margin-top: 4px;">
-                {% for pr in item.Price %}
-                    {% if pr.element.id == price %}
-                        {{ pr.data.Price }} {{ pr.data.Currency }}
-                    {% endif %}
-                {% endfor %}
+                    {{ item.(price_level) }}
                 </div>
             {% endif %}
         </div>

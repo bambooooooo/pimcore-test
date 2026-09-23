@@ -1,0 +1,35 @@
+{% extends 'factory/layouts/print_a4.html.twig' %}
+
+{% block content %}
+
+    {% if not app.request.query.has('dev_hide_cover') %}
+        {{ include('factory/pdf/parts/_cover.html.twig', {title: group.Name ?? group.key, subtitle: "Datasheet", image: group.Image, id: group.id }) }}
+    {% endif %}
+
+    {% if show_summary_grid %}
+        {{ include('factory/pdf/pages/product_gallery.html.twig', {prods: prods, related: related, sets: sets}) }}
+    {% endif %}
+
+    {% if sets|length %}
+        {% for s in sets %}
+            {{ include('factory/pdf/pages/product_datasheet.html.twig', {item: s}) }}
+        {% endfor %}
+    {% endif %}
+
+    {% if prods|length %}
+        {% for p in prods %}
+            {{ include('factory/pdf/pages/product_datasheet.html.twig', {item: p}) }}
+        {% endfor %}
+    {% endif %}
+
+    {% if related|length %}
+        {% for r in related %}
+            {{ include('factory/pdf/pages/product_datasheet.html.twig', {item: r}) }}
+        {% endfor %}
+    {% endif %}
+
+    {% if not app.request.query.has('dev_hide_backcover') %}
+        {{ include('factory/pdf/parts/_backcover.html.twig', {id: group.id}) }}
+    {% endif %}
+
+{% endblock %}
