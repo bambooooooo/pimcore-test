@@ -347,14 +347,14 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
         if(e.detail.object.data.general.className === "Product")
         {
             menu.push({
-                text: t('Base price from package'),
+                text: t('Update catalog prices'),
                 icon: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMi4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iRWJlbmVfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHdpZHRoPSIyNHB4IiBoZWlnaHQ9IjI0cHgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMjQgMjQ7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+DQoJLnN0MHtmaWxsOiNGRkZGRkY7fQ0KPC9zdHlsZT4NCjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0yMS43LDE0LjdMMTkuNCwxM2wwLjEtMWwtMC4xLTFsMi4xLTEuNmMwLjItMC4xLDAuMy0wLjQsMC4xLTAuNmwtMi0zLjVDMTkuNSw1LDE5LjMsNSwxOSw1bC0yLjUsMQ0KCWMtMC41LTAuNC0xLjEtMC43LTEuNy0xbC0wLjQtMi43QzE0LjUsMi4yLDE0LjMsMiwxNCwyaC00QzkuOCwyLDkuNSwyLjIsOS41LDIuNEw5LjEsNS4xQzguNSw1LjMsOCw1LjcsNy40LDZMNSw1DQoJQzQuNyw1LDQuNSw1LDQuMyw1LjNsLTIsMy41QzIuMiw5LDIuMyw5LjIsMi41LDkuNEw0LjYsMTFsLTAuMSwxbDAuMSwxbC0yLjEsMS43Yy0wLjIsMC4yLTAuMywwLjQtMC4xLDAuNmwyLDMuNQ0KCUM0LjUsMTksNC43LDE5LDUsMTlsMi41LTFjMC41LDAuNCwxLjEsMC43LDEuNywxbDAuNCwyLjdjMCwwLjIsMC4zLDAuNCwwLjUsMC40aDRjMC4zLDAsMC41LTAuMiwwLjUtMC40TDE1LDE5DQoJYzAuNi0wLjMsMS4yLTAuNiwxLjctMWwyLjUsMWMwLjIsMC4xLDAuNSwwLDAuNi0wLjJsMi0zLjVDMjEuOSwxNS4xLDIxLjksMTQuOCwyMS43LDE0Ljd6IE0xMiwxOXYtMmMtMi44LDAtNS0yLjItNS01DQoJYzAtMC45LDAuMi0xLjcsMC42LTIuNGwxLjUsMS41QzkuMSwxMS40LDksMTEuNyw5LDEyYzAsMS43LDEuMywzLDMsM3YtMmwzLDNMMTIsMTl6IE0xNi40LDE0LjRsLTEuNS0xLjVDMTUsMTIuNiwxNSwxMi4zLDE1LDEyDQoJYzAtMS43LTEuMy0zLTMtM3YyTDksOGwzLTN2MmMyLjgsMCw1LDIuMiw1LDVDMTcsMTIuOSwxNi44LDEzLjcsMTYuNCwxNC40eiIvPg0KPC9zdmc+DQo=',
                 scale: 'medium',
-                tooltip: t('Move base price as sum of packages prices'),
+                tooltip: t('Update catalog PLN, EUR prices'),
                 handler: function () {
 
                     Ext.Ajax.request({
-                        url: "/object/base-price",
+                        url: "/object/compute-catalog-price",
                         method: "POST",
                         params: {
                             'id': e.detail.object.id
@@ -386,189 +386,6 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
 
     if(e.detail.object.data.general.className === "Group")
     {
-        const prods = e.detail.object.data.data.Products.length + e.detail.object.data.data.Sets.length;
-
-        var offers = Ext.create('Ext.data.Store', {
-            fields: ['id', 'name'],
-            autoLoad: false,
-            proxy: {
-                type: 'ajax',
-                url: '/offers',
-                reader: {
-                    type: 'json',
-                    rootProperty: 'data',
-                }
-            }
-        })
-
-        var unpublished = Ext.create('Ext.form.Checkbox', {name: 'show_unpublished', fieldLabel: 'Show unpublished'});
-        var showGroupProducts = Ext.create('Ext.form.Checkbox', {name: 'show_products', fieldLabel: 'Show products', checked: true});
-        var showGroupSets = Ext.create('Ext.form.Checkbox', {name: 'show_sets', fieldLabel: 'Show sets', checked: true});
-        var showGroupRelatedProducts = Ext.create('Ext.form.Checkbox', {name: 'show_relatedproducts', fieldLabel: 'Show related products', checked: true});
-        var showProductTypeSku = Ext.create('Ext.form.Checkbox', {name: 'show_products_sku', fieldLabel: 'Show products with type SKU'});
-        var showPrices = Ext.create('Ext.form.Checkbox', {name: 'show_prices', fieldLabel: 'Show prices', checked: true});
-        var showAllProductsStatus = Ext.create('Ext.form.Checkbox', {name: 'show_all_statuses', fieldLabel: 'Show products in all statuses'})
-        var showProductStocks = Ext.create('Ext.form.Checkbox', {name: 'show_products_stocks', fieldLabel: 'Show products stocks', checked: false});
-
-        var combo = Ext.create('Ext.form.ComboBox', {
-            xtype: 'combo',
-            fieldLabel: 'Select price level',
-            store: offers,
-            displayField: 'name',
-            valueField: 'id',
-        });
-
-        function getBasePath()
-        {
-            return "/object/" + pimcore.settings.language + "/" + e.detail.object.id + "/datasheet?" +
-                    "show_unpublished=" + unpublished.value +
-                    "&show_products=" + showGroupProducts.value +
-                    "&show_sets=" + showGroupSets.value +
-                    "&show_related_products=" + showGroupRelatedProducts.value +
-                    "&show_products_type_sku=" + showProductTypeSku.value +
-                    "&show_prices=" + showPrices.value + 
-                    "&show_items_in_all_statuses=" + showAllProductsStatus.value +
-                    "&show_product_stocks=" + showProductStocks.value;
-        }
-
-        var btnPdf = Ext.create('Ext.Button', {
-            xtype: 'button',
-            text: 'Cennik PDF',
-            icon: '/bundles/pimcoreadmin/img/flat-white-icons/download-cloud.svg',
-            handler: function(){
-                if(!combo.value)
-                {
-                    alert("Please specify offer first");
-                    return;
-                }
-
-                const path = getBasePath() + "&price=" + combo.value;
-                window.open(path);
-            }
-        });
-
-        var btnPdfExtended = Ext.create('Ext.Button', {
-            xtype: 'button',
-            text: 'Specyfikacja PDF',
-            icon: '/bundles/pimcoreadmin/img/flat-white-icons/download-cloud.svg',
-            handler: function(){
-                if(!combo.value)
-                {
-                    const path = getBasePath() + "&mode=detailed";
-                    window.open(path);
-                }
-                else
-                {
-                    const path = getBasePath() +  "&mode=detailed&price=" + combo.value;
-                    window.open(path);
-                }
-            }
-        });
-
-        var btnXlsx = Ext.create('Ext.Button', {
-            xtype: 'button',
-            text: 'Cennik XLSX',
-            icon: '/bundles/pimcoreadmin/img/flat-white-icons/download-cloud.svg',
-            handler: function(){
-                if(!combo.value)
-                {
-                    alert("Please specify offer first");
-                    return;
-                }
-
-                const path = getBasePath() + "&price=" + combo.value + "&type=xlsx";
-                
-                window.open(path);
-            }
-        });
-
-        var panel = Ext.create('Ext.form.Panel', {
-            layout: {
-                type: 'vbox',
-                align: 'stretch',
-            },
-            defaults: {
-                labelWidth: 200
-            },
-            bodyPadding: 16,
-            items: [
-                unpublished,
-                showGroupProducts,
-                showGroupSets,
-                showGroupRelatedProducts,
-                showProductTypeSku,
-                showPrices,
-                showAllProductsStatus,
-                showProductStocks,
-                combo,
-                {
-                    xtype: 'splitter'
-                },
-                Ext.create('Ext.form.Panel', {
-                    layout: {
-                        type: 'hbox',
-                        align: 'right',
-                        buttonAlign: 'right'
-                    },
-                    items:
-                    [
-                        btnPdf,
-                        { xtype: 'splitter'},
-                        btnXlsx,
-                        { xtype: 'splitter'},
-                        btnPdfExtended
-                    ]
-                })
-            ]
-        })
-
-        var win = Ext.create('Ext.window.Window', {
-            title: 'Generowanie cennika dla grupy',
-            items: [
-                panel,
-            ],
-            closeAction: 'hide',
-            width: 600,
-            layout: 'fit',
-            closeable: true,
-            modal: true
-        })
-
-        e.detail.object.toolbar.add({
-            icon: '/bundles/pimcoreadmin/img/flat-white-icons/download-cloud.svg',
-            scale: 'medium',
-            tooltip: 'Download',
-            menu: [
-                {
-                    text: t('Product(Set) images'),
-                    tooltip: t('Download all images from assigned Products and ProductSets as zip archive'),
-                    icon: '/bundles/pimcoreadmin/img/flat-white-icons/download-cloud.svg',
-                    scale: 'medium',
-                    handler: function () {
-
-                        if(prods > 0)
-                        {
-                            const path = "/export/images/" + e.detail.object.id;
-                            window.open(path);
-                        }
-                        else
-                        {
-                            Ext.Msg.alert('Warning', 'Group has no Products and Sets!');
-                        }
-                    }
-                },
-                {
-                    text: t('Pricelist'),
-                    tooltip: t('Download pricelist in PDF'),
-                    icon: '/bundles/pimcoreadmin/img/flat-white-icons/percent.svg',
-                    scale: 'medium',
-                    handler: function () {
-                        win.show();
-                    }
-                }
-            ]
-        })
-
         e.detail.object.toolbar.add({
             icon: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMi4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iRWJlbmVfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHdpZHRoPSIyNHB4IiBoZWlnaHQ9IjI0cHgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMjQgMjQ7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+DQoJLnN0MHtmaWxsOiNGRkZGRkY7fQ0KPC9zdHlsZT4NCjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0yMS43LDE0LjdMMTkuNCwxM2wwLjEtMWwtMC4xLTFsMi4xLTEuNmMwLjItMC4xLDAuMy0wLjQsMC4xLTAuNmwtMi0zLjVDMTkuNSw1LDE5LjMsNSwxOSw1bC0yLjUsMQ0KCWMtMC41LTAuNC0xLjEtMC43LTEuNy0xbC0wLjQtMi43QzE0LjUsMi4yLDE0LjMsMiwxNCwyaC00QzkuOCwyLDkuNSwyLjIsOS41LDIuNEw5LjEsNS4xQzguNSw1LjMsOCw1LjcsNy40LDZMNSw1DQoJQzQuNyw1LDQuNSw1LDQuMyw1LjNsLTIsMy41QzIuMiw5LDIuMyw5LjIsMi41LDkuNEw0LjYsMTFsLTAuMSwxbDAuMSwxbC0yLjEsMS43Yy0wLjIsMC4yLTAuMywwLjQtMC4xLDAuNmwyLDMuNQ0KCUM0LjUsMTksNC43LDE5LDUsMTlsMi41LTFjMC41LDAuNCwxLjEsMC43LDEuNywxbDAuNCwyLjdjMCwwLjIsMC4zLDAuNCwwLjUsMC40aDRjMC4zLDAsMC41LTAuMiwwLjUtMC40TDE1LDE5DQoJYzAuNi0wLjMsMS4yLTAuNiwxLjctMWwyLjUsMWMwLjIsMC4xLDAuNSwwLDAuNi0wLjJsMi0zLjVDMjEuOSwxNS4xLDIxLjksMTQuOCwyMS43LDE0Ljd6IE0xMiwxOXYtMmMtMi44LDAtNS0yLjItNS01DQoJYzAtMC45LDAuMi0xLjcsMC42LTIuNGwxLjUsMS41QzkuMSwxMS40LDksMTEuNyw5LDEyYzAsMS43LDEuMywzLDMsM3YtMmwzLDNMMTIsMTl6IE0xNi40LDE0LjRsLTEuNS0xLjVDMTUsMTIuNiwxNSwxMi4zLDE1LDEyDQoJYzAtMS43LTEuMy0zLTMtM3YyTDksOGwzLTN2MmMyLjgsMCw1LDIuMiw1LDVDMTcsMTIuOSwxNi44LDEzLjcsMTYuNCwxNC40eiIvPg0KPC9zdmc+DQo=',
             scale: 'medium',
@@ -623,7 +440,6 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
         e.detail.object.toolbar.add({
             icon: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMi4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iRWJlbmVfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHdpZHRoPSIyNHB4IiBoZWlnaHQ9IjI0cHgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMjQgMjQ7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+DQoJLnN0MHtmaWxsOiNGRkZGRkY7fQ0KPC9zdHlsZT4NCjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0yMS43LDE0LjdMMTkuNCwxM2wwLjEtMWwtMC4xLTFsMi4xLTEuNmMwLjItMC4xLDAuMy0wLjQsMC4xLTAuNmwtMi0zLjVDMTkuNSw1LDE5LjMsNSwxOSw1bC0yLjUsMQ0KCWMtMC41LTAuNC0xLjEtMC43LTEuNy0xbC0wLjQtMi43QzE0LjUsMi4yLDE0LjMsMiwxNCwyaC00QzkuOCwyLDkuNSwyLjIsOS41LDIuNEw5LjEsNS4xQzguNSw1LjMsOCw1LjcsNy40LDZMNSw1DQoJQzQuNyw1LDQuNSw1LDQuMyw1LjNsLTIsMy41QzIuMiw5LDIuMyw5LjIsMi41LDkuNEw0LjYsMTFsLTAuMSwxbDAuMSwxbC0yLjEsMS43Yy0wLjIsMC4yLTAuMywwLjQtMC4xLDAuNmwyLDMuNQ0KCUM0LjUsMTksNC43LDE5LDUsMTlsMi41LTFjMC41LDAuNCwxLjEsMC43LDEuNywxbDAuNCwyLjdjMCwwLjIsMC4zLDAuNCwwLjUsMC40aDRjMC4zLDAsMC41LTAuMiwwLjUtMC40TDE1LDE5DQoJYzAuNi0wLjMsMS4yLTAuNiwxLjctMWwyLjUsMWMwLjIsMC4xLDAuNSwwLDAuNi0wLjJsMi0zLjVDMjEuOSwxNS4xLDIxLjksMTQuOCwyMS43LDE0Ljd6IE0xMiwxOXYtMmMtMi44LDAtNS0yLjItNS01DQoJYzAtMC45LDAuMi0xLjcsMC42LTIuNGwxLjUsMS41QzkuMSwxMS40LDksMTEuNyw5LDEyYzAsMS43LDEuMywzLDMsM3YtMmwzLDNMMTIsMTl6IE0xNi40LDE0LjRsLTEuNS0xLjVDMTUsMTIuNiwxNSwxMi4zLDE1LDEyDQoJYzAtMS43LTEuMy0zLTMtM3YyTDksOGwzLTN2MmMyLjgsMCw1LDIuMiw1LDVDMTcsMTIuOSwxNi44LDEzLjcsMTYuNCwxNC40eiIvPg0KPC9zdmc+DQo=',
             scale: 'medium',
-            text: 'Update product list',
             tooltip: t('Modify'),
             handler: function () {
                 Ext.Ajax.request({
@@ -661,9 +477,9 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
             }
         });
 
-        // e.detail.object.toolbar.add(statusLabel);
-        // updateStatusLabel();
-        // setInterval(updateStatusLabel, 5000);
+        e.detail.object.toolbar.add(statusLabel);
+        updateStatusLabel();
+        setInterval(updateStatusLabel, 5000);
     }
 
     if(e.detail.object.data.general.className === "User")
@@ -757,8 +573,6 @@ document.addEventListener(pimcore.events.postOpenObject, function(e){
 		});
 
     }
-
-
 })
 
 function confirmAsync(message)
