@@ -9,9 +9,11 @@
  *
  * Fields Summary:
  * - Price [select]
- * - Brutto [checkbox]
  * - Drop [numeric]
  * - Filters [objectbricks]
+ * - Brutto [checkbox]
+ * - Pricings [manyToManyObjectRelation]
+ * - Currency [select]
  * - Products [manyToManyObjectRelation]
  * - Image [image]
  * - localizedfields [localizedfields]
@@ -31,7 +33,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
 
 Ofertę stanowi lista Wycen w ustalonej kolejności. Cena produktu w ofercie to pierwsza z Wycen, dla której zostaną spełnione ograniczenia.',
    'creationDate' => NULL,
-   'modificationDate' => 1790019381,
+   'modificationDate' => 1790168717,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -117,28 +119,6 @@ Ofertę stanowi lista Wycen w ustalonej kolejności. Cena produktu w ofercie to 
                  'optionsProviderData' => '',
               )),
               1 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                 'name' => 'Brutto',
-                 'title' => 'Brutto',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => false,
-                 'invisible' => true,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'defaultValue' => NULL,
-                 'defaultValueGenerator' => '',
-              )),
-              2 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'name' => 'Drop',
                  'title' => 'Rabat',
@@ -168,7 +148,7 @@ Ofertę stanowi lista Wycen w ustalonej kolejności. Cena produktu w ofercie to 
                  'width' => '',
                  'defaultValueGenerator' => '',
               )),
-              3 => 
+              2 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Objectbricks::__set_state(array(
                  'name' => 'Filters',
                  'title' => 'Filters',
@@ -193,6 +173,119 @@ Ofertę stanowi lista Wycen w ustalonej kolejności. Cena produktu w ofercie to 
                 ),
                  'maxItems' => NULL,
                  'border' => false,
+              )),
+              3 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                 'name' => 'Brutto',
+                 'title' => 'Brutto',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => true,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => true,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'defaultValue' => NULL,
+                 'defaultValueGenerator' => '',
+              )),
+              4 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                 'name' => 'Pricings',
+                 'title' => 'Pricing (dump, BC only)',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => true,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => true,
+                 'invisible' => true,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'classes' => 
+                array (
+                  0 => 
+                  array (
+                    'classes' => 'Pricing',
+                  ),
+                ),
+                 'displayMode' => 'grid',
+                 'pathFormatterClass' => '',
+                 'maxItems' => NULL,
+                 'visibleFields' => 'fullpath',
+                 'allowToCreateNewObject' => false,
+                 'allowToClearRelation' => true,
+                 'optimizedAdminLoading' => false,
+                 'enableTextSelection' => false,
+                 'visibleFieldDefinitions' => 
+                array (
+                ),
+                 'width' => '',
+                 'height' => '',
+              )),
+              5 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                 'name' => 'Currency',
+                 'title' => 'Currency (dump, BC only)',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => true,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => true,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'options' => 
+                array (
+                  0 => 
+                  array (
+                    'key' => 'PLN',
+                    'value' => 'PLN',
+                  ),
+                  1 => 
+                  array (
+                    'key' => 'EUR',
+                    'value' => 'EUR',
+                  ),
+                  2 => 
+                  array (
+                    'key' => 'USD',
+                    'value' => 'USD',
+                  ),
+                  3 => 
+                  array (
+                    'key' => 'GBP',
+                    'value' => 'GBP',
+                  ),
+                ),
+                 'defaultValue' => '',
+                 'columnLength' => 190,
+                 'dynamicOptions' => false,
+                 'defaultValueGenerator' => '',
+                 'width' => '',
+                 'optionsProviderType' => 'configure',
+                 'optionsProviderClass' => '',
+                 'optionsProviderData' => '',
               )),
             ),
              'locked' => false,
