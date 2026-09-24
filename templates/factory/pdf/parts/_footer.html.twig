@@ -1,0 +1,14 @@
+<div style="position: absolute; bottom: 32px; left: 0; width: 100%;">
+    <div style="position: relative; color: #212121; font-size: 12px;">
+        <div style="position: absolute; right: 32px; bottom: 4px">
+            {% if pageno is defined and pageno %}
+                <span style="font-size: 11px; padding: 8px; border-radius: 6px; background: #212121; color: #fff; font-weight: bolder">
+                    {{ pageno }}
+                </span>
+            {% endif %}
+        </div>
+        <div style="text-align: center;">
+            <img src="{{ asset('var/assets/LOGO/megstyl.svg') }}" width="120">
+        </div>
+    </div>
+</div>

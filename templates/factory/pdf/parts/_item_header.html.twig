@@ -38,7 +38,7 @@
                         </div>
                     {% endif %}
                     {% if show_prices and price_level %}
-                        <div>{{ "Price"|trans }}: {{ item.(price_level ~ "_") }}</div>
+                        <div>{{ "Price"|trans }}: {{ item.(price_level) }}</div>
                     {% endif %}
                     <div>
                         <a href="{{ path('export_images', {id: item.id}) }}">

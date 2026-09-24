@@ -4,7 +4,12 @@
             <div class="page-content">
                 <div style="text-align: center; max-height: 665px; height:665px; position: relative;">
                     {% if s.Image %}
-                        <img src="{{ s.Image }}" style="display: block; margin:auto; width: 100%; position: absolute; top: 50%; transform: translateY(-50%);">
+                        {% set aspect = s.Image.customSettings.imageWidth / s.Image.customSettings.imageHeight  %}
+                        {% if aspect > (718 / 665) %}
+                            <img src="{{ s.Image }}" style="width: 100%; display: block; position: relative; top: 50%; transform: translateY(-50%);">
+                        {% else %}
+                            <img src="{{ s.Image }}" style="height: 100%; display: block; position: relative; left: 50%; transform: translateX(-50%);">
+                        {% endif %}
                     {% else %}
                         {{ include('factory/parts/image_placeholder.html.twig') }}
                     {% endif %}
@@ -52,18 +57,7 @@
                     </div>
                 </div>
             </div>
-            <div style="position: absolute; bottom: 32px; left: 0; width: 100%;">
-                <div style="position: relative; color: #212121; font-size: 12px;">
-                    <div style="position: absolute; right: 32px; bottom: 4px">
-                        <span style="font-size: 11px; padding: 8px; border-radius: 6px; background: #212121; color: #fff; font-weight: bolder">
-                            {{ pageIdx }}
-                        </span>
-                    </div>
-                    <div style="text-align: center;">
-                        <img src="{{ asset('var/assets/LOGO/megstyl.svg') }}" width="120">
-                    </div>
-                </div>
-            </div>
+            {{ include('factory/pdf/parts/_footer.html.twig', {pageno: pageno ?? null}) }}
         </div>
     </section>
 </article>
