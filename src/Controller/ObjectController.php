@@ -828,7 +828,7 @@ class ObjectController extends FrontendController
         /** @var Product|ProductSet $obj */
         foreach ($items as $obj)
         {
-            $getter = "get" . ucfirst($priceLevel) . "_";
+            $getter = "get" . ucfirst($priceLevel);
             $price = $obj->$getter();
 
             if(!$price)
