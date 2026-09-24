@@ -4,6 +4,7 @@ namespace App\Model\Renderer;
 
 use App\OptionProvider\PriceLevelProvider;
 use App\Service\PricingService;
+use InvalidArgumentException;
 use Pimcore\Model\DataObject\ClassDefinition\Layout\DynamicTextLabelInterface;
 use Pimcore\Model\DataObject\Concrete;
 use Pimcore\Model\DataObject\ClassDefinition;
@@ -21,31 +22,86 @@ class PriceCalculationRenderer implements DynamicTextLabelInterface
             return '<div class="alert alert-danger">Unsuported object type</div>';
         }
 
-        if(!$object->getBase() || $object->getBase()->getValue() <= 0)
+        $validmode = ['base', 'fixed', 'drop', 'hurt'];
+        $mergedModes = implode(', ', $validmode);
+        $validtimings = ['present', 'future'];
+        $mergedTimings = implode(', ', $validtimings);
+
+        $args = explode('|', $data);
+        if(count($args) != 2)
+        {
+            return '<div class="alert alert-danger">Unvalid data passed to renderer. Please fix in class definition as {'.$mergedModes.'}|{'.$mergedTimings.'}). [' . $data . '] provided.</div>';
+        }
+
+        $mode = $args[0];
+        $timing = $args[1];
+
+        if(!in_array($mode, $validmode))
+        {
+            return '<div class="alert alert-danger">Unsuported mode ' . $mode . '. Please use one of: ' . $mergedModes . '</div>';
+        }
+
+        if(!in_array($timing, $validtimings))
+        {
+            return '<div class="alert alert-danger">Unsuported timing ' . $timing . '. Please use one of: ' . $mergedTimings . '</div>';
+        }
+
+        if($timing == 'present' && (!$object->getPrice_base() || $object->getPrice_base()->getValue() <= 0))
         {
             return '<div class="alert alert-warning">Product base price is not provided.</div>';
         }
 
-        if(!empty($data))
+        if($timing == 'future' && (!$object->getPrice_new_base() || $object->getPrice_new_base()->getValue() <= 0))
         {
-            if($data == 'dropshipping')
-            {
-                return $this->getRegularDrops($data, $object, $params, 30, 45);
-            }
-            else if ($data == 'hurt')
-            {
-                return $this->getRegularDrops($data, $object, $params, 45, 55);
-            }
-            else
-            {
-                return 'unknown';
-            }
+            return '<div class="alert alert-warning">Product new base price is not provided.</div>';
         }
 
-        return $this->getFixedPrices($data, $object, $params);
+        $basePriceGetter = 'get' . ($timing == 'present' ? 'Price_base' : 'Price_new_base');
+
+        if($mode == 'base')
+        {
+            return $this->getBasePrices($data, $object, $params, $basePriceGetter);
+        }
+
+        if($mode == 'fixed')
+        {
+            return $this->getFixedPrices($data, $object, $params, $basePriceGetter);
+        }
+
+        if($mode == 'drop')
+        {
+            return $this->getRegularDrops($data, $object, $params, 30, 45, $timing);
+        }
+
+        if ($mode == 'hurt')
+        {
+            return $this->getRegularDrops($data, $object, $params, 45, 55, $timing);
+        }
+
+        return 'unknown';
     }
 
-    private function getFixedPrices(string $data, Product|ProductSet $object, array $params)
+    private function getBasePrices(string $data, Concrete $object, $params, $basePriceGetter)
+    {
+        $base = $object->{$basePriceGetter}()->getValue();
+        $catalogRawPLN = round($base * 3, 2);
+        $roundedPLN = $this->prettyRoundPrice($catalogRawPLN);
+
+        $eurFactor = Unit::getById('EUR')->getFactor();
+        $eur = round($roundedPLN / ($eurFactor * 0.97), 2);
+
+        $pln = "<h2>Cena katalogowa PLN</h2> <h3>{$roundedPLN}</h3><br/>= {$base} * 3.000 = {$catalogRawPLN}";
+        $eur = "<h2>Cena katalogowa EUR</h2> <h3>{$eur}</h3><br/>= $roundedPLN / ($eurFactor * 0.97)";
+
+        $ret = "$pln<br/>$eur";
+
+        $ret = '<div class="alert alert-info">' . $pln . '</div>';
+        $ret .= '<div class="alert alert-info">' . $eur . '</div>';
+
+        return $ret;
+    }
+
+    private function getFixedPrices(string $data, Product|ProductSet $object, array $params, string $basePriceGetter)
     {
         $factors = [
             'price_custom_cama' => 1.31,
@@ -110,7 +166,7 @@ table thead tr td {
 </tr></thead>
 <tbody>";
 
-        $base = $object->getBase()->getValue();
+        $base = $object->{$basePriceGetter}()->getValue();
 
         foreach ($levels as $level => $levelName) {
 
@@ -158,13 +214,27 @@ table thead tr td {
         return $data;
     }
 
-    private function getRegularDrops(string $data, Product|ProductSet $product, array $params, int $start, int $end): string
+    private function getRegularDrops(string $data, Product|ProductSet $product, array $params, int $start, int $end, string $timing): string
     {
-        if (!$product->getPrice_catalog_pln() || $product->getPrice_catalog_pln()->getValue() <= 0) {
+        if($timing == 'present')
+        {
+            $basePriceGetter = 'getPrice_base';
+            $catalogPlnGetter = 'getPrice_catalog_pln';
+            $catalogEurGetter = 'getPrice_catalog_eur';
+        }
+        else
+        {
+            $basePriceGetter = 'getPrice_new_base';
+            $catalogPlnGetter = 'getPrice_new_catalog_pln';
+            $catalogEurGetter = 'getPrice_new_catalog_eur';
+        }
+
+
+        if (!$product->{$catalogPlnGetter}() || $product->{$catalogPlnGetter}()->getValue() <= 0) {
             return '<div class="alert alert-danger">Product catalog PLN price is not provided.</div>';
         }
 
-        if (!$product->getPrice_catalog_eur() || $product->getPrice_catalog_eur()->getValue() <= 0) {
+        if (!$product->{$catalogEurGetter}() || $product->{$catalogEurGetter}()->getValue() <= 0) {
             return '<div class="alert alert-danger">Product catalog EUR price is not provided.</div>';
         }
 
@@ -197,9 +267,9 @@ text-align: left;
 </tr></thead>
 <tbody>";
 
-        $pln = $product->getPrice_catalog_pln()->getValue();
-        $eur = $product->getPrice_catalog_eur()->getValue();
-        $base = $product->getBase()->getValue();
+        $pln = $product->{$catalogPlnGetter}()->getValue();
+        $eur = $product->{$catalogEurGetter}()->getValue();
+        $base = $product->{$basePriceGetter}()->getValue();
 
 
         for($i = $start; $i <= $end; $i++)
@@ -226,5 +296,41 @@ text-align: left;
         }
 
         return $html;
+    }
+
+    public function prettyRoundPrice(float $price): float
+    {
+        if ($price < 3) {
+            return $this->ceilToStep($price, 0.1);
+        } elseif ($price < 10) {
+            return $this->ceilToStep($price, 0.5);
+        } elseif ($price < 50) {
+            return $this->ceilToStep($price, 1);
+        } elseif ($price < 100) {
+            return $this->ceilToStep($price, 5);
+        } elseif ($price < 1_000) {
+            return $this->ceilToStep($price, 10) - 1;
+        } elseif ($price < 1_100) {
+            return 1_099;
+        } elseif ($price < 2_000) {
+            return $this->ceilToStep($price, 50) - 1;
+        } elseif ($price < 2_100) {
+            return 2_099;
+        } elseif ($price < 3_000) {
+            return $this->ceilToStep($price, 50) - 1;
+        } elseif ($price < 3_100) {
+            return 3_099;
+        }
+
+        return $this->ceilToStep($price, 100) - 1;
+    }
+
+    private function ceilToStep(float $value, float $step): float
+    {
+        if ($step <= 0) {
+            throw new InvalidArgumentException('Step must be greater than zero.');
+        }
+
+        return ceil($value / $step) * $step;
     }
 }

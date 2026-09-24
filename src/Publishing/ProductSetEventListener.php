@@ -34,8 +34,6 @@ class ProductSetEventListener
             $this->tryUpdatePackagesVolume($set);
             $this->tryUpdateSerieSize($set);
             $this->tryUpdateBasePrice($set);
-            $this->tryUpdatePricings($set);
-            $this->tryUpdateOffers($set);
             $this->tryUpdateBruttoDimensions($set);
             $this->tryUpdateNettoDimensions($set);
         });
@@ -217,54 +215,6 @@ class ProductSetEventListener
         {
             $productSet->setSerieSize(null);
             $productSet->save(["skip" => "serie size - insufficient data"]);
-        }
-    }
-
-    private function tryUpdatePricings(ProductSet $set) : void
-    {
-        try
-        {
-            $pricingList = new Pricing\Listing();
-            $pricingList->setCondition("`published` = 1");
-
-            $productPrices = [];
-
-            foreach ($pricingList as $pricing)
-            {
-                $price = $this->pricingService->getPricing($set, $pricing);
-
-                if($price)
-                {
-                    $item = new ObjectMetadata('Pricing', ['Price', 'Currency'], $pricing);
-                    $item->setPrice($price);
-                    $item->setCurrency($pricing->getCurrency());
-
-                    $productPrices[] = $item;
-                }
-            }
-
-            $set->setPricing($productPrices);
-            $set->save(["skip" => "pricings"]);
-        }
-        catch (\Throwable $exception)
-        {
-            $set->setPricing(null);
-            $set->save(["skip" => "pricings - insufficient data"]);
-        }
-
-    }
-
-    function tryUpdateOffers(ProductSet $set) : void
-    {
-        try
-        {
-            $set->setPrice($this->offerService->getObjectPrices($set));
-            $set->save(["skip" => "offers"]);
-        }
-        catch (\Throwable $exception)
-        {
-            $set->setPrice(null);
-            $set->save(["skip" => "offers - insufficient data"]);
         }
     }
 

@@ -522,6 +522,20 @@ class ObjectController extends FrontendController
         DataObject::setHideUnpublished(false);
 
         $id = $request->get("id");
+        $type = $request->get("type") ?? "future";
+
+        if($type == "future")
+        {
+            $basePriceGetter = "getPrice_new_base";
+            $plnSetter = 'setPrice_new_catalog_pln';
+            $eurSetter = 'setPrice_new_catalog_eur';
+        }
+        else
+        {
+            $basePriceGetter = "getPrice_base";
+            $plnSetter = 'setPrice_catalog_pln';
+            $eurSetter = 'setPrice_catalog_eur';
+        }
 
         $obj = DataObject::getById($id);
 
@@ -529,17 +543,17 @@ class ObjectController extends FrontendController
             return new Response("Object type not supported", Response::HTTP_NOT_IMPLEMENTED);
         }
 
-        if($obj->getBase() && $obj->getBase()->getValue())
+        if($obj->{$basePriceGetter}() && $obj->{$basePriceGetter}()->getValue())
         {
-            $basePrice = $obj->getBase()->getValue();
+            $basePrice = $obj->{$basePriceGetter}()->getValue();
             $PLN = DataObject\QuantityValue\Unit::getById("PLN");
             $EUR = DataObject\QuantityValue\Unit::getById("EUR");
 
             $pricePLN = $this->priceLevelService->prettyRoundPrice($basePrice * $BASE_PRICE_TO_CATALOG_PRICE_FACTOR);
             $priceEUR = $this->priceLevelService->prettyRoundPrice($basePrice * $BASE_PRICE_TO_CATALOG_PRICE_FACTOR / ($EUR->getFactor() * $PLN_TO_EUR_RATE_FACTOR));
 
-            $obj->setPrice_catalog_pln(new DataObject\Data\QuantityValue($pricePLN, $PLN));
-            $obj->setprice_catalog_eur(new DataObject\Data\QuantityValue($priceEUR, $EUR));
+            $obj->$plnSetter(new DataObject\Data\QuantityValue($pricePLN, $PLN));
+            $obj->$eurSetter(new DataObject\Data\QuantityValue($priceEUR, $EUR));
 
             $obj->save(['versionNote' => 'Update catalog prices']);
 

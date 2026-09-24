@@ -32,7 +32,7 @@
  * - Parameters [classificationstore]
  * - ParametersAllegro [classificationstore]
  * - GoogleCategory [select]
- * - base [quantityValue]
+ * - price_base [quantityValue]
  * - price_catalog_pln [quantityValue]
  * - price_catalog_eur [quantityValue]
  * - price_custom_cama [quantityValue]
@@ -46,6 +46,7 @@
  * - price_custom_lomado [quantityValue]
  * - price_custom_vente [quantityValue]
  * - price_new_base [quantityValue]
+ * - date_price_new_base [date]
  * - price_new_catalog_pln [quantityValue]
  * - date_price_new_catalog_pln [date]
  * - price_new_catalog_eur [quantityValue]
@@ -70,9 +71,6 @@
  * - date_price_new_custom_lomado [date]
  * - price_new_custom_vente [quantityValue]
  * - date_price_new_custom_vente [date]
- * - BasePrice [quantityValue]
- * - Price [advancedManyToManyObjectRelation]
- * - Pricing [advancedManyToManyObjectRelation]
  * - Images [imageGallery]
  * - Photos [imageGallery]
  * - Video [video]
@@ -112,6 +110,9 @@
  * - OBI [select]
  * - OptimikExportSku [input]
  * - OptimikExportSerieSize [numeric]
+ * - BasePrice [quantityValue]
+ * - Price [advancedManyToManyObjectRelation]
+ * - Pricing [advancedManyToManyObjectRelation]
  * - Image [image]
  * - Ean [input]
  * - MPN [input]
@@ -129,7 +130,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Produkt',
    'description' => 'Towar, który można sprzedać',
    'creationDate' => NULL,
-   'modificationDate' => 1790182582,
+   'modificationDate' => 1790283611,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -1397,7 +1398,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                     array (
                       0 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                         'name' => 'base',
+                         'name' => 'price_base',
                          'title' => 'Cena bazowa netto (TKW)',
                          'tooltip' => '',
                          'mandatory' => false,
@@ -1978,7 +1979,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'fieldtype' => 'text',
                                  'html' => '',
                                  'renderingClass' => 'App\\Model\\Renderer\\PriceCalculationRenderer',
-                                 'renderingData' => '',
+                                 'renderingData' => 'fixed|present',
                                  'border' => false,
                               )),
                             ),
@@ -2029,7 +2030,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'fieldtype' => 'text',
                                  'html' => '',
                                  'renderingClass' => 'App\\Model\\Renderer\\PriceCalculationRenderer',
-                                 'renderingData' => 'dropshipping',
+                                 'renderingData' => 'drop|present',
                                  'border' => false,
                               )),
                             ),
@@ -2080,7 +2081,58 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'fieldtype' => 'text',
                                  'html' => '',
                                  'renderingClass' => 'App\\Model\\Renderer\\PriceCalculationRenderer',
-                                 'renderingData' => 'hurt',
+                                 'renderingData' => 'hurt|present',
+                                 'border' => false,
+                              )),
+                            ),
+                             'locked' => false,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'fieldtype' => 'panel',
+                             'layout' => NULL,
+                             'border' => false,
+                             'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/percent.svg',
+                             'labelWidth' => 100,
+                             'labelAlign' => 'left',
+                          )),
+                          5 => 
+                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                             'name' => 'Kalkulacja bazowa',
+                             'type' => NULL,
+                             'region' => NULL,
+                             'title' => 'Kalkulacja bazowa',
+                             'width' => '',
+                             'height' => '',
+                             'collapsible' => false,
+                             'collapsed' => false,
+                             'bodyStyle' => '',
+                             'datatype' => 'layout',
+                             'children' => 
+                            array (
+                              0 => 
+                              \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
+                                 'name' => 'Layout',
+                                 'type' => NULL,
+                                 'region' => NULL,
+                                 'title' => '',
+                                 'width' => '',
+                                 'height' => '',
+                                 'collapsible' => false,
+                                 'collapsed' => false,
+                                 'bodyStyle' => '',
+                                 'datatype' => 'layout',
+                                 'children' => 
+                                array (
+                                ),
+                                 'locked' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'fieldtype' => 'text',
+                                 'html' => '',
+                                 'renderingClass' => 'App\\Model\\Renderer\\PriceCalculationRenderer',
+                                 'renderingData' => 'base|present',
                                  'border' => false,
                               )),
                             ),
@@ -2136,10 +2188,10 @@ Parametry produktu podzielone na kolekcje i grupy.',
                          'title' => 'Cena bazowa netto PLN',
                          'tooltip' => '',
                          'mandatory' => false,
-                         'noteditable' => true,
+                         'noteditable' => false,
                          'index' => false,
                          'locked' => false,
-                         'style' => '',
+                         'style' => 'float: left; margin-right: 8px;',
                          'permissions' => NULL,
                          'fieldtype' => '',
                          'relationType' => false,
@@ -2168,6 +2220,30 @@ Parametry produktu podzielone na kolekcje i grupy.',
                          'decimalPrecision' => NULL,
                       )),
                       1 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Date::__set_state(array(
+                         'name' => 'date_price_new_base',
+                         'title' => 'Od',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'useCurrentDate' => false,
+                         'columnType' => 'date',
+                         'defaultValueGenerator' => '',
+                      )),
+                      2 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                          'name' => 'price_new_catalog_pln',
                          'title' => '(Nowa cena) Cena katalogowa PLN',
@@ -2204,7 +2280,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
                       )),
-                      2 => 
+                      3 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Date::__set_state(array(
                          'name' => 'date_price_new_catalog_pln',
                          'title' => 'Od',
@@ -2228,7 +2304,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                          'columnType' => 'date',
                          'defaultValueGenerator' => '',
                       )),
-                      3 => 
+                      4 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                          'name' => 'price_new_catalog_eur',
                          'title' => '(Nowa cena) Cena katalogowa EUR',
@@ -2265,7 +2341,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
                       )),
-                      4 => 
+                      5 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Date::__set_state(array(
                          'name' => 'date_price_new_catalog_eur',
                          'title' => 'Od',
@@ -2289,7 +2365,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                          'columnType' => 'date',
                          'defaultValueGenerator' => '',
                       )),
-                      5 => 
+                      6 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
                          'name' => 'Layout',
                          'type' => NULL,
@@ -2967,7 +3043,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                           )),
                           2 => 
                           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-                             'name' => 'Kalkulacja',
+                             'name' => 'Kalkulacje indywidualne',
                              'type' => NULL,
                              'region' => NULL,
                              'title' => 'Kalkulacje indywidualne',
@@ -3001,7 +3077,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'fieldtype' => 'text',
                                  'html' => '',
                                  'renderingClass' => 'App\\Model\\Renderer\\PriceCalculationRenderer',
-                                 'renderingData' => '',
+                                 'renderingData' => 'fixed|future',
                                  'border' => false,
                               )),
                             ),
@@ -3018,7 +3094,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                           )),
                           3 => 
                           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-                             'name' => 'Layout',
+                             'name' => 'Kalkulacje Dropshipping',
                              'type' => NULL,
                              'region' => NULL,
                              'title' => 'Kalkulacje Dropshipping',
@@ -3052,7 +3128,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'fieldtype' => 'text',
                                  'html' => '',
                                  'renderingClass' => 'App\\Model\\Renderer\\PriceCalculationRenderer',
-                                 'renderingData' => 'dropshipping',
+                                 'renderingData' => 'drop|future',
                                  'border' => false,
                               )),
                             ),
@@ -3069,7 +3145,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                           )),
                           4 => 
                           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-                             'name' => 'Layout',
+                             'name' => 'Kalkulacje Hurt',
                              'type' => NULL,
                              'region' => NULL,
                              'title' => 'Kalkulacje Hurt',
@@ -3103,7 +3179,58 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'fieldtype' => 'text',
                                  'html' => '',
                                  'renderingClass' => 'App\\Model\\Renderer\\PriceCalculationRenderer',
-                                 'renderingData' => 'hurt',
+                                 'renderingData' => 'hurt|future',
+                                 'border' => false,
+                              )),
+                            ),
+                             'locked' => false,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'fieldtype' => 'panel',
+                             'layout' => NULL,
+                             'border' => false,
+                             'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/percent.svg',
+                             'labelWidth' => 100,
+                             'labelAlign' => 'left',
+                          )),
+                          5 => 
+                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                             'name' => 'Kalkulacja bazowa',
+                             'type' => NULL,
+                             'region' => NULL,
+                             'title' => 'Kalkulacja bazowa',
+                             'width' => '',
+                             'height' => '',
+                             'collapsible' => false,
+                             'collapsed' => false,
+                             'bodyStyle' => '',
+                             'datatype' => 'layout',
+                             'children' => 
+                            array (
+                              0 => 
+                              \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
+                                 'name' => 'Layout',
+                                 'type' => NULL,
+                                 'region' => NULL,
+                                 'title' => '',
+                                 'width' => '',
+                                 'height' => '',
+                                 'collapsible' => false,
+                                 'collapsed' => false,
+                                 'bodyStyle' => '',
+                                 'datatype' => 'layout',
+                                 'children' => 
+                                array (
+                                ),
+                                 'locked' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'fieldtype' => 'text',
+                                 'html' => '',
+                                 'renderingClass' => 'App\\Model\\Renderer\\PriceCalculationRenderer',
+                                 'renderingData' => 'base|future',
                                  'border' => false,
                               )),
                             ),
@@ -3140,210 +3267,6 @@ Parametry produktu podzielone na kolekcje i grupy.',
                      'labelAlign' => 'left',
                   )),
                   5 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-                     'name' => 'Prices',
-                     'type' => NULL,
-                     'region' => NULL,
-                     'title' => 'Prices',
-                     'width' => '',
-                     'height' => '',
-                     'collapsible' => false,
-                     'collapsed' => false,
-                     'bodyStyle' => '',
-                     'datatype' => 'layout',
-                     'children' => 
-                    array (
-                      0 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                         'name' => 'BasePrice',
-                         'title' => 'Base Price',
-                         'tooltip' => 'Cena bazowa
-
-Cena zakupu produktu u producenta lub techniczny koszt wytworzenia przy własnej produkcji',
-                         'mandatory' => true,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'unitWidth' => '',
-                         'defaultUnit' => 'PLN',
-                         'validUnits' => 
-                        array (
-                          0 => 'PLN',
-                          1 => 'USD',
-                          2 => 'EUR',
-                          3 => 'GBP',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => '',
-                         'defaultValue' => NULL,
-                         'integer' => false,
-                         'unsigned' => false,
-                         'minValue' => NULL,
-                         'maxValue' => NULL,
-                         'decimalSize' => NULL,
-                         'decimalPrecision' => NULL,
-                      )),
-                      1 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
-                         'name' => 'Price',
-                         'title' => 'Price',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => true,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'classes' => 
-                        array (
-                        ),
-                         'displayMode' => NULL,
-                         'pathFormatterClass' => '',
-                         'maxItems' => NULL,
-                         'visibleFields' => 'key',
-                         'allowToCreateNewObject' => false,
-                         'allowToClearRelation' => false,
-                         'optimizedAdminLoading' => false,
-                         'enableTextSelection' => false,
-                         'visibleFieldDefinitions' => 
-                        array (
-                        ),
-                         'width' => '',
-                         'height' => '',
-                         'allowedClassId' => 'Offer',
-                         'columns' => 
-                        array (
-                          0 => 
-                          array (
-                            'type' => 'number',
-                            'position' => 1,
-                            'key' => 'Price',
-                            'label' => 'Price',
-                            'value' => '',
-                            'width' => NULL,
-                          ),
-                          1 => 
-                          array (
-                            'type' => 'text',
-                            'position' => 2,
-                            'key' => 'Currency',
-                            'label' => 'Currency',
-                            'value' => '',
-                            'width' => NULL,
-                          ),
-                          2 => 
-                          array (
-                            'type' => 'bool',
-                            'position' => 3,
-                            'key' => 'Fixed',
-                            'label' => 'Is Fixed?',
-                          ),
-                        ),
-                         'columnKeys' => 
-                        array (
-                          0 => 'Price',
-                          1 => 'Currency',
-                          2 => 'Fixed',
-                        ),
-                         'enableBatchEdit' => false,
-                         'allowMultipleAssignments' => false,
-                      )),
-                      2 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
-                         'name' => 'Pricing',
-                         'title' => 'Pricing',
-                         'tooltip' => 'Wycena
-
-Wycena produktu lub innej usługi związanej z produktem, np. transport',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => true,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'classes' => 
-                        array (
-                        ),
-                         'displayMode' => NULL,
-                         'pathFormatterClass' => '',
-                         'maxItems' => NULL,
-                         'visibleFields' => 'fullpath,Countries',
-                         'allowToCreateNewObject' => false,
-                         'allowToClearRelation' => true,
-                         'optimizedAdminLoading' => false,
-                         'enableTextSelection' => false,
-                         'visibleFieldDefinitions' => 
-                        array (
-                        ),
-                         'width' => '',
-                         'height' => '',
-                         'allowedClassId' => 'Pricing',
-                         'columns' => 
-                        array (
-                          0 => 
-                          array (
-                            'type' => 'number',
-                            'position' => 1,
-                            'key' => 'Price',
-                            'label' => 'Price',
-                          ),
-                          1 => 
-                          array (
-                            'type' => 'text',
-                            'position' => 2,
-                            'key' => 'Currency',
-                            'label' => 'Currency',
-                          ),
-                        ),
-                         'columnKeys' => 
-                        array (
-                          0 => 'Price',
-                          1 => 'Currency',
-                        ),
-                         'enableBatchEdit' => false,
-                         'allowMultipleAssignments' => false,
-                      )),
-                    ),
-                     'locked' => false,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'fieldtype' => 'panel',
-                     'layout' => NULL,
-                     'border' => false,
-                     'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/sales_performance.svg',
-                     'labelWidth' => 100,
-                     'labelAlign' => 'left',
-                  )),
-                  6 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Media',
                      'type' => NULL,
@@ -3521,7 +3444,7 @@ Wycena produktu lub innej usługi związanej z produktem, np. transport',
                      'labelWidth' => 100,
                      'labelAlign' => 'left',
                   )),
-                  7 => 
+                  6 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Packing',
                      'type' => NULL,
@@ -3984,7 +3907,7 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                      'labelWidth' => 100,
                      'labelAlign' => 'left',
                   )),
-                  8 => 
+                  7 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Layout',
                      'type' => NULL,
@@ -4265,7 +4188,7 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                      'labelWidth' => 100,
                      'labelAlign' => 'left',
                   )),
-                  9 => 
+                  8 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Factory',
                      'type' => NULL,
@@ -4555,7 +4478,7 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                      'labelWidth' => 100,
                      'labelAlign' => 'left',
                   )),
-                  10 => 
+                  9 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Quality',
                      'type' => NULL,
@@ -4824,7 +4747,7 @@ Stopień uzupełnienia danych produktu',
                      'labelWidth' => 100,
                      'labelAlign' => 'left',
                   )),
-                  11 => 
+                  10 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Codes',
                      'type' => NULL,
@@ -4935,7 +4858,7 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                      'labelWidth' => 100,
                      'labelAlign' => 'left',
                   )),
-                  12 => 
+                  11 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Documents',
                      'type' => NULL,
@@ -5090,7 +5013,7 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                      'labelWidth' => 100,
                      'labelAlign' => 'left',
                   )),
-                  13 => 
+                  12 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Integrations',
                      'type' => NULL,
@@ -5600,6 +5523,210 @@ Not used in common version. Shown as a placeholder
                      'layout' => NULL,
                      'border' => false,
                      'icon' => 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMi4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iRWJlbmVfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHdpZHRoPSIyNHB4IiBoZWlnaHQ9IjI0cHgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMjQgMjQiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPHJlY3QgeD0iMy4yIiB5PSIxNS40IiB0cmFuc2Zvcm09Im1hdHJpeCgwLjc1OTcgLTAuNjUwMyAwLjY1MDMgMC43NTk3IC04LjgzNCA3Ljk5MzQpIiBmaWxsPSIjMjg3OEYwIiB3aWR0aD0iNi4zIiBoZWlnaHQ9IjEiLz4NCjxyZWN0IHg9IjUuOCIgeT0iNC45IiB0cmFuc2Zvcm09Im1hdHJpeCgwLjY1MSAtMC43NTkxIDAuNzU5MSAwLjY1MSAtMy44NjA4IDcuNTk5MykiIGZpbGw9IiMyODc4RjAiIHdpZHRoPSIxIiBoZWlnaHQ9IjYuMSIvPg0KPHJlY3QgeD0iMTAuOSIgeT0iNi4zIiB0cmFuc2Zvcm09Im1hdHJpeCgwLjUzMDQgLTAuODQ3OCAwLjg0NzggMC41MzA0IDAuOTI3MyAxNS4yNzY1KSIgZmlsbD0iIzI4NzhGMCIgd2lkdGg9IjYuNiIgaGVpZ2h0PSIxIi8+DQo8cmVjdCB4PSIxMy43IiB5PSIxMS41IiBmaWxsPSIjMjg3OEYwIiB3aWR0aD0iNi4zIiBoZWlnaHQ9IjEiLz4NCjxyZWN0IHg9IjEzLjgiIHk9IjEzLjkiIHRyYW5zZm9ybT0ibWF0cml4KDAuODQ3OCAtMC41MzAzIDAuNTMwMyAwLjg0NzggLTYuOTUxOSAxMC4xNzYyKSIgZmlsbD0iIzI4NzhGMCIgd2lkdGg9IjEiIGhlaWdodD0iNi42Ii8+DQo8Zz4NCgk8cGF0aCBmaWxsPSIjMjg3OEYwIiBkPSJNMTEsMTBjMS4xLDAsMiwwLjksMiwycy0wLjksMi0yLDJzLTItMC45LTItMlM5LjksMTAsMTEsMTAgTTExLDhjLTIuMiwwLTQsMS44LTQsNHMxLjgsNCw0LDRzNC0xLjgsNC00DQoJCVMxMy4yLDgsMTEsOEwxMSw4eiIvPg0KPC9nPg0KPGNpcmNsZSBmaWxsPSIjMjg3OEYwIiBjeD0iNCIgY3k9IjYiIHI9IjIiLz4NCjxjaXJjbGUgZmlsbD0iIzI4NzhGMCIgY3g9IjQiIGN5PSIxOCIgcj0iMiIvPg0KPGNpcmNsZSBmaWxsPSIjMjg3OEYwIiBjeD0iMTYiIGN5PSI0IiByPSIyIi8+DQo8Y2lyY2xlIGZpbGw9IiMyODc4RjAiIGN4PSIxNiIgY3k9IjIwIiByPSIyIi8+DQo8Y2lyY2xlIGZpbGw9IiMyODc4RjAiIGN4PSIyMCIgY3k9IjEyIiByPSIyIi8+DQo8L3N2Zz4NCg==',
+                     'labelWidth' => 100,
+                     'labelAlign' => 'left',
+                  )),
+                  13 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                     'name' => 'Prices (old)',
+                     'type' => NULL,
+                     'region' => NULL,
+                     'title' => 'Prices (old)',
+                     'width' => '',
+                     'height' => '',
+                     'collapsible' => false,
+                     'collapsed' => false,
+                     'bodyStyle' => '',
+                     'datatype' => 'layout',
+                     'children' => 
+                    array (
+                      0 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                         'name' => 'BasePrice',
+                         'title' => 'Base Price',
+                         'tooltip' => 'Cena bazowa
+
+Cena zakupu produktu u producenta lub techniczny koszt wytworzenia przy własnej produkcji',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'unitWidth' => '',
+                         'defaultUnit' => 'PLN',
+                         'validUnits' => 
+                        array (
+                          0 => 'PLN',
+                          1 => 'USD',
+                          2 => 'EUR',
+                          3 => 'GBP',
+                        ),
+                         'unique' => false,
+                         'autoConvert' => false,
+                         'defaultValueGenerator' => '',
+                         'width' => '',
+                         'defaultValue' => NULL,
+                         'integer' => false,
+                         'unsigned' => false,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'decimalSize' => NULL,
+                         'decimalPrecision' => NULL,
+                      )),
+                      1 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
+                         'name' => 'Price',
+                         'title' => 'Price',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => true,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'classes' => 
+                        array (
+                        ),
+                         'displayMode' => NULL,
+                         'pathFormatterClass' => '',
+                         'maxItems' => NULL,
+                         'visibleFields' => 'key',
+                         'allowToCreateNewObject' => false,
+                         'allowToClearRelation' => false,
+                         'optimizedAdminLoading' => false,
+                         'enableTextSelection' => false,
+                         'visibleFieldDefinitions' => 
+                        array (
+                        ),
+                         'width' => '',
+                         'height' => '',
+                         'allowedClassId' => 'Offer',
+                         'columns' => 
+                        array (
+                          0 => 
+                          array (
+                            'type' => 'number',
+                            'position' => 1,
+                            'key' => 'Price',
+                            'label' => 'Price',
+                            'value' => '',
+                            'width' => NULL,
+                          ),
+                          1 => 
+                          array (
+                            'type' => 'text',
+                            'position' => 2,
+                            'key' => 'Currency',
+                            'label' => 'Currency',
+                            'value' => '',
+                            'width' => NULL,
+                          ),
+                          2 => 
+                          array (
+                            'type' => 'bool',
+                            'position' => 3,
+                            'key' => 'Fixed',
+                            'label' => 'Is Fixed?',
+                          ),
+                        ),
+                         'columnKeys' => 
+                        array (
+                          0 => 'Price',
+                          1 => 'Currency',
+                          2 => 'Fixed',
+                        ),
+                         'enableBatchEdit' => false,
+                         'allowMultipleAssignments' => false,
+                      )),
+                      2 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
+                         'name' => 'Pricing',
+                         'title' => 'Pricing',
+                         'tooltip' => 'Wycena
+
+Wycena produktu lub innej usługi związanej z produktem, np. transport',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => true,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'classes' => 
+                        array (
+                        ),
+                         'displayMode' => NULL,
+                         'pathFormatterClass' => '',
+                         'maxItems' => NULL,
+                         'visibleFields' => 'fullpath,Countries',
+                         'allowToCreateNewObject' => false,
+                         'allowToClearRelation' => true,
+                         'optimizedAdminLoading' => false,
+                         'enableTextSelection' => false,
+                         'visibleFieldDefinitions' => 
+                        array (
+                        ),
+                         'width' => '',
+                         'height' => '',
+                         'allowedClassId' => 'Pricing',
+                         'columns' => 
+                        array (
+                          0 => 
+                          array (
+                            'type' => 'number',
+                            'position' => 1,
+                            'key' => 'Price',
+                            'label' => 'Price',
+                          ),
+                          1 => 
+                          array (
+                            'type' => 'text',
+                            'position' => 2,
+                            'key' => 'Currency',
+                            'label' => 'Currency',
+                          ),
+                        ),
+                         'columnKeys' => 
+                        array (
+                          0 => 'Price',
+                          1 => 'Currency',
+                        ),
+                         'enableBatchEdit' => false,
+                         'allowMultipleAssignments' => false,
+                      )),
+                    ),
+                     'locked' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'fieldtype' => 'panel',
+                     'layout' => NULL,
+                     'border' => false,
+                     'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/sales_performance.svg',
                      'labelWidth' => 100,
                      'labelAlign' => 'left',
                   )),
