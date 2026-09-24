@@ -1,0 +1,76 @@
+pimcore_data_hub:
+    configurations:
+        base-price-changes:
+            general:
+                active: true
+                type: dataImporterDataObject
+                name: base-price-changes
+                description: ''
+                group: ''
+                path: null
+                modificationDate: 1790287534
+                createDate: 1790286512
+            loaderConfig:
+                type: asset
+                settings:
+                    assetPath: /optimik/tkw.txt
+            interpreterConfig:
+                type: csv
+                settings:
+                    delimiter: ','
+                    enclosure: '"'
+                    escape: \
+            resolverConfig:
+                elementType: dataObject
+                dataObjectClassId: Product
+                loadingStrategy:
+                    type: attribute
+                    settings:
+                        dataSourceIndex: '0'
+                        attributeName: KeyCopy
+                        language: ''
+                        includeUnpublished: true
+                createLocationStrategy:
+                    type: doNotCreate
+                locationUpdateStrategy:
+                    type: noChange
+                publishingStrategy:
+                    type: noChangeUnpublishNew
+            processingConfig:
+                executionType: sequential
+                idDataIndex: ''
+            mappingConfig:
+                -
+                    label: 'Base Price (new)'
+                    dataSourceIndex:
+                        - '1'
+                    settings:
+                        unitSourceSelect: static
+                        staticUnitSelect: PLN
+                        unitNullIfNoValueCheckbox: 'on'
+                    transformationResultType: quantityValue
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: price_new_base
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline:
+                        -
+                            settings:
+                                unitSourceSelect: static
+                                staticUnitSelect: PLN
+                                unitNullIfNoValueCheckbox: 'on'
+                            type: quantityValue
+            executionConfig:
+                scheduleType: recurring
+                cronDefinition: ''
+                scheduledAt: ''
+            permissions:
+                user:
+                    -
+                        id: 2
+                        name: pimcore
+                role: {  }
+            workspaces: {  }

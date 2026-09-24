@@ -28,6 +28,7 @@ class ProductEventListener
 
     public function preUpdate(Product $product): void
     {
+        $product->setKeyCopy($product->getKey());
         $this->tryUpdateTotalMassAndVolume($product);
         $this->tryUpdateBruttoDimensions($product);
         $this->tryUpdateSerieSize($product);

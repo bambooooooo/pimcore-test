@@ -117,6 +117,7 @@
  * - Image [image]
  * - Ean [input]
  * - MPN [input]
+ * - KeyCopy [input]
  * - ImagesModel [imageGallery]
  * - Model3DStep [manyToOneRelation]
  * - Status [select]
@@ -131,7 +132,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Produkt',
    'description' => 'Towar, który można sprzedać',
    'creationDate' => NULL,
-   'modificationDate' => 1790285210,
+   'modificationDate' => 1790287669,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -2223,7 +2224,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                       0 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                          'name' => 'price_new_base',
-                         'title' => 'Cena bazowa netto PLN',
+                         'title' => '(Nowa) Cena bazowa netto PLN',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
@@ -5920,6 +5921,36 @@ Kod producenta',
                          'unique' => false,
                          'showCharCount' => false,
                          'width' => 400,
+                         'defaultValueGenerator' => '',
+                      )),
+                      3 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                         'name' => 'KeyCopy',
+                         'title' => 'Key Copy',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => true,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'columnLength' => 400,
+                         'regex' => '',
+                         'regexFlags' => 
+                        array (
+                        ),
+                         'unique' => false,
+                         'showCharCount' => false,
+                         'width' => '',
                          'defaultValueGenerator' => '',
                       )),
                     ),
