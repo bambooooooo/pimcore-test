@@ -32,6 +32,7 @@
  * - Parameters [classificationstore]
  * - ParametersAllegro [classificationstore]
  * - GoogleCategory [select]
+ * - base [quantityValue]
  * - price_base [quantityValue]
  * - price_catalog_pln [quantityValue]
  * - price_catalog_eur [quantityValue]
@@ -130,7 +131,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Produkt',
    'description' => 'Towar, który można sprzedać',
    'creationDate' => NULL,
-   'modificationDate' => 1790283611,
+   'modificationDate' => 1790285210,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -1398,6 +1399,43 @@ Parametry produktu podzielone na kolekcje i grupy.',
                     array (
                       0 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                         'name' => 'base',
+                         'title' => 'Cena bazowa netto (TKW) (old)',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => true,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'unitWidth' => '',
+                         'defaultUnit' => 'PLN',
+                         'validUnits' => 
+                        array (
+                          0 => 'PLN',
+                        ),
+                         'unique' => false,
+                         'autoConvert' => false,
+                         'defaultValueGenerator' => '',
+                         'width' => '',
+                         'defaultValue' => NULL,
+                         'integer' => false,
+                         'unsigned' => false,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'decimalSize' => NULL,
+                         'decimalPrecision' => NULL,
+                      )),
+                      1 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                          'name' => 'price_base',
                          'title' => 'Cena bazowa netto (TKW)',
                          'tooltip' => '',
@@ -1433,7 +1471,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
                       )),
-                      1 => 
+                      2 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                          'name' => 'price_catalog_pln',
                          'title' => 'Cena katalogowa PLN',
@@ -1470,7 +1508,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
                       )),
-                      2 => 
+                      3 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                          'name' => 'price_catalog_eur',
                          'title' => 'Cena katalogowa EUR',
@@ -1507,7 +1545,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
                       )),
-                      3 => 
+                      4 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
                          'name' => 'Layout',
                          'type' => NULL,
