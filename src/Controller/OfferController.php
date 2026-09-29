@@ -92,4 +92,65 @@ class OfferController extends FrontendController
 
         return new Response($json, Response::HTTP_OK);
     }
+
+    #[Route('/refresh-sets/{id}', name: '_refresh_sets', methods: ['PATCH', 'GET'])]
+    public function refreshSets(Request $request): Response
+    {
+        DataObject::setHideUnpublished(false);
+
+        $id = $request->get('id');
+        $offer = DataObject\Offer::getById($id);
+
+        if(!$offer) {
+            return new Response("Offer $id not found", Response::HTTP_NOT_FOUND);
+        }
+
+        if(!$offer->getPrice())
+        {
+            return new Response("No price selected for offer $id", Response::HTTP_NOT_FOUND);
+        }
+
+        $price = $offer->getPrice();
+
+        $listing = new DataObject\ProductSet\Listing();
+
+        $condition = $price . '__value > 0 AND `Set` IS NOT NULL AND Status IN (:status)';
+        $params = [
+            'status' => ["ACTIVE", "SALE"]
+        ];
+
+        $batches = $offer->getFilters()->getItems();
+
+        foreach ($batches as $batch)
+        {
+            if($batch instanceof SelectedGroups)
+            {
+                $conditions = [];
+                foreach($batch->getGroups() as $group)
+                {
+                    $parameter = "group" . $group->getId();
+
+                    $conditions[] = "Groups LIKE :{$parameter}";
+                    $params[$parameter] = '%,' . $group->getId() .',%';
+                }
+
+                if($conditions) {
+                    $condition .= " AND " . '(' . implode(" OR ", $conditions) . ')';
+                }
+            }
+        }
+
+        $listing->setCondition($condition, $params);
+        $listing->setOrderKey('key');
+        $listing->setOrder('asc');
+
+        $sets = $listing->load();
+
+        $json = json_encode($batches);
+
+        $offer->setSets($sets);
+        $offer->save();
+
+        return new Response($json, Response::HTTP_OK);
+    }
 }

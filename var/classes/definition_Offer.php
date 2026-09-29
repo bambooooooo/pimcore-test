@@ -15,6 +15,7 @@
  * - Pricings [manyToManyObjectRelation]
  * - Currency [select]
  * - Products [manyToManyObjectRelation]
+ * - Sets [manyToManyObjectRelation]
  * - Image [image]
  * - localizedfields [localizedfields]
  * -- Name [input]
@@ -33,7 +34,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
 
 Ofertę stanowi lista Wycen w ustalonej kolejności. Cena produktu w ofercie to pierwsza z Wycen, dla której zostaną spełnione ograniczenia.',
    'creationDate' => NULL,
-   'modificationDate' => 1790168717,
+   'modificationDate' => 1790664681,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -338,18 +339,14 @@ Ofertę stanowi lista Wycen w ustalonej kolejności. Cena produktu w ofercie to 
                   array (
                     'classes' => 'Product',
                   ),
-                  1 => 
-                  array (
-                    'classes' => 'ProductSet',
-                  ),
                 ),
                  'displayMode' => 'grid',
                  'pathFormatterClass' => '',
                  'maxItems' => NULL,
-                 'visibleFields' => 'id,key,Image',
+                 'visibleFields' => 'id,key,fullpath',
                  'allowToCreateNewObject' => false,
                  'allowToClearRelation' => true,
-                 'optimizedAdminLoading' => false,
+                 'optimizedAdminLoading' => true,
                  'enableTextSelection' => false,
                  'visibleFieldDefinitions' => 
                 array (
@@ -370,6 +367,72 @@ Ofertę stanowi lista Wycen w ustalonej kolejności. Cena produktu w ofercie to 
              'labelAlign' => 'left',
           )),
           2 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+             'name' => 'Sets',
+             'type' => NULL,
+             'region' => NULL,
+             'title' => 'Sets',
+             'width' => '',
+             'height' => '',
+             'collapsible' => false,
+             'collapsed' => false,
+             'bodyStyle' => '',
+             'datatype' => 'layout',
+             'children' => 
+            array (
+              0 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                 'name' => 'Sets',
+                 'title' => 'Sets',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => true,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'classes' => 
+                array (
+                  0 => 
+                  array (
+                    'classes' => 'ProductSet',
+                  ),
+                ),
+                 'displayMode' => 'grid',
+                 'pathFormatterClass' => '',
+                 'maxItems' => NULL,
+                 'visibleFields' => 'id,key,fullpath',
+                 'allowToCreateNewObject' => false,
+                 'allowToClearRelation' => true,
+                 'optimizedAdminLoading' => true,
+                 'enableTextSelection' => false,
+                 'visibleFieldDefinitions' => 
+                array (
+                ),
+                 'width' => '',
+                 'height' => '',
+              )),
+            ),
+             'locked' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'fieldtype' => 'panel',
+             'layout' => NULL,
+             'border' => false,
+             'icon' => '/UI/4-squares-red.svg',
+             'labelWidth' => 100,
+             'labelAlign' => 'left',
+          )),
+          3 => 
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Cover',
              'type' => NULL,
@@ -513,7 +576,7 @@ Ofertę stanowi lista Wycen w ustalonej kolejności. Cena produktu w ofercie to 
              'labelWidth' => 100,
              'labelAlign' => 'left',
           )),
-          3 => 
+          4 => 
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Integrations',
              'type' => NULL,

@@ -12,28 +12,20 @@ class JsonFeedBasic extends JsonFeedWriter
 {
     public function __construct(Offer $offer, Offer $referenceOffer = null)
     {
-        $refs = $offer->getDependencies()->getRequiredBy();
-        $data = [];
-
-        foreach ($refs as $ref) {
-            if($ref['type'] == 'object') {
-                $obj = DataObject::getById($ref['id']);
-                if($obj instanceof Product || $obj instanceof ProductSet) {
-                    $data[] = $obj;
-                }
-            }
-        }
+        $data = array_merge($offer->getProducts() ?? [], $offer->getSets() ?? []);
+        echo 'Found: ' . count($data) . ' items. ' . PHP_EOL;
 
         parent::__construct($data, function (Product|ProductSet $item) use ($offer) {
 
-            $price = 0.0;
+            $priceGetter = 'get' . $offer->getPrice();
 
-            foreach($item->getPrice() as $lip)
+            $price = (float)$item->{$priceGetter}()->getValue();
+            $price = $price * ((100 - $offer->getDrop() ?? 0.0) / 100);
+            $price = round($price, 2);
+
+            if($price == 0.0)
             {
-                if ($lip->getElement()->getId() == $offer->getId())
-                {
-                    $price = (float)$lip->getPrice();
-                }
+                return "";
             }
 
             $res = [];
