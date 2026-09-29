@@ -110,7 +110,7 @@ class PackageEventListener
 
     function sendToErp(Package $package) : void
     {
-        $this->bus->dispatch(new ErpIndex($package->getId()));
+//        $this->bus->dispatch(new ErpIndex($package->getId()));
     }
 
     private function assertLayersAreFilled(Package $package)

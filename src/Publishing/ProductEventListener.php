@@ -61,16 +61,16 @@ class ProductEventListener
 
             if(($product->getObjectType() == 'ACTUAL' || $product->getObjectType() == 'SKU') && $product->isPublished())
             {
-                $this->bus->dispatch(new ErpIndex($product->getId()));
+//                $this->bus->dispatch(new ErpIndex($product->getId()));
             }
 
             if($product->getObjectType() == 'ACTUAL')
             {
-                $this->bus->dispatch(new PsMessage($product->getId()));
+//                $this->bus->dispatch(new PsMessage($product->getId()));
 
                 if($product->isPublished())
                 {
-                    $this->bus->dispatch(new BlkIndex($product->getId()));
+//                    $this->bus->dispatch(new BlkIndex($product->getId()));
                 }
             }
         });
@@ -86,7 +86,7 @@ class ProductEventListener
     {
         if($product->getPs_megstyl_pl_id())
         {
-            $this->bus->dispatch(new PsMessage($product->getPs_megstyl_pl_id(), "delete"));
+//            $this->bus->dispatch(new PsMessage($product->getPs_megstyl_pl_id(), "delete"));
         }
     }
 

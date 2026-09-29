@@ -47,11 +47,11 @@ class ProductSetEventListener
                 $this->assertNamePL($set);
                 $this->assertProdutsAreAssignedAndPublished($set);
 
-                $this->bus->dispatch(new BlkIndex($set->getId()));
-                $this->bus->dispatch(new ErpIndex($set->getId()));
+//                $this->bus->dispatch(new BlkIndex($set->getId()));
+//                $this->bus->dispatch(new ErpIndex($set->getId()));
             }
 
-            $this->bus->dispatch(new PsMessage($set->getId()));
+//            $this->bus->dispatch(new PsMessage($set->getId()));
         });
     }
     function assertProdutsAreAssignedAndPublished(ProductSet $set) : void

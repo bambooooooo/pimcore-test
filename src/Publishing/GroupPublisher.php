@@ -19,7 +19,7 @@ class GroupPublisher
             $this->assertNamePL($group);
         }
 
-        $this->messageBus->dispatch(new PsMessage($group->getId()));
+//        $this->messageBus->dispatch(new PsMessage($group->getId()));
     }
     private function assertNamePL(Group $group) : void
     {

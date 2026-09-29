@@ -26,6 +26,7 @@ class ErpProductHandler
     }
     public function __invoke(ErpIndex $message): void
     {
+        return;
         $obj = DataObject::getById($message->getObjectId());
 
         if($obj instanceof ProductSet) {

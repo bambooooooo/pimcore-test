@@ -33,6 +33,7 @@ class PsHandler
 
     public function __invoke(PsMessage $message): void
     {
+        return;
         if ($message->getMode() == "delete") {
             $this->logger->info("Delete from prestashop #" . $message->getId() . " after object removal");
             $this->ps->delete("products" . "/" . $message->getId());

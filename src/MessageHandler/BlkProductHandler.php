@@ -19,6 +19,7 @@ class BlkProductHandler
     }
     public function __invoke(BlkIndex $message) : void
     {
+        return;
         $k = 'obj_' . $message->getObjectId();
         $lock = $this->lockFactory->createLock($k, 30);
 
