@@ -89,6 +89,10 @@ pimcore:
                             label: cappuccino
                             name: ''
                         -
+                            value: carbon
+                            label: carbon
+                            name: ''
+                        -
                             value: ceglany
                             label: ceglany
                             name: ''
