@@ -12,20 +12,42 @@ class JsonFeedBasic extends JsonFeedWriter
 {
     public function __construct(Offer $offer, Offer $referenceOffer = null)
     {
-        $data = array_merge($offer->getProducts() ?? [], $offer->getSets() ?? []);
-        echo 'Found: ' . count($data) . ' items. ' . PHP_EOL;
+        $refs = $offer->getDependencies()->getRequiredBy();
+        $data = [];
+
+        foreach ($refs as $ref) {
+            if($ref['type'] == 'object') {
+                $obj = DataObject::getById($ref['id']);
+                if(($obj instanceof Product || $obj instanceof ProductSet) && (in_array($obj->getStatus(), ['Active', 'Sale']))) {
+
+                    $price = 0.0;
+
+                    foreach($obj->getPrice() as $lip)
+                    {
+                        if ($lip->getElement()->getId() == $offer->getId())
+                        {
+                            $price = (float)$lip->getPrice();
+                        }
+                    }
+
+                    if($price > 0)
+                    {
+                        $data[] = $obj;
+                    }
+                }
+            }
+        }
 
         parent::__construct($data, function (Product|ProductSet $item) use ($offer) {
 
-            $priceGetter = 'get' . $offer->getPrice();
+            $price = 0.0;
 
-            $price = (float)$item->{$priceGetter}()->getValue();
-            $price = $price * ((100 - $offer->getDrop() ?? 0.0) / 100);
-            $price = round($price, 2);
-
-            if($price == 0.0)
+            foreach($item->getPrice() as $lip)
             {
-                return "";
+                if ($lip->getElement()->getId() == $offer->getId())
+                {
+                    $price = (float)$lip->getPrice();
+                }
             }
 
             $res = [];

@@ -32,13 +32,13 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'useTraits' => '',
    'listingUseTraits' => '',
    'encryption' => false,
-   'encryptedTables' => 
+   'encryptedTables' =>
   array (
   ),
    'allowInherit' => true,
    'allowVariants' => false,
    'showVariants' => false,
-   'layoutDefinitions' => 
+   'layoutDefinitions' =>
   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
      'name' => 'pimcore_root',
      'type' => NULL,
@@ -50,9 +50,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
      'collapsed' => false,
      'bodyStyle' => NULL,
      'datatype' => 'layout',
-     'children' => 
+     'children' =>
     array (
-      0 => 
+      0 =>
       \Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
          'name' => 'Layout',
          'type' => NULL,
@@ -64,9 +64,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'collapsed' => false,
          'bodyStyle' => '',
          'datatype' => 'layout',
-         'children' => 
+         'children' =>
         array (
-          0 => 
+          0 =>
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'System',
              'type' => NULL,
@@ -78,9 +78,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'collapsed' => false,
              'bodyStyle' => '',
              'datatype' => 'layout',
-             'children' => 
+             'children' =>
             array (
-              0 => 
+              0 =>
               \Pimcore\Model\DataObject\ClassDefinition\Data\Countrymultiselect::__set_state(array(
                  'name' => 'Countries',
                  'title' => 'Countries',
@@ -96,7 +96,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' => 
+                 'blockedVarsForExport' =>
                 array (
                 ),
                  'maxItems' => NULL,
@@ -113,7 +113,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               )),
             ),
              'locked' => false,
-             'blockedVarsForExport' => 
+             'blockedVarsForExport' =>
             array (
             ),
              'fieldtype' => 'panel',
@@ -123,7 +123,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'labelWidth' => 120,
              'labelAlign' => 'left',
           )),
-          1 => 
+          1 =>
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Restrictions',
              'type' => NULL,
@@ -135,9 +135,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'collapsed' => false,
              'bodyStyle' => '',
              'datatype' => 'layout',
-             'children' => 
+             'children' =>
             array (
-              0 => 
+              0 =>
               \Pimcore\Model\DataObject\ClassDefinition\Data\Objectbricks::__set_state(array(
                  'name' => 'Restrictions',
                  'title' => 'Restrictions',
@@ -153,16 +153,17 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' => 
+                 'blockedVarsForExport' =>
                 array (
                 ),
-                 'allowedTypes' => 
+                 'allowedTypes' =>
                 array (
+                  0 => 'SelectedGroups',
                 ),
                  'maxItems' => NULL,
                  'border' => false,
               )),
-              1 => 
+              1 =>
               \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                  'name' => 'Layout',
                  'type' => NULL,
@@ -174,11 +175,11 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'collapsed' => false,
                  'bodyStyle' => '',
                  'datatype' => 'layout',
-                 'children' => 
+                 'children' =>
                 array (
                 ),
                  'locked' => false,
-                 'blockedVarsForExport' => 
+                 'blockedVarsForExport' =>
                 array (
                 ),
                  'fieldtype' => 'text',
@@ -191,7 +192,7 @@ Wymagania, które musi spełnić produkt, aby wycena była możliwa',
               )),
             ),
              'locked' => false,
-             'blockedVarsForExport' => 
+             'blockedVarsForExport' =>
             array (
             ),
              'fieldtype' => 'panel',
@@ -201,7 +202,7 @@ Wymagania, które musi spełnić produkt, aby wycena była możliwa',
              'labelWidth' => 100,
              'labelAlign' => 'left',
           )),
-          2 => 
+          2 =>
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Pricing',
              'type' => NULL,
@@ -213,9 +214,9 @@ Wymagania, które musi spełnić produkt, aby wycena była możliwa',
              'collapsed' => false,
              'bodyStyle' => '',
              'datatype' => 'layout',
-             'children' => 
+             'children' =>
             array (
-              0 => 
+              0 =>
               \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                  'name' => 'UseBasePrice',
                  'title' => 'Use Base Price',
@@ -231,13 +232,13 @@ Wymagania, które musi spełnić produkt, aby wycena była możliwa',
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' => 
+                 'blockedVarsForExport' =>
                 array (
                 ),
                  'defaultValue' => 1,
                  'defaultValueGenerator' => '',
               )),
-              1 => 
+              1 =>
               \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                  'name' => 'Currency',
                  'title' => 'Currency',
@@ -253,27 +254,27 @@ Wymagania, które musi spełnić produkt, aby wycena była możliwa',
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' => 
+                 'blockedVarsForExport' =>
                 array (
                 ),
-                 'options' => 
+                 'options' =>
                 array (
-                  0 => 
+                  0 =>
                   array (
                     'key' => 'PLN',
                     'value' => 'PLN',
                   ),
-                  1 => 
+                  1 =>
                   array (
                     'key' => 'EUR',
                     'value' => 'EUR',
                   ),
-                  2 => 
+                  2 =>
                   array (
                     'key' => 'USD',
                     'value' => 'USD',
                   ),
-                  3 => 
+                  3 =>
                   array (
                     'key' => 'GBP',
                     'value' => 'GBP',
@@ -288,7 +289,7 @@ Wymagania, które musi spełnić produkt, aby wycena była możliwa',
                  'optionsProviderClass' => '',
                  'optionsProviderData' => '',
               )),
-              2 => 
+              2 =>
               \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'name' => 'Rate',
                  'title' => 'Rate',
@@ -304,7 +305,7 @@ Wymagania, które musi spełnić produkt, aby wycena była możliwa',
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' => 
+                 'blockedVarsForExport' =>
                 array (
                 ),
                  'defaultValue' => 1,
@@ -318,7 +319,7 @@ Wymagania, które musi spełnić produkt, aby wycena była możliwa',
                  'width' => '',
                  'defaultValueGenerator' => '',
               )),
-              3 => 
+              3 =>
               \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                  'name' => 'Rounding',
                  'title' => 'Rounding',
@@ -351,13 +352,13 @@ od 1 000.00 - 50.00 | 1580.23 => 1550.00
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' => 
+                 'blockedVarsForExport' =>
                 array (
                 ),
                  'defaultValue' => 0,
                  'defaultValueGenerator' => '',
               )),
-              4 => 
+              4 =>
               \Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections::__set_state(array(
                  'name' => 'Rules',
                  'title' => 'Rules',
@@ -373,10 +374,10 @@ od 1 000.00 - 50.00 | 1580.23 => 1550.00
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' => 
+                 'blockedVarsForExport' =>
                 array (
                 ),
-                 'allowedTypes' => 
+                 'allowedTypes' =>
                 array (
                   0 => 'Factor',
                   1 => 'Surcharge',
@@ -395,7 +396,7 @@ od 1 000.00 - 50.00 | 1580.23 => 1550.00
                  'collapsible' => false,
                  'border' => false,
               )),
-              5 => 
+              5 =>
               \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                  'name' => 'Layout',
                  'type' => NULL,
@@ -407,11 +408,11 @@ od 1 000.00 - 50.00 | 1580.23 => 1550.00
                  'collapsed' => false,
                  'bodyStyle' => '',
                  'datatype' => 'layout',
-                 'children' => 
+                 'children' =>
                 array (
                 ),
                  'locked' => false,
-                 'blockedVarsForExport' => 
+                 'blockedVarsForExport' =>
                 array (
                 ),
                  'fieldtype' => 'text',
@@ -424,7 +425,7 @@ Kroki służące do wyznaczenia końcowej ceny usługi',
               )),
             ),
              'locked' => false,
-             'blockedVarsForExport' => 
+             'blockedVarsForExport' =>
             array (
             ),
              'fieldtype' => 'panel',
@@ -436,7 +437,7 @@ Kroki służące do wyznaczenia końcowej ceny usługi',
           )),
         ),
          'locked' => false,
-         'blockedVarsForExport' => 
+         'blockedVarsForExport' =>
         array (
         ),
          'fieldtype' => 'tabpanel',
@@ -445,7 +446,7 @@ Kroki służące do wyznaczenia końcowej ceny usługi',
       )),
     ),
      'locked' => false,
-     'blockedVarsForExport' => 
+     'blockedVarsForExport' =>
     array (
     ),
      'fieldtype' => 'panel',
@@ -460,13 +461,13 @@ Kroki służące do wyznaczenia końcowej ceny usługi',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',
    'previewGeneratorReference' => '',
-   'compositeIndices' => 
+   'compositeIndices' =>
   array (
   ),
    'showFieldLookup' => false,
-   'propertyVisibility' => 
+   'propertyVisibility' =>
   array (
-    'grid' => 
+    'grid' =>
     array (
       'id' => true,
       'key' => false,
@@ -475,7 +476,7 @@ Kroki służące do wyznaczenia końcowej ceny usługi',
       'modificationDate' => true,
       'creationDate' => true,
     ),
-    'search' => 
+    'search' =>
     array (
       'id' => true,
       'key' => false,
@@ -486,16 +487,16 @@ Kroki służące do wyznaczenia końcowej ceny usługi',
     ),
   ),
    'enableGridLocking' => false,
-   'deletedDataComponents' => 
+   'deletedDataComponents' =>
   array (
   ),
-   'blockedVarsForExport' => 
+   'blockedVarsForExport' =>
   array (
   ),
-   'fieldDefinitionsCache' => 
+   'fieldDefinitionsCache' =>
   array (
   ),
-   'activeDispatchingEvents' => 
+   'activeDispatchingEvents' =>
   array (
   ),
 ));

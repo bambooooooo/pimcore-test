@@ -12,21 +12,37 @@ class CsvFeedBasic extends CsvFeedWriter
 {
     public function __construct(Offer $offer, Offer $referenceOffer = null)
     {
-        $data = array_merge($offer->getProducts() ?? [], $offer->getSets() ?? []);
+        $refs = $offer->getDependencies()->getRequiredBy();
+        $data = [];
+
+        foreach ($refs as $ref) {
+            if($ref['type'] == 'object') {
+                $obj = DataObject::getById($ref['id']);
+                if(($obj instanceof Product || $obj instanceof ProductSet) && (in_array($obj->getStatus(), ['Active', 'Sale']))) {
+                    $data[] = $obj;
+                }
+            }
+        }
+
         echo 'Found: ' . count($data) . ' items. ' . PHP_EOL;
 
         parent::__construct($data, function (Product|ProductSet $item) use ($offer) {
 
-            $priceGetter = 'get' . $offer->getPrice();
+            $price = 0.0;
 
-            $price = (float)$item->{$priceGetter}()->getValue();
-            $price = $price * ((100 - $offer->getDrop() ?? 0.0) / 100);
-            $price = round($price, 2);
+            foreach($item->getPrice() as $lip)
+            {
+                if ($lip->getElement()->getId() == $offer->getId())
+                {
+                    $price = (float)$lip->getPrice();
+                }
+            }
 
             if($price == 0.0)
             {
                 return "";
             }
+
 
             $fields = [
                 $item->getId(),

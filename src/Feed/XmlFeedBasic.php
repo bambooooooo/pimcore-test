@@ -13,30 +13,51 @@ class XmlFeedBasic extends XmlFeedWriter
 {
     public function __construct(Offer $offer, Offer $referenceOffer = null)
     {
-        $data = array_merge($offer->getProducts() ?? [], $offer->getSets() ?? []);
-        echo 'Found: ' . count($data) . ' items. ' . PHP_EOL;
+        $refs = $offer->getDependencies()->getRequiredBy();
+        $data = [];
 
-        parent::__construct($data, function (Product|ProductSet $item) use ($offer) {
+        foreach ($refs as $ref) {
+            if($ref['type'] == 'object') {
+                $obj = DataObject::getById($ref['id']);
+                if(($obj instanceof Product || $obj instanceof ProductSet) && (in_array($obj->getStatus(), ['Active', 'Sale']))) {
+                    $price = 0.0;
 
-            $priceGetter = 'get' . $offer->getPrice();
+                    foreach($obj->getPrice() as $lip)
+                    {
+                        if ($lip->getElement()->getId() == $offer->getId())
+                        {
+                            $price = (float)$lip->getPrice();
+                        }
+                    }
 
-            $price = (float)$item->{$priceGetter}()->getValue();
-            $price = $price * ((100 - $offer->getDrop() ?? 0.0) / 100);
-            $price = round($price, 2);
+                    if($price > 0)
+                    {
+                        $data[] = $obj;
+                    }
+                }
+            }
+        }
 
-            if($price == 0.0)
+        parent::__construct($data, function (Product|ProductSet $obj) use ($offer)
+        {
+            $price = 0.0;
+
+            foreach($obj->getPrice() as $lip)
             {
-                return "";
+                if ($lip->getElement()->getId() == $offer->getId())
+                {
+                    $price = (float)$lip->getPrice();
+                }
             }
 
             $doc = new DOMDocument('1.0', 'utf-8');
             $doc->formatOutput = true;
 
             $prod = $doc->createElement('product');
-            $prod->setAttribute('id', $item->getId());
-            $prod->appendChild($doc->createElement('sku', (string)$item->getId()));
-            $prod->appendChild($doc->createElement('name', (string)$item->getName("pl")));
-            $prod->appendChild($doc->createElement('instock', $item->getStock()));
+            $prod->setAttribute('id', $obj->getId());
+            $prod->appendChild($doc->createElement('sku', (string)$obj->getId()));
+            $prod->appendChild($doc->createElement('name', (string)$obj->getName("pl")));
+            $prod->appendChild($doc->createElement('instock', $obj->getStock()));
             $prod->appendChild($doc->createElement('price', $price));
 
             return $doc->saveXML($prod);

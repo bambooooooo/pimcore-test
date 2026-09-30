@@ -14,10 +14,19 @@ class XmlFeedEmkaMeble extends XmlFeedWriter
 {
     public function __construct(Offer $offer, Offer $referenceOffer = null)
     {
-        $data = array_merge($offer->getProducts() ?? [], $offer->getSets() ?? []);
-        echo 'Found: ' . count($data) . ' items. ' . PHP_EOL;
+        $refs = $offer->getDependencies()->getRequiredBy();
+        $data = [];
 
-        parent::__construct($data, function (Product|ProductSet $item) use ($offer) {
+        foreach ($refs as $ref) {
+            if($ref['type'] == 'object') {
+                $obj = DataObject::getById($ref['id']);
+                if(($obj instanceof Product || $obj instanceof ProductSet) && (in_array($obj->getStatus(), ['Active', 'Sale']))) {
+                    $data[] = $obj;
+                }
+            }
+        }
+
+        parent::__construct($data, function(Product|ProductSet $item) use ($offer, $referenceOffer) {
 
             $doc = new DOMDocument('1.0', 'utf-8');
             $doc->formatOutput = true;

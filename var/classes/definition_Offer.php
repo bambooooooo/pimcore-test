@@ -22,6 +22,7 @@
  * -- Summary [wysiwyg]
  * - Feed [block]
  * -- Schema [select]
+ * -- ReferenceOffer [manyToOneRelation]
  * -- File [manyToOneRelation]
  */
 
@@ -34,7 +35,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
 
 Ofertę stanowi lista Wycen w ustalonej kolejności. Cena produktu w ofercie to pierwsza z Wycen, dla której zostaną spełnione ograniczenia.',
    'creationDate' => NULL,
-   'modificationDate' => 1790664681,
+   'modificationDate' => 1790764007,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -181,14 +182,14 @@ Ofertę stanowi lista Wycen w ustalonej kolejności. Cena produktu w ofercie to 
                  'title' => 'Brutto',
                  'tooltip' => '',
                  'mandatory' => false,
-                 'noteditable' => true,
+                 'noteditable' => false,
                  'index' => false,
                  'locked' => false,
                  'style' => '',
                  'permissions' => NULL,
                  'fieldtype' => '',
                  'relationType' => false,
-                 'invisible' => true,
+                 'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
                  'blockedVarsForExport' => 
@@ -203,14 +204,14 @@ Ofertę stanowi lista Wycen w ustalonej kolejności. Cena produktu w ofercie to 
                  'title' => 'Pricing (dump, BC only)',
                  'tooltip' => '',
                  'mandatory' => false,
-                 'noteditable' => true,
+                 'noteditable' => false,
                  'index' => false,
                  'locked' => false,
                  'style' => '',
                  'permissions' => NULL,
                  'fieldtype' => '',
                  'relationType' => true,
-                 'invisible' => true,
+                 'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
                  'blockedVarsForExport' => 
@@ -243,14 +244,14 @@ Ofertę stanowi lista Wycen w ustalonej kolejności. Cena produktu w ofercie to 
                  'title' => 'Currency (dump, BC only)',
                  'tooltip' => '',
                  'mandatory' => false,
-                 'noteditable' => true,
+                 'noteditable' => false,
                  'index' => false,
                  'locked' => false,
                  'style' => '',
                  'permissions' => NULL,
                  'fieldtype' => '',
                  'relationType' => false,
-                 'invisible' => true,
+                 'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
                  'blockedVarsForExport' => 
@@ -675,6 +676,48 @@ Feedy produktowe są generowane cyklicznie co kilka godzin
                   )),
                   1 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+                     'name' => 'ReferenceOffer',
+                     'title' => 'Reference Offer',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => true,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'classes' => 
+                    array (
+                      0 => 
+                      array (
+                        'classes' => 'Offer',
+                      ),
+                    ),
+                     'displayMode' => 'grid',
+                     'pathFormatterClass' => '',
+                     'assetInlineDownloadAllowed' => false,
+                     'assetUploadPath' => '',
+                     'allowToClearRelation' => true,
+                     'objectsAllowed' => true,
+                     'assetsAllowed' => false,
+                     'assetTypes' => 
+                    array (
+                    ),
+                     'documentsAllowed' => false,
+                     'documentTypes' => 
+                    array (
+                    ),
+                     'width' => '',
+                  )),
+                  2 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
                      'name' => 'File',
                      'title' => 'File',
                      'tooltip' => '',
@@ -784,6 +827,48 @@ Feedy produktowe są generowane cyklicznie co kilka godzin
    'enableGridLocking' => false,
    'deletedDataComponents' => 
   array (
+    0 => 
+    \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+       'name' => 'ReferenceOffer',
+       'title' => 'Reference Offer',
+       'tooltip' => '',
+       'mandatory' => false,
+       'noteditable' => false,
+       'index' => false,
+       'locked' => false,
+       'style' => '',
+       'permissions' => NULL,
+       'fieldtype' => '',
+       'relationType' => true,
+       'invisible' => false,
+       'visibleGridView' => false,
+       'visibleSearch' => false,
+       'blockedVarsForExport' => 
+      array (
+      ),
+       'classes' => 
+      array (
+        0 => 
+        array (
+          'classes' => 'Offer',
+        ),
+      ),
+       'displayMode' => 'grid',
+       'pathFormatterClass' => '',
+       'assetInlineDownloadAllowed' => false,
+       'assetUploadPath' => '',
+       'allowToClearRelation' => true,
+       'objectsAllowed' => true,
+       'assetsAllowed' => false,
+       'assetTypes' => 
+      array (
+      ),
+       'documentsAllowed' => false,
+       'documentTypes' => 
+      array (
+      ),
+       'width' => '',
+    )),
   ),
    'blockedVarsForExport' => 
   array (

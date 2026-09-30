@@ -123,6 +123,11 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
       'classname' => 'Offer',
       'fieldname' => 'Filters',
     ),
+    1 => 
+    array (
+      'classname' => 'Pricing',
+      'fieldname' => 'Restrictions',
+    ),
   ),
    'activeDispatchingEvents' => 
   array (

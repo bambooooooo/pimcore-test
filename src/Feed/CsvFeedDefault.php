@@ -13,16 +13,33 @@ class CsvFeedDefault extends CsvFeedWriter
 {
     public function __construct(Offer $offer, Offer $referenceOffer = null)
     {
-        $data = array_merge($offer->getProducts() ?? [], $offer->getSets() ?? []);
+        $refs = $offer->getDependencies()->getRequiredBy();
+        $data = [];
+
+        foreach ($refs as $ref) {
+            if($ref['type'] == 'object') {
+                $obj = DataObject::getById($ref['id']);
+                if(($obj instanceof Product || $obj instanceof ProductSet) && (in_array($obj->getStatus(), ['Active', 'Sale']))) {
+                    $data[] = $obj;
+                }
+            }
+        }
+
         echo 'Found: ' . count($data) . ' items. ' . PHP_EOL;
 
-        parent::__construct($data, function (Product|ProductSet $item) use ($offer) {
+        parent::__construct($data, function (Product|ProductSet $item) use ($offer, $referenceOffer) {
 
-            $priceGetter = 'get' . $offer->getPrice();
+            $price = 0.0;
+            $endPrice = 0.0;
 
-            $price = (float)$item->{$priceGetter}()->getValue();
-            $price = $price * ((100 - $offer->getDrop() ?? 0.0) / 100);
-            $price = round($price, 2);
+            foreach($item->getPrice() as $lip)
+            {
+                if($lip->getElement()->getId() == $offer->getId())
+                    $price = (float)$lip->getPrice();
+
+                if($lip->getElement()->getId() == $referenceOffer->getId())
+                    $endPrice = (float)$lip->getPrice();
+            }
 
             if($price == 0.0)
             {
@@ -49,6 +66,7 @@ class CsvFeedDefault extends CsvFeedWriter
                 $item->getName("pl"),
                 ($item instanceof Product) ? $item->getModel() : $item->getParent()->getKey(),
                 $price,
+                $endPrice,
                 $offer->getCurrency(),
                 ($item instanceof Product) ? round($item->getWidth()->getValue() / 10) : '',
                 ($item instanceof Product) ? round($item->getHeight()->getValue() / 10) : '',
@@ -160,6 +178,7 @@ class CsvFeedDefault extends CsvFeedWriter
             'name',
             'serie',
             'price',
+            'endprice',
             'currency',
             'width',
             'height',

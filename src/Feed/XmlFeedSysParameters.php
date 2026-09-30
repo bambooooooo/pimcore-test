@@ -12,22 +12,53 @@ use Pimcore\Model\DataObject\ProductSet;
 
 class XmlFeedSysParameters extends XmlFeedWriter
 {
-    public function __construct(Offer $offer, Offer $referenceOffer = null)
+    public function __construct(Offer $offer, Offer $referenceOffer)
     {
-        $data = array_merge($offer->getProducts() ?? [], $offer->getSets() ?? []);
-        echo 'Found: ' . count($data) . ' items. ' . PHP_EOL;
+        if(!$referenceOffer)
+        {
+            throw new \Exception("Reference offer is null");
+        }
 
-        parent::__construct($data, function (Product|ProductSet $item) use ($offer) {
+        $refs = $offer->getDependencies()->getRequiredBy();
+        $data = [];
 
-            $priceGetter = 'get' . $offer->getPrice();
+        foreach ($refs as $ref) {
+            if($ref['type'] == 'object') {
+                $obj = DataObject::getById($ref['id']);
+                if(($obj instanceof Product || $obj instanceof ProductSet) && (in_array($obj->getStatus(), ['Active', 'Sale']))) {
 
-            $price = (float)$item->{$priceGetter}()->getValue();
-            $price = $price * ((100 - $offer->getDrop() ?? 0.0) / 100);
-            $price = round($price, 2);
+                    $price = 0.0;
+                    $endPrice = 0.0;
 
-            if($price == 0.0)
+                    foreach($obj->getPrice() as $lip)
+                    {
+                        if($lip->getElement()->getId() == $offer->getId())
+                            $price = (float)$lip->getPrice();
+
+                        if($lip->getElement()->getId() == $referenceOffer->getId())
+                            $endPrice = (float)$lip->getPrice();
+                    }
+
+                    if($price * $endPrice > 0.0)
+                    {
+                        $data[] = $obj;
+                    }
+                }
+            }
+        }
+
+        parent::__construct($data, function(Product|ProductSet $item) use ($offer, $referenceOffer) {
+
+            $price = 0.0;
+            $endPrice = 0.0;
+
+            foreach($item->getPrice() as $lip)
             {
-                return "";
+                if($lip->getElement()->getId() == $offer->getId())
+                    $price = (float)$lip->getPrice();
+
+                if($lip->getElement()->getId() == $referenceOffer->getId())
+                    $endPrice = (float)$lip->getPrice();
             }
 
             $doc = new DOMDocument('1.0', 'utf-8');
@@ -50,6 +81,7 @@ class XmlFeedSysParameters extends XmlFeedWriter
 
 
             $prod->appendChild($doc->createElement('price', (string)number_format($price, 2, ".", "")));
+            $prod->appendChild($doc->createElement('endprice', (string)number_format($endPrice, 2, ".", "")));
 
             $prod->appendChild($doc->createElement('currency', (string)$offer->getCurrency()));
 

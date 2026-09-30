@@ -32,6 +32,8 @@ class ProductEventListener
         $this->tryUpdateTotalMassAndVolume($product);
         $this->tryUpdateBruttoDimensions($product);
         $this->tryUpdateSerieSize($product);
+        $this->tryUpdatePricing($product);
+        $this->tryUpdateOffers($product);
 
         if($product->isPublished())
         {
@@ -61,7 +63,7 @@ class ProductEventListener
 
             if(($product->getObjectType() == 'ACTUAL' || $product->getObjectType() == 'SKU') && $product->isPublished())
             {
-//                $this->bus->dispatch(new ErpIndex($product->getId()));
+                $this->bus->dispatch(new ErpIndex($product->getId()));
             }
 
             if($product->getObjectType() == 'ACTUAL')
@@ -248,6 +250,59 @@ class ProductEventListener
             $product->setPackagesVolume(null);
             $product->setPackageCount(null);
             $product->setSerieSize(null);
+        }
+    }
+
+    function tryUpdatePricing(Product $product) : void
+    {
+        try
+        {
+            $pricings = new Pricing\Listing();
+            $pricings->setCondition("`published` = 1");
+            $productPrices = [];
+
+            foreach ($pricings as $pricing)
+            {
+                $res = $this->getPricing($product, $pricing);
+
+                if($res)
+                {
+                    $productPrices[] = $res;
+                }
+            }
+
+            $product->setPricing($productPrices);
+            $product->save(['versionNote' => 'Update pricings']);
+        }
+        catch(\Throwable $e)
+        {
+            $product->setPricing(null);
+        }
+    }
+
+    function tryUpdateOffers(Product $product) : void
+    {
+        try
+        {
+            $product->setPrice($this->offerService->getObjectPrices($product));
+            $product->save(['versionNote' => 'Update offer prices']);
+        }
+        catch(\Throwable $e)
+        {
+            $product->setPrice(null);
+        }
+    }
+
+    function getPricing(Product $product, Pricing $pricing)
+    {
+        $price = $this->pricingService->getPricing($product, $pricing);
+        if($price)
+        {
+            $item = new ObjectMetadata('Pricing', ['Price', 'Currency'], $pricing);
+            $item->setPrice($price);
+            $item->setCurrency($pricing->getCurrency());
+
+            return $item;
         }
     }
 
