@@ -79,6 +79,7 @@
  * - ps_megstyl_pl_id [numeric]
  * - sgt [checkbox]
  * - BaselinkerCatalog [advancedManyToManyObjectRelation]
+ * - OBI [select]
  * - BasePrice [quantityValue]
  * - Price [advancedManyToManyObjectRelation]
  * - Pricing [advancedManyToManyObjectRelation]
@@ -98,7 +99,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1790279851,
+   'modificationDate' => 1790861984,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -3675,6 +3676,81 @@ Not used in common version. Shown as a placeholder
                              'layout' => NULL,
                              'border' => false,
                              'icon' => '/LOGO/base.png',
+                             'labelWidth' => 100,
+                             'labelAlign' => 'left',
+                          )),
+                          3 => 
+                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                             'name' => 'OBI',
+                             'type' => NULL,
+                             'region' => NULL,
+                             'title' => 'OBI',
+                             'width' => '',
+                             'height' => '',
+                             'collapsible' => false,
+                             'collapsed' => false,
+                             'bodyStyle' => '',
+                             'datatype' => 'layout',
+                             'children' => 
+                            array (
+                              0 => 
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                                 'name' => 'OBI',
+                                 'title' => 'OBI',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'options' => 
+                                array (
+                                  0 => 
+                                  array (
+                                    'key' => 'Yes',
+                                    'value' => 'YES',
+                                    'id' => 'extModel19334-1',
+                                  ),
+                                  1 => 
+                                  array (
+                                    'key' => 'No',
+                                    'value' => 'NO',
+                                    'id' => 'extModel19334-2',
+                                  ),
+                                  2 => 
+                                  array (
+                                    'key' => 'Retired',
+                                    'value' => 'RETIRED',
+                                    'id' => 'extModel19334-3',
+                                  ),
+                                ),
+                                 'defaultValue' => 'NO',
+                                 'columnLength' => 190,
+                                 'dynamicOptions' => false,
+                                 'defaultValueGenerator' => '',
+                                 'width' => '',
+                                 'optionsProviderType' => 'configure',
+                                 'optionsProviderClass' => '',
+                                 'optionsProviderData' => '',
+                              )),
+                            ),
+                             'locked' => false,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'fieldtype' => 'panel',
+                             'layout' => NULL,
+                             'border' => false,
+                             'icon' => '/LOGO/obi.jpg',
                              'labelWidth' => 100,
                              'labelAlign' => 'left',
                           )),
