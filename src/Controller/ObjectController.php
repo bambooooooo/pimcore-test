@@ -627,6 +627,240 @@ class ObjectController extends FrontendController
         throw new \Exception("Object [class: " . $obj->getClassId() . "] or field: " . $field . " not supported", Response::HTTP_BAD_REQUEST);
     }
 
+    #[Route("/prices/{id}", name: "prices")]
+    public function pricesAction(Request $request): Response
+    {
+        $id = $request->get("id");
+        $kind = $request->get("kind") ?? "preview";
+        $references = $request->get("references") ?? [];
+        $filename = $request->get("filename") ?? null;
+
+        $obj = DataObject\Offer::getById($id);
+
+        return $this->offerPriceListXlsx($obj, $references, $filename);
+    }
+
+    private function offerPriceListXlsx(Offer $offer, array $references = [], string $filename = null): Response
+    {
+        DataObject::setHideUnpublished(false);
+        $id = $offer->getId();
+
+        $spreadsheet = new SpreadSheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $productSheet = $spreadsheet->getActiveSheet();
+
+        $sheet->setTitle($this->translator->trans("Products"));
+        $sheet->setCellValue('A1', '#');
+        $sheet->setCellValue('B1', $this->translator->trans('Image'));
+        $sheet->setCellValue('C1', $this->translator->trans('Sku'));
+        $sheet->setCellValue('D1', $this->translator->trans('Ean'));
+        $sheet->setCellValue('E1', $this->translator->trans('Name'));
+        $sheet->setCellValue('F1', $this->translator->trans('Width'));
+        $sheet->setCellValue('G1', $this->translator->trans('Height'));
+        $sheet->setCellValue('H1', $this->translator->trans('Depth'));
+        $sheet->setCellValue('I1', $offer->getName());
+
+        $ws = new Worksheet($sheet->getParent());
+        $sheetSets = $spreadsheet->addSheet($ws);
+        $sheetSets->setTitle($this->translator->trans("Sets"));
+        $sheetSets->setCellValue('B1', $this->translator->trans('Image'));
+        $sheetSets->setCellValue('C1', $this->translator->trans('Sku'));
+        $sheetSets->setCellValue('D1', $this->translator->trans('Ean'));
+        $sheetSets->setCellValue('E1', $this->translator->trans('Name'));
+        $sheetSets->setCellValue('F1', $this->translator->trans('Width'));
+        $sheetSets->setCellValue('G1', $this->translator->trans('Height'));
+        $sheetSets->setCellValue('H1', $this->translator->trans('Depth'));
+        $sheetSets->setCellValue('I1', $offer->getName());
+
+        $i = 10;
+        foreach($references as $reference)
+        {
+            $refOffer = DataObject\Offer::getById($reference);
+            $sheet->setCellValue([$i, 1], $refOffer->getName());
+            $i++;
+        }
+
+        $sheet->getStyle('E')->getAlignment()->setWrapText(true);
+
+        $i = 2;
+
+        foreach ($offer->getDependencies()->getRequiredBy() as $req)
+        {
+            $obj = DataObject::getById($req['id']);
+
+            if(!$obj)
+                continue;
+
+            if(!($obj instanceof Product))
+                continue;
+
+            $sheet->getRowDimension($i)->setRowHeight(64);
+            $sheet->setCellValue('A' . $i, $i - 1);
+            $sheet->setCellValue('C' . $i, $obj->getId());
+            $sheet->setCellValueExplicit('D' . $i, $obj->getEan(), \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
+            $sheet->setCellValue('E' . $i, $obj->getName());
+
+            if($obj instanceof Product)
+            {
+                $sheet->setCellValue('F' . $i, $obj->getWidth());
+                $sheet->setCellValue('G' . $i, $obj->getHeight());
+                $sheet->setCellValue('H' . $i, $obj->getDepth());
+            }
+
+            foreach ($obj->getPrice() as $price)
+            {
+                if($price->getElement()->getId() == $offer->getId())
+                {
+                    $price = round(floatval($price->getPrice()), 2);
+                    $sheet->setCellValue('I' . $i, $price);
+                }
+            }
+
+            $j = 10;
+            foreach($references as $reference)
+            {
+                foreach ($obj->getPrice() as $price)
+                {
+                    if ($price->getElement()->getId() == $reference) {
+                        $price = round(floatval($price->getPrice()), 2);
+                        $sheet->setCellValue([$j, $i], $price);
+                    }
+                }
+
+                $j++;
+            }
+
+            if ($obj->getImage()) {
+
+                $image = $obj->getImage()->getThumbnail("200x200");
+
+                $stream = $image->getStream();
+
+                // Create temporary file
+                $tempFile = tempnam(sys_get_temp_dir(), 'pim_image_');
+                file_put_contents($tempFile, stream_get_contents($stream));
+
+                if (file_exists($tempFile)) {
+                    $drawing = new Drawing();
+                    $drawing->setPath($tempFile);
+                    $drawing->setHeight(80); // Set image height (adjust as needed)
+                    $drawing->setCoordinates('B' . $i); // Place image in column D
+                    $drawing->setWorksheet($sheet);
+                }
+            }
+
+            $i++;
+        }
+
+        $sheet = $ws;
+        $i = 2;
+        foreach ($offer->getDependencies()->getRequiredBy() as $req)
+        {
+            $obj = DataObject::getById($req['id']);
+
+            if(!$obj)
+                continue;
+
+            if(!($obj instanceof ProductSet))
+                continue;
+
+            $sheet->getRowDimension($i)->setRowHeight(64);
+            $sheet->setCellValue('A' . $i, $i - 1);
+            $sheet->setCellValue('C' . $i, $obj->getId());
+            $sheet->setCellValueExplicit('D' . $i, $obj->getEan(), \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
+            $sheet->setCellValue('E' . $i, $obj->getName());
+
+            if($obj instanceof Product)
+            {
+                $sheet->setCellValue('F' . $i, $obj->getWidth());
+                $sheet->setCellValue('G' . $i, $obj->getHeight());
+                $sheet->setCellValue('H' . $i, $obj->getDepth());
+            }
+
+            foreach ($obj->getPrice() as $price)
+            {
+                if($price->getElement()->getId() == $offer->getId())
+                {
+                    $price = round(floatval($price->getPrice()), 2);
+                    $sheet->setCellValue('I' . $i, $price);
+                }
+            }
+
+            $j = 10;
+            foreach($references as $reference)
+            {
+                foreach ($obj->getPrice() as $price)
+                {
+                    if ($price->getElement()->getId() == $reference) {
+                        $price = round(floatval($price->getPrice()), 2);
+                        $sheet->setCellValue([$j, $i], $price);
+                    }
+                }
+
+                $j++;
+            }
+
+            if ($obj->getImage()) {
+
+                $image = $obj->getImage()->getThumbnail("200x200");
+
+                $stream = $image->getStream();
+
+                // Create temporary file
+                $tempFile = tempnam(sys_get_temp_dir(), 'pim_image_');
+                file_put_contents($tempFile, stream_get_contents($stream));
+
+                if (file_exists($tempFile)) {
+                    $drawing = new Drawing();
+                    $drawing->setPath($tempFile);
+                    $drawing->setHeight(80); // Set image height (adjust as needed)
+                    $drawing->setCoordinates('B' . $i); // Place image in column D
+                    $drawing->setWorksheet($sheet);
+                }
+            }
+
+            $i++;
+        }
+
+        $columns = 9 + count($references);
+
+        for ($j=0; $j<$columns; $j++)
+        {
+            if($j == 1)
+            {
+                $productSheet->getColumnDimension(chr(833 + $j))->setWidth(12);
+                $sheetSets->getColumnDimension(chr(833 + $j))->setWidth(12);
+            }
+            else
+            {
+                $productSheet->getColumnDimension(chr(833 + $j))->setAutoSize(true);
+                $sheetSets->getColumnDimension(chr(833 + $j))->setAutoSize(true);
+            }
+        }
+
+        $writer = new Xlsx($spreadsheet);
+
+        if(!$filename)
+        {
+            $fileName = $offer->getKey() . '.xlsx';
+        }
+        else
+        {
+            $fileName = $filename . '.xlsx';
+        }
+
+        $response = new Response();
+        $response->headers->set('Content-Type', 'application/vnd.ms-excel');
+        $response->headers->set('Content-Disposition', 'attachment;filename="' . $fileName . '"');
+
+        ob_start();
+        $writer->save('php://output');
+        $response->setContent(ob_get_clean());
+
+        return $response;
+    }
+
     #[Route("/objects/mainimage/{id}", name: "main_image")]
     public function getLastImageAction(Request $request, int $id): Response
     {
