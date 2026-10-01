@@ -90,6 +90,7 @@
  * - GPC [input]
  * - PKWIU [input]
  * - Status [select]
+ * - InStock [calculatedValue]
  */
 
 return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
@@ -99,7 +100,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1790861984,
+   'modificationDate' => 1790864752,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -3718,19 +3719,16 @@ Not used in common version. Shown as a placeholder
                                   array (
                                     'key' => 'Yes',
                                     'value' => 'YES',
-                                    'id' => 'extModel19334-1',
                                   ),
                                   1 => 
                                   array (
                                     'key' => 'No',
                                     'value' => 'NO',
-                                    'id' => 'extModel19334-2',
                                   ),
                                   2 => 
                                   array (
                                     'key' => 'Retired',
                                     'value' => 'RETIRED',
-                                    'id' => 'extModel19334-3',
                                   ),
                                 ),
                                  'defaultValue' => 'NO',
@@ -4346,6 +4344,32 @@ https://poradnikprzedsiebiorcy.pl/-nowa-pkwiu-2025-juz-ogloszona
                  'optionsProviderType' => 'configure',
                  'optionsProviderClass' => '',
                  'optionsProviderData' => '',
+              )),
+              1 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
+                 'name' => 'InStock',
+                 'title' => 'In Stock',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => 'float: right; margin-right: 24px;',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'elementType' => 'input',
+                 'calculatorType' => 'expression',
+                 'calculatorExpression' => 'object.getStock()',
+                 'calculatorClass' => 'Expression',
+                 'columnLength' => 190,
+                 'width' => '',
               )),
             ),
              'locked' => false,
