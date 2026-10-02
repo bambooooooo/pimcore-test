@@ -27,6 +27,7 @@ class AdminStyleListener
                     '/static/js/addChildren.js',
                     '/static/js/gridXlsxImagesExport.js',
                     '/static/js/groupPriceList.js',
+                    '/static/js/labels.js',
                 ]
             )
         );
