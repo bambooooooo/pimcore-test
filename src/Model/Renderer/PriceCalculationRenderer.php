@@ -65,7 +65,7 @@ class PriceCalculationRenderer implements DynamicTextLabelInterface
 
         if($mode == 'fixed')
         {
-            return $this->getFixedPrices($data, $object, $params, $basePriceGetter);
+            return $this->getFixedPrices($data, $object, $params, $basePriceGetter, $timing == 'future');
         }
 
         if($mode == 'drop')
@@ -101,27 +101,32 @@ class PriceCalculationRenderer implements DynamicTextLabelInterface
         return $ret;
     }
 
-    private function getFixedPrices(string $data, Product|ProductSet $object, array $params, string $basePriceGetter)
+    private function getFixedPrices(string $data, Product|ProductSet $object, array $params, string $basePriceGetter, bool $futurePrices)
     {
+        $priceType = $futurePrices ? "new_" : "";
+
         $factors = [
-            'price_custom_cama' => 1.31,
-            'price_custom_mirjan' => 1.30,
-            'price_custom_agata' => 1.35,
-            'price_custom_selsey' => 1.35,
-            'price_custom_lectus' => 1.37,
-            'price_custom_furnidea' => 1.38,
-            'price_custom_bogart' => 1.45,
-            'price_custom_uptrend' => 1.32,
-            'price_custom_lomado' => 1.38,
-            'price_custom_vente' => 1.34,
+            'price_' . $priceType .'custom_cama' => 1.31,
+            'price_' . $priceType .'custom_mirjan' => 1.30,
+            'price_' . $priceType .'custom_agata' => 1.35,
+            'price_' . $priceType .'custom_selsey' => 1.35,
+            'price_' . $priceType .'custom_lectus' => 1.37,
+            'price_' . $priceType .'custom_furnidea' => 1.38,
+            'price_' . $priceType .'custom_bogart' => 1.45,
+            'price_' . $priceType .'custom_uptrend' => 1.32,
+            'price_' . $priceType .'custom_lomado' => 1.38,
+            'price_' . $priceType .'custom_vente' => 1.34,
         ];
 
-        $eurFactors = ['price_custom_lomado', 'price_custom_vente'];
+        $eurFactors = [
+            'price_' . $priceType . 'custom_lomado',
+            'price_' . $priceType . 'custom_vente'
+        ];
 
         $provider = new PriceLevelProvider();
 
         $def = new ClassDefinition\Data\Select();
-        $def->setOptionsProviderData("price_custom_");
+        $def->setOptionsProviderData("price_{$priceType}custom_");
 
         $levelsRaw = $provider->getOptions([], $def);
         $levels= [];
