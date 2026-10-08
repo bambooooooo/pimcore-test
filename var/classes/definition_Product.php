@@ -132,7 +132,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Produkt',
    'description' => 'Towar, który można sprzedać',
    'creationDate' => NULL,
-   'modificationDate' => 1791019474,
+   'modificationDate' => 1791458304,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -3948,7 +3948,7 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                   )),
                   7 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-                     'name' => 'Layout',
+                     'name' => 'Accessories',
                      'type' => NULL,
                      'region' => NULL,
                      'title' => 'Accessories',
@@ -4033,6 +4033,11 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                               array (
                                 'key' => 'CABLES',
                                 'value' => 'CABLES',
+                              ),
+                              5 => 
+                              array (
+                                'key' => 'LEDS',
+                                'value' => 'LEDS',
                               ),
                             ),
                              'defaultValue' => '',
