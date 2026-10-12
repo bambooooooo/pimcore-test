@@ -74,9 +74,11 @@ class ProductController extends FrontendController
         {
             $id = $item['id'];
 
-	    if($id == 'KN') {
+	    // if 7539 (KN) then add 7495 (A1) x1
+	    // always.
+	    if($id == 7539) {
 		$items[] = [
-			"id" => 'A1',
+			"id" => 7495,
 			"count" => 1
 		];
 	    }
