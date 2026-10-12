@@ -70,6 +70,18 @@ class ProductController extends FrontendController
         $product = Product::getByID($id);
         $relations = [];
 
+	foreach($items as $item)
+        {
+            $id = $item['id'];
+
+	    if($id == 'KN') {
+		$items[] = [
+			"id" => 'A1',
+			"count" => 1
+		];
+	    }
+	}
+
         foreach($items as $item)
         {
             $id = $item['id'];
