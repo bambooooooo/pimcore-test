@@ -43,7 +43,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Opakowanie',
    'description' => 'Opakowanie zawierające elementy produktu',
    'creationDate' => NULL,
-   'modificationDate' => 1789375783,
+   'modificationDate' => 1791919034,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -996,7 +996,6 @@ Domyślny kod kreskowy paczki tworzony na podstawie jego unikalnego identyfikato
                 ),
                  'fieldtype' => 'text',
                  'html' => '
-
 ',
                  'renderingClass' => '',
                  'renderingData' => '',
@@ -1381,8 +1380,8 @@ Grubości: 15 mm, 20 mm, 30 mm, 45 mm
 </div>
 
 <div class="alert alert-primary">
-<h2>Wartswy - oczko 22 mm</h2>
-Grubości: 10 mm, 16 mm, 18 mm, 42 mm
+<h2>Warstwy - oczko 22 mm</h2>
+Grubości: 10 mm, 16 mm, 18 mm, 25 mm, 30 mm, 42 mm
 </div>
 
 ',
