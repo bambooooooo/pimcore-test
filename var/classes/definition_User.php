@@ -7,14 +7,11 @@
  * Podmiot w systemie
  *
  * Fields Summary:
- * - User [user]
  * - Image [image]
- * - email [email]
  * - Name [input]
  * - VAT [input]
- * - password [password]
- * - Lang [language]
  * - Country [country]
+ * - email [email]
  * - email2 [input]
  * - phone [input]
  * - Address1 [input]
@@ -22,6 +19,9 @@
  * - City [input]
  * - PostalCode [input]
  * - Groups [manyToManyObjectRelation]
+ * - User [user]
+ * - Lang [language]
+ * - password [password]
  * - PackageTemplate [input]
  * - Price [select]
  * - Discount [numeric]
@@ -36,7 +36,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Użytkownik',
    'description' => 'Podmiot w systemie',
    'creationDate' => NULL,
-   'modificationDate' => 1790579927,
+   'modificationDate' => 1792155175,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -94,36 +94,6 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'children' => 
             array (
               0 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\User::__set_state(array(
-                 'name' => 'User',
-                 'title' => 'User',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'options' => NULL,
-                 'defaultValue' => NULL,
-                 'columnLength' => 190,
-                 'dynamicOptions' => false,
-                 'defaultValueGenerator' => '',
-                 'width' => NULL,
-                 'optionsProviderType' => NULL,
-                 'optionsProviderClass' => NULL,
-                 'optionsProviderData' => NULL,
-                 'unique' => false,
-              )),
-              1 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                  'name' => 'Image',
                  'title' => 'Image',
@@ -146,239 +116,230 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'width' => 300,
                  'height' => 300,
               )),
+              1 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
+                 'name' => 'Layout',
+                 'type' => NULL,
+                 'region' => NULL,
+                 'title' => 'Podstawowe',
+                 'width' => '',
+                 'height' => '',
+                 'collapsible' => false,
+                 'collapsed' => false,
+                 'bodyStyle' => '',
+                 'datatype' => 'layout',
+                 'children' => 
+                array (
+                  0 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'name' => 'Name',
+                     'title' => 'Name',
+                     'tooltip' => '',
+                     'mandatory' => true,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'defaultValue' => NULL,
+                     'columnLength' => 20,
+                     'regex' => '',
+                     'regexFlags' => 
+                    array (
+                    ),
+                     'unique' => false,
+                     'showCharCount' => true,
+                     'width' => '',
+                     'defaultValueGenerator' => '',
+                  )),
+                  1 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'name' => 'VAT',
+                     'title' => 'VAT Number',
+                     'tooltip' => '',
+                     'mandatory' => true,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'defaultValue' => NULL,
+                     'columnLength' => 190,
+                     'regex' => '',
+                     'regexFlags' => 
+                    array (
+                    ),
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'width' => '',
+                     'defaultValueGenerator' => '',
+                  )),
+                  2 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Country::__set_state(array(
+                     'name' => 'Country',
+                     'title' => 'Country',
+                     'tooltip' => '',
+                     'mandatory' => true,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'defaultValue' => NULL,
+                     'columnLength' => 190,
+                     'dynamicOptions' => false,
+                     'defaultValueGenerator' => '',
+                     'width' => '',
+                     'optionsProviderType' => NULL,
+                     'optionsProviderClass' => NULL,
+                     'optionsProviderData' => NULL,
+                     'restrictTo' => '',
+                  )),
+                ),
+                 'locked' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'fieldtype' => 'fieldset',
+                 'labelWidth' => 100,
+                 'labelAlign' => 'left',
+              )),
               2 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\Email::__set_state(array(
-                 'name' => 'email',
-                 'title' => 'Email',
-                 'tooltip' => '',
-                 'mandatory' => true,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'defaultValue' => NULL,
-                 'columnLength' => 190,
-                 'regex' => '',
-                 'regexFlags' => 
-                array (
-                ),
-                 'unique' => false,
-                 'showCharCount' => false,
+              \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
+                 'name' => 'Layout',
+                 'type' => NULL,
+                 'region' => NULL,
+                 'title' => 'Kontakt',
                  'width' => '',
-                 'defaultValueGenerator' => '',
-              )),
-              3 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                 'name' => 'Name',
-                 'title' => 'Name',
-                 'tooltip' => '',
-                 'mandatory' => true,
-                 'noteditable' => false,
-                 'index' => false,
+                 'height' => '',
+                 'collapsible' => false,
+                 'collapsed' => false,
+                 'bodyStyle' => '',
+                 'datatype' => 'layout',
+                 'children' => 
+                array (
+                  0 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Email::__set_state(array(
+                     'name' => 'email',
+                     'title' => 'Email',
+                     'tooltip' => '',
+                     'mandatory' => true,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'defaultValue' => NULL,
+                     'columnLength' => 190,
+                     'regex' => '',
+                     'regexFlags' => 
+                    array (
+                    ),
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'width' => '',
+                     'defaultValueGenerator' => '',
+                  )),
+                  1 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'name' => 'email2',
+                     'title' => 'Email2',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'defaultValue' => NULL,
+                     'columnLength' => 190,
+                     'regex' => '',
+                     'regexFlags' => 
+                    array (
+                    ),
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'width' => '',
+                     'defaultValueGenerator' => '',
+                  )),
+                  2 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'name' => 'phone',
+                     'title' => 'Phone',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'defaultValue' => NULL,
+                     'columnLength' => 190,
+                     'regex' => '',
+                     'regexFlags' => 
+                    array (
+                    ),
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'width' => '',
+                     'defaultValueGenerator' => '',
+                  )),
+                ),
                  'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
                  'blockedVarsForExport' => 
                 array (
                 ),
-                 'defaultValue' => NULL,
-                 'columnLength' => 20,
-                 'regex' => '',
-                 'regexFlags' => 
-                array (
-                ),
-                 'unique' => false,
-                 'showCharCount' => true,
-                 'width' => '',
-                 'defaultValueGenerator' => '',
-              )),
-              4 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                 'name' => 'VAT',
-                 'title' => 'VAT Number',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'defaultValue' => NULL,
-                 'columnLength' => 190,
-                 'regex' => '',
-                 'regexFlags' => 
-                array (
-                ),
-                 'unique' => false,
-                 'showCharCount' => false,
-                 'width' => '',
-                 'defaultValueGenerator' => '',
-              )),
-              5 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\Password::__set_state(array(
-                 'name' => 'password',
-                 'title' => 'Password',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'algorithm' => 'password_hash',
-                 'salt' => '',
-                 'saltlocation' => 'back',
-                 'minimumLength' => NULL,
-                 'width' => '',
-              )),
-              6 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\Language::__set_state(array(
-                 'name' => 'Lang',
-                 'title' => 'Language',
-                 'tooltip' => '',
-                 'mandatory' => true,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'options' => NULL,
-                 'defaultValue' => NULL,
-                 'columnLength' => 190,
-                 'dynamicOptions' => false,
-                 'defaultValueGenerator' => '',
-                 'width' => NULL,
-                 'optionsProviderType' => NULL,
-                 'optionsProviderClass' => NULL,
-                 'optionsProviderData' => NULL,
-                 'onlySystemLanguages' => true,
-              )),
-              7 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\Country::__set_state(array(
-                 'name' => 'Country',
-                 'title' => 'Country',
-                 'tooltip' => '',
-                 'mandatory' => true,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'defaultValue' => NULL,
-                 'columnLength' => 190,
-                 'dynamicOptions' => false,
-                 'defaultValueGenerator' => '',
-                 'width' => '',
-                 'optionsProviderType' => NULL,
-                 'optionsProviderClass' => NULL,
-                 'optionsProviderData' => NULL,
-                 'restrictTo' => '',
-              )),
-              8 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                 'name' => 'email2',
-                 'title' => 'Email2',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'defaultValue' => NULL,
-                 'columnLength' => 190,
-                 'regex' => '',
-                 'regexFlags' => 
-                array (
-                ),
-                 'unique' => false,
-                 'showCharCount' => false,
-                 'width' => '',
-                 'defaultValueGenerator' => '',
-              )),
-              9 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                 'name' => 'phone',
-                 'title' => 'Phone',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'defaultValue' => NULL,
-                 'columnLength' => 190,
-                 'regex' => '',
-                 'regexFlags' => 
-                array (
-                ),
-                 'unique' => false,
-                 'showCharCount' => false,
-                 'width' => '',
-                 'defaultValueGenerator' => '',
+                 'fieldtype' => 'fieldset',
+                 'labelWidth' => 100,
+                 'labelAlign' => 'left',
               )),
             ),
              'locked' => false,
@@ -617,6 +578,91 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'children' => 
             array (
               0 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\User::__set_state(array(
+                 'name' => 'User',
+                 'title' => 'User',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'options' => NULL,
+                 'defaultValue' => NULL,
+                 'columnLength' => 190,
+                 'dynamicOptions' => false,
+                 'defaultValueGenerator' => '',
+                 'width' => NULL,
+                 'optionsProviderType' => NULL,
+                 'optionsProviderClass' => NULL,
+                 'optionsProviderData' => NULL,
+                 'unique' => false,
+              )),
+              1 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Language::__set_state(array(
+                 'name' => 'Lang',
+                 'title' => 'Language',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => true,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'options' => NULL,
+                 'defaultValue' => NULL,
+                 'columnLength' => 190,
+                 'dynamicOptions' => false,
+                 'defaultValueGenerator' => '',
+                 'width' => NULL,
+                 'optionsProviderType' => NULL,
+                 'optionsProviderClass' => NULL,
+                 'optionsProviderData' => NULL,
+                 'onlySystemLanguages' => true,
+              )),
+              2 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Password::__set_state(array(
+                 'name' => 'password',
+                 'title' => 'Password',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => true,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'algorithm' => 'password_hash',
+                 'salt' => '',
+                 'saltlocation' => 'back',
+                 'minimumLength' => NULL,
+                 'width' => '',
+              )),
+              3 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'PackageTemplate',
                  'title' => 'Package Template',
@@ -706,7 +752,34 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
               \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'name' => 'Discount',
                  'title' => 'Discount',
-                 'tooltip' => '',
+                 'tooltip' => 'Rabat dla VAT 23% PLN
+brutto --> netto
+30 % --> 13,9 %
+31 % --> 15,13 %
+32 % --> 16,36 %
+33 % --> 17,59 %
+34 % --> 18,82 %
+35 % --> 20,05 %
+36 % --> 21,28 %
+37 % --> 22,51 %
+38 % --> 23,74 %
+39 % --> 24,97 %
+40 % --> 26,2 %
+41 % --> 27,43 %
+42 % --> 28,66 %
+43 % --> 29,89 %
+44 % --> 31,12 %
+45 % --> 32,35 %
+46 % --> 33,58 %
+47 % --> 34,81 %
+48 % --> 36,04 %
+49 % --> 37,27 %
+50 % --> 38,5 %
+51 % --> 39,73 %
+52 % --> 40,96 %
+53 % --> 42,19 %
+54 % --> 43,42 %
+55 % --> 44,65 %',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -766,7 +839,7 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                  'title' => 'Offers',
                  'tooltip' => '',
                  'mandatory' => false,
-                 'noteditable' => true,
+                 'noteditable' => false,
                  'index' => false,
                  'locked' => false,
                  'style' => '',
