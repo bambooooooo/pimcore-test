@@ -232,9 +232,22 @@ class ObjectController extends FrontendController
             return new Response("No items found.", Response::HTTP_NOT_FOUND);
         }
 
+        $fnameParts = [];
+        $fnameParts[] = $group->getName() ?? $group->getKey();
+        $fnameParts[] = $this->translator->trans("PRICELIST");
+
+        if($priceLevel)
+        {
+            $fnameParts[] = str_replace(" ", "-", DataObject\ClassDefinition::getById('Product')->getFieldDefinition($priceLevel)->getTitle());
+        }
+
+        $fnameParts[] = date("d-m-Y");
+
+        $fname = strtoupper(implode('-', $fnameParts));
+
         if($type == 'xlsx')
         {
-            return $this->getSheetPricesXlsx($group, $products, $sets, $related, $priceLevel);
+            return $this->getSheetPricesXlsx($group, $products, $sets, $related, $priceLevel, $fname);
         }
 
         if($type == 'pdf-spec')
@@ -261,7 +274,7 @@ class ObjectController extends FrontendController
             return new Response($html, 200);
         }
 
-        return $this->getPriceListPdf($group, $html);
+        return $this->getPriceListPdf($group, $html, $fname);
     }
 
     private function getProductsForPriceList(Group $group, string $productTypes, string $itemStatuses, string $priceLevel = null, $orderBy = 'key'): array
@@ -359,7 +372,7 @@ class ObjectController extends FrontendController
         return $related;
     }
 
-    private function getPriceListPdf(Group $group, string $html): Response
+    private function getPriceListPdf(Group $group, string $html, string $fname = 'export'): Response
     {
         $params = [
             'paperWidth' => '210mm',
@@ -375,10 +388,7 @@ class ObjectController extends FrontendController
             ]
         ];
 
-        $fileName = strtoupper(implode('-', [
-            $group->getName() ?? $group->getKey(),
-            date("d-m-Y"),
-        ])) . ".pdf";
+        $fileName = $fname . ".pdf";
 
         $adapter = \Pimcore\Bundle\WebToPrintBundle\Processor::getInstance();
 
@@ -1058,7 +1068,7 @@ class ObjectController extends FrontendController
         return new JsonResponse($ret, Response::HTTP_OK);
     }
 
-    private function getSheetPricesXlsx(Group $group, array $items, array $sets, array $related, string $priceLevel): Response
+    private function getSheetPricesXlsx(Group $group, array $items, array $sets, array $related, string $priceLevel, string $fname = 'export'): Response
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -1139,10 +1149,7 @@ class ObjectController extends FrontendController
 
         $writer = new Xlsx($spreadsheet);
 
-        $fileName = strtoupper(implode('-', [
-                $group->getName() ?? $group->getKey(),
-                date("d-m-Y")
-            ])) . ".xlsx";
+        $fileName = $fname . ".xlsx";
 
         $response = new Response();
         $response->headers->set('Content-Type', 'application/vnd.ms-excel');
