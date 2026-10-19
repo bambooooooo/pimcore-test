@@ -6,9 +6,26 @@ services:
         volumes:
             - ./.docker/nginx.prod.conf:/etc/nginx/conf.d/default.conf:ro
             - ./.docker/ssl:/etc/nginx/ssl
+        restart: unless-stopped
 
     php:
         environment:
             APP_ENV: prod
             APP_DEBUG: 0
             PIMCORE_DEV_MODE: false
+        restart: unless-stopped
+
+    redis:
+        restart: unless-stopped
+
+    rabbitmq:
+        restart: unless-stopped
+
+    db:
+        restart: unless-stopped
+
+    supervisord:
+        restart: unless-stopped
+
+    gotenberg:
+        restart: unless-stopped
