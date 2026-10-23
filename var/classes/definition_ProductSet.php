@@ -49,6 +49,7 @@
  * - price_custom_uptrend [quantityValue]
  * - price_custom_lomado [quantityValue]
  * - price_custom_vente [quantityValue]
+ * - price_custom_meubella [quantityValue]
  * - price_new_base [quantityValue]
  * - price_new_catalog_pln [quantityValue]
  * - date_price_new_catalog_pln [date]
@@ -74,6 +75,8 @@
  * - date_price_new_custom_lomado [date]
  * - price_new_custom_vente [quantityValue]
  * - date_price_new_custom_vente [date]
+ * - price_new_custom_meubella [quantityValue]
+ * - date_price_new_custom_meubella [date]
  * - ps_megstyl_pl [booleanSelect]
  * - ps_megstyl_pl_parent [manyToOneRelation]
  * - ps_megstyl_pl_id [numeric]
@@ -100,7 +103,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1790864752,
+   'modificationDate' => 1792743051,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -2445,6 +2448,43 @@ Kolekcje i grupy parametrów dotyczące całego zestawu. Nie wprowadzamy tutaj p
                                  'decimalSize' => NULL,
                                  'decimalPrecision' => NULL,
                               )),
+                              2 => 
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                                 'name' => 'price_custom_meubella',
+                                 'title' => 'Meubella',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'unitWidth' => '',
+                                 'defaultUnit' => 'EUR',
+                                 'validUnits' => 
+                                array (
+                                  0 => 'EUR',
+                                ),
+                                 'unique' => false,
+                                 'autoConvert' => true,
+                                 'defaultValueGenerator' => '',
+                                 'width' => '',
+                                 'defaultValue' => NULL,
+                                 'integer' => false,
+                                 'unsigned' => true,
+                                 'minValue' => 0.0,
+                                 'maxValue' => NULL,
+                                 'decimalSize' => NULL,
+                                 'decimalPrecision' => NULL,
+                              )),
                             ),
                              'locked' => false,
                              'blockedVarsForExport' => 
@@ -3294,6 +3334,67 @@ Kolekcje i grupy parametrów dotyczące całego zestawu. Nie wprowadzamy tutaj p
                               3 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\Date::__set_state(array(
                                  'name' => 'date_price_new_custom_vente',
+                                 'title' => 'Od',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'defaultValue' => NULL,
+                                 'useCurrentDate' => false,
+                                 'columnType' => 'date',
+                                 'defaultValueGenerator' => '',
+                              )),
+                              4 => 
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                                 'name' => 'price_new_custom_meubella',
+                                 'title' => '(Nowa cena) Meubella',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'float:left; margin-right: 8px;',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'unitWidth' => '',
+                                 'defaultUnit' => 'EUR',
+                                 'validUnits' => 
+                                array (
+                                  0 => 'EUR',
+                                ),
+                                 'unique' => false,
+                                 'autoConvert' => true,
+                                 'defaultValueGenerator' => '',
+                                 'width' => '',
+                                 'defaultValue' => NULL,
+                                 'integer' => false,
+                                 'unsigned' => true,
+                                 'minValue' => 0.0,
+                                 'maxValue' => NULL,
+                                 'decimalSize' => NULL,
+                                 'decimalPrecision' => NULL,
+                              )),
+                              5 => 
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\Date::__set_state(array(
+                                 'name' => 'date_price_new_custom_meubella',
                                  'title' => 'Od',
                                  'tooltip' => '',
                                  'mandatory' => false,
