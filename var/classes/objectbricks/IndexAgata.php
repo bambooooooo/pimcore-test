@@ -74,8 +74,13 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   0 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'name' => 'Barcode',
-                     'title' => 'Barcode',
-                     'tooltip' => 'Kod kreskowy w systemie Agata',
+                     'title' => 'Barcode (Package)',
+                     'tooltip' => 'Kod kreskowy paczki w systemie Agata. 
+
+Zwykle w formacie EAN13, przykładowo:
+- 2011009795512
+- 2011009795529
+- 2011009795536',
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
@@ -104,8 +109,19 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   1 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'name' => 'Code',
-                     'title' => 'Code (Index)',
-                     'tooltip' => 'Kod w sytemie Agata',
+                     'title' => 'Index (Product or Package)',
+                     'tooltip' => 'Kod w sytemie Agata - produkt lub paczka
+
+Przykładowe kody produktów:
+- 2720-010-007-009-0001
+- 2720-010-007-009-0002
+- 2720-010-007-010-0001
+
+Przykładowe kody paczek:
+- P_979551
+- P_979552
+- P_979553
+',
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
@@ -134,8 +150,13 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   2 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'name' => 'Name',
-                     'title' => 'Name',
-                     'tooltip' => 'Nazwa w systemie Agata',
+                     'title' => 'Name (Product)',
+                     'tooltip' => 'Nazwa produktu w systemie Agata
+
+Przykładowo:
+- LEVEL-01-DA BIURKO Z REGULACJĄ WYSOKOŚCI DĄB ARISTAN
+- ROSARIO RTV 2K Z KOMINKIEM 04-CAS KASZMIR
+- BLAT 06 BIAŁY MAT',
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
@@ -170,7 +191,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'layout' => NULL,
                  'border' => false,
                  'icon' => 'http://localhost/bundles/pimcoreadmin/img/flat-color-icons/object.svg',
-                 'labelWidth' => 100,
+                 'labelWidth' => 200,
                  'labelAlign' => 'left',
               )),
               1 => 
@@ -178,7 +199,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'name' => 'Wystrój',
                  'type' => NULL,
                  'region' => NULL,
-                 'title' => 'Paczka uniwersalna',
+                 'title' => 'Paczka zależna od produktu',
                  'width' => '',
                  'height' => '',
                  'collapsible' => false,
@@ -193,7 +214,10 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'title' => 'Codes',
                      'tooltip' => 'Dla paczek - kody w systemie Agata zależne od produktu.
 
-Ta sama paczka może być sprzedawana (wydawana z magazynu) pod różnymi kodami SKU. Paczka z kominkiem 32" może być traktowana zarówno jako produkt pełnowartościowy (1-paczkowy) oraz jako paczka nr 3 w komodzie wybranej kolekcji. Z tego powodu należy rozróżnić dodatkowe SKU oraz kody kreskowe w ramach tej samej paczki, która w ERP widnieje jako ten sam indeks.',
+Ta sama paczka może być sprzedawana (wydawana z magazynu) pod różnymi kodami SKU. 
+
+Przykładowo:
+Paczka z kominkiem 32" może być traktowana zarówno jako produkt pełnowartościowy (1-paczkowy) oraz jako paczka nr 3 w komodzie wybranej kolekcji. Z tego powodu należy rozróżnić dodatkowe SKU oraz kody kreskowe w ramach tej samej paczki, która w ERP widnieje jako ten sam indeks.',
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
