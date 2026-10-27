@@ -489,6 +489,10 @@ pimcore:
                             label: teak
                             name: ''
                         -
+                            value: terracota
+                            label: terracota
+                            name: ''
+                        -
                             value: 'trawa morska'
                             label: 'trawa morska'
                             name: ''
