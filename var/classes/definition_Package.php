@@ -13,11 +13,11 @@
  * - Fefco [select]
  * - Material [input]
  * - Depth [quantityValue]
- * - Height [quantityValue]
  * - Width [quantityValue]
+ * - Height [quantityValue]
  * - DepthOuter [quantityValue]
- * - HeightOuter [quantityValue]
  * - WidthOuter [quantityValue]
+ * - HeightOuter [quantityValue]
  * - Volume [quantityValue]
  * - Mass [quantityValue]
  * - BDOPaper [quantityValue]
@@ -43,7 +43,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Opakowanie',
    'description' => 'Opakowanie zawierające elementy produktu',
    'creationDate' => NULL,
-   'modificationDate' => 1791919034,
+   'modificationDate' => 1793212291,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -391,9 +391,9 @@ Projekt bazowy, na podstawie którego powstała dana paczka.',
                       )),
                       1 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                         'name' => 'Height',
-                         'title' => 'Height',
-                         'tooltip' => 'Wysokość wewnętrzna paczki',
+                         'name' => 'Width',
+                         'title' => 'Width',
+                         'tooltip' => 'Szerokość wewnętrzna paczki',
                          'mandatory' => true,
                          'noteditable' => false,
                          'index' => false,
@@ -431,9 +431,9 @@ Projekt bazowy, na podstawie którego powstała dana paczka.',
                       )),
                       2 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                         'name' => 'Width',
-                         'title' => 'Width',
-                         'tooltip' => 'Szerokość wewnętrzna paczki',
+                         'name' => 'Height',
+                         'title' => 'Height',
+                         'tooltip' => 'Wysokość wewnętrzna paczki',
                          'mandatory' => true,
                          'noteditable' => false,
                          'index' => false,
@@ -537,9 +537,9 @@ Projekt bazowy, na podstawie którego powstała dana paczka.',
                       )),
                       1 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                         'name' => 'HeightOuter',
-                         'title' => 'Height Outer',
-                         'tooltip' => 'Wysokość gabarytowa paczki',
+                         'name' => 'WidthOuter',
+                         'title' => 'Width Outer',
+                         'tooltip' => 'Szerokość gabarytowa paczki',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
@@ -577,9 +577,9 @@ Projekt bazowy, na podstawie którego powstała dana paczka.',
                       )),
                       2 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                         'name' => 'WidthOuter',
-                         'title' => 'Width Outer',
-                         'tooltip' => 'Szerokość gabarytowa paczki',
+                         'name' => 'HeightOuter',
+                         'title' => 'Height Outer',
+                         'tooltip' => 'Wysokość gabarytowa paczki',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
@@ -637,6 +637,31 @@ Projekt bazowy, na podstawie którego powstała dana paczka.',
                  'tabPosition' => 'top',
               )),
               4 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
+                 'name' => 'PackageDimInfo',
+                 'type' => NULL,
+                 'region' => NULL,
+                 'title' => '',
+                 'width' => '',
+                 'height' => '',
+                 'collapsible' => false,
+                 'collapsed' => false,
+                 'bodyStyle' => '',
+                 'datatype' => 'layout',
+                 'children' => 
+                array (
+                ),
+                 'locked' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'fieldtype' => 'text',
+                 'html' => '<br>',
+                 'renderingClass' => 'App\\Model\\Renderer\\PackageDimensionRenderer',
+                 'renderingData' => '',
+                 'border' => false,
+              )),
+              5 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                  'name' => 'Volume',
                  'title' => 'Volume',
@@ -673,7 +698,7 @@ Projekt bazowy, na podstawie którego powstała dana paczka.',
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
               )),
-              5 => 
+              6 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                  'name' => 'Mass',
                  'title' => 'Mass',
