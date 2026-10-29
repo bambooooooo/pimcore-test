@@ -28,6 +28,7 @@ class AdminStyleListener
                     '/static/js/gridXlsxImagesExport.js',
                     '/static/js/groupPriceList.js',
                     '/static/js/labels.js',
+                    '/static/js/productFillmentSpec.js',
                 ]
             )
         );
