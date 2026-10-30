@@ -97,20 +97,20 @@ class ProductController extends FrontendController
                 return new Response("Accessory with id={$id} not found", Response::HTTP_NOT_FOUND);
             }
 
-	    $acc = Accessory::getById($id);
+            $acc = Accessory::getById($id);
 
-	    $g = $acc->getSupplier()?->getId() ?? 0;
-	    $g = $g . "-" . $acc->getSetContent() ?? 0;
+            $g = $acc->getSupplier()?->getId() ?? 0;
+            $g = $g . "-" . $acc->getSetContent() ?? 0;
 
-            $relation = new ObjectMetadata('AccessorySets', ['Quantity'], DataObject::getById($id));
-            $relation->setQuantity((int)$count);
-            $relations[$g][] = $relation;
-        }
+                $relation = new ObjectMetadata('AccessorySets', ['Quantity'], DataObject::getById($id));
+                $relation->setQuantity((int)$count);
+                $relations[$g][] = $relation;
+            }
 
-        $accSets = [];
+            $accSets = [];
 
-        foreach($relations as $supplierId => $supplierRelations)
-        {
+            foreach($relations as $supplierId => $supplierRelations)
+            {
             $data = [
                 "Content" => new BlockElement('Content', 'select', null),
                 "Length" => new BlockElement('Length', 'quantityvalue', new DataObject\Data\QuantityValue(null, DataObject\QuantityValue\Unit::getById('mm'))),
@@ -131,6 +131,8 @@ class ProductController extends FrontendController
     #[Route("/fillments/{id}", name: '_fillments', methods: ['GET'])]
     public function productPackagesFillmentAction(Request $request): Response
     {
+        DataObject::setHideUnpublished(false);
+
         $id = (int)$request->get('id');
 
         if(!Product::getByID($id))
