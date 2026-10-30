@@ -149,10 +149,10 @@
                 </td>
             </tr>
             <tr>
-                <td rowspan="6" style="width: 5px;">
+                <td rowspan="7" style="width: 5px;">
                     <div class="v">
                         <div style="font-size: 8px;">
-                            {{ package.key }}
+                            {{ product.key }} ({{ product.id }})
                         </div>
                     </div>
                 </td>
@@ -191,57 +191,70 @@
                 </td>
             </tr>
             <tr>
-                <td rowspan="1">
-                    {% if (package.Width.Value ?? 0) * (package.Height.Value ?? 0) * (package.Depth.Value ?? 0) == 0 %}
-                        <div class="error">
-                            Niepoprawne wymiary paczki
-                        </div>
-                    {% else %}
-                        {{ (package.Width.Value / 10)|round }} cm x {{ (package.Height.Value / 10)|round }} cm x {{ (package.Depth.Value / 10)|round }} cm
-                    {% endif %}
+                <td style="text-align: center">
+                    <div style="font-size: 12px; font-weight: bold;">
+                        {{ packageno }} / {{ packagecount }}
+                    </div>
                 </td>
-                <td rowspan="1" style="font-size: 22px; text-align: center">
-                    {{ packageno }}/{{ packagecount }}
-                </td>
-                <td rowspan="2">
+                <td rowspan="4" colspan="2" style="text-align: center">
                     <div style="position: relative; display: flex; align-items: center; justify-content: space-around;">
                         {% if packageBarcode %}
-                            {{ code_128(packageBarcode, "EAN13", 80) }}
+                            {{ code_128(packageBarcode, "EAN13", 80, 3) }}
                         {% endif %}
                     </div>
-                    <div style="margin-top: 5px; text-align: center">
+                    <div style="margin-top: 5px; text-align: center; font-size: 12px;">
                         {% if not packageBarcode %}
                             <div class="error">
                                 Brak kodu kreskowego paczki Agata
                             </div>
                         {% else %}
-                            {{ packageBarcode ?? "" }}
+                            <div style="font-size: 14px;">
+                                {{ packageBarcode ?? "" }}
+                            </div>
                         {% endif %}
                     </div>
                 </td>
             </tr>
             <tr>
-                <td>
-                    {% if not package.Mass or not package.Mass.Value %}
+                <td style="text-align: center">
+                    {% if (package.Width.Value ?? 0) * (package.Height.Value ?? 0) * (package.Depth.Value ?? 0) == 0 %}
                         <div class="error">
-                            Niepoprawna waga paczki
+                            Niepoprawne wymiary paczki
                         </div>
                     {% else %}
-                        {{ package.Mass }}
+                        {{ (package.Depth.Value / 10)|round }} cm x {{ (package.Width.Value / 10)|round }} cm x {{ (package.Height.Value / 10)|round }} cm
                     {% endif %}
                 </td>
-                <td style="text-align: center; font-weight: bold;">
-                    SN:
-                    {% if order %}
-                        {% if order.parent is pimcore_data_object_class("Order") %}
-                            {{ order.parent.key }}
+            </tr>
+            <tr>
+                <td style="text-align: center">
+                    <div>
+                        {% if not package.Mass or not package.Mass.Value %}
+                            <div class="error">
+                                Niepoprawna waga paczki
+                            </div>
                         {% else %}
-                            {{ order.key }}
+                            {{ package.Mass }}
                         {% endif %}
-                        ({{ order.id }})
-                    {% else %}
-                        {{ oid }}
-                    {% endif %}
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: center">
+                    <div>
+                        SN:
+                        {% if order %}
+                            {% if order.parent is pimcore_data_object_class("Order") %}
+                                {{ order.parent.key }}
+                            {% else %}
+                                {{ order.key }}
+                            {% endif %}
+                            ({{ order.id }})
+                        {% else %}
+                            {{ oid }}
+                        {% endif %}
+                    </div>
+
                 </td>
             </tr>
             </tbody>
