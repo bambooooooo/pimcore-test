@@ -23,7 +23,11 @@
 {% if not ('fillment' in hide) %}
 <div class="col-12">
     {% set valid_sum = true %}
+    {% set valid_sum_old = true %}
+
     {% set total_fillment = 0.0 %}
+    {% set total_fillment_old = 0.0 %}
+
     {% for lip in obj.Packages %}
         {% set package = lip.object %}
         {% if package.Fillment %}
@@ -41,17 +45,46 @@
                 {% endfor %}
             {% endfor %}
         {% endif %}
+
+        {% if package.FillmentOld %}
+            {% for fillment in package.FillmentOld %}
+                {% for row in fillment['Elements'].data %}
+                    {% if row[0] is numeric and row[1] is numeric and row[2] is numeric %}
+                        {% if fillment['Thickness'].data and fillment['Thickness'].data.value %}
+                            {% set total_fillment_old = total_fillment_old + (row[0] / 1000) * (row[1] / 1000) * row[2] * (fillment['Thickness'].data.value / 1000) %}
+                        {% else %}
+                            {% set valid_sum_old = false %}
+                        {% endif %}
+                    {% else %}
+                        {% set valid_sum_old = false %}
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+
     {% endfor %}
     <div class="col-12 text-end">
         {% if valid_sum %}
             {% if total_fillment > 0 %}
-                Grand total of volume:
+                Grand total of fillment volume:
                 <span style="font-weight: bold">
                     {{ total_fillment|round(4) }} m<sup>3</sup>
                 </span>
             {% endif %}
         {% else %}
             {{ "Can not compute grand sum of fillment volumes"|trans }}
+        {% endif %}
+    </div>
+    <div class="col-12 text-end">
+        {% if valid_sum_old %}
+            {% if total_fillment_old > 0 %}
+                Grand total of fillment (old) volume:
+                <span style="font-weight: bold">
+                    {{ total_fillment_old|round(4) }} m<sup>3</sup>
+                </span>
+            {% endif %}
+        {% else %}
+            {{ "Can not compute grand sum of fillment (old) volumes"|trans }}
         {% endif %}
     </div>
 </div>

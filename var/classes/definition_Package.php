@@ -33,6 +33,10 @@
  * -- Material [select]
  * -- Thickness [quantityValue]
  * -- Elements [table]
+ * - FillmentOld [block]
+ * -- Material [select]
+ * -- Thickness [quantityValue]
+ * -- Elements [table]
  * - Carriers [advancedManyToManyObjectRelation]
  */
 
@@ -43,7 +47,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Opakowanie',
    'description' => 'Opakowanie zawierające elementy produktu',
    'creationDate' => NULL,
-   'modificationDate' => 1793212291,
+   'modificationDate' => 1793785010,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -1213,207 +1217,6 @@ Domyślny kod kreskowy paczki tworzony na podstawie jego unikalnego identyfikato
                  'height' => '',
                  'width' => '100%;',
               )),
-              3 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\Block::__set_state(array(
-                 'name' => 'Fillment',
-                 'title' => 'Fillment',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'lazyLoading' => false,
-                 'disallowAddRemove' => false,
-                 'disallowReorder' => false,
-                 'collapsible' => false,
-                 'collapsed' => false,
-                 'maxItems' => NULL,
-                 'styleElement' => '',
-                 'children' => 
-                array (
-                  0 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                     'name' => 'Material',
-                     'title' => 'Material',
-                     'tooltip' => 'Materiał wypełenienia, np. plaster miodu, styropian',
-                     'mandatory' => true,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'options' => 
-                    array (
-                      0 => 
-                      array (
-                        'key' => 'Plaster miodu - oczko 14 mm',
-                        'value' => 'Plaster miodu - oczko 14 mm',
-                      ),
-                      1 => 
-                      array (
-                        'key' => 'Plaster miodu - oczko 22 mm',
-                        'value' => 'Plaster miodu - oczko 22 mm',
-                      ),
-                      2 => 
-                      array (
-                        'key' => 'Styropian',
-                        'value' => 'Styropian',
-                      ),
-                    ),
-                     'defaultValue' => '',
-                     'columnLength' => 190,
-                     'dynamicOptions' => false,
-                     'defaultValueGenerator' => '',
-                     'width' => '',
-                     'optionsProviderType' => 'configure',
-                     'optionsProviderClass' => '',
-                     'optionsProviderData' => '',
-                  )),
-                  1 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                     'name' => 'Thickness',
-                     'title' => 'Thickness',
-                     'tooltip' => '',
-                     'mandatory' => true,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'unitWidth' => '',
-                     'defaultUnit' => 'mm',
-                     'validUnits' => 
-                    array (
-                      0 => 'mm',
-                    ),
-                     'unique' => false,
-                     'autoConvert' => false,
-                     'defaultValueGenerator' => '',
-                     'width' => '',
-                     'defaultValue' => NULL,
-                     'integer' => false,
-                     'unsigned' => true,
-                     'minValue' => NULL,
-                     'maxValue' => NULL,
-                     'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
-                  )),
-                  2 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Data\Table::__set_state(array(
-                     'name' => 'Elements',
-                     'title' => 'Elements',
-                     'tooltip' => 'Formatki wypełnienia dla wybranego materiału',
-                     'mandatory' => true,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'cols' => 3,
-                     'colsFixed' => true,
-                     'rows' => NULL,
-                     'rowsFixed' => false,
-                     'data' => '',
-                     'columnConfigActivated' => true,
-                     'columnConfig' => 
-                    array (
-                      0 => 
-                      array (
-                        'key' => 'Length',
-                        'label' => 'Length',
-                      ),
-                      1 => 
-                      array (
-                        'key' => 'Width',
-                        'label' => 'Width',
-                      ),
-                      2 => 
-                      array (
-                        'key' => 'Count',
-                        'label' => 'Count',
-                      ),
-                    ),
-                     'height' => '',
-                     'width' => 320,
-                  )),
-                ),
-                 'layout' => NULL,
-                 'referencedFields' => 
-                array (
-                ),
-                 'fieldDefinitionsCache' => NULL,
-              )),
-              4 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
-                 'name' => 'Info',
-                 'type' => NULL,
-                 'region' => NULL,
-                 'title' => '',
-                 'width' => '',
-                 'height' => '',
-                 'collapsible' => false,
-                 'collapsed' => false,
-                 'bodyStyle' => '',
-                 'datatype' => 'layout',
-                 'children' => 
-                array (
-                ),
-                 'locked' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'fieldtype' => 'text',
-                 'html' => '<h2>Standardowe wypełnienie - plaster miodu</h2>
-
-<div class="alert alert-success">
-<h2>Burty - oczko 14 mm</h2>
-Grubości: 15 mm, 20 mm, 30 mm, 45 mm
-</div>
-
-<div class="alert alert-primary">
-<h2>Warstwy - oczko 22 mm</h2>
-Grubości: 10 mm, 16 mm, 18 mm, 25 mm, 30 mm, 42 mm
-</div>
-
-',
-                 'renderingClass' => '',
-                 'renderingData' => '',
-                 'border' => false,
-              )),
             ),
              'locked' => false,
              'blockedVarsForExport' => 
@@ -1427,6 +1230,472 @@ Grubości: 10 mm, 16 mm, 18 mm, 25 mm, 30 mm, 42 mm
              'labelAlign' => 'left',
           )),
           5 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+             'name' => 'Fillments',
+             'type' => NULL,
+             'region' => NULL,
+             'title' => 'Fillments',
+             'width' => '',
+             'height' => '',
+             'collapsible' => false,
+             'collapsed' => false,
+             'bodyStyle' => '',
+             'datatype' => 'layout',
+             'children' => 
+            array (
+              0 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
+                 'name' => 'Fillments',
+                 'type' => NULL,
+                 'region' => NULL,
+                 'title' => '',
+                 'width' => '',
+                 'height' => '',
+                 'collapsible' => false,
+                 'collapsed' => false,
+                 'bodyStyle' => '',
+                 'datatype' => 'layout',
+                 'children' => 
+                array (
+                  0 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                     'name' => 'HoneyComb',
+                     'type' => NULL,
+                     'region' => NULL,
+                     'title' => 'Honey Comb',
+                     'width' => '',
+                     'height' => '',
+                     'collapsible' => false,
+                     'collapsed' => false,
+                     'bodyStyle' => '',
+                     'datatype' => 'layout',
+                     'children' => 
+                    array (
+                      0 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Block::__set_state(array(
+                         'name' => 'Fillment',
+                         'title' => 'Fillment',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'lazyLoading' => false,
+                         'disallowAddRemove' => false,
+                         'disallowReorder' => false,
+                         'collapsible' => false,
+                         'collapsed' => false,
+                         'maxItems' => NULL,
+                         'styleElement' => '',
+                         'children' => 
+                        array (
+                          0 => 
+                          \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                             'name' => 'Material',
+                             'title' => 'Material',
+                             'tooltip' => 'Materiał wypełenienia, np. plaster miodu, styropian',
+                             'mandatory' => true,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'fieldtype' => '',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'options' => 
+                            array (
+                              0 => 
+                              array (
+                                'key' => 'Plaster miodu - oczko 14 mm',
+                                'value' => 'Plaster miodu - oczko 14 mm',
+                              ),
+                              1 => 
+                              array (
+                                'key' => 'Plaster miodu - oczko 22 mm',
+                                'value' => 'Plaster miodu - oczko 22 mm',
+                              ),
+                              2 => 
+                              array (
+                                'key' => 'Styropian',
+                                'value' => 'Styropian',
+                              ),
+                            ),
+                             'defaultValue' => '',
+                             'columnLength' => 190,
+                             'dynamicOptions' => false,
+                             'defaultValueGenerator' => '',
+                             'width' => '',
+                             'optionsProviderType' => 'configure',
+                             'optionsProviderClass' => '',
+                             'optionsProviderData' => '',
+                          )),
+                          1 => 
+                          \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                             'name' => 'Thickness',
+                             'title' => 'Thickness',
+                             'tooltip' => '',
+                             'mandatory' => true,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'fieldtype' => '',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'unitWidth' => '',
+                             'defaultUnit' => 'mm',
+                             'validUnits' => 
+                            array (
+                              0 => 'mm',
+                            ),
+                             'unique' => false,
+                             'autoConvert' => false,
+                             'defaultValueGenerator' => '',
+                             'width' => '',
+                             'defaultValue' => NULL,
+                             'integer' => false,
+                             'unsigned' => true,
+                             'minValue' => NULL,
+                             'maxValue' => NULL,
+                             'decimalSize' => NULL,
+                             'decimalPrecision' => NULL,
+                          )),
+                          2 => 
+                          \Pimcore\Model\DataObject\ClassDefinition\Data\Table::__set_state(array(
+                             'name' => 'Elements',
+                             'title' => 'Elements',
+                             'tooltip' => 'Formatki wypełnienia dla wybranego materiału',
+                             'mandatory' => true,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'fieldtype' => '',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'cols' => 3,
+                             'colsFixed' => true,
+                             'rows' => NULL,
+                             'rowsFixed' => false,
+                             'data' => '',
+                             'columnConfigActivated' => true,
+                             'columnConfig' => 
+                            array (
+                              0 => 
+                              array (
+                                'key' => 'Length',
+                                'label' => 'Length',
+                              ),
+                              1 => 
+                              array (
+                                'key' => 'Width',
+                                'label' => 'Width',
+                              ),
+                              2 => 
+                              array (
+                                'key' => 'Count',
+                                'label' => 'Count',
+                              ),
+                            ),
+                             'height' => '',
+                             'width' => 320,
+                          )),
+                        ),
+                         'layout' => NULL,
+                         'referencedFields' => 
+                        array (
+                        ),
+                         'fieldDefinitionsCache' => NULL,
+                      )),
+                      1 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
+                         'name' => 'Info',
+                         'type' => NULL,
+                         'region' => NULL,
+                         'title' => '',
+                         'width' => '',
+                         'height' => '',
+                         'collapsible' => false,
+                         'collapsed' => false,
+                         'bodyStyle' => '',
+                         'datatype' => 'layout',
+                         'children' => 
+                        array (
+                        ),
+                         'locked' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'fieldtype' => 'text',
+                         'html' => '<h2>Standardowe wypełnienie - plaster miodu</h2>
+
+<div class="alert alert-success">
+<h2>Burty - oczko 14 mm</h2>
+Grubości: 15 mm, 20 mm, 30 mm, 45 mm
+</div>
+
+<div class="alert alert-primary">
+<h2>Warstwy - oczko 22 mm</h2>
+Grubości: 10 mm, 16 mm, 18 mm, 25 mm, 30 mm, 42 mm
+</div>
+
+',
+                         'renderingClass' => '',
+                         'renderingData' => '',
+                         'border' => false,
+                      )),
+                    ),
+                     'locked' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'fieldtype' => 'panel',
+                     'layout' => NULL,
+                     'border' => false,
+                     'icon' => '/UI/honeycomb.jpg',
+                     'labelWidth' => 100,
+                     'labelAlign' => 'left',
+                  )),
+                  1 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                     'name' => 'Styrofoam',
+                     'type' => NULL,
+                     'region' => NULL,
+                     'title' => 'Styrofoam',
+                     'width' => '',
+                     'height' => '',
+                     'collapsible' => false,
+                     'collapsed' => false,
+                     'bodyStyle' => '',
+                     'datatype' => 'layout',
+                     'children' => 
+                    array (
+                      0 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Block::__set_state(array(
+                         'name' => 'FillmentOld',
+                         'title' => 'Fillment',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'lazyLoading' => false,
+                         'disallowAddRemove' => false,
+                         'disallowReorder' => false,
+                         'collapsible' => false,
+                         'collapsed' => false,
+                         'maxItems' => NULL,
+                         'styleElement' => '',
+                         'children' => 
+                        array (
+                          0 => 
+                          \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                             'name' => 'Material',
+                             'title' => 'Material',
+                             'tooltip' => 'Materiał wypełenienia, np. plaster miodu, styropian',
+                             'mandatory' => true,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'fieldtype' => '',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'options' => 
+                            array (
+                              0 => 
+                              array (
+                                'key' => 'Plaster miodu - oczko 14 mm',
+                                'value' => 'Plaster miodu - oczko 14 mm',
+                              ),
+                              1 => 
+                              array (
+                                'key' => 'Plaster miodu - oczko 22 mm',
+                                'value' => 'Plaster miodu - oczko 22 mm',
+                              ),
+                              2 => 
+                              array (
+                                'key' => 'Styropian',
+                                'value' => 'Styropian',
+                              ),
+                            ),
+                             'defaultValue' => '',
+                             'columnLength' => 190,
+                             'dynamicOptions' => false,
+                             'defaultValueGenerator' => '',
+                             'width' => '',
+                             'optionsProviderType' => 'configure',
+                             'optionsProviderClass' => '',
+                             'optionsProviderData' => '',
+                          )),
+                          1 => 
+                          \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                             'name' => 'Thickness',
+                             'title' => 'Thickness',
+                             'tooltip' => '',
+                             'mandatory' => true,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'fieldtype' => '',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'unitWidth' => '',
+                             'defaultUnit' => 'mm',
+                             'validUnits' => 
+                            array (
+                              0 => 'mm',
+                            ),
+                             'unique' => false,
+                             'autoConvert' => false,
+                             'defaultValueGenerator' => '',
+                             'width' => '',
+                             'defaultValue' => NULL,
+                             'integer' => false,
+                             'unsigned' => true,
+                             'minValue' => NULL,
+                             'maxValue' => NULL,
+                             'decimalSize' => NULL,
+                             'decimalPrecision' => NULL,
+                          )),
+                          2 => 
+                          \Pimcore\Model\DataObject\ClassDefinition\Data\Table::__set_state(array(
+                             'name' => 'Elements',
+                             'title' => 'Elements',
+                             'tooltip' => 'Formatki wypełnienia dla wybranego materiału',
+                             'mandatory' => true,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'fieldtype' => '',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'cols' => 3,
+                             'colsFixed' => true,
+                             'rows' => NULL,
+                             'rowsFixed' => false,
+                             'data' => '',
+                             'columnConfigActivated' => true,
+                             'columnConfig' => 
+                            array (
+                              0 => 
+                              array (
+                                'key' => 'Length',
+                                'label' => 'Length',
+                              ),
+                              1 => 
+                              array (
+                                'key' => 'Width',
+                                'label' => 'Width',
+                              ),
+                              2 => 
+                              array (
+                                'key' => 'Count',
+                                'label' => 'Count',
+                              ),
+                            ),
+                             'height' => '',
+                             'width' => 320,
+                          )),
+                        ),
+                         'layout' => NULL,
+                         'referencedFields' => 
+                        array (
+                        ),
+                         'fieldDefinitionsCache' => NULL,
+                      )),
+                    ),
+                     'locked' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'fieldtype' => 'panel',
+                     'layout' => NULL,
+                     'border' => false,
+                     'icon' => '/UI/styrofoam.jpg',
+                     'labelWidth' => 100,
+                     'labelAlign' => 'left',
+                  )),
+                ),
+                 'locked' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'fieldtype' => 'tabpanel',
+                 'border' => false,
+                 'tabPosition' => 'top',
+              )),
+            ),
+             'locked' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'fieldtype' => 'panel',
+             'layout' => NULL,
+             'border' => false,
+             'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/template.svg',
+             'labelWidth' => 100,
+             'labelAlign' => 'left',
+          )),
+          6 => 
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Load',
              'type' => NULL,
