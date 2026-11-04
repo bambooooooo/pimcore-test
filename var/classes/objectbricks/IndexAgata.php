@@ -179,7 +179,7 @@ Przykładowo:
                     ),
                      'unique' => false,
                      'showCharCount' => false,
-                     'width' => '',
+                     'width' => 600,
                      'defaultValueGenerator' => '',
                   )),
                 ),
