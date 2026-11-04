@@ -54,9 +54,17 @@
     {% endif %}
 
     {% if app.user.user.allowed("factory_show_packages_spec") %}
-        <div>
+        <div style="margin-top: 8px">
             <a href="{{ path("factory_package_spec", {id: order.id}) }}">
                 Paczki + wypełnienia
+            </a>
+        </div>
+    {% endif %}
+
+    {% if app.user.user.allowed("factory_show_fillment_spec") %}
+        <div style="margin-top: 8px">
+            <a href="{{ path("factory_fillment_spec", {id: order.id}) }}">
+                Wypełnienia (grupowanie)
             </a>
         </div>
     {% endif %}

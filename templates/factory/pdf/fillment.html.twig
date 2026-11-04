@@ -1,0 +1,123 @@
+<html>
+<head>
+    <title>Megstyl #{{ serie.id }}</title>
+    <style>
+        /* Forces a new page before elements with this class */
+        .page-break { page-break-before: always; }
+
+        /* Alternative controls */
+        .avoid-break { page-break-inside: avoid; } /* Prevents splitting */
+        .break-after { page-break-after: always; } /* Forces break after element */
+
+        html, body
+        {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            padding: 0;
+            margin: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            padding: 0;
+            margin: 0;
+            font-size: 9px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 3px;
+        }
+        th {
+            background-color: #eaeaea;
+        }
+
+        .pb
+        {
+            page-break-after: always;
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        @page :first {
+            margin: 0;
+        }
+
+        .page-content
+        {
+            padding: 10mm 10mm 10 10mm;
+            box-sizing: border-box;
+        }
+
+    </style>
+</head>
+<body>
+{% for material, thickList in fillments %}
+    {% for thick, lengthList in thickList %}
+        <div class="page">
+            <div class="page-content">
+                <table>
+                    <thead>
+                    <tr>
+                        <td>
+                            <h2>Partia {{ serie.key }}</h2>
+                            <h3>{{ material }}, grubość: {{ thick }}mm</h3>
+                        </td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <table>
+                                <thead>
+                                <tr>
+                                    <td>Długość [mm]</td>
+                                    <td>Szerokość [mm]</td>
+                                    <td>Ilość</td>
+                                    <td>Opis</td>
+                                </tr>
+                                </thead>
+
+                                {% for length, widthList in lengthList %}
+                                    {% for width, items in widthList %}
+                                        <tr>
+                                            <td>
+                                                {{ length }}
+                                            </td>
+                                            <td>
+                                                {{ width }}
+                                            </td>
+                                            <td>
+                                                {% set total_row = 0 %}
+                                                {% for item in items %}
+                                                    {% set total_row = total_row + item.cnt %}
+                                                {% endfor %}
+                                                {{ total_row }}
+                                            </td>
+                                            <td>
+                                                <ol>
+                                                    {% for item in items %}
+                                                        <li>
+                                                            {{ item.item }} - {{ item.cnt }}
+                                                        </li>
+                                                    {% endfor %}
+                                                </ol>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                {% endfor %}
+                            </table>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="page-break"></div>
+    {% endfor %}
+{% endfor %}
+</body>
+</html>

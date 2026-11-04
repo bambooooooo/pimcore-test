@@ -353,6 +353,80 @@ class FactoryController extends UserAwareController
         return new Response($processor->getPdfFromString($html), Response::HTTP_OK, ['Content-Type' => 'application/pdf']);
     }
 
+    #[Route("/fillmentspec/{id}", name: "fillment_spec")]
+    public function serieFillmentGrouped(Request $request): Response
+    {
+        $id = (int)$request->get("id");
+
+        DataObject::setHideUnpublished(false);
+
+        $serie = Order::getById($id);
+        if(!$serie)
+        {
+            return new Response("Not found", Response::HTTP_NOT_FOUND);
+        }
+
+        $fillments = [];
+
+        foreach($serie->getChildren() as $order)
+        {
+            foreach($order->getProducts() as $li)
+            {
+                /** @var DataObject\Product $product */
+                $product = $li->getElement();
+
+                foreach($product->getPackages() as $lip)
+                {
+                    /** @var Package $package */
+                    $package = $lip->getElement();
+
+                    foreach($package->getFillment() as $fg)
+                    {
+                        $material = trim(strtoupper($fg["Material"]->getData() ?? "Styropian"));
+
+                        if(str_ends_with($material, 'MM')){
+                            $material = trim(substr($material, 0, strlen($material) - 2));
+                        }
+
+                        $thickness = $fg["Thickness"]->getData()->getValue();
+                        $elements = $fg["Elements"]->getData();
+
+                        foreach($elements as $element)
+                        {
+                            $l = $element[0];
+                            $w = $element[1];
+                            $c = $element[2] * $lip->getQuantity() * $li->getQuantity();
+
+                            $fillments[$material][$thickness][$l][$w][] = [
+                                'item' => $package->getKey(),
+                                'cnt' => $c
+                            ];
+                        }
+                    }
+                }
+            }
+        }
+
+        $this->recursiveKsort($fillments);
+
+        $html = $this->renderView('factory/pdf/fillment.html.twig', ["serie" => $serie, "fillments" => $fillments]);
+
+        $processor = Processor::getInstance();
+        return new Response($processor->getPdfFromString($html), Response::HTTP_OK, ['Content-Type' => 'application/pdf']);
+    }
+
+    function recursiveKsort(array &$array): void
+    {
+        foreach ($array as &$value) {
+            if (is_array($value)) {
+                $this->recursiveKsort($value);
+            }
+        }
+        unset($value);
+
+        ksort($array, SORT_NATURAL | SORT_FLAG_CASE);
+    }
+
     #[Route('/labels/{id}', name: 'labels')]
     public function labelsAction(Request $request): Response
     {
