@@ -178,7 +178,8 @@
                 <div class="page-break"></div>
                 <div class="page">
                     <div class="page-content">
-                        <h1>{{ product.key }}</h1>
+                        <h1>{{ serie.key }}</h1>
+                        <h2>{{ product.key }}</h2>
                         <table>
                             <tbody>
                                 {% for lip in product.Packages %}
@@ -198,6 +199,14 @@
                                 <tr>
                                     <td>Sku</td>
                                     <td>{{ p.key }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Ilość zam.</td>
+                                    <td>
+                                        <strong>
+                                            {{ li.data.Quantity * lip.data.Quantity }}
+                                        </strong>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Kod systemowy</td>
@@ -231,6 +240,7 @@
                                                     <td>Długość [mm]</td>
                                                     <td>Szerokość [mm]</td>
                                                     <td>Ilość</td>
+                                                    <td>Ilość zam.</td>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -242,6 +252,7 @@
                                                             <td>{{ lige[0] }}</td>
                                                             <td>{{ lige[1] }}</td>
                                                             <td>{{ lige[2] }}</td>
+                                                            <td><strong>{{ lige[2] * li.data.Quantity * lip.data.Quantity }}</strong></td>
                                                         </tr>
                                                     {% endfor %}
                                                 {% endfor %}
