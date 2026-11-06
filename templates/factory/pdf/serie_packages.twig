@@ -249,9 +249,9 @@
                                                         <tr>
                                                             <td>{{ lig['Material'].data }}</td>
                                                             <td>{{ lig['Thickness'].data.value }}</td>
-                                                            <td>{{ lige[0] }}</td>
-                                                            <td>{{ lige[1] }}</td>
-                                                            <td>{{ lige[2] }}</td>
+                                                            <td>{{ lige[0]|number_format(0, ',', ' ') }}</td>
+                                                            <td>{{ lige[1]|number_format(0, ',', ' ') }}</td>
+                                                            <td>{{ lige[2]|number_format(0, ',', ' ') }}</td>
                                                             <td><strong>{{ lige[2] * li.data.Quantity * lip.data.Quantity }}</strong></td>
                                                         </tr>
                                                     {% endfor %}
