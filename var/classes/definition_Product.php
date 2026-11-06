@@ -106,6 +106,9 @@
  * - Documents [manyToManyRelation]
  * - Instruction [manyToOneRelation]
  * - InstructionUS [manyToOneRelation]
+ * - CE [checkbox]
+ * - WEEE [checkbox]
+ * - ROHS [checkbox]
  * - ps_megstyl_pl [booleanSelect]
  * - ps_megstyl_pl_parent [manyToOneRelation]
  * - ps_megstyl_pl_id [numeric]
@@ -135,7 +138,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Produkt',
    'description' => 'Towar, który można sprzedać',
    'creationDate' => NULL,
-   'modificationDate' => 1792743067,
+   'modificationDate' => 1793951097,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -5145,6 +5148,179 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                         array (
                         ),
                          'width' => '',
+                      )),
+                      3 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                         'name' => 'Layout',
+                         'type' => NULL,
+                         'region' => NULL,
+                         'title' => 'Oznaczenia PL / EU',
+                         'width' => '',
+                         'height' => '',
+                         'collapsible' => false,
+                         'collapsed' => false,
+                         'bodyStyle' => '',
+                         'datatype' => 'layout',
+                         'children' => 
+                        array (
+                          0 => 
+                          \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                             'name' => 'CE',
+                             'title' => 'Oznaczenie CE ',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => 'float: left; margin-right: 24px;',
+                             'permissions' => NULL,
+                             'fieldtype' => '',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'defaultValue' => NULL,
+                             'defaultValueGenerator' => '',
+                          )),
+                          1 => 
+                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
+                             'name' => 'Layout',
+                             'type' => NULL,
+                             'region' => NULL,
+                             'title' => '',
+                             'width' => '',
+                             'height' => '',
+                             'collapsible' => false,
+                             'collapsed' => false,
+                             'bodyStyle' => '',
+                             'datatype' => 'layout',
+                             'children' => 
+                            array (
+                            ),
+                             'locked' => false,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'fieldtype' => 'text',
+                             'html' => '<div style="height: 35px; overflow: hidden">
+<img src="/UI/ce.jpg" height="35">
+</div>',
+                             'renderingClass' => '',
+                             'renderingData' => '',
+                             'border' => false,
+                          )),
+                          2 => 
+                          \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                             'name' => 'WEEE',
+                             'title' => 'Oznaczenie WEEE',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => 'float: left; margin-right: 24px;',
+                             'permissions' => NULL,
+                             'fieldtype' => '',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'defaultValue' => NULL,
+                             'defaultValueGenerator' => '',
+                          )),
+                          3 => 
+                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
+                             'name' => 'Layout',
+                             'type' => NULL,
+                             'region' => NULL,
+                             'title' => '',
+                             'width' => '',
+                             'height' => '',
+                             'collapsible' => false,
+                             'collapsed' => false,
+                             'bodyStyle' => '',
+                             'datatype' => 'layout',
+                             'children' => 
+                            array (
+                            ),
+                             'locked' => false,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'fieldtype' => 'text',
+                             'html' => '<div style="height: 35px; overflow: hidden">
+<img src="/UI/weee.jpg" height="35">
+</div>',
+                             'renderingClass' => '',
+                             'renderingData' => '',
+                             'border' => false,
+                          )),
+                          4 => 
+                          \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                             'name' => 'ROHS',
+                             'title' => 'Oznaczenie ROHS',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => 'float: left; margin-right: 24px;',
+                             'permissions' => NULL,
+                             'fieldtype' => '',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'defaultValue' => NULL,
+                             'defaultValueGenerator' => '',
+                          )),
+                          5 => 
+                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
+                             'name' => 'Layout',
+                             'type' => NULL,
+                             'region' => NULL,
+                             'title' => '',
+                             'width' => '',
+                             'height' => '',
+                             'collapsible' => false,
+                             'collapsed' => false,
+                             'bodyStyle' => '',
+                             'datatype' => 'layout',
+                             'children' => 
+                            array (
+                            ),
+                             'locked' => false,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'fieldtype' => 'text',
+                             'html' => '<div style="height: 35px; overflow: hidden">
+<img src="/UI/rohs.jpg" height="35">
+</div>',
+                             'renderingClass' => '',
+                             'renderingData' => '',
+                             'border' => false,
+                          )),
+                        ),
+                         'locked' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'fieldtype' => 'panel',
+                         'layout' => NULL,
+                         'border' => false,
+                         'icon' => '',
+                         'labelWidth' => 220,
+                         'labelAlign' => 'left',
                       )),
                     ),
                      'locked' => false,
