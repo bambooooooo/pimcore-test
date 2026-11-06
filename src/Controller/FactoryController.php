@@ -8,6 +8,7 @@ use Pimcore\Bundle\WebToPrintBundle\Processor;
 use Pimcore\Controller\UserAwareController;
 use Pimcore\Model\DataObject;
 use Pimcore\Model\Asset;
+use Pimcore\Model\DataObject\Concrete;
 use Pimcore\Model\DataObject\Order;
 use Pimcore\Model\DataObject\Package;
 use Symfony\Component\HttpFoundation\Cookie;
@@ -397,7 +398,9 @@ class FactoryController extends UserAwareController
                             $w = $element[1];
                             $c = $element[2] * $lip->getQuantity() * $li->getQuantity();
 
-                            $fillments[$material][$thickness][$l][$w][] = [
+                            $model = $this->findFieldSource($package, "Fillment")->getKey();
+
+                            $fillments[$material][$thickness][$l][$w][$model][] = [
                                 'item' => $package->getKey(),
                                 'cnt' => $c
                             ];
@@ -415,6 +418,107 @@ class FactoryController extends UserAwareController
         return new Response($processor->getPdfFromString($html), Response::HTTP_OK, ['Content-Type' => 'application/pdf']);
     }
 
+    #[Route("/fillment-groups/{id}", name: "fillment_groups")]
+    public function serieFillmentGroupdList(Request $request): Response
+    {
+        $id = (int)$request->get("id");
+
+        DataObject::setHideUnpublished(false);
+
+        $serie = Order::getById($id);
+        if(!$serie)
+        {
+            return new Response("Not found", Response::HTTP_NOT_FOUND);
+        }
+
+        $fillments = [];
+
+        foreach($serie->getChildren() as $order)
+        {
+            foreach($order->getProducts() as $li)
+            {
+                /** @var DataObject\Product $product */
+                $product = $li->getElement();
+
+                foreach($product->getPackages() as $lip)
+                {
+                    /** @var Package $package */
+                    $package = $lip->getElement();
+
+                    $model = $this->findFieldSource($package, "Fillment");
+
+                    if(!$model)
+                        continue;
+
+                    $modelFillments = [];
+
+
+                    foreach($model->getFillment() as $fg)
+                    {
+                        $material = trim(strtoupper($fg["Material"]->getData() ?? "Styropian"));
+
+                        if(str_ends_with($material, 'MM')){
+                            $material = trim(substr($material, 0, strlen($material) - 2));
+                        }
+
+                        $thickness = $fg["Thickness"]->getData()->getValue();
+                        $elements = $fg["Elements"]->getData();
+
+                        foreach($elements as $element)
+                        {
+                            $l = $element[0];
+                            $w = $element[1];
+                            $c = $element[2] * $lip->getQuantity() * $li->getQuantity();
+
+                            $modelFillments[] = [
+                                'material' => $material,
+                                'thickness' => (int)$thickness,
+                                'length' => (int)$l,
+                                'width' => (int)$w,
+                                'unitcount' => (int)$element[2] * $lip->getQuantity(),
+                                'count' => (int)$c
+                            ];
+                        }
+                    }
+
+                    $modelKey = $model->getKey();
+                    usort($modelFillments, function($a, $b) {
+                        return [
+                                $a['material'],
+                                $a['thickness'],
+                                $a['length'],
+                                $a['width'],
+                                $a['unitcount'],
+                                $a['count'],
+                            ] <=> [
+                                $b['material'],
+                                $b['thickness'],
+                                $b['length'],
+                                $b['width'],
+                                $b['unitcount'],
+                                $b['count'],
+                            ];
+                    });
+
+                    $fillments[$modelKey]['model'] = $model;
+                    $fillments[$modelKey]['fillments'] = $modelFillments;
+
+                    $fillments[$modelKey]['items'][] = [
+                        'package' => $package->getKey(),
+                        'cnt' => $li->getQuantity() * $lip->getQuantity()
+                    ];
+                }
+            }
+        }
+
+        $this->recursiveKsort($fillments);
+
+        $html = $this->renderView('factory/pdf/fillment-model.html.twig', ["serie" => $serie, "fillments" => $fillments]);
+
+        $processor = Processor::getInstance();
+        return new Response($processor->getPdfFromString($html), Response::HTTP_OK, ['Content-Type' => 'application/pdf']);
+    }
+
     function recursiveKsort(array &$array): void
     {
         foreach ($array as &$value) {
@@ -425,6 +529,23 @@ class FactoryController extends UserAwareController
         unset($value);
 
         ksort($array, SORT_NATURAL | SORT_FLAG_CASE);
+    }
+
+    function findFieldSource(Concrete $object, string $field): ?Concrete
+    {
+        $fd = $object->getClass()->getFieldDefinition($field);
+        $getter = 'get' . ucfirst($field);
+
+        return DataObject\Service::useInheritedValues(false, function () use ($object, $fd, $getter) {
+            for($current = $object; $current; $current = DataObject\Service::hasInheritableParentObject($current)) {
+                if(!$fd->isEmpty($current->$getter()))
+                {
+                    return $current;
+                }
+            }
+
+            return null;
+        });
     }
 
     #[Route('/labels/{id}', name: 'labels')]
