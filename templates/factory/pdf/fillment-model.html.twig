@@ -1,0 +1,220 @@
+<html>
+<head>
+    <title>Megstyl #{{ serie.id }}</title>
+    <style>
+        /* Forces a new page before elements with this class */
+        .page-break { page-break-before: always; }
+
+        /* Alternative controls */
+        .avoid-break { page-break-inside: avoid; } /* Prevents splitting */
+        .break-after { page-break-after: always; } /* Forces break after element */
+
+        html, body
+        {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            padding: 0;
+            margin: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            padding: 0;
+            margin: 0;
+            font-size: 9px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 3px;
+        }
+        th {
+            background-color: #eaeaea;
+        }
+
+        .pb
+        {
+            page-break-after: always;
+        }
+
+        @page {
+            size: A4;
+            margin: 12mm;
+
+            @bottom-right {
+                content: counter(page) " / " counter(pages);
+                font-size: 12px;
+                color: #000;
+            }
+        }
+
+        @page :first {
+            margin: 0;
+        }
+
+        .page-content
+        {
+            padding: 10mm 0 10mm 0;
+            box-sizing: border-box;
+        }
+
+    </style>
+</head>
+<body>
+<div class="page">
+    <div class="page-content">
+        <h1>Partia {{ serie.key }}</h1>
+        <h2>
+            Lista paczek (wypełnienia)
+        </h2>
+
+        <table>
+            <thead>
+            <tr>
+                <td>#</td>
+                <td>Paczka</td>
+                <td>Ilość</td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for model, modelData in fillments %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ model }}</td>
+                    <td>
+                        {% set model_total = 0 %}
+
+                        {% for li in modelData.items %}
+                            {% set model_total = model_total + li.cnt %}
+                        {% endfor %}
+
+                        {{ model_total }}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="page-break"></div>
+{% set total_models = fillments|length %}
+{% for model, modelData in fillments %}
+    <div class="page">
+        <div class="page-content">
+            <table>
+                <thead>
+                    <tr>
+                        <td colspan="2">
+                            <h2>Partia {{ serie.key }}</h2>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Model
+                        </td>
+                        <td>
+                            <strong>{{ model }}</strong>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Nr grupy
+                        </td>
+                        <td>
+                            {{ loop.index }} / {{ total_models }}
+                        </td>
+                    </tr>
+                    </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            Paczki
+                        </td>
+                        <td>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <td>#</td>
+                                        <td>Kod paczki</td>
+                                        <td>Ilość</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% set model_total = 0 %}
+                                    {% for li in modelData.items %}
+                                        <tr>
+                                            <td>{{ loop.index }}</td>
+                                            <td>{{ li.package }}</td>
+                                            <td>{{ li.cnt }}</td>
+                                        </tr>
+                                        {% set model_total = model_total + li.cnt %}
+                                    {% endfor %}
+                                    <tr>
+                                        <td colspan="2" style="text-align: right">Razem</td>
+                                        <td>
+                                            {{ model_total }}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Wypełnienia</td>
+                        <td>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <td>#</td>
+                                        <td>Materiał</td>
+                                        <td>Grubość [mm]</td>
+                                        <td>Długość [mm]</td>
+                                        <td>Szerokość [mm]</td>
+                                        <td>Ilość</td>
+                                        <td>
+                                            <strong>
+                                                Ilość zam.
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% set total_fillments = 0 %}
+                                    {% for lim in modelData.fillments %}
+                                        <tr>
+                                            <td>{{ loop.index }}</td>
+                                            <td>{{ lim.material }}</td>
+                                            <td>{{ lim.thickness }}</td>
+                                            <td>{{ lim.length }}</td>
+                                            <td>{{ lim.width }}</td>
+                                            <td>{{ lim.unitcount }}</td>
+                                            <td>
+                                                <strong>
+                                                    {{ lim.count }}
+                                                </strong>
+                                            </td>
+                                        </tr>
+                                        {% set total_fillments = total_fillments + lim.count %}
+                                    {% endfor %}
+                                    <tr>
+                                        <td colspan="6" style="text-align: right">
+                                            Razem
+                                        </td>
+                                        <td>
+                                            <strong>
+                                                {{ total_fillments }}
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="page-break"></div>
+{% endfor %}
+</body>
+</html>

@@ -98,7 +98,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
             ),
              'unique' => false,
              'showCharCount' => false,
-             'width' => 420,
+             'width' => 600,
              'defaultValueGenerator' => '',
           )),
         ),

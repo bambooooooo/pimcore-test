@@ -1,0 +1,211 @@
+<html>
+<head>
+    <title>Megstyl #{{ serie.id }}</title>
+    <style>
+        /* Forces a new page before elements with this class */
+        .page-break { page-break-before: always; }
+
+        /* Alternative controls */
+        .avoid-break { page-break-inside: avoid; } /* Prevents splitting */
+        .break-after { page-break-after: always; } /* Forces break after element */
+
+        html, body
+        {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            padding: 0;
+            margin: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            padding: 0;
+            margin: 0;
+            font-size: 9px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 3px;
+        }
+        th {
+            background-color: #eaeaea;
+        }
+
+        .pb
+        {
+            page-break-after: always;
+        }
+
+        @page {
+            size: A4;
+            margin: 12mm;
+
+            @bottom-right {
+                content: counter(page) " / " counter(pages);
+                font-size: 12px;
+                color: #000;
+            }
+        }
+
+        @page :first {
+            margin: 0;
+        }
+
+        .page-content
+        {
+            padding: 10mm 0 10mm 0;
+            box-sizing: border-box;
+        }
+
+    </style>
+</head>
+<body>
+<div class="page">
+    <div class="page-content">
+        <h1>Partia {{ serie.key }}</h1>
+
+        <h2>
+            Lista materiałów (wypełnienia)
+        </h2>
+
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <td>#</td>
+                        <td>Materiał</td>
+                        <td>Grubość [mm]</td>
+                        <td>Ilość [m2]</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% set line_no = 0 %}
+                    {% for material, thickList in fillments %}
+                        {% for thick, lengthList in thickList %}
+
+                            {% set line_no = line_no + 1 %}
+                            {% set total_field = 0 %}
+
+                            {% for length, widthList in lengthList %}
+                                {% for width, modelList in widthList %}
+                                    {% for model, items in modelList %}
+                                        {% for item in items %}
+                                            {% set total_field = total_field + (length / 1000 * width / 1000) * item.cnt %}
+                                        {% endfor %}
+                                    {% endfor %}
+                                {% endfor %}
+                            {% endfor %}
+
+                            <tr>
+                                <td>
+                                    {{ line_no }}
+                                </td>
+                                <td>
+                                    {{ material }}
+                                </td>
+                                <td>
+                                    {{ thick }}
+                                </td>
+                                <td>
+                                    {{ total_field|number_format(2, ',', ' ') }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="page-break"></div>
+{% for material, thickList in fillments %}
+    {% for thick, lengthList in thickList %}
+        <div class="page">
+            <div class="page-content">
+                <table>
+                    <thead>
+                    <tr>
+                        <td>
+                            <h2>Partia {{ serie.key }}</h2>
+                            <h3>{{ material }}, grubość: {{ thick }}mm</h3>
+                        </td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <table>
+                                <thead>
+                                <tr>
+                                    <td>#</td>
+                                    <td>Długość [mm]</td>
+                                    <td>Szerokość [mm]</td>
+                                    <td>Ilość</td>
+                                    <td>Opis</td>
+                                </tr>
+                                </thead>
+
+                                {% set line_no = 0 %}
+
+                                {% for length, widthList in lengthList %}
+                                    {% for width, modelList in widthList %}
+                                        {% set line_no = line_no + 1 %}
+                                        <tr>
+                                            <td>
+                                                {{ line_no }}
+                                            </td>
+                                            <td>
+                                                {{ length|number_format(0, ',', ' ') }}
+                                            </td>
+                                            <td>
+                                                {{ width|number_format(0, ',', ' ') }}
+                                            </td>
+                                            <td>
+                                                {% set total_row = 0 %}
+                                                {% for model, items in modelList %}
+                                                    {% for item in items %}
+                                                        {% set total_row = total_row + item.cnt %}
+                                                    {% endfor %}
+                                                {% endfor %}
+                                                {{ total_row }}
+                                            </td>
+                                            <td>
+                                                <ol>
+                                                    {% for model, items in modelList %}
+
+                                                        {% set model_total = 0 %}
+                                                        {% for item in items %}
+                                                            {% set model_total = model_total + item.cnt %}
+                                                        {% endfor %}
+
+                                                        <li>
+                                                            <strong>
+                                                                {{ model }} - {{ model_total }}
+                                                            </strong>
+                                                            <ol>
+                                                            {% for item in items %}
+                                                                <li>
+                                                                    {{ item.item }} - {{ item.cnt }}
+                                                                </li>
+                                                            {% endfor %}
+                                                            </ol>
+                                                        </li>
+                                                    {% endfor %}
+                                                </ol>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                {% endfor %}
+                            </table>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="page-break"></div>
+    {% endfor %}
+{% endfor %}
+</body>
+</html>
