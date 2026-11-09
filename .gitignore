@@ -52,3 +52,6 @@ nbproject
 
 # bundles development
 bundles/
+
+# test (temp) command - quick and dirty
+src/Command/TestCommand.php

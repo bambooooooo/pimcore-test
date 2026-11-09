@@ -84,15 +84,6 @@ services:
             - ./.docker/supervisord.conf:/etc/supervisor/conf.d/pimcore.conf:ro
             - /mnt/projects/RENDERS:/var/www/html/renders:ro
 
-    docs:
-        image: squidfunk/mkdocs-material
-        ports:
-            - "8005:8000"
-        volumes:
-            - ./:/docs:ro
-        stdin_open: true
-        tty: true
-
     gotenberg:
         image: gotenberg/gotenberg:8
         command:
