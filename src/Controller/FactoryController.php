@@ -468,7 +468,6 @@ class FactoryController extends UserAwareController
                         {
                             $l = $element[0];
                             $w = $element[1];
-                            $c = $element[2] * $lip->getQuantity() * $li->getQuantity();
 
                             $modelFillments[] = [
                                 'material' => $material,
@@ -476,7 +475,6 @@ class FactoryController extends UserAwareController
                                 'length' => (int)$l,
                                 'width' => (int)$w,
                                 'unitcount' => (int)$element[2] * $lip->getQuantity(),
-                                'count' => (int)$c
                             ];
                         }
                     }
@@ -489,14 +487,12 @@ class FactoryController extends UserAwareController
                                 $a['length'],
                                 $a['width'],
                                 $a['unitcount'],
-                                $a['count'],
                             ] <=> [
                                 $b['material'],
                                 $b['thickness'],
                                 $b['length'],
                                 $b['width'],
                                 $b['unitcount'],
-                                $b['count'],
                             ];
                     });
 
@@ -507,6 +503,11 @@ class FactoryController extends UserAwareController
                         'package' => $package->getKey(),
                         'cnt' => $li->getQuantity() * $lip->getQuantity()
                     ];
+
+                    $fillments[$modelKey]['quantity'] = isset($fillments[$modelKey]['quantity'])
+                        ? $fillments[$modelKey]['quantity'] + $li->getQuantity() * $lip->getQuantity()
+                        : $li->getQuantity() * $lip->getQuantity();
+
                 }
             }
         }
