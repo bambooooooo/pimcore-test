@@ -87,7 +87,7 @@ class UrlContractCest
             $I->stopFollowingRedirects();
             $this->send($I, $example);
             $I->seeResponseCodeIsRedirection();
-            $I->assertStringEndsWith('/admin/login', (string) $I->grabResponseHeader('Location'));
+            $I->assertStringEndsWith('/factory/login', (string) $I->grabResponseHeader('Location'));
         }
     }
 

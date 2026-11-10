@@ -87,8 +87,8 @@
         <div class="col-12 text-center">
             <h1>
                 {{ obj.key }}
-                <a target="_blank" href="/admin/login/deeplink?object_{{ obj.id }}_object">
-                    <img height="40" src="/bundles/pimcoreadmin/img/flat-color-icons/input.svg"/>
+                <a target="_blank" href="/pimcore-studio/data-object/{{ obj.id }}">
+                    <img height="40" src="/static/pimcoreadmin/img/flat-color-icons/input.svg"/>
                 </a>
             </h1>
         </div>
@@ -96,9 +96,9 @@
             <table style="width: 100%; text-align: center;">
                 <tbody>
                 <tr>
-                    <td><img src="/bundles/pimcoreadmin/img/flat-color-icons/right_up.svg" height="22"/></td>
-                    <td><img src="/bundles/pimcoreadmin/img/flat-color-icons/right.svg" height="22"/></td>
-                    <td><img src="/bundles/pimcoreadmin/img/flat-color-icons/up.svg" height="22"/></td>
+                    <td><img src="/static/pimcoreadmin/img/flat-color-icons/right_up.svg" height="22"/></td>
+                    <td><img src="/static/pimcoreadmin/img/flat-color-icons/right.svg" height="22"/></td>
+                    <td><img src="/static/pimcoreadmin/img/flat-color-icons/up.svg" height="22"/></td>
                 </tr>
                 <tr>
                     <td>
@@ -157,7 +157,7 @@
                                 <div class="btn btn-outline-primary" style="width: 100%;">
                                     {% set prod = pimcore_object(req.id) %}
                                     {{ prod.key }}
-                                    <img src="/bundles/pimcoreadmin/img/flat-color-icons/link.svg" height="22"/>
+                                    <img src="/static/pimcoreadmin/img/flat-color-icons/link.svg" height="22"/>
                                 </div>
                             </a>
                         </div>

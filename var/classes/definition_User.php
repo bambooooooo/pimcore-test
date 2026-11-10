@@ -36,7 +36,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Użytkownik',
    'description' => 'Podmiot w systemie',
    'creationDate' => NULL,
-   'modificationDate' => 1792155175,
+   'modificationDate' => 1794347245,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -209,9 +209,11 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
+                     'options' => NULL,
                      'defaultValue' => NULL,
                      'columnLength' => 190,
                      'dynamicOptions' => false,
+                     'enforceValidation' => false,
                      'defaultValueGenerator' => '',
                      'width' => '',
                      'optionsProviderType' => NULL,
@@ -600,6 +602,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'defaultValue' => NULL,
                  'columnLength' => 190,
                  'dynamicOptions' => false,
+                 'enforceValidation' => false,
                  'defaultValueGenerator' => '',
                  'width' => NULL,
                  'optionsProviderType' => NULL,
@@ -630,6 +633,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'defaultValue' => NULL,
                  'columnLength' => 190,
                  'dynamicOptions' => false,
+                 'enforceValidation' => false,
                  'defaultValueGenerator' => '',
                  'width' => NULL,
                  'optionsProviderType' => NULL,
@@ -656,9 +660,6 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'blockedVarsForExport' => 
                 array (
                 ),
-                 'algorithm' => 'password_hash',
-                 'salt' => '',
-                 'saltlocation' => 'back',
                  'minimumLength' => NULL,
                  'width' => '',
               )),
@@ -739,9 +740,11 @@ templates/factory/labels/60x150/MIRJAN.html.twig',
                  'blockedVarsForExport' => 
                 array (
                 ),
+                 'options' => NULL,
                  'defaultValue' => NULL,
                  'columnLength' => 190,
                  'dynamicOptions' => false,
+                 'enforceValidation' => false,
                  'defaultValueGenerator' => '',
                  'width' => '',
                  'optionsProviderType' => 'class',
@@ -824,9 +827,11 @@ brutto --> netto
                  'blockedVarsForExport' => 
                 array (
                 ),
+                 'options' => NULL,
                  'defaultValue' => NULL,
                  'columnLength' => 190,
                  'dynamicOptions' => false,
+                 'enforceValidation' => false,
                  'defaultValueGenerator' => '',
                  'width' => '',
                  'optionsProviderType' => 'class',

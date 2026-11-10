@@ -72,8 +72,9 @@ init_test_db() {
 
     step "Installing bundles into test database"
     local bundle
-    for bundle in PimcoreAdminBundle PimcoreApplicationLoggerBundle PimcoreCustomReportsBundle PimcoreDataHubBundle \
-                  PimcoreDataImporterBundle PimcoreQuillBundle PimcoreSimpleBackendSearchBundle; do
+    for bundle in PimcoreApplicationLoggerBundle PimcoreGenericExecutionEngineBundle PimcoreCustomReportsBundle \
+                  PimcoreGenericDataIndexBundle PimcoreStudioBackendBundle PimcoreStudioUiBundle PimcoreQuillBundle \
+                  PimcoreDataHubBundle PimcoreDataImporterBundle; do
         console_test pimcore:bundle:install "$bundle" | grep -E "\[(OK|ERROR)\]"
     done
 
@@ -89,6 +90,9 @@ init_test_db() {
     step "Installing app tables and reference data in test database"
     console_test stocks:install
     docker compose exec -T test_db mariadb -upimcore -ppimcore pimcore_test < "$REFERENCE_DATA"
+
+    step "Creating empty search indices (prefix pimcore_test_, config/packages/test/generic_data_index.yaml)"
+    console_test generic-data-index:update:index --recreate_index | grep -vE "^\s*$"
 }
 
 if [ "$RUN_PHP" = 1 ]; then
@@ -112,12 +116,12 @@ if [ "$RUN_JS" = 1 ]; then
     step "Exporting routes for JS contract tests"
     php_test bin/console --env=test debug:router --format=json > tests/js/routes.json
 
-    step "Running Vitest"
+    step "Type-checking the Studio plugin and running Vitest"
+    # assets/studio/node_modules provides the Studio SDK typings and the build id used by plugin-build.test.js
+    JS_STEPS='[ -d node_modules ] || npm ci; [ -d assets/studio/node_modules ] || npm ci --prefix assets/studio; npx --prefix assets/studio tsc --noEmit -p assets/studio && npx vitest run'
     if command -v npm >/dev/null; then
-        [ -d node_modules ] || npm ci
-        npx vitest run
+        sh -c "$JS_STEPS"
     else
-        docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/app" -w /app node:22-alpine \
-            sh -c '[ -d node_modules ] || npm ci; npx vitest run'
+        docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/app" -w /app node:22-alpine sh -c "$JS_STEPS"
     fi
 fi

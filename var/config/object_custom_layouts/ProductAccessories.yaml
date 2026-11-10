@@ -7,8 +7,9 @@ pimcore:
                     name: ProductAccessories
                     description: ''
                     creationDate: 1780296361
-                    modificationDate: 1780298117
+                    modificationDate: 1794348458
                     userOwner: 2
+                    userModification: 0
                     classId: Product
                     layoutDefinitions:
                         name: pimcore_root
@@ -124,9 +125,10 @@ pimcore:
                                                                             -
                                                                                 key: CABLES
                                                                                 value: CABLES
-                                                                        defaultValue: ''
+                                                                        defaultValue: null
                                                                         columnLength: 190
                                                                         dynamicOptions: false
+                                                                        enforceValidation: false
                                                                         defaultValueGenerator: ''
                                                                         width: ''
                                                                         optionsProviderType: configure

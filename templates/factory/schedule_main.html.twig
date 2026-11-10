@@ -191,7 +191,7 @@
                                 {% if type != "pdf" %}
                                     <div class="btn-group ms-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">
                                         <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <img src="/bundles/pimcoreadmin/img/flat-color-icons/print.svg" alt="print month">
+                                            <img src="/static/pimcoreadmin/img/flat-color-icons/print.svg" alt="print month">
                                         </button>
                                         <ul class="dropdown-menu">
                                             <li>
@@ -725,7 +725,7 @@
                             let newIcon = '';
                             if(!data[key].nowy)
                             {
-                                newIcon = '<img src="/bundles/pimcoreadmin/img/flat-color-icons/scissors.svg" height="20"/>';
+                                newIcon = '<img src="/static/pimcoreadmin/img/flat-color-icons/scissors.svg" height="20"/>';
                                 countOffcut += data[key].ilosc;
 
                                 if(data[key].kw)
@@ -748,7 +748,7 @@
 
                             if(data[key].kw)
                             {
-                                typeIcon = '<img src="/bundles/pimcoreadmin/img/flat-color-icons/document.svg" height="20"/>';
+                                typeIcon = '<img src="/static/pimcoreadmin/img/flat-color-icons/document.svg" height="20"/>';
                             }
 
                             output += "<tr>" +
@@ -772,7 +772,7 @@
                             "<td>Łącznie pełnych arkuszy</td>" +
                             "<td><strong>" + countNew + "</strong></td>" +
                             "<td>" +
-                                '<img src="/bundles/pimcoreadmin/img/flat-color-icons/document.svg" height="20"/>' +
+                                '<img src="/static/pimcoreadmin/img/flat-color-icons/document.svg" height="20"/>' +
                                  countKwNew
                             "</td>" +
                             "<td></td>" +
@@ -787,7 +787,7 @@
                             "<td>Łącznie odpadów użytkowych</td>" +
                             "<td><strong>" + countOffcut + "</strong></td>" +
                             "<td>" +
-                                '<img src="/bundles/pimcoreadmin/img/flat-color-icons/document.svg" height="20"/>' +
+                                '<img src="/static/pimcoreadmin/img/flat-color-icons/document.svg" height="20"/>' +
                                 countKwOffcut
                             "</td>" +
                             "<td></td>" +

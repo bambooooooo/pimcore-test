@@ -67,6 +67,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
             ),
              'decimalPrecision' => 0,
              'autoConvert' => false,
+             'translator' => NULL,
              'width' => '',
           )),
         ),

@@ -147,7 +147,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Produkt',
    'description' => 'Towar, który można sprzedać',
    'creationDate' => NULL,
-   'modificationDate' => 1793951097,
+   'modificationDate' => 1794348458,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -156,13 +156,13 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'useTraits' => '\\App\\Traits\\StockTrait',
    'listingUseTraits' => '',
    'encryption' => false,
-   'encryptedTables' =>
+   'encryptedTables' => 
   array (
   ),
    'allowInherit' => true,
    'allowVariants' => false,
    'showVariants' => false,
-   'layoutDefinitions' =>
+   'layoutDefinitions' => 
   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
      'name' => 'pimcore_root',
      'type' => NULL,
@@ -174,9 +174,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
      'collapsed' => false,
      'bodyStyle' => NULL,
      'datatype' => 'layout',
-     'children' =>
+     'children' => 
     array (
-      0 =>
+      0 => 
       \Pimcore\Model\DataObject\ClassDefinition\Layout\Region::__set_state(array(
          'name' => 'Layout',
          'type' => NULL,
@@ -188,9 +188,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'collapsed' => false,
          'bodyStyle' => '',
          'datatype' => 'layout',
-         'children' =>
+         'children' => 
         array (
-          0 =>
+          0 => 
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Layout',
              'type' => NULL,
@@ -202,9 +202,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'collapsed' => false,
              'bodyStyle' => '',
              'datatype' => 'layout',
-             'children' =>
+             'children' => 
             array (
-              0 =>
+              0 => 
               \Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
                  'name' => 'Layout',
                  'type' => NULL,
@@ -216,9 +216,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'collapsed' => false,
                  'bodyStyle' => '',
                  'datatype' => 'layout',
-                 'children' =>
+                 'children' => 
                 array (
-                  0 =>
+                  0 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'System',
                      'type' => NULL,
@@ -230,9 +230,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'collapsed' => false,
                      'bodyStyle' => '',
                      'datatype' => 'layout',
-                     'children' =>
+                     'children' => 
                     array (
-                      0 =>
+                      0 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
                          'name' => 'localizedfields',
                          'title' => '',
@@ -248,12 +248,12 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'invisible' => false,
                          'visibleGridView' => true,
                          'visibleSearch' => true,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
-                         'children' =>
+                         'children' => 
                         array (
-                          0 =>
+                          0 => 
                           \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'name' => 'Name',
                              'title' => 'Name',
@@ -271,13 +271,13 @@ Pełna nazwa produktu. Nazwa w językach obcych tłumaczona jest automatycznie w
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => true,
-                             'blockedVarsForExport' =>
+                             'blockedVarsForExport' => 
                             array (
                             ),
                              'defaultValue' => NULL,
                              'columnLength' => 100,
                              'regex' => '',
-                             'regexFlags' =>
+                             'regexFlags' => 
                             array (
                             ),
                              'unique' => false,
@@ -285,7 +285,7 @@ Pełna nazwa produktu. Nazwa w językach obcych tłumaczona jest automatycznie w
                              'width' => 520,
                              'defaultValueGenerator' => '',
                           )),
-                          1 =>
+                          1 => 
                           \Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                              'name' => 'Summary',
                              'title' => 'Summary',
@@ -305,7 +305,7 @@ Rozważyć opcję automatycznego generowania po uzupełnieniu wymaganych danych'
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
-                             'blockedVarsForExport' =>
+                             'blockedVarsForExport' => 
                             array (
                             ),
                              'toolbarConfig' => '',
@@ -322,9 +322,9 @@ Rozważyć opcję automatycznego generowania po uzupełnieniu wymaganych danych'
                          'provideSplitView' => false,
                          'tabPosition' => 'top',
                          'hideLabelsWhenTabsReached' => NULL,
-                         'referencedFields' =>
+                         'referencedFields' => 
                         array (
-                          0 =>
+                          0 => 
                           \Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
                              'name' => 'localizedfields',
                              'title' => '',
@@ -340,12 +340,12 @@ Rozważyć opcję automatycznego generowania po uzupełnieniu wymaganych danych'
                              'invisible' => false,
                              'visibleGridView' => true,
                              'visibleSearch' => true,
-                             'blockedVarsForExport' =>
+                             'blockedVarsForExport' => 
                             array (
                             ),
-                             'children' =>
+                             'children' => 
                             array (
-                              0 =>
+                              0 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\ImageGallery::__set_state(array(
                                  'name' => 'Infographics',
                                  'title' => 'Infographics',
@@ -361,7 +361,7 @@ Rozważyć opcję automatycznego generowania po uzupełnieniu wymaganych danych'
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'uploadPath' => '',
@@ -379,7 +379,7 @@ Rozważyć opcję automatycznego generowania po uzupełnieniu wymaganych danych'
                              'provideSplitView' => false,
                              'tabPosition' => 'top',
                              'hideLabelsWhenTabsReached' => NULL,
-                             'referencedFields' =>
+                             'referencedFields' => 
                             array (
                             ),
                              'permissionView' => NULL,
@@ -390,7 +390,7 @@ Rozważyć opcję automatycznego generowania po uzupełnieniu wymaganych danych'
                              'height' => '',
                              'fieldDefinitionsCache' => NULL,
                           )),
-                          1 =>
+                          1 => 
                           \Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
                              'name' => 'localizedfields',
                              'title' => '',
@@ -406,12 +406,12 @@ Rozważyć opcję automatycznego generowania po uzupełnieniu wymaganych danych'
                              'invisible' => false,
                              'visibleGridView' => true,
                              'visibleSearch' => true,
-                             'blockedVarsForExport' =>
+                             'blockedVarsForExport' => 
                             array (
                             ),
-                             'children' =>
+                             'children' => 
                             array (
-                              0 =>
+                              0 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                                  'name' => 'Desc1',
                                  'title' => 'Desc1',
@@ -427,7 +427,7 @@ Rozważyć opcję automatycznego generowania po uzupełnieniu wymaganych danych'
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'toolbarConfig' => '{
@@ -445,7 +445,7 @@ Rozważyć opcję automatycznego generowania po uzupełnieniu wymaganych danych'
                                  'height' => '',
                                  'width' => '',
                               )),
-                              1 =>
+                              1 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                                  'name' => 'Desc2',
                                  'title' => 'Desc2',
@@ -461,7 +461,7 @@ Rozważyć opcję automatycznego generowania po uzupełnieniu wymaganych danych'
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'toolbarConfig' => '{
@@ -479,7 +479,7 @@ Rozważyć opcję automatycznego generowania po uzupełnieniu wymaganych danych'
                                  'height' => '',
                                  'width' => '',
                               )),
-                              2 =>
+                              2 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                                  'name' => 'Desc3',
                                  'title' => 'Desc3',
@@ -495,7 +495,7 @@ Rozważyć opcję automatycznego generowania po uzupełnieniu wymaganych danych'
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'toolbarConfig' => '{
@@ -513,7 +513,7 @@ Rozważyć opcję automatycznego generowania po uzupełnieniu wymaganych danych'
                                  'height' => '',
                                  'width' => '',
                               )),
-                              3 =>
+                              3 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                                  'name' => 'Desc4',
                                  'title' => 'Desc4',
@@ -529,7 +529,7 @@ Rozważyć opcję automatycznego generowania po uzupełnieniu wymaganych danych'
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'toolbarConfig' => '{
@@ -555,7 +555,7 @@ Rozważyć opcję automatycznego generowania po uzupełnieniu wymaganych danych'
                              'provideSplitView' => false,
                              'tabPosition' => 'top',
                              'hideLabelsWhenTabsReached' => NULL,
-                             'referencedFields' =>
+                             'referencedFields' => 
                             array (
                             ),
                              'permissionView' => NULL,
@@ -577,7 +577,7 @@ Rozważyć opcję automatycznego generowania po uzupełnieniu wymaganych danych'
                       )),
                     ),
                      'locked' => false,
-                     'blockedVarsForExport' =>
+                     'blockedVarsForExport' => 
                     array (
                     ),
                      'fieldtype' => 'panel',
@@ -587,7 +587,7 @@ Rozważyć opcję automatycznego generowania po uzupełnieniu wymaganych danych'
                      'labelWidth' => 120,
                      'labelAlign' => 'left',
                   )),
-                  1 =>
+                  1 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Model',
                      'type' => NULL,
@@ -599,9 +599,9 @@ Rozważyć opcję automatycznego generowania po uzupełnieniu wymaganych danych'
                      'collapsed' => false,
                      'bodyStyle' => '',
                      'datatype' => 'layout',
-                     'children' =>
+                     'children' => 
                     array (
-                      0 =>
+                      0 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
                          'name' => 'Group',
                          'title' => 'Group',
@@ -619,12 +619,12 @@ Kategoria podstawowa, do której należy produkt',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
-                         'classes' =>
+                         'classes' => 
                         array (
-                          0 =>
+                          0 => 
                           array (
                             'classes' => 'Group',
                           ),
@@ -636,16 +636,16 @@ Kategoria podstawowa, do której należy produkt',
                          'allowToClearRelation' => false,
                          'objectsAllowed' => true,
                          'assetsAllowed' => false,
-                         'assetTypes' =>
+                         'assetTypes' => 
                         array (
                         ),
                          'documentsAllowed' => false,
-                         'documentTypes' =>
+                         'documentTypes' => 
                         array (
                         ),
                          'width' => '',
                       )),
-                      1 =>
+                      1 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'name' => 'Model',
                          'title' => 'Model',
@@ -667,13 +667,13 @@ Przykładowo:
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'defaultValue' => NULL,
                          'columnLength' => 190,
                          'regex' => '',
-                         'regexFlags' =>
+                         'regexFlags' => 
                         array (
                         ),
                          'unique' => false,
@@ -681,7 +681,7 @@ Przykładowo:
                          'width' => '',
                          'defaultValueGenerator' => '',
                       )),
-                      2 =>
+                      2 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                          'name' => 'Width',
                          'title' => 'Width',
@@ -699,12 +699,12 @@ Szerokość gabarytowa produktu',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'unitWidth' => '',
                          'defaultUnit' => 'mm',
-                         'validUnits' =>
+                         'validUnits' => 
                         array (
                           0 => 'mm',
                           1 => 'cm',
@@ -723,7 +723,7 @@ Szerokość gabarytowa produktu',
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
                       )),
-                      3 =>
+                      3 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                          'name' => 'Height',
                          'title' => 'Height',
@@ -741,12 +741,12 @@ Wysokość gabarytowa produktu',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'unitWidth' => '',
                          'defaultUnit' => 'mm',
-                         'validUnits' =>
+                         'validUnits' => 
                         array (
                           0 => 'mm',
                           1 => 'cm',
@@ -765,7 +765,7 @@ Wysokość gabarytowa produktu',
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
                       )),
-                      4 =>
+                      4 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                          'name' => 'Depth',
                          'title' => 'Depth',
@@ -783,12 +783,12 @@ Głębokość gabarytowa produktu',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'unitWidth' => '',
                          'defaultUnit' => 'mm',
-                         'validUnits' =>
+                         'validUnits' => 
                         array (
                           0 => 'mm',
                           1 => 'cm',
@@ -807,7 +807,7 @@ Głębokość gabarytowa produktu',
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
                       )),
-                      5 =>
+                      5 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                          'name' => 'Mass',
                          'title' => 'Mass',
@@ -825,12 +825,12 @@ Waga netto produktu - bez opakowania',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'unitWidth' => '',
                          'defaultUnit' => 'kg',
-                         'validUnits' =>
+                         'validUnits' => 
                         array (
                           0 => 'kg',
                         ),
@@ -846,7 +846,7 @@ Waga netto produktu - bez opakowania',
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
                       )),
-                      6 =>
+                      6 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Country::__set_state(array(
                          'name' => 'COO',
                          'title' => 'Country Of Origin',
@@ -862,12 +862,13 @@ Waga netto produktu - bez opakowania',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'defaultValue' => NULL,
                          'columnLength' => 190,
                          'dynamicOptions' => false,
+                         'enforceValidation' => false,
                          'defaultValueGenerator' => '',
                          'width' => '',
                          'optionsProviderType' => NULL,
@@ -875,7 +876,7 @@ Waga netto produktu - bez opakowania',
                          'optionsProviderData' => NULL,
                          'restrictTo' => 'CN,PL',
                       )),
-                      7 =>
+                      7 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'name' => 'CN',
                          'title' => 'CN Code',
@@ -895,13 +896,13 @@ Kod CN zawiera automatycznie kod HS.',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'defaultValue' => NULL,
                          'columnLength' => 190,
                          'regex' => '',
-                         'regexFlags' =>
+                         'regexFlags' => 
                         array (
                         ),
                          'unique' => false,
@@ -909,7 +910,7 @@ Kod CN zawiera automatycznie kod HS.',
                          'width' => '',
                          'defaultValueGenerator' => '',
                       )),
-                      8 =>
+                      8 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'name' => 'GPC',
                          'title' => 'GPC',
@@ -927,13 +928,13 @@ Ośmiocyfrowy numer "Brick" klasyfikacji produktowej GS1 GPC. Wyszukiwarka kodó
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'defaultValue' => NULL,
                          'columnLength' => 190,
                          'regex' => '',
-                         'regexFlags' =>
+                         'regexFlags' => 
                         array (
                         ),
                          'unique' => false,
@@ -941,7 +942,7 @@ Ośmiocyfrowy numer "Brick" klasyfikacji produktowej GS1 GPC. Wyszukiwarka kodó
                          'width' => '',
                          'defaultValueGenerator' => '',
                       )),
-                      9 =>
+                      9 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'name' => 'PKWIU',
                          'title' => 'Kod PKWiU',
@@ -961,13 +962,13 @@ https://poradnikprzedsiebiorcy.pl/-nowa-pkwiu-2025-juz-ogloszona
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'defaultValue' => NULL,
                          'columnLength' => 190,
                          'regex' => '',
-                         'regexFlags' =>
+                         'regexFlags' => 
                         array (
                         ),
                          'unique' => false,
@@ -975,7 +976,7 @@ https://poradnikprzedsiebiorcy.pl/-nowa-pkwiu-2025-juz-ogloszona
                          'width' => '',
                          'defaultValueGenerator' => '',
                       )),
-                      10 =>
+                      10 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
                          'name' => 'Manufacturer',
                          'title' => 'Manufacturer',
@@ -993,12 +994,12 @@ Producent',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
-                         'classes' =>
+                         'classes' => 
                         array (
-                          0 =>
+                          0 => 
                           array (
                             'classes' => 'User',
                           ),
@@ -1010,16 +1011,16 @@ Producent',
                          'allowToClearRelation' => true,
                          'objectsAllowed' => true,
                          'assetsAllowed' => false,
-                         'assetTypes' =>
+                         'assetTypes' => 
                         array (
                         ),
                          'documentsAllowed' => false,
-                         'documentTypes' =>
+                         'documentTypes' => 
                         array (
                         ),
                          'width' => '',
                       )),
-                      11 =>
+                      11 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyRelation::__set_state(array(
                          'name' => 'Suppliers',
                          'title' => 'Suppliers',
@@ -1035,12 +1036,12 @@ Producent',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
-                         'classes' =>
+                         'classes' => 
                         array (
-                          0 =>
+                          0 => 
                           array (
                             'classes' => 'User',
                           ),
@@ -1053,11 +1054,11 @@ Producent',
                          'allowToClearRelation' => true,
                          'objectsAllowed' => true,
                          'assetsAllowed' => false,
-                         'assetTypes' =>
+                         'assetTypes' => 
                         array (
                         ),
                          'documentsAllowed' => false,
-                         'documentTypes' =>
+                         'documentTypes' => 
                         array (
                         ),
                          'enableTextSelection' => false,
@@ -1066,7 +1067,7 @@ Producent',
                       )),
                     ),
                      'locked' => false,
-                     'blockedVarsForExport' =>
+                     'blockedVarsForExport' => 
                     array (
                     ),
                      'fieldtype' => 'panel',
@@ -1076,7 +1077,7 @@ Producent',
                      'labelWidth' => 100,
                      'labelAlign' => 'left',
                   )),
-                  2 =>
+                  2 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Parameters',
                      'type' => NULL,
@@ -1088,9 +1089,9 @@ Producent',
                      'collapsed' => false,
                      'bodyStyle' => '',
                      'datatype' => 'layout',
-                     'children' =>
+                     'children' => 
                     array (
-                      0 =>
+                      0 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
                          'name' => 'Serie',
                          'title' => 'Serie',
@@ -1106,12 +1107,12 @@ Producent',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
-                         'classes' =>
+                         'classes' => 
                         array (
-                          0 =>
+                          0 => 
                           array (
                             'classes' => 'Group',
                           ),
@@ -1123,16 +1124,16 @@ Producent',
                          'allowToClearRelation' => true,
                          'objectsAllowed' => true,
                          'assetsAllowed' => false,
-                         'assetTypes' =>
+                         'assetTypes' => 
                         array (
                         ),
                          'documentsAllowed' => false,
-                         'documentTypes' =>
+                         'documentTypes' => 
                         array (
                         ),
                          'width' => '',
                       )),
-                      1 =>
+                      1 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
                          'name' => 'Groups',
                          'title' => 'Groups',
@@ -1150,12 +1151,12 @@ Grupy, do których przypisany jest produkt.',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
-                         'classes' =>
+                         'classes' => 
                         array (
-                          0 =>
+                          0 => 
                           array (
                             'classes' => 'Group',
                           ),
@@ -1168,13 +1169,13 @@ Grupy, do których przypisany jest produkt.',
                          'allowToClearRelation' => true,
                          'optimizedAdminLoading' => false,
                          'enableTextSelection' => false,
-                         'visibleFieldDefinitions' =>
+                         'visibleFieldDefinitions' => 
                         array (
                         ),
                          'width' => '',
                          'height' => '',
                       )),
-                      2 =>
+                      2 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
                          'name' => 'Layout',
                          'type' => NULL,
@@ -1186,9 +1187,9 @@ Grupy, do których przypisany jest produkt.',
                          'collapsed' => false,
                          'bodyStyle' => '',
                          'datatype' => 'layout',
-                         'children' =>
+                         'children' => 
                         array (
-                          0 =>
+                          0 => 
                           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                              'name' => 'Layout',
                              'type' => NULL,
@@ -1200,9 +1201,9 @@ Grupy, do których przypisany jest produkt.',
                              'collapsed' => false,
                              'bodyStyle' => '',
                              'datatype' => 'layout',
-                             'children' =>
+                             'children' => 
                             array (
-                              0 =>
+                              0 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\Classificationstore::__set_state(array(
                                  'name' => 'Parameters',
                                  'title' => 'Parameters',
@@ -1220,10 +1221,10 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
-                                 'children' =>
+                                 'children' => 
                                 array (
                                 ),
                                  'labelWidth' => 200,
@@ -1231,14 +1232,14 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'storeId' => 27,
                                  'hideEmptyData' => false,
                                  'disallowAddRemove' => false,
-                                 'referencedFields' =>
+                                 'referencedFields' => 
                                 array (
                                 ),
                                  'fieldDefinitionsCache' => NULL,
-                                 'allowedGroupIds' =>
+                                 'allowedGroupIds' => 
                                 array (
                                 ),
-                                 'activeGroupDefinitions' =>
+                                 'activeGroupDefinitions' => 
                                 array (
                                 ),
                                  'maxItems' => NULL,
@@ -1247,7 +1248,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                               )),
                             ),
                              'locked' => false,
-                             'blockedVarsForExport' =>
+                             'blockedVarsForExport' => 
                             array (
                             ),
                              'fieldtype' => 'panel',
@@ -1257,7 +1258,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                              'labelWidth' => 100,
                              'labelAlign' => 'left',
                           )),
-                          1 =>
+                          1 => 
                           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                              'name' => 'Layout',
                              'type' => NULL,
@@ -1269,9 +1270,9 @@ Parametry produktu podzielone na kolekcje i grupy.',
                              'collapsed' => false,
                              'bodyStyle' => '',
                              'datatype' => 'layout',
-                             'children' =>
+                             'children' => 
                             array (
-                              0 =>
+                              0 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\Classificationstore::__set_state(array(
                                  'name' => 'ParametersAllegro',
                                  'title' => 'Parameters Allegro',
@@ -1287,10 +1288,10 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
-                                 'children' =>
+                                 'children' => 
                                 array (
                                 ),
                                  'labelWidth' => 0,
@@ -1298,14 +1299,14 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'storeId' => 32,
                                  'hideEmptyData' => false,
                                  'disallowAddRemove' => false,
-                                 'referencedFields' =>
+                                 'referencedFields' => 
                                 array (
                                 ),
                                  'fieldDefinitionsCache' => NULL,
-                                 'allowedGroupIds' =>
+                                 'allowedGroupIds' => 
                                 array (
                                 ),
-                                 'activeGroupDefinitions' =>
+                                 'activeGroupDefinitions' => 
                                 array (
                                 ),
                                  'maxItems' => 1,
@@ -1314,7 +1315,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                               )),
                             ),
                              'locked' => false,
-                             'blockedVarsForExport' =>
+                             'blockedVarsForExport' => 
                             array (
                             ),
                              'fieldtype' => 'panel',
@@ -1324,7 +1325,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                              'labelWidth' => 100,
                              'labelAlign' => 'left',
                           )),
-                          2 =>
+                          2 => 
                           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                              'name' => 'Google',
                              'type' => NULL,
@@ -1336,9 +1337,9 @@ Parametry produktu podzielone na kolekcje i grupy.',
                              'collapsed' => false,
                              'bodyStyle' => '',
                              'datatype' => 'layout',
-                             'children' =>
+                             'children' => 
                             array (
-                              0 =>
+                              0 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                                  'name' => 'GoogleCategory',
                                  'title' => 'Google Category',
@@ -1354,12 +1355,13 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'invisible' => true,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
-                                 'defaultValue' => '',
+                                 'defaultValue' => NULL,
                                  'columnLength' => 190,
                                  'dynamicOptions' => false,
+                                 'enforceValidation' => false,
                                  'defaultValueGenerator' => '',
                                  'width' => 500,
                                  'optionsProviderType' => 'select_options',
@@ -1368,7 +1370,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                               )),
                             ),
                              'locked' => false,
-                             'blockedVarsForExport' =>
+                             'blockedVarsForExport' => 
                             array (
                             ),
                              'fieldtype' => 'panel',
@@ -1380,7 +1382,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                           )),
                         ),
                          'locked' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'fieldtype' => 'tabpanel',
@@ -1389,7 +1391,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                       )),
                     ),
                      'locked' => false,
-                     'blockedVarsForExport' =>
+                     'blockedVarsForExport' => 
                     array (
                     ),
                      'fieldtype' => 'panel',
@@ -1399,7 +1401,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                      'labelWidth' => 100,
                      'labelAlign' => 'left',
                   )),
-                  3 =>
+                  3 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Sell',
                      'type' => NULL,
@@ -1411,9 +1413,9 @@ Parametry produktu podzielone na kolekcje i grupy.',
                      'collapsed' => false,
                      'bodyStyle' => '',
                      'datatype' => 'layout',
-                     'children' =>
+                     'children' => 
                     array (
-                      0 =>
+                      0 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                          'name' => 'base',
                          'title' => 'Cena bazowa netto (TKW) (old)',
@@ -1429,12 +1431,12 @@ Parametry produktu podzielone na kolekcje i grupy.',
                          'invisible' => true,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'unitWidth' => '',
                          'defaultUnit' => 'PLN',
-                         'validUnits' =>
+                         'validUnits' => 
                         array (
                           0 => 'PLN',
                         ),
@@ -1450,7 +1452,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
                       )),
-                      1 =>
+                      1 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                          'name' => 'price_base',
                          'title' => 'Cena bazowa netto (TKW)',
@@ -1466,12 +1468,12 @@ Parametry produktu podzielone na kolekcje i grupy.',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'unitWidth' => '',
                          'defaultUnit' => 'PLN',
-                         'validUnits' =>
+                         'validUnits' => 
                         array (
                           0 => 'PLN',
                         ),
@@ -1487,7 +1489,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
                       )),
-                      2 =>
+                      2 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                          'name' => 'price_catalog_pln',
                          'title' => 'Cena katalogowa PLN',
@@ -1503,12 +1505,12 @@ Parametry produktu podzielone na kolekcje i grupy.',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'unitWidth' => '',
                          'defaultUnit' => 'PLN',
-                         'validUnits' =>
+                         'validUnits' => 
                         array (
                           0 => 'PLN',
                         ),
@@ -1524,7 +1526,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
                       )),
-                      3 =>
+                      3 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                          'name' => 'price_catalog_eur',
                          'title' => 'Cena katalogowa EUR',
@@ -1540,12 +1542,12 @@ Parametry produktu podzielone na kolekcje i grupy.',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'unitWidth' => '',
                          'defaultUnit' => 'EUR',
-                         'validUnits' =>
+                         'validUnits' => 
                         array (
                           0 => 'EUR',
                         ),
@@ -1561,7 +1563,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
                       )),
-                      4 =>
+                      4 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
                          'name' => 'Layout',
                          'type' => NULL,
@@ -1573,9 +1575,9 @@ Parametry produktu podzielone na kolekcje i grupy.',
                          'collapsed' => false,
                          'bodyStyle' => '',
                          'datatype' => 'layout',
-                         'children' =>
+                         'children' => 
                         array (
-                          0 =>
+                          0 => 
                           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                              'name' => 'PL custom',
                              'type' => NULL,
@@ -1587,9 +1589,9 @@ Parametry produktu podzielone na kolekcje i grupy.',
                              'collapsed' => false,
                              'bodyStyle' => '',
                              'datatype' => 'layout',
-                             'children' =>
+                             'children' => 
                             array (
-                              0 =>
+                              0 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                                  'name' => 'price_custom_cama',
                                  'title' => 'Cama',
@@ -1605,12 +1607,12 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'unitWidth' => '',
                                  'defaultUnit' => 'PLN',
-                                 'validUnits' =>
+                                 'validUnits' => 
                                 array (
                                   0 => 'PLN',
                                 ),
@@ -1626,7 +1628,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'decimalSize' => NULL,
                                  'decimalPrecision' => NULL,
                               )),
-                              1 =>
+                              1 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                                  'name' => 'price_custom_mirjan',
                                  'title' => 'Mirjan',
@@ -1642,12 +1644,12 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'unitWidth' => '',
                                  'defaultUnit' => 'PLN',
-                                 'validUnits' =>
+                                 'validUnits' => 
                                 array (
                                   0 => 'PLN',
                                 ),
@@ -1663,7 +1665,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'decimalSize' => NULL,
                                  'decimalPrecision' => NULL,
                               )),
-                              2 =>
+                              2 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                                  'name' => 'price_custom_agata',
                                  'title' => 'Agata meble',
@@ -1679,12 +1681,12 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'unitWidth' => '',
                                  'defaultUnit' => 'PLN',
-                                 'validUnits' =>
+                                 'validUnits' => 
                                 array (
                                   0 => 'PLN',
                                 ),
@@ -1700,7 +1702,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'decimalSize' => NULL,
                                  'decimalPrecision' => NULL,
                               )),
-                              3 =>
+                              3 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                                  'name' => 'price_custom_selsey',
                                  'title' => 'Selsey',
@@ -1716,12 +1718,12 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'unitWidth' => '',
                                  'defaultUnit' => 'PLN',
-                                 'validUnits' =>
+                                 'validUnits' => 
                                 array (
                                   0 => 'PLN',
                                 ),
@@ -1737,7 +1739,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'decimalSize' => NULL,
                                  'decimalPrecision' => NULL,
                               )),
-                              4 =>
+                              4 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                                  'name' => 'price_custom_lectus',
                                  'title' => 'Lectus',
@@ -1753,12 +1755,12 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'unitWidth' => '',
                                  'defaultUnit' => 'PLN',
-                                 'validUnits' =>
+                                 'validUnits' => 
                                 array (
                                   0 => 'PLN',
                                 ),
@@ -1774,7 +1776,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'decimalSize' => NULL,
                                  'decimalPrecision' => NULL,
                               )),
-                              5 =>
+                              5 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                                  'name' => 'price_custom_furnidea',
                                  'title' => 'Furnidea',
@@ -1790,12 +1792,12 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'unitWidth' => '',
                                  'defaultUnit' => 'PLN',
-                                 'validUnits' =>
+                                 'validUnits' => 
                                 array (
                                   0 => 'PLN',
                                 ),
@@ -1811,7 +1813,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'decimalSize' => NULL,
                                  'decimalPrecision' => NULL,
                               )),
-                              6 =>
+                              6 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                                  'name' => 'price_custom_bogart',
                                  'title' => 'Bogart',
@@ -1827,12 +1829,12 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'unitWidth' => '',
                                  'defaultUnit' => 'PLN',
-                                 'validUnits' =>
+                                 'validUnits' => 
                                 array (
                                   0 => 'PLN',
                                 ),
@@ -1848,7 +1850,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'decimalSize' => NULL,
                                  'decimalPrecision' => NULL,
                               )),
-                              7 =>
+                              7 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                                  'name' => 'price_custom_uptrend',
                                  'title' => 'Uptrend',
@@ -1864,12 +1866,12 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'unitWidth' => '',
                                  'defaultUnit' => 'PLN',
-                                 'validUnits' =>
+                                 'validUnits' => 
                                 array (
                                   0 => 'PLN',
                                 ),
@@ -1887,7 +1889,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                               )),
                             ),
                              'locked' => false,
-                             'blockedVarsForExport' =>
+                             'blockedVarsForExport' => 
                             array (
                             ),
                              'fieldtype' => 'panel',
@@ -1897,7 +1899,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                              'labelWidth' => 180,
                              'labelAlign' => 'left',
                           )),
-                          1 =>
+                          1 => 
                           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                              'name' => 'EU custom',
                              'type' => NULL,
@@ -1909,9 +1911,9 @@ Parametry produktu podzielone na kolekcje i grupy.',
                              'collapsed' => false,
                              'bodyStyle' => '',
                              'datatype' => 'layout',
-                             'children' =>
+                             'children' => 
                             array (
-                              0 =>
+                              0 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                                  'name' => 'price_custom_lomado',
                                  'title' => 'Lomado',
@@ -1927,12 +1929,12 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'unitWidth' => '',
                                  'defaultUnit' => 'EUR',
-                                 'validUnits' =>
+                                 'validUnits' => 
                                 array (
                                   0 => 'EUR',
                                 ),
@@ -1948,7 +1950,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'decimalSize' => NULL,
                                  'decimalPrecision' => NULL,
                               )),
-                              1 =>
+                              1 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                                  'name' => 'price_custom_vente',
                                  'title' => 'Vente Unique',
@@ -1964,12 +1966,12 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'unitWidth' => '',
                                  'defaultUnit' => 'EUR',
-                                 'validUnits' =>
+                                 'validUnits' => 
                                 array (
                                   0 => 'EUR',
                                 ),
@@ -1985,7 +1987,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'decimalSize' => NULL,
                                  'decimalPrecision' => NULL,
                               )),
-                              2 =>
+                              2 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                                  'name' => 'price_custom_meubella',
                                  'title' => 'Meubella',
@@ -2001,12 +2003,12 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'unitWidth' => '',
                                  'defaultUnit' => 'EUR',
-                                 'validUnits' =>
+                                 'validUnits' => 
                                 array (
                                   0 => 'EUR',
                                 ),
@@ -2024,7 +2026,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                               )),
                             ),
                              'locked' => false,
-                             'blockedVarsForExport' =>
+                             'blockedVarsForExport' => 
                             array (
                             ),
                              'fieldtype' => 'panel',
@@ -2034,7 +2036,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                              'labelWidth' => 180,
                              'labelAlign' => 'left',
                           )),
-                          2 =>
+                          2 => 
                           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                              'name' => 'Olds',
                              'type' => NULL,
@@ -2046,9 +2048,9 @@ Parametry produktu podzielone na kolekcje i grupy.',
                              'collapsed' => false,
                              'bodyStyle' => '',
                              'datatype' => 'layout',
-                             'children' =>
+                             'children' => 
                             array (
-                              0 =>
+                              0 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                                  'name' => 'price_drop23',
                                  'title' => 'Drop 23%',
@@ -2064,12 +2066,12 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'unitWidth' => '',
                                  'defaultUnit' => 'PLN',
-                                 'validUnits' =>
+                                 'validUnits' => 
                                 array (
                                   0 => 'PLN',
                                 ),
@@ -2085,7 +2087,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'decimalSize' => NULL,
                                  'decimalPrecision' => NULL,
                               )),
-                              1 =>
+                              1 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                                  'name' => 'price_drop26',
                                  'title' => 'Drop 26%',
@@ -2101,12 +2103,12 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'unitWidth' => '',
                                  'defaultUnit' => 'PLN',
-                                 'validUnits' =>
+                                 'validUnits' => 
                                 array (
                                   0 => 'PLN',
                                 ),
@@ -2122,7 +2124,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'decimalSize' => NULL,
                                  'decimalPrecision' => NULL,
                               )),
-                              2 =>
+                              2 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                                  'name' => 'price_drop29',
                                  'title' => 'Drop 29%',
@@ -2138,12 +2140,12 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'unitWidth' => '',
                                  'defaultUnit' => 'PLN',
-                                 'validUnits' =>
+                                 'validUnits' => 
                                 array (
                                   0 => 'PLN',
                                 ),
@@ -2159,7 +2161,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'decimalSize' => NULL,
                                  'decimalPrecision' => NULL,
                               )),
-                              3 =>
+                              3 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                                  'name' => 'price_hurt32',
                                  'title' => 'Hurt 32%',
@@ -2175,12 +2177,12 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'unitWidth' => '',
                                  'defaultUnit' => 'PLN',
-                                 'validUnits' =>
+                                 'validUnits' => 
                                 array (
                                   0 => 'PLN',
                                 ),
@@ -2196,7 +2198,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'decimalSize' => NULL,
                                  'decimalPrecision' => NULL,
                               )),
-                              4 =>
+                              4 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                                  'name' => 'price_sugerowana',
                                  'title' => 'Sugerowana',
@@ -2212,12 +2214,12 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'unitWidth' => '',
                                  'defaultUnit' => 'PLN',
-                                 'validUnits' =>
+                                 'validUnits' => 
                                 array (
                                   0 => 'PLN',
                                 ),
@@ -2233,7 +2235,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'decimalSize' => NULL,
                                  'decimalPrecision' => NULL,
                               )),
-                              5 =>
+                              5 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                                  'name' => 'price_dropeu3',
                                  'title' => 'Drop EU 3%',
@@ -2249,12 +2251,12 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'unitWidth' => '',
                                  'defaultUnit' => 'EUR',
-                                 'validUnits' =>
+                                 'validUnits' => 
                                 array (
                                   0 => 'EUR',
                                 ),
@@ -2270,7 +2272,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'decimalSize' => NULL,
                                  'decimalPrecision' => NULL,
                               )),
-                              6 =>
+                              6 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                                  'name' => 'price_dropeu12',
                                  'title' => 'Drop EU 12%',
@@ -2286,12 +2288,12 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'unitWidth' => '',
                                  'defaultUnit' => 'EUR',
-                                 'validUnits' =>
+                                 'validUnits' => 
                                 array (
                                   0 => 'EUR',
                                 ),
@@ -2307,7 +2309,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'decimalSize' => NULL,
                                  'decimalPrecision' => NULL,
                               )),
-                              7 =>
+                              7 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                                  'name' => 'price_dropeu17',
                                  'title' => 'Drop EU 17%',
@@ -2323,12 +2325,12 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'unitWidth' => '',
                                  'defaultUnit' => 'EUR',
-                                 'validUnits' =>
+                                 'validUnits' => 
                                 array (
                                   0 => 'EUR',
                                 ),
@@ -2344,7 +2346,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'decimalSize' => NULL,
                                  'decimalPrecision' => NULL,
                               )),
-                              8 =>
+                              8 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                                  'name' => 'price_hurteu20',
                                  'title' => 'Hurt EU 20%',
@@ -2360,12 +2362,12 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'unitWidth' => '',
                                  'defaultUnit' => 'EUR',
-                                 'validUnits' =>
+                                 'validUnits' => 
                                 array (
                                   0 => 'EUR',
                                 ),
@@ -2383,7 +2385,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                               )),
                             ),
                              'locked' => false,
-                             'blockedVarsForExport' =>
+                             'blockedVarsForExport' => 
                             array (
                             ),
                              'fieldtype' => 'panel',
@@ -2393,7 +2395,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                              'labelWidth' => 100,
                              'labelAlign' => 'left',
                           )),
-                          3 =>
+                          3 => 
                           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                              'name' => 'Kalkulacja',
                              'type' => NULL,
@@ -2405,9 +2407,9 @@ Parametry produktu podzielone na kolekcje i grupy.',
                              'collapsed' => false,
                              'bodyStyle' => '',
                              'datatype' => 'layout',
-                             'children' =>
+                             'children' => 
                             array (
-                              0 =>
+                              0 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                                  'name' => 'Layout',
                                  'type' => NULL,
@@ -2419,11 +2421,11 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'collapsed' => false,
                                  'bodyStyle' => '',
                                  'datatype' => 'layout',
-                                 'children' =>
+                                 'children' => 
                                 array (
                                 ),
                                  'locked' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'fieldtype' => 'text',
@@ -2434,7 +2436,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                               )),
                             ),
                              'locked' => false,
-                             'blockedVarsForExport' =>
+                             'blockedVarsForExport' => 
                             array (
                             ),
                              'fieldtype' => 'panel',
@@ -2444,7 +2446,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                              'labelWidth' => 100,
                              'labelAlign' => 'left',
                           )),
-                          4 =>
+                          4 => 
                           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                              'name' => 'Layout',
                              'type' => NULL,
@@ -2456,9 +2458,9 @@ Parametry produktu podzielone na kolekcje i grupy.',
                              'collapsed' => false,
                              'bodyStyle' => '',
                              'datatype' => 'layout',
-                             'children' =>
+                             'children' => 
                             array (
-                              0 =>
+                              0 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                                  'name' => 'Layout',
                                  'type' => NULL,
@@ -2470,11 +2472,11 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'collapsed' => false,
                                  'bodyStyle' => '',
                                  'datatype' => 'layout',
-                                 'children' =>
+                                 'children' => 
                                 array (
                                 ),
                                  'locked' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'fieldtype' => 'text',
@@ -2485,7 +2487,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                               )),
                             ),
                              'locked' => false,
-                             'blockedVarsForExport' =>
+                             'blockedVarsForExport' => 
                             array (
                             ),
                              'fieldtype' => 'panel',
@@ -2495,7 +2497,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                              'labelWidth' => 100,
                              'labelAlign' => 'left',
                           )),
-                          5 =>
+                          5 => 
                           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                              'name' => 'Layout',
                              'type' => NULL,
@@ -2507,9 +2509,9 @@ Parametry produktu podzielone na kolekcje i grupy.',
                              'collapsed' => false,
                              'bodyStyle' => '',
                              'datatype' => 'layout',
-                             'children' =>
+                             'children' => 
                             array (
-                              0 =>
+                              0 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                                  'name' => 'Layout',
                                  'type' => NULL,
@@ -2521,11 +2523,11 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'collapsed' => false,
                                  'bodyStyle' => '',
                                  'datatype' => 'layout',
-                                 'children' =>
+                                 'children' => 
                                 array (
                                 ),
                                  'locked' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'fieldtype' => 'text',
@@ -2536,7 +2538,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                               )),
                             ),
                              'locked' => false,
-                             'blockedVarsForExport' =>
+                             'blockedVarsForExport' => 
                             array (
                             ),
                              'fieldtype' => 'panel',
@@ -2546,7 +2548,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                              'labelWidth' => 100,
                              'labelAlign' => 'left',
                           )),
-                          6 =>
+                          6 => 
                           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                              'name' => 'Kalkulacja bazowa',
                              'type' => NULL,
@@ -2558,9 +2560,9 @@ Parametry produktu podzielone na kolekcje i grupy.',
                              'collapsed' => false,
                              'bodyStyle' => '',
                              'datatype' => 'layout',
-                             'children' =>
+                             'children' => 
                             array (
-                              0 =>
+                              0 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                                  'name' => 'Layout',
                                  'type' => NULL,
@@ -2572,11 +2574,11 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'collapsed' => false,
                                  'bodyStyle' => '',
                                  'datatype' => 'layout',
-                                 'children' =>
+                                 'children' => 
                                 array (
                                 ),
                                  'locked' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'fieldtype' => 'text',
@@ -2587,7 +2589,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                               )),
                             ),
                              'locked' => false,
-                             'blockedVarsForExport' =>
+                             'blockedVarsForExport' => 
                             array (
                             ),
                              'fieldtype' => 'panel',
@@ -2599,7 +2601,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                           )),
                         ),
                          'locked' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'fieldtype' => 'tabpanel',
@@ -2608,7 +2610,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                       )),
                     ),
                      'locked' => false,
-                     'blockedVarsForExport' =>
+                     'blockedVarsForExport' => 
                     array (
                     ),
                      'fieldtype' => 'panel',
@@ -2618,7 +2620,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                      'labelWidth' => 240,
                      'labelAlign' => 'left',
                   )),
-                  4 =>
+                  4 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Sell changes',
                      'type' => NULL,
@@ -2630,9 +2632,9 @@ Parametry produktu podzielone na kolekcje i grupy.',
                      'collapsed' => false,
                      'bodyStyle' => '',
                      'datatype' => 'layout',
-                     'children' =>
+                     'children' => 
                     array (
-                      0 =>
+                      0 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                          'name' => 'price_new_base',
                          'title' => '(Nowa) Cena bazowa netto PLN',
@@ -2648,12 +2650,12 @@ Parametry produktu podzielone na kolekcje i grupy.',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'unitWidth' => '',
                          'defaultUnit' => 'PLN',
-                         'validUnits' =>
+                         'validUnits' => 
                         array (
                           0 => 'PLN',
                         ),
@@ -2669,7 +2671,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
                       )),
-                      1 =>
+                      1 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Date::__set_state(array(
                          'name' => 'date_price_new_base',
                          'title' => 'Od',
@@ -2685,7 +2687,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'defaultValue' => NULL,
@@ -2693,7 +2695,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                          'columnType' => 'date',
                          'defaultValueGenerator' => '',
                       )),
-                      2 =>
+                      2 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                          'name' => 'price_new_catalog_pln',
                          'title' => '(Nowa cena) Cena katalogowa PLN',
@@ -2709,12 +2711,12 @@ Parametry produktu podzielone na kolekcje i grupy.',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'unitWidth' => '',
                          'defaultUnit' => 'PLN',
-                         'validUnits' =>
+                         'validUnits' => 
                         array (
                           0 => 'PLN',
                         ),
@@ -2730,7 +2732,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
                       )),
-                      3 =>
+                      3 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Date::__set_state(array(
                          'name' => 'date_price_new_catalog_pln',
                          'title' => 'Od',
@@ -2746,7 +2748,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'defaultValue' => NULL,
@@ -2754,7 +2756,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                          'columnType' => 'date',
                          'defaultValueGenerator' => '',
                       )),
-                      4 =>
+                      4 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                          'name' => 'price_new_catalog_eur',
                          'title' => '(Nowa cena) Cena katalogowa EUR',
@@ -2770,12 +2772,12 @@ Parametry produktu podzielone na kolekcje i grupy.',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'unitWidth' => '',
                          'defaultUnit' => 'EUR',
-                         'validUnits' =>
+                         'validUnits' => 
                         array (
                           0 => 'EUR',
                         ),
@@ -2791,7 +2793,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
                       )),
-                      5 =>
+                      5 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Date::__set_state(array(
                          'name' => 'date_price_new_catalog_eur',
                          'title' => 'Od',
@@ -2807,7 +2809,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'defaultValue' => NULL,
@@ -2815,7 +2817,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                          'columnType' => 'date',
                          'defaultValueGenerator' => '',
                       )),
-                      6 =>
+                      6 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
                          'name' => 'Layout',
                          'type' => NULL,
@@ -2827,9 +2829,9 @@ Parametry produktu podzielone na kolekcje i grupy.',
                          'collapsed' => false,
                          'bodyStyle' => '',
                          'datatype' => 'layout',
-                         'children' =>
+                         'children' => 
                         array (
-                          0 =>
+                          0 => 
                           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                              'name' => 'PL custom',
                              'type' => NULL,
@@ -2841,9 +2843,9 @@ Parametry produktu podzielone na kolekcje i grupy.',
                              'collapsed' => false,
                              'bodyStyle' => '',
                              'datatype' => 'layout',
-                             'children' =>
+                             'children' => 
                             array (
-                              0 =>
+                              0 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                                  'name' => 'price_new_custom_cama',
                                  'title' => '(Nowa cena) Cama',
@@ -2859,12 +2861,12 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'unitWidth' => '',
                                  'defaultUnit' => 'PLN',
-                                 'validUnits' =>
+                                 'validUnits' => 
                                 array (
                                   0 => 'PLN',
                                 ),
@@ -2880,7 +2882,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'decimalSize' => NULL,
                                  'decimalPrecision' => NULL,
                               )),
-                              1 =>
+                              1 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\Date::__set_state(array(
                                  'name' => 'date_price_new_custom_cama',
                                  'title' => 'Od',
@@ -2896,7 +2898,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'defaultValue' => NULL,
@@ -2904,7 +2906,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'columnType' => 'date',
                                  'defaultValueGenerator' => '',
                               )),
-                              2 =>
+                              2 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                                  'name' => 'price_new_custom_mirjan',
                                  'title' => '(Nowa cena) Mirjan',
@@ -2920,12 +2922,12 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'unitWidth' => '',
                                  'defaultUnit' => 'PLN',
-                                 'validUnits' =>
+                                 'validUnits' => 
                                 array (
                                   0 => 'PLN',
                                 ),
@@ -2941,7 +2943,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'decimalSize' => NULL,
                                  'decimalPrecision' => NULL,
                               )),
-                              3 =>
+                              3 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\Date::__set_state(array(
                                  'name' => 'date_price_new_custom_mirjan',
                                  'title' => 'Od',
@@ -2957,7 +2959,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'defaultValue' => NULL,
@@ -2965,7 +2967,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'columnType' => 'date',
                                  'defaultValueGenerator' => '',
                               )),
-                              4 =>
+                              4 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                                  'name' => 'price_new_custom_agata',
                                  'title' => '(Nowa cena) Agata meble',
@@ -2981,12 +2983,12 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'unitWidth' => '',
                                  'defaultUnit' => 'PLN',
-                                 'validUnits' =>
+                                 'validUnits' => 
                                 array (
                                   0 => 'PLN',
                                 ),
@@ -3002,7 +3004,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'decimalSize' => NULL,
                                  'decimalPrecision' => NULL,
                               )),
-                              5 =>
+                              5 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\Date::__set_state(array(
                                  'name' => 'date_price_new_custom_agata',
                                  'title' => 'Od',
@@ -3018,7 +3020,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'defaultValue' => NULL,
@@ -3026,7 +3028,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'columnType' => 'date',
                                  'defaultValueGenerator' => '',
                               )),
-                              6 =>
+                              6 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                                  'name' => 'price_new_custom_selsey',
                                  'title' => '(Nowa cena) Selsey',
@@ -3042,12 +3044,12 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'unitWidth' => '',
                                  'defaultUnit' => 'PLN',
-                                 'validUnits' =>
+                                 'validUnits' => 
                                 array (
                                   0 => 'PLN',
                                 ),
@@ -3063,7 +3065,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'decimalSize' => NULL,
                                  'decimalPrecision' => NULL,
                               )),
-                              7 =>
+                              7 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\Date::__set_state(array(
                                  'name' => 'date_price_new_custom_selsey',
                                  'title' => 'Od',
@@ -3079,7 +3081,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'defaultValue' => NULL,
@@ -3087,7 +3089,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'columnType' => 'date',
                                  'defaultValueGenerator' => '',
                               )),
-                              8 =>
+                              8 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                                  'name' => 'price_new_custom_lectus',
                                  'title' => '(Nowa cena) Lectus',
@@ -3103,12 +3105,12 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'unitWidth' => '',
                                  'defaultUnit' => 'PLN',
-                                 'validUnits' =>
+                                 'validUnits' => 
                                 array (
                                   0 => 'PLN',
                                 ),
@@ -3124,7 +3126,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'decimalSize' => NULL,
                                  'decimalPrecision' => NULL,
                               )),
-                              9 =>
+                              9 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\Date::__set_state(array(
                                  'name' => 'date_price_new_custom_lectus',
                                  'title' => 'Od',
@@ -3140,7 +3142,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'defaultValue' => NULL,
@@ -3148,7 +3150,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'columnType' => 'date',
                                  'defaultValueGenerator' => '',
                               )),
-                              10 =>
+                              10 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                                  'name' => 'price_new_custom_furnidea',
                                  'title' => '(Nowa cena) Furnidea',
@@ -3164,12 +3166,12 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'unitWidth' => '',
                                  'defaultUnit' => 'PLN',
-                                 'validUnits' =>
+                                 'validUnits' => 
                                 array (
                                   0 => 'PLN',
                                 ),
@@ -3185,7 +3187,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'decimalSize' => NULL,
                                  'decimalPrecision' => NULL,
                               )),
-                              11 =>
+                              11 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\Date::__set_state(array(
                                  'name' => 'date_price_new_custom_furnidea',
                                  'title' => 'Od',
@@ -3201,7 +3203,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'defaultValue' => NULL,
@@ -3209,7 +3211,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'columnType' => 'date',
                                  'defaultValueGenerator' => '',
                               )),
-                              12 =>
+                              12 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                                  'name' => 'price_new_custom_bogart',
                                  'title' => '(Nowa cena) Bogart',
@@ -3225,12 +3227,12 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'unitWidth' => '',
                                  'defaultUnit' => 'PLN',
-                                 'validUnits' =>
+                                 'validUnits' => 
                                 array (
                                   0 => 'PLN',
                                 ),
@@ -3246,7 +3248,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'decimalSize' => NULL,
                                  'decimalPrecision' => NULL,
                               )),
-                              13 =>
+                              13 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\Date::__set_state(array(
                                  'name' => 'date_price_new_custom_bogart',
                                  'title' => 'Od',
@@ -3262,7 +3264,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'defaultValue' => NULL,
@@ -3270,7 +3272,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'columnType' => 'date',
                                  'defaultValueGenerator' => '',
                               )),
-                              14 =>
+                              14 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                                  'name' => 'price_new_custom_uptrend',
                                  'title' => '(Nowa cena) Uptrend',
@@ -3286,12 +3288,12 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'unitWidth' => '',
                                  'defaultUnit' => 'PLN',
-                                 'validUnits' =>
+                                 'validUnits' => 
                                 array (
                                   0 => 'PLN',
                                 ),
@@ -3307,7 +3309,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'decimalSize' => NULL,
                                  'decimalPrecision' => NULL,
                               )),
-                              15 =>
+                              15 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\Date::__set_state(array(
                                  'name' => 'date_price_new_custom_uptrend',
                                  'title' => 'Od',
@@ -3323,7 +3325,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'defaultValue' => NULL,
@@ -3333,7 +3335,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                               )),
                             ),
                              'locked' => false,
-                             'blockedVarsForExport' =>
+                             'blockedVarsForExport' => 
                             array (
                             ),
                              'fieldtype' => 'panel',
@@ -3343,7 +3345,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                              'labelWidth' => 180,
                              'labelAlign' => 'left',
                           )),
-                          1 =>
+                          1 => 
                           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                              'name' => 'EU custom',
                              'type' => NULL,
@@ -3355,9 +3357,9 @@ Parametry produktu podzielone na kolekcje i grupy.',
                              'collapsed' => false,
                              'bodyStyle' => '',
                              'datatype' => 'layout',
-                             'children' =>
+                             'children' => 
                             array (
-                              0 =>
+                              0 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                                  'name' => 'price_new_custom_lomado',
                                  'title' => '(Nowa cena) Lomado',
@@ -3373,12 +3375,12 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'unitWidth' => '',
                                  'defaultUnit' => 'EUR',
-                                 'validUnits' =>
+                                 'validUnits' => 
                                 array (
                                   0 => 'EUR',
                                 ),
@@ -3394,7 +3396,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'decimalSize' => NULL,
                                  'decimalPrecision' => NULL,
                               )),
-                              1 =>
+                              1 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\Date::__set_state(array(
                                  'name' => 'date_price_new_custom_lomado',
                                  'title' => 'Od',
@@ -3410,7 +3412,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'defaultValue' => NULL,
@@ -3418,7 +3420,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'columnType' => 'date',
                                  'defaultValueGenerator' => '',
                               )),
-                              2 =>
+                              2 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                                  'name' => 'price_new_custom_vente',
                                  'title' => '(Nowa cena) Vente Unique',
@@ -3434,12 +3436,12 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'unitWidth' => '',
                                  'defaultUnit' => 'EUR',
-                                 'validUnits' =>
+                                 'validUnits' => 
                                 array (
                                   0 => 'EUR',
                                 ),
@@ -3455,7 +3457,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'decimalSize' => NULL,
                                  'decimalPrecision' => NULL,
                               )),
-                              3 =>
+                              3 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\Date::__set_state(array(
                                  'name' => 'date_price_new_custom_vente',
                                  'title' => 'Od',
@@ -3471,7 +3473,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'defaultValue' => NULL,
@@ -3479,7 +3481,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'columnType' => 'date',
                                  'defaultValueGenerator' => '',
                               )),
-                              4 =>
+                              4 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                                  'name' => 'price_new_custom_meubella',
                                  'title' => '(Nowa cena) Meubella',
@@ -3495,12 +3497,12 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'unitWidth' => '',
                                  'defaultUnit' => 'EUR',
-                                 'validUnits' =>
+                                 'validUnits' => 
                                 array (
                                   0 => 'EUR',
                                 ),
@@ -3516,7 +3518,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'decimalSize' => NULL,
                                  'decimalPrecision' => NULL,
                               )),
-                              5 =>
+                              5 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\Date::__set_state(array(
                                  'name' => 'date_price_new_custom_meubella',
                                  'title' => 'Od',
@@ -3532,7 +3534,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'defaultValue' => NULL,
@@ -3542,7 +3544,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                               )),
                             ),
                              'locked' => false,
-                             'blockedVarsForExport' =>
+                             'blockedVarsForExport' => 
                             array (
                             ),
                              'fieldtype' => 'panel',
@@ -3552,7 +3554,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                              'labelWidth' => 180,
                              'labelAlign' => 'left',
                           )),
-                          2 =>
+                          2 => 
                           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                              'name' => 'Kalkulacje indywidualne',
                              'type' => NULL,
@@ -3564,9 +3566,9 @@ Parametry produktu podzielone na kolekcje i grupy.',
                              'collapsed' => false,
                              'bodyStyle' => '',
                              'datatype' => 'layout',
-                             'children' =>
+                             'children' => 
                             array (
-                              0 =>
+                              0 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                                  'name' => 'Layout',
                                  'type' => NULL,
@@ -3578,11 +3580,11 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'collapsed' => false,
                                  'bodyStyle' => '',
                                  'datatype' => 'layout',
-                                 'children' =>
+                                 'children' => 
                                 array (
                                 ),
                                  'locked' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'fieldtype' => 'text',
@@ -3593,7 +3595,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                               )),
                             ),
                              'locked' => false,
-                             'blockedVarsForExport' =>
+                             'blockedVarsForExport' => 
                             array (
                             ),
                              'fieldtype' => 'panel',
@@ -3603,7 +3605,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                              'labelWidth' => 100,
                              'labelAlign' => 'left',
                           )),
-                          3 =>
+                          3 => 
                           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                              'name' => 'Kalkulacje Dropshipping',
                              'type' => NULL,
@@ -3615,9 +3617,9 @@ Parametry produktu podzielone na kolekcje i grupy.',
                              'collapsed' => false,
                              'bodyStyle' => '',
                              'datatype' => 'layout',
-                             'children' =>
+                             'children' => 
                             array (
-                              0 =>
+                              0 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                                  'name' => 'Layout',
                                  'type' => NULL,
@@ -3629,11 +3631,11 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'collapsed' => false,
                                  'bodyStyle' => '',
                                  'datatype' => 'layout',
-                                 'children' =>
+                                 'children' => 
                                 array (
                                 ),
                                  'locked' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'fieldtype' => 'text',
@@ -3644,7 +3646,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                               )),
                             ),
                              'locked' => false,
-                             'blockedVarsForExport' =>
+                             'blockedVarsForExport' => 
                             array (
                             ),
                              'fieldtype' => 'panel',
@@ -3654,7 +3656,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                              'labelWidth' => 100,
                              'labelAlign' => 'left',
                           )),
-                          4 =>
+                          4 => 
                           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                              'name' => 'Kalkulacje Hurt',
                              'type' => NULL,
@@ -3666,9 +3668,9 @@ Parametry produktu podzielone na kolekcje i grupy.',
                              'collapsed' => false,
                              'bodyStyle' => '',
                              'datatype' => 'layout',
-                             'children' =>
+                             'children' => 
                             array (
-                              0 =>
+                              0 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                                  'name' => 'Layout',
                                  'type' => NULL,
@@ -3680,11 +3682,11 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'collapsed' => false,
                                  'bodyStyle' => '',
                                  'datatype' => 'layout',
-                                 'children' =>
+                                 'children' => 
                                 array (
                                 ),
                                  'locked' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'fieldtype' => 'text',
@@ -3695,7 +3697,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                               )),
                             ),
                              'locked' => false,
-                             'blockedVarsForExport' =>
+                             'blockedVarsForExport' => 
                             array (
                             ),
                              'fieldtype' => 'panel',
@@ -3705,7 +3707,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                              'labelWidth' => 100,
                              'labelAlign' => 'left',
                           )),
-                          5 =>
+                          5 => 
                           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                              'name' => 'Kalkulacja bazowa',
                              'type' => NULL,
@@ -3717,9 +3719,9 @@ Parametry produktu podzielone na kolekcje i grupy.',
                              'collapsed' => false,
                              'bodyStyle' => '',
                              'datatype' => 'layout',
-                             'children' =>
+                             'children' => 
                             array (
-                              0 =>
+                              0 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                                  'name' => 'Layout',
                                  'type' => NULL,
@@ -3731,11 +3733,11 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'collapsed' => false,
                                  'bodyStyle' => '',
                                  'datatype' => 'layout',
-                                 'children' =>
+                                 'children' => 
                                 array (
                                 ),
                                  'locked' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'fieldtype' => 'text',
@@ -3746,7 +3748,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                               )),
                             ),
                              'locked' => false,
-                             'blockedVarsForExport' =>
+                             'blockedVarsForExport' => 
                             array (
                             ),
                              'fieldtype' => 'panel',
@@ -3758,7 +3760,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                           )),
                         ),
                          'locked' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'fieldtype' => 'tabpanel',
@@ -3767,7 +3769,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                       )),
                     ),
                      'locked' => false,
-                     'blockedVarsForExport' =>
+                     'blockedVarsForExport' => 
                     array (
                     ),
                      'fieldtype' => 'panel',
@@ -3777,7 +3779,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                      'labelWidth' => 240,
                      'labelAlign' => 'left',
                   )),
-                  5 =>
+                  5 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Media',
                      'type' => NULL,
@@ -3789,9 +3791,9 @@ Parametry produktu podzielone na kolekcje i grupy.',
                      'collapsed' => false,
                      'bodyStyle' => '',
                      'datatype' => 'layout',
-                     'children' =>
+                     'children' => 
                     array (
-                      0 =>
+                      0 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\ImageGallery::__set_state(array(
                          'name' => 'Images',
                          'title' => 'Images (2000 x 2000)',
@@ -3807,7 +3809,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'uploadPath' => '',
@@ -3817,7 +3819,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                          'height' => 240,
                          'width' => 240,
                       )),
-                      1 =>
+                      1 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\ImageGallery::__set_state(array(
                          'name' => 'Photos',
                          'title' => 'Photos (3127 x 2000 or 2000 x 2000)',
@@ -3833,7 +3835,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'uploadPath' => '',
@@ -3843,7 +3845,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                          'height' => 240,
                          'width' => 375,
                       )),
-                      2 =>
+                      2 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
                          'name' => 'localizedfields',
                          'title' => '',
@@ -3859,12 +3861,12 @@ Parametry produktu podzielone na kolekcje i grupy.',
                          'invisible' => false,
                          'visibleGridView' => true,
                          'visibleSearch' => true,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
-                         'children' =>
+                         'children' => 
                         array (
-                          0 =>
+                          0 => 
                           \Pimcore\Model\DataObject\ClassDefinition\Data\ImageGallery::__set_state(array(
                              'name' => 'Infographics',
                              'title' => 'Infographics',
@@ -3880,7 +3882,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
-                             'blockedVarsForExport' =>
+                             'blockedVarsForExport' => 
                             array (
                             ),
                              'uploadPath' => '',
@@ -3898,7 +3900,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                          'provideSplitView' => false,
                          'tabPosition' => 'top',
                          'hideLabelsWhenTabsReached' => NULL,
-                         'referencedFields' =>
+                         'referencedFields' => 
                         array (
                         ),
                          'permissionView' => NULL,
@@ -3909,7 +3911,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                          'height' => '',
                          'fieldDefinitionsCache' => NULL,
                       )),
-                      3 =>
+                      3 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Video::__set_state(array(
                          'name' => 'Video',
                          'title' => 'Video',
@@ -3925,15 +3927,15 @@ Parametry produktu podzielone na kolekcje i grupy.',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'uploadPath' => '',
-                         'allowedTypes' =>
+                         'allowedTypes' => 
                         array (
                           0 => 'youtube',
                         ),
-                         'supportedTypes' =>
+                         'supportedTypes' => 
                         array (
                           0 => 'asset',
                           1 => 'youtube',
@@ -3945,7 +3947,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                       )),
                     ),
                      'locked' => false,
-                     'blockedVarsForExport' =>
+                     'blockedVarsForExport' => 
                     array (
                     ),
                      'fieldtype' => 'panel',
@@ -3955,7 +3957,7 @@ Parametry produktu podzielone na kolekcje i grupy.',
                      'labelWidth' => 100,
                      'labelAlign' => 'left',
                   )),
-                  6 =>
+                  6 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Packing',
                      'type' => NULL,
@@ -3967,9 +3969,9 @@ Parametry produktu podzielone na kolekcje i grupy.',
                      'collapsed' => false,
                      'bodyStyle' => '',
                      'datatype' => 'layout',
-                     'children' =>
+                     'children' => 
                     array (
-                      0 =>
+                      0 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
                          'name' => 'Packages',
                          'title' => 'Packages',
@@ -3987,10 +3989,10 @@ Paczki produktu',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
-                         'classes' =>
+                         'classes' => 
                         array (
                         ),
                          'displayMode' => NULL,
@@ -4001,15 +4003,15 @@ Paczki produktu',
                          'allowToClearRelation' => true,
                          'optimizedAdminLoading' => false,
                          'enableTextSelection' => false,
-                         'visibleFieldDefinitions' =>
+                         'visibleFieldDefinitions' => 
                         array (
                         ),
                          'width' => '',
                          'height' => '',
                          'allowedClassId' => 'Package',
-                         'columns' =>
+                         'columns' => 
                         array (
-                          0 =>
+                          0 => 
                           array (
                             'type' => 'number',
                             'position' => 1,
@@ -4018,14 +4020,14 @@ Paczki produktu',
                             'value' => '1',
                           ),
                         ),
-                         'columnKeys' =>
+                         'columnKeys' => 
                         array (
                           0 => 'Quantity',
                         ),
                          'enableBatchEdit' => true,
                          'allowMultipleAssignments' => false,
                       )),
-                      1 =>
+                      1 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'name' => 'PackageCount',
                          'title' => 'Package Count',
@@ -4041,7 +4043,7 @@ Paczki produktu',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'defaultValue' => NULL,
@@ -4055,7 +4057,7 @@ Paczki produktu',
                          'width' => '',
                          'defaultValueGenerator' => '',
                       )),
-                      2 =>
+                      2 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                          'name' => 'PackagesMass',
                          'title' => 'Packages Mass',
@@ -4073,12 +4075,12 @@ Paczki produktu',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'unitWidth' => '',
                          'defaultUnit' => 'kg',
-                         'validUnits' =>
+                         'validUnits' => 
                         array (
                           0 => 'kg',
                         ),
@@ -4094,7 +4096,7 @@ Paczki produktu',
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
                       )),
-                      3 =>
+                      3 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                          'name' => 'PackagesVolume',
                          'title' => 'Packages Volume',
@@ -4112,12 +4114,12 @@ Paczki produktu',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'unitWidth' => '',
                          'defaultUnit' => 'm3',
-                         'validUnits' =>
+                         'validUnits' => 
                         array (
                           0 => 'm3',
                         ),
@@ -4133,7 +4135,7 @@ Paczki produktu',
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
                       )),
-                      4 =>
+                      4 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'name' => 'SerieSize',
                          'title' => 'Serie Size',
@@ -4149,7 +4151,7 @@ Paczki produktu',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'defaultValue' => NULL,
@@ -4163,7 +4165,7 @@ Paczki produktu',
                          'width' => '',
                          'defaultValueGenerator' => '',
                       )),
-                      5 =>
+                      5 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyRelation::__set_state(array(
                          'name' => 'LoadCarriers',
                          'title' => 'Load Carriers',
@@ -4183,12 +4185,12 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
-                         'classes' =>
+                         'classes' => 
                         array (
-                          0 =>
+                          0 => 
                           array (
                             'classes' => 'LoadCarrier',
                           ),
@@ -4201,18 +4203,18 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                          'allowToClearRelation' => true,
                          'objectsAllowed' => true,
                          'assetsAllowed' => false,
-                         'assetTypes' =>
+                         'assetTypes' => 
                         array (
                         ),
                          'documentsAllowed' => false,
-                         'documentTypes' =>
+                         'documentTypes' => 
                         array (
                         ),
                          'enableTextSelection' => false,
                          'width' => '',
                          'height' => '',
                       )),
-                      6 =>
+                      6 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                          'name' => 'WidthBruttoOBI',
                          'title' => 'Width Brutto OBI',
@@ -4228,12 +4230,12 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                          'invisible' => true,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'unitWidth' => '',
                          'defaultUnit' => 'mm',
-                         'validUnits' =>
+                         'validUnits' => 
                         array (
                           0 => 'h',
                           1 => 'K',
@@ -4268,7 +4270,7 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
                       )),
-                      7 =>
+                      7 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                          'name' => 'HeightBruttoOBI',
                          'title' => 'Height Brutto O B I',
@@ -4284,12 +4286,12 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                          'invisible' => true,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'unitWidth' => '',
                          'defaultUnit' => 'mm',
-                         'validUnits' =>
+                         'validUnits' => 
                         array (
                           0 => 'h',
                           1 => 'K',
@@ -4324,7 +4326,7 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
                       )),
-                      8 =>
+                      8 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                          'name' => 'LengthBruttoOBI',
                          'title' => 'Length Brutto O B I',
@@ -4340,12 +4342,12 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                          'invisible' => true,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'unitWidth' => '',
                          'defaultUnit' => 'mm',
-                         'validUnits' =>
+                         'validUnits' => 
                         array (
                           0 => 'h',
                           1 => 'K',
@@ -4380,7 +4382,7 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
                       )),
-                      9 =>
+                      9 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\ImageGallery::__set_state(array(
                          'name' => 'PackingDetails',
                          'title' => 'Packing Details',
@@ -4396,7 +4398,7 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'uploadPath' => '/PACZKI-STANDARDY',
@@ -4408,7 +4410,7 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                       )),
                     ),
                      'locked' => false,
-                     'blockedVarsForExport' =>
+                     'blockedVarsForExport' => 
                     array (
                     ),
                      'fieldtype' => 'panel',
@@ -4418,7 +4420,7 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                      'labelWidth' => 100,
                      'labelAlign' => 'left',
                   )),
-                  7 =>
+                  7 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Accessories',
                      'type' => NULL,
@@ -4430,9 +4432,9 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                      'collapsed' => false,
                      'bodyStyle' => '',
                      'datatype' => 'layout',
-                     'children' =>
+                     'children' => 
                     array (
-                      0 =>
+                      0 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Block::__set_state(array(
                          'name' => 'AccessorySets',
                          'title' => 'Accessory Sets',
@@ -4448,7 +4450,7 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'lazyLoading' => true,
@@ -4458,9 +4460,9 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                          'collapsed' => false,
                          'maxItems' => NULL,
                          'styleElement' => '',
-                         'children' =>
+                         'children' => 
                         array (
-                          0 =>
+                          0 => 
                           \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                              'name' => 'Content',
                              'title' => 'Content',
@@ -4476,52 +4478,53 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
-                             'blockedVarsForExport' =>
+                             'blockedVarsForExport' => 
                             array (
                             ),
-                             'options' =>
+                             'options' => 
                             array (
-                              0 =>
+                              0 => 
                               array (
                                 'key' => 'ACCESSORIES',
                                 'value' => 'ACCESSORIES',
                               ),
-                              1 =>
+                              1 => 
                               array (
                                 'key' => 'LEGS',
                                 'value' => 'LEGS',
                               ),
-                              2 =>
+                              2 => 
                               array (
                                 'key' => 'DRAWERS',
                                 'value' => 'DRAWERS',
                               ),
-                              3 =>
+                              3 => 
                               array (
                                 'key' => 'LEGFRAMES',
                                 'value' => 'LEGFRAMES',
                               ),
-                              4 =>
+                              4 => 
                               array (
                                 'key' => 'CABLES',
                                 'value' => 'CABLES',
                               ),
-                              5 =>
+                              5 => 
                               array (
                                 'key' => 'LEDS',
                                 'value' => 'LEDS',
                               ),
                             ),
-                             'defaultValue' => '',
+                             'defaultValue' => NULL,
                              'columnLength' => 190,
                              'dynamicOptions' => false,
+                             'enforceValidation' => false,
                              'defaultValueGenerator' => '',
                              'width' => '',
                              'optionsProviderType' => 'configure',
                              'optionsProviderClass' => '',
                              'optionsProviderData' => '',
                           )),
-                          1 =>
+                          1 => 
                           \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                              'name' => 'Length',
                              'title' => 'Cartoon Length',
@@ -4537,12 +4540,12 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
-                             'blockedVarsForExport' =>
+                             'blockedVarsForExport' => 
                             array (
                             ),
                              'unitWidth' => '',
                              'defaultUnit' => 'mm',
-                             'validUnits' =>
+                             'validUnits' => 
                             array (
                               0 => 'mm',
                             ),
@@ -4558,7 +4561,7 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                              'decimalSize' => NULL,
                              'decimalPrecision' => NULL,
                           )),
-                          2 =>
+                          2 => 
                           \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                              'name' => 'Width',
                              'title' => 'Cartoon Width',
@@ -4574,12 +4577,12 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
-                             'blockedVarsForExport' =>
+                             'blockedVarsForExport' => 
                             array (
                             ),
                              'unitWidth' => '',
                              'defaultUnit' => 'mm',
-                             'validUnits' =>
+                             'validUnits' => 
                             array (
                               0 => 'mm',
                             ),
@@ -4595,7 +4598,7 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                              'decimalSize' => NULL,
                              'decimalPrecision' => NULL,
                           )),
-                          3 =>
+                          3 => 
                           \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                              'name' => 'Height',
                              'title' => 'Cartoon Height',
@@ -4611,12 +4614,12 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
-                             'blockedVarsForExport' =>
+                             'blockedVarsForExport' => 
                             array (
                             ),
                              'unitWidth' => '',
                              'defaultUnit' => 'mm',
-                             'validUnits' =>
+                             'validUnits' => 
                             array (
                               0 => 'mm',
                             ),
@@ -4632,7 +4635,7 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                              'decimalSize' => NULL,
                              'decimalPrecision' => NULL,
                           )),
-                          4 =>
+                          4 => 
                           \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
                              'name' => 'Set',
                              'title' => 'Set',
@@ -4648,10 +4651,10 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
-                             'blockedVarsForExport' =>
+                             'blockedVarsForExport' => 
                             array (
                             ),
-                             'classes' =>
+                             'classes' => 
                             array (
                             ),
                              'displayMode' => NULL,
@@ -4662,15 +4665,15 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                              'allowToClearRelation' => true,
                              'optimizedAdminLoading' => false,
                              'enableTextSelection' => false,
-                             'visibleFieldDefinitions' =>
+                             'visibleFieldDefinitions' => 
                             array (
                             ),
                              'width' => '',
                              'height' => '',
                              'allowedClassId' => 'Accessory',
-                             'columns' =>
+                             'columns' => 
                             array (
-                              0 =>
+                              0 => 
                               array (
                                 'type' => 'number',
                                 'position' => 1,
@@ -4678,7 +4681,7 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                                 'label' => 'Quantity',
                               ),
                             ),
-                             'columnKeys' =>
+                             'columnKeys' => 
                             array (
                               0 => 'Quantity',
                             ),
@@ -4687,14 +4690,14 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                           )),
                         ),
                          'layout' => NULL,
-                         'referencedFields' =>
+                         'referencedFields' => 
                         array (
                         ),
                          'fieldDefinitionsCache' => NULL,
                       )),
                     ),
                      'locked' => false,
-                     'blockedVarsForExport' =>
+                     'blockedVarsForExport' => 
                     array (
                     ),
                      'fieldtype' => 'panel',
@@ -4704,7 +4707,7 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                      'labelWidth' => 100,
                      'labelAlign' => 'left',
                   )),
-                  8 =>
+                  8 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Factory',
                      'type' => NULL,
@@ -4716,9 +4719,9 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                      'collapsed' => false,
                      'bodyStyle' => '',
                      'datatype' => 'layout',
-                     'children' =>
+                     'children' => 
                     array (
-                      0 =>
+                      0 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                          'name' => 'Layout',
                          'type' => NULL,
@@ -4730,11 +4733,11 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                          'collapsed' => false,
                          'bodyStyle' => '',
                          'datatype' => 'layout',
-                         'children' =>
+                         'children' => 
                         array (
                         ),
                          'locked' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'fieldtype' => 'text',
@@ -4743,7 +4746,7 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                          'renderingData' => '',
                          'border' => false,
                       )),
-                      1 =>
+                      1 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
                          'name' => 'Programy CNC',
                          'type' => NULL,
@@ -4755,9 +4758,9 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                          'collapsed' => false,
                          'bodyStyle' => '',
                          'datatype' => 'layout',
-                         'children' =>
+                         'children' => 
                         array (
-                          0 =>
+                          0 => 
                           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                              'name' => 'Skipper100',
                              'type' => NULL,
@@ -4769,9 +4772,9 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                              'collapsed' => false,
                              'bodyStyle' => '',
                              'datatype' => 'layout',
-                             'children' =>
+                             'children' => 
                             array (
-                              0 =>
+                              0 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyRelation::__set_state(array(
                                  'name' => 'SkipperCNC',
                                  'title' => 'Skipper - programy CNC',
@@ -4787,10 +4790,10 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
-                                 'classes' =>
+                                 'classes' => 
                                 array (
                                 ),
                                  'displayMode' => NULL,
@@ -4801,18 +4804,18 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                                  'allowToClearRelation' => true,
                                  'objectsAllowed' => false,
                                  'assetsAllowed' => true,
-                                 'assetTypes' =>
+                                 'assetTypes' => 
                                 array (
                                 ),
                                  'documentsAllowed' => false,
-                                 'documentTypes' =>
+                                 'documentTypes' => 
                                 array (
                                 ),
                                  'enableTextSelection' => false,
                                  'width' => '',
                                  'height' => '',
                               )),
-                              1 =>
+                              1 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyRelation::__set_state(array(
                                  'name' => 'SkipperCNC2',
                                  'title' => 'Skipper - programy CNC podwójne',
@@ -4828,10 +4831,10 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
-                                 'classes' =>
+                                 'classes' => 
                                 array (
                                 ),
                                  'displayMode' => NULL,
@@ -4842,11 +4845,11 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                                  'allowToClearRelation' => true,
                                  'objectsAllowed' => false,
                                  'assetsAllowed' => true,
-                                 'assetTypes' =>
+                                 'assetTypes' => 
                                 array (
                                 ),
                                  'documentsAllowed' => false,
-                                 'documentTypes' =>
+                                 'documentTypes' => 
                                 array (
                                 ),
                                  'enableTextSelection' => false,
@@ -4855,7 +4858,7 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                               )),
                             ),
                              'locked' => false,
-                             'blockedVarsForExport' =>
+                             'blockedVarsForExport' => 
                             array (
                             ),
                              'fieldtype' => 'panel',
@@ -4865,7 +4868,7 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                              'labelWidth' => 100,
                              'labelAlign' => 'left',
                           )),
-                          1 =>
+                          1 => 
                           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                              'name' => 'Master',
                              'type' => NULL,
@@ -4877,9 +4880,9 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                              'collapsed' => false,
                              'bodyStyle' => '',
                              'datatype' => 'layout',
-                             'children' =>
+                             'children' => 
                             array (
-                              0 =>
+                              0 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyRelation::__set_state(array(
                                  'name' => 'MasterCNC',
                                  'title' => 'Master - programy CNC',
@@ -4895,10 +4898,10 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
-                                 'classes' =>
+                                 'classes' => 
                                 array (
                                 ),
                                  'displayMode' => NULL,
@@ -4909,18 +4912,18 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                                  'allowToClearRelation' => true,
                                  'objectsAllowed' => false,
                                  'assetsAllowed' => true,
-                                 'assetTypes' =>
+                                 'assetTypes' => 
                                 array (
                                 ),
                                  'documentsAllowed' => false,
-                                 'documentTypes' =>
+                                 'documentTypes' => 
                                 array (
                                 ),
                                  'enableTextSelection' => false,
                                  'width' => '',
                                  'height' => '',
                               )),
-                              1 =>
+                              1 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyRelation::__set_state(array(
                                  'name' => 'MasterCNC2',
                                  'title' => 'Master - programy CNC podwójne',
@@ -4936,10 +4939,10 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
-                                 'classes' =>
+                                 'classes' => 
                                 array (
                                 ),
                                  'displayMode' => NULL,
@@ -4950,11 +4953,11 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                                  'allowToClearRelation' => true,
                                  'objectsAllowed' => false,
                                  'assetsAllowed' => true,
-                                 'assetTypes' =>
+                                 'assetTypes' => 
                                 array (
                                 ),
                                  'documentsAllowed' => false,
-                                 'documentTypes' =>
+                                 'documentTypes' => 
                                 array (
                                 ),
                                  'enableTextSelection' => false,
@@ -4963,7 +4966,7 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                               )),
                             ),
                              'locked' => false,
-                             'blockedVarsForExport' =>
+                             'blockedVarsForExport' => 
                             array (
                             ),
                              'fieldtype' => 'panel',
@@ -4975,7 +4978,7 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                           )),
                         ),
                          'locked' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'fieldtype' => 'tabpanel',
@@ -4984,7 +4987,7 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                       )),
                     ),
                      'locked' => false,
-                     'blockedVarsForExport' =>
+                     'blockedVarsForExport' => 
                     array (
                     ),
                      'fieldtype' => 'panel',
@@ -4994,7 +4997,7 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                      'labelWidth' => 100,
                      'labelAlign' => 'left',
                   )),
-                  9 =>
+                  9 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Quality',
                      'type' => NULL,
@@ -5006,9 +5009,9 @@ Brak oznacza dostępność na wszystkich nośnikach, z wysyłką "luzem" włącz
                      'collapsed' => false,
                      'bodyStyle' => '',
                      'datatype' => 'layout',
-                     'children' =>
+                     'children' => 
                     array (
-                      0 =>
+                      0 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
                          'name' => 'Quality',
                          'title' => 'Quality',
@@ -5026,17 +5029,18 @@ Stopień uzupełnienia danych produktu',
                          'invisible' => true,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'elementType' => 'input',
                          'calculatorType' => 'class',
                          'calculatorExpression' => 'calcExprTest',
                          'calculatorClass' => 'App\\Model\\Quality\\QualityRate',
+                         'calculatorData' => NULL,
                          'columnLength' => 190,
                          'width' => '',
                       )),
-                      1 =>
+                      1 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections::__set_state(array(
                          'name' => 'Description',
                          'title' => 'Description',
@@ -5052,10 +5056,10 @@ Stopień uzupełnienia danych produktu',
                          'invisible' => true,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
-                         'allowedTypes' =>
+                         'allowedTypes' => 
                         array (
                           0 => 'Image',
                           1 => 'ImageText',
@@ -5075,7 +5079,7 @@ Stopień uzupełnienia danych produktu',
                          'collapsible' => false,
                          'border' => false,
                       )),
-                      2 =>
+                      2 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
                          'name' => 'localizedfields',
                          'title' => '',
@@ -5091,12 +5095,12 @@ Stopień uzupełnienia danych produktu',
                          'invisible' => false,
                          'visibleGridView' => true,
                          'visibleSearch' => true,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
-                         'children' =>
+                         'children' => 
                         array (
-                          0 =>
+                          0 => 
                           \Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                              'name' => 'Desc1',
                              'title' => 'Desc1',
@@ -5112,7 +5116,7 @@ Stopień uzupełnienia danych produktu',
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
-                             'blockedVarsForExport' =>
+                             'blockedVarsForExport' => 
                             array (
                             ),
                              'toolbarConfig' => '{
@@ -5130,7 +5134,7 @@ Stopień uzupełnienia danych produktu',
                              'height' => '',
                              'width' => '',
                           )),
-                          1 =>
+                          1 => 
                           \Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                              'name' => 'Desc2',
                              'title' => 'Desc2',
@@ -5146,7 +5150,7 @@ Stopień uzupełnienia danych produktu',
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
-                             'blockedVarsForExport' =>
+                             'blockedVarsForExport' => 
                             array (
                             ),
                              'toolbarConfig' => '{
@@ -5164,7 +5168,7 @@ Stopień uzupełnienia danych produktu',
                              'height' => '',
                              'width' => '',
                           )),
-                          2 =>
+                          2 => 
                           \Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                              'name' => 'Desc3',
                              'title' => 'Desc3',
@@ -5180,7 +5184,7 @@ Stopień uzupełnienia danych produktu',
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
-                             'blockedVarsForExport' =>
+                             'blockedVarsForExport' => 
                             array (
                             ),
                              'toolbarConfig' => '{
@@ -5198,7 +5202,7 @@ Stopień uzupełnienia danych produktu',
                              'height' => '',
                              'width' => '',
                           )),
-                          3 =>
+                          3 => 
                           \Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                              'name' => 'Desc4',
                              'title' => 'Desc4',
@@ -5214,7 +5218,7 @@ Stopień uzupełnienia danych produktu',
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
-                             'blockedVarsForExport' =>
+                             'blockedVarsForExport' => 
                             array (
                             ),
                              'toolbarConfig' => '{
@@ -5240,7 +5244,7 @@ Stopień uzupełnienia danych produktu',
                          'provideSplitView' => false,
                          'tabPosition' => 'top',
                          'hideLabelsWhenTabsReached' => NULL,
-                         'referencedFields' =>
+                         'referencedFields' => 
                         array (
                         ),
                          'permissionView' => NULL,
@@ -5253,7 +5257,7 @@ Stopień uzupełnienia danych produktu',
                       )),
                     ),
                      'locked' => false,
-                     'blockedVarsForExport' =>
+                     'blockedVarsForExport' => 
                     array (
                     ),
                      'fieldtype' => 'panel',
@@ -5263,7 +5267,7 @@ Stopień uzupełnienia danych produktu',
                      'labelWidth' => 100,
                      'labelAlign' => 'left',
                   )),
-                  10 =>
+                  10 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Codes',
                      'type' => NULL,
@@ -5275,9 +5279,9 @@ Stopień uzupełnienia danych produktu',
                      'collapsed' => false,
                      'bodyStyle' => '',
                      'datatype' => 'layout',
-                     'children' =>
+                     'children' => 
                     array (
-                      0 =>
+                      0 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                          'name' => 'Drawing',
                          'title' => 'Label Drawing',
@@ -5293,14 +5297,14 @@ Stopień uzupełnienia danych produktu',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'uploadPath' => '/PRODUKTY-RYSUNKI',
                          'width' => 300,
                          'height' => 300,
                       )),
-                      1 =>
+                      1 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'name' => 'Barcode',
                          'title' => 'Barcode',
@@ -5318,13 +5322,13 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'defaultValue' => NULL,
                          'columnLength' => 190,
                          'regex' => '',
-                         'regexFlags' =>
+                         'regexFlags' => 
                         array (
                         ),
                          'unique' => false,
@@ -5332,7 +5336,7 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                          'width' => '',
                          'defaultValueGenerator' => '',
                       )),
-                      2 =>
+                      2 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Objectbricks::__set_state(array(
                          'name' => 'Codes',
                          'title' => 'Additional codes',
@@ -5348,10 +5352,10 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
-                         'allowedTypes' =>
+                         'allowedTypes' => 
                         array (
                           0 => 'IndexAgata',
                           1 => 'IndexMirjan24',
@@ -5364,7 +5368,7 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                       )),
                     ),
                      'locked' => false,
-                     'blockedVarsForExport' =>
+                     'blockedVarsForExport' => 
                     array (
                     ),
                      'fieldtype' => 'panel',
@@ -5374,7 +5378,7 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                      'labelWidth' => 100,
                      'labelAlign' => 'left',
                   )),
-                  11 =>
+                  11 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Documents',
                      'type' => NULL,
@@ -5386,9 +5390,9 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                      'collapsed' => false,
                      'bodyStyle' => '',
                      'datatype' => 'layout',
-                     'children' =>
+                     'children' => 
                     array (
-                      0 =>
+                      0 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyRelation::__set_state(array(
                          'name' => 'Documents',
                          'title' => 'Documents',
@@ -5404,10 +5408,10 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
-                         'classes' =>
+                         'classes' => 
                         array (
                         ),
                          'displayMode' => NULL,
@@ -5418,22 +5422,22 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                          'allowToClearRelation' => true,
                          'objectsAllowed' => false,
                          'assetsAllowed' => true,
-                         'assetTypes' =>
+                         'assetTypes' => 
                         array (
-                          0 =>
+                          0 => 
                           array (
                             'assetTypes' => 'document',
                           ),
                         ),
                          'documentsAllowed' => false,
-                         'documentTypes' =>
+                         'documentTypes' => 
                         array (
                         ),
                          'enableTextSelection' => false,
                          'width' => '',
                          'height' => '',
                       )),
-                      1 =>
+                      1 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
                          'name' => 'Instruction',
                          'title' => 'Instruction',
@@ -5449,10 +5453,10 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
-                         'classes' =>
+                         'classes' => 
                         array (
                         ),
                          'displayMode' => 'grid',
@@ -5462,20 +5466,20 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                          'allowToClearRelation' => true,
                          'objectsAllowed' => false,
                          'assetsAllowed' => true,
-                         'assetTypes' =>
+                         'assetTypes' => 
                         array (
-                          0 =>
+                          0 => 
                           array (
                             'assetTypes' => 'document',
                           ),
                         ),
                          'documentsAllowed' => false,
-                         'documentTypes' =>
+                         'documentTypes' => 
                         array (
                         ),
                          'width' => '',
                       )),
-                      2 =>
+                      2 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
                          'name' => 'InstructionUS',
                          'title' => 'Instruction US',
@@ -5491,10 +5495,10 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
-                         'classes' =>
+                         'classes' => 
                         array (
                         ),
                          'displayMode' => 'grid',
@@ -5504,20 +5508,20 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                          'allowToClearRelation' => true,
                          'objectsAllowed' => false,
                          'assetsAllowed' => true,
-                         'assetTypes' =>
+                         'assetTypes' => 
                         array (
-                          0 =>
+                          0 => 
                           array (
                             'assetTypes' => 'document',
                           ),
                         ),
                          'documentsAllowed' => false,
-                         'documentTypes' =>
+                         'documentTypes' => 
                         array (
                         ),
                          'width' => '',
                       )),
-                      3 =>
+                      3 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                          'name' => 'Layout',
                          'type' => NULL,
@@ -5529,9 +5533,9 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                          'collapsed' => false,
                          'bodyStyle' => '',
                          'datatype' => 'layout',
-                         'children' =>
+                         'children' => 
                         array (
-                          0 =>
+                          0 => 
                           \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                              'name' => 'CE',
                              'title' => 'Oznaczenie CE ',
@@ -5547,13 +5551,13 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
-                             'blockedVarsForExport' =>
+                             'blockedVarsForExport' => 
                             array (
                             ),
                              'defaultValue' => NULL,
                              'defaultValueGenerator' => '',
                           )),
-                          1 =>
+                          1 => 
                           \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                              'name' => 'Layout',
                              'type' => NULL,
@@ -5565,11 +5569,11 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                              'collapsed' => false,
                              'bodyStyle' => '',
                              'datatype' => 'layout',
-                             'children' =>
+                             'children' => 
                             array (
                             ),
                              'locked' => false,
-                             'blockedVarsForExport' =>
+                             'blockedVarsForExport' => 
                             array (
                             ),
                              'fieldtype' => 'text',
@@ -5580,7 +5584,7 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                              'renderingData' => '',
                              'border' => false,
                           )),
-                          2 =>
+                          2 => 
                           \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                              'name' => 'WEEE',
                              'title' => 'Oznaczenie WEEE',
@@ -5596,13 +5600,13 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
-                             'blockedVarsForExport' =>
+                             'blockedVarsForExport' => 
                             array (
                             ),
                              'defaultValue' => NULL,
                              'defaultValueGenerator' => '',
                           )),
-                          3 =>
+                          3 => 
                           \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                              'name' => 'Layout',
                              'type' => NULL,
@@ -5614,11 +5618,11 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                              'collapsed' => false,
                              'bodyStyle' => '',
                              'datatype' => 'layout',
-                             'children' =>
+                             'children' => 
                             array (
                             ),
                              'locked' => false,
-                             'blockedVarsForExport' =>
+                             'blockedVarsForExport' => 
                             array (
                             ),
                              'fieldtype' => 'text',
@@ -5629,7 +5633,7 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                              'renderingData' => '',
                              'border' => false,
                           )),
-                          4 =>
+                          4 => 
                           \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                              'name' => 'ROHS',
                              'title' => 'Oznaczenie ROHS',
@@ -5645,13 +5649,13 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
-                             'blockedVarsForExport' =>
+                             'blockedVarsForExport' => 
                             array (
                             ),
                              'defaultValue' => NULL,
                              'defaultValueGenerator' => '',
                           )),
-                          5 =>
+                          5 => 
                           \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                              'name' => 'Layout',
                              'type' => NULL,
@@ -5663,11 +5667,11 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                              'collapsed' => false,
                              'bodyStyle' => '',
                              'datatype' => 'layout',
-                             'children' =>
+                             'children' => 
                             array (
                             ),
                              'locked' => false,
-                             'blockedVarsForExport' =>
+                             'blockedVarsForExport' => 
                             array (
                             ),
                              'fieldtype' => 'text',
@@ -5680,19 +5684,19 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                           )),
                         ),
                          'locked' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'fieldtype' => 'panel',
                          'layout' => NULL,
                          'border' => false,
-                         'icon' => '',
+                         'icon' => NULL,
                          'labelWidth' => 220,
                          'labelAlign' => 'left',
                       )),
                     ),
                      'locked' => false,
-                     'blockedVarsForExport' =>
+                     'blockedVarsForExport' => 
                     array (
                     ),
                      'fieldtype' => 'panel',
@@ -5702,7 +5706,7 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                      'labelWidth' => 100,
                      'labelAlign' => 'left',
                   )),
-                  12 =>
+                  12 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Integrations',
                      'type' => NULL,
@@ -5714,9 +5718,9 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                      'collapsed' => false,
                      'bodyStyle' => '',
                      'datatype' => 'layout',
-                     'children' =>
+                     'children' => 
                     array (
-                      0 =>
+                      0 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Layout\Accordion::__set_state(array(
                          'name' => 'Channels',
                          'type' => NULL,
@@ -5728,9 +5732,9 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                          'collapsed' => false,
                          'bodyStyle' => '',
                          'datatype' => 'layout',
-                         'children' =>
+                         'children' => 
                         array (
-                          0 =>
+                          0 => 
                           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                              'name' => 'Prestashop',
                              'type' => NULL,
@@ -5742,9 +5746,9 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                              'collapsed' => true,
                              'bodyStyle' => '',
                              'datatype' => 'layout',
-                             'children' =>
+                             'children' => 
                             array (
-                              0 =>
+                              0 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
                                  'name' => 'ps_megstyl_pl',
                                  'title' => 'Publish on megstyl.pl',
@@ -5760,25 +5764,25 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'yesLabel' => 'Yes',
                                  'noLabel' => 'No',
                                  'emptyLabel' => '',
-                                 'options' =>
+                                 'options' => 
                                 array (
-                                  0 =>
+                                  0 => 
                                   array (
                                     'key' => '',
                                     'value' => 0,
                                   ),
-                                  1 =>
+                                  1 => 
                                   array (
                                     'key' => 'Yes',
                                     'value' => 1,
                                   ),
-                                  2 =>
+                                  2 => 
                                   array (
                                     'key' => 'No',
                                     'value' => -1,
@@ -5786,7 +5790,7 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                                 ),
                                  'width' => '',
                               )),
-                              1 =>
+                              1 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
                                  'name' => 'ps_megstyl_pl_parent',
                                  'title' => 'Parent group',
@@ -5802,12 +5806,12 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
-                                 'classes' =>
+                                 'classes' => 
                                 array (
-                                  0 =>
+                                  0 => 
                                   array (
                                     'classes' => 'Group',
                                   ),
@@ -5819,16 +5823,16 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                                  'allowToClearRelation' => true,
                                  'objectsAllowed' => true,
                                  'assetsAllowed' => false,
-                                 'assetTypes' =>
+                                 'assetTypes' => 
                                 array (
                                 ),
                                  'documentsAllowed' => false,
-                                 'documentTypes' =>
+                                 'documentTypes' => 
                                 array (
                                 ),
                                  'width' => '',
                               )),
-                              2 =>
+                              2 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'name' => 'ps_megstyl_pl_id',
                                  'title' => 'Id',
@@ -5844,7 +5848,7 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'defaultValue' => NULL,
@@ -5860,7 +5864,7 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                               )),
                             ),
                              'locked' => false,
-                             'blockedVarsForExport' =>
+                             'blockedVarsForExport' => 
                             array (
                             ),
                              'fieldtype' => 'panel',
@@ -5870,7 +5874,7 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                              'labelWidth' => 90,
                              'labelAlign' => 'left',
                           )),
-                          1 =>
+                          1 => 
                           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                              'name' => 'Subiekt GT',
                              'type' => NULL,
@@ -5882,9 +5886,9 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                              'collapsed' => true,
                              'bodyStyle' => '',
                              'datatype' => 'layout',
-                             'children' =>
+                             'children' => 
                             array (
-                              0 =>
+                              0 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                                  'name' => 'Layout',
                                  'type' => NULL,
@@ -5896,11 +5900,11 @@ Domyślny kod kreskowy produktu tworzony na podstawie jego unikalnego identyfika
                                  'collapsed' => false,
                                  'bodyStyle' => '',
                                  'datatype' => 'layout',
-                                 'children' =>
+                                 'children' => 
                                 array (
                                 ),
                                  'locked' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'fieldtype' => 'text',
@@ -5911,7 +5915,7 @@ Not used in common version. Shown as a placeholder
                                  'renderingData' => '',
                                  'border' => false,
                               )),
-                              1 =>
+                              1 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                                  'name' => 'sgt',
                                  'title' => 'Subiekt GT',
@@ -5927,7 +5931,7 @@ Not used in common version. Shown as a placeholder
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'defaultValue' => NULL,
@@ -5935,7 +5939,7 @@ Not used in common version. Shown as a placeholder
                               )),
                             ),
                              'locked' => false,
-                             'blockedVarsForExport' =>
+                             'blockedVarsForExport' => 
                             array (
                             ),
                              'fieldtype' => 'panel',
@@ -5945,7 +5949,7 @@ Not used in common version. Shown as a placeholder
                              'labelWidth' => 100,
                              'labelAlign' => 'left',
                           )),
-                          2 =>
+                          2 => 
                           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                              'name' => 'Baselinker',
                              'type' => NULL,
@@ -5957,9 +5961,9 @@ Not used in common version. Shown as a placeholder
                              'collapsed' => true,
                              'bodyStyle' => '',
                              'datatype' => 'layout',
-                             'children' =>
+                             'children' => 
                             array (
-                              0 =>
+                              0 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
                                  'name' => 'BaselinkerCatalog',
                                  'title' => 'Baselinker Catalog',
@@ -5975,10 +5979,10 @@ Not used in common version. Shown as a placeholder
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
-                                 'classes' =>
+                                 'classes' => 
                                 array (
                                 ),
                                  'displayMode' => NULL,
@@ -5989,15 +5993,15 @@ Not used in common version. Shown as a placeholder
                                  'allowToClearRelation' => true,
                                  'optimizedAdminLoading' => false,
                                  'enableTextSelection' => false,
-                                 'visibleFieldDefinitions' =>
+                                 'visibleFieldDefinitions' => 
                                 array (
                                 ),
                                  'width' => '',
                                  'height' => '',
                                  'allowedClassId' => 'BaselinkerCatalog',
-                                 'columns' =>
+                                 'columns' => 
                                 array (
-                                  0 =>
+                                  0 => 
                                   array (
                                     'type' => 'number',
                                     'position' => 1,
@@ -6005,7 +6009,7 @@ Not used in common version. Shown as a placeholder
                                     'label' => 'Product Id',
                                     'id' => 'extModel9950-1',
                                   ),
-                                  1 =>
+                                  1 => 
                                   array (
                                     'type' => 'text',
                                     'position' => 2,
@@ -6014,7 +6018,7 @@ Not used in common version. Shown as a placeholder
                                     'id' => 'extModel9950-2',
                                   ),
                                 ),
-                                 'columnKeys' =>
+                                 'columnKeys' => 
                                 array (
                                   0 => 'ProductId',
                                   1 => 'Version',
@@ -6024,7 +6028,7 @@ Not used in common version. Shown as a placeholder
                               )),
                             ),
                              'locked' => false,
-                             'blockedVarsForExport' =>
+                             'blockedVarsForExport' => 
                             array (
                             ),
                              'fieldtype' => 'panel',
@@ -6034,7 +6038,7 @@ Not used in common version. Shown as a placeholder
                              'labelWidth' => 100,
                              'labelAlign' => 'left',
                           )),
-                          3 =>
+                          3 => 
                           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                              'name' => 'OBI',
                              'type' => NULL,
@@ -6046,9 +6050,9 @@ Not used in common version. Shown as a placeholder
                              'collapsed' => false,
                              'bodyStyle' => '',
                              'datatype' => 'layout',
-                             'children' =>
+                             'children' => 
                             array (
-                              0 =>
+                              0 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                                  'name' => 'OBI',
                                  'title' => 'OBI',
@@ -6064,24 +6068,24 @@ Not used in common version. Shown as a placeholder
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
-                                 'options' =>
+                                 'options' => 
                                 array (
-                                  0 =>
+                                  0 => 
                                   array (
                                     'key' => 'Yes',
                                     'value' => 'YES',
                                     'id' => 'extModel19334-1',
                                   ),
-                                  1 =>
+                                  1 => 
                                   array (
                                     'key' => 'No',
                                     'value' => 'NO',
                                     'id' => 'extModel19334-2',
                                   ),
-                                  2 =>
+                                  2 => 
                                   array (
                                     'key' => 'Retired',
                                     'value' => 'RETIRED',
@@ -6091,6 +6095,7 @@ Not used in common version. Shown as a placeholder
                                  'defaultValue' => 'NO',
                                  'columnLength' => 190,
                                  'dynamicOptions' => false,
+                                 'enforceValidation' => false,
                                  'defaultValueGenerator' => '',
                                  'width' => '',
                                  'optionsProviderType' => 'configure',
@@ -6099,7 +6104,7 @@ Not used in common version. Shown as a placeholder
                               )),
                             ),
                              'locked' => false,
-                             'blockedVarsForExport' =>
+                             'blockedVarsForExport' => 
                             array (
                             ),
                              'fieldtype' => 'panel',
@@ -6109,7 +6114,7 @@ Not used in common version. Shown as a placeholder
                              'labelWidth' => 100,
                              'labelAlign' => 'left',
                           )),
-                          4 =>
+                          4 => 
                           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                              'name' => 'Optimik 3',
                              'type' => NULL,
@@ -6121,9 +6126,9 @@ Not used in common version. Shown as a placeholder
                              'collapsed' => false,
                              'bodyStyle' => '',
                              'datatype' => 'layout',
-                             'children' =>
+                             'children' => 
                             array (
-                              0 =>
+                              0 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'OptimikExportSku',
                                  'title' => 'Optimik Export Sku',
@@ -6139,13 +6144,13 @@ Not used in common version. Shown as a placeholder
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'defaultValue' => 'NO',
                                  'columnLength' => 190,
                                  'regex' => '',
-                                 'regexFlags' =>
+                                 'regexFlags' => 
                                 array (
                                 ),
                                  'unique' => false,
@@ -6153,7 +6158,7 @@ Not used in common version. Shown as a placeholder
                                  'width' => '',
                                  'defaultValueGenerator' => '',
                               )),
-                              1 =>
+                              1 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'name' => 'OptimikExportSerieSize',
                                  'title' => 'Optimik Export Serie Size',
@@ -6169,7 +6174,7 @@ Not used in common version. Shown as a placeholder
                                  'invisible' => false,
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
-                                 'blockedVarsForExport' =>
+                                 'blockedVarsForExport' => 
                                 array (
                                 ),
                                  'defaultValue' => NULL,
@@ -6185,7 +6190,7 @@ Not used in common version. Shown as a placeholder
                               )),
                             ),
                              'locked' => false,
-                             'blockedVarsForExport' =>
+                             'blockedVarsForExport' => 
                             array (
                             ),
                              'fieldtype' => 'panel',
@@ -6197,7 +6202,7 @@ Not used in common version. Shown as a placeholder
                           )),
                         ),
                          'locked' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'fieldtype' => 'accordion',
@@ -6205,7 +6210,7 @@ Not used in common version. Shown as a placeholder
                       )),
                     ),
                      'locked' => false,
-                     'blockedVarsForExport' =>
+                     'blockedVarsForExport' => 
                     array (
                     ),
                      'fieldtype' => 'panel',
@@ -6215,7 +6220,7 @@ Not used in common version. Shown as a placeholder
                      'labelWidth' => 100,
                      'labelAlign' => 'left',
                   )),
-                  13 =>
+                  13 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Prices (old)',
                      'type' => NULL,
@@ -6227,9 +6232,9 @@ Not used in common version. Shown as a placeholder
                      'collapsed' => false,
                      'bodyStyle' => '',
                      'datatype' => 'layout',
-                     'children' =>
+                     'children' => 
                     array (
-                      0 =>
+                      0 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                          'name' => 'BasePrice',
                          'title' => 'Base Price',
@@ -6247,12 +6252,12 @@ Cena zakupu produktu u producenta lub techniczny koszt wytworzenia przy własnej
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'unitWidth' => '',
                          'defaultUnit' => 'PLN',
-                         'validUnits' =>
+                         'validUnits' => 
                         array (
                           0 => 'PLN',
                           1 => 'USD',
@@ -6271,7 +6276,7 @@ Cena zakupu produktu u producenta lub techniczny koszt wytworzenia przy własnej
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
                       )),
-                      1 =>
+                      1 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
                          'name' => 'Price',
                          'title' => 'Price',
@@ -6287,10 +6292,10 @@ Cena zakupu produktu u producenta lub techniczny koszt wytworzenia przy własnej
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
-                         'classes' =>
+                         'classes' => 
                         array (
                         ),
                          'displayMode' => NULL,
@@ -6301,15 +6306,15 @@ Cena zakupu produktu u producenta lub techniczny koszt wytworzenia przy własnej
                          'allowToClearRelation' => false,
                          'optimizedAdminLoading' => false,
                          'enableTextSelection' => false,
-                         'visibleFieldDefinitions' =>
+                         'visibleFieldDefinitions' => 
                         array (
                         ),
                          'width' => '',
                          'height' => '',
                          'allowedClassId' => 'Offer',
-                         'columns' =>
+                         'columns' => 
                         array (
-                          0 =>
+                          0 => 
                           array (
                             'type' => 'number',
                             'position' => 1,
@@ -6318,7 +6323,7 @@ Cena zakupu produktu u producenta lub techniczny koszt wytworzenia przy własnej
                             'value' => '',
                             'width' => NULL,
                           ),
-                          1 =>
+                          1 => 
                           array (
                             'type' => 'text',
                             'position' => 2,
@@ -6327,7 +6332,7 @@ Cena zakupu produktu u producenta lub techniczny koszt wytworzenia przy własnej
                             'value' => '',
                             'width' => NULL,
                           ),
-                          2 =>
+                          2 => 
                           array (
                             'type' => 'bool',
                             'position' => 3,
@@ -6335,7 +6340,7 @@ Cena zakupu produktu u producenta lub techniczny koszt wytworzenia przy własnej
                             'label' => 'Is Fixed?',
                           ),
                         ),
-                         'columnKeys' =>
+                         'columnKeys' => 
                         array (
                           0 => 'Price',
                           1 => 'Currency',
@@ -6344,7 +6349,7 @@ Cena zakupu produktu u producenta lub techniczny koszt wytworzenia przy własnej
                          'enableBatchEdit' => false,
                          'allowMultipleAssignments' => false,
                       )),
-                      2 =>
+                      2 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
                          'name' => 'Pricing',
                          'title' => 'Pricing',
@@ -6362,10 +6367,10 @@ Wycena produktu lub innej usługi związanej z produktem, np. transport',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
-                         'classes' =>
+                         'classes' => 
                         array (
                         ),
                          'displayMode' => NULL,
@@ -6376,22 +6381,22 @@ Wycena produktu lub innej usługi związanej z produktem, np. transport',
                          'allowToClearRelation' => true,
                          'optimizedAdminLoading' => false,
                          'enableTextSelection' => false,
-                         'visibleFieldDefinitions' =>
+                         'visibleFieldDefinitions' => 
                         array (
                         ),
                          'width' => '',
                          'height' => '',
                          'allowedClassId' => 'Pricing',
-                         'columns' =>
+                         'columns' => 
                         array (
-                          0 =>
+                          0 => 
                           array (
                             'type' => 'number',
                             'position' => 1,
                             'key' => 'Price',
                             'label' => 'Price',
                           ),
-                          1 =>
+                          1 => 
                           array (
                             'type' => 'text',
                             'position' => 2,
@@ -6399,7 +6404,7 @@ Wycena produktu lub innej usługi związanej z produktem, np. transport',
                             'label' => 'Currency',
                           ),
                         ),
-                         'columnKeys' =>
+                         'columnKeys' => 
                         array (
                           0 => 'Price',
                           1 => 'Currency',
@@ -6409,7 +6414,7 @@ Wycena produktu lub innej usługi związanej z produktem, np. transport',
                       )),
                     ),
                      'locked' => false,
-                     'blockedVarsForExport' =>
+                     'blockedVarsForExport' => 
                     array (
                     ),
                      'fieldtype' => 'panel',
@@ -6421,7 +6426,7 @@ Wycena produktu lub innej usługi związanej z produktem, np. transport',
                   )),
                 ),
                  'locked' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
                  'fieldtype' => 'tabpanel',
@@ -6430,17 +6435,17 @@ Wycena produktu lub innej usługi związanej z produktem, np. transport',
               )),
             ),
              'locked' => false,
-             'blockedVarsForExport' =>
+             'blockedVarsForExport' => 
             array (
             ),
              'fieldtype' => 'panel',
              'layout' => NULL,
              'border' => false,
-             'icon' => '',
+             'icon' => NULL,
              'labelWidth' => 100,
              'labelAlign' => 'left',
           )),
-          1 =>
+          1 => 
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'System',
              'type' => NULL,
@@ -6452,9 +6457,9 @@ Wycena produktu lub innej usługi związanej z produktem, np. transport',
              'collapsed' => false,
              'bodyStyle' => '',
              'datatype' => 'layout',
-             'children' =>
+             'children' => 
             array (
-              0 =>
+              0 => 
               \Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
                  'name' => 'Layout',
                  'type' => NULL,
@@ -6466,9 +6471,9 @@ Wycena produktu lub innej usługi związanej z produktem, np. transport',
                  'collapsed' => false,
                  'bodyStyle' => '',
                  'datatype' => 'layout',
-                 'children' =>
+                 'children' => 
                 array (
-                  0 =>
+                  0 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Layout',
                      'type' => NULL,
@@ -6480,9 +6485,9 @@ Wycena produktu lub innej usługi związanej z produktem, np. transport',
                      'collapsed' => false,
                      'bodyStyle' => '',
                      'datatype' => 'layout',
-                     'children' =>
+                     'children' => 
                     array (
-                      0 =>
+                      0 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                          'name' => 'Image',
                          'title' => 'Image',
@@ -6500,14 +6505,14 @@ Główne zdjęcie produktu, najczęściej z przeźroczystym tłem',
                          'invisible' => false,
                          'visibleGridView' => true,
                          'visibleSearch' => true,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'uploadPath' => '',
                          'width' => 400,
                          'height' => 400,
                       )),
-                      1 =>
+                      1 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'name' => 'Ean',
                          'title' => 'Ean',
@@ -6527,13 +6532,13 @@ Kod mozna przypisać za pomocą przycisku w górnym menu.',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => true,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'defaultValue' => NULL,
                          'columnLength' => 190,
                          'regex' => '',
-                         'regexFlags' =>
+                         'regexFlags' => 
                         array (
                         ),
                          'unique' => true,
@@ -6541,7 +6546,7 @@ Kod mozna przypisać za pomocą przycisku w górnym menu.',
                          'width' => 400,
                          'defaultValueGenerator' => '',
                       )),
-                      2 =>
+                      2 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'name' => 'MPN',
                          'title' => 'MPN',
@@ -6559,13 +6564,13 @@ Kod producenta',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'defaultValue' => NULL,
                          'columnLength' => 190,
                          'regex' => '',
-                         'regexFlags' =>
+                         'regexFlags' => 
                         array (
                         ),
                          'unique' => false,
@@ -6573,7 +6578,7 @@ Kod producenta',
                          'width' => 400,
                          'defaultValueGenerator' => '',
                       )),
-                      3 =>
+                      3 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'name' => 'KeyCopy',
                          'title' => 'Key Copy',
@@ -6589,13 +6594,13 @@ Kod producenta',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'defaultValue' => NULL,
                          'columnLength' => 400,
                          'regex' => '',
-                         'regexFlags' =>
+                         'regexFlags' => 
                         array (
                         ),
                          'unique' => false,
@@ -6605,7 +6610,7 @@ Kod producenta',
                       )),
                     ),
                      'locked' => false,
-                     'blockedVarsForExport' =>
+                     'blockedVarsForExport' => 
                     array (
                     ),
                      'fieldtype' => 'panel',
@@ -6615,7 +6620,7 @@ Kod producenta',
                      'labelWidth' => 100,
                      'labelAlign' => 'top',
                   )),
-                  1 =>
+                  1 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Layout',
                      'type' => NULL,
@@ -6627,9 +6632,9 @@ Kod producenta',
                      'collapsed' => false,
                      'bodyStyle' => '',
                      'datatype' => 'layout',
-                     'children' =>
+                     'children' => 
                     array (
-                      0 =>
+                      0 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\ImageGallery::__set_state(array(
                          'name' => 'ImagesModel',
                          'title' => 'Images of model (2000 x 2000)',
@@ -6647,7 +6652,7 @@ Przykładowo: rysunek z wymiarami',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'uploadPath' => '',
@@ -6657,7 +6662,7 @@ Przykładowo: rysunek z wymiarami',
                          'height' => 380,
                          'width' => 380,
                       )),
-                      1 =>
+                      1 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
                          'name' => 'Model3DStep',
                          'title' => 'Model 3D .step',
@@ -6673,10 +6678,10 @@ Przykładowo: rysunek z wymiarami',
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
-                         'classes' =>
+                         'classes' => 
                         array (
                         ),
                          'displayMode' => 'grid',
@@ -6686,18 +6691,18 @@ Przykładowo: rysunek z wymiarami',
                          'allowToClearRelation' => true,
                          'objectsAllowed' => false,
                          'assetsAllowed' => true,
-                         'assetTypes' =>
+                         'assetTypes' => 
                         array (
                         ),
                          'documentsAllowed' => false,
-                         'documentTypes' =>
+                         'documentTypes' => 
                         array (
                         ),
                          'width' => 250,
                       )),
                     ),
                      'locked' => false,
-                     'blockedVarsForExport' =>
+                     'blockedVarsForExport' => 
                     array (
                     ),
                      'fieldtype' => 'panel',
@@ -6709,7 +6714,7 @@ Przykładowo: rysunek z wymiarami',
                   )),
                 ),
                  'locked' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
                  'fieldtype' => 'tabpanel',
@@ -6718,17 +6723,17 @@ Przykładowo: rysunek z wymiarami',
               )),
             ),
              'locked' => false,
-             'blockedVarsForExport' =>
+             'blockedVarsForExport' => 
             array (
             ),
              'fieldtype' => 'panel',
              'layout' => '',
              'border' => false,
-             'icon' => '',
+             'icon' => NULL,
              'labelWidth' => 120,
              'labelAlign' => 'top',
           )),
-          2 =>
+          2 => 
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Layout',
              'type' => NULL,
@@ -6740,9 +6745,9 @@ Przykładowo: rysunek z wymiarami',
              'collapsed' => false,
              'bodyStyle' => '',
              'datatype' => 'layout',
-             'children' =>
+             'children' => 
             array (
-              0 =>
+              0 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                  'name' => 'Status',
                  'title' => 'Status',
@@ -6758,27 +6763,27 @@ Przykładowo: rysunek z wymiarami',
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
-                 'options' =>
+                 'options' => 
                 array (
-                  0 =>
+                  0 => 
                   array (
                     'key' => 'Draft',
                     'value' => 'Draft',
                   ),
-                  1 =>
+                  1 => 
                   array (
                     'key' => 'Active (sellable)',
                     'value' => 'Active',
                   ),
-                  2 =>
+                  2 => 
                   array (
                     'key' => 'Sale',
                     'value' => 'Sale',
                   ),
-                  3 =>
+                  3 => 
                   array (
                     'key' => 'End of Life (not sellable)',
                     'value' => 'EoF',
@@ -6787,13 +6792,14 @@ Przykładowo: rysunek z wymiarami',
                  'defaultValue' => 'Draft',
                  'columnLength' => 190,
                  'dynamicOptions' => false,
+                 'enforceValidation' => false,
                  'defaultValueGenerator' => '',
                  'width' => '',
                  'optionsProviderType' => 'configure',
                  'optionsProviderClass' => '',
                  'optionsProviderData' => '',
               )),
-              1 =>
+              1 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                  'name' => 'ObjectType',
                  'title' => 'Product type',
@@ -6819,27 +6825,27 @@ Wyróżnia się następujące typy produktu:
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
-                 'options' =>
+                 'options' => 
                 array (
-                  0 =>
+                  0 => 
                   array (
                     'key' => 'ACTUAL',
                     'value' => 'ACTUAL',
                   ),
-                  1 =>
+                  1 => 
                   array (
                     'key' => 'VIRTUAL',
                     'value' => 'VIRTUAL',
                   ),
-                  2 =>
+                  2 => 
                   array (
                     'key' => 'MODEL',
                     'value' => 'MODEL',
                   ),
-                  3 =>
+                  3 => 
                   array (
                     'key' => 'SKU',
                     'value' => 'SKU',
@@ -6848,13 +6854,14 @@ Wyróżnia się następujące typy produktu:
                  'defaultValue' => 'ACTUAL',
                  'columnLength' => 190,
                  'dynamicOptions' => false,
+                 'enforceValidation' => false,
                  'defaultValueGenerator' => '',
                  'width' => 400,
                  'optionsProviderType' => 'configure',
                  'optionsProviderClass' => '',
                  'optionsProviderData' => '',
               )),
-              2 =>
+              2 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
                  'name' => 'InStock',
                  'title' => 'Stan magazynowy',
@@ -6870,39 +6877,40 @@ Wyróżnia się następujące typy produktu:
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
                  'elementType' => 'input',
                  'calculatorType' => 'expression',
                  'calculatorExpression' => 'object.getStock()',
                  'calculatorClass' => '',
+                 'calculatorData' => NULL,
                  'columnLength' => 190,
                  'width' => '',
               )),
             ),
              'locked' => false,
-             'blockedVarsForExport' =>
+             'blockedVarsForExport' => 
             array (
             ),
              'fieldtype' => 'panel',
              'layout' => '',
              'border' => true,
-             'icon' => '',
+             'icon' => NULL,
              'labelWidth' => 180,
              'labelAlign' => 'left',
           )),
         ),
          'locked' => false,
-         'blockedVarsForExport' =>
+         'blockedVarsForExport' => 
         array (
         ),
          'fieldtype' => 'region',
-         'icon' => '',
+         'icon' => NULL,
       )),
     ),
      'locked' => false,
-     'blockedVarsForExport' =>
+     'blockedVarsForExport' => 
     array (
     ),
      'fieldtype' => 'panel',
@@ -6917,13 +6925,13 @@ Wyróżnia się następujące typy produktu:
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',
    'previewGeneratorReference' => '',
-   'compositeIndices' =>
+   'compositeIndices' => 
   array (
   ),
    'showFieldLookup' => false,
-   'propertyVisibility' =>
+   'propertyVisibility' => 
   array (
-    'grid' =>
+    'grid' => 
     array (
       'id' => true,
       'key' => true,
@@ -6932,7 +6940,7 @@ Wyróżnia się następujące typy produktu:
       'modificationDate' => true,
       'creationDate' => false,
     ),
-    'search' =>
+    'search' => 
     array (
       'id' => true,
       'key' => true,
@@ -6943,16 +6951,16 @@ Wyróżnia się następujące typy produktu:
     ),
   ),
    'enableGridLocking' => false,
-   'deletedDataComponents' =>
+   'deletedDataComponents' => 
   array (
   ),
-   'blockedVarsForExport' =>
+   'blockedVarsForExport' => 
   array (
   ),
-   'fieldDefinitionsCache' =>
+   'fieldDefinitionsCache' => 
   array (
   ),
-   'activeDispatchingEvents' =>
+   'activeDispatchingEvents' => 
   array (
   ),
 ));

@@ -28,7 +28,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Grupa',
    'description' => 'Zbiór produktów, zestawów produktów, użytkowników',
    'creationDate' => NULL,
-   'modificationDate' => 1760612258,
+   'modificationDate' => 1794347244,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -398,8 +398,10 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'blockedVarsForExport' => 
                 array (
                 ),
+                 'options' => NULL,
                  'maxItems' => NULL,
                  'renderType' => 'tags',
+                 'enforceValidation' => false,
                  'dynamicOptions' => false,
                  'defaultValue' => NULL,
                  'height' => '',

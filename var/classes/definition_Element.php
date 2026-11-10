@@ -23,7 +23,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1747802081,
+   'modificationDate' => 1794347244,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -240,10 +240,6 @@ Pełna nazwa produktu. Nazwa w językach obcych tłumaczona jest automatycznie w
                 ),
                  'classes' => 
                 array (
-                  0 => 
-                  array (
-                    'classes' => '',
-                  ),
                 ),
                  'displayMode' => NULL,
                  'pathFormatterClass' => '',
@@ -255,18 +251,10 @@ Pełna nazwa produktu. Nazwa w językach obcych tłumaczona jest automatycznie w
                  'assetsAllowed' => true,
                  'assetTypes' => 
                 array (
-                  0 => 
-                  array (
-                    'assetTypes' => '',
-                  ),
                 ),
                  'documentsAllowed' => false,
                  'documentTypes' => 
                 array (
-                  0 => 
-                  array (
-                    'documentTypes' => '',
-                  ),
                 ),
                  'enableTextSelection' => false,
                  'width' => '',

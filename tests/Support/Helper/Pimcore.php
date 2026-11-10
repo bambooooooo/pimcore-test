@@ -117,7 +117,27 @@ class Pimcore extends Module
             ]);
         }
 
-        $this->symfony()->amLoggedInAs(new SecurityUser($user), 'pimcore_admin');
+        // factory and Pimcore Studio share the firewall context "pimcore_admin" (one session for both)
+        $this->symfony()->amLoggedInAs(new SecurityUser($user), 'factory', 'pimcore_admin');
+
+        return $user;
+    }
+
+    /**
+     * Logs in a non-admin Pimcore user without any permission or workspace.
+     */
+    public function amLoggedInAsPimcoreUser(string $name): User
+    {
+        $this->attachKernel();
+        $user = User::getByName($name) ?? User::create([
+            'parentId' => 0,
+            'name' => $name,
+            'password' => \Pimcore\Tool\Authentication::getPasswordHash($name, bin2hex(random_bytes(8))),
+            'active' => true,
+            'admin' => false,
+        ]);
+
+        $this->symfony()->amLoggedInAs(new SecurityUser($user), 'factory', 'pimcore_admin');
 
         return $user;
     }

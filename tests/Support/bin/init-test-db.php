@@ -9,9 +9,7 @@
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
-use Pimcore\Bundle\InstallBundle\Installer;
-use Psr\Log\NullLogger;
-use Symfony\Component\EventDispatcher\EventDispatcher;
+use Pimcore\Bundle\InstallBundle\Database\DatabaseSetup;
 
 require dirname(__DIR__, 2) . '/bootstrap.php';
 
@@ -36,13 +34,9 @@ $server->executeStatement(sprintf('CREATE DATABASE %s CHARSET=utf8mb4', $db->quo
 $server->close();
 $db->close();
 
-$installer = new Installer(new NullLogger(), new EventDispatcher());
-$installer->setImportDatabaseDataDump(false);
-$errors = $installer->setupDatabase($db, ['username' => 'admin', 'password' => bin2hex(random_bytes(16))]);
-
-if ($errors) {
-    fwrite(STDERR, "Test database setup failed:\n" . implode("\n", $errors) . "\n");
-    exit(1);
-}
+$setup = new DatabaseSetup();
+$setup->createSchema($db);
+$setup->insertSeedData($db);
+$setup->createOrUpdateAdminUser($db, ['username' => 'admin', 'password' => bin2hex(random_bytes(16))]);
 
 echo "Initialized test database $dbName\n";

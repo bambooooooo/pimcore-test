@@ -20,7 +20,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Load Carrier',
    'description' => 'Nośnik dla paczek - paleta, TIR, kontener',
    'creationDate' => NULL,
-   'modificationDate' => 1758705965,
+   'modificationDate' => 1794347244,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',

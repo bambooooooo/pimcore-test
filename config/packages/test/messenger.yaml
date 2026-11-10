@@ -7,6 +7,9 @@ framework:
             pimcore_scheduled_tasks: 'in-memory://'
             pimcore_image_optimize: 'in-memory://'
             pimcore_asset_update: 'in-memory://'
+            pimcore_generic_data_index_queue: 'in-memory://'
+            pimcore_generic_execution_engine: 'in-memory://'
+            pimcore_data_import: 'in-memory://'
             sgt: { dsn: 'in-memory://' }
             sgt_errors: 'in-memory://'
             blk: { dsn: 'in-memory://' }

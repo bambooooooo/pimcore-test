@@ -8,10 +8,12 @@ services:
         volumes:
             - pimcore-rabbitmq:/var/lib/rabbitmq/
 
+    # innodb-strict-mode=0: the wide Product/ProductSet tables exceed InnoDB's worst-case row size estimate.
+    # Pimcore 2026 adds foreign keys on class save, which rebuilds those tables - with strict mode the rebuild fails.
     db:
         image: mariadb:10.11
         working_dir: /application
-        command: [ mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_general_ci, --innodb-file-per-table=1 ]
+        command: [ mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_general_ci, --innodb-file-per-table=1, --innodb-strict-mode=0 ]
         volumes:
             - pimcore-database:/var/lib/mysql
         environment:
@@ -36,7 +38,7 @@ services:
     test_db:
         image: mariadb:10.11
         profiles: [ test ]
-        command: [ mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_general_ci, --innodb-file-per-table=1 ]
+        command: [ mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_general_ci, --innodb-file-per-table=1, --innodb-strict-mode=0 ]
         tmpfs:
             - /var/lib/mysql
         environment:
@@ -62,7 +64,7 @@ services:
 
     php:
         user: '1000:1000' # set to your uid:gid
-        image: pimcore/pimcore:php8.3-debug-latest
+        image: pimcore/pimcore:php8.4-debug-latest
         environment:
             APP_ENV: dev
             APP_DEBUG: 1
@@ -82,6 +84,8 @@ services:
         depends_on:
             db:
                 condition: service_healthy
+            opensearch:
+                condition: service_healthy
         volumes:
             - .:/var/www/html
             - ./.docker/messenger.yaml:/var/www/html/config/packages/messenger.yaml:ro
@@ -89,7 +93,7 @@ services:
 
     supervisord:
         user: '1000:1000' # set to your uid:gid
-        image: pimcore/pimcore:php8.3-supervisord-latest
+        image: pimcore/pimcore:php8.4-supervisord-latest
         environment:
             PHP_MEMORY_LIMIT: 4096M
         depends_on:
@@ -97,11 +101,47 @@ services:
                 condition: service_started
             db:
                 condition: service_healthy
+            opensearch:
+                condition: service_healthy
         volumes:
             - .:/var/www/html
             - ./.docker/messenger.yaml:/var/www/html/config/packages/messenger.yaml:ro
             - ./.docker/supervisord.conf:/etc/supervisor/conf.d/pimcore.conf:ro
             - /mnt/projects/RENDERS:/var/www/html/renders:ro
+
+    # Search index for Pimcore Studio (generic-data-index-bundle)
+    opensearch:
+        image: opensearchproject/opensearch:2
+        environment:
+            - cluster.name=pimcore
+            - node.name=opensearch
+            - discovery.type=single-node
+            - cluster.routing.allocation.disk.threshold_enabled=false
+            - bootstrap.memory_lock=true
+            - action.auto_create_index=false
+            - "OPENSEARCH_JAVA_OPTS=-Xms1024m -Xmx1024m"
+            - OPENSEARCH_INITIAL_ADMIN_PASSWORD=${OPENSEARCH_PASSWORD:-Pimcore!Search2026}
+        ulimits:
+            memlock: { soft: -1, hard: -1 }
+            nofile: { soft: 65536, hard: 65536 }
+        volumes:
+            - pimcore-opensearch:/usr/share/opensearch/data
+        healthcheck:
+            test: [ "CMD-SHELL", "curl -sk -u admin:$$OPENSEARCH_INITIAL_ADMIN_PASSWORD https://localhost:9200/_cluster/health | grep -qE '\"status\":\"(green|yellow)\"'" ]
+            interval: 10s
+            retries: 30
+            start_period: 30s
+            timeout: 5s
+
+    # Real-time updates in Pimcore Studio, proxied by nginx under /hub
+    mercure:
+        image: dunglas/mercure
+        restart: unless-stopped
+        environment:
+            SERVER_NAME: ':80'
+            MERCURE_PUBLISHER_JWT_KEY: ${MERCURE_JWT_KEY:-CHANGE_ME_THIS_IS_MY_SECRET_KEY_THAT_IS_LONG_ENOUGH_FOR_VALIDATION}
+            MERCURE_SUBSCRIBER_JWT_KEY: ${MERCURE_JWT_KEY:-CHANGE_ME_THIS_IS_MY_SECRET_KEY_THAT_IS_LONG_ENOUGH_FOR_VALIDATION}
+            MERCURE_EXTRA_DIRECTIVES: anonymous
 
     gotenberg:
         image: gotenberg/gotenberg:8
@@ -115,3 +155,4 @@ services:
 volumes:
     pimcore-database:
     pimcore-rabbitmq:
+    pimcore-opensearch:

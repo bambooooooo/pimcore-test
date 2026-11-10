@@ -1,0 +1,5 @@
+# Non-production marker around Pimcore Studio (successor of the classic admin env.css).
+pimcore_studio_ui:
+    static_resources:
+        css:
+            - /static/css/env.css

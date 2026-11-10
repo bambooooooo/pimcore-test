@@ -62,10 +62,6 @@ return \Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
             ),
              'classes' => 
             array (
-              0 => 
-              array (
-                'classes' => '',
-              ),
             ),
              'displayMode' => 'grid',
              'pathFormatterClass' => '',
@@ -120,9 +116,10 @@ return \Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
                 'value' => 'Average',
               ),
             ),
-             'defaultValue' => '',
+             'defaultValue' => NULL,
              'columnLength' => 190,
              'dynamicOptions' => false,
+             'enforceValidation' => false,
              'defaultValueGenerator' => '',
              'width' => '',
              'optionsProviderType' => 'configure',

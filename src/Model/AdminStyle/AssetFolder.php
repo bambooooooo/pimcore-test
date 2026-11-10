@@ -4,7 +4,6 @@ namespace App\Model\AdminStyle;
 
 use Pimcore\Model\Asset;
 use Pimcore\Model\Asset\Folder;
-use Pimcore\Model\Element\AdminStyle;
 use Pimcore\Model\Element\ElementInterface;
 
 class AssetFolder extends AdminStyle

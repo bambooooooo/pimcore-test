@@ -59,8 +59,10 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'blockedVarsForExport' => 
             array (
             ),
+             'options' => NULL,
              'maxItems' => NULL,
              'renderType' => 'tags',
+             'enforceValidation' => false,
              'dynamicOptions' => false,
              'defaultValue' => NULL,
              'height' => '',

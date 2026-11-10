@@ -72,12 +72,9 @@ services:
         arguments:
             $viz_root_path: '%viz_root_path%'
 
-    # admin styles
-    App\EventListener\AdminStyleListener:
-        tags:
-            - { name: kernel.event_listener, event: pimcore.bundle_manager.paths.css, method: addCSSFiles  }
-            - { name: kernel.event_listener, event: pimcore.bundle_manager.paths.js, method: addJSFiles }
-            - { name: kernel.event_listener, event: pimcore.admin.resolve.elementAdminStyle, method: onResolveElementAdminStyle }
+    # Pimcore Studio: tree icons and tooltips
+    App\Model\AdminStyle\AdminStyleResolver: ~
+    App\EventSubscriber\StudioElementStyleSubscriber: ~
 
     # services
     App\Service\:
@@ -193,10 +190,33 @@ services:
             - { name: kernel.event_listener, event: pimcore.asset.postAdd, method: postAddEvents }
             - { name: kernel.event_listener, event: pimcore.asset.postUpdate, method: postUpdateEvents }
 
-    # grid export
-    App\EventListener\GridExportListener:
+    # Pimcore Studio plugin (assets/studio) and its backend
+    App\Studio\WebpackEntryPointProvider:
         tags:
-            - { name: kernel.event_listener, event: pimcore.dataobject.postCsvItemExport, method: postCsvItemExport }
+            - { name: pimcore_studio_ui.webpack_entry_point_provider }
+
+    App\Studio\ToolbarContextBuilder: ~
+
+    # Pimcore Studio grid columns "Megstyl / Offer price" and "Megstyl / Package dimension"
+    # (successors of the classic grid operators App\Model\Grid\Price and PackageDim)
+    App\Studio\Grid\OfferPriceColumnDefinition:
+        tags: [ pimcore.studio_backend.grid_column_definition ]
+    App\Studio\Grid\PackageDimensionColumnDefinition:
+        tags: [ pimcore.studio_backend.grid_column_definition ]
+    App\Studio\Grid\OfferPriceColumnResolver:
+        tags: [ pimcore.studio_backend.grid_column_resolver ]
+    App\Studio\Grid\PackageDimensionColumnResolver:
+        tags: [ pimcore.studio_backend.grid_column_resolver ]
+    App\Studio\Grid\ClassicGridConfigConverter: ~
+
+    App\Studio\Grid\MegstylColumnCollector:
+        tags: [ pimcore.studio_backend.grid_column_collector ]
+
+    # Pimcore Studio: XLSX grid export embeds image thumbnails
+    App\Studio\Export\ImageEmbeddingXlsxExportService:
+        decorates: Pimcore\Bundle\StudioBackendBundle\Export\Service\XlsxExportService
+        arguments:
+            $inner: '@.inner'
 
     # Example custom templating helper
     # App\Templating\Helper\Example:

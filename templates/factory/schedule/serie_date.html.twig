@@ -13,7 +13,7 @@
         <input class="datepicker" style="width: 85px;" value="{{ serie.date|date("d.m.Y") }}" data-id="{{ serie.id }}"/>
     </div>
     <div id="add-date-{{ serie.id }}-toggle" data-id="{{ serie.id }}" class="add-date-toggle btn btn-outline-primary btn-sm ms-1">
-        <img src="/bundles/pimcoreadmin/img/flat-color-icons/edit.svg" height="18"/>
+        <img src="/static/pimcoreadmin/img/flat-color-icons/edit.svg" height="18"/>
     </div>
 {% endif %}
 
@@ -26,7 +26,7 @@
         <div>
             {% for att in serie.Attachments %}
                 <a href="{{ att }}" target="_blank">
-                    <img src="/bundles/pimcoreadmin/img/flat-color-icons/file-types.svg" height="18">
+                    <img src="/static/pimcoreadmin/img/flat-color-icons/file-types.svg" height="18">
                     {{ att.filename }}
                 </a><br/>
             {% endfor %}

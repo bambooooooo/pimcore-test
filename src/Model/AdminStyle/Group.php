@@ -2,7 +2,6 @@
 
 namespace App\Model\AdminStyle;
 
-use Pimcore\Model\Element\AdminStyle;
 use Pimcore\Model\Element\ElementInterface;
 use Pimcore\Model\DataObject;
 

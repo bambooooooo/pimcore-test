@@ -15,34 +15,33 @@
   },
   "prefer-stable": true,
   "require": {
+    "php": "~8.4.0 || ~8.5.0",
+    "ext-dom": "*",
+    "ext-simplexml": "*",
     "ext-zip": "*",
     "czproject/pdf-rotate": "^2.1",
     "deeplcom/deepl-php": "^1.11",
     "endroid/qr-code": "^6.0",
     "endroid/qr-code-bundle": "^6.0",
-    "gotenberg/gotenberg-php": "^2.0",
+    "gotenberg/gotenberg-php": "^2.4",
     "picqer/php-barcode-generator": "^3.2",
-    "pimcore/admin-ui-classic-bundle": "^2.3",
-    "pimcore/data-hub": "~2.3.0",
-    "pimcore/data-importer": "~2.3.1",
-    "pimcore/pimcore": "*",
-    "pimcore/platform-version": "^2025.4",
+    "pimcore/data-hub": "*",
+    "pimcore/data-importer": "*",
+    "pimcore/pimcore": "^2026.3",
+    "pimcore/platform-version": "^2026.3",
     "pimcore/quill-bundle": "*",
-    "symfony/amqp-messenger": "^7.3",
-    "symfony/dotenv": "^7.3",
+    "pimcore/studio-backend-bundle": "*",
+    "pimcore/studio-ui-bundle": "*",
+    "symfony/amqp-messenger": "^7.4",
+    "symfony/dotenv": "^7.4",
     "symfony/flex": "^2.5",
-    "symfony/http-client": "^7.3",
-    "symfony/runtime": "^7.3",
-    "ext-dom": "*",
-    "ext-simplexml": "*"
+    "symfony/http-client": "^7.4",
+    "symfony/runtime": "^7.4"
   },
   "require-dev": {
-    "codeception/codeception": "^5.0.3",
+    "codeception/codeception": "^5.3",
     "codeception/module-asserts": "^3.3",
-    "codeception/module-symfony": "^3.1.0"
-  },
-  "suggest": {
-    "pimcore/data-hub": "Universal data interface for GraphQL, CSV and other formats"
+    "codeception/module-symfony": "^3.5"
   },
   "autoload": {
     "psr-4": {

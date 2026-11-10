@@ -15,7 +15,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'implementsInterfaces' => '',
    'title' => 'Agata meble',
    'group' => 'Dodatkowe kody',
-   'layoutDefinitions' => 
+   'layoutDefinitions' =>
   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
      'name' => NULL,
      'type' => NULL,
@@ -27,9 +27,9 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
      'collapsed' => false,
      'bodyStyle' => NULL,
      'datatype' => 'layout',
-     'children' => 
+     'children' =>
     array (
-      0 => 
+      0 =>
       \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
          'name' => 'Layout',
          'type' => NULL,
@@ -41,9 +41,9 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
          'collapsed' => false,
          'bodyStyle' => '',
          'datatype' => 'layout',
-         'children' => 
+         'children' =>
         array (
-          0 => 
+          0 =>
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
              'name' => 'Wystrój',
              'type' => NULL,
@@ -55,9 +55,9 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'collapsed' => false,
              'bodyStyle' => '',
              'datatype' => 'layout',
-             'children' => 
+             'children' =>
             array (
-              0 => 
+              0 =>
               \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                  'name' => 'Wystrój',
                  'type' => NULL,
@@ -69,13 +69,13 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'collapsed' => false,
                  'bodyStyle' => '',
                  'datatype' => 'layout',
-                 'children' => 
+                 'children' =>
                 array (
-                  0 => 
+                  0 =>
                   \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'name' => 'Barcode',
                      'title' => 'Barcode (Package)',
-                     'tooltip' => 'Kod kreskowy paczki w systemie Agata. 
+                     'tooltip' => 'Kod kreskowy paczki w systemie Agata.
 
 Zwykle w formacie EAN13, przykładowo:
 - 2011009795512
@@ -92,13 +92,13 @@ Zwykle w formacie EAN13, przykładowo:
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
-                     'blockedVarsForExport' => 
+                     'blockedVarsForExport' =>
                     array (
                     ),
                      'defaultValue' => NULL,
                      'columnLength' => 190,
                      'regex' => '',
-                     'regexFlags' => 
+                     'regexFlags' =>
                     array (
                     ),
                      'unique' => false,
@@ -106,7 +106,7 @@ Zwykle w formacie EAN13, przykładowo:
                      'width' => '',
                      'defaultValueGenerator' => '',
                   )),
-                  1 => 
+                  1 =>
                   \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'name' => 'Code',
                      'title' => 'Index (Product or Package)',
@@ -133,13 +133,13 @@ Przykładowe kody paczek:
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
-                     'blockedVarsForExport' => 
+                     'blockedVarsForExport' =>
                     array (
                     ),
                      'defaultValue' => NULL,
                      'columnLength' => 190,
                      'regex' => '',
-                     'regexFlags' => 
+                     'regexFlags' =>
                     array (
                     ),
                      'unique' => false,
@@ -147,7 +147,7 @@ Przykładowe kody paczek:
                      'width' => '',
                      'defaultValueGenerator' => '',
                   )),
-                  2 => 
+                  2 =>
                   \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'name' => 'Name',
                      'title' => 'Name (Product)',
@@ -168,13 +168,13 @@ Przykładowo:
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
-                     'blockedVarsForExport' => 
+                     'blockedVarsForExport' =>
                     array (
                     ),
                      'defaultValue' => NULL,
                      'columnLength' => 190,
                      'regex' => '',
-                     'regexFlags' => 
+                     'regexFlags' =>
                     array (
                     ),
                      'unique' => false,
@@ -184,7 +184,7 @@ Przykładowo:
                   )),
                 ),
                  'locked' => false,
-                 'blockedVarsForExport' => 
+                 'blockedVarsForExport' =>
                 array (
                 ),
                  'fieldtype' => 'panel',
@@ -194,7 +194,7 @@ Przykładowo:
                  'labelWidth' => 200,
                  'labelAlign' => 'left',
               )),
-              1 => 
+              1 =>
               \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                  'name' => 'Wystrój',
                  'type' => NULL,
@@ -206,15 +206,15 @@ Przykładowo:
                  'collapsed' => false,
                  'bodyStyle' => '',
                  'datatype' => 'layout',
-                 'children' => 
+                 'children' =>
                 array (
-                  0 => 
+                  0 =>
                   \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
                      'name' => 'Codes',
                      'title' => 'Codes',
                      'tooltip' => 'Dla paczek - kody w systemie Agata zależne od produktu.
 
-Ta sama paczka może być sprzedawana (wydawana z magazynu) pod różnymi kodami SKU. 
+Ta sama paczka może być sprzedawana (wydawana z magazynu) pod różnymi kodami SKU.
 
 Przykładowo:
 Paczka z kominkiem 32" może być traktowana zarówno jako produkt pełnowartościowy (1-paczkowy) oraz jako paczka nr 3 w komodzie wybranej kolekcji. Z tego powodu należy rozróżnić dodatkowe SKU oraz kody kreskowe w ramach tej samej paczki, która w ERP widnieje jako ten sam indeks.',
@@ -229,10 +229,10 @@ Paczka z kominkiem 32" może być traktowana zarówno jako produkt pełnowartoś
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
-                     'blockedVarsForExport' => 
+                     'blockedVarsForExport' =>
                     array (
                     ),
-                     'classes' => 
+                     'classes' =>
                     array (
                     ),
                      'displayMode' => NULL,
@@ -243,22 +243,22 @@ Paczka z kominkiem 32" może być traktowana zarówno jako produkt pełnowartoś
                      'allowToClearRelation' => true,
                      'optimizedAdminLoading' => false,
                      'enableTextSelection' => false,
-                     'visibleFieldDefinitions' => 
+                     'visibleFieldDefinitions' =>
                     array (
                     ),
                      'width' => '',
                      'height' => '',
                      'allowedClassId' => 'Product',
-                     'columns' => 
+                     'columns' =>
                     array (
-                      0 => 
+                      0 =>
                       array (
                         'type' => 'text',
                         'position' => 1,
                         'key' => 'Code',
                         'label' => 'Kod systemowy paczki',
                       ),
-                      1 => 
+                      1 =>
                       array (
                         'type' => 'text',
                         'position' => 2,
@@ -266,7 +266,7 @@ Paczka z kominkiem 32" może być traktowana zarówno jako produkt pełnowartoś
                         'label' => 'Kod kreskowy paczki',
                       ),
                     ),
-                     'columnKeys' => 
+                     'columnKeys' =>
                     array (
                       0 => 'Code',
                       1 => 'Barcode',
@@ -276,7 +276,7 @@ Paczka z kominkiem 32" może być traktowana zarówno jako produkt pełnowartoś
                   )),
                 ),
                  'locked' => false,
-                 'blockedVarsForExport' => 
+                 'blockedVarsForExport' =>
                 array (
                 ),
                  'fieldtype' => 'panel',
@@ -288,7 +288,7 @@ Paczka z kominkiem 32" może być traktowana zarówno jako produkt pełnowartoś
               )),
             ),
              'locked' => false,
-             'blockedVarsForExport' => 
+             'blockedVarsForExport' =>
             array (
             ),
              'fieldtype' => 'tabpanel',
@@ -297,7 +297,7 @@ Paczka z kominkiem 32" może być traktowana zarówno jako produkt pełnowartoś
           )),
         ),
          'locked' => false,
-         'blockedVarsForExport' => 
+         'blockedVarsForExport' =>
         array (
         ),
          'fieldtype' => 'panel',
@@ -309,7 +309,7 @@ Paczka z kominkiem 32" może być traktowana zarówno jako produkt pełnowartoś
       )),
     ),
      'locked' => false,
-     'blockedVarsForExport' => 
+     'blockedVarsForExport' =>
     array (
     ),
      'fieldtype' => 'panel',
@@ -320,26 +320,26 @@ Paczka z kominkiem 32" może być traktowana zarówno jako produkt pełnowartoś
      'labelAlign' => 'left',
   )),
    'fieldDefinitionsCache' => NULL,
-   'blockedVarsForExport' => 
+   'blockedVarsForExport' =>
   array (
   ),
-   'activeDispatchingEvents' => 
+   'activeDispatchingEvents' =>
   array (
   ),
-   'classDefinitions' => 
+   'classDefinitions' =>
   array (
-    0 => 
+    0 =>
     array (
       'classname' => 'Product',
       'fieldname' => 'Codes',
     ),
-    1 => 
+    1 =>
     array (
       'classname' => 'Package',
       'fieldname' => 'Codes',
     ),
   ),
-   'activeDispatchingEvents' => 
+   'activeDispatchingEvents' =>
   array (
   ),
 ));

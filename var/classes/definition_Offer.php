@@ -35,7 +35,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
 
 Ofertę stanowi lista Wycen w ustalonej kolejności. Cena produktu w ofercie to pierwsza z Wycen, dla której zostaną spełnione ograniczenia.',
    'creationDate' => NULL,
-   'modificationDate' => 1790764007,
+   'modificationDate' => 1794347244,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -111,9 +111,11 @@ Ofertę stanowi lista Wycen w ustalonej kolejności. Cena produktu w ofercie to 
                  'blockedVarsForExport' => 
                 array (
                 ),
+                 'options' => NULL,
                  'defaultValue' => NULL,
                  'columnLength' => 190,
                  'dynamicOptions' => false,
+                 'enforceValidation' => false,
                  'defaultValueGenerator' => '',
                  'width' => '',
                  'optionsProviderType' => 'class',
@@ -280,9 +282,10 @@ Ofertę stanowi lista Wycen w ustalonej kolejności. Cena produktu w ofercie to 
                     'value' => 'GBP',
                   ),
                 ),
-                 'defaultValue' => '',
+                 'defaultValue' => NULL,
                  'columnLength' => 190,
                  'dynamicOptions' => false,
+                 'enforceValidation' => false,
                  'defaultValueGenerator' => '',
                  'width' => '',
                  'optionsProviderType' => 'configure',
@@ -665,9 +668,11 @@ Feedy produktowe są generowane cyklicznie co kilka godzin
                      'blockedVarsForExport' => 
                     array (
                     ),
+                     'options' => NULL,
                      'defaultValue' => NULL,
                      'columnLength' => 190,
                      'dynamicOptions' => false,
+                     'enforceValidation' => false,
                      'defaultValueGenerator' => '',
                      'width' => '',
                      'optionsProviderType' => 'class',

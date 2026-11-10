@@ -69,6 +69,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
             ),
              'decimalPrecision' => NULL,
              'autoConvert' => false,
+             'translator' => NULL,
              'width' => '',
           )),
           1 => 
@@ -98,6 +99,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
             ),
              'decimalPrecision' => NULL,
              'autoConvert' => false,
+             'translator' => NULL,
              'width' => '',
           )),
           2 => 
@@ -127,6 +129,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
             ),
              'decimalPrecision' => NULL,
              'autoConvert' => false,
+             'translator' => NULL,
              'width' => '',
           )),
         ),

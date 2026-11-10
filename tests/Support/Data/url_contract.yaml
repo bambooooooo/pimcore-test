@@ -8,7 +8,7 @@
 #   * every listed sample URL must still resolve to the listed route
 #   * access must match: public     - anyone, no authentication
 #                        protected  - #[ProtectedEndpoint]: Pimcore admin session or X-Api-Token header
-#                        login      - behind the pimcore_admin firewall, anonymous users go to /admin/login
+#                        login      - behind the factory firewall, anonymous users go to /factory/login
 #   * every entry under "redirects" must answer 301 to its target route
 #
 # Moving or renaming a URL:
@@ -19,9 +19,9 @@
 routes:
     # --- shared outside Pimcore (customers, shops, feeds) --------------------------------------------
     datasheet_new:              { path: /object/pl/1/datasheet,        access: public,    used_by: 'datasheet links sent to customers' }
-    _price_list:                { path: /object/pl/1/price-list,       access: public,    used_by: 'price list links sent to customers, admin JS groupPriceList.js' }
+    _price_list:                { path: /object/pl/1/price-list,       access: public,    used_by: 'price list links sent to customers, Studio plugin (group price list)' }
     main_image:                 { path: /objects/mainimage/1,          access: public,    used_by: 'product image links in feeds and shops' }
-    export_images:              { path: /export/images/1,              access: public,    used_by: 'image ZIP download links, admin JS groupPriceList.js' }
+    export_images:              { path: /export/images/1,              access: public,    used_by: 'image ZIP download links, Studio plugin (group price list)' }
     accessory_by_key:           { path: /accessory/some-key,           access: public,    used_by: 'external lookup of accessory id by key' }
     prices:                     { path: /prices/1,                     access: public,    used_by: 'price XLSX download links' }
 
@@ -32,32 +32,40 @@ routes:
     etl_packagesserie:          { path: /etl/packageserie,             access: public,    used_by: 'ETL' }
     objects_status:             { path: /objects/status/1,             access: public,    used_by: 'ERP status checks' }
     products_baselinkerid:      { path: /products/baselinker/1,        access: public,    used_by: 'Baselinker' }
-    products_fillments:         { path: /products/fillments/1,         access: public,    used_by: 'admin JS productFillmentSpec.js' }
+    products_fillments:         { path: /products/fillments/1,         access: public,    used_by: 'Studio plugin (product download menu)' }
     _optimik:                   { path: /orders/optimik/1,             access: public,    used_by: 'Optimik' }
     _sheets:                    { path: /orders/sheets,                access: public,    used_by: 'Optimik' }
 
     # --- read-only lookups used by the admin JS -------------------------------------------------------
-    _price_levels_head:         { path: /price-levels,                 access: public,    used_by: 'admin JS groupPriceList.js' }
-    get_labelsize:              { path: /labelsize,                    access: public,    used_by: 'admin JS labels.js' }
-    get_userlabel:              { path: /userlabel,                    access: public,    used_by: 'admin JS labels.js' }
-    get_packageproducts:        { path: /packageproducts/1,            access: public,    used_by: 'admin JS labels.js' }
-    get_product_packages:       { path: /productpackages/1,            access: public,    used_by: 'admin JS labels.js' }
-    get_common_orders:          { path: /common-orders,                access: public,    used_by: 'admin JS labels.js' }
+    _price_levels_head:         { path: /price-levels,                 access: public,    used_by: 'Studio plugin (group price list)' }
+    get_labelsize:              { path: /labelsize,                    access: public,    used_by: 'Studio plugin (package labels)' }
+    get_userlabel:              { path: /userlabel,                    access: public,    used_by: 'Studio plugin (package labels)' }
+    get_packageproducts:        { path: /packageproducts/1,            access: public,    used_by: 'Studio plugin (package labels)' }
+    get_product_packages:       { path: /productpackages/1,            access: public,    used_by: 'Studio plugin (package labels)' }
+    get_common_orders:          { path: /common-orders,                access: public,    used_by: 'Studio plugin (package labels)' }
+
+    # --- Pimcore Studio plugin (assets/studio) -------------------------------------------------------
+    studio_ext_object_toolbar:  { path: /studio-ext/object/1/toolbar,  access: protected, used_by: 'Studio plugin: editor toolbar context' }
+    studio_ext_object_add_children: { path: /studio-ext/object/1/children, method: POST, access: protected, used_by: 'Studio plugin: Add children (key pattern)' }
+
+    # --- classic admin UI leftovers --------------------------------------------------------------------
+    admin_deeplink:             { path: /admin/login/deeplink,         access: public,    used_by: 'old admin deeplinks in bookmarks and emails, redirects to Pimcore Studio' }
 
     # --- data-changing endpoints ---------------------------------------------------------------------
-    assets_rotate:              { path: /assets/rotate/1/90,           access: protected, used_by: 'admin JS startup.js' }
-    add_ean:                    { path: /object/add-ean,               access: protected, used_by: 'admin JS startup.js' }
-    update_prices:              { path: /object/compute-catalog-price, access: protected, used_by: 'admin JS startup.js' }
-    translate_name:             { path: /object/translate-name,        access: protected, used_by: 'admin JS startup.js (DeepL)' }
+    assets_rotate:              { path: /assets/rotate/1/90,           access: protected, used_by: 'Studio plugin (assets/studio)' }
+    add_ean:                    { path: /object/add-ean,               access: protected, used_by: 'Studio plugin (assets/studio)' }
+    update_prices:              { path: /object/compute-catalog-price, access: protected, used_by: 'Studio plugin (assets/studio)' }
+    translate_name:             { path: /object/translate-name,        access: protected, used_by: 'Studio plugin: translate (DeepL)' }
     stock_update:               { path: /objects/stocks/1/5,           access: protected, used_by: 'external stock sync' }
     stock_bulk_update:          { path: /objects/stocks, method: POST, access: protected, used_by: 'external stock sync' }
-    feed_generate:              { path: /offer/feed/1,                 access: protected, used_by: 'admin JS startup.js' }
-    feed_refresh_products:      { path: /offer/refresh-products/1, method: PATCH, access: protected, used_by: 'admin JS startup.js' }
-    feed_refresh_sets:          { path: /offer/refresh-sets/1,         access: protected, used_by: 'admin JS startup.js' }
+    feed_generate:              { path: /offer/feed/1,                 access: protected, used_by: 'Studio plugin (assets/studio)' }
+    feed_refresh_products:      { path: /offer/refresh-products/1, method: PATCH, access: protected, used_by: 'Studio plugin (assets/studio)' }
+    feed_refresh_sets:          { path: /offer/refresh-sets/1,         access: protected, used_by: 'Studio plugin (assets/studio)' }
     products_update_accessory:  { path: /products/accessory/1, method: POST, access: protected, used_by: 'external accessory sync' }
-    bnix_download_xlsx_with_images: { path: /bnix/download-xlsx-file,  access: protected, used_by: 'admin JS gridXlsxImagesExport.js' }
 
     # --- factory panel (behind Pimcore login) --------------------------------------------------------
+    factory_login:              { path: /factory/login,                access: public,    used_by: 'factory panel login form (session shared with Pimcore Studio)' }
+    factory_logout:             { path: /factory/logout,               access: public,    used_by: 'factory panel logout button' }
     factory_home:               { path: /factory/pl,                   access: login,     used_by: 'factory panel' }
     factory_tree:               { path: /factory/pl/1,                 access: login,     used_by: 'factory panel' }
     factory_search:             { path: /factory/pl/search,            access: login,     used_by: 'factory panel' }
@@ -67,7 +75,7 @@ routes:
     factory_package_spec:       { path: /factory/pl/packagespec/1,     access: login,     used_by: 'factory printouts' }
     factory_fillment_spec:      { path: /factory/pl/fillmentspec/1,    access: login,     used_by: 'factory printouts' }
     factory_fillment_groups:    { path: /factory/pl/fillment-groups/1, access: login,     used_by: 'factory printouts' }
-    factory_labels:             { path: /factory/pl/labels/1,          access: login,     used_by: 'factory printouts, admin JS labels.js' }
+    factory_labels:             { path: /factory/pl/labels/1,          access: login,     used_by: 'factory printouts, Studio plugin (package labels)' }
     factory_labels_elements:    { path: /factory/pl/labels/elements/1, access: login,     used_by: 'factory printouts' }
     factory_move:               { path: /factory/pl/order/move,        access: login,     used_by: 'factory panel' }
     factory_item_done:          { path: /factory/pl/order/item/done,   access: login,     used_by: 'factory panel' }
@@ -77,4 +85,6 @@ routes:
 
 # Old URLs that moved - they must answer 301 to the new route (keeping the query string).
 #   - { from: /old/path/1, to: new_route_name }
-redirects: []
+redirects:
+    - { from: /admin,       to: pimcore_studioui_default_index }
+    - { from: /admin/login, to: pimcore_studioui_default_index }

@@ -5,7 +5,7 @@ export default defineConfig({
         include: ['tests/js/**/*.test.js'],
         environment: 'jsdom',
         environmentOptions: {
-            jsdom: { url: 'https://pim.example.com/admin/' },
+            jsdom: { url: 'https://pim.example.com/pimcore-studio/' },
         },
         restoreMocks: true,
     },

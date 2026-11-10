@@ -1,7 +1,7 @@
 {
-  "name": "pimcore-admin-js-tests",
+  "name": "pimcore-js-tests",
   "private": true,
-  "description": "Tests for the custom Pimcore admin JavaScript in public/static/js",
+  "description": "Tests for the Megstyl Pimcore Studio plugin (assets/studio)",
   "type": "module",
   "scripts": {
     "test": "vitest run",

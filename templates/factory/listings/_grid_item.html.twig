@@ -2,14 +2,14 @@
     <a href="{{ path("factory_tree", {id: item.id}) }}" class="text-center">
         <div class="card h-100 p-1">
             {% if item is instanceof("\\Pimcore\\Model\\DataObject\\Folder") %}
-                <img src="{{ asset('bundles/pimcoreadmin/img/flat-color-icons/folder.svg') }}" class="img-fluid">
+                <img src="{{ asset('static/pimcoreadmin/img/flat-color-icons/folder.svg') }}" class="img-fluid">
             {% elseif item is pimcore_data_object_class("Package") %}
-                <img src="/bundles/pimcoreadmin/img/flat-color-icons/deployment.svg" class="img-fluid">
+                <img src="/static/pimcoreadmin/img/flat-color-icons/deployment.svg" class="img-fluid">
             {% elseif item is pimcore_data_object_class("Order") %}
                 {% if item.user and item.user.Image %}
                     <img src="{{ item.user.Image.thumbnail("200x200") }}" class="img-fluid">
                 {% else %}
-                    <img src="/bundles/pimcoreadmin/img/flat-color-icons/shopping-cart.svg" class="img-fluid">
+                    <img src="/static/pimcoreadmin/img/flat-color-icons/shopping-cart.svg" class="img-fluid">
                 {% endif %}
             {% elseif item.Image %}
                 <img src="{{ item.Image.thumbnail("200x200") }}" class="img-fluid">

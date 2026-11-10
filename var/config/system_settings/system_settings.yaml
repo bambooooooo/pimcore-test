@@ -17,6 +17,7 @@ pimcore:
         versions:
             days: null
             steps: 8
+            disable_events: false
         error_pages:
             default: ''
             localized:
@@ -26,8 +27,10 @@ pimcore:
         versions:
             days: null
             steps: 64
+            disable_events: false
     assets:
         versions:
             days: null
             steps: 8
+            disable_events: false
     email: {  }

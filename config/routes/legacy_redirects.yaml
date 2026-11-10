@@ -8,3 +8,21 @@
 #         route: _price_list
 #         permanent: true
 #         keepQueryParams: true
+
+# Classic admin UI (removed in Pimcore 2026) - bookmarks go to Pimcore Studio.
+# Old deeplinks (/admin/login/deeplink?object_1_object) are handled by App\Controller\LegacyAdminController.
+legacy_admin:
+    path: /admin
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
+    defaults:
+        route: pimcore_studioui_default_index
+        permanent: true
+        keepQueryParams: true
+
+legacy_admin_login:
+    path: /admin/login
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
+    defaults:
+        route: pimcore_studioui_default_index
+        permanent: true
+        keepQueryParams: true

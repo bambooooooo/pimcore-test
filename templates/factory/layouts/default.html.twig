@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <link rel="icon" type="image/png" href="/bundles/pimcoreadmin/img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" href="/static/pimcoreadmin/img/favicon/favicon-32x32.png">
     <title>{{ title ?? "PIM - Megstyl" }}</title>
     <script
         src="https://code.jquery.com/jquery-3.7.1.js"
@@ -41,7 +41,7 @@
                 <img src="/LOGO/megstyl_logotyp.svg" height="32" alt="Bootstrap">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon" style="background-image: url('/bundles/pimcoreadmin/img/flat-white-icons/menu.svg')"></span>
+                <span class="navbar-toggler-icon" style="background-image: url('/static/pimcoreadmin/img/flat-white-icons/menu.svg')"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
@@ -69,12 +69,12 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path("factory_schedule") }}">
                             {{ "Schedule"|trans }}
-                            <img src="/bundles/pimcoreadmin/img/flat-white-icons/factory.svg" height="20" style="position: relative; top: -3px;" alt="Factory"/>
+                            <img src="/static/pimcoreadmin/img/flat-white-icons/factory.svg" height="20" style="position: relative; top: -3px;" alt="Factory"/>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path("factory_search") }}">
-                            <img src="/bundles/pimcoreadmin/img/flat-color-icons/search.svg" height="18">
+                            <img src="/static/pimcoreadmin/img/flat-color-icons/search.svg" height="18">
                         </a>
                     </li>
                 </ul>
@@ -95,13 +95,12 @@
             <div class="me-3">
                 <span class="nav-link">
                     {{ app.user.user.email == "" ? app.user.user.name : app.user.user.email }}
-                    <img src="/bundles/pimcoreadmin/img/flat-white-icons/person.svg">
+                    <img src="/static/pimcoreadmin/img/flat-white-icons/person.svg">
                 </span>
             </div>
-            <form method="post" action="{{ path('pimcore_admin_logout') }}">
-                <input type="hidden" name="csrfToken" value="{{ pimcore_csrf.getCsrfToken(app.request.session) }}">
+            <form method="post" action="{{ path('factory_logout') }}">
                 <button class="nav-link">
-                    <img src="/bundles/pimcoreadmin/img/material-icons/outline-logout-24px.svg">
+                    <img src="/static/pimcoreadmin/img/material-icons/outline-logout-24px.svg">
                 </button>
             </form>
         </div>

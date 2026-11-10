@@ -7,8 +7,9 @@ pimcore:
                     name: PackageFactoryDefault
                     description: ''
                     creationDate: 1757321673
-                    modificationDate: 1758017112
+                    modificationDate: 1794347245
                     userOwner: 2
+                    userModification: 0
                     classId: Package
                     layoutDefinitions:
                         name: pimcore_root
@@ -288,9 +289,10 @@ pimcore:
                                                 visibleGridView: false
                                                 visibleSearch: false
                                                 options: {  }
-                                                defaultValue: ''
+                                                defaultValue: null
                                                 columnLength: 190
                                                 dynamicOptions: false
+                                                enforceValidation: false
                                                 defaultValueGenerator: ''
                                                 width: ''
                                                 optionsProviderType: configure

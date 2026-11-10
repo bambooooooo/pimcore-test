@@ -27,6 +27,6 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
             return new RedirectResponse($this->router->generate('factory_home', ['_locale' => $user->getLanguage()]));
         }
 
-        return new RedirectResponse($this->router->generate('pimcore_admin_index'));
+        return new RedirectResponse($this->router->generate('pimcore_studioui_default_index'));
     }
 }

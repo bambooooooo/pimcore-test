@@ -71,3 +71,8 @@ src/Command/TestCommand.php
 # JS tests
 /node_modules/
 /tests/js/routes.json
+
+# Pimcore Studio plugin: sources in assets/studio, committed archive in assets/studio/dist, extracted build is generated
+/assets/studio/node_modules/
+/public/studio-build/
+/public/.studio-build-extract.lock

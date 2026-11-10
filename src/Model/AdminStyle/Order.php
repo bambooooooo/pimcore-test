@@ -2,7 +2,6 @@
 
 namespace App\Model\AdminStyle;
 
-use Pimcore\Model\Element\AdminStyle;
 use Pimcore\Model\Element\ElementInterface;
 
 class Order extends AdminStyle
@@ -17,7 +16,7 @@ class Order extends AdminStyle
 
         if($this->order->getDone())
         {
-            $this->elementIcon = "/bundles/pimcoreadmin/img/flat-color-icons/ok.svg";
+            $this->elementIcon = "/static/pimcoreadmin/img/flat-color-icons/ok.svg";
         }
     }
 

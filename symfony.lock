@@ -62,6 +62,9 @@
             "repo": "github.com/symfony/recipes"
         }
     },
+    "pimcore/elasticsearch-client": {
+        "version": "v2026.3.0"
+    },
     "pimcore/pimcore": {
         "version": "99999"
     },
@@ -113,6 +116,9 @@
             "repo": "github.com/symfony/recipes"
         }
     },
+    "symfony/mercure-bundle": {
+        "version": "0.3"
+    },
     "symfony/messenger": {
         "version": "99999",
         "recipe": {
@@ -142,6 +148,9 @@
         "recipe": {
             "repo": "github.com/symfony/recipes"
         }
+    },
+    "symfony/scheduler": {
+        "version": "7.4"
     },
     "symfony/security-bundle": {
         "version": "99999",

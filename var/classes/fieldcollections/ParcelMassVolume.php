@@ -76,6 +76,7 @@ return \Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
              'defaultValue' => 'PARCEL',
              'columnLength' => 190,
              'dynamicOptions' => false,
+             'enforceValidation' => false,
              'defaultValueGenerator' => '',
              'width' => '',
              'optionsProviderType' => 'configure',

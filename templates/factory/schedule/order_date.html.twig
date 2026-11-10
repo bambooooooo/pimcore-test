@@ -1,7 +1,7 @@
 <div>
     {% if app.user.user.allowed("factory_show_order_supply") %}
         {% if type != 'pdf' %}
-            <img src="/bundles/pimcoreadmin/img/flat-color-icons/multiple_inputs.svg" height="20" style="position: relative; top: -3px;">
+            <img src="/static/pimcoreadmin/img/flat-color-icons/multiple_inputs.svg" height="20" style="position: relative; top: -3px;">
         {% endif %}
         {{ "Supplies"|trans }}:
         {% if order.supplydate == null %}
@@ -15,7 +15,7 @@
                 <input class="datepicker" style="width: 85px;" value="{{ order.supplydate|date("d.m.Y") }}" data-kind="supply" data-id="{{ order.id }}"/>
             </div>
             <div id="add-date-supply-{{ order.id }}-toggle" data-id="{{ order.id }}" class="add-date-supply-toggle btn btn-outline-primary btn-sm ms-1">
-                <img src="/bundles/pimcoreadmin/img/flat-color-icons/edit.svg" height="18"/>
+                <img src="/static/pimcoreadmin/img/flat-color-icons/edit.svg" height="18"/>
             </div>
         {% endif %}
 
@@ -25,7 +25,7 @@
 <div>
 {% if app.user.user.allowed("factory_show_order_production") %}
     {% if type != 'pdf' %}
-        <img src="/bundles/pimcoreadmin/img/flat-color-icons/factory.svg" height="20" style="position: relative; top: -3px;">
+        <img src="/static/pimcoreadmin/img/flat-color-icons/factory.svg" height="20" style="position: relative; top: -3px;">
     {% endif %}
     {{ "Production"|trans }}:
     {% if order.date == null %}
@@ -39,7 +39,7 @@
             <input class="datepicker" style="width: 85px;" value="{{ order.date|date("d.m.Y") }}" data-id="{{ order.id }}"/>
         </div>
         <div id="add-date-{{ order.id }}-toggle" data-id="{{ order.id }}" class="add-date-toggle btn btn-outline-primary btn-sm ms-1">
-            <img src="/bundles/pimcoreadmin/img/flat-color-icons/edit.svg" height="18"/>
+            <img src="/static/pimcoreadmin/img/flat-color-icons/edit.svg" height="18"/>
         </div>
     {% endif %}
 

@@ -1,0 +1,5 @@
+# Tests share the OpenSearch container with the dev instance - keep their indices apart.
+pimcore_generic_data_index:
+    index_service:
+        client_params:
+            index_prefix: pimcore_test_
