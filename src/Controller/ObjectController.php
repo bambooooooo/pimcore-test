@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\OptionProvider\ProductPriceLevelProvider;
+use App\Security\ProtectedEndpoint;
 use App\Service\DeepLService;
 use App\Service\GotenbergPdfService;
 use App\Service\PriceLevelService;
@@ -470,6 +471,7 @@ class ObjectController extends FrontendController
     }
 
     #[Route("/object/add-ean", name: "add_ean")]
+    #[ProtectedEndpoint]
     public function addEan(Request $request): Response
     {
         $id = $request->get("id");
@@ -524,6 +526,7 @@ class ObjectController extends FrontendController
     }
 
     #[Route("/object/compute-catalog-price", name: "update_prices")]
+    #[ProtectedEndpoint]
     public function basePriceAction(Request $request): Response
     {
         $BASE_PRICE_TO_CATALOG_PRICE_FACTOR = 3.0;
@@ -574,6 +577,7 @@ class ObjectController extends FrontendController
     }
 
     #[Route("/object/translate-name", name: "translate_name")]
+    #[ProtectedEndpoint]
     public function translateAction(Request $request): Response
     {
         DataObject::setHideUnpublished(false);
@@ -901,6 +905,7 @@ class ObjectController extends FrontendController
     }
 
     #[Route("/objects/stocks/{id}/{stocks}", name: "stock_update")]
+    #[ProtectedEndpoint]
     public function updateStocksAction(Request $request, int $id, int $stocks): Response
     {
         $obj = DataObject::getById($id);
@@ -920,6 +925,7 @@ class ObjectController extends FrontendController
     }
 
     #[Route("/objects/stocks", name: "stock_bulk_update", methods: ["POST"])]
+    #[ProtectedEndpoint]
     public function updateBulkStocksAction(Request $request): Response
     {
         $data = json_decode($request->getContent(), true) ?? [];

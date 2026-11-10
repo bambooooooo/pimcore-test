@@ -13,6 +13,11 @@ endpoint: ``POST`` ``/objects/stocks``
 
 payload: tabela w postaci: ``id obiektu`` ``=>`` ``aktualny stan``
 
+nagłówek: ``X-Api-Token: <token>`` - endpoint zmienia dane, więc bez tokenu (lub sesji administratora Pimcore)
+zwraca ``401``. Tokeny klientów konfiguruje się w zmiennej ``API_TOKENS`` (``klient:token,klient2:token2``).
+
+Pojedynczy produkt: ``GET`` ``/objects/stocks/{id}/{stan}`` (ten sam nagłówek).
+
 ## Uwagi techniczne
 
 Stany magazynowe realizowane są przez dedykowaną tabelę, niepowiazaną bezpośrednio z mechanizmami pim'a.

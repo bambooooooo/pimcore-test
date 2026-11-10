@@ -1,0 +1,8 @@
+# External system integrations (Allegro, Baselinker, DeepL, ...), one folder per integration.
+# Each folder depends only on its integration's classes and a mocked HTTP client, so it can move
+# into the integration's own composer package unchanged.
+actor: IntegrationTester
+suite_namespace: App\Tests\Integration
+modules:
+    enabled:
+        - Asserts

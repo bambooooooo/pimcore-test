@@ -1,0 +1,10 @@
+# Permanent redirects for URLs that moved. Shared links must never break (see tests/Support/Data/url_contract.yaml).
+# Route names must start with "legacy_"; list every old URL under "redirects" in url_contract.yaml.
+#
+# legacy_old_price_list:
+#     path: /object/{_locale}/{id}/pricelist
+#     controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
+#     defaults:
+#         route: _price_list
+#         permanent: true
+#         keepQueryParams: true

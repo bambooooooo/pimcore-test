@@ -10,7 +10,7 @@ use Pimcore\Model\Element\ElementInterface;
 
 class Price extends AbstractOperator
 {
-    public function __construct(\stdClass $config, $context = null)
+    public function __construct(\stdClass $config, array $context = [])
     {
         parent::__construct($config, $context);
         $this->offerId = (int)$config->additionalData;

@@ -127,6 +127,13 @@ step "Migrating database"
 php_exec bin/console doctrine:migrations:sync-metadata-storage --no-interaction
 php_exec bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration
 
+step "Installing classic admin UI bundle (has its own installer since Pimcore 12)"
+if php_exec bin/console pimcore:bundle:list | grep -qE '^\| PimcoreAdminBundle +\| yes +\| no +\|'; then
+    php_exec bin/console pimcore:bundle:install PimcoreAdminBundle --no-interaction
+else
+    echo "Already installed"
+fi
+
 step "Rebuilding DataObject classes"
 php_exec bin/console pimcore:deployment:classes-rebuild -c --no-interaction
 

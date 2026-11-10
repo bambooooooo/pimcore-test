@@ -1,2 +1,13 @@
+# Full Symfony/Pimcore kernel against the dedicated test_db database (see bin/run-tests).
+actor: FunctionalTester
 suite_namespace: App\Tests\Functional
 bootstrap: bootstrap.php
+modules:
+    enabled:
+        - Asserts
+        - Symfony:
+              app_path: src
+              environment: test
+              kernel_class: App\Kernel
+              rebootable_client: false
+        - App\Tests\Support\Helper\Pimcore

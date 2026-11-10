@@ -1,0 +1,80 @@
+# URL contract of the application.
+#
+# Links to these URLs live outside Pimcore: emails and documents sent to customers, bookmarks,
+# feeds, shop and ERP integrations, the admin JS. They must keep working forever.
+# tests/Functional/UrlContractCest.php enforces this file:
+#
+#   * every route of an App\ controller must be listed under "routes" (new routes must be classified)
+#   * every listed sample URL must still resolve to the listed route
+#   * access must match: public     - anyone, no authentication
+#                        protected  - #[ProtectedEndpoint]: Pimcore admin session or X-Api-Token header
+#                        login      - behind the pimcore_admin firewall, anonymous users go to /admin/login
+#   * every entry under "redirects" must answer 301 to its target route
+#
+# Moving or renaming a URL:
+#   1. change the route, update its "path" sample here
+#   2. add a redirect from the old URL to config/routes/legacy_redirects.yaml (route name starting with "legacy_")
+#   3. list the old URL under "redirects" below - never delete entries from it
+
+routes:
+    # --- shared outside Pimcore (customers, shops, feeds) --------------------------------------------
+    datasheet_new:              { path: /object/pl/1/datasheet,        access: public,    used_by: 'datasheet links sent to customers' }
+    _price_list:                { path: /object/pl/1/price-list,       access: public,    used_by: 'price list links sent to customers, admin JS groupPriceList.js' }
+    main_image:                 { path: /objects/mainimage/1,          access: public,    used_by: 'product image links in feeds and shops' }
+    export_images:              { path: /export/images/1,              access: public,    used_by: 'image ZIP download links, admin JS groupPriceList.js' }
+    accessory_by_key:           { path: /accessory/some-key,           access: public,    used_by: 'external lookup of accessory id by key' }
+    prices:                     { path: /prices/1,                     access: public,    used_by: 'price XLSX download links' }
+
+    # --- read-only data for integrations (ETL, ERP, Optimik, Baselinker) ------------------------------
+    etl_field:                  { path: /etl/field/1/name,             access: public,    used_by: 'ETL' }
+    etl_field_arg:              { path: /etl/field/1/name/pl,          access: public,    used_by: 'ETL' }
+    etl_field_arg2:             { path: /etl/field/1/name/pl/x,        access: public,    used_by: 'ETL' }
+    etl_packagesserie:          { path: /etl/packageserie,             access: public,    used_by: 'ETL' }
+    objects_status:             { path: /objects/status/1,             access: public,    used_by: 'ERP status checks' }
+    products_baselinkerid:      { path: /products/baselinker/1,        access: public,    used_by: 'Baselinker' }
+    products_fillments:         { path: /products/fillments/1,         access: public,    used_by: 'admin JS productFillmentSpec.js' }
+    _optimik:                   { path: /orders/optimik/1,             access: public,    used_by: 'Optimik' }
+    _sheets:                    { path: /orders/sheets,                access: public,    used_by: 'Optimik' }
+
+    # --- read-only lookups used by the admin JS -------------------------------------------------------
+    _price_levels_head:         { path: /price-levels,                 access: public,    used_by: 'admin JS groupPriceList.js' }
+    get_labelsize:              { path: /labelsize,                    access: public,    used_by: 'admin JS labels.js' }
+    get_userlabel:              { path: /userlabel,                    access: public,    used_by: 'admin JS labels.js' }
+    get_packageproducts:        { path: /packageproducts/1,            access: public,    used_by: 'admin JS labels.js' }
+    get_product_packages:       { path: /productpackages/1,            access: public,    used_by: 'admin JS labels.js' }
+    get_common_orders:          { path: /common-orders,                access: public,    used_by: 'admin JS labels.js' }
+
+    # --- data-changing endpoints ---------------------------------------------------------------------
+    assets_rotate:              { path: /assets/rotate/1/90,           access: protected, used_by: 'admin JS startup.js' }
+    add_ean:                    { path: /object/add-ean,               access: protected, used_by: 'admin JS startup.js' }
+    update_prices:              { path: /object/compute-catalog-price, access: protected, used_by: 'admin JS startup.js' }
+    translate_name:             { path: /object/translate-name,        access: protected, used_by: 'admin JS startup.js (DeepL)' }
+    stock_update:               { path: /objects/stocks/1/5,           access: protected, used_by: 'external stock sync' }
+    stock_bulk_update:          { path: /objects/stocks, method: POST, access: protected, used_by: 'external stock sync' }
+    feed_generate:              { path: /offer/feed/1,                 access: protected, used_by: 'admin JS startup.js' }
+    feed_refresh_products:      { path: /offer/refresh-products/1, method: PATCH, access: protected, used_by: 'admin JS startup.js' }
+    feed_refresh_sets:          { path: /offer/refresh-sets/1,         access: protected, used_by: 'admin JS startup.js' }
+    products_update_accessory:  { path: /products/accessory/1, method: POST, access: protected, used_by: 'external accessory sync' }
+    bnix_download_xlsx_with_images: { path: /bnix/download-xlsx-file,  access: protected, used_by: 'admin JS gridXlsxImagesExport.js' }
+
+    # --- factory panel (behind Pimcore login) --------------------------------------------------------
+    factory_home:               { path: /factory/pl,                   access: login,     used_by: 'factory panel' }
+    factory_tree:               { path: /factory/pl/1,                 access: login,     used_by: 'factory panel' }
+    factory_search:             { path: /factory/pl/search,            access: login,     used_by: 'factory panel' }
+    factory_search_sheet:       { path: /factory/pl/search-sheet,      access: login,     used_by: 'factory panel' }
+    factory_datasheet:          { path: /factory/pl/1/datasheet,       access: login,     used_by: 'factory panel' }
+    factory_schedule:           { path: /factory/pl/schedule,          access: login,     used_by: 'factory panel, bookmarks' }
+    factory_package_spec:       { path: /factory/pl/packagespec/1,     access: login,     used_by: 'factory printouts' }
+    factory_fillment_spec:      { path: /factory/pl/fillmentspec/1,    access: login,     used_by: 'factory printouts' }
+    factory_fillment_groups:    { path: /factory/pl/fillment-groups/1, access: login,     used_by: 'factory printouts' }
+    factory_labels:             { path: /factory/pl/labels/1,          access: login,     used_by: 'factory printouts, admin JS labels.js' }
+    factory_labels_elements:    { path: /factory/pl/labels/elements/1, access: login,     used_by: 'factory printouts' }
+    factory_move:               { path: /factory/pl/order/move,        access: login,     used_by: 'factory panel' }
+    factory_item_done:          { path: /factory/pl/order/item/done,   access: login,     used_by: 'factory panel' }
+    factory_item_status:        { path: /factory/pl/order/item/status, access: login,     used_by: 'factory panel' }
+    factory_elements:           { path: /factory/pl/elements/1,        access: login,     used_by: 'factory panel' }
+    factory_package_layout:     { path: /factory/pl/layout/1,          access: login,     used_by: 'factory panel' }
+
+# Old URLs that moved - they must answer 301 to the new route (keeping the query string).
+#   - { from: /old/path/1, to: new_route_name }
+redirects: []

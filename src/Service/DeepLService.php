@@ -10,9 +10,12 @@ class DeepLService
 {
     private DeeplClient $deepLClient;
 
-    public function __construct(private readonly string $apikey, private readonly string $domRenew)
+    /**
+     * @param array $clientOptions DeepLClient options, e.g. a custom PSR-18 'http_client'
+     */
+    public function __construct(private readonly string $apikey, private readonly string $domRenew, array $clientOptions = [])
     {
-        $this->deepLClient = new DeepLClient($this->apikey);
+        $this->deepLClient = new DeepLClient($this->apikey, $clientOptions);
     }
 
     /**

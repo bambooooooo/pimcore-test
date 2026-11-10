@@ -33,6 +33,7 @@ nav:
     - Dokumentacja techniczna:
         - Definicje klas: techdocs/class_definitions.md
         - Development: techdocs/development.md
+        - Testy automatyczne: techdocs/testing.md
         - Konwencje: techdocs/conventions.md
     - Nowe propozycje: todo.md
 theme:

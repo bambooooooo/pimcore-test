@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Security\ProtectedEndpoint;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Pimcore\Controller\FrontendController;
@@ -59,6 +60,7 @@ class ProductController extends FrontendController
     }
 
     #[Route('/accessory/{id}', name: '_update_accessory', methods: ['POST'])]
+    #[ProtectedEndpoint]
     public function updateProductAccessoryAction(Request $request): Response
     {
         DataObject::setHideUnpublished(false);

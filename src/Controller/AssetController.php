@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Security\ProtectedEndpoint;
 use CzProject\PdfRotate\PdfRotate;
 use Imagick;
 use Pimcore\Controller\FrontendController;
@@ -19,6 +20,7 @@ class AssetController extends FrontendController
     }
 
     #[Route('/rotate/{id}/{degrees}', name: 'rotate')]
+    #[ProtectedEndpoint]
     public function rotateLeftAction(Request $request)
     {
         $id = $request->get("id");

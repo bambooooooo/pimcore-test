@@ -8,7 +8,7 @@ use Pimcore\Model\Element\ElementInterface;
 
 class Constant extends AbstractOperator
 {
-    public function __construct(\stdClass $config, $context = null)
+    public function __construct(\stdClass $config, array $context = [])
     {
         parent::__construct($config, $context);
         $this->value = (float)$config->additionalData;

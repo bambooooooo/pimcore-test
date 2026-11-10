@@ -4,9 +4,15 @@ bootstrap: bootstrap.php
 settings:
     shuffle: true
     lint: true
+    colors: true
 
 paths:
     tests: tests
     output: tests/_output
     support: tests/Support
     data: tests/Support/Data
+
+coverage:
+    enabled: true
+    include:
+        - src/*

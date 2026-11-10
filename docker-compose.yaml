@@ -31,6 +31,25 @@ services:
             start_period: 1m
             timeout: 3s
 
+    # Throwaway database for automated tests (tmpfs - recreated on every container start).
+    # Start with: docker compose --profile test up -d test_db
+    test_db:
+        image: mariadb:10.11
+        profiles: [ test ]
+        command: [ mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_general_ci, --innodb-file-per-table=1 ]
+        tmpfs:
+            - /var/lib/mysql
+        environment:
+            - MYSQL_ROOT_PASSWORD=ROOT
+            - MYSQL_DATABASE=pimcore_test
+            - MYSQL_USER=pimcore
+            - MYSQL_PASSWORD=pimcore
+        healthcheck:
+            test: [ "CMD-SHELL", "mysql -h test_db -u$$MYSQL_USER -p$$MYSQL_PASSWORD $$MYSQL_DATABASE -e 'SELECT 1;'" ]
+            interval: 3s
+            retries: 20
+            timeout: 3s
+
     nginx:
         image: nginx:stable-alpine
         ports:

@@ -1,1 +1,6 @@
-suite_namespace: \App\Tests\Unit
+# Fast tests of single classes - no kernel, no database, no network.
+actor: UnitTester
+suite_namespace: App\Tests\Unit
+modules:
+    enabled:
+        - Asserts

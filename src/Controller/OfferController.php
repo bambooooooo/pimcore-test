@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Message\FeedMessage;
+use App\Security\ProtectedEndpoint;
 use Pimcore\Controller\FrontendController;
 use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\Objectbrick\Data\SelectedGroups;
@@ -21,6 +22,7 @@ class OfferController extends FrontendController
     }
 
     #[Route('/feed/{id}', name: '_generate', methods: ['GET'])]
+    #[ProtectedEndpoint]
     public function generateTriggerAction(int $id): Response
     {
         $offer = DataObject\Offer::getById($id);
@@ -34,6 +36,7 @@ class OfferController extends FrontendController
     }
 
     #[Route('/refresh-products/{id}', name: '_refresh_products', methods: ['PATCH'])]
+    #[ProtectedEndpoint]
     public function refreshProducts(Request $request): Response
     {
         DataObject::setHideUnpublished(false);
@@ -94,6 +97,7 @@ class OfferController extends FrontendController
     }
 
     #[Route('/refresh-sets/{id}', name: '_refresh_sets', methods: ['PATCH', 'GET'])]
+    #[ProtectedEndpoint]
     public function refreshSets(Request $request): Response
     {
         DataObject::setHideUnpublished(false);

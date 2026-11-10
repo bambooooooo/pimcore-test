@@ -5,6 +5,7 @@ namespace App\Service;
 use Gotenberg\Gotenberg;
 use Gotenberg\Stream;
 use Pimcore\Helper\Mail;
+use Psr\Http\Client\ClientInterface;
 
 /**
  * Renders HTML to PDF with Gotenberg (Chromium). Replaces WebToPrintBundle's Processor::getPdfFromString()
@@ -21,7 +22,7 @@ class GotenbergPdfService
         'printBackground', 'landscape', 'preferCssPageSize', 'omitBackground', 'emulatePrintMediaType', 'emulateScreenMediaType',
     ];
 
-    public function __construct(private readonly string $baseUrl, private readonly string $assetHostUrl)
+    public function __construct(private readonly string $baseUrl, private readonly string $assetHostUrl, private readonly ?ClientInterface $httpClient = null)
     {
     }
 
@@ -71,6 +72,6 @@ class GotenbergPdfService
 
         $request = $chromium->html(Stream::string('index.html', $html));
 
-        return Gotenberg::send($request)->getBody()->getContents();
+        return Gotenberg::send($request, $this->httpClient)->getBody()->getContents();
     }
 }

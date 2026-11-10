@@ -1,0 +1,17 @@
+# Tests never talk to RabbitMQ - dispatched messages stay in memory and can be asserted
+framework:
+    messenger:
+        transports:
+            pimcore_core: 'in-memory://'
+            pimcore_maintenance: 'in-memory://'
+            pimcore_scheduled_tasks: 'in-memory://'
+            pimcore_image_optimize: 'in-memory://'
+            pimcore_asset_update: 'in-memory://'
+            sgt: { dsn: 'in-memory://' }
+            sgt_errors: 'in-memory://'
+            blk: { dsn: 'in-memory://' }
+            blk_errors: 'in-memory://'
+            feed: 'in-memory://'
+            ps: { dsn: 'in-memory://' }
+            ps_errors: 'in-memory://'
+            viz: { dsn: 'in-memory://' }

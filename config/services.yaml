@@ -124,11 +124,13 @@ services:
         arguments:
             $clientId: '%env(ALLEGRO_CLIENT_ID)%'
             $clientSecret: '%env(ALLEGRO_CLIENT_SECRET)%'
+            $cache: ~ # keep its own filesystem token cache
 
     App\Service\GotenbergPdfService:
         arguments:
             $baseUrl: '%env(GOTENBERG_URL)%'
             $assetHostUrl: '%env(GOTENBERG_ASSET_HOST)%'
+            $httpClient: ~ # gotenberg-php discovers its PSR-18 client
 
     App\Service\PrestashopService:
         arguments:
@@ -156,6 +158,13 @@ services:
 
     App\Security\:
         resource: '../src/Security'
+        exclude: '../src/Security/ProtectedEndpoint.php'
+
+    App\Security\ApiTokenRegistry:
+        arguments:
+            $apiTokens: '%env(API_TOKENS)%'
+
+    App\EventSubscriber\ProtectedEndpointSubscriber: ~
 
     # twig
     App\Twig\BarcodeExtension:

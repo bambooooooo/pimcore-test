@@ -1,0 +1,123 @@
+#!/usr/bin/env bash
+#
+# Runs the automated tests against the dedicated test_db container.
+#
+#   bin/run-tests                     all PHP suites + JS tests
+#   bin/run-tests --fresh             re-create the test database first (after class/bundle changes)
+#   bin/run-tests --php [args...]     only Codeception, extra args go to "codecept run" (e.g. Unit, Functional:SomeCest)
+#   bin/run-tests --js                only JS tests (Vitest)
+#   bin/run-tests --dump-reference-data   refresh tests/Support/Data/reference_data.sql from the dev database
+#                                         (quantity value units, classification store definitions)
+#
+# The test database lives in tmpfs: it is created on first run and survives until the
+# test_db container is stopped.
+
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+
+FRESH=0
+RUN_PHP=1
+RUN_JS=1
+CODECEPT_ARGS=()
+REFERENCE_DATA=tests/Support/Data/reference_data.sql
+REFERENCE_TABLES=(quantityvalue_units classificationstore_stores classificationstore_groups classificationstore_keys
+                  classificationstore_relations classificationstore_collections classificationstore_collectionrelations)
+
+while [ $# -gt 0 ]; do
+    case "$1" in
+        --fresh) FRESH=1 ;;
+        --php) RUN_JS=0; shift; CODECEPT_ARGS=("$@"); break ;;
+        --js) RUN_PHP=0 ;;
+        --dump-reference-data)
+            docker compose exec -T db sh -c "mariadb-dump -upimcore -ppimcore --no-create-info --replace --skip-extended-insert --skip-dump-date --skip-comments pimcore ${REFERENCE_TABLES[*]}" > "$REFERENCE_DATA"
+            echo "Wrote $REFERENCE_DATA - run bin/run-tests --fresh to load it"
+            exit 0 ;;
+        *) echo "Unknown option $1" >&2; exit 1 ;;
+    esac
+    shift
+done
+
+step() { printf '\n\033[1;34m==> %s\033[0m\n' "$*"; }
+
+php_test() { docker compose exec -T -e APP_ENV=test php "$@"; }
+console_test() { php_test bin/console --env=test --no-interaction "$@"; }
+
+env_value() { [ -f "$1" ] && grep -E "^$2=" "$1" | tail -n1 | cut -d= -f2- || true; }
+
+prepare_env() {
+    # Pimcore 12 refuses to boot without product registration; the test env does not read .env.local
+    local var value
+    touch .env.test.local
+    for var in PIMCORE_INSTANCE_IDENTIFIER PIMCORE_ENCRYPTION_SECRET PIMCORE_PRODUCT_KEY; do
+        value="$(env_value .env.local "$var")"
+        [ -n "$value" ] || { echo "$var missing in .env.local - register this instance first" >&2; exit 1; }
+        if [ "$(env_value .env.test.local "$var")" != "$value" ]; then
+            sed -i "/^$var=/d" .env.test.local
+            printf '%s=%s\n' "$var" "$value" >> .env.test.local
+        fi
+    done
+}
+
+test_db_ready() {
+    docker compose exec -T test_db mariadb -upimcore -ppimcore pimcore_test -N \
+        -e "SELECT COUNT(*) FROM settings_store WHERE id LIKE 'BUNDLE_INSTALLED__%DataImporter%'" 2>/dev/null | grep -qx 1
+}
+
+init_test_db() {
+    step "Creating test database"
+    php_test php tests/Support/bin/init-test-db.php
+    console_test doctrine:migrations:sync-metadata-storage
+    console_test doctrine:migrations:version --add --all
+
+    step "Installing bundles into test database"
+    local bundle
+    for bundle in PimcoreAdminBundle PimcoreApplicationLoggerBundle PimcoreCustomReportsBundle PimcoreDataHubBundle \
+                  PimcoreDataImporterBundle PimcoreQuillBundle PimcoreSimpleBackendSearchBundle; do
+        console_test pimcore:bundle:install "$bundle" | grep -E "\[(OK|ERROR)\]"
+    done
+
+    step "Creating class tables in test database"
+    # the rebuild re-saves custom layouts (new modificationDate) - keep the working tree untouched
+    local layouts
+    layouts="$(mktemp -d)"
+    cp -a var/config/object_custom_layouts/. "$layouts/"
+    console_test pimcore:deployment:classes-rebuild -c || { cp -a "$layouts/." var/config/object_custom_layouts/; exit 1; }
+    cp -a "$layouts/." var/config/object_custom_layouts/
+    rm -rf "$layouts"
+
+    step "Installing app tables and reference data in test database"
+    console_test stocks:install
+    docker compose exec -T test_db mariadb -upimcore -ppimcore pimcore_test < "$REFERENCE_DATA"
+}
+
+if [ "$RUN_PHP" = 1 ]; then
+    step "Starting test database"
+    # "up" would recreate the container (and wipe its tmpfs database) even when it is already running
+    if ! docker compose ps --status running --services | grep -qx test_db; then
+        docker compose --profile test up -d --wait test_db
+    fi
+    prepare_env
+
+    if [ "$FRESH" = 1 ] || ! test_db_ready; then
+        init_test_db
+    fi
+
+    step "Running Codeception"
+    php_test vendor/bin/codecept build >/dev/null
+    php_test vendor/bin/codecept run "${CODECEPT_ARGS[@]}"
+fi
+
+if [ "$RUN_JS" = 1 ]; then
+    step "Exporting routes for JS contract tests"
+    php_test bin/console --env=test debug:router --format=json > tests/js/routes.json
+
+    step "Running Vitest"
+    if command -v npm >/dev/null; then
+        [ -d node_modules ] || npm ci
+        npx vitest run
+    else
+        docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/app" -w /app node:22-alpine \
+            sh -c '[ -d node_modules ] || npm ci; npx vitest run'
+    fi
+fi

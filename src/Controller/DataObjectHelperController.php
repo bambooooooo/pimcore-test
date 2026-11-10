@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Security\ProtectedEndpoint;
 use League\Flysystem\FilesystemException;
 use League\Flysystem\FilesystemOperator;
 use League\Flysystem\UnableToReadFile;
@@ -29,6 +30,7 @@ class DataObjectHelperController extends UserAwareController
     use JsonHelperTrait;
 
     #[Route("/download-xlsx-file", name: "_download_xlsx_with_images", options: ['expose' => true])]
+    #[ProtectedEndpoint]
     public function downloadXlsxWithImages(Request $request, GridHelperService $gridHelperService): BinaryFileResponse
     {
         $storage = Storage::get('temp');
