@@ -147,6 +147,7 @@
                                 </thead>
 
                                 {% set line_no = 0 %}
+                                {% set group_total = 0 %}
 
                                 {% for length, widthList in lengthList %}
                                     {% for width, modelList in widthList %}
@@ -161,7 +162,7 @@
                                             <td>
                                                 {{ width|number_format(0, ',', ' ') }}
                                             </td>
-                                            <td>
+                                            <td style="text-align: center">
                                                 {% set total_row = 0 %}
                                                 {% for model, items in modelList %}
                                                     {% for item in items %}
@@ -169,6 +170,7 @@
                                                     {% endfor %}
                                                 {% endfor %}
                                                 {{ total_row }}
+                                                {% set group_total = group_total + total_row %}
                                             </td>
                                             <td>
                                                 <ol>
@@ -197,6 +199,15 @@
                                         </tr>
                                     {% endfor %}
                                 {% endfor %}
+                                <tr>
+                                    <td colspan="3" style="text-align:right">
+                                        Razem
+                                    </td>
+                                    <td style="text-align: center">
+                                        {{ group_total|number_format(0, ',', ' ') }}
+                                    </td>
+                                    <td></td>
+                                </tr>
                             </table>
                         </td>
                     </tr>

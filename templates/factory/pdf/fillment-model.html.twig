@@ -71,15 +71,18 @@
         <table>
             <thead>
             <tr>
-                <td>#</td>
+                <td style="width: 8%">#</td>
+                <td style="width: 8%">Identyfikator</td>
                 <td>Paczka</td>
                 <td>Ilość</td>
             </tr>
             </thead>
             <tbody>
+            {% set grand_total = 0 %}
             {% for model, modelData in fillments %}
                 <tr>
                     <td>{{ loop.index }}</td>
+                    <td>{{ modelData.model.id }}</td>
                     <td>{{ model }}</td>
                     <td>
                         {% set model_total = 0 %}
@@ -89,9 +92,18 @@
                         {% endfor %}
 
                         {{ model_total }}
+                        {% set grand_total = grand_total + model_total %}
                     </td>
                 </tr>
             {% endfor %}
+            <tr>
+                <td colspan="3" style="text-align: right">
+                    Razem
+                </td>
+                <td>
+                    {{ grand_total }}
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>
@@ -190,11 +202,11 @@
                                             <td>{{ lim.unitcount }}</td>
                                             <td>
                                                 <strong>
-                                                    {{ lim.count }}
+                                                    {{ lim.unitcount * modelData.quantity }}
                                                 </strong>
                                             </td>
                                         </tr>
-                                        {% set total_fillments = total_fillments + lim.count %}
+                                        {% set total_fillments = total_fillments + lim.unitcount * modelData.quantity %}
                                     {% endfor %}
                                     <tr>
                                         <td colspan="6" style="text-align: right">
