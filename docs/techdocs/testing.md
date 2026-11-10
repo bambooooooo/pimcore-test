@@ -32,10 +32,10 @@ Rejestracja Pimcore 12 (``PIMCORE_INSTANCE_IDENTIFIER``, ``PIMCORE_ENCRYPTION_SE
 
 | Zestaw | Katalog | Co testuje |
 |---|---|---|
-| Unit | ``tests/Unit`` | pojedyncze klasy bez kernela i bazy (feedy, operatory grida, Twig, PDF, bezpieczeństwo) |
+| Unit | ``tests/Unit`` | pojedyncze klasy bez kernela i bazy (feedy, eksport XLSX, Twig, PDF, bezpieczeństwo) |
 | Integration | ``tests/Integration/<Integracja>`` | integracje z systemami zewnętrznymi na zamockowanym HTTP |
-| Functional | ``tests/Functional`` | pełny kernel Symfony/Pimcore na ``test_db``: kontrakt URL-i, uprawnienia, API |
-| JS | ``tests/js`` | skrypty panelu administracyjnego z ``public/static/js`` (Vitest + jsdom) |
+| Functional | ``tests/Functional`` | pełny kernel Symfony/Pimcore na ``test_db``: kontrakt URL-i, uprawnienia, API, backend pluginu Studio, kolumny grida |
+| JS | ``tests/js`` | plugin Pimcore Studio z ``assets/studio`` (sprawdzenie typów TypeScript + Vitest) |
 
 ### Integracje a paczki composera
 
@@ -73,14 +73,13 @@ zawsze. Każdy route kontrolera ``App\`` musi być opisany w ``tests/Support/Dat
    (nazwa route'a zaczyna się od ``legacy_``, kontroler ``RedirectController``, ``permanent: true``).
 3. Dopisz stary adres w sekcji ``redirects`` kontraktu. Wpisów nigdy się nie usuwa.
 
-Testy JS sprawdzają dodatkowo, że każdy URL wywoływany przez panel administracyjny (Ajax, store,
-``window.open``, ``Routing.generate``) istnieje w aplikacji - przeniesienie endpointu bez aktualizacji
-skryptu kończy się błędem testu.
+Testy JS sprawdzają dodatkowo, że każdy URL wywoływany przez plugin Studio (``assets/studio/js/src/lib/urls.ts``)
+istnieje w aplikacji - przeniesienie endpointu bez aktualizacji pluginu kończy się błędem testu.
 
 ## Endpointy zmieniające dane
 
 Akcje kontrolerów oznaczone atrybutem ``#[ProtectedEndpoint]`` wymagają sesji administratora Pimcore
-(panel administracyjny wysyła ją automatycznie) albo nagłówka ``X-Api-Token``. Tokeny systemów
+(Pimcore Studio wysyła ją automatycznie) albo nagłówka ``X-Api-Token``. Tokeny systemów
 zewnętrznych ustawia się w ``.env.local`` (produkcja: sekret w deployu):
 
 ```

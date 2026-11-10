@@ -29,3 +29,6 @@ services:
 
     gotenberg:
         restart: unless-stopped
+
+    opensearch:
+        restart: unless-stopped
