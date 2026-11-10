@@ -102,6 +102,10 @@ pimcore:
     gotenberg:
         base_url: 'http://gotenberg:3000'
 
+    product_registration:
+        instance_identifier: '%env(PIMCORE_INSTANCE_IDENTIFIER)%'
+        product_key: '%env(PIMCORE_PRODUCT_KEY)%'
+
 #### SYMFONY OVERRIDES
 framework:
 #    WHEN RUNNING PIMCORE AND OTHER APPLICATIONS ON SAME DOMAIN, SET SESSION COOKIE NAME TO PROVIDE COLLISION

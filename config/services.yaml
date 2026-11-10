@@ -29,6 +29,7 @@ parameters:
     # graphviz
     #pimcore_executable_dot: /usr/bin/dot
     appdomain: '%env(APP_DOMAIN)%'
+    pimcore.encryption.secret: '%env(PIMCORE_ENCRYPTION_SECRET)%'
 
 services:
     # default configuration for services in *this* file
@@ -123,6 +124,11 @@ services:
         arguments:
             $clientId: '%env(ALLEGRO_CLIENT_ID)%'
             $clientSecret: '%env(ALLEGRO_CLIENT_SECRET)%'
+
+    App\Service\GotenbergPdfService:
+        arguments:
+            $baseUrl: '%env(GOTENBERG_URL)%'
+            $assetHostUrl: '%env(GOTENBERG_ASSET_HOST)%'
 
     App\Service\PrestashopService:
         arguments:

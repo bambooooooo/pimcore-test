@@ -26,7 +26,7 @@ class UpdateStockCommand extends Command
         $this->addArgument('in_stock', InputArgument::REQUIRED, "quantity of stock");
     }
 
-    public function execute(InputInterface $input, OutputInterface $output)
+    public function execute(InputInterface $input, OutputInterface $output): int
     {
         $id = $input->getArgument('object_id');
         $obj = DataObject::getById($id);

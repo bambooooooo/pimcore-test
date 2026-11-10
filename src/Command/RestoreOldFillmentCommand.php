@@ -22,7 +22,7 @@ class RestoreOldFillmentCommand extends AbstractCommand
         $this->addArgument('objectId', InputArgument::REQUIRED, 'Object ID to restore');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $objectId = $input->getArgument('objectId');
         $obj = DataObject::getById($objectId);

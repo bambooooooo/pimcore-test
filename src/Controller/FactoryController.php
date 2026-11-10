@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
+use App\Service\GotenbergPdfService;
 use App\Service\OptimikService;
 use Carbon\Carbon;
-use Pimcore\Bundle\WebToPrintBundle\Processor;
 use Pimcore\Controller\UserAwareController;
 use Pimcore\Model\DataObject;
 use Pimcore\Model\Asset;
@@ -21,7 +21,7 @@ use Twig\Environment;
 #[Route('/factory/{_locale}', name: 'factory_', defaults: ['_locale' => 'pl'])]
 class FactoryController extends UserAwareController
 {
-    public function __construct(private Environment $twig, private readonly OptimikService $optimikService)
+    public function __construct(private Environment $twig, private readonly OptimikService $optimikService, private readonly GotenbergPdfService $pdfService)
     {
 
     }
@@ -284,8 +284,7 @@ class FactoryController extends UserAwareController
                 "hide" => $hideParts
             ]);
 
-            $adapter = Processor::getInstance();
-            $pdf = $adapter->getPdfFromString($html, $pdfPageParams);
+            $pdf = $this->pdfService->getPdfFromString($html, $pdfPageParams);
 
             return new Response($pdf, Response::HTTP_OK, ['Content-Type' => 'application/pdf']);
         }
@@ -311,8 +310,7 @@ class FactoryController extends UserAwareController
                 "hide" => $hideParts
             ]);
 
-            $adapter = Processor::getInstance();
-            $pdf = $adapter->getPdfFromString($html, $pdfPageParams);
+            $pdf = $this->pdfService->getPdfFromString($html, $pdfPageParams);
 
             return new Response($pdf, Response::HTTP_OK, ['Content-Type' => 'application/pdf']);
         }
@@ -349,9 +347,7 @@ class FactoryController extends UserAwareController
             return new Response($html, Response::HTTP_OK);
         }
 
-        $processor = Processor::getInstance();
-
-        return new Response($processor->getPdfFromString($html), Response::HTTP_OK, ['Content-Type' => 'application/pdf']);
+        return new Response($this->pdfService->getPdfFromString($html), Response::HTTP_OK, ['Content-Type' => 'application/pdf']);
     }
 
     #[Route("/fillmentspec/{id}", name: "fillment_spec")]
@@ -414,8 +410,7 @@ class FactoryController extends UserAwareController
 
         $html = $this->renderView('factory/pdf/fillment.html.twig', ["serie" => $serie, "fillments" => $fillments]);
 
-        $processor = Processor::getInstance();
-        return new Response($processor->getPdfFromString($html), Response::HTTP_OK, ['Content-Type' => 'application/pdf']);
+        return new Response($this->pdfService->getPdfFromString($html), Response::HTTP_OK, ['Content-Type' => 'application/pdf']);
     }
 
     #[Route("/fillment-groups/{id}", name: "fillment_groups")]
@@ -516,8 +511,7 @@ class FactoryController extends UserAwareController
 
         $html = $this->renderView('factory/pdf/fillment-model.html.twig', ["serie" => $serie, "fillments" => $fillments]);
 
-        $processor = Processor::getInstance();
-        return new Response($processor->getPdfFromString($html), Response::HTTP_OK, ['Content-Type' => 'application/pdf']);
+        return new Response($this->pdfService->getPdfFromString($html), Response::HTTP_OK, ['Content-Type' => 'application/pdf']);
     }
 
     function recursiveKsort(array &$array): void
@@ -623,8 +617,7 @@ class FactoryController extends UserAwareController
             return new Response($html, Response::HTTP_OK);
         }
 
-        $adapter = Processor::getInstance();
-        $pdf = $adapter->getPdfFromString($html, $pdfPageParams);
+        $pdf = $this->pdfService->getPdfFromString($html, $pdfPageParams);
 
         return new Response($pdf, Response::HTTP_OK, ['Content-Type' => 'application/pdf']);
     }
@@ -673,8 +666,7 @@ class FactoryController extends UserAwareController
             'repeat' => $repeat,
         ]);
 
-        $adapter = Processor::getInstance();
-        $pdf = $adapter->getPdfFromString($html, $pdfPageParams);
+        $pdf = $this->pdfService->getPdfFromString($html, $pdfPageParams);
 
         return new Response($pdf, Response::HTTP_OK, ['Content-Type' => 'application/pdf']);
     }

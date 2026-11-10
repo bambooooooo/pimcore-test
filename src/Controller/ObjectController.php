@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\OptionProvider\ProductPriceLevelProvider;
 use App\Service\DeepLService;
+use App\Service\GotenbergPdfService;
 use App\Service\PriceLevelService;
 use DeepL\DeepLException;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -35,7 +36,8 @@ class ObjectController extends FrontendController
     public function __construct(private TranslatorInterface $translator,
                                 private readonly DeepLService $deepLService,
                                 private readonly CacheItemPoolInterface $cache,
-                                private readonly PriceLevelService $priceLevelService)
+                                private readonly PriceLevelService $priceLevelService,
+                                private readonly GotenbergPdfService $pdfService)
     {
 
     }
@@ -390,9 +392,7 @@ class ObjectController extends FrontendController
 
         $fileName = $fname . ".pdf";
 
-        $adapter = \Pimcore\Bundle\WebToPrintBundle\Processor::getInstance();
-
-        $pdf = $adapter->getPdfFromString($html, $params);
+        $pdf = $this->pdfService->getPdfFromString($html, $params);
 
         return new Response($pdf, Response::HTTP_OK, ['Content-Type' => 'application/pdf', 'Content-Disposition' => 'inline; filename=' . $fileName]);
     }

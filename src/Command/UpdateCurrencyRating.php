@@ -19,7 +19,7 @@ class UpdateCurrencyRating extends AbstractCommand
         parent::__construct();
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->updateCurrency('EUR');
         $this->updateCurrency('USD');

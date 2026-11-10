@@ -5,12 +5,6 @@
             "repo": "github.com/symfony/recipes-contrib"
         }
     },
-    "doctrine/annotations": {
-        "version": "99999",
-        "recipe": {
-            "repo": "github.com/symfony/recipes"
-        }
-    },
     "doctrine/deprecations": {
         "version": "1.1",
         "recipe": {
@@ -130,6 +124,18 @@
         "recipe": {
             "repo": "github.com/symfony/recipes"
         }
+    },
+    "symfony/property-info": {
+        "version": "7.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "7.3",
+            "ref": "dae70df71978ae9226ae915ffd5fad817f5ca1f7"
+        },
+        "files": [
+            "config/packages/property_info.yaml"
+        ]
     },
     "symfony/routing": {
         "version": "99999",
