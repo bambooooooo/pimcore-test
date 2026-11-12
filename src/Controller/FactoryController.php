@@ -358,6 +358,26 @@ class FactoryController extends UserAwareController
     public function serieFillmentGrouped(Request $request): Response
     {
         $id = (int)$request->get("id");
+        $qtyRaw = $request->get('qty') ?? '';
+
+        $qty = [];
+
+        if($qtyRaw)
+        {
+            try
+            {
+
+                foreach($qtyRaw as $q)
+                {
+                    [$oid, $pid, $qtyChange] = explode('-', $q);
+                    $qty[(int)$oid][(int)$pid] = (int)$qtyChange;
+                }
+
+            }catch(\Exception $e)
+            {
+                return new Response("Custom qties has to be in format: < order_id >-< product_id >-< qty change >", Response::HTTP_UNPROCESSABLE_ENTITY);
+            }
+        }
 
         DataObject::setHideUnpublished(false);
 
@@ -375,6 +395,20 @@ class FactoryController extends UserAwareController
             {
                 /** @var DataObject\Product $product */
                 $product = $li->getElement();
+
+                if(array_key_exists($order->getId(), $qty) && array_key_exists($product->getId(), $qty[$order->getId()]))
+                {
+                    $change = $qty[$order->getId()][$product->getId()];
+                    $productQty = $li->getQuantity() - $change;
+                    if($productQty <= 0)
+                    {
+                        continue;
+                    }
+                }
+                else
+                {
+                    $productQty = $li->getQuantity();
+                }
 
                 foreach($product->getPackages() as $lip)
                 {
@@ -396,7 +430,8 @@ class FactoryController extends UserAwareController
                         {
                             $l = $element[0];
                             $w = $element[1];
-                            $c = $element[2] * $lip->getQuantity() * $li->getQuantity();
+
+                            $c = $element[2] * $lip->getQuantity() * $productQty;
 
                             $model = $this->findFieldSource($package, "Fillment")->getKey();
 
@@ -423,6 +458,27 @@ class FactoryController extends UserAwareController
     {
         $id = (int)$request->get("id");
 
+        $qtyRaw = $request->get('qty') ?? '';
+
+        $qty = [];
+
+        if($qtyRaw)
+        {
+            try
+            {
+
+                foreach($qtyRaw as $q)
+                {
+                    [$oid, $pid, $qtyChange] = explode('-', $q);
+                    $qty[(int)$oid][(int)$pid] = (int)$qtyChange;
+                }
+
+            }catch(\Exception $e)
+            {
+                return new Response("Custom qties has to be in format: < order_id >-< product_id >-< qty change >", Response::HTTP_UNPROCESSABLE_ENTITY);
+            }
+        }
+
         DataObject::setHideUnpublished(false);
 
         $serie = Order::getById($id);
@@ -439,6 +495,20 @@ class FactoryController extends UserAwareController
             {
                 /** @var DataObject\Product $product */
                 $product = $li->getElement();
+
+                if(array_key_exists($order->getId(), $qty) && array_key_exists($product->getId(), $qty[$order->getId()]))
+                {
+                    $change = $qty[$order->getId()][$product->getId()];
+                    $productQty = $li->getQuantity() - $change;
+                    if($productQty <= 0)
+                    {
+                        continue;
+                    }
+                }
+                else
+                {
+                    $productQty = $li->getQuantity();
+                }
 
                 foreach($product->getPackages() as $lip)
                 {
@@ -501,12 +571,12 @@ class FactoryController extends UserAwareController
 
                     $fillments[$modelKey]['items'][] = [
                         'package' => $package->getKey(),
-                        'cnt' => $li->getQuantity() * $lip->getQuantity()
+                        'cnt' => $productQty * $lip->getQuantity()
                     ];
 
                     $fillments[$modelKey]['quantity'] = isset($fillments[$modelKey]['quantity'])
-                        ? $fillments[$modelKey]['quantity'] + $li->getQuantity() * $lip->getQuantity()
-                        : $li->getQuantity() * $lip->getQuantity();
+                        ? $fillments[$modelKey]['quantity'] + $productQty * $lip->getQuantity()
+                        : $productQty * $lip->getQuantity();
 
                 }
             }

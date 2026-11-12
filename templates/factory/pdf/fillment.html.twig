@@ -81,6 +81,7 @@
                 </thead>
                 <tbody>
                     {% set line_no = 0 %}
+                    {% set grand_total_field = 0 %}
                     {% for material, thickList in fillments %}
                         {% for thick, lengthList in thickList %}
 
@@ -109,10 +110,19 @@
                                 </td>
                                 <td>
                                     {{ total_field|number_format(2, ',', ' ') }}
+                                    {% set grand_total_field = grand_total_field + total_field %}
                                 </td>
                             </tr>
                         {% endfor %}
                     {% endfor %}
+                    <tr>
+                        <td colspan="3" style="text-align: right">
+                            Razem
+                        </td>
+                        <td>
+                            {{ grand_total_field|number_format(2, ',', ' ') }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
