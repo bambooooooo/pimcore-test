@@ -150,7 +150,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Produkt',
    'description' => 'Towar, który można sprzedać',
    'creationDate' => NULL,
-   'modificationDate' => 1794480658,
+   'modificationDate' => 1794481148,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -6866,26 +6866,21 @@ Przykładowo: rysunek z wymiarami',
                 array (
                   0 => 
                   array (
-                    'key' => 'Draft',
-                    'value' => 'Draft',
-                  ),
-                  1 => 
-                  array (
                     'key' => 'Active (sellable)',
                     'value' => 'Active',
                   ),
-                  2 => 
+                  1 => 
                   array (
                     'key' => 'Sale',
                     'value' => 'Sale',
                   ),
-                  3 => 
+                  2 => 
                   array (
                     'key' => 'End of Life (not sellable)',
                     'value' => 'EoF',
                   ),
                 ),
-                 'defaultValue' => 'Draft',
+                 'defaultValue' => 'Active',
                  'columnLength' => 190,
                  'dynamicOptions' => false,
                  'defaultValueGenerator' => '',
