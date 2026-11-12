@@ -47,6 +47,7 @@
  * - price_custom_bogart [quantityValue]
  * - price_custom_arra [quantityValue]
  * - price_custom_uptrend [quantityValue]
+ * - price_custom_bromarkt [quantityValue]
  * - price_custom_lomado [quantityValue]
  * - price_custom_vente [quantityValue]
  * - price_custom_meubella [quantityValue]
@@ -80,6 +81,8 @@
  * - date_price_new_custom_bogart [date]
  * - price_new_custom_uptrend [quantityValue]
  * - date_price_new_custom_uptrend [date]
+ * - price_new_custom_bromarkt [quantityValue]
+ * - date_price_new_custom_bromarkt [date]
  * - price_new_custom_lomado [quantityValue]
  * - date_price_new_custom_lomado [date]
  * - price_new_custom_vente [quantityValue]
@@ -112,7 +115,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1794213139,
+   'modificationDate' => 1794480737,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -2357,6 +2360,43 @@ Kolekcje i grupy parametrów dotyczące całego zestawu. Nie wprowadzamy tutaj p
                                  'decimalSize' => NULL,
                                  'decimalPrecision' => NULL,
                               )),
+                              9 => 
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                                 'name' => 'price_custom_bromarkt',
+                                 'title' => 'Bromarkt',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'unitWidth' => '',
+                                 'defaultUnit' => 'PLN',
+                                 'validUnits' => 
+                                array (
+                                  0 => 'PLN',
+                                ),
+                                 'unique' => false,
+                                 'autoConvert' => true,
+                                 'defaultValueGenerator' => '',
+                                 'width' => '',
+                                 'defaultValue' => NULL,
+                                 'integer' => false,
+                                 'unsigned' => true,
+                                 'minValue' => NULL,
+                                 'maxValue' => NULL,
+                                 'decimalSize' => NULL,
+                                 'decimalPrecision' => NULL,
+                              )),
                             ),
                              'locked' => false,
                              'blockedVarsForExport' => 
@@ -3554,6 +3594,67 @@ Kolekcje i grupy parametrów dotyczące całego zestawu. Nie wprowadzamy tutaj p
                               15 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\Date::__set_state(array(
                                  'name' => 'date_price_new_custom_uptrend',
+                                 'title' => 'Od',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'defaultValue' => NULL,
+                                 'useCurrentDate' => false,
+                                 'columnType' => 'date',
+                                 'defaultValueGenerator' => '',
+                              )),
+                              16 => 
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                                 'name' => 'price_new_custom_bromarkt',
+                                 'title' => '(Nowa cena) Bromarkt',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'float:left; margin-right: 8px;',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'unitWidth' => '',
+                                 'defaultUnit' => 'PLN',
+                                 'validUnits' => 
+                                array (
+                                  0 => 'PLN',
+                                ),
+                                 'unique' => false,
+                                 'autoConvert' => true,
+                                 'defaultValueGenerator' => '',
+                                 'width' => '',
+                                 'defaultValue' => NULL,
+                                 'integer' => false,
+                                 'unsigned' => true,
+                                 'minValue' => NULL,
+                                 'maxValue' => NULL,
+                                 'decimalSize' => NULL,
+                                 'decimalPrecision' => NULL,
+                              )),
+                              17 => 
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\Date::__set_state(array(
+                                 'name' => 'date_price_new_custom_bromarkt',
                                  'title' => 'Od',
                                  'tooltip' => '',
                                  'mandatory' => false,
