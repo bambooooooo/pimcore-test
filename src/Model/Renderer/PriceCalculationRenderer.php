@@ -117,6 +117,7 @@ class PriceCalculationRenderer implements DynamicTextLabelInterface
             'price_' . $priceType .'custom_lomado' => 1.38,
             'price_' . $priceType .'custom_vente' => 1.34,
             'price_' . $priceType .'custom_meubella' => 1.34,
+	    'price_' . $priceType .'custom_bromarkt' => 1.32,
         ];
 
         $eurFactors = [
