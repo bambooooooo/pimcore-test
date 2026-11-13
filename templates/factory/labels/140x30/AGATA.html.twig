@@ -122,7 +122,7 @@
                             </div>
                         </div>
                     </td>
-                    <td style="width: 70px" rowspan="4">
+                    <td style="width: 50px" rowspan="4">
                         <div class="address v">
                             <div class="addr">
                                 Grzegorz Mularczyk</br>
@@ -144,7 +144,7 @@
                             {% endif %}
                         </div>
                     </td>
-                    <td>
+                    <td colspan="2">
                         <div style="font-size: 9px; text-align: center;">
                             {% if packageCode %}
                                 {{ packageCode }}
@@ -157,7 +157,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="3" style="font-size: 9px; text-align: center">
+                    <td colspan="4" style="font-size: 9px; text-align: center">
                         {% if product.Codes.IndexAgata.Name %}
                             {{ product.Codes.IndexAgata.Name }}
                         {% else %}
@@ -167,17 +167,17 @@
                         {% endif %}
                     </td>
                 </tr>
-                <tr>
-                    <td rowspan="1">
+                <tr style="text-align: center">
+                    <td>
                         {{ (package.Depth.Value / 10)|round }} cm x {{ (package.Width.Value / 10)|round }} cm x {{ (package.Height.Value / 10)|round }} cm
                     </td>
-                    <td rowspan="1" style="font-size: 22px; text-align: center">
+                    <td style="font-size: 22px; text-align: center">
                         {{ packageno }}/{{ packagecount }}
                     </td>
-                    <td rowspan="2">
+                    <td rowspan="2" colspan="2">
                         <div style="position: relative; display: flex; align-items: center; justify-content: space-around;">
                             {% if packageBarcode %}
-                                {{ code_128(packageBarcode, "EAN13", 40) }}
+                                {{ code_128(packageBarcode, "EAN13", 50, 2) }}
                             {% else %}
                                 <div class="error">
                                     No package barcode found.
@@ -195,7 +195,7 @@
                         </div>
                     </td>
                 </tr>
-                <tr>
+                <tr style="text-align: center">
                     <td>
                         {{ package.Mass.Value }} kg
                     </td>
