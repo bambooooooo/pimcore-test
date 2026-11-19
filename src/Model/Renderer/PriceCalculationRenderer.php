@@ -75,7 +75,7 @@ class PriceCalculationRenderer implements DynamicTextLabelInterface
 
         if ($mode == 'hurt')
         {
-            return $this->getRegularDrops($data, $object, $params, 45, 55, $timing);
+            return $this->getRegularDrops($data, $object, $params, 45, 57, $timing);
         }
 
         return 'unknown';
