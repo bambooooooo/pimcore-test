@@ -11,10 +11,12 @@
                         <th>{{ "Kod"|trans }}</th>
                         <th>{{ "Nazwa"|trans }}</th>
                         <th>{{ "Ilość"|trans }}</th>
+                        <th>{{ "Waga paczek"|trans }}</th>
                     </tr>
                 </thead>
                 <tbody>
                 {% set total = 0 %}
+                {% set total_mass = 0 %}
                 {% for li in obj.Products %}
                     {% set total = total + li.data.Quantity %}
                     <tr style="line-height: 50px;">
@@ -42,14 +44,23 @@
                         <td class="tc">
                             {{ li.data.Quantity }}
                         </td>
+                        <td>
+                            {% if li.object.PackagesMass and li.object.PackagesMass.value %}
+                                {{ (li.data.Quantity * li.object.PackagesMass.value) | number_format(0, ",", " ")  }}
+                                {% set total_mass = total_mass + li.data.Quantity * li.object.PackagesMass.value %}
+                            {% endif %}
+                        </td>
                     </tr>
                 {% endfor %}
                     <tr>
-                        <td colspan="4" class="text-end">
+                        <td colspan="5" class="text-end">
                             Razem
                         </td>
                         <td>
-                            {{ total }}
+                            {{ total|number_format(0, ",", "") }}
+                        </td>
+                        <td>
+                            {{ total_mass|number_format(0, ",", " ") }}
                         </td>
                     </tr>
                 </tbody>
