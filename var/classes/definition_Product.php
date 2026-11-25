@@ -48,6 +48,7 @@
  * - price_custom_lomado [quantityValue]
  * - price_custom_vente [quantityValue]
  * - price_custom_meubella [quantityValue]
+ * - price_custom_badplaats [quantityValue]
  * - price_drop23 [quantityValue]
  * - price_drop26 [quantityValue]
  * - price_drop29 [quantityValue]
@@ -87,6 +88,8 @@
  * - date_price_new_custom_vente [date]
  * - price_new_custom_meubella [quantityValue]
  * - date_price_new_custom_meubella [date]
+ * - price_new_custom_badplaats [quantityValue]
+ * - date_price_new_custom_badplaats [date]
  * - Images [imageGallery]
  * - Photos [imageGallery]
  * - Video [video]
@@ -150,7 +153,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Produkt',
    'description' => 'Towar, który można sprzedać',
    'creationDate' => NULL,
-   'modificationDate' => 1794481148,
+   'modificationDate' => 1795599733,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -2062,6 +2065,43 @@ Parametry produktu podzielone na kolekcje i grupy.',
                                  'decimalSize' => NULL,
                                  'decimalPrecision' => NULL,
                               )),
+                              3 => 
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                                 'name' => 'price_custom_badplaats',
+                                 'title' => 'badplaats',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'unitWidth' => '',
+                                 'defaultUnit' => 'EUR',
+                                 'validUnits' => 
+                                array (
+                                  0 => 'EUR',
+                                ),
+                                 'unique' => false,
+                                 'autoConvert' => true,
+                                 'defaultValueGenerator' => '',
+                                 'width' => '',
+                                 'defaultValue' => NULL,
+                                 'integer' => false,
+                                 'unsigned' => true,
+                                 'minValue' => 0.0,
+                                 'maxValue' => NULL,
+                                 'decimalSize' => NULL,
+                                 'decimalPrecision' => NULL,
+                              )),
                             ),
                              'locked' => false,
                              'blockedVarsForExport' => 
@@ -3620,6 +3660,67 @@ Parametry produktu podzielone na kolekcje i grupy.',
                               5 => 
                               \Pimcore\Model\DataObject\ClassDefinition\Data\Date::__set_state(array(
                                  'name' => 'date_price_new_custom_meubella',
+                                 'title' => 'Od',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'defaultValue' => NULL,
+                                 'useCurrentDate' => false,
+                                 'columnType' => 'date',
+                                 'defaultValueGenerator' => '',
+                              )),
+                              6 => 
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                                 'name' => 'price_new_custom_badplaats',
+                                 'title' => '(Nowa cena) Badplaats',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'float:left; margin-right: 8px;',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'unitWidth' => '',
+                                 'defaultUnit' => 'EUR',
+                                 'validUnits' => 
+                                array (
+                                  0 => 'EUR',
+                                ),
+                                 'unique' => false,
+                                 'autoConvert' => true,
+                                 'defaultValueGenerator' => '',
+                                 'width' => '',
+                                 'defaultValue' => NULL,
+                                 'integer' => false,
+                                 'unsigned' => true,
+                                 'minValue' => 0.0,
+                                 'maxValue' => NULL,
+                                 'decimalSize' => NULL,
+                                 'decimalPrecision' => NULL,
+                              )),
+                              7 => 
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\Date::__set_state(array(
+                                 'name' => 'date_price_new_custom_badplaats',
                                  'title' => 'Od',
                                  'tooltip' => '',
                                  'mandatory' => false,
